@@ -15,6 +15,8 @@
 		500B664315E3DCD2002B2233 /* PWRegisterDeviceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 500B663B15E3DCD2002B2233 /* PWRegisterDeviceRequest.m */; };
 		500B664415E3DCD2002B2233 /* PWSetTagsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 500B663C15E3DCD2002B2233 /* PWSetTagsRequest.h */; };
 		500B664515E3DCD2002B2233 /* PWSetTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 500B663D15E3DCD2002B2233 /* PWSetTagsRequest.m */; };
+		503830EF186B458A0014F3FC /* PWUnregisterDeviceRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 503830ED186B458A0014F3FC /* PWUnregisterDeviceRequest.h */; };
+		503830F0186B458A0014F3FC /* PWUnregisterDeviceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 503830EE186B458A0014F3FC /* PWUnregisterDeviceRequest.m */; };
 		506F68A2162EF5C900968D5C /* PWSendBadgeRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F68A0162EF5C900968D5C /* PWSendBadgeRequest.h */; };
 		506F68A3162EF5C900968D5C /* PWSendBadgeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F68A1162EF5C900968D5C /* PWSendBadgeRequest.m */; };
 		50B548DB16A837BC008F5025 /* PWApplicationEventRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B548D916A837BC008F5025 /* PWApplicationEventRequest.m */; };
@@ -56,6 +58,8 @@
 		500B663B15E3DCD2002B2233 /* PWRegisterDeviceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWRegisterDeviceRequest.m; path = Classes/PWRegisterDeviceRequest.m; sourceTree = "<group>"; };
 		500B663C15E3DCD2002B2233 /* PWSetTagsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWSetTagsRequest.h; path = Classes/PWSetTagsRequest.h; sourceTree = "<group>"; };
 		500B663D15E3DCD2002B2233 /* PWSetTagsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWSetTagsRequest.m; path = Classes/PWSetTagsRequest.m; sourceTree = "<group>"; };
+		503830ED186B458A0014F3FC /* PWUnregisterDeviceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWUnregisterDeviceRequest.h; path = Classes/PWUnregisterDeviceRequest.h; sourceTree = "<group>"; };
+		503830EE186B458A0014F3FC /* PWUnregisterDeviceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWUnregisterDeviceRequest.m; path = Classes/PWUnregisterDeviceRequest.m; sourceTree = "<group>"; };
 		506F68A0162EF5C900968D5C /* PWSendBadgeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWSendBadgeRequest.h; path = Classes/PWSendBadgeRequest.h; sourceTree = "<group>"; };
 		506F68A1162EF5C900968D5C /* PWSendBadgeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWSendBadgeRequest.m; path = Classes/PWSendBadgeRequest.m; sourceTree = "<group>"; };
 		50B548D916A837BC008F5025 /* PWApplicationEventRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWApplicationEventRequest.m; path = Classes/PWApplicationEventRequest.m; sourceTree = "<group>"; };
@@ -167,6 +171,8 @@
 		A4F8238515C9257D00913778 /* Network */ = {
 			isa = PBXGroup;
 			children = (
+				503830ED186B458A0014F3FC /* PWUnregisterDeviceRequest.h */,
+				503830EE186B458A0014F3FC /* PWUnregisterDeviceRequest.m */,
 				50BCA97A175E46920008AB74 /* PWGetTagsRequest.h */,
 				50BCA97B175E46920008AB74 /* PWGetTagsRequest.m */,
 				50B548D916A837BC008F5025 /* PWApplicationEventRequest.m */,
@@ -226,6 +232,7 @@
 				50B548DC16A837BC008F5025 /* PWApplicationEventRequest.h in Headers */,
 				50E2E0E0170587170055FFCB /* PWLocationTracker.h in Headers */,
 				50E2E0E817058AB70055FFCB /* PushRuntime.h in Headers */,
+				503830EF186B458A0014F3FC /* PWUnregisterDeviceRequest.h in Headers */,
 				50C6D5BF174BA87A0068E1A4 /* PW_SBJsonBase.h in Headers */,
 				50C6D5C1174BA87A0068E1A4 /* PW_SBJsonParser.h in Headers */,
 				50C6D5C3174BA87A0068E1A4 /* PW_SBJsonWriter.h in Headers */,
@@ -302,6 +309,7 @@
 				50C6D5C0174BA87A0068E1A4 /* PW_SBJsonBase.m in Sources */,
 				50C6D5C2174BA87A0068E1A4 /* PW_SBJsonParser.m in Sources */,
 				50C6D5C4174BA87A0068E1A4 /* PW_SBJsonWriter.m in Sources */,
+				503830F0186B458A0014F3FC /* PWUnregisterDeviceRequest.m in Sources */,
 				50BCA97D175E46920008AB74 /* PWGetTagsRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
