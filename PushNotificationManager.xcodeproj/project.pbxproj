@@ -1,0 +1,402 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 46;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		500B663E15E3DCD2002B2233 /* PWGetNearestZoneRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 500B663615E3DCD2002B2233 /* PWGetNearestZoneRequest.h */; };
+		500B663F15E3DCD2002B2233 /* PWGetNearestZoneRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 500B663715E3DCD2002B2233 /* PWGetNearestZoneRequest.m */; };
+		500B664015E3DCD2002B2233 /* PWPushStatRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 500B663815E3DCD2002B2233 /* PWPushStatRequest.h */; };
+		500B664115E3DCD2002B2233 /* PWPushStatRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 500B663915E3DCD2002B2233 /* PWPushStatRequest.m */; };
+		500B664215E3DCD2002B2233 /* PWRegisterDeviceRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 500B663A15E3DCD2002B2233 /* PWRegisterDeviceRequest.h */; };
+		500B664315E3DCD2002B2233 /* PWRegisterDeviceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 500B663B15E3DCD2002B2233 /* PWRegisterDeviceRequest.m */; };
+		500B664415E3DCD2002B2233 /* PWSetTagsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 500B663C15E3DCD2002B2233 /* PWSetTagsRequest.h */; };
+		500B664515E3DCD2002B2233 /* PWSetTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 500B663D15E3DCD2002B2233 /* PWSetTagsRequest.m */; };
+		506F68A2162EF5C900968D5C /* PWSendBadgeRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 506F68A0162EF5C900968D5C /* PWSendBadgeRequest.h */; };
+		506F68A3162EF5C900968D5C /* PWSendBadgeRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 506F68A1162EF5C900968D5C /* PWSendBadgeRequest.m */; };
+		50B548DB16A837BC008F5025 /* PWApplicationEventRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B548D916A837BC008F5025 /* PWApplicationEventRequest.m */; };
+		50B548DC16A837BC008F5025 /* PWApplicationEventRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 50B548DA16A837BC008F5025 /* PWApplicationEventRequest.h */; };
+		50B72908165D47B300525F8B /* PWAppOpenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 50B72906165D47B300525F8B /* PWAppOpenRequest.m */; };
+		50B72909165D47B300525F8B /* PWAppOpenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 50B72907165D47B300525F8B /* PWAppOpenRequest.h */; };
+		50BCA97C175E46920008AB74 /* PWGetTagsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 50BCA97A175E46920008AB74 /* PWGetTagsRequest.h */; };
+		50BCA97D175E46920008AB74 /* PWGetTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BCA97B175E46920008AB74 /* PWGetTagsRequest.m */; };
+		50BD5D521365DA3C00275CDB /* HtmlWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 50BD5D3D1365DA3C00275CDB /* HtmlWebViewController.h */; };
+		50BD5D531365DA3C00275CDB /* HtmlWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BD5D3E1365DA3C00275CDB /* HtmlWebViewController.m */; };
+		50BD5D631365DA3C00275CDB /* PushNotificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 50BD5D501365DA3C00275CDB /* PushNotificationManager.h */; };
+		50BD5D641365DA3C00275CDB /* PushNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BD5D511365DA3C00275CDB /* PushNotificationManager.m */; };
+		50C6D5BF174BA87A0068E1A4 /* PW_SBJsonBase.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C6D5B9174BA87A0068E1A4 /* PW_SBJsonBase.h */; };
+		50C6D5C0174BA87A0068E1A4 /* PW_SBJsonBase.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C6D5BA174BA87A0068E1A4 /* PW_SBJsonBase.m */; };
+		50C6D5C1174BA87A0068E1A4 /* PW_SBJsonParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C6D5BB174BA87A0068E1A4 /* PW_SBJsonParser.h */; };
+		50C6D5C2174BA87A0068E1A4 /* PW_SBJsonParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C6D5BC174BA87A0068E1A4 /* PW_SBJsonParser.m */; };
+		50C6D5C3174BA87A0068E1A4 /* PW_SBJsonWriter.h in Headers */ = {isa = PBXBuildFile; fileRef = 50C6D5BD174BA87A0068E1A4 /* PW_SBJsonWriter.h */; };
+		50C6D5C4174BA87A0068E1A4 /* PW_SBJsonWriter.m in Sources */ = {isa = PBXBuildFile; fileRef = 50C6D5BE174BA87A0068E1A4 /* PW_SBJsonWriter.m */; };
+		50E2E0E0170587170055FFCB /* PWLocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 50E2E0DE170587170055FFCB /* PWLocationTracker.h */; };
+		50E2E0E1170587170055FFCB /* PWLocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E0DF170587170055FFCB /* PWLocationTracker.m */; };
+		50E2E0E817058AB70055FFCB /* PushRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 50E2E0E617058AB70055FFCB /* PushRuntime.h */; };
+		50E2E0E917058AB70055FFCB /* PushRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E0E717058AB70055FFCB /* PushRuntime.m */; };
+		73C5F0F61796C0A4006CC3D4 /* AdSupport.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73C5F0F51796C0A4006CC3D4 /* AdSupport.framework */; settings = {ATTRIBUTES = (Weak, ); }; };
+		A4519C2F15C80D2200012F17 /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = A4519C2E15C80D2200012F17 /* CoreLocation.framework */; };
+		A4F8238915C925AF00913778 /* PWRequestManager.h in Headers */ = {isa = PBXBuildFile; fileRef = A4F8238715C925AF00913778 /* PWRequestManager.h */; };
+		A4F8238A15C925AF00913778 /* PWRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F8238815C925AF00913778 /* PWRequestManager.m */; };
+		A4F8239115C925C400913778 /* PWRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = A4F8238F15C925C400913778 /* PWRequest.h */; };
+		A4F8239215C925C400913778 /* PWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F8239015C925C400913778 /* PWRequest.m */; };
+		AA747D9F0F9514B9006C5449 /* PushNotificationManager_Prefix.pch in Headers */ = {isa = PBXBuildFile; fileRef = AA747D9E0F9514B9006C5449 /* PushNotificationManager_Prefix.pch */; };
+		AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AACBBE490F95108600F1A2B1 /* Foundation.framework */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXFileReference section */
+		500B663615E3DCD2002B2233 /* PWGetNearestZoneRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWGetNearestZoneRequest.h; path = Classes/PWGetNearestZoneRequest.h; sourceTree = "<group>"; };
+		500B663715E3DCD2002B2233 /* PWGetNearestZoneRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWGetNearestZoneRequest.m; path = Classes/PWGetNearestZoneRequest.m; sourceTree = "<group>"; };
+		500B663815E3DCD2002B2233 /* PWPushStatRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWPushStatRequest.h; path = Classes/PWPushStatRequest.h; sourceTree = "<group>"; };
+		500B663915E3DCD2002B2233 /* PWPushStatRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWPushStatRequest.m; path = Classes/PWPushStatRequest.m; sourceTree = "<group>"; };
+		500B663A15E3DCD2002B2233 /* PWRegisterDeviceRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWRegisterDeviceRequest.h; path = Classes/PWRegisterDeviceRequest.h; sourceTree = "<group>"; };
+		500B663B15E3DCD2002B2233 /* PWRegisterDeviceRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWRegisterDeviceRequest.m; path = Classes/PWRegisterDeviceRequest.m; sourceTree = "<group>"; };
+		500B663C15E3DCD2002B2233 /* PWSetTagsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWSetTagsRequest.h; path = Classes/PWSetTagsRequest.h; sourceTree = "<group>"; };
+		500B663D15E3DCD2002B2233 /* PWSetTagsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWSetTagsRequest.m; path = Classes/PWSetTagsRequest.m; sourceTree = "<group>"; };
+		506F68A0162EF5C900968D5C /* PWSendBadgeRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWSendBadgeRequest.h; path = Classes/PWSendBadgeRequest.h; sourceTree = "<group>"; };
+		506F68A1162EF5C900968D5C /* PWSendBadgeRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWSendBadgeRequest.m; path = Classes/PWSendBadgeRequest.m; sourceTree = "<group>"; };
+		50B548D916A837BC008F5025 /* PWApplicationEventRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWApplicationEventRequest.m; path = Classes/PWApplicationEventRequest.m; sourceTree = "<group>"; };
+		50B548DA16A837BC008F5025 /* PWApplicationEventRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWApplicationEventRequest.h; path = Classes/PWApplicationEventRequest.h; sourceTree = "<group>"; };
+		50B72906165D47B300525F8B /* PWAppOpenRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWAppOpenRequest.m; path = Classes/PWAppOpenRequest.m; sourceTree = "<group>"; };
+		50B72907165D47B300525F8B /* PWAppOpenRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWAppOpenRequest.h; path = Classes/PWAppOpenRequest.h; sourceTree = "<group>"; };
+		50BCA97A175E46920008AB74 /* PWGetTagsRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWGetTagsRequest.h; path = Classes/PWGetTagsRequest.h; sourceTree = "<group>"; };
+		50BCA97B175E46920008AB74 /* PWGetTagsRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWGetTagsRequest.m; path = Classes/PWGetTagsRequest.m; sourceTree = "<group>"; };
+		50BD5D3D1365DA3C00275CDB /* HtmlWebViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = HtmlWebViewController.h; path = Classes/HtmlWebViewController.h; sourceTree = "<group>"; };
+		50BD5D3E1365DA3C00275CDB /* HtmlWebViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = HtmlWebViewController.m; path = Classes/HtmlWebViewController.m; sourceTree = "<group>"; };
+		50BD5D501365DA3C00275CDB /* PushNotificationManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PushNotificationManager.h; path = Classes/PushNotificationManager.h; sourceTree = "<group>"; };
+		50BD5D511365DA3C00275CDB /* PushNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PushNotificationManager.m; path = Classes/PushNotificationManager.m; sourceTree = "<group>"; };
+		50C6D5B9174BA87A0068E1A4 /* PW_SBJsonBase.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PW_SBJsonBase.h; path = Classes/PW_SBJsonBase.h; sourceTree = "<group>"; };
+		50C6D5BA174BA87A0068E1A4 /* PW_SBJsonBase.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PW_SBJsonBase.m; path = Classes/PW_SBJsonBase.m; sourceTree = "<group>"; };
+		50C6D5BB174BA87A0068E1A4 /* PW_SBJsonParser.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PW_SBJsonParser.h; path = Classes/PW_SBJsonParser.h; sourceTree = "<group>"; };
+		50C6D5BC174BA87A0068E1A4 /* PW_SBJsonParser.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PW_SBJsonParser.m; path = Classes/PW_SBJsonParser.m; sourceTree = "<group>"; };
+		50C6D5BD174BA87A0068E1A4 /* PW_SBJsonWriter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PW_SBJsonWriter.h; path = Classes/PW_SBJsonWriter.h; sourceTree = "<group>"; };
+		50C6D5BE174BA87A0068E1A4 /* PW_SBJsonWriter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PW_SBJsonWriter.m; path = Classes/PW_SBJsonWriter.m; sourceTree = "<group>"; };
+		50E2E0DE170587170055FFCB /* PWLocationTracker.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWLocationTracker.h; path = Classes/PWLocationTracker.h; sourceTree = "<group>"; };
+		50E2E0DF170587170055FFCB /* PWLocationTracker.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWLocationTracker.m; path = Classes/PWLocationTracker.m; sourceTree = "<group>"; };
+		50E2E0E617058AB70055FFCB /* PushRuntime.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PushRuntime.h; path = Classes/PushRuntime.h; sourceTree = "<group>"; };
+		50E2E0E717058AB70055FFCB /* PushRuntime.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PushRuntime.m; path = Classes/PushRuntime.m; sourceTree = "<group>"; };
+		73C5F0F51796C0A4006CC3D4 /* AdSupport.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AdSupport.framework; path = System/Library/Frameworks/AdSupport.framework; sourceTree = SDKROOT; };
+		A4519C2E15C80D2200012F17 /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		A4F8238715C925AF00913778 /* PWRequestManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWRequestManager.h; path = Classes/PWRequestManager.h; sourceTree = "<group>"; };
+		A4F8238815C925AF00913778 /* PWRequestManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWRequestManager.m; path = Classes/PWRequestManager.m; sourceTree = "<group>"; };
+		A4F8238F15C925C400913778 /* PWRequest.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWRequest.h; path = Classes/PWRequest.h; sourceTree = "<group>"; };
+		A4F8239015C925C400913778 /* PWRequest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWRequest.m; path = Classes/PWRequest.m; sourceTree = "<group>"; };
+		AA747D9E0F9514B9006C5449 /* PushNotificationManager_Prefix.pch */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushNotificationManager_Prefix.pch; sourceTree = SOURCE_ROOT; };
+		AACBBE490F95108600F1A2B1 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
+		D2AAC07E0554694100DB518D /* libPushNotificationManager.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushNotificationManager.a; sourceTree = BUILT_PRODUCTS_DIR; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		D2AAC07C0554694100DB518D /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				73C5F0F61796C0A4006CC3D4 /* AdSupport.framework in Frameworks */,
+				A4519C2F15C80D2200012F17 /* CoreLocation.framework in Frameworks */,
+				AACBBE4A0F95108600F1A2B1 /* Foundation.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		034768DFFF38A50411DB9C8B /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				D2AAC07E0554694100DB518D /* libPushNotificationManager.a */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		0867D691FE84028FC02AAC07 /* PushNotificationManager */ = {
+			isa = PBXGroup;
+			children = (
+				73C5F0F51796C0A4006CC3D4 /* AdSupport.framework */,
+				A4519C2E15C80D2200012F17 /* CoreLocation.framework */,
+				08FB77AEFE84172EC02AAC07 /* Classes */,
+				32C88DFF0371C24200C91783 /* Other Sources */,
+				0867D69AFE84028FC02AAC07 /* Frameworks */,
+				034768DFFF38A50411DB9C8B /* Products */,
+			);
+			name = PushNotificationManager;
+			sourceTree = "<group>";
+		};
+		0867D69AFE84028FC02AAC07 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				AACBBE490F95108600F1A2B1 /* Foundation.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
+		08FB77AEFE84172EC02AAC07 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				50E2E0E617058AB70055FFCB /* PushRuntime.h */,
+				50E2E0E717058AB70055FFCB /* PushRuntime.m */,
+				50E2E0DD170587090055FFCB /* Geolocation */,
+				A4F8238515C9257D00913778 /* Network */,
+				50BD5D3D1365DA3C00275CDB /* HtmlWebViewController.h */,
+				50BD5D3E1365DA3C00275CDB /* HtmlWebViewController.m */,
+				50BD5D501365DA3C00275CDB /* PushNotificationManager.h */,
+				50BD5D511365DA3C00275CDB /* PushNotificationManager.m */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		32C88DFF0371C24200C91783 /* Other Sources */ = {
+			isa = PBXGroup;
+			children = (
+				AA747D9E0F9514B9006C5449 /* PushNotificationManager_Prefix.pch */,
+			);
+			name = "Other Sources";
+			sourceTree = "<group>";
+		};
+		50E2E0DD170587090055FFCB /* Geolocation */ = {
+			isa = PBXGroup;
+			children = (
+				50E2E0DE170587170055FFCB /* PWLocationTracker.h */,
+				50E2E0DF170587170055FFCB /* PWLocationTracker.m */,
+			);
+			name = Geolocation;
+			sourceTree = "<group>";
+		};
+		A4F8238515C9257D00913778 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				50BCA97A175E46920008AB74 /* PWGetTagsRequest.h */,
+				50BCA97B175E46920008AB74 /* PWGetTagsRequest.m */,
+				50B548D916A837BC008F5025 /* PWApplicationEventRequest.m */,
+				50B548DA16A837BC008F5025 /* PWApplicationEventRequest.h */,
+				50B72906165D47B300525F8B /* PWAppOpenRequest.m */,
+				50B72907165D47B300525F8B /* PWAppOpenRequest.h */,
+				506F68A0162EF5C900968D5C /* PWSendBadgeRequest.h */,
+				506F68A1162EF5C900968D5C /* PWSendBadgeRequest.m */,
+				500B663615E3DCD2002B2233 /* PWGetNearestZoneRequest.h */,
+				500B663715E3DCD2002B2233 /* PWGetNearestZoneRequest.m */,
+				500B663815E3DCD2002B2233 /* PWPushStatRequest.h */,
+				500B663915E3DCD2002B2233 /* PWPushStatRequest.m */,
+				500B663A15E3DCD2002B2233 /* PWRegisterDeviceRequest.h */,
+				500B663B15E3DCD2002B2233 /* PWRegisterDeviceRequest.m */,
+				500B663C15E3DCD2002B2233 /* PWSetTagsRequest.h */,
+				500B663D15E3DCD2002B2233 /* PWSetTagsRequest.m */,
+				A4F8239315C9266D00913778 /* Base */,
+			);
+			name = Network;
+			sourceTree = "<group>";
+		};
+		A4F8239315C9266D00913778 /* Base */ = {
+			isa = PBXGroup;
+			children = (
+				50C6D5B9174BA87A0068E1A4 /* PW_SBJsonBase.h */,
+				50C6D5BA174BA87A0068E1A4 /* PW_SBJsonBase.m */,
+				50C6D5BB174BA87A0068E1A4 /* PW_SBJsonParser.h */,
+				50C6D5BC174BA87A0068E1A4 /* PW_SBJsonParser.m */,
+				50C6D5BD174BA87A0068E1A4 /* PW_SBJsonWriter.h */,
+				50C6D5BE174BA87A0068E1A4 /* PW_SBJsonWriter.m */,
+				A4F8238715C925AF00913778 /* PWRequestManager.h */,
+				A4F8238815C925AF00913778 /* PWRequestManager.m */,
+				A4F8238F15C925C400913778 /* PWRequest.h */,
+				A4F8239015C925C400913778 /* PWRequest.m */,
+			);
+			name = Base;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		D2AAC07A0554694100DB518D /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				AA747D9F0F9514B9006C5449 /* PushNotificationManager_Prefix.pch in Headers */,
+				50BD5D521365DA3C00275CDB /* HtmlWebViewController.h in Headers */,
+				50BD5D631365DA3C00275CDB /* PushNotificationManager.h in Headers */,
+				A4F8238915C925AF00913778 /* PWRequestManager.h in Headers */,
+				A4F8239115C925C400913778 /* PWRequest.h in Headers */,
+				500B663E15E3DCD2002B2233 /* PWGetNearestZoneRequest.h in Headers */,
+				500B664015E3DCD2002B2233 /* PWPushStatRequest.h in Headers */,
+				500B664215E3DCD2002B2233 /* PWRegisterDeviceRequest.h in Headers */,
+				500B664415E3DCD2002B2233 /* PWSetTagsRequest.h in Headers */,
+				506F68A2162EF5C900968D5C /* PWSendBadgeRequest.h in Headers */,
+				50B72909165D47B300525F8B /* PWAppOpenRequest.h in Headers */,
+				50B548DC16A837BC008F5025 /* PWApplicationEventRequest.h in Headers */,
+				50E2E0E0170587170055FFCB /* PWLocationTracker.h in Headers */,
+				50E2E0E817058AB70055FFCB /* PushRuntime.h in Headers */,
+				50C6D5BF174BA87A0068E1A4 /* PW_SBJsonBase.h in Headers */,
+				50C6D5C1174BA87A0068E1A4 /* PW_SBJsonParser.h in Headers */,
+				50C6D5C3174BA87A0068E1A4 /* PW_SBJsonWriter.h in Headers */,
+				50BCA97C175E46920008AB74 /* PWGetTagsRequest.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		D2AAC07D0554694100DB518D /* PushNotificationManager */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "PushNotificationManager" */;
+			buildPhases = (
+				D2AAC07A0554694100DB518D /* Headers */,
+				D2AAC07B0554694100DB518D /* Sources */,
+				D2AAC07C0554694100DB518D /* Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PushNotificationManager;
+			productName = PushNotificationManager;
+			productReference = D2AAC07E0554694100DB518D /* libPushNotificationManager.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		0867D690FE84028FC02AAC07 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastUpgradeCheck = 0430;
+			};
+			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "PushNotificationManager" */;
+			compatibilityVersion = "Xcode 3.2";
+			developmentRegion = English;
+			hasScannedForEncodings = 1;
+			knownRegions = (
+				English,
+				Japanese,
+				French,
+				German,
+			);
+			mainGroup = 0867D691FE84028FC02AAC07 /* PushNotificationManager */;
+			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				D2AAC07D0554694100DB518D /* PushNotificationManager */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXSourcesBuildPhase section */
+		D2AAC07B0554694100DB518D /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50BD5D531365DA3C00275CDB /* HtmlWebViewController.m in Sources */,
+				50BD5D641365DA3C00275CDB /* PushNotificationManager.m in Sources */,
+				A4F8238A15C925AF00913778 /* PWRequestManager.m in Sources */,
+				A4F8239215C925C400913778 /* PWRequest.m in Sources */,
+				500B663F15E3DCD2002B2233 /* PWGetNearestZoneRequest.m in Sources */,
+				500B664115E3DCD2002B2233 /* PWPushStatRequest.m in Sources */,
+				500B664315E3DCD2002B2233 /* PWRegisterDeviceRequest.m in Sources */,
+				500B664515E3DCD2002B2233 /* PWSetTagsRequest.m in Sources */,
+				506F68A3162EF5C900968D5C /* PWSendBadgeRequest.m in Sources */,
+				50B72908165D47B300525F8B /* PWAppOpenRequest.m in Sources */,
+				50B548DB16A837BC008F5025 /* PWApplicationEventRequest.m in Sources */,
+				50E2E0E1170587170055FFCB /* PWLocationTracker.m in Sources */,
+				50E2E0E917058AB70055FFCB /* PushRuntime.m in Sources */,
+				50C6D5C0174BA87A0068E1A4 /* PW_SBJsonBase.m in Sources */,
+				50C6D5C2174BA87A0068E1A4 /* PW_SBJsonParser.m in Sources */,
+				50C6D5C4174BA87A0068E1A4 /* PW_SBJsonWriter.m in Sources */,
+				50BCA97D175E46920008AB74 /* PWGetTagsRequest.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		1DEB921F08733DC00010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				COPY_PHASE_STRIP = NO;
+				DSTROOT = /tmp/PushNotificationManager.dst;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_MODEL_TUNING = G5;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PushNotificationManager_Prefix.pch;
+				GCC_THUMB_SUPPORT = NO;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = PushNotificationManager;
+				SKIP_INSTALL = YES;
+			};
+			name = Debug;
+		};
+		1DEB922008733DC00010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				DSTROOT = /tmp/PushNotificationManager.dst;
+				GCC_MODEL_TUNING = G5;
+				GCC_PRECOMPILE_PREFIX_HEADER = YES;
+				GCC_PREFIX_HEADER = PushNotificationManager_Prefix.pch;
+				GCC_THUMB_SUPPORT = NO;
+				INSTALL_PATH = /usr/local/lib;
+				PRODUCT_NAME = PushNotificationManager;
+				SKIP_INSTALL = YES;
+			};
+			name = Release;
+		};
+		1DEB922308733DC00010E9CD /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "-ObjC";
+				SDKROOT = iphoneos;
+			};
+			name = Debug;
+		};
+		1DEB922408733DC00010E9CD /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD_32_BIT)";
+				GCC_C_LANGUAGE_STANDARD = c99;
+				GCC_THUMB_SUPPORT = NO;
+				GCC_VERSION = com.apple.compilers.llvm.clang.1_0;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 4.3;
+				OTHER_LDFLAGS = "-ObjC";
+				SDKROOT = iphoneos;
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "PushNotificationManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB921F08733DC00010E9CD /* Debug */,
+				1DEB922008733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "PushNotificationManager" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				1DEB922308733DC00010E9CD /* Debug */,
+				1DEB922408733DC00010E9CD /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 0867D690FE84028FC02AAC07 /* Project object */;
+}
