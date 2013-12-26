@@ -21,4 +21,20 @@
 	
 	return dict;
 }
+
+- (void)parseResponse:(NSDictionary *)response {
+    self.distance = -1;
+    
+    if (response && [response isKindOfClass:[NSDictionary class]]) {
+        NSDictionary *responseDict = [response objectForKey:@"response"];
+        
+        if (responseDict && [responseDict isKindOfClass:[NSDictionary class]]) {
+            NSNumber *distance = [responseDict objectForKey:@"distance"];
+            if (distance && [distance isKindOfClass:[NSNumber class]]) {
+                self.distance = [distance doubleValue];
+            }
+        }
+    }
+}
+
 @end

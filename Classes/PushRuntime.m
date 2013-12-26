@@ -53,6 +53,10 @@ BOOL dynamicDidFinishLaunching(id self, SEL _cmd, id application, id launchOptio
 		[PushNotificationManager pushManager].delegate = (NSObject<PushNotificationDelegate> *)self;
 	}
 	
+    if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey]) {
+        [[PushNotificationManager pushManager] startLocationTracking];
+    }
+    
 	[[PushNotificationManager pushManager] handlePushReceived:launchOptions];
 	[[PushNotificationManager pushManager] sendAppOpen];
 	
