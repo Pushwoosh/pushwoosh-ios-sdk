@@ -6,9 +6,11 @@
 
 #import "PWGetTagsRequest.h"
 
-@implementation PWGetTagsRequest
+#if ! __has_feature(objc_arc)
+#error "ARC is required to compile Pushwoosh SDK"
+#endif
 
-@synthesize tags;
+@implementation PWGetTagsRequest
 
 - (NSString *) methodName {
 	return @"getTags";

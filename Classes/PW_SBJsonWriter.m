@@ -29,6 +29,10 @@
 
 #import "PW_SBJsonWriter.h"
 
+#if ! __has_feature(objc_arc)
+#error "ARC is required to compile Pushwoosh SDK"
+#endif
+
 #define DEFAULT_BASE64_LINE_LENGTH -1
 
 @interface PW_SBJsonWriter ()
@@ -58,11 +62,6 @@
         }
     }
     return self;
-}
-
-- (void)dealloc{
-    [_kEscapeChars release];
-    [super dealloc];
 }
 
 /**

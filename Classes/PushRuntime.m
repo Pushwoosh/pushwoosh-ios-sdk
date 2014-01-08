@@ -8,7 +8,14 @@
 #import "PushNotificationManager.h"
 #import <objc/runtime.h>
 
-@implementation UIApplication(Pushwoosh)
+#if ! __has_feature(objc_arc)
+#error "ARC is required to compile Pushwoosh SDK"
+#endif
+
+@interface UIApplication(InternalPushRuntime)
+- (NSObject<PushNotificationDelegate> *)getPushwooshDelegate;
+- (BOOL) pushwooshDontAutoRegister;
+@end
 
 static void swizze(Class class, SEL fromChange, SEL toChange, IMP impl, const char * signature)
 {
@@ -25,16 +32,7 @@ static void swizze(Class class, SEL fromChange, SEL toChange, IMP impl, const ch
 	}
 }
 
-BOOL dynamicDidFinishLaunching(id self, SEL _cmd, id application, id launchOptions) {
-	BOOL result = YES;
-	
-	if ([self respondsToSelector:@selector(application:pw_didFinishLaunchingWithOptions:)]) {
-		result = (BOOL) [self application:application pw_didFinishLaunchingWithOptions:launchOptions];
-	} else {
-		[self applicationDidFinishLaunching:application];
-		result = YES;
-	}
-	
+int getPushNotificationMode() {
 	//default push modes
 	int modes = UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert;
 	
@@ -46,11 +44,40 @@ BOOL dynamicDidFinishLaunching(id self, SEL _cmd, id application, id launchOptio
 			break;
 		}
 	}
+
+	return modes;
+}
+
+@implementation UIApplication(Pushwoosh)
+
+BOOL dynamicDidFinishLaunching(id self, SEL _cmd, id application, id launchOptions) {
+	BOOL result = YES;
 	
-	[[UIApplication sharedApplication] registerForRemoteNotificationTypes:modes];
+	if ([self respondsToSelector:@selector(application:pw_didFinishLaunchingWithOptions:)]) {
+		result = (BOOL) [self application:application pw_didFinishLaunchingWithOptions:launchOptions];
+	} else {
+		[self applicationDidFinishLaunching:application];
+		result = YES;
+	}
+	
+	int modes = getPushNotificationMode();
+
+	if(![[UIApplication sharedApplication] respondsToSelector:@selector(pushwooshDontAutoRegister)]) {
+		BOOL autoRegisterMode = ![[[NSBundle mainBundle] objectForInfoDictionaryKey:@"Pushwoosh_NOAUTOREGISTER"] boolValue];
+		if (autoRegisterMode) {
+			[[UIApplication sharedApplication] registerForRemoteNotificationTypes:modes];
+		}
+	}
 	
 	if(![PushNotificationManager pushManager].delegate) {
-		[PushNotificationManager pushManager].delegate = (NSObject<PushNotificationDelegate> *)self;
+		if([[UIApplication sharedApplication] respondsToSelector:@selector(getPushwooshDelegate)])
+		{
+			[PushNotificationManager pushManager].delegate = [[UIApplication sharedApplication] getPushwooshDelegate];
+		}
+		else
+		{
+			[PushNotificationManager pushManager].delegate = (NSObject<PushNotificationDelegate> *)self;
+		}
 	}
 	
     if ([launchOptions objectForKey:UIApplicationLaunchOptionsLocationKey]) {

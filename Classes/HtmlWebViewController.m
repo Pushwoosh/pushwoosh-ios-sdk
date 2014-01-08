@@ -8,6 +8,10 @@
 #import <QuartzCore/QuartzCore.h>
 #import "PushNotificationManager.h"
 
+#if ! __has_feature(objc_arc)
+#error "ARC is required to compile Pushwoosh SDK"
+#endif
+
 @implementation HtmlWebViewController
 
 @synthesize webview, activityIndicator;
@@ -16,7 +20,7 @@
 
 - (id)initWithURLString:(NSString *)url {
 	if(self = [super init]) {
-		urlToLoad = [url retain];
+		urlToLoad = url;
 		webViewLoads = 0;
 	}
 	
@@ -57,10 +61,6 @@
 - (void)dealloc {
 	self.delegate = nil;
 	webview.delegate = nil;
-	[webview release];
-	[urlToLoad release];
-	
-    [super dealloc];
 }
 
 - (void) closeButtonAction {

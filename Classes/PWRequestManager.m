@@ -8,6 +8,10 @@
 #import "PW_SBJsonWriter.h"
 #import "PW_SBJsonParser.h"
 
+#if ! __has_feature(objc_arc)
+#error "ARC is required to compile Pushwoosh SDK"
+#endif
+
 @implementation PWRequestManager
 
 //we really do not transfer any sensitive data here, but you may uncomment this line out to enable plain version of the API
@@ -30,7 +34,7 @@
 	
 	PW_SBJsonWriter * json = [[PW_SBJsonWriter alloc] init];
 	NSString *requestString = [json stringWithObject:requestDict];
-	[json release]; json = nil;
+	json = nil;
 
 	NSString *jsonRequestData = [NSString stringWithFormat:@"{\"request\":%@}", requestString];
 	
@@ -52,7 +56,7 @@
 	NSHTTPURLResponse *response = nil;
 	NSError *error = nil;
 	NSData * responseData = [NSURLConnection sendSynchronousRequest:urlRequest returningResponse:&response error:&error];
-	[urlRequest release]; urlRequest = nil;
+	urlRequest = nil;
 	
 	if(retError)
 		*retError = error;
@@ -62,8 +66,8 @@
 
 	PW_SBJsonParser * jsonReader = [[PW_SBJsonParser alloc] init];
 	NSDictionary *jsonResult = [jsonReader objectWithString:responseString];
-	[jsonReader release]; jsonReader = nil;
-	[responseString release]; responseString = nil;
+	jsonReader = nil;
+	responseString = nil;
 	
 	NSInteger pushwooshResult = [[jsonResult objectForKey:@"status_code"] intValue];
 

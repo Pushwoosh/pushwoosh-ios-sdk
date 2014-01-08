@@ -15,6 +15,10 @@
 //comment this line to disable location tracking for geo-push notifications and dependency on CoreLocation.framework
 #define USE_LOCATION
 
+#if ! __has_feature(objc_arc)
+#error "ARC is required to compile Pushwoosh SDK"
+#endif
+
 static CGFloat const kMinUpdateDistance = 10.f;
 static NSTimeInterval const kMinUpdateTime = 10.f;
 
@@ -37,7 +41,7 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
 
 #ifdef USE_LOCATION
-        self.locationManager = [[[CLLocationManager alloc] init] autorelease];
+        self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
         
         NSArray * bgModes = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIBackgroundModes"];
@@ -194,8 +198,6 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
         else {
             [_locationManager startMonitoringForRegion:region desiredAccuracy:kCLLocationAccuracyBest];
         }
-        
-        [region release];
     }
     else {
         [self log:@"Geofencing not available on this device"];
@@ -264,7 +266,6 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
                     encoding:NSStringEncodingConversionAllowLossy
                        error:nil];
         NSLog(@"Path to location file: %@", path);
-        [dateFormat release];
     }
     
     message = [message stringByAppendingString:@"\n"];
@@ -294,8 +295,6 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
                location.altitude,
                location.verticalAccuracy];
     }
-    
-    [dateFormat release];
     
     [self log:msg];
 }
@@ -364,7 +363,6 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
 - (void)locationManager:(CLLocationManager *)manager didExitRegion:(CLRegion *)region {
     CLLocation *location = [[CLLocation alloc] initWithLatitude:region.center.latitude longitude:region.center.longitude];
     [self reportLocation:location withMessage:@"Exit region"];
-    [location release];
     [self sendLocation:[manager location]];
     [self startApproximateGeoTracking];
 }
@@ -387,9 +385,6 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
 	[self stopUpdatingLocation];
 	self.locationManager.delegate = nil;
 	self.locationManager = nil;
-    self.previosLocation = nil;
-    self.backgroundMode = nil;
-    [super dealloc];
 }
 
 @end

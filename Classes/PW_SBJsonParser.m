@@ -29,6 +29,10 @@
 
 #import "PW_SBJsonParser.h"
 
+#if ! __has_feature(objc_arc)
+#error "ARC is required to compile Pushwoosh SDK"
+#endif
+
 @interface PW_SBJsonParser ()
 
 - (BOOL)scanValue:(NSObject **)o;
@@ -298,7 +302,6 @@ static char ctrl[0x22];
                                             freeWhenDone:NO];
             if (t) {
                 [*o appendString:t];
-                [t release];
                 c += len;
             }
         }
@@ -457,7 +460,6 @@ static char ctrl[0x22];
                                             length:c - ns
                                           encoding:NSUTF8StringEncoding
                                       freeWhenDone:NO];
-    [str autorelease];
     if (str && (*o = [NSDecimalNumber decimalNumberWithString:str]))
         return YES;
     

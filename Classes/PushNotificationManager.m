@@ -28,6 +28,10 @@
 
 #import <AdSupport/AdSupport.h>
 
+#if ! __has_feature(objc_arc)
+#error "ARC is required to compile Pushwoosh SDK"
+#endif
+
 #define kServiceHtmlContentFormatUrl @"http://cp.pushwoosh.com/content/%@"
 
 @interface UIApplication(Pushwoosh)
@@ -60,7 +64,7 @@
         [outputString appendFormat:@"%02x",outputBuffer[count]];
     }
     
-    return [outputString autorelease];
+    return outputString;
 }
 
 ////////////////////////////////////////////////////////////////////////////////
@@ -185,7 +189,7 @@ static PushNotificationManager * instance = nil;
 		}
 		
 		//initalize location tracker
-		self.locationTracker = [[[PWLocationTracker alloc] init] autorelease];
+		self.locationTracker = [[PWLocationTracker alloc] init];
 		[self.locationTracker setLocationUpdatedInForeground:^ (CLLocation *location) {
 			if (!location)
 				return;
@@ -245,7 +249,6 @@ static PushNotificationManager * instance = nil;
 	if(!apsGateway) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:@"Pushwoosh Error" message:@"Your provisioning profile does not have APS entry. Please make your profile push compatible." delegate:self cancelButtonTitle:@"OK" otherButtonTitles:nil, nil];
 		[alert show];
-		[alert release];
 	}
 	
 	if([apsGateway isEqualToString:@"development"])
@@ -319,7 +322,6 @@ static PushNotificationManager * instance = nil;
 
 	self.richPushWindow.rootViewController = vc;
 	[vc view];
-	[vc release];
 }
 
 - (void) showCustomPushPage:(NSString *)page {
@@ -329,7 +331,6 @@ static PushNotificationManager * instance = nil;
 	
 	self.richPushWindow.rootViewController = vc;
 	[vc view];
-	[vc release];
 }
 
 - (void) hidePushWindow {
@@ -349,31 +350,26 @@ static PushNotificationManager * instance = nil;
 - (void) sendDevTokenToServer:(NSString *)deviceID {
 
 	@autoreleasepool {
-
 		NSString * appLocale = @"en";
-		NSLocale * locale = (NSLocale *)CFLocaleCopyCurrent();
+		NSLocale * locale = (NSLocale *)CFBridgingRelease(CFLocaleCopyCurrent());
 		NSString * localeId = [locale localeIdentifier];
 	
 		if([localeId length] > 2)
 			localeId = [localeId stringByReplacingCharactersInRange:NSMakeRange(2, [localeId length]-2) withString:@""];
-	
-		[locale release]; locale = nil;
-	
+		
 		appLocale = localeId;
-	
-		NSArray * languagesArr = (NSArray *) CFLocaleCopyPreferredLanguages();
+		
+		NSArray * languagesArr = (NSArray *) CFBridgingRelease(CFLocaleCopyPreferredLanguages());	
 		if([languagesArr count] > 0)
 		{
 			NSString * value = [languagesArr objectAtIndex:0];
 		
 			if([value length] > 2)
 				value = [value stringByReplacingCharactersInRange:NSMakeRange(2, [value length]-2) withString:@""];
-		
-			appLocale = [[value copy] autorelease];
+			
+			appLocale = [value copy];
 		}
-	
-		[languagesArr release]; languagesArr = nil;
-	
+		
 		PWRegisterDeviceRequest *request = [[PWRegisterDeviceRequest alloc] init];
 		request.appId = appCode;
 		request.hwid = [self uniqueGlobalDeviceIdentifier];
@@ -395,8 +391,6 @@ static PushNotificationManager * instance = nil;
 				[delegate performSelectorOnMainThread:@selector(onDidFailToRegisterForRemoteNotificationsWithError:) withObject:error waitUntilDone:NO];
 			}
 		}
-	
-		[request release]; request = nil;
 	}
 }
 
@@ -414,9 +408,6 @@ static PushNotificationManager * instance = nil;
 			} else {
 				NSLog(@"Unregistering for push notifications failed");
 			}
-			
-			[request release];
-			
 		});
 	}
 }
@@ -467,8 +458,6 @@ static PushNotificationManager * instance = nil;
 		if (!connection) {
 			return;
 		}
-		
-		[connection release];
 		return;
 	}
 	
@@ -587,7 +576,6 @@ static PushNotificationManager * instance = nil;
 		alert.tag = ++internalIndex;
 		[pushNotifications setObject:userInfo forKey:[NSNumber numberWithInt:internalIndex]];
 		[alert show];
-		[alert release];
 		return YES;
 	}
 	
@@ -625,8 +613,6 @@ static PushNotificationManager * instance = nil;
 		} else {
 			NSLog(@"sendStats failed");
 		}
-	
-		[request release]; request = nil;
 	}
 }
 
@@ -643,8 +629,6 @@ static PushNotificationManager * instance = nil;
 		} else {
 			NSLog(@"setTags failed");
 		}
-	
-		[request release]; request = nil;
 	}
 }
 
@@ -664,9 +648,7 @@ static PushNotificationManager * instance = nil;
 		} else {
 			NSLog(@"getNearestZone failed");
 		}
-	
-		[request release]; request = nil;
-	
+		
 		NSLog(@"Locaiton sent");
 	}
 }
@@ -688,8 +670,6 @@ static PushNotificationManager * instance = nil;
 		} else {
 			NSLog(@"sending appOpen failed");
 		}
-	
-		[request release]; request = nil;
 	}
 }
 
@@ -709,8 +689,6 @@ static PushNotificationManager * instance = nil;
 		} else {
 			NSLog(@"setBadges failed");
 		}
-	
-		[request release]; request = nil;
 	}
 }
 
@@ -777,7 +755,7 @@ static PushNotificationManager * instance = nil;
 			});
 		}
 		
-		[request release]; request = nil;
+		request = nil;
 	});
 }
 
@@ -793,7 +771,6 @@ static PushNotificationManager * instance = nil;
 	request.count = count;
 
 	[self performSelectorInBackground:@selector(sendGoalBackground:) withObject:request];
-	[request release];
 }
 
 //clears the notifications from the notification center
@@ -815,12 +792,7 @@ static PushNotificationManager * instance = nil;
 }
 
 - (void) dealloc {
-	self.richPushWindow = nil;
 	self.delegate = nil;
-	self.appCode = nil;
-	self.pushNotifications = nil;
-	
-	[super dealloc];
 }
 
 @end

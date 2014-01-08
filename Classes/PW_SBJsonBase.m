@@ -30,6 +30,9 @@
 #import "PW_SBJsonBase.h"
 NSString * PW_SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 
+#if ! __has_feature(objc_arc)
+#error "ARC is required to compile Pushwoosh SDK"
+#endif
 
 @implementation PW_SBJsonBase
 
@@ -41,11 +44,6 @@ NSString * PW_SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
     if (self)
         self.maxDepth = 512;
     return self;
-}
-
-- (void)dealloc {
-    [errorTrace release];
-    [super dealloc];
 }
 
 - (void)addErrorWithCode:(NSUInteger)code description:(NSString*)str {
@@ -70,7 +68,6 @@ NSString * PW_SBJSONErrorDomain = @"org.brautaset.JSON.ErrorDomain";
 
 - (void)clearErrorTrace {
     [self willChangeValueForKey:@"errorTrace"];
-    [errorTrace release];
     errorTrace = nil;
     [self didChangeValueForKey:@"errorTrace"];
 }
