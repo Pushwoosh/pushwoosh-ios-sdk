@@ -1,6 +1,8 @@
 Pushwoosh iOS SDK
 =====================
 
+v2.0.1
+
 The SDK contains source code for iOS platform.
 
 Please note that SDK is ARC (Automatic Reference Counting) based now. If you have non-ARC project you either should include SDK as a subproject or specify *-fobjc-arc* compiler flag for the SDK source code.
