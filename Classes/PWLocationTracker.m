@@ -39,7 +39,7 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
     if (self = [super init]) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidEnterBackground) name:UIApplicationDidEnterBackgroundNotification object:nil];
-
+        
 #ifdef USE_LOCATION
         self.locationManager = [[CLLocationManager alloc] init];
         self.locationManager.delegate = self;
@@ -141,6 +141,8 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
     if (![self locationServiceAuthorized])
         return;
     
+    [self startSignificantMonitoring];
+    
     _regionMonitoringBGTask = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler: ^{
         [[UIApplication sharedApplication] endBackgroundTask:_regionMonitoringBGTask];
         _regionMonitoringBGTask = UIBackgroundTaskInvalid;
@@ -202,8 +204,6 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
     else {
         [self log:@"Geofencing not available on this device"];
     }
-    
-    [self startSignificantMonitoring];
 }
 
 - (void)startSignificantMonitoring {

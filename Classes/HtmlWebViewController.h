@@ -5,13 +5,7 @@
 //
 
 #import <UIKit/UIKit.h>
-
-typedef enum enumHtmlPageSupportedOrientations {
-	PWOrientationPortrait = 1 << 0,
-	PWOrientationPortraitUpsideDown = 1 << 1,
-	PWOrientationLandscapeLeft = 1 << 2,
-	PWOrientationLandscapeRight = 1 << 3,
-} PWSupportedOrientations;
+#import "PushNotificationManager.h"
 
 @class HtmlWebViewController;
 

@@ -6,12 +6,17 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "HtmlWebViewController.h"
-#import "PushRuntime.h"
 
 @class PushNotificationManager;
 @class CLLocation;
 @class PWLocationTracker;
+
+typedef NS_ENUM(NSInteger, PWSupportedOrientations) {
+	PWOrientationPortrait = 1 << 0,
+	PWOrientationPortraitUpsideDown = 1 << 1,
+	PWOrientationLandscapeLeft = 1 << 2,
+	PWOrientationLandscapeRight = 1 << 3,
+};
 
 typedef void(^pushwooshGetTagsHandler)(NSDictionary *tags);
 typedef void(^pushwooshErrorHandler)(NSError *error);
@@ -143,7 +148,7 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
 /**
   `PushNotificationManager` class offers access to the singletone-instance of the push manager responsible for registering the device with the APS servers, receiving and processing push notifications.
  */
-@interface PushNotificationManager : NSObject <HtmlWebViewControllerDelegate> {
+@interface PushNotificationManager : NSObject {
 	NSString *appCode;
 	NSString *appName;
 

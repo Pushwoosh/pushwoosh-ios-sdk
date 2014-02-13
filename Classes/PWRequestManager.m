@@ -5,8 +5,6 @@
 //
 
 #import "PWRequestManager.h"
-#import "PW_SBJsonWriter.h"
-#import "PW_SBJsonParser.h"
 
 #if ! __has_feature(objc_arc)
 #error "ARC is required to compile Pushwoosh SDK"
@@ -31,11 +29,9 @@
 
 - (BOOL) sendRequest: (PWRequest *) request error:(NSError **)retError {
 	NSDictionary *requestDict = [request requestDictionary];
-	
-	PW_SBJsonWriter * json = [[PW_SBJsonWriter alloc] init];
-	NSString *requestString = [json stringWithObject:requestDict];
-	json = nil;
-
+	   
+    NSData *jsonData = [NSJSONSerialization dataWithJSONObject:requestDict options:0 error:nil];
+    NSString *requestString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 	NSString *jsonRequestData = [NSString stringWithFormat:@"{\"request\":%@}", requestString];
 	
 #ifdef NOSSL
@@ -63,11 +59,8 @@
 	
 	NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
 	NSLog(@"Response \"%d %@\": string: %@", [response statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[response statusCode]], responseString);
-
-	PW_SBJsonParser * jsonReader = [[PW_SBJsonParser alloc] init];
-	NSDictionary *jsonResult = [jsonReader objectWithString:responseString];
-	jsonReader = nil;
-	responseString = nil;
+    
+    NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:[responseString dataUsingEncoding:NSUTF8StringEncoding] options:NSJSONReadingMutableContainers error:nil];
 	
 	NSInteger pushwooshResult = [[jsonResult objectForKey:@"status_code"] intValue];
 
