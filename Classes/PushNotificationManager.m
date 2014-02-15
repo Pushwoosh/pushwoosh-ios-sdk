@@ -50,7 +50,7 @@ static char kDeviceIdKey;
 }
 @end
 
-@interface PushNotificationManager () <MFMessageComposeViewControllerDelegate, HtmlWebViewControllerDelegate>
+@interface PushNotificationManager () <HtmlWebViewControllerDelegate>
 
 @end
 
