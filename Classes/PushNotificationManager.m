@@ -432,6 +432,8 @@ static PushNotificationManager * instance = nil;
 		request.pushToken = deviceID;
 		request.language = appLocale;
 		request.timeZone = [NSString stringWithFormat:@"%d", [[NSTimeZone localTimeZone] secondsFromGMT]];
+        request.appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
+        request.isJailBroken = [self isJailBroken];
 	
 		NSError *error = nil;
 		if ([[PWRequestManager sharedManager] sendRequest:request error:&error]) {

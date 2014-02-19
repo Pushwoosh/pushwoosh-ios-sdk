@@ -12,8 +12,6 @@
 #endif
 
 @implementation PWRegisterDeviceRequest
-@synthesize pushToken, language, timeZone;
-
 
 - (NSString *) methodName {
 	return @"registerDevice";
@@ -23,10 +21,16 @@
 	NSMutableDictionary *dict = [self baseDictionary];
 	
 	[dict setObject:[NSNumber numberWithInt:1] forKey:@"device_type"];
-	[dict setObject:pushToken forKey:@"push_token"];
-	[dict setObject:language forKey:@"language"];
-	[dict setObject:timeZone forKey:@"timezone"];
-
+	[dict setObject:_pushToken forKey:@"push_token"];
+	[dict setObject:_language forKey:@"language"];
+	[dict setObject:_timeZone forKey:@"timezone"];
+    
+    if (_appVersion)
+        [dict setObject:_appVersion forKey:@"app_version"];
+    
+    if (_isJailBroken)
+         [dict setObject:@(YES) forKey:@"black"];
+    
 	BOOL sandbox = ![PushNotificationManager getAPSProductionStatus];
 	if(sandbox)
 		[dict setObject:@"sandbox" forKey:@"gateway"];

@@ -6,7 +6,7 @@
 
 #import "PWRequest.h"
 
-#define kSDKVersion @"2.0"
+#define kSDKVersion @"2.2"
 
 #if ! __has_feature(objc_arc)
 #error "ARC is required to compile Pushwoosh SDK"

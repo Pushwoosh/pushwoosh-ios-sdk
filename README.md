@@ -1,7 +1,7 @@
 Pushwoosh iOS SDK
 =====================
 
-v2.0.1
+v2.2
 
 The SDK contains source code for iOS platform.
 
