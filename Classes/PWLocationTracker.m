@@ -151,7 +151,9 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
     BOOL geoFencingEnabled = NO;
     
     if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-        if ([CLLocationManager isMonitoringAvailableForClass:[CLCircularRegion class]]) {
+		//OK, Marmalade SDK does not want to link to CLCircularRegion directly. This is a workaround.
+		Class circularRegion = NSClassFromString(@"CLCircularRegion");
+        if ([CLLocationManager isMonitoringAvailableForClass:circularRegion]) {
             geoFencingEnabled = YES;
         }
     }
@@ -182,7 +184,8 @@ static NSTimeInterval const kMinUpdateTime = 10.f;
         CLRegion *region = nil;
         
         if (NSFoundationVersionNumber > NSFoundationVersionNumber_iOS_6_1) {
-            region = [[CLCircularRegion alloc] initWithCenter:center
+			Class circularRegion = NSClassFromString(@"CLCircularRegion");
+            region = [[circularRegion alloc] initWithCenter:center
                                                        radius:regionRadius
                                                    identifier:kRegionIdentifier];
         }
