@@ -20,7 +20,7 @@
 - (NSDictionary *) requestDictionary {
 	NSMutableDictionary *dict = [self baseDictionary];
 	
-	[dict setObject:[NSNumber numberWithInt:badge] forKey:@"badge"];
+	[dict setObject:[NSNumber numberWithLong:badge] forKey:@"badge"];
 	
 	return dict;
 }

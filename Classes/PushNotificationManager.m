@@ -46,7 +46,7 @@ static char kDeviceIdKey;
 
 @implementation PWTags
 + (NSDictionary *) incrementalTagWithInteger:(NSInteger)delta {
-	return [NSMutableDictionary dictionaryWithObjectsAndKeys:@"increment", @"operation", [NSNumber numberWithInt:delta], @"value", nil];
+	return [NSMutableDictionary dictionaryWithObjectsAndKeys:@"increment", @"operation", [NSNumber numberWithLong:delta], @"value", nil];
 }
 @end
 
@@ -122,7 +122,7 @@ static char kDeviceIdKey;
     const char *value = [val UTF8String];
     
     unsigned char outputBuffer[CC_MD5_DIGEST_LENGTH];
-    CC_MD5(value, strlen(value), outputBuffer);
+    CC_MD5(value, (CC_LONG)strlen(value), outputBuffer);
     
     NSMutableString *outputString = [[NSMutableString alloc] initWithCapacity:CC_MD5_DIGEST_LENGTH * 2];
     for(NSInteger count = 0; count < CC_MD5_DIGEST_LENGTH; count++){
@@ -431,7 +431,7 @@ static PushNotificationManager * instance = nil;
 		request.hwid = [self uniqueGlobalDeviceIdentifier];
 		request.pushToken = deviceID;
 		request.language = appLocale;
-		request.timeZone = [NSString stringWithFormat:@"%d", [[NSTimeZone localTimeZone] secondsFromGMT]];
+		request.timeZone = [NSString stringWithFormat:@"%ld", (long)[[NSTimeZone localTimeZone] secondsFromGMT]];
         request.appVersion = [[NSBundle mainBundle] objectForInfoDictionaryKey: @"CFBundleShortVersionString"];
         request.isJailBroken = [self isJailBroken];
 	
@@ -545,11 +545,11 @@ static PushNotificationManager * instance = nil;
 		if(!alertView.tag)
 			return;
 		
-		[pushNotifications removeObjectForKey:[NSNumber numberWithInt:alertView.tag]];
+		[pushNotifications removeObjectForKey:[NSNumber numberWithLong:alertView.tag]];
 		return;
 	}
 	
-	NSDictionary *lastPushDict = [pushNotifications objectForKey:[NSNumber numberWithInt:alertView.tag]];
+	NSDictionary *lastPushDict = [pushNotifications objectForKey:[NSNumber numberWithLong:alertView.tag]];
     
     [self processUserInfo:lastPushDict];
     
@@ -561,7 +561,7 @@ static PushNotificationManager * instance = nil;
 			[delegate onPushAccepted:self withNotification:lastPushDict onStart:NO];
 		}
 	
-	[pushNotifications removeObjectForKey:[NSNumber numberWithInt:alertView.tag]];
+	[pushNotifications removeObjectForKey:[NSNumber numberWithLong:alertView.tag]];
 }
 
 - (BOOL)isJailBroken {
@@ -632,7 +632,7 @@ static PushNotificationManager * instance = nil;
 	if(!isPushOnStart && showPushnotificationAlert && msgIsString) {
 		UIAlertView *alert = [[UIAlertView alloc] initWithTitle:self.appName message:alertMsg delegate:self cancelButtonTitle:@"Cancel" otherButtonTitles:@"OK", nil];
 		alert.tag = ++internalIndex;
-		[pushNotifications setObject:userInfo forKey:[NSNumber numberWithInt:internalIndex]];
+		[pushNotifications setObject:userInfo forKey:[NSNumber numberWithLong:internalIndex]];
 		[alert show];
 		return YES;
 	}
@@ -761,7 +761,7 @@ static PushNotificationManager * instance = nil;
 }
 
 - (void) sendBadges: (NSInteger) badge {
-	[self performSelectorInBackground:@selector(sendBadgesBackground:) withObject:[NSNumber numberWithInt:badge]];
+	[self performSelectorInBackground:@selector(sendBadgesBackground:) withObject:[NSNumber numberWithLong:badge]];
 }
 
 - (void) sendAppOpen {
