@@ -44,7 +44,7 @@
 		50BCA97D175E46920008AB74 /* PWGetTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BCA97B175E46920008AB74 /* PWGetTagsRequest.m */; };
 		50BD5D521365DA3C00275CDB /* HtmlWebViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 50BD5D3D1365DA3C00275CDB /* HtmlWebViewController.h */; };
 		50BD5D531365DA3C00275CDB /* HtmlWebViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BD5D3E1365DA3C00275CDB /* HtmlWebViewController.m */; };
-		50BD5D631365DA3C00275CDB /* PushNotificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 50BD5D501365DA3C00275CDB /* PushNotificationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		50BD5D631365DA3C00275CDB /* PushNotificationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 50BD5D501365DA3C00275CDB /* PushNotificationManager.h */; };
 		50BD5D641365DA3C00275CDB /* PushNotificationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 50BD5D511365DA3C00275CDB /* PushNotificationManager.m */; };
 		50E2E0E0170587170055FFCB /* PWLocationTracker.h in Headers */ = {isa = PBXBuildFile; fileRef = 50E2E0DE170587170055FFCB /* PWLocationTracker.h */; };
 		50E2E0E1170587170055FFCB /* PWLocationTracker.m in Sources */ = {isa = PBXBuildFile; fileRef = 50E2E0DF170587170055FFCB /* PWLocationTracker.m */; };
