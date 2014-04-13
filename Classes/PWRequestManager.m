@@ -12,9 +12,6 @@
 
 @implementation PWRequestManager
 
-//we really do not transfer any sensitive data here, but you may uncomment this line out to enable plain version of the API
-//#define NOSSL
-
 + (PWRequestManager *) sharedManager {
 	static PWRequestManager *instance = nil;
 	if (!instance) {
@@ -27,18 +24,32 @@
 	return [self sendRequest:request error:nil];
 }
 
+- (NSString *) defaultBaseUrl {
+	NSString *serviceAddressUrl = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Pushwoosh_BASEURL"];
+
+	if(!serviceAddressUrl) {
+		serviceAddressUrl = @"https://cp.pushwoosh.com/json/1.3/";
+	}
+	
+	return serviceAddressUrl;
+}
+
 - (BOOL) sendRequest: (PWRequest *) request error:(NSError **)retError {
 	NSDictionary *requestDict = [request requestDictionary];
 	   
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:requestDict options:0 error:nil];
     NSString *requestString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
 	NSString *jsonRequestData = [NSString stringWithFormat:@"{\"request\":%@}", requestString];
-	
-#ifdef NOSSL
-	NSString *requestUrl = [kServiceAddressNoSSL stringByAppendingString:[request methodName]];
-#else
-	NSString *requestUrl = [kServiceAddressSSL stringByAppendingString:[request methodName]];
-#endif
+
+	//get the base url
+	NSString *serviceAddressUrl = [[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_BASEURL"];
+	if(!serviceAddressUrl)
+		serviceAddressUrl = [self defaultBaseUrl];
+
+	[[NSUserDefaults standardUserDefaults] setObject:serviceAddressUrl forKey:@"Pushwoosh_BASEURL"];
+
+	//request part
+	NSString *requestUrl = [serviceAddressUrl stringByAppendingString:[request methodName]];
 	
 	NSLog(@"Sending request: %@", jsonRequestData);
 	NSLog(@"To urL %@", requestUrl);
@@ -62,8 +73,18 @@
     
     NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:[responseString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
 	
+	if(!jsonResult || [jsonResult objectForKey:@"status_code"] == nil) {
+		NSString *serviceAddressUrl = [self defaultBaseUrl];
+		[[NSUserDefaults standardUserDefaults] setObject:serviceAddressUrl forKey:@"Pushwoosh_BASEURL"];
+	}
+	
+	// honor base url switch
+	NSString *newBaseUrl = [jsonResult objectForKey:@"base_url"];
+	if(newBaseUrl) {
+		[[NSUserDefaults standardUserDefaults] setObject:newBaseUrl forKey:@"Pushwoosh_BASEURL"];
+	}
+	
 	NSInteger pushwooshResult = [[jsonResult objectForKey:@"status_code"] intValue];
-
 	if (response.statusCode != 200 || pushwooshResult != 200)
 	{
 		if(retError && !error)

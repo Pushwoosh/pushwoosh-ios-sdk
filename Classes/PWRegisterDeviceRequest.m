@@ -17,6 +17,22 @@
 	return @"registerDevice";
 }
 
+- (NSArray *) buildSoundsList {
+	NSMutableArray * listOfSounds = [[NSMutableArray alloc] init];
+	
+	NSString * bundleRoot = [[NSBundle mainBundle] bundlePath];
+    NSError * err;
+    NSArray * dirContents = [[NSFileManager defaultManager] contentsOfDirectoryAtPath:bundleRoot error:&err];
+    for (NSString * filename in dirContents) {
+        if ([filename hasSuffix:@".wav"] || [filename hasSuffix:@".caf"] || [filename hasSuffix:@".aif"])
+        {
+            [listOfSounds addObject:filename];
+        }
+    }
+	
+	return listOfSounds;
+}
+
 - (NSDictionary *) requestDictionary {
 	NSMutableDictionary *dict = [self baseDictionary];
 	
@@ -39,6 +55,9 @@
 
 	NSString * package = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
 	[dict setObject:package forKey:@"package"];
+	
+	NSArray * soundsList = [self buildSoundsList];
+	[dict setObject:soundsList forKey:@"sounds"];
 	
 	return dict;
 }

@@ -15,6 +15,7 @@
 @interface UIApplication(InternalPushRuntime)
 - (NSObject<PushNotificationDelegate> *)getPushwooshDelegate;
 - (BOOL) pushwooshDontAutoRegister;
+- (BOOL)pushwooshDontUseRuntimeMagic; //Implemention of this method is located in a separate library. Used in xamarin plugin, for example.
 @end
 
 static void swizze(Class class, SEL fromChange, SEL toChange, IMP impl, const char * signature)
@@ -118,7 +119,11 @@ void dynamicDidReceiveRemoteNotification(id self, SEL _cmd, id application, id u
 
 
 - (void) pw_setDelegate:(id<UIApplicationDelegate>)delegate {
-
+    if ([[UIApplication sharedApplication] respondsToSelector:@selector(pushwooshDontUseRuntimeMagic)]) {
+        [self pw_setDelegate:delegate];
+        return;
+    }
+    
 	static Class delegateClass = nil;
 	
 	//do not swizzle the same class twice
