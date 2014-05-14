@@ -6,7 +6,7 @@
 		<meta id="xcode-display" name="xcode-display" content="render"/>
 		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
 		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
-		<meta name="generator" content="appledoc 2.1 (build 858)" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
 	</head>
 	<body>
 		<header id="top_header">
@@ -67,6 +67,8 @@
 	
 	<option value="//api/name/getCustomPushData:">&nbsp;&nbsp;&nbsp;&nbsp;- getCustomPushData:</option>
 	
+	<option value="//api/name/getHWID">&nbsp;&nbsp;&nbsp;&nbsp;- getHWID</option>
+	
 	<option value="//api/name/getPushToken">&nbsp;&nbsp;&nbsp;&nbsp;- getPushToken</option>
 	
 	<option value="//api/name/loadTags">&nbsp;&nbsp;&nbsp;&nbsp;- loadTags</option>
@@ -76,6 +78,8 @@
 	<option value="//api/name/recordGoal:">&nbsp;&nbsp;&nbsp;&nbsp;- recordGoal:</option>
 	
 	<option value="//api/name/recordGoal:withCount:">&nbsp;&nbsp;&nbsp;&nbsp;- recordGoal:withCount:</option>
+	
+	<option value="//api/name/registerForPushNotifications">&nbsp;&nbsp;&nbsp;&nbsp;- registerForPushNotifications</option>
 	
 	<option value="//api/name/sendAppOpen">&nbsp;&nbsp;&nbsp;&nbsp;- sendAppOpen</option>
 	
@@ -87,9 +91,9 @@
 	
 	<option value="//api/name/startLocationTracking">&nbsp;&nbsp;&nbsp;&nbsp;- startLocationTracking</option>
 	
-	<option value="//api/name/startLocationTracking:">&nbsp;&nbsp;&nbsp;&nbsp;- startLocationTracking:</option>
-	
 	<option value="//api/name/stopLocationTracking">&nbsp;&nbsp;&nbsp;&nbsp;- stopLocationTracking</option>
+	
+	<option value="//api/name/unregisterForPushNotifications">&nbsp;&nbsp;&nbsp;&nbsp;- unregisterForPushNotifications</option>
 	
 	
 	
@@ -145,6 +149,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getCustomPushData:">getCustomPushData:</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getHWID">getHWID</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getPushToken">getPushToken</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/loadTags">loadTags</a></span></li>
@@ -154,6 +160,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/recordGoal:">recordGoal:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/recordGoal:withCount:">recordGoal:withCount:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/registerForPushNotifications">registerForPushNotifications</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendAppOpen">sendAppOpen</a></span></li>
 	
@@ -165,9 +173,9 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/startLocationTracking">startLocationTracking</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/startLocationTracking:">startLocationTracking:</a></span></li>
-	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stopLocationTracking">stopLocationTracking</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/unregisterForPushNotifications">unregisterForPushNotifications</a></span></li>
 	
 </ul></li>
 
@@ -196,15 +204,15 @@
 	<td class="specification-value">NSObject</td>
 </tr><tr>
 	<td class="specification-title">Conforms to</td>
-	<td class="specification-value">HtmlWebViewControllerDelegate</td>
+	<td class="specification-value">SKPaymentTransactionObserver</td>
 </tr><tr>
 	<td class="specification-title">Declared in</td>
-	<td class="specification-value">PushNotificationManager.h</td>
+	<td class="specification-value">PushNotificationManager.h<br />PushNotificationManager.m</td>
 </tr>
 						</tbody></table></div>
 					
-					
-					
+                    
+                    
 					
 					<div class="section section-overview">
 						<a title="Overview" name="overview"></a>
@@ -228,150 +236,138 @@
 							<li>
 	<span class="tooltip">
 		<code><a href="#//api/name/appCode">&nbsp;&nbsp;appCode</a></code>
-		<span class="tooltip"><p>Pushwoosh Application ID. Usually retrieved automatically from Info.plist parameter <code>Pushwoosh_APPID</code></p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/appName">&nbsp;&nbsp;appName</a></code>
-		<span class="tooltip"><p>Application name. Usually retrieved automatically from Info.plist bundle name (CFBundleDisplayName). Could be used to override bundle name. In addition could be set in Info.plist as <code>Pushwoosh_APPNAME</code> parameter.</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/delegate">&nbsp;&nbsp;delegate</a></code>
-		<span class="tooltip"><p><a href="../Protocols/PushNotificationDelegate.html"><code>PushNotificationDelegate</code></a> protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification.
-Pushwoosh Runtime sets it to ApplicationDelegate by default</p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/showPushnotificationAlert">&nbsp;&nbsp;showPushnotificationAlert</a></code>
-		<span class="tooltip"><p>Show push notifications alert when push notification is received while the app is running, default is <code>YES</code></p></span>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/initializeWithAppCode:appName:">+&nbsp;initializeWithAppCode:appName:</a></code>
-		<span class="tooltip"><p>Initializes PushNotificationManager. Usually called by Pushwoosh Runtime internally.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/pushManager">+&nbsp;pushManager</a></code>
-		<span class="tooltip"><p>Returns an object representing the current push manager.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/registerForPushNotifications">&ndash;&nbsp;registerForPushNotifications</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/unregisterForPushNotifications">&ndash;&nbsp;unregisterForPushNotifications</a></code>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/startLocationTracking">&ndash;&nbsp;startLocationTracking</a></code>
-		<span class="tooltip"><p>Start location tracking. Mode can be specified in <code>Info.plist</code> file with the <code>Pushwoosh_BGMODE</code> key.</p></span>
-	</span>
-	
-	
-</li><li>
-	<span class="tooltip">
-		<code><a href="#//api/name/startLocationTracking:">&ndash;&nbsp;startLocationTracking:</a></code>
-		<span class="tooltip"><p>Start location tracking. Mode can be specified as a string parameter.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/stopLocationTracking">&ndash;&nbsp;stopLocationTracking</a></code>
-		<span class="tooltip"><p>Stops location tracking</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/setTags:">&ndash;&nbsp;setTags:</a></code>
-		<span class="tooltip"><p>Send tags to server. Tag names have to be created in the Pushwoosh Control Panel. Possible tag types: Integer, String, Incremental (integer only), List tags (array of values).</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/loadTags">&ndash;&nbsp;loadTags</a></code>
-		<span class="tooltip"><p>Get tags from the server. Calls <a href="#//api/name/delegate">delegate</a> method <code>onTagsReceived:</code> or <code>onTagsFailedToReceive:</code> depending on the results.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/loadTags:error:">&ndash;&nbsp;loadTags:error:</a></code>
-		<span class="tooltip"><p>Get tags from server. Calls <a href="#//api/name/delegate">delegate</a> method if exists and handler (block).</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/sendAppOpen">&ndash;&nbsp;sendAppOpen</a></code>
-		<span class="tooltip"><p>Informs the Pushwoosh about the app being launched. Usually called internally by SDK Runtime.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/sendBadges:">&ndash;&nbsp;sendBadges:</a></code>
-		<span class="tooltip"><p>Sends current badge value to server. Called internally by SDK Runtime when <code>UIApplication</code> <code>setApplicationBadgeNumber:</code> is set. This function is used for &ldquo;auto-incremeting&rdquo; badges to work.
-This way Pushwoosh server can know what current badge value is set for the application.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/sendLocation:">&ndash;&nbsp;sendLocation:</a></code>
-		<span class="tooltip"><p>Sends geolocation to the server for GeoFencing push technology. Called internally, please use <a href="#//api/name/startLocationTracking"><code>startLocationTracking</code></a> and <a href="#//api/name/stopLocationTracking"><code>stopLocationTracking</code></a> functions.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/recordGoal:">&ndash;&nbsp;recordGoal:</a></code>
-		<span class="tooltip"><p>Records stats for a goal in the application, like in-app purchase, user reaching a specific point at the game etc. This function could be used to see the performance of marketing push notification.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/recordGoal:withCount:">&ndash;&nbsp;recordGoal:withCount:</a></code>
-		<span class="tooltip"><p>Records stats for a goal in the application, like in-app purchase, user reaching a specific point at the game.
-Additional count parameter is responsible for storing the additional information about the goal achieved like price of the purchase e.t.c.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/getPushToken">&ndash;&nbsp;getPushToken</a></code>
-		<span class="tooltip"><p>Gets current push token.</p></span>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getHWID">&ndash;&nbsp;getHWID</a></code>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/getApnPayload:">&ndash;&nbsp;getApnPayload:</a></code>
-		<span class="tooltip"><p>Gets APN payload from push notifications dictionary.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/getCustomPushData:">&ndash;&nbsp;getCustomPushData:</a></code>
-		<span class="tooltip"><p>Gets custom JSON data from push notifications dictionary as specified in Pushwoosh Control Panel.</p></span>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/clearNotificationCenter">+&nbsp;clearNotificationCenter</a></code>
-		<span class="tooltip"><p>Clears the notifications from the notification center.</p></span>
 	</span>
 	
 	
@@ -870,6 +866,54 @@ Pushwoosh Runtime sets it to ApplicationDelegate by default</p>
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/getHWID" title="getHWID"></a>
+	<h3 class="subsubtitle method-title">getHWID</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Gets HWID. Unique device identifier that used in all API calls with Pushwoosh.
+This is identifierForVendor for iOS >= 7.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)getHWID</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Unique device identifier.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Gets HWID. Unique device identifier that used in all API calls with Pushwoosh.
+This is identifierForVendor for iOS >= 7.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/getPushToken" title="getPushToken"></a>
 	<h3 class="subsubtitle method-title">getPushToken</h3>
 	
@@ -1139,6 +1183,49 @@ Additional count parameter is responsible for storing the additional information
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/registerForPushNotifications" title="registerForPushNotifications"></a>
+	<h3 class="subsubtitle method-title">registerForPushNotifications</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Registers for push notifications. By default registeres for &ldquo;UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert&rdquo; flags.
+Automatically detects if you have &ldquo;newsstand-content&rdquo; in &ldquo;UIBackgroundModes&rdquo; and adds &ldquo;UIRemoteNotificationTypeNewsstandContentAvailability&rdquo; flag.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)registerForPushNotifications</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Registers for push notifications. By default registeres for &ldquo;UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert&rdquo; flags.
+Automatically detects if you have &ldquo;newsstand-content&rdquo; in &ldquo;UIBackgroundModes&rdquo; and adds &ldquo;UIRemoteNotificationTypeNewsstandContentAvailability&rdquo; flag.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/sendAppOpen" title="sendAppOpen"></a>
 	<h3 class="subsubtitle method-title">sendAppOpen</h3>
 	
@@ -1353,7 +1440,7 @@ This way Pushwoosh server can know what current badge value is set for the appli
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Start location tracking. Mode can be specified in <code>Info.plist</code> file with the <code>Pushwoosh_BGMODE</code> key.</p>
+		<p>Start location tracking.</p>
 	</div>		
 	
     
@@ -1370,76 +1457,7 @@ This way Pushwoosh server can know what current badge value is set for the appli
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Start location tracking. Mode can be specified in <code>Info.plist</code> file with the <code>Pushwoosh_BGMODE</code> key.</p>
-
-<p>Available modes are:</p>
-
-<ul>
-<li><code>PWTrackingDisabled</code> - no tracking in background (default)</li>
-<li><code>PWTrackSignificantLocationChanges</code> - this mode is battery-efficient and uses network triangulation in background and GPS in foreground</li>
-<li><code>PWTrackAccurateLocationChanges</code> - uses GPS in background and drains the battery. You have to specify &ldquo;location&rdquo; background mode in Info.plist as per iOS requirements</li>
-</ul>
-
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">PushNotificationManager.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/startLocationTracking:" title="startLocationTracking:"></a>
-	<h3 class="subsubtitle method-title">startLocationTracking:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Start location tracking. Mode can be specified as a string parameter.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)startLocationTracking:(NSString *)<em>mode</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>mode</em></dt>
-			<dd><p>Location tracking mode.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Start location tracking. Mode can be specified as a string parameter.</p>
-
-<p>Available modes are:</p>
-
-<ul>
-<li><code>PWTrackingDisabled</code> - no tracking in background (default)</li>
-<li><code>PWTrackSignificantLocationChanges</code> - this is battery-efficient and uses network triangulation in background and GPS in foreground</li>
-<li><code>PWTrackAccurateLocationChanges</code> - uses GPS in background and drains the battery. You have to specify &ldquo;location&rdquo; background mode in Info.plist as per iOS requirements</li>
-</ul>
-
+		<p>Start location tracking.</p>
 	</div>
 	
 	
@@ -1497,9 +1515,52 @@ This way Pushwoosh server can know what current badge value is set for the appli
 	
 </div>
 						
+						<div class="section-method">
+	<a name="//api/name/unregisterForPushNotifications" title="unregisterForPushNotifications"></a>
+	<h3 class="subsubtitle method-title">unregisterForPushNotifications</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Unregisters from push notifications. You should call this method in rare circumstances only, such as when a new version of the app drops support for remote notifications. Users can temporarily prevent apps from receiving remote notifications through the Notifications section of the Settings app. Apps unregistered through this method can always re-register.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)unregisterForPushNotifications</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Unregisters from push notifications. You should call this method in rare circumstances only, such as when a new version of the app drops support for remote notifications. Users can temporarily prevent apps from receiving remote notifications through the Notifications section of the Settings app. Apps unregistered through this method can always re-register.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
 					</div>
 					
 					
+                    
+                    
 				</div>
 				<div class="main-navigation navigation-bottom">
 					<ul>
@@ -1510,9 +1571,9 @@ This way Pushwoosh server can know what current badge value is set for the appli
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2013 Pushwoosh. All rights reserved. (Last updated: 2013-07-26)</span><br />
+						<p><span class="copyright">&copy; 2014 Pushwoosh. All rights reserved. (Last updated: 2014-05-13)</span><br />
 						
-						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.1 (build 858)</a>.</span></p>
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
 					</div>
 				</div>
