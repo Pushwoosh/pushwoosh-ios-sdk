@@ -13,5 +13,8 @@ http://www.pushwoosh.com/programming-push-notification/ios/native-ios-sdk-integr
 The sample project is available here:  
 https://github.com/shaders/pushwoosh-sdk-samples/tree/master/iPhone
 
+Documentation:
+https://rawgit.com/Pushwoosh/pushwoosh-ios-sdk/master/Documentation/index.html
+
 Pushwoosh team
 http://www.pushwoosh.com
