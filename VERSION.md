@@ -1,3 +1,6 @@
+Current version: 2.7.0
+=========================
+SDK with new default tags supported!
 Current version: 2.6.0
 =========================
 iBeacon support
