@@ -1,3 +1,6 @@
+Current version: 2.8.1
+=========================
+minor fix persisting unique device ID
 Current version: 2.8.0
 =========================
 iOS: Use advertisement identifier if AdSupport.framework linked, otherwise Vendor identifier. 
