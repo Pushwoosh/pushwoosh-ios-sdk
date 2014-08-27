@@ -1,3 +1,6 @@
+Current version: 2.8.2
+=========================
+accept string values for show alert info.plist setting
 Current version: 2.8.1
 =========================
 minor fix persisting unique device ID
