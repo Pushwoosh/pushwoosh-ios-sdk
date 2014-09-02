@@ -1,3 +1,6 @@
+Current version: 2.8.3
+=========================
+iOS rich pages fix
 Current version: 2.8.2
 =========================
 accept string values for show alert info.plist setting
