@@ -1,3 +1,7 @@
+Current version: 2.9.0
+=========================
++ iOS8.0 support!
++ categories for iOS8.0 support (will work with new cp update)
 Current version: 2.8.3
 =========================
 iOS rich pages fix
