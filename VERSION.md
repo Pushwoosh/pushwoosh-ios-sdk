@@ -1,3 +1,6 @@
+Current version: 2.9.1
+=========================
+adding missing by XCode6 arvm7s architecture
 Current version: 2.9.0
 =========================
 + iOS8.0 support!
