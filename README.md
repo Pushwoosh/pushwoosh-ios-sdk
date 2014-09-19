@@ -13,5 +13,7 @@ https://github.com/shaders/pushwoosh-sdk-samples/tree/master/iPhone
 Documentation:
 https://rawgit.com/Pushwoosh/pushwoosh-ios-sdk/master/Documentation/index.html
 
+If you are building with XCode5 (for iOS7) use framework from Framework_iOS7 folder
+
 Pushwoosh team
 http://www.pushwoosh.com
