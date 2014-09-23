@@ -1,3 +1,6 @@
+Current version: 2.9.2
+=========================
+Removed iBeacons support from default. Available per request.
 Current version: 2.9.1
 =========================
 adding missing by XCode6 arvm7s architecture
