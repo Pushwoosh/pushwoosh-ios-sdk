@@ -1,3 +1,6 @@
+Current version: 2.9.3
+=========================
+Correct handling of push categories on iOS7
 Current version: 2.9.2
 =========================
 Removed iBeacons support from default. Available per request.
