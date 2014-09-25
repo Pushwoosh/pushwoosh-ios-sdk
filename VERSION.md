@@ -1,3 +1,6 @@
+Current version: 2.9.4
+=========================
+stop location tracking only when enabled
 Current version: 2.9.3
 =========================
 Correct handling of push categories on iOS7
