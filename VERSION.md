@@ -1,3 +1,6 @@
+Current version: 2.10.0
+=========================
+Automatic IAP stats tracking for iOS
 Current version: 2.9.4
 =========================
 stop location tracking only when enabled
