@@ -1,3 +1,6 @@
+Current version: 2.10.1
+=========================
+Fix: possible endless registration cycle due to conflict with other ObjC categories
 Current version: 2.10.0
 =========================
 Automatic IAP stats tracking for iOS
