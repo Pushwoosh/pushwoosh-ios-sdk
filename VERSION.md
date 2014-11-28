@@ -1,3 +1,6 @@
+Current version: 2.11.0
+=========================
+Critical update, possible issue on multiple setTags detected and fixed
 Current version: 2.10.1
 =========================
 Fix: possible endless registration cycle due to conflict with other ObjC categories
