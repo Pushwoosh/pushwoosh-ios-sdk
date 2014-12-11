@@ -1,3 +1,6 @@
+Current version: 2.11.1
+=========================
+Rich page does not overlay Video
 Current version: 2.11.0
 =========================
 Critical update, possible issue on multiple setTags detected and fixed
