@@ -1,3 +1,6 @@
+Current version: 2.12.0
+=========================
+Improved geofencing algorithm
 Current version: 2.11.1
 =========================
 Rich page does not overlay Video
