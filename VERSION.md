@@ -1,3 +1,6 @@
+Current version: 2.12.1
+=========================
+improving geozone precision
 Current version: 2.12.0
 =========================
 Improved geofencing algorithm
