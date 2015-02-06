@@ -1,3 +1,6 @@
+Current version: 2.12.2
+=========================
+iOS possible empty token on first registration fix (was broken on last commit)
 Current version: 2.12.1
 =========================
 improving geozone precision
