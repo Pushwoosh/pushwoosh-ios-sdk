@@ -1,3 +1,6 @@
+Current version: 2.12.3
+=========================
+display alert about invalid profile only when registration for pushes has been called
 Current version: 2.12.2
 =========================
 iOS possible empty token on first registration fix (was broken on last commit)

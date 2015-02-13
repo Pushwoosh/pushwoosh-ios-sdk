@@ -233,7 +233,7 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  */
 - (void) unregisterForPushNotifications;
 
-+ (BOOL) getAPSProductionStatus;
++ (BOOL) getAPSProductionStatus:(BOOL)canShowAlert;
 
 - (id) initWithApplicationCode:(NSString *)appCode appName:(NSString *)appName;
 - (id) initWithApplicationCode:(NSString *)appCode navController:(UIViewController *) navController appName:(NSString *)appName __attribute__((deprecated));
