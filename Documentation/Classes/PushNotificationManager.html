@@ -54,6 +54,8 @@
 	
 	<option value="//api/name/clearNotificationCenter">&nbsp;&nbsp;&nbsp;&nbsp;+ clearNotificationCenter</option>
 	
+	<option value="//api/name/getRemoteNotificationStatus">&nbsp;&nbsp;&nbsp;&nbsp;+ getRemoteNotificationStatus</option>
+	
 	<option value="//api/name/initializeWithAppCode:appName:">&nbsp;&nbsp;&nbsp;&nbsp;+ initializeWithAppCode:appName:</option>
 	
 	<option value="//api/name/pushManager">&nbsp;&nbsp;&nbsp;&nbsp;+ pushManager</option>
@@ -66,6 +68,8 @@
 	<option value="//api/name/getApnPayload:">&nbsp;&nbsp;&nbsp;&nbsp;- getApnPayload:</option>
 	
 	<option value="//api/name/getCustomPushData:">&nbsp;&nbsp;&nbsp;&nbsp;- getCustomPushData:</option>
+	
+	<option value="//api/name/getCustomPushDataAsNSDict:">&nbsp;&nbsp;&nbsp;&nbsp;- getCustomPushDataAsNSDict:</option>
 	
 	<option value="//api/name/getHWID">&nbsp;&nbsp;&nbsp;&nbsp;- getHWID</option>
 	
@@ -143,6 +147,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/clearNotificationCenter">clearNotificationCenter</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getRemoteNotificationStatus">getRemoteNotificationStatus</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initializeWithAppCode:appName:">initializeWithAppCode:appName:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/pushManager">pushManager</a></span></li>
@@ -156,6 +162,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getApnPayload:">getApnPayload:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getCustomPushData:">getCustomPushData:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getCustomPushDataAsNSDict:">getCustomPushDataAsNSDict:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getHWID">getHWID</a></span></li>
 	
@@ -390,6 +398,18 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/getCustomPushData:">&ndash;&nbsp;getCustomPushData:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getCustomPushDataAsNSDict:">&ndash;&nbsp;getCustomPushDataAsNSDict:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getRemoteNotificationStatus">+&nbsp;getRemoteNotificationStatus</a></code>
 	</span>
 	
 	
@@ -659,6 +679,76 @@ Pushwoosh Runtime sets it to ApplicationDelegate by default</p>
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/getRemoteNotificationStatus" title="getRemoteNotificationStatus"></a>
+	<h3 class="subsubtitle method-title">getRemoteNotificationStatus</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns dictionary with enabled remove notificaton types.
+Example enabled push:
+{
+    enabled = 1;
+    pushAlert = 1;
+    pushBadge = 1;
+    pushSound = 1;
+    type = 7;
+}</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (NSMutableDictionary *)getRemoteNotificationStatus</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns dictionary with enabled remove notificaton types.
+Example enabled push:
+{
+    enabled = 1;
+    pushAlert = 1;
+    pushBadge = 1;
+    pushSound = 1;
+    type = 7;
+}</p>
+
+<p>where &ldquo;type&rdquo; field is UIUserNotificationType</p>
+
+<p>Disabled push:
+{
+    enabled = 1;
+    pushAlert = 0;
+    pushBadge = 0;
+    pushSound = 0;
+    type = 0;
+}</p>
+
+<p>Note: In the latter example &ldquo;enabled&rdquo; field means that device can receive push notification but could not display alerts (ex: silent push)</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/initializeWithAppCode:appName:" title="initializeWithAppCode:appName:"></a>
 	<h3 class="subsubtitle method-title">initializeWithAppCode:appName:</h3>
 	
@@ -853,7 +943,7 @@ Pushwoosh Runtime sets it to ApplicationDelegate by default</p>
 	
 	
 	<div class="method-subsection brief-description">
-		<p>Gets custom JSON data from push notifications dictionary as specified in Pushwoosh Control Panel.</p>
+		<p>Gets custom JSON string data from push notifications dictionary as specified in Pushwoosh Control Panel.</p>
 	</div>		
 	
     
@@ -880,7 +970,7 @@ Pushwoosh Runtime sets it to ApplicationDelegate by default</p>
 	
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
-		<p>Gets custom JSON data from push notifications dictionary as specified in Pushwoosh Control Panel.</p>
+		<p>Gets custom JSON string data from push notifications dictionary as specified in Pushwoosh Control Panel.</p>
 
 <p>Example:</p>
 
@@ -889,6 +979,47 @@ Pushwoosh Runtime sets it to ApplicationDelegate by default</p>
     NSLog(@"%@", customData);
  }
 </code></pre>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/getCustomPushDataAsNSDict:" title="getCustomPushDataAsNSDict:"></a>
+	<h3 class="subsubtitle method-title">getCustomPushDataAsNSDict:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The same as getCustomPushData but returns NSDictionary rather than JSON string (converts JSON string into NSDictionary).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSDictionary *)getCustomPushDataAsNSDict:(NSDictionary *)<em>pushNotification</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The same as getCustomPushData but returns NSDictionary rather than JSON string (converts JSON string into NSDictionary).</p>
 	</div>
 	
 	
@@ -1775,7 +1906,7 @@ This way Pushwoosh server can know what current badge value is set for the appli
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2015 Pushwoosh. All rights reserved. (Last updated: 2015-02-13)</span><br />
+						<p><span class="copyright">&copy; 2015 Pushwoosh. All rights reserved. (Last updated: 2015-03-18)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						

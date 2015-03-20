@@ -1,3 +1,6 @@
+Current version: 2.12.4
+=========================
+Updated method signature to prevent possible Apple Validator confusion
 Current version: 2.12.3
 =========================
 display alert about invalid profile only when registration for pushes has been called
