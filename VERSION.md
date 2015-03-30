@@ -1,3 +1,6 @@
+Current version: 2.13.0
+=========================
+iOS in-app banner style alerts
 Current version: 2.12.4
 =========================
 Updated method signature to prevent possible Apple Validator confusion
