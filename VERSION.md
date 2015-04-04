@@ -1,3 +1,6 @@
+Current version: 2.13.1
+=========================
+pushing to podspec integrated with CI
 Current version: 2.13.0
 =========================
 iOS in-app banner style alerts
