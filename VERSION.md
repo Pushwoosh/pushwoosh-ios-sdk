@@ -1,3 +1,6 @@
+Current version: 2.13.3
+=========================
+adding tag
 Current version: 2.13.2
 =========================
 iOS: fixed possible crash on dev apps without icon.
