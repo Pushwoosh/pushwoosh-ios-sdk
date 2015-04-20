@@ -1,3 +1,6 @@
+Current version: 2.13.2
+=========================
+iOS: fixed possible crash on dev apps without icon.
 Current version: 2.13.1
 =========================
 pushing to podspec integrated with CI
