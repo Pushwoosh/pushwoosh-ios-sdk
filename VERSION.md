@@ -1,3 +1,7 @@
+Current version: 2.13.4
+=========================
+native rich pages and landscape orientation - fixed possible crash
+localization support for actions
 Current version: 2.13.3
 =========================
 adding tag
