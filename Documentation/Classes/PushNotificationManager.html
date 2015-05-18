@@ -83,10 +83,6 @@
 	
 	<option value="//api/name/onRichPageButtonTapped:">&nbsp;&nbsp;&nbsp;&nbsp;- onRichPageButtonTapped:</option>
 	
-	<option value="//api/name/recordGoal:">&nbsp;&nbsp;&nbsp;&nbsp;- recordGoal:</option>
-	
-	<option value="//api/name/recordGoal:withCount:">&nbsp;&nbsp;&nbsp;&nbsp;- recordGoal:withCount:</option>
-	
 	<option value="//api/name/registerForPushNotifications">&nbsp;&nbsp;&nbsp;&nbsp;- registerForPushNotifications</option>
 	
 	<option value="//api/name/sendAppOpen">&nbsp;&nbsp;&nbsp;&nbsp;- sendAppOpen</option>
@@ -94,6 +90,10 @@
 	<option value="//api/name/sendBadges:">&nbsp;&nbsp;&nbsp;&nbsp;- sendBadges:</option>
 	
 	<option value="//api/name/sendLocation:">&nbsp;&nbsp;&nbsp;&nbsp;- sendLocation:</option>
+	
+	<option value="//api/name/sendPurchase:withPrice:currencyCode:andDate:">&nbsp;&nbsp;&nbsp;&nbsp;- sendPurchase:withPrice:currencyCode:andDate:</option>
+	
+	<option value="//api/name/sendSKPaymentTransactions:">&nbsp;&nbsp;&nbsp;&nbsp;- sendSKPaymentTransactions:</option>
 	
 	<option value="//api/name/setTags:">&nbsp;&nbsp;&nbsp;&nbsp;- setTags:</option>
 	
@@ -177,10 +177,6 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onRichPageButtonTapped:">onRichPageButtonTapped:</a></span></li>
 	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/recordGoal:">recordGoal:</a></span></li>
-	
-	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/recordGoal:withCount:">recordGoal:withCount:</a></span></li>
-	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/registerForPushNotifications">registerForPushNotifications</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendAppOpen">sendAppOpen</a></span></li>
@@ -188,6 +184,10 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendBadges:">sendBadges:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendLocation:">sendLocation:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendPurchase:withPrice:currencyCode:andDate:">sendPurchase:withPrice:currencyCode:andDate:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendSKPaymentTransactions:">sendSKPaymentTransactions:</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setTags:">setTags:</a></span></li>
 	
@@ -367,13 +367,13 @@
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/recordGoal:">&ndash;&nbsp;recordGoal:</a></code>
+		<code><a href="#//api/name/sendSKPaymentTransactions:">&ndash;&nbsp;sendSKPaymentTransactions:</a></code>
 	</span>
 	
 	
 </li><li>
 	<span class="tooltip">
-		<code><a href="#//api/name/recordGoal:withCount:">&ndash;&nbsp;recordGoal:withCount:</a></code>
+		<code><a href="#//api/name/sendPurchase:withPrice:currencyCode:andDate:">&ndash;&nbsp;sendPurchase:withPrice:currencyCode:andDate:</a></code>
 	</span>
 	
 	
@@ -1317,125 +1317,6 @@ Example of the dictionary representation of the received tags:</p>
 </div>
 						
 						<div class="section-method">
-	<a name="//api/name/recordGoal:" title="recordGoal:"></a>
-	<h3 class="subsubtitle method-title">recordGoal:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Records stats for a goal in the application, like in-app purchase, user reaching a specific point at the game etc. This function could be used to see the performance of marketing push notification.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)recordGoal:(NSString *)<em>goal</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>goal</em></dt>
-			<dd><p>Goal string.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Records stats for a goal in the application, like in-app purchase, user reaching a specific point at the game etc. This function could be used to see the performance of marketing push notification.</p>
-
-<p>Example:</p>
-
-<pre><code>[[PushNotificationManager pushManager] recordGoal:@"purchase1"];
-</code></pre>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">PushNotificationManager.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
-	<a name="//api/name/recordGoal:withCount:" title="recordGoal:withCount:"></a>
-	<h3 class="subsubtitle method-title">recordGoal:withCount:</h3>
-	
-	
-	
-	<div class="method-subsection brief-description">
-		<p>Records stats for a goal in the application, like in-app purchase, user reaching a specific point at the game.
-Additional count parameter is responsible for storing the additional information about the goal achieved like price of the purchase e.t.c.</p>
-	</div>		
-	
-    
-
-	<div class="method-subsection method-declaration"><code>- (void)recordGoal:(NSString *)<em>goal</em> withCount:(NSNumber *)<em>count</em></code></div>
-
-    
-	
-	<div class="method-subsection arguments-section parameters">
-		<h4 class="method-subtitle parameter-title">Parameters</h4>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>goal</em></dt>
-			<dd><p>Goal string.</p></dd>
-		</dl>
-		
-		<dl class="argument-def parameter-def">
-			<dt><em>count</em></dt>
-			<dd><p>Count parameter. Must be integer value.</p></dd>
-		</dl>
-		
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection discussion-section">
-		<h4 class="method-subtitle">Discussion</h4>
-		<p>Records stats for a goal in the application, like in-app purchase, user reaching a specific point at the game.
-Additional count parameter is responsible for storing the additional information about the goal achieved like price of the purchase e.t.c.</p>
-
-<p>Example:</p>
-
-<pre><code>[[PushNotificationsManager pushManager] recordGoal:@"purchase" withCount:[NSNumber numberWithInt:"10"];
-</code></pre>
-	</div>
-	
-	
-	
-	
-	
-	
-	
-	<div class="method-subsection declared-in-section">
-		<h4 class="method-subtitle">Declared In</h4>
-		<code class="declared-in-ref">PushNotificationManager.h</code><br />
-	</div>				
-	
-	
-</div>
-						
-						<div class="section-method">
 	<a name="//api/name/registerForPushNotifications" title="registerForPushNotifications"></a>
 	<h3 class="subsubtitle method-title">registerForPushNotifications</h3>
 	
@@ -1607,6 +1488,130 @@ This way Pushwoosh server can know what current badge value is set for the appli
 	<div class="method-subsection discussion-section">
 		<h4 class="method-subtitle">Discussion</h4>
 		<p>Sends geolocation to the server for GeoFencing push technology. Called internally, please use <a href="#//api/name/startLocationTracking"><code>startLocationTracking</code></a> and <a href="#//api/name/stopLocationTracking"><code>stopLocationTracking</code></a> functions.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sendPurchase:withPrice:currencyCode:andDate:" title="sendPurchase:withPrice:currencyCode:andDate:"></a>
+	<h3 class="subsubtitle method-title">sendPurchase:withPrice:currencyCode:andDate:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Tracks individual in-app purchase. See recommended <a href="#//api/name/sendSKPaymentTransactions:"><code>sendSKPaymentTransactions:</code></a> method.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)sendPurchase:(NSString *)<em>productIdentifier</em> withPrice:(NSDecimalNumber *)<em>price</em> currencyCode:(NSString *)<em>currencyCode</em> andDate:(NSDate *)<em>date</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>productIdentifier</em></dt>
+			<dd><p>purchased product ID</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>price</em></dt>
+			<dd><p>price for the product</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>currencyCode</em></dt>
+			<dd><p>currency of the price (ex: @&ldquo;USD&rdquo;)</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>date</em></dt>
+			<dd><p>time of the purchase (ex: [NSDate now])</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Tracks individual in-app purchase. See recommended <a href="#//api/name/sendSKPaymentTransactions:"><code>sendSKPaymentTransactions:</code></a> method.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sendSKPaymentTransactions:" title="sendSKPaymentTransactions:"></a>
+	<h3 class="subsubtitle method-title">sendSKPaymentTransactions:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sends in-app purchases to Pushwoosh. Use in <a href="#//api/name/paymentQueue:updatedTransactions:">paymentQueue:updatedTransactions:</a> payment queue method (see example).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)sendSKPaymentTransactions:(NSArray *)<em>transactions</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>transactions</em></dt>
+			<dd><p>Array of SKPaymentTransaction items as received in the payment queue.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sends in-app purchases to Pushwoosh. Use in <a href="#//api/name/paymentQueue:updatedTransactions:">paymentQueue:updatedTransactions:</a> payment queue method (see example).</p>
+
+<p>Example:</p>
+
+<pre><code> - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
+    [[PushNotificationManager pushManager] sendSKPaymentTransactions:transactions];
+ }
+</code></pre>
 	</div>
 	
 	
@@ -1906,7 +1911,7 @@ This way Pushwoosh server can know what current badge value is set for the appli
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2015 Pushwoosh. All rights reserved. (Last updated: 2015-04-28)</span><br />
+						<p><span class="copyright">&copy; 2015 Pushwoosh. All rights reserved. (Last updated: 2015-05-18)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						

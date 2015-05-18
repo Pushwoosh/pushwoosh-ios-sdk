@@ -1,3 +1,6 @@
+Current version: 2.13.5
+=========================
+exposing sendPurchase method and sendSKPaymentTransactions method
 Current version: 2.13.4
 =========================
 native rich pages and landscape orientation - fixed possible crash
