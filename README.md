@@ -8,7 +8,7 @@ The guilde for SDK integration is available on Pushwoosh website:
 http://www.pushwoosh.com/programming-push-notification/ios/native-ios-sdk-integration/
 
 The sample project is available here:  
-https://github.com/shaders/pushwoosh-sdk-samples/tree/master/iPhone
+https://github.com/Pushwoosh/pushwoosh-sdk-samples/tree/master/Native/iPhone
 
 Documentation:
 https://rawgit.com/Pushwoosh/pushwoosh-ios-sdk/master/Documentation/index.html
