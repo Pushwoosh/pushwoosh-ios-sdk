@@ -1,3 +1,6 @@
+Current version: 2.13.6
+=========================
+Rich page bug fixes and back button handler
 Current version: 2.13.5
 =========================
 exposing sendPurchase method and sendSKPaymentTransactions method

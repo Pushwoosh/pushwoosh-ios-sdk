@@ -45,6 +45,8 @@
 	
 	<option value="//api/name/delegate">&nbsp;&nbsp;&nbsp;&nbsp;delegate</option>
 	
+	<option value="//api/name/launchNotification">&nbsp;&nbsp;&nbsp;&nbsp;launchNotification</option>
+	
 	<option value="//api/name/showPushnotificationAlert">&nbsp;&nbsp;&nbsp;&nbsp;showPushnotificationAlert</option>
 	
 	
@@ -80,6 +82,8 @@
 	<option value="//api/name/loadTags">&nbsp;&nbsp;&nbsp;&nbsp;- loadTags</option>
 	
 	<option value="//api/name/loadTags:error:">&nbsp;&nbsp;&nbsp;&nbsp;- loadTags:error:</option>
+	
+	<option value="//api/name/onRichPageBackTapped">&nbsp;&nbsp;&nbsp;&nbsp;- onRichPageBackTapped</option>
 	
 	<option value="//api/name/onRichPageButtonTapped:">&nbsp;&nbsp;&nbsp;&nbsp;- onRichPageButtonTapped:</option>
 	
@@ -137,6 +141,8 @@
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/delegate">delegate</a></span></li>
 	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/launchNotification">launchNotification</a></span></li>
+	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showPushnotificationAlert">showPushnotificationAlert</a></span></li>
 	
 </ul></li>
@@ -174,6 +180,8 @@
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/loadTags">loadTags</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/loadTags:error:">loadTags:error:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onRichPageBackTapped">onRichPageBackTapped</a></span></li>
 	
 	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onRichPageButtonTapped:">onRichPageButtonTapped:</a></span></li>
 	
@@ -278,6 +286,12 @@
 </li><li>
 	<span class="tooltip">
 		<code><a href="#//api/name/showPushnotificationAlert">&nbsp;&nbsp;showPushnotificationAlert</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/launchNotification">&nbsp;&nbsp;launchNotification</a></code>
 	</span>
 	<span class="task-item-suffix">property</span>
 	
@@ -431,6 +445,12 @@
 	</span>
 	
 	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/onRichPageBackTapped">&ndash;&nbsp;onRichPageBackTapped</a></code>
+	</span>
+	
+	
 </li>
 						</ul>
 						
@@ -572,6 +592,47 @@ Pushwoosh Runtime sets it to ApplicationDelegate by default</p>
 		<h4 class="method-subtitle">Discussion</h4>
 		<p><a href="../Protocols/PushNotificationDelegate.html"><code>PushNotificationDelegate</code></a> protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification.
 Pushwoosh Runtime sets it to ApplicationDelegate by default</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/launchNotification" title="launchNotification"></a>
+	<h3 class="subsubtitle method-title">launchNotification</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns push notification payload if the app was started in response to push notification or null otherwise</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, readonly) NSDictionary *launchNotification</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns push notification payload if the app was started in response to push notification or null otherwise</p>
 	</div>
 	
 	
@@ -1276,6 +1337,47 @@ Example of the dictionary representation of the received tags:</p>
 </div>
 						
 						<div class="section-method">
+	<a name="//api/name/onRichPageBackTapped" title="onRichPageBackTapped"></a>
+	<h3 class="subsubtitle method-title">onRichPageBackTapped</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Internal function</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)onRichPageBackTapped</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Internal function</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
 	<a name="//api/name/onRichPageButtonTapped:" title="onRichPageButtonTapped:"></a>
 	<h3 class="subsubtitle method-title">onRichPageButtonTapped:</h3>
 	
@@ -1911,7 +2013,7 @@ This way Pushwoosh server can know what current badge value is set for the appli
 				<div id="footer">
 					<hr />
 					<div class="footer-copyright">
-						<p><span class="copyright">&copy; 2015 Pushwoosh. All rights reserved. (Last updated: 2015-05-18)</span><br />
+						<p><span class="copyright">&copy; 2015 Pushwoosh. All rights reserved. (Last updated: 2015-07-09)</span><br />
 						
 						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
 						
