@@ -3,35 +3,34 @@
 PushNotificationManager class offers access to the singletone-instance of the push manager responsible for registering the device with the APS servers, receiving and processing push notifications.
 
 ## Tasks
-[appCode](#appCode) *property*  
-[appName](#appName) *property*  
+[appCode](#appcode) *property*  
+[appName](#appname) *property*  
 [delegate](#delegate) *property*  
-[showPushnotificationAlert](showPushnotificationAlert) *property*  
-[launchNotification](launchNotification) *property*  
+[showPushnotificationAlert](#showpushnotificationalert) *property*  
+[launchNotification](#launchnotification) *property*  
 
-[+ initializeWithAppCode:appName:](initializeWithAppCodeappName)  
-[+ pushManager](pushManager)  
-[– registerForPushNotifications](registerForPushNotifications)  
-[– unregisterForPushNotifications](unregisterForPushNotifications)  
-[– startLocationTracking](startLocationTracking)  
-[– stopLocationTracking](startBeaconTracking)  
-[– startBeaconTracking](startBeaconTracking)  
-[– stopBeaconTracking](stopBeaconTracking)  
-[– setTags:](setTags)  
-[– loadTags](loadTags)  
-[– loadTags:error:](loadTagserror)  
-[– sendAppOpen](sendAppOpen)  
-[– sendBadges:](sendBadges)  
-[– sendLocation:](sendLocation)  
-[– sendSKPaymentTransactions:](sendSKPaymentTransactions)  
-[– sendPurchase:withPrice:currencyCode:andDate:](sendPurchasewithPricecurrencyCodeandDate)  
-[– getPushToken](getPushToken)  
-[– getHWID](getHWID)  
-[– getApnPayload:](getApnPayload)  
-[– getCustomPushData:](getCustomPushData)  
-[– getCustomPushDataAsNSDict:](getCustomPushDataAsNSDict)  
-[+ getRemoteNotificationStatus](getRemoteNotificationStatus)  
-[+ clearNotificationCenter](clearNotificationCenter)  
+[+ initializeWithAppCode:appName:](#initializewithappcodeappname)  
+[+ pushManager](#pushmanager)  
+[– registerForPushNotifications](#registerforpushnotifications)  
+[– unregisterForPushNotifications](#unregisterforpushnotifications)  
+[– startLocationTracking](#startlocationtracking)  
+[– stopLocationTracking](#startbeacontracking)  
+[– startBeaconTracking](#startbeacontracking)  
+[– stopBeaconTracking](#stopbeacontracking)  
+[– setTags:](#settags)  
+[– loadTags](#loadtags)  
+[– loadTags:error:](#loadtagserror)  
+[– sendAppOpen](#sendappopen)  
+[– sendBadges:](#sendbadges)  
+[– sendSKPaymentTransactions:](#sendskpaymenttransactions)  
+[– sendPurchase:withPrice:currencyCode:andDate:](#sendpurchasewithpricecurrencycodeanddate)  
+[– getPushToken](#getpushtoken)  
+[– getHWID](#gethwid)  
+[– getApnPayload:](#getapnpayload)  
+[– getCustomPushData:](#getcustompushdata)  
+[– getCustomPushDataAsNSDict:](#getcustompushdataasnsdict)  
+[+ getRemoteNotificationStatus](#getremotenotificationstatus)  
+[+ clearNotificationCenter](#clearnotificationcenter)  
 
 
 ## Properties
