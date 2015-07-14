@@ -3,15 +3,15 @@
 `PushNotificationDelegate` protocol defines the methods that can be implemented in the delegate of the `PushNotificationManager` class' singleton object. These methods provide information about the key events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification. These methods implementation allows to react on these events properly.
 
 ## Tasks
-[– onDidRegisterForRemoteNotificationsWithDeviceToken:](#onDidRegisterForRemoteNotificationsWithDeviceToken)  
-[– onDidFailToRegisterForRemoteNotificationsWithError:](#onDidFailToRegisterForRemoteNotificationsWithError)  
-[– onPushReceived:withNotification:onStart:](#onPushReceivedwithNotificationonStart)  
-[– onPushAccepted:withNotification:](#onPushAcceptedwithNotification)  
-[– onPushAccepted:withNotification:onStart:](#onPushAcceptedwithNotificationonStart)  
-[– onRichPageButtonTapped:](#onRichPageButtonTapped)  
-[– onRichPageBackTapped](#onRichPageBackTapped)  
-[– onTagsReceived:](#onTagsReceived)  
-[– onTagsFailedToReceive:](#onTagsFailedToReceive)  
+[– onDidRegisterForRemoteNotificationsWithDeviceToken:](#ondidregisterforremotenotificationswithdevicetoken)  
+[– onDidFailToRegisterForRemoteNotificationsWithError:](#ondidfailtoregisterforremotenotificationswitherror)  
+[– onPushReceived:withNotification:onStart:](#onpushreceivedwithnotificationonstart)  
+[– onPushAccepted:withNotification:](#onpushacceptedwithnotification)  
+[– onPushAccepted:withNotification:onStart:](#onpushacceptedwithnotificationonstart)  
+[– onRichPageButtonTapped:](#onrichpagebuttontapped)  
+[– onRichPageBackTapped](#onrichpagebacktapped)  
+[– onTagsReceived:](#ontagsreceived)  
+[– onTagsFailedToReceive:](#ontagsfailedtoreceive)  
 
 
 ## Instance Methods
