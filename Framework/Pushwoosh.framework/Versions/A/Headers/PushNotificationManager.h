@@ -18,8 +18,8 @@ typedef NS_ENUM(NSInteger, PWSupportedOrientations) {
 	PWOrientationLandscapeRight = 1 << 3,
 };
 
-typedef void(^pushwooshGetTagsHandler)(NSDictionary *tags);
-typedef void(^pushwooshErrorHandler)(NSError *error);
+typedef void(^PushwooshGetTagsHandler)(NSDictionary *tags);
+typedef void(^PushwooshErrorHandler)(NSError *error);
 
 /**
  `PushNotificationDelegate` protocol defines the methods that can be implemented in the delegate of the `PushNotificationManager` class' singleton object.
@@ -285,6 +285,11 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
 - (void) setTags: (NSDictionary *) tags;
 
 /**
+ Send tags to server with completion block. If setTags succeeds competion is called with nil argument. If setTags fails completion is called with error.
+ */
+- (void) setTags: (NSDictionary *) tags withCompletion: (void(^)(NSError* error)) completion;
+
+/**
  Get tags from the server. Calls delegate method `onTagsReceived:` or `onTagsFailedToReceive:` depending on the results.
  */
 - (void) loadTags;
@@ -302,7 +307,7 @@ typedef void(^pushwooshErrorHandler)(NSError *error);
  
  @param errorHandler The block is executed on the unsuccessful completion of the request. This block has no return value and takes one argument: the error that occurred during the request.
  */
-- (void) loadTags: (pushwooshGetTagsHandler) successHandler error:(pushwooshErrorHandler) errorHandler;
+- (void) loadTags: (PushwooshGetTagsHandler) successHandler error:(PushwooshErrorHandler) errorHandler;
 
 /**
  Informs the Pushwoosh about the app being launched. Usually called internally by SDK Runtime.

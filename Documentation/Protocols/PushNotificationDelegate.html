@@ -1,0 +1,856 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>PushNotificationDelegate Protocol Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">Pushwoosh </a></h1>
+				<a id="developerHome" href="../index.html">Pushwoosh</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">PushNotificationDelegate Protocol Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/onDidFailToRegisterForRemoteNotificationsWithError:">&nbsp;&nbsp;&nbsp;&nbsp;- onDidFailToRegisterForRemoteNotificationsWithError:</option>
+	
+	<option value="//api/name/onDidRegisterForRemoteNotificationsWithDeviceToken:">&nbsp;&nbsp;&nbsp;&nbsp;- onDidRegisterForRemoteNotificationsWithDeviceToken:</option>
+	
+	<option value="//api/name/onPushAccepted:withNotification:">&nbsp;&nbsp;&nbsp;&nbsp;- onPushAccepted:withNotification:</option>
+	
+	<option value="//api/name/onPushAccepted:withNotification:onStart:">&nbsp;&nbsp;&nbsp;&nbsp;- onPushAccepted:withNotification:onStart:</option>
+	
+	<option value="//api/name/onPushReceived:withNotification:onStart:">&nbsp;&nbsp;&nbsp;&nbsp;- onPushReceived:withNotification:onStart:</option>
+	
+	<option value="//api/name/onRichPageBackTapped">&nbsp;&nbsp;&nbsp;&nbsp;- onRichPageBackTapped</option>
+	
+	<option value="//api/name/onRichPageButtonTapped:">&nbsp;&nbsp;&nbsp;&nbsp;- onRichPageButtonTapped:</option>
+	
+	<option value="//api/name/onTagsFailedToReceive:">&nbsp;&nbsp;&nbsp;&nbsp;- onTagsFailedToReceive:</option>
+	
+	<option value="//api/name/onTagsReceived:">&nbsp;&nbsp;&nbsp;&nbsp;- onTagsReceived:</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+</ul></li>
+
+
+
+
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onDidFailToRegisterForRemoteNotificationsWithError:">onDidFailToRegisterForRemoteNotificationsWithError:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onDidRegisterForRemoteNotificationsWithDeviceToken:">onDidRegisterForRemoteNotificationsWithDeviceToken:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onPushAccepted:withNotification:">onPushAccepted:withNotification:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onPushAccepted:withNotification:onStart:">onPushAccepted:withNotification:onStart:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onPushReceived:withNotification:onStart:">onPushReceived:withNotification:onStart:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onRichPageBackTapped">onRichPageBackTapped</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onRichPageButtonTapped:">onRichPageButtonTapped:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onTagsFailedToReceive:">onTagsFailedToReceive:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onTagsReceived:">onTagsReceived:</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="PushNotificationDelegate Protocol Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">PushNotificationDelegate Protocol Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">PushNotificationManager.h</td>
+</tr>
+						</tbody></table></div>
+					
+                    
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p><code>PushNotificationDelegate</code> protocol defines the methods that can be implemented in the delegate of the <a href="../Classes/PushNotificationManager.html"><code>PushNotificationManager</code></a> class' singleton object.
+These methods provide information about the key events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification.
+These methods implementation allows to react on these events properly.</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/onDidRegisterForRemoteNotificationsWithDeviceToken:">&ndash;&nbsp;onDidRegisterForRemoteNotificationsWithDeviceToken:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/onDidFailToRegisterForRemoteNotificationsWithError:">&ndash;&nbsp;onDidFailToRegisterForRemoteNotificationsWithError:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/onPushReceived:withNotification:onStart:">&ndash;&nbsp;onPushReceived:withNotification:onStart:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/onPushAccepted:withNotification:">&ndash;&nbsp;onPushAccepted:withNotification:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/onPushAccepted:withNotification:onStart:">&ndash;&nbsp;onPushAccepted:withNotification:onStart:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/onRichPageButtonTapped:">&ndash;&nbsp;onRichPageButtonTapped:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/onRichPageBackTapped">&ndash;&nbsp;onRichPageBackTapped</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/onTagsReceived:">&ndash;&nbsp;onTagsReceived:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/onTagsFailedToReceive:">&ndash;&nbsp;onTagsFailedToReceive:</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/onDidFailToRegisterForRemoteNotificationsWithError:" title="onDidFailToRegisterForRemoteNotificationsWithError:"></a>
+	<h3 class="subsubtitle method-title">onDidFailToRegisterForRemoteNotificationsWithError:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sent to the delegate when Apple Push Service (APS) could not complete the registration process successfully.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)onDidFailToRegisterForRemoteNotificationsWithError:(NSError *)<em>error</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>error</em></dt>
+			<dd><p>An NSError object encapsulating the information about the reason of the registration failure. Within this method you can define application&rsquo;s behaviour in case of registration failure.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sent to the delegate when Apple Push Service (APS) could not complete the registration process successfully.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/onDidRegisterForRemoteNotificationsWithDeviceToken:" title="onDidRegisterForRemoteNotificationsWithDeviceToken:"></a>
+	<h3 class="subsubtitle method-title">onDidRegisterForRemoteNotificationsWithDeviceToken:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Tells the delegate that the application has registered with Apple Push Service (APS) successfully.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)onDidRegisterForRemoteNotificationsWithDeviceToken:(NSString *)<em>token</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>token</em></dt>
+			<dd><p>A token used for identifying the device with APS.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Tells the delegate that the application has registered with Apple Push Service (APS) successfully.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/onPushAccepted:withNotification:" title="onPushAccepted:withNotification:"></a>
+	<h3 class="subsubtitle method-title">onPushAccepted:withNotification:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Tells the delegate that the user has pressed OK on the push notification.
+IMPORTANT: This method is used for backwards compatibility and is deprecated. Please use the <a href="#//api/name/onPushAccepted:withNotification:onStart:"><code>onPushAccepted:withNotification:onStart:</code></a> method instead</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)onPushAccepted:(PushNotificationManager *)<em>pushManager</em> withNotification:(NSDictionary *)<em>pushNotification</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>pushManager</em></dt>
+			<dd><p>The push manager that received the remote notification.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>pushNotification</em></dt>
+			<dd><p>A dictionary that contains information referring to the remote notification, potentially including a badge number for the application icon, an alert sound, an alert message to display to the user, a notification identifier, and custom data.
+The provider originates it as a JSON-defined dictionary that iOS converts to an NSDictionary object; the dictionary may contain only property-list objects plus NSNull.
+Push dictionary sample:</p>
+
+<pre><code> {
+     aps =     {
+         alert = "Some text.";
+         sound = default;
+     };
+     p = 1pb;
+ }
+</code></pre></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Tells the delegate that the user has pressed OK on the push notification.
+IMPORTANT: This method is used for backwards compatibility and is deprecated. Please use the <a href="#//api/name/onPushAccepted:withNotification:onStart:"><code>onPushAccepted:withNotification:onStart:</code></a> method instead</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/onPushAccepted:withNotification:onStart:" title="onPushAccepted:withNotification:onStart:"></a>
+	<h3 class="subsubtitle method-title">onPushAccepted:withNotification:onStart:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Tells the delegate that the user has pressed OK on the push notification.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)onPushAccepted:(PushNotificationManager *)<em>pushManager</em> withNotification:(NSDictionary *)<em>pushNotification</em> onStart:(BOOL)<em>onStart</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>pushManager</em></dt>
+			<dd><p>The push manager that received the remote notification.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>pushNotification</em></dt>
+			<dd><p>A dictionary that contains information about the remote notification, potentially including a badge number for the application icon, an alert sound, an alert message to display to the user, a notification identifier, and custom data.
+The provider originates it as a JSON-defined dictionary that iOS converts to an NSDictionary object; the dictionary may contain only property-list objects plus NSNull.
+Push dictionary sample:</p>
+
+<pre><code> {
+     aps =     {
+         alert = "Some text.";
+         sound = default;
+     };
+     p = 1pb;
+ }
+</code></pre></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>onStart</em></dt>
+			<dd><p>If the application was not active when the push notification was received, the application will be launched with this parameter equal to <code>YES</code>, otherwise the parameter will be <code>NO</code>.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Tells the delegate that the user has pressed OK on the push notification.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/onPushReceived:withNotification:onStart:" title="onPushReceived:withNotification:onStart:"></a>
+	<h3 class="subsubtitle method-title">onPushReceived:withNotification:onStart:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Tells the delegate that the push manager has received a remote notification.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)onPushReceived:(PushNotificationManager *)<em>pushManager</em> withNotification:(NSDictionary *)<em>pushNotification</em> onStart:(BOOL)<em>onStart</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>pushManager</em></dt>
+			<dd><p>The push manager that received the remote notification.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>pushNotification</em></dt>
+			<dd><p>A dictionary that contains information referring to the remote notification, potentially including a badge number for the application icon, an alert sound, an alert message to display to the user, a notification identifier, and custom data.
+The provider originates it as a JSON-defined dictionary that iOS converts to an NSDictionary object; the dictionary may contain only property-list objects plus NSNull.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>onStart</em></dt>
+			<dd><p>If the application was not active when the push notification was received, the application will be launched with this parameter equal to <code>YES</code>, otherwise the parameter will be <code>NO</code>.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Tells the delegate that the push manager has received a remote notification.</p>
+
+<p>If this method is implemented <a href="#//api/name/onPushAccepted:withNotification:"><code>onPushAccepted:withNotification:</code></a> will not be called, internal message boxes will not be displayed.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/onRichPageBackTapped" title="onRichPageBackTapped"></a>
+	<h3 class="subsubtitle method-title">onRichPageBackTapped</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>User has tapped on the back button on Rich Push Page.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)onRichPageBackTapped</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>User has tapped on the back button on Rich Push Page.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/onRichPageButtonTapped:" title="onRichPageButtonTapped:"></a>
+	<h3 class="subsubtitle method-title">onRichPageButtonTapped:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>User has tapped on the action button on Rich Push Page.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)onRichPageButtonTapped:(NSString *)<em>customData</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>customData</em></dt>
+			<dd><p>Data associated with rich page button in the Rich Push Editor</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>User has tapped on the action button on Rich Push Page.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/onTagsFailedToReceive:" title="onTagsFailedToReceive:"></a>
+	<h3 class="subsubtitle method-title">onTagsFailedToReceive:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sent to the delegate when push manager could not complete the tags receiving process successfully.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)onTagsFailedToReceive:(NSError *)<em>error</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>error</em></dt>
+			<dd><p>An NSError object that encapsulates information why receiving tags did not succeed.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sent to the delegate when push manager could not complete the tags receiving process successfully.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/onTagsReceived:" title="onTagsReceived:"></a>
+	<h3 class="subsubtitle method-title">onTagsReceived:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Tells the delegate that the push manager has received tags from the server.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)onTagsReceived:(NSDictionary *)<em>tags</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>tags</em></dt>
+			<dd><p>Dictionary representation of received tags.
+Dictionary example:</p>
+
+<pre><code> {
+     Country = ru;
+     Language = ru;
+ }
+</code></pre></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Tells the delegate that the push manager has received tags from the server.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+                    
+                    
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2015 Pushwoosh. All rights reserved. (Last updated: 2015-07-09)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

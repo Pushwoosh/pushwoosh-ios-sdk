@@ -1,0 +1,2116 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<meta http-equiv="Content-Type" content="html/html; charset=utf-8" />
+		<title>PushNotificationManager Class Reference</title>
+		<meta id="xcode-display" name="xcode-display" content="render"/>
+		<link rel="stylesheet" type="text/css" href="../css/styles.css" media="all" />
+		<link rel="stylesheet" type="text/css" media="print" href="../css/stylesPrint.css" />
+		<meta name="generator" content="appledoc 2.2 (build 963)" />
+	</head>
+	<body>
+		<header id="top_header">
+			<div id="library" class="hideInXcode">
+				<h1><a id="libraryTitle" href="../index.html">Pushwoosh </a></h1>
+				<a id="developerHome" href="../index.html">Pushwoosh</a>
+			</div>
+			
+			<div id="title" role="banner">
+				<h1 class="hideInXcode">PushNotificationManager Class Reference</h1>
+			</div>
+			<ul id="headerButtons" role="toolbar">
+				<li id="toc_button">
+					<button aria-label="Show Table of Contents" role="checkbox" class="open" id="table_of_contents"><span class="disclosure"></span>Table of Contents</button>
+				</li>
+				<li id="jumpto_button" role="navigation">
+					<select id="jumpTo">
+	<option value="top">Jump To&#133;</option>
+	
+	<option value="overview">Overview</option>
+	
+	
+	
+	
+	<option value="tasks">Tasks</option>
+	
+	
+	
+	
+	
+	<option value="properties">Properties</option>
+	
+	<option value="//api/name/appCode">&nbsp;&nbsp;&nbsp;&nbsp;appCode</option>
+	
+	<option value="//api/name/appName">&nbsp;&nbsp;&nbsp;&nbsp;appName</option>
+	
+	<option value="//api/name/delegate">&nbsp;&nbsp;&nbsp;&nbsp;delegate</option>
+	
+	<option value="//api/name/launchNotification">&nbsp;&nbsp;&nbsp;&nbsp;launchNotification</option>
+	
+	<option value="//api/name/showPushnotificationAlert">&nbsp;&nbsp;&nbsp;&nbsp;showPushnotificationAlert</option>
+	
+	
+	
+	
+	<option value="class_methods">Class Methods</option>
+	
+	<option value="//api/name/clearNotificationCenter">&nbsp;&nbsp;&nbsp;&nbsp;+ clearNotificationCenter</option>
+	
+	<option value="//api/name/getRemoteNotificationStatus">&nbsp;&nbsp;&nbsp;&nbsp;+ getRemoteNotificationStatus</option>
+	
+	<option value="//api/name/initializeWithAppCode:appName:">&nbsp;&nbsp;&nbsp;&nbsp;+ initializeWithAppCode:appName:</option>
+	
+	<option value="//api/name/pushManager">&nbsp;&nbsp;&nbsp;&nbsp;+ pushManager</option>
+	
+	
+	
+	
+	<option value="instance_methods">Instance Methods</option>
+	
+	<option value="//api/name/getApnPayload:">&nbsp;&nbsp;&nbsp;&nbsp;- getApnPayload:</option>
+	
+	<option value="//api/name/getCustomPushData:">&nbsp;&nbsp;&nbsp;&nbsp;- getCustomPushData:</option>
+	
+	<option value="//api/name/getCustomPushDataAsNSDict:">&nbsp;&nbsp;&nbsp;&nbsp;- getCustomPushDataAsNSDict:</option>
+	
+	<option value="//api/name/getHWID">&nbsp;&nbsp;&nbsp;&nbsp;- getHWID</option>
+	
+	<option value="//api/name/getPage:">&nbsp;&nbsp;&nbsp;&nbsp;- getPage:</option>
+	
+	<option value="//api/name/getPushToken">&nbsp;&nbsp;&nbsp;&nbsp;- getPushToken</option>
+	
+	<option value="//api/name/loadTags">&nbsp;&nbsp;&nbsp;&nbsp;- loadTags</option>
+	
+	<option value="//api/name/loadTags:error:">&nbsp;&nbsp;&nbsp;&nbsp;- loadTags:error:</option>
+	
+	<option value="//api/name/onRichPageBackTapped">&nbsp;&nbsp;&nbsp;&nbsp;- onRichPageBackTapped</option>
+	
+	<option value="//api/name/onRichPageButtonTapped:">&nbsp;&nbsp;&nbsp;&nbsp;- onRichPageButtonTapped:</option>
+	
+	<option value="//api/name/registerForPushNotifications">&nbsp;&nbsp;&nbsp;&nbsp;- registerForPushNotifications</option>
+	
+	<option value="//api/name/sendAppOpen">&nbsp;&nbsp;&nbsp;&nbsp;- sendAppOpen</option>
+	
+	<option value="//api/name/sendBadges:">&nbsp;&nbsp;&nbsp;&nbsp;- sendBadges:</option>
+	
+	<option value="//api/name/sendLocation:">&nbsp;&nbsp;&nbsp;&nbsp;- sendLocation:</option>
+	
+	<option value="//api/name/sendPurchase:withPrice:currencyCode:andDate:">&nbsp;&nbsp;&nbsp;&nbsp;- sendPurchase:withPrice:currencyCode:andDate:</option>
+	
+	<option value="//api/name/sendSKPaymentTransactions:">&nbsp;&nbsp;&nbsp;&nbsp;- sendSKPaymentTransactions:</option>
+	
+	<option value="//api/name/setTags:">&nbsp;&nbsp;&nbsp;&nbsp;- setTags:</option>
+	
+	<option value="//api/name/startBeaconTracking">&nbsp;&nbsp;&nbsp;&nbsp;- startBeaconTracking</option>
+	
+	<option value="//api/name/startLocationTracking">&nbsp;&nbsp;&nbsp;&nbsp;- startLocationTracking</option>
+	
+	<option value="//api/name/stopBeaconTracking">&nbsp;&nbsp;&nbsp;&nbsp;- stopBeaconTracking</option>
+	
+	<option value="//api/name/stopLocationTracking">&nbsp;&nbsp;&nbsp;&nbsp;- stopLocationTracking</option>
+	
+	<option value="//api/name/unregisterForPushNotifications">&nbsp;&nbsp;&nbsp;&nbsp;- unregisterForPushNotifications</option>
+	
+	
+	
+</select>
+				</li>
+			</ul>
+		</header>
+		<nav id="tocContainer" class="isShowingTOC">
+			<ul id="toc" role="tree">
+				
+<li role="treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#overview">Overview</a></span></li>
+
+
+
+
+<li role="treeitem" id="task_treeitem"><span class="nodisclosure"></span><span class="sectionName"><a href="#tasks">Tasks</a></span><ul>
+	
+</ul></li>
+
+
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#properties">Properties</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/appCode">appCode</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/appName">appName</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/delegate">delegate</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/launchNotification">launchNotification</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/showPushnotificationAlert">showPushnotificationAlert</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#class_methods">Class Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/clearNotificationCenter">clearNotificationCenter</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getRemoteNotificationStatus">getRemoteNotificationStatus</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/initializeWithAppCode:appName:">initializeWithAppCode:appName:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/pushManager">pushManager</a></span></li>
+	
+</ul></li>
+
+
+
+<li role="treeitem" class="children"><span class="disclosure"></span><span class="sectionName"><a href="#instance_methods">Instance Methods</a></span><ul>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getApnPayload:">getApnPayload:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getCustomPushData:">getCustomPushData:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getCustomPushDataAsNSDict:">getCustomPushDataAsNSDict:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getHWID">getHWID</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getPage:">getPage:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/getPushToken">getPushToken</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/loadTags">loadTags</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/loadTags:error:">loadTags:error:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onRichPageBackTapped">onRichPageBackTapped</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/onRichPageButtonTapped:">onRichPageButtonTapped:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/registerForPushNotifications">registerForPushNotifications</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendAppOpen">sendAppOpen</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendBadges:">sendBadges:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendLocation:">sendLocation:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendPurchase:withPrice:currencyCode:andDate:">sendPurchase:withPrice:currencyCode:andDate:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/sendSKPaymentTransactions:">sendSKPaymentTransactions:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/setTags:">setTags:</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/startBeaconTracking">startBeaconTracking</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/startLocationTracking">startLocationTracking</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stopBeaconTracking">stopBeaconTracking</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/stopLocationTracking">stopLocationTracking</a></span></li>
+	
+	<li><span class="nodisclosure"></span><span class="sectionName"><a href="#//api/name/unregisterForPushNotifications">unregisterForPushNotifications</a></span></li>
+	
+</ul></li>
+
+
+			</ul>
+		</nav>
+		<article>
+			<div id="contents" class="isShowingTOC" role="main">
+				<a title="PushNotificationManager Class Reference" name="top"></a>
+				<div class="main-navigation navigation-top">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="header">
+					<div class="section-header">
+						<h1 class="title title-header">PushNotificationManager Class Reference</h1>
+					</div>		
+				</div>
+				<div id="container">	
+					
+					<div class="section section-specification"><table cellspacing="0"><tbody>
+						<tr>
+	<td class="specification-title">Inherits from</td>
+	<td class="specification-value">NSObject</td>
+</tr><tr>
+	<td class="specification-title">Conforms to</td>
+	<td class="specification-value">SKPaymentTransactionObserver</td>
+</tr><tr>
+	<td class="specification-title">Declared in</td>
+	<td class="specification-value">PushNotificationManager.h<br />PushNotificationManager.m</td>
+</tr>
+						</tbody></table></div>
+					
+                    
+                    
+					
+					<div class="section section-overview">
+						<a title="Overview" name="overview"></a>
+						<h2 class="subtitle subtitle-overview">Overview</h2>
+						<p>  <code>PushNotificationManager</code> class offers access to the singletone-instance of the push manager responsible for registering the device with the APS servers, receiving and processing push notifications.</p>
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-tasks">
+						<a title="Tasks" name="tasks"></a>
+						<h2 class="subtitle subtitle-tasks">Tasks</h2>
+						
+						
+						
+						
+
+						<ul class="task-list">
+							<li>
+	<span class="tooltip">
+		<code><a href="#//api/name/appCode">&nbsp;&nbsp;appCode</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/appName">&nbsp;&nbsp;appName</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/delegate">&nbsp;&nbsp;delegate</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/showPushnotificationAlert">&nbsp;&nbsp;showPushnotificationAlert</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/launchNotification">&nbsp;&nbsp;launchNotification</a></code>
+	</span>
+	<span class="task-item-suffix">property</span>
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/initializeWithAppCode:appName:">+&nbsp;initializeWithAppCode:appName:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/pushManager">+&nbsp;pushManager</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/registerForPushNotifications">&ndash;&nbsp;registerForPushNotifications</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/unregisterForPushNotifications">&ndash;&nbsp;unregisterForPushNotifications</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/startLocationTracking">&ndash;&nbsp;startLocationTracking</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/stopLocationTracking">&ndash;&nbsp;stopLocationTracking</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/startBeaconTracking">&ndash;&nbsp;startBeaconTracking</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/stopBeaconTracking">&ndash;&nbsp;stopBeaconTracking</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/setTags:">&ndash;&nbsp;setTags:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/loadTags">&ndash;&nbsp;loadTags</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/loadTags:error:">&ndash;&nbsp;loadTags:error:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sendAppOpen">&ndash;&nbsp;sendAppOpen</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sendBadges:">&ndash;&nbsp;sendBadges:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sendLocation:">&ndash;&nbsp;sendLocation:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sendSKPaymentTransactions:">&ndash;&nbsp;sendSKPaymentTransactions:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/sendPurchase:withPrice:currencyCode:andDate:">&ndash;&nbsp;sendPurchase:withPrice:currencyCode:andDate:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getPushToken">&ndash;&nbsp;getPushToken</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getHWID">&ndash;&nbsp;getHWID</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getApnPayload:">&ndash;&nbsp;getApnPayload:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getCustomPushData:">&ndash;&nbsp;getCustomPushData:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getCustomPushDataAsNSDict:">&ndash;&nbsp;getCustomPushDataAsNSDict:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getRemoteNotificationStatus">+&nbsp;getRemoteNotificationStatus</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/clearNotificationCenter">+&nbsp;clearNotificationCenter</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/getPage:">&ndash;&nbsp;getPage:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/onRichPageButtonTapped:">&ndash;&nbsp;onRichPageButtonTapped:</a></code>
+	</span>
+	
+	
+</li><li>
+	<span class="tooltip">
+		<code><a href="#//api/name/onRichPageBackTapped">&ndash;&nbsp;onRichPageBackTapped</a></code>
+	</span>
+	
+	
+</li>
+						</ul>
+						
+					</div>
+					
+					
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Properties" name="properties"></a>
+						<h2 class="subtitle subtitle-methods">Properties</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/appCode" title="appCode"></a>
+	<h3 class="subsubtitle method-title">appCode</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Pushwoosh Application ID. Usually retrieved automatically from Info.plist parameter <code>Pushwoosh_APPID</code></p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *appCode</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Pushwoosh Application ID. Usually retrieved automatically from Info.plist parameter <code>Pushwoosh_APPID</code></p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/appName" title="appName"></a>
+	<h3 class="subsubtitle method-title">appName</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Application name. Usually retrieved automatically from Info.plist bundle name (CFBundleDisplayName). Could be used to override bundle name. In addition could be set in Info.plist as <code>Pushwoosh_APPNAME</code> parameter.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy) NSString *appName</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Application name. Usually retrieved automatically from Info.plist bundle name (CFBundleDisplayName). Could be used to override bundle name. In addition could be set in Info.plist as <code>Pushwoosh_APPNAME</code> parameter.</p>
+
+<p>Example logic from Pushwoosh SDK Runtime:</p>
+
+<pre><code> NSString * appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Pushwoosh_APPNAME"];
+ if(!appname)
+ appname = [[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_APPNAME"];
+
+ if(!appname)
+ appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+
+ if(!appname)
+ appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
+
+ if(!appname) {
+ appname = @"";
+ }
+
+ instance = [[PushNotificationManager alloc] initWithApplicationCode:appid appName:appname ];
+</code></pre>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/delegate" title="delegate"></a>
+	<h3 class="subsubtitle method-title">delegate</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p><a href="../Protocols/PushNotificationDelegate.html"><code>PushNotificationDelegate</code></a> protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification.
+Pushwoosh Runtime sets it to ApplicationDelegate by default</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) NSObject&lt;PushNotificationDelegate&gt; *delegate</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p><a href="../Protocols/PushNotificationDelegate.html"><code>PushNotificationDelegate</code></a> protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification.
+Pushwoosh Runtime sets it to ApplicationDelegate by default</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/launchNotification" title="launchNotification"></a>
+	<h3 class="subsubtitle method-title">launchNotification</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns push notification payload if the app was started in response to push notification or null otherwise</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, copy, readonly) NSDictionary *launchNotification</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns push notification payload if the app was started in response to push notification or null otherwise</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/showPushnotificationAlert" title="showPushnotificationAlert"></a>
+	<h3 class="subsubtitle method-title">showPushnotificationAlert</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Show push notifications alert when push notification is received while the app is running, default is <code>YES</code></p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>@property (nonatomic, assign) BOOL showPushnotificationAlert</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Show push notifications alert when push notification is received while the app is running, default is <code>YES</code></p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Class Methods" name="class_methods"></a>
+						<h2 class="subtitle subtitle-methods">Class Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/clearNotificationCenter" title="clearNotificationCenter"></a>
+	<h3 class="subsubtitle method-title">clearNotificationCenter</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Clears the notifications from the notification center.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)clearNotificationCenter</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Clears the notifications from the notification center.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/getRemoteNotificationStatus" title="getRemoteNotificationStatus"></a>
+	<h3 class="subsubtitle method-title">getRemoteNotificationStatus</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns dictionary with enabled remove notificaton types.
+Example enabled push:
+{
+    enabled = 1;
+    pushAlert = 1;
+    pushBadge = 1;
+    pushSound = 1;
+    type = 7;
+}</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (NSMutableDictionary *)getRemoteNotificationStatus</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns dictionary with enabled remove notificaton types.
+Example enabled push:
+{
+    enabled = 1;
+    pushAlert = 1;
+    pushBadge = 1;
+    pushSound = 1;
+    type = 7;
+}</p>
+
+<p>where &ldquo;type&rdquo; field is UIUserNotificationType</p>
+
+<p>Disabled push:
+{
+    enabled = 1;
+    pushAlert = 0;
+    pushBadge = 0;
+    pushSound = 0;
+    type = 0;
+}</p>
+
+<p>Note: In the latter example &ldquo;enabled&rdquo; field means that device can receive push notification but could not display alerts (ex: silent push)</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/initializeWithAppCode:appName:" title="initializeWithAppCode:appName:"></a>
+	<h3 class="subsubtitle method-title">initializeWithAppCode:appName:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Initializes PushNotificationManager. Usually called by Pushwoosh Runtime internally.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (void)initializeWithAppCode:(NSString *)<em>appCode</em> appName:(NSString *)<em>appName</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>appName</em></dt>
+			<dd><p>Application name.</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>appcCode</em></dt>
+			<dd><p>Pushwoosh App ID.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Initializes PushNotificationManager. Usually called by Pushwoosh Runtime internally.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/pushManager" title="pushManager"></a>
+	<h3 class="subsubtitle method-title">pushManager</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Returns an object representing the current push manager.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>+ (PushNotificationManager *)pushManager</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>A singleton object that represents the push manager.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Returns an object representing the current push manager.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+					
+					<div class="section section-methods">
+						<a title="Instance Methods" name="instance_methods"></a>
+						<h2 class="subtitle subtitle-methods">Instance Methods</h2>
+						
+						<div class="section-method">
+	<a name="//api/name/getApnPayload:" title="getApnPayload:"></a>
+	<h3 class="subsubtitle method-title">getApnPayload:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Gets APN payload from push notifications dictionary.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSDictionary *)getApnPayload:(NSDictionary *)<em>pushNotification</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>pushNotification</em></dt>
+			<dd><p>Push notifications dictionary as received in <code>onPushAccepted: withNotification: onStart:</code></p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Gets APN payload from push notifications dictionary.</p>
+
+<p>Example:</p>
+
+<pre><code> - (void) onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart {
+    NSDictionary * apnPayload = [[PushNotificationsManager pushManager] getApnPayload:pushNotification];
+    NSLog(@"%@", apnPayload);
+ }
+</code></pre>
+
+<p>For Push dictionary sample:</p>
+
+<pre><code> {
+    aps =     {
+        alert = "Some text.";
+        sound = default;
+    };
+    p = 1pb;
+ }
+</code></pre>
+
+<p>Result is:</p>
+
+<pre><code> {
+    alert = "Some text.";
+    sound = default;
+ };
+</code></pre>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/getCustomPushData:" title="getCustomPushData:"></a>
+	<h3 class="subsubtitle method-title">getCustomPushData:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Gets custom JSON string data from push notifications dictionary as specified in Pushwoosh Control Panel.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)getCustomPushData:(NSDictionary *)<em>pushNotification</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>pushNotification</em></dt>
+			<dd><p>Push notifications dictionary as received in <code>onPushAccepted: withNotification: onStart:</code></p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Gets custom JSON string data from push notifications dictionary as specified in Pushwoosh Control Panel.</p>
+
+<p>Example:</p>
+
+<pre><code> - (void) onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart {
+    NSString * customData = [[PushNotificationsManager pushManager] getCustomPushData:pushNotification];
+    NSLog(@"%@", customData);
+ }
+</code></pre>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/getCustomPushDataAsNSDict:" title="getCustomPushDataAsNSDict:"></a>
+	<h3 class="subsubtitle method-title">getCustomPushDataAsNSDict:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>The same as getCustomPushData but returns NSDictionary rather than JSON string (converts JSON string into NSDictionary).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSDictionary *)getCustomPushDataAsNSDict:(NSDictionary *)<em>pushNotification</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>The same as getCustomPushData but returns NSDictionary rather than JSON string (converts JSON string into NSDictionary).</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/getHWID" title="getHWID"></a>
+	<h3 class="subsubtitle method-title">getHWID</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Gets HWID. Unique device identifier that used in all API calls with Pushwoosh.
+This is identifierForVendor for iOS >= 7.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)getHWID</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Unique device identifier.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Gets HWID. Unique device identifier that used in all API calls with Pushwoosh.
+This is identifierForVendor for iOS >= 7.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/getPage:" title="getPage:"></a>
+	<h3 class="subsubtitle method-title">getPage:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Internal function</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSDictionary *)getPage:(NSString *)<em>pageId</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Internal function</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/getPushToken" title="getPushToken"></a>
+	<h3 class="subsubtitle method-title">getPushToken</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Gets current push token.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (NSString *)getPushToken</code></div>
+
+    
+	
+	
+	
+	<div class="method-subsection return">
+		<h4 class="method-subtitle parameter-title">Return Value</h4>
+		<p>Current push token. May be nil if no push token is available yet.</p>
+	</div>
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Gets current push token.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/loadTags" title="loadTags"></a>
+	<h3 class="subsubtitle method-title">loadTags</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Get tags from the server. Calls <a href="#//api/name/delegate">delegate</a> method <code>onTagsReceived:</code> or <code>onTagsFailedToReceive:</code> depending on the results.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)loadTags</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Get tags from the server. Calls <a href="#//api/name/delegate">delegate</a> method <code>onTagsReceived:</code> or <code>onTagsFailedToReceive:</code> depending on the results.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/loadTags:error:" title="loadTags:error:"></a>
+	<h3 class="subsubtitle method-title">loadTags:error:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Get tags from server. Calls <a href="#//api/name/delegate">delegate</a> method if exists and handler (block).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)loadTags:(pushwooshGetTagsHandler)<em>successHandler</em> error:(pushwooshErrorHandler)<em>errorHandler</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>successHandler</em></dt>
+			<dd><p>The block is executed on the successful completion of the request. This block has no return value and takes one argument: the dictionary representation of the recieved tags.
+Example of the dictionary representation of the received tags:</p>
+
+<pre><code> {
+     Country = ru;
+     Language = ru;
+ }
+</code></pre></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>errorHandler</em></dt>
+			<dd><p>The block is executed on the unsuccessful completion of the request. This block has no return value and takes one argument: the error that occurred during the request.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Get tags from server. Calls <a href="#//api/name/delegate">delegate</a> method if exists and handler (block).</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/onRichPageBackTapped" title="onRichPageBackTapped"></a>
+	<h3 class="subsubtitle method-title">onRichPageBackTapped</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Internal function</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)onRichPageBackTapped</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Internal function</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/onRichPageButtonTapped:" title="onRichPageButtonTapped:"></a>
+	<h3 class="subsubtitle method-title">onRichPageButtonTapped:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Internal function</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)onRichPageButtonTapped:(NSString *)<em>customData</em></code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Internal function</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/registerForPushNotifications" title="registerForPushNotifications"></a>
+	<h3 class="subsubtitle method-title">registerForPushNotifications</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Registers for push notifications. By default registeres for &ldquo;UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert&rdquo; flags.
+Automatically detects if you have &ldquo;newsstand-content&rdquo; in &ldquo;UIBackgroundModes&rdquo; and adds &ldquo;UIRemoteNotificationTypeNewsstandContentAvailability&rdquo; flag.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)registerForPushNotifications</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Registers for push notifications. By default registeres for &ldquo;UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert&rdquo; flags.
+Automatically detects if you have &ldquo;newsstand-content&rdquo; in &ldquo;UIBackgroundModes&rdquo; and adds &ldquo;UIRemoteNotificationTypeNewsstandContentAvailability&rdquo; flag.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sendAppOpen" title="sendAppOpen"></a>
+	<h3 class="subsubtitle method-title">sendAppOpen</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Informs the Pushwoosh about the app being launched. Usually called internally by SDK Runtime.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)sendAppOpen</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Informs the Pushwoosh about the app being launched. Usually called internally by SDK Runtime.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sendBadges:" title="sendBadges:"></a>
+	<h3 class="subsubtitle method-title">sendBadges:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sends current badge value to server. Called internally by SDK Runtime when <code>UIApplication</code> <code>setApplicationBadgeNumber:</code> is set. This function is used for &ldquo;auto-incremeting&rdquo; badges to work.
+This way Pushwoosh server can know what current badge value is set for the application.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)sendBadges:(NSInteger)<em>badge</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>badge</em></dt>
+			<dd><p>Current badge value.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sends current badge value to server. Called internally by SDK Runtime when <code>UIApplication</code> <code>setApplicationBadgeNumber:</code> is set. This function is used for &ldquo;auto-incremeting&rdquo; badges to work.
+This way Pushwoosh server can know what current badge value is set for the application.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sendLocation:" title="sendLocation:"></a>
+	<h3 class="subsubtitle method-title">sendLocation:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sends geolocation to the server for GeoFencing push technology. Called internally, please use <a href="#//api/name/startLocationTracking"><code>startLocationTracking</code></a> and <a href="#//api/name/stopLocationTracking"><code>stopLocationTracking</code></a> functions.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)sendLocation:(CLLocation *)<em>location</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>location</em></dt>
+			<dd><p>Location to be sent.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sends geolocation to the server for GeoFencing push technology. Called internally, please use <a href="#//api/name/startLocationTracking"><code>startLocationTracking</code></a> and <a href="#//api/name/stopLocationTracking"><code>stopLocationTracking</code></a> functions.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sendPurchase:withPrice:currencyCode:andDate:" title="sendPurchase:withPrice:currencyCode:andDate:"></a>
+	<h3 class="subsubtitle method-title">sendPurchase:withPrice:currencyCode:andDate:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Tracks individual in-app purchase. See recommended <a href="#//api/name/sendSKPaymentTransactions:"><code>sendSKPaymentTransactions:</code></a> method.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)sendPurchase:(NSString *)<em>productIdentifier</em> withPrice:(NSDecimalNumber *)<em>price</em> currencyCode:(NSString *)<em>currencyCode</em> andDate:(NSDate *)<em>date</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>productIdentifier</em></dt>
+			<dd><p>purchased product ID</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>price</em></dt>
+			<dd><p>price for the product</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>currencyCode</em></dt>
+			<dd><p>currency of the price (ex: @&ldquo;USD&rdquo;)</p></dd>
+		</dl>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>date</em></dt>
+			<dd><p>time of the purchase (ex: [NSDate now])</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Tracks individual in-app purchase. See recommended <a href="#//api/name/sendSKPaymentTransactions:"><code>sendSKPaymentTransactions:</code></a> method.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/sendSKPaymentTransactions:" title="sendSKPaymentTransactions:"></a>
+	<h3 class="subsubtitle method-title">sendSKPaymentTransactions:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Sends in-app purchases to Pushwoosh. Use in <a href="#//api/name/paymentQueue:updatedTransactions:">paymentQueue:updatedTransactions:</a> payment queue method (see example).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)sendSKPaymentTransactions:(NSArray *)<em>transactions</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>transactions</em></dt>
+			<dd><p>Array of SKPaymentTransaction items as received in the payment queue.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Sends in-app purchases to Pushwoosh. Use in <a href="#//api/name/paymentQueue:updatedTransactions:">paymentQueue:updatedTransactions:</a> payment queue method (see example).</p>
+
+<p>Example:</p>
+
+<pre><code> - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
+    [[PushNotificationManager pushManager] sendSKPaymentTransactions:transactions];
+ }
+</code></pre>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/setTags:" title="setTags:"></a>
+	<h3 class="subsubtitle method-title">setTags:</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Send tags to server. Tag names have to be created in the Pushwoosh Control Panel. Possible tag types: Integer, String, Incremental (integer only), List tags (array of values).</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)setTags:(NSDictionary *)<em>tags</em></code></div>
+
+    
+	
+	<div class="method-subsection arguments-section parameters">
+		<h4 class="method-subtitle parameter-title">Parameters</h4>
+		
+		<dl class="argument-def parameter-def">
+			<dt><em>tags</em></dt>
+			<dd><p>Dictionary representation of tags to send.</p></dd>
+		</dl>
+		
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Send tags to server. Tag names have to be created in the Pushwoosh Control Panel. Possible tag types: Integer, String, Incremental (integer only), List tags (array of values).</p>
+
+<p>Example:</p>
+
+<pre><code> NSDictionary *tags = [NSDictionary dictionaryWithObjectsAndKeys:
+                         aliasField.text, @"Alias",
+                         [NSNumber numberWithInt:[favNumField.text intValue]], @"FavNumber",
+                         [PWTags incrementalTagWithInteger:5], @"price",
+                         [NSArray arrayWithObjects:@"Item1", @"Item2", @"Item3", nil], @"List",
+                         nil];
+
+ [[PushNotificationManager pushManager] setTags:tags];
+</code></pre>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/startBeaconTracking" title="startBeaconTracking"></a>
+	<h3 class="subsubtitle method-title">startBeaconTracking</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Start iBeacon tracking.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)startBeaconTracking</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Start iBeacon tracking.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/startLocationTracking" title="startLocationTracking"></a>
+	<h3 class="subsubtitle method-title">startLocationTracking</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Start location tracking.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)startLocationTracking</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Start location tracking.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/stopBeaconTracking" title="stopBeaconTracking"></a>
+	<h3 class="subsubtitle method-title">stopBeaconTracking</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Stops iBeacon tracking</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)stopBeaconTracking</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Stops iBeacon tracking</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/stopLocationTracking" title="stopLocationTracking"></a>
+	<h3 class="subsubtitle method-title">stopLocationTracking</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Stops location tracking</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)stopLocationTracking</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Stops location tracking</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+						<div class="section-method">
+	<a name="//api/name/unregisterForPushNotifications" title="unregisterForPushNotifications"></a>
+	<h3 class="subsubtitle method-title">unregisterForPushNotifications</h3>
+	
+	
+	
+	<div class="method-subsection brief-description">
+		<p>Unregisters from push notifications. You should call this method in rare circumstances only, such as when a new version of the app drops support for remote notifications. Users can temporarily prevent apps from receiving remote notifications through the Notifications section of the Settings app. Apps unregistered through this method can always re-register.</p>
+	</div>		
+	
+    
+
+	<div class="method-subsection method-declaration"><code>- (void)unregisterForPushNotifications</code></div>
+
+    
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection discussion-section">
+		<h4 class="method-subtitle">Discussion</h4>
+		<p>Unregisters from push notifications. You should call this method in rare circumstances only, such as when a new version of the app drops support for remote notifications. Users can temporarily prevent apps from receiving remote notifications through the Notifications section of the Settings app. Apps unregistered through this method can always re-register.</p>
+	</div>
+	
+	
+	
+	
+	
+	
+	
+	<div class="method-subsection declared-in-section">
+		<h4 class="method-subtitle">Declared In</h4>
+		<code class="declared-in-ref">PushNotificationManager.h</code><br />
+	</div>				
+	
+	
+</div>
+						
+					</div>
+					
+					
+                    
+                    
+				</div>
+				<div class="main-navigation navigation-bottom">
+					<ul>
+	<li><a href="../index.html">Index</a></li>
+	<li><a href="../hierarchy.html">Hierarchy</a></li>
+</ul>
+				</div>
+				<div id="footer">
+					<hr />
+					<div class="footer-copyright">
+						<p><span class="copyright">&copy; 2015 Pushwoosh. All rights reserved. (Last updated: 2015-07-09)</span><br />
+						
+						<span class="generator">Generated by <a href="http://appledoc.gentlebytes.com">appledoc 2.2 (build 963)</a>.</span></p>
+						
+					</div>
+				</div>
+			</div>
+		</article>
+		<script type="text/javascript">
+			function jumpToChange()
+			{
+				window.location.hash = this.options[this.selectedIndex].value;
+			}
+			
+			function toggleTOC()
+			{
+				var contents = document.getElementById('contents');
+				var tocContainer = document.getElementById('tocContainer');
+				
+				if (this.getAttribute('class') == 'open')
+				{
+					this.setAttribute('class', '');
+					contents.setAttribute('class', '');
+					tocContainer.setAttribute('class', '');
+					
+					window.name = "hideTOC";
+				}
+				else
+				{
+					this.setAttribute('class', 'open');
+					contents.setAttribute('class', 'isShowingTOC');
+					tocContainer.setAttribute('class', 'isShowingTOC');
+					
+					window.name = "";
+				}
+				return false;
+			}
+			
+			function toggleTOCEntryChildren(e)
+			{
+				e.stopPropagation();
+				var currentClass = this.getAttribute('class');
+				if (currentClass == 'children') {
+					this.setAttribute('class', 'children open');
+				}
+				else if (currentClass == 'children open') {
+					this.setAttribute('class', 'children');
+				}
+				return false;
+			}
+			
+			function tocEntryClick(e)
+			{
+				e.stopPropagation();
+				return true;
+			}
+			
+			function init()
+			{
+				var selectElement = document.getElementById('jumpTo');
+				selectElement.addEventListener('change', jumpToChange, false);
+				
+				var tocButton = document.getElementById('table_of_contents');
+				tocButton.addEventListener('click', toggleTOC, false);
+				
+				var taskTreeItem = document.getElementById('task_treeitem');
+				if (taskTreeItem.getElementsByTagName('li').length > 0)
+				{
+					taskTreeItem.setAttribute('class', 'children');
+					taskTreeItem.firstChild.setAttribute('class', 'disclosure');
+				}
+				
+				var tocList = document.getElementById('toc');
+				
+				var tocEntries = tocList.getElementsByTagName('li');
+				for (var i = 0; i < tocEntries.length; i++) {
+					tocEntries[i].addEventListener('click', toggleTOCEntryChildren, false);
+				}
+				
+				var tocLinks = tocList.getElementsByTagName('a');
+				for (var i = 0; i < tocLinks.length; i++) {
+					tocLinks[i].addEventListener('click', tocEntryClick, false);
+				}
+				
+				if (window.name == "hideTOC") {
+					toggleTOC.call(tocButton);
+				}
+			}
+			
+			window.onload = init;
+			
+			// If showing in Xcode, hide the TOC and Header
+			if (navigator.userAgent.match(/xcode/i)) {
+				document.getElementById("contents").className = "hideInXcode"
+				document.getElementById("tocContainer").className = "hideInXcode"
+				document.getElementById("top_header").className = "hideInXcode"
+			}
+			
+		</script>
+	</body>
+</html>

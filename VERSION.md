@@ -1,3 +1,6 @@
+Current version: 2.13.7
+=========================
+setTags completion handler
 Current version: 2.13.6
 =========================
 Rich page bug fixes and back button handler
