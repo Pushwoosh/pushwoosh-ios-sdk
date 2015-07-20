@@ -18,7 +18,7 @@ PushNotificationManager class offers access to the singletone-instance of the pu
 [– startBeaconTracking](#startbeacontracking)  
 [– stopBeaconTracking](#stopbeacontracking)  
 [– setTags:](#settags)  
-[- setTags:withCompletion:](#settagswithcompletion)
+[– setTags:withCompletion:](#settagswithcompletion)  
 [– loadTags](#loadtags)  
 [– loadTags:error:](#loadtagserror)  
 [– sendAppOpen](#sendappopen)  
