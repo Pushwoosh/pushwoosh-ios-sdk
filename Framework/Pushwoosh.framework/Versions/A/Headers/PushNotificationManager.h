@@ -164,7 +164,6 @@ typedef void(^PushwooshErrorHandler)(NSError *error);
 	NSString *appCode;
 	NSString *appName;
 
-	UIWindow *richPushWindow;
 	NSObject<PushNotificationDelegate> *__unsafe_unretained delegate;
 }
 
@@ -202,9 +201,6 @@ typedef void(^PushwooshErrorHandler)(NSError *error);
  */
 @property (nonatomic, assign) NSObject<PushNotificationDelegate> *delegate;
 
-@property (nonatomic, retain) UIWindow *richPushWindow;
-@property (nonatomic, assign) PWSupportedOrientations supportedOrientations;
-
 /**
  Show push notifications alert when push notification is received while the app is running, default is `YES`
  */
@@ -240,11 +236,8 @@ typedef void(^PushwooshErrorHandler)(NSError *error);
  */
 - (void) unregisterForPushNotifications;
 
-+ (BOOL) getAPSProductionStatus:(BOOL)canShowAlert;
-
 - (id) initWithApplicationCode:(NSString *)appCode appName:(NSString *)appName;
 - (id) initWithApplicationCode:(NSString *)appCode navController:(UIViewController *) navController appName:(NSString *)appName __attribute__((deprecated));
-- (void) showWebView;
 
 /**
  Start location tracking.
@@ -459,18 +452,28 @@ typedef void(^PushwooshErrorHandler)(NSError *error);
 + (void) clearNotificationCenter;
 
 /**
- Internal function
+ Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
+ This allows data and events to be matched across multiple user devices.
  */
-- (NSDictionary *) getPage:(NSString *)pageId;
+- (void) setUserId: (NSString*) userId; 
 
 /**
- Internal function
+ Post events for In-App Messages. This can trigger In-App message display as specified in Pushwoosh Control Panel.
+ 
+ Example:
+ 
+	 [[PushNotificationManager pushManager] setUserId:@"96da2f590cd7246bbde0051047b0d6f7"];
+	 [[PushNotificationManager pushManager] postEvent:@"buttonPressed" withAttributes:@{ @"buttonNumber" : @"4", @"buttonLabel" : @"Banner" } completion:nil];
+
+ @param event name of the event
+ @param attributes NSDictionary of event attributes
+ @param completion function to call after posting event
  */
-- (void) onRichPageButtonTapped:(NSString *)customData;
+- (void) postEvent: (NSString*) event withAttributes: (NSDictionary*) attributes completion: (void(^)(NSError* error)) completion;
 
 /**
- Internal function
+ See `postEvent:withAttributes:completion:`
  */
-- (void) onRichPageBackTapped;
+- (void) postEvent: (NSString*) event withAttributes: (NSDictionary*) attributes;
 
 @end
