@@ -1,3 +1,6 @@
+Current version: 3.0.2
+=========================
+Publishing for cocoapods
 Current version: 3.0.1
 =========================
 Publishing for cocoapods
