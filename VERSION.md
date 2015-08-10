@@ -1,5 +1,8 @@
 Current version: 3.0.0
 =========================
+Publishing for cocoapods
+Current version: 3.0.0
+=========================
 In-Apps and Events
 setTags stability fix
 Current version: 2.13.7
