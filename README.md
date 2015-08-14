@@ -13,7 +13,5 @@ https://github.com/Pushwoosh/pushwoosh-sdk-samples/tree/master/Native/iPhone
 Documentation:
 https://github.com/Pushwoosh/pushwoosh-ios-sdk/tree/master/Documentation
 
-If you are building with XCode5 (for iOS7) use framework from Framework_iOS7 folder
-
 Pushwoosh team
 http://www.pushwoosh.com
