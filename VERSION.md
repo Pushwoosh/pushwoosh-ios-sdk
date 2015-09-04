@@ -1,3 +1,7 @@
+Current version: 3.0.3
+=========================
+In-App Messages UI fixes
+Platform statistics
 Current version: 3.0.2
 =========================
 Publishing for cocoapods
