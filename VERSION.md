@@ -1,3 +1,6 @@
+Current version: 3.0.4
+=========================
+XCode 7 GM build
 Current version: 3.0.3
 =========================
 In-App Messages UI fixes
