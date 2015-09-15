@@ -8,7 +8,7 @@ The guide for SDK integration is available on Pushwoosh website:
 http://www.pushwoosh.com/programming-push-notification/ios/native-ios-sdk-integration/
 
 The sample project is available here:  
-https://github.com/Pushwoosh/pushwoosh-sdk-samples/tree/master/Native/iPhone
+https://github.com/Pushwoosh/pushwoosh-native-samples/tree/master/iPhone
 
 Documentation:
 https://github.com/Pushwoosh/pushwoosh-ios-sdk/tree/master/Documentation
