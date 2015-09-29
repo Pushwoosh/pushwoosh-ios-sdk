@@ -1,3 +1,7 @@
+Current version: 3.0.5
+=========================
+Log level management
+Fixed XCode 7 warnings
 Current version: 3.0.4
 =========================
 XCode 7 GM build
