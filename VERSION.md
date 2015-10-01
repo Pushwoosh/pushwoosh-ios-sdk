@@ -1,3 +1,6 @@
+Current version: 3.0.6
+=========================
+Fix for opening non-secure urls on iOS9
 Current version: 3.0.5
 =========================
 Log level management
