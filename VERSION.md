@@ -1,3 +1,7 @@
+Current version: 3.0.7
+=========================
+Local cache for tags
+Fixed opening links with redirects
 Current version: 3.0.6
 =========================
 Fix for opening non-secure urls on iOS9
