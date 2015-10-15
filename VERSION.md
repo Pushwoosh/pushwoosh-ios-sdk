@@ -1,3 +1,6 @@
+Current version: 3.0.8
+=========================
+mergeUserId method for In-App Messages
 Current version: 3.0.7
 =========================
 Local cache for tags
