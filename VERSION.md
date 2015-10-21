@@ -1,3 +1,6 @@
+Current version: 3.0.9
+=========================
+Fixed https://github.com/Pushwoosh/pushwoosh-ios-sdk/issues/23
 Current version: 3.0.8
 =========================
 mergeUserId method for In-App Messages
