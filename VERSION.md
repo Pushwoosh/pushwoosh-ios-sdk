@@ -1,3 +1,8 @@
+Current version: 3.0.10
+=========================
+Fixed double alerts on iOS9
+Updated html pages UI
+Use cached tags by default
 Current version: 3.0.9
 =========================
 Fixed https://github.com/Pushwoosh/pushwoosh-ios-sdk/issues/23
