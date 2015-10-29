@@ -3,3 +3,6 @@
 ## Classes
 [PushNotificationsManager](PushNotificationsManager.md)  
 [PushNotificationDelegate](PushNotificationDelegate.md)  
+
+## Information property list
+[Info.plist](InfoPlist.md)  
