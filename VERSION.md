@@ -1,3 +1,7 @@
+Current version: 3.0.11
+=========================
+Request log fixes
+Info.plist documentation
 Current version: 3.0.10
 =========================
 Fixed double alerts on iOS9
