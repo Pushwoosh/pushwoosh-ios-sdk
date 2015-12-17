@@ -1,5 +1,8 @@
 Current version: 3.0.13
 =========================
+DWARF+dSYM debug info
+Current version: 3.0.13
+=========================
 Add armv7s arch
 Current version: 3.0.12
 =========================
