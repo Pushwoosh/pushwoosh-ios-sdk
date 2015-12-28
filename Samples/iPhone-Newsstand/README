@@ -1,0 +1,8 @@
+iOS Newsstand Tutorial README
+=========================
+This sample project demonstrates how to use Pushwoosh in Nesstand iOS Project, how to react to push notifications in background to download the new content, show "new" badge, setting newsstand icon image and general work with NewsstandKit framework
+
+This sample project is based on the source code from: 
+[Newsstand Tutorial](http://www.viggiosoft.com/blog/blog/2011/10/17/ios-newsstand-tutorial/)
+
+Pushwoosh team
