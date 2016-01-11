@@ -28,7 +28,7 @@ Key: `Pushwoosh_SHOW_ALERT`
 
 Type: `Boolean`
 
-Value: If `YES` show notificatoin alert in foreground
+Value: If `YES` show notification alert in foreground
 
 ---
 
