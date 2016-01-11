@@ -1,3 +1,6 @@
+Current version: 3.1.0
+=========================
+Send default tags with applicationOpen request
 Current version: 3.0.14
 =========================
 XCode 7.2 build
