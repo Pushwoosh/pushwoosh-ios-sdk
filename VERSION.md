@@ -1,3 +1,6 @@
+Current version: 3.1.1
+=========================
+Fixed lots of dSYM warnings
 Current version: 3.1.0
 =========================
 Send default tags with applicationOpen request
