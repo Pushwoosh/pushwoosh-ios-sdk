@@ -1,3 +1,6 @@
+Current version: 3.1.2
+=========================
+loadTags stability fixes
 Current version: 3.1.1
 =========================
 Fixed lots of dSYM warnings
