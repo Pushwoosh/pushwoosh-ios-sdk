@@ -15,3 +15,4 @@ https://github.com/Pushwoosh/pushwoosh-ios-sdk/tree/master/Documentation
 
 Pushwoosh team
 http://www.pushwoosh.com
+ 
