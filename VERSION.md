@@ -1,3 +1,6 @@
+Current version: 4.0.0
+=========================
+Rich Media support
 Current version: 3.1.2
 =========================
 loadTags stability fixes
