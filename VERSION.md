@@ -1,3 +1,6 @@
+Current version: 4.0.1
+=========================
+Fix for early initialization of PushNotificationManager in plugins
 Current version: 4.0.0
 =========================
 Rich Media support
