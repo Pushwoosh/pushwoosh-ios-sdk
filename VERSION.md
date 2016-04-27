@@ -1,3 +1,6 @@
+Current version: 4.0.2
+=========================
+Fix for overwriting local notification categories
 Current version: 4.0.1
 =========================
 Fix for early initialization of PushNotificationManager in plugins
