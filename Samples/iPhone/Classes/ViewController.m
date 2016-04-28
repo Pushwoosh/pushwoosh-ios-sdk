@@ -56,8 +56,6 @@
 	UITapGestureRecognizer *hideKeyBoardRecognizer =
 		[[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(hideKeyboard)];
 	[self.view addGestureRecognizer:hideKeyBoardRecognizer];
-
-	[self submitAction:nil];
 }
 
 - (void)doubleTapAction {
