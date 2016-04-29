@@ -1,3 +1,6 @@
+Current version: 4.0.3
+=========================
+Fix missing module cache warnings
 Current version: 4.0.2
 =========================
 Fix for overwriting local notification categories
