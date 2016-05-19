@@ -322,7 +322,7 @@
 				GCC_PREFIX_HEADER = "Newsstand/Newsstand-Prefix.pch";
 				INFOPLIST_FILE = "Newsstand/Newsstand-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.testing;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
@@ -341,7 +341,7 @@
 				GCC_PREFIX_HEADER = "Newsstand/Newsstand-Prefix.pch";
 				INFOPLIST_FILE = "Newsstand/Newsstand-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
-				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.testing;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "";
 				WRAPPER_EXTENSION = app;
