@@ -1,3 +1,6 @@
+Current version: 4.0.4
+=========================
+Stability fixes
 Current version: 4.0.3
 =========================
 Fix missing module cache warnings
