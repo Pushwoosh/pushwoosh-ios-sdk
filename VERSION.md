@@ -1,3 +1,6 @@
+Current version: 4.0.5
+=========================
+Pushwoosh response parsing bugfixes
 Current version: 4.0.4
 =========================
 Stability fixes
