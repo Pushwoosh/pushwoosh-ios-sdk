@@ -1,3 +1,6 @@
+Current version: 4.0.6
+=========================
+Send registerDevice on every launch
 Current version: 4.0.5
 =========================
 Pushwoosh response parsing bugfixes
