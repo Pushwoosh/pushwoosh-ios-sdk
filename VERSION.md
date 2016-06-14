@@ -1,3 +1,6 @@
+Current version: 4.0.7
+=========================
+Push token change handling
 Current version: 4.0.6
 =========================
 Send registerDevice on every launch
