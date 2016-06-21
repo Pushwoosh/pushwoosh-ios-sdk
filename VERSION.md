@@ -1,3 +1,6 @@
+Current version: 4.0.8
+=========================
+Do not cache Pushwoosh hwid
 Current version: 4.0.7
 =========================
 Push token change handling
