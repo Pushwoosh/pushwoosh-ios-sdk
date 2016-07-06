@@ -1,3 +1,7 @@
+Current version: 4.0.9
+=========================
+Preserve hwid across multiple app launches
+https://github.com/Pushwoosh/pushwoosh-ios-sdk/issues/34
 Current version: 4.0.8
 =========================
 Do not cache Pushwoosh hwid
