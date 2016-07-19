@@ -1,3 +1,6 @@
+Current version: 4.0.10
+=========================
+Clear push token on unregister
 Current version: 4.0.9
 =========================
 Preserve hwid across multiple app launches
