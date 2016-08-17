@@ -1,3 +1,9 @@
+Current version: 4.1.0
+=========================
+Disable inapps rotation for portrait orientation
+RequestManager stability fixes 
+Register test devices using QR code
+minor fixes
 Current version: 4.0.10
 =========================
 Clear push token on unregister
