@@ -23,14 +23,12 @@
 	NSLog(@"Start tracking");
 	PushNotificationManager *pushManager = [PushNotificationManager pushManager];
 	[pushManager startLocationTracking];
-	[pushManager startBeaconTracking];
 }
 
 - (void)stopTracking {
 	NSLog(@"Stop tracking");
 	PushNotificationManager *pushManager = [PushNotificationManager pushManager];
 	[pushManager stopLocationTracking];
-	[pushManager stopBeaconTracking];
 }
 
 - (BOOL)textFieldShouldReturn:(UITextField *)textField {
