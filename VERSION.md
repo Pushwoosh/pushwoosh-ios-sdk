@@ -1,3 +1,6 @@
+Current version: 4.1.1
+=========================
+Change Pushwoosh API url to https://APP_CODE.api.pushwoosh.com/json/1.3
 Current version: 4.1.0
 =========================
 Disable inapps rotation for portrait orientation
