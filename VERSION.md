@@ -1,3 +1,8 @@
+Current version: 4.1.2
+=========================
+Removed unused categories.
+SDK linked with «Perform Single-Object Prelink» flag.
+https://github.com/Pushwoosh/pushwoosh-ios-sdk/issues/39
 Current version: 4.1.1
 =========================
 Change Pushwoosh API url to https://APP_CODE.api.pushwoosh.com/json/1.3
