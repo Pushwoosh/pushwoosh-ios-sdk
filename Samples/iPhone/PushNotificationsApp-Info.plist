@@ -75,5 +75,18 @@
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
 	</array>
+	<key>CFBundleURLTypes</key>
+	<array>
+	  <dict>
+		<key>CFBundleTypeRole</key>
+		<string>Editor</string>
+		<key>CFBundleURLName</key>
+		<string>com.pushwoosh.scheme</string>
+		<key>CFBundleURLSchemes</key>
+		<array>
+		  <string>pw-4FC89B6D14A655.46488481</string>
+		</array>
+	  </dict>
+	</array>
 </dict>
 </plist>
