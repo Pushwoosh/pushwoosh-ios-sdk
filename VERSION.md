@@ -1,3 +1,7 @@
+Current version: 4.1.3
+=========================
+iOS7 compatibility fix
+https://github.com/Pushwoosh/pushwoosh-ios-sdk/issues/45
 Current version: 4.1.2
 =========================
 Removed unused categories.
