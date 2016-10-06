@@ -1,3 +1,7 @@
+Current version: 4.1.4
+=========================
+Fixed unsafe PushNotificationDelegate reference
+Fixed incorrect HWID when 'Limit Ad Tracking' is enabled
 Current version: 4.1.3
 =========================
 iOS7 compatibility fix
