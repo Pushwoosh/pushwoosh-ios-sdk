@@ -1,3 +1,6 @@
+Current version: 4.1.6
+=========================
+Fixed subsequent push registration after unregistering for push notifications
 Current version: 4.1.5
 =========================
 Fixed missing push notification callback when hash ("p") is not presented in notification payload
