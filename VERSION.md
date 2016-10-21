@@ -1,3 +1,9 @@
+Current version: 4.1.7
+=========================
+Pushwoosh iOS SDK 4.1.7
+
+Fixed
+    Incorrect base url for html pages (https://github.com/Pushwoosh/pushwoosh-ios-sdk/issues/53)
 Current version: 4.1.6
 =========================
 Fixed subsequent push registration after unregistering for push notifications
