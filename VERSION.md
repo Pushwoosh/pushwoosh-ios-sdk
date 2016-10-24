@@ -1,3 +1,9 @@
+Current version: 4.1.8
+=========================
+Pushwoosh iOS SDK 4.1.8
+
+Fixed
+    [onDidRegisterForRemoteNotificationsWithDeviceToken](https://github.com/Pushwoosh/pushwoosh-ios-sdk/blob/master/Documentation/PushNotificationDelegate.md#ondidregisterforremotenotificationswithdevicetoken) callback not called after application relaunch
 Current version: 4.1.7
 =========================
 Pushwoosh iOS SDK 4.1.7
