@@ -299,7 +299,7 @@
 					46E0B46A1D9CDFC4004908AF = {
 						CreatedOnToolsVersion = 8.0;
 						DevelopmentTeam = 9YV8BDW6YQ;
-						ProvisioningStyle = Automatic;
+						ProvisioningStyle = Manual;
 						SystemCapabilities = {
 							com.apple.Push = {
 								enabled = 1;
@@ -446,7 +446,7 @@
 				CODE_SIGN_ENTITLEMENTS = PushNotificationsApp.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = YES;
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9YV8BDW6YQ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -461,6 +461,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp;
 				PRODUCT_NAME = PushNotificationsApp;
+				PROVISIONING_PROFILE = "3653de08-dd87-4b8d-8061-5beef66215c6";
+				PROVISIONING_PROFILE_SPECIFIER = "Universal In House";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -511,6 +513,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "7fb77633-24d1-4017-94eb-d0d600553224";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Development";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -539,7 +543,7 @@
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = 9YV8BDW6YQ;
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				GCC_C_LANGUAGE_STANDARD = gnu99;
@@ -555,6 +559,8 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				PROVISIONING_PROFILE = "3653de08-dd87-4b8d-8061-5beef66215c6";
+				PROVISIONING_PROFILE_SPECIFIER = "Universal In House";
 				SKIP_INSTALL = YES;
 				VALIDATE_PRODUCT = YES;
 			};
@@ -613,6 +619,7 @@
 				46E0B4761D9CDFC4004908AF /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		C01FCF4E08A954540054247B /* Build configuration list for PBXProject "PushNotificationsApp" */ = {
 			isa = XCConfigurationList;

@@ -29,6 +29,10 @@
 	</dict>
 	<key>Pushwoosh_APPID</key>
 	<string>4FC89B6D14A655.46488481</string>
+	<key>UIBackgroundModes</key>
+	<array>
+		<string>remote-notification</string>
+	</array>
 	<key>UILaunchStoryboardName</key>
 	<string>LaunchScreen</string>
 	<key>UIMainStoryboardFile</key>

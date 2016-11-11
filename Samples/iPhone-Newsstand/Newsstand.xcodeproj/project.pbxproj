@@ -26,7 +26,6 @@
 		64063B4F144D80CF0004B625 /* IssueTableCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 64063B4E144D80CF0004B625 /* IssueTableCell.xib */; };
 		64063B51144D97D40004B625 /* NewsstandKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64063B50144D97D40004B625 /* NewsstandKit.framework */; };
 		64063B53144DC1680004B625 /* QuickLook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64063B52144DC1680004B625 /* QuickLook.framework */; };
-		6452268E145C3DA5008AC4C7 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 6452268D145C3DA5008AC4C7 /* StoreKit.framework */; };
 		64DAD40C144F0881002740C6 /* CFNetwork.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64DAD40B144F0881002740C6 /* CFNetwork.framework */; };
 		64DAD40E144F088B002740C6 /* MobileCoreServices.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64DAD40D144F088B002740C6 /* MobileCoreServices.framework */; };
 		64DAD412144F08A0002740C6 /* SystemConfiguration.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64DAD411144F08A0002740C6 /* SystemConfiguration.framework */; };
@@ -37,6 +36,7 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		469130581DD5FCE400BC95DC /* Newsstand.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Newsstand.entitlements; sourceTree = "<group>"; };
 		46F515A11C23D9ED009AB76E /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		46F515A31C23D9F2009AB76E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		505DCCFA19213D7B00FA0D87 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
@@ -62,7 +62,6 @@
 		64063B4E144D80CF0004B625 /* IssueTableCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = IssueTableCell.xib; sourceTree = "<group>"; };
 		64063B50144D97D40004B625 /* NewsstandKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = NewsstandKit.framework; path = System/Library/Frameworks/NewsstandKit.framework; sourceTree = SDKROOT; };
 		64063B52144DC1680004B625 /* QuickLook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = QuickLook.framework; path = System/Library/Frameworks/QuickLook.framework; sourceTree = SDKROOT; };
-		6452268D145C3DA5008AC4C7 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		64DAD40B144F0881002740C6 /* CFNetwork.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CFNetwork.framework; path = System/Library/Frameworks/CFNetwork.framework; sourceTree = SDKROOT; };
 		64DAD40D144F088B002740C6 /* MobileCoreServices.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = MobileCoreServices.framework; path = System/Library/Frameworks/MobileCoreServices.framework; sourceTree = SDKROOT; };
 		64DAD411144F08A0002740C6 /* SystemConfiguration.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = SystemConfiguration.framework; path = System/Library/Frameworks/SystemConfiguration.framework; sourceTree = SDKROOT; };
@@ -81,7 +80,6 @@
 				46F515A21C23D9ED009AB76E /* libstdc++.tbd in Frameworks */,
 				505DCCFB19213D7B00FA0D87 /* Security.framework in Frameworks */,
 				73A204CC179FC94900D6C2DC /* CoreLocation.framework in Frameworks */,
-				6452268E145C3DA5008AC4C7 /* StoreKit.framework in Frameworks */,
 				64DAD418144F08BF002740C6 /* CoreTelephony.framework in Frameworks */,
 				64DAD416144F08B4002740C6 /* libsqlite3.dylib in Frameworks */,
 				64DAD414144F08A9002740C6 /* libz.dylib in Frameworks */,
@@ -128,7 +126,6 @@
 				505DCCFA19213D7B00FA0D87 /* Security.framework */,
 				50DC539018B53FB600A608C9 /* Pushwoosh.framework */,
 				73A204CB179FC94900D6C2DC /* CoreLocation.framework */,
-				6452268D145C3DA5008AC4C7 /* StoreKit.framework */,
 				64DAD417144F08BF002740C6 /* CoreTelephony.framework */,
 				64DAD415144F08B4002740C6 /* libsqlite3.dylib */,
 				64DAD413144F08A9002740C6 /* libz.dylib */,
@@ -147,6 +144,7 @@
 		64063B29144CAF320004B625 /* Newsstand */ = {
 			isa = PBXGroup;
 			children = (
+				469130581DD5FCE400BC95DC /* Newsstand.entitlements */,
 				64063B32144CAF320004B625 /* AppDelegate.h */,
 				64063B33144CAF320004B625 /* AppDelegate.m */,
 				64063B2A144CAF320004B625 /* Supporting Files */,
@@ -199,6 +197,20 @@
 			attributes = {
 				LastUpgradeCheck = 0420;
 				ORGANIZATIONNAME = i3factory;
+				TargetAttributes = {
+					64063B1E144CAF320004B625 = {
+						DevelopmentTeam = 9YV8BDW6YQ;
+						ProvisioningStyle = Manual;
+						SystemCapabilities = {
+							com.apple.InAppPurchase = {
+								enabled = 0;
+							};
+							com.apple.Push = {
+								enabled = 1;
+							};
+						};
+					};
+				};
 			};
 			buildConfigurationList = 64063B19144CAF320004B625 /* Build configuration list for PBXProject "Newsstand" */;
 			compatibilityVersion = "Xcode 3.2";
@@ -313,7 +325,9 @@
 		64063B38144CAF320004B625 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Newsstand/Newsstand.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
+				DEVELOPMENT_TEAM = 9YV8BDW6YQ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					.,
@@ -324,7 +338,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "7fb77633-24d1-4017-94eb-d0d600553224";
+				PROVISIONING_PROFILE_SPECIFIER = "iOS Development";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -332,7 +347,9 @@
 		64063B39144CAF320004B625 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				CODE_SIGN_ENTITLEMENTS = Newsstand/Newsstand.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";
+				DEVELOPMENT_TEAM = 9YV8BDW6YQ;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					.,
@@ -343,7 +360,8 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "";
+				PROVISIONING_PROFILE = "3653de08-dd87-4b8d-8061-5beef66215c6";
+				PROVISIONING_PROFILE_SPECIFIER = "Universal In House";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
