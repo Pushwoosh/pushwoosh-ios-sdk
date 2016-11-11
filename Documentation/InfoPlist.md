@@ -20,7 +20,7 @@ Key: `Pushwoosh_APPNAME`
 
 Type: `String`
 
-Value: Pushwoosh application name
+Value: Application name that is used as a title of push notification alerts/banners when the application is in the foreground
 
 ---
 
