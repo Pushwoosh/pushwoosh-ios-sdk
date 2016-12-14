@@ -30,6 +30,9 @@ PushNotificationManager class offers access to the singletone-instance of the pu
 [– getApnPayload:](#getapnpayload)  
 [– getCustomPushData:](#getcustompushdata)  
 [– getCustomPushDataAsNSDict:](#getcustompushdataasnsdict)  
+[- setUserId:](#setuserid)  
+[- postEvent:withAttributes:completion:](#posteventwithattributescompletion)  
+[- postEvent:withAttributes:](#posteventwithattributes)  
 [+ getRemoteNotificationStatus](#getremotenotificationstatus)  
 [+ clearNotificationCenter](#clearnotificationcenter)  
 
@@ -397,3 +400,31 @@ Unregisters from push notifications. You should call this method in rare circums
 ```objc
 - (void)unregisterForPushNotifications
 ```
+
+### setUserId:
+
+Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices.
+
+
+```objc
+- (void)setUserId:(NSString *)userId;
+```
+
+### postEvent:withAttributes:completion:
+
+ Post events for In-App Messages. This can trigger In-App message display as specified in Pushwoosh Control Panel.
+ 
+ Example:
+ ```objc
+ [[PushNotificationManager pushManager] setUserId:@"96da2f590cd7246bbde0051047b0d6f7"];
+ [[PushNotificationManager pushManager] postEvent:@"buttonPressed" withAttributes:@{ @"buttonNumber" : @"4", @"buttonLabel" : @"Banner" } completion:nil];
+ ```
+
+ * **event** - name of the event
+ * **attributes** - NSDictionary of event attributes
+ * **completion** - function to call after posting event
+
+
+### postEvent:withAttributes:
+
+See [- postEvent:withAttributes:completion:](#posteventwithattributescompletion)
