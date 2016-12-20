@@ -8,7 +8,7 @@
 #import <UIKit/UIKit.h>
 #import <StoreKit/StoreKit.h>
 
-#define PUSHWOOSH_VERSION @"4.2.1"
+#define PUSHWOOSH_VERSION @"4.2.2"
 
 
 @class PushNotificationManager;
