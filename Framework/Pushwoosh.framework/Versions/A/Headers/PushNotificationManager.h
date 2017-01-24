@@ -9,7 +9,7 @@
 #import <StoreKit/StoreKit.h>
 #import <UserNotifications/UserNotifications.h>
 
-#define PUSHWOOSH_VERSION @"5.0.0"
+#define PUSHWOOSH_VERSION @"5.0.1"
 
 
 @class PushNotificationManager;
