@@ -33,6 +33,7 @@
 		64DAD416144F08B4002740C6 /* libsqlite3.dylib in Frameworks */ = {isa = PBXBuildFile; fileRef = 64DAD415144F08B4002740C6 /* libsqlite3.dylib */; };
 		64DAD418144F08BF002740C6 /* CoreTelephony.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 64DAD417144F08BF002740C6 /* CoreTelephony.framework */; };
 		73A204CC179FC94900D6C2DC /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 73A204CB179FC94900D6C2DC /* CoreLocation.framework */; };
+		CB02B8D11E41362E17DEF85C /* libPods-Newsstand.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 8E77C0E6A8967425981A03BD /* libPods-Newsstand.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -41,6 +42,7 @@
 		46F515A31C23D9F2009AB76E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		505DCCFA19213D7B00FA0D87 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		50DC539018B53FB600A608C9 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pushwoosh.framework; sourceTree = "<group>"; };
+		538913CD9C3493E955F80C8E /* Pods-Newsstand.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Newsstand.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Newsstand/Pods-Newsstand.debug.xcconfig"; sourceTree = "<group>"; };
 		64063B1F144CAF320004B625 /* Newsstand.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Newsstand.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		64063B23144CAF320004B625 /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		64063B25144CAF320004B625 /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -69,6 +71,8 @@
 		64DAD415144F08B4002740C6 /* libsqlite3.dylib */ = {isa = PBXFileReference; lastKnownFileType = "compiled.mach-o.dylib"; name = libsqlite3.dylib; path = usr/lib/libsqlite3.dylib; sourceTree = SDKROOT; };
 		64DAD417144F08BF002740C6 /* CoreTelephony.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreTelephony.framework; path = System/Library/Frameworks/CoreTelephony.framework; sourceTree = SDKROOT; };
 		73A204CB179FC94900D6C2DC /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
+		8E77C0E6A8967425981A03BD /* libPods-Newsstand.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Newsstand.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		969A6B6C37E1F17ED60D03AD /* Pods-Newsstand.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Newsstand.release.xcconfig"; path = "Pods/Target Support Files/Pods-Newsstand/Pods-Newsstand.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -92,12 +96,22 @@
 				64063B26144CAF320004B625 /* Foundation.framework in Frameworks */,
 				50DC539118B53FB600A608C9 /* Pushwoosh.framework in Frameworks */,
 				64063B28144CAF320004B625 /* CoreGraphics.framework in Frameworks */,
+				CB02B8D11E41362E17DEF85C /* libPods-Newsstand.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		5B37AC6D3701EA649F65320B /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				538913CD9C3493E955F80C8E /* Pods-Newsstand.debug.xcconfig */,
+				969A6B6C37E1F17ED60D03AD /* Pods-Newsstand.release.xcconfig */,
+			);
+			name = Pods;
+			sourceTree = "<group>";
+		};
 		64063B14144CAF320004B625 = {
 			isa = PBXGroup;
 			children = (
@@ -107,6 +121,7 @@
 				64063B29144CAF320004B625 /* Newsstand */,
 				64063B22144CAF320004B625 /* Frameworks */,
 				64063B20144CAF320004B625 /* Products */,
+				5B37AC6D3701EA649F65320B /* Pods */,
 			);
 			sourceTree = "<group>";
 		};
@@ -137,6 +152,7 @@
 				64063B23144CAF320004B625 /* UIKit.framework */,
 				64063B25144CAF320004B625 /* Foundation.framework */,
 				64063B27144CAF320004B625 /* CoreGraphics.framework */,
+				8E77C0E6A8967425981A03BD /* libPods-Newsstand.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -176,9 +192,12 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 64063B37144CAF320004B625 /* Build configuration list for PBXNativeTarget "Newsstand" */;
 			buildPhases = (
+				810AF5244F6F2EE296A09AD5 /* [CP] Check Pods Manifest.lock */,
 				64063B1B144CAF320004B625 /* Sources */,
 				64063B1C144CAF320004B625 /* Frameworks */,
 				64063B1D144CAF320004B625 /* Resources */,
+				D9F7869289F5F824520F1B9C /* [CP] Embed Pods Frameworks */,
+				F170CE8B1C326EADC83B7958 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -244,6 +263,54 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		810AF5244F6F2EE296A09AD5 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_ROOT}/../Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [[ $? != 0 ]] ; then\n    cat << EOM\nerror: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\nEOM\n    exit 1\nfi\n";
+			showEnvVarsInLog = 0;
+		};
+		D9F7869289F5F824520F1B9C /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Newsstand/Pods-Newsstand-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		F170CE8B1C326EADC83B7958 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "[CP] Copy Pods Resources";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${SRCROOT}/Pods/Target Support Files/Pods-Newsstand/Pods-Newsstand-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		64063B1B144CAF320004B625 /* Sources */ = {
@@ -324,6 +391,7 @@
 		};
 		64063B38144CAF320004B625 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 538913CD9C3493E955F80C8E /* Pods-Newsstand.debug.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Newsstand/Newsstand.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Developer";
@@ -338,14 +406,15 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7fb77633-24d1-4017-94eb-d0d600553224";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Development";
+				PROVISIONING_PROFILE = "42c7ddb9-8261-4d0a-8ff7-3c628b5cf564";
+				PROVISIONING_PROFILE_SPECIFIER = "Pushwoosh Demo Development";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
 		};
 		64063B39144CAF320004B625 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 969A6B6C37E1F17ED60D03AD /* Pods-Newsstand.release.xcconfig */;
 			buildSettings = {
 				CODE_SIGN_ENTITLEMENTS = Newsstand/Newsstand.entitlements;
 				CODE_SIGN_IDENTITY = "iPhone Distribution";

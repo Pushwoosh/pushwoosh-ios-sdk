@@ -415,6 +415,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				CODE_SIGN_ENTITLEMENTS = PushNotificationsApp.entitlements;
+				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = 9YV8BDW6YQ;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -433,8 +434,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp;
 				PRODUCT_NAME = PushNotificationsApp;
-				PROVISIONING_PROFILE = "7fb77633-24d1-4017-94eb-d0d600553224";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Development";
+				PROVISIONING_PROFILE = "42c7ddb9-8261-4d0a-8ff7-3c628b5cf564";
+				PROVISIONING_PROFILE_SPECIFIER = "Pushwoosh Demo Development";
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -513,8 +514,8 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7fb77633-24d1-4017-94eb-d0d600553224";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Development";
+				PROVISIONING_PROFILE = "0bd1b1dd-325a-4238-9e40-8e91b1d6e75e";
+				PROVISIONING_PROFILE_SPECIFIER = "Pushwoosh Demo NotificationService Development";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;

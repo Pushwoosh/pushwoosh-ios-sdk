@@ -7,6 +7,8 @@
 //
 
 import UIKit
+import Pushwoosh
+import UserNotifications
 
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate, PushNotificationDelegate {
@@ -19,6 +21,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PushNotificationDelegate 
 		PushNotificationManager.push().handlePushReceived(launchOptions)
 		PushNotificationManager.push().sendAppOpen()
 		PushNotificationManager.push().registerForPushNotifications()
+		if #available(iOS 10.0, *) {
+			UNUserNotificationCenter.current().delegate = PushNotificationManager.push().notificationCenterDelegate
+		}
 		return true
 	}
 	

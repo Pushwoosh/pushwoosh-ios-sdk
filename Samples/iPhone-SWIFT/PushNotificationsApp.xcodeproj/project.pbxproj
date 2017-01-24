@@ -13,13 +13,13 @@
 		465447E41BE366A90048DC4B /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 465447E31BE366A90048DC4B /* Assets.xcassets */; };
 		465447E71BE366A90048DC4B /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 465447E51BE366A90048DC4B /* LaunchScreen.storyboard */; };
 		465447EF1BE3675F0048DC4B /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 465447EE1BE3675F0048DC4B /* libstdc++.tbd */; };
-		465447F11BE3677C0048DC4B /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465447F01BE3677C0048DC4B /* Pushwoosh.framework */; };
 		465447F41BE367AC0048DC4B /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 465447F31BE367AC0048DC4B /* libz.tbd */; };
 		465447F81BE367C90048DC4B /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465447F71BE367C90048DC4B /* Security.framework */; };
 		465447FA1BE367D30048DC4B /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465447F91BE367D30048DC4B /* CoreGraphics.framework */; };
 		465447FC1BE367DA0048DC4B /* CoreLocation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465447FB1BE367DA0048DC4B /* CoreLocation.framework */; };
 		465447FE1BE367E20048DC4B /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465447FD1BE367E20048DC4B /* UIKit.framework */; };
 		465448001BE367EA0048DC4B /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 465447FF1BE367EA0048DC4B /* Foundation.framework */; };
+		467E7FB31E3723AB001C2A4D /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467E7FB21E3723AB001C2A4D /* Pushwoosh.framework */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -31,14 +31,14 @@
 		465447E61BE366A90048DC4B /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		465447E81BE366A90048DC4B /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		465447EE1BE3675F0048DC4B /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
-		465447F01BE3677C0048DC4B /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pushwoosh.framework; sourceTree = "<group>"; };
 		465447F31BE367AC0048DC4B /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		465447F71BE367C90048DC4B /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Security.framework; path = System/Library/Frameworks/Security.framework; sourceTree = SDKROOT; };
 		465447F91BE367D30048DC4B /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		465447FB1BE367DA0048DC4B /* CoreLocation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreLocation.framework; path = System/Library/Frameworks/CoreLocation.framework; sourceTree = SDKROOT; };
 		465447FD1BE367E20048DC4B /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		465447FF1BE367EA0048DC4B /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		465448011BE3686C0048DC4B /* PushNotificationsApp-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "PushNotificationsApp-Bridging-Header.h"; sourceTree = "<group>"; };
+		467E7F9D1E362548001C2A4D /* UserNotifications.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UserNotifications.framework; path = System/Library/Frameworks/UserNotifications.framework; sourceTree = SDKROOT; };
+		467E7FB21E3723AB001C2A4D /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Pushwoosh.framework; path = Carthage/Build/iOS/Pushwoosh.framework; sourceTree = "<group>"; };
 		469130571DD5F9B100BC95DC /* PushNotificationsApp.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = PushNotificationsApp.entitlements; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -54,7 +54,7 @@
 				465447F81BE367C90048DC4B /* Security.framework in Frameworks */,
 				465447F41BE367AC0048DC4B /* libz.tbd in Frameworks */,
 				465447EF1BE3675F0048DC4B /* libstdc++.tbd in Frameworks */,
-				465447F11BE3677C0048DC4B /* Pushwoosh.framework in Frameworks */,
+				467E7FB31E3723AB001C2A4D /* Pushwoosh.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -88,7 +88,6 @@
 				465447E31BE366A90048DC4B /* Assets.xcassets */,
 				465447E51BE366A90048DC4B /* LaunchScreen.storyboard */,
 				465447E81BE366A90048DC4B /* Info.plist */,
-				465448011BE3686C0048DC4B /* PushNotificationsApp-Bridging-Header.h */,
 			);
 			path = PushNotificationsApp;
 			sourceTree = "<group>";
@@ -96,13 +95,14 @@
 		465447F21BE367840048DC4B /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				467E7FB21E3723AB001C2A4D /* Pushwoosh.framework */,
+				467E7F9D1E362548001C2A4D /* UserNotifications.framework */,
 				465447FF1BE367EA0048DC4B /* Foundation.framework */,
 				465447FD1BE367E20048DC4B /* UIKit.framework */,
 				465447FB1BE367DA0048DC4B /* CoreLocation.framework */,
 				465447F91BE367D30048DC4B /* CoreGraphics.framework */,
 				465447F71BE367C90048DC4B /* Security.framework */,
 				465447F31BE367AC0048DC4B /* libz.tbd */,
-				465447F01BE3677C0048DC4B /* Pushwoosh.framework */,
 				465447EE1BE3675F0048DC4B /* libstdc++.tbd */,
 			);
 			name = Frameworks;
@@ -118,6 +118,7 @@
 				465447D51BE366A90048DC4B /* Sources */,
 				465447D61BE366A90048DC4B /* Frameworks */,
 				465447D71BE366A90048DC4B /* Resources */,
+				467E7F9F1E36270F001C2A4D /* Run Script */,
 			);
 			buildRules = (
 			);
@@ -186,6 +187,24 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		467E7F9F1E36270F001C2A4D /* Run Script */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+				"$(SRCROOT)/Carthage/Build/iOS/Pushwoosh.framework",
+			);
+			name = "Run Script";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "/usr/local/bin/carthage copy-frameworks";
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		465447D51BE366A90048DC4B /* Sources */ = {
@@ -313,16 +332,17 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = PushNotificationsApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				PROVISIONING_PROFILE = "7fb77633-24d1-4017-94eb-d0d600553224";
-				PROVISIONING_PROFILE_SPECIFIER = "iOS Development";
-				SWIFT_OBJC_BRIDGING_HEADER = "PushNotificationsApp/PushNotificationsApp-Bridging-Header.h";
+				PROVISIONING_PROFILE = "42c7ddb9-8261-4d0a-8ff7-3c628b5cf564";
+				PROVISIONING_PROFILE_SPECIFIER = "Pushwoosh Demo Development";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 3.0;
 			};
@@ -339,16 +359,17 @@
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
 				);
 				INFOPLIST_FILE = PushNotificationsApp/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "3653de08-dd87-4b8d-8061-5beef66215c6";
 				PROVISIONING_PROFILE_SPECIFIER = "Universal In House";
-				SWIFT_OBJC_BRIDGING_HEADER = "PushNotificationsApp/PushNotificationsApp-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_VERSION = 3.0;
 			};
 			name = Release;

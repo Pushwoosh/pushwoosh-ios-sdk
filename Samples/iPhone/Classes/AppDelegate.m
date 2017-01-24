@@ -6,6 +6,7 @@
 
 #import "AppDelegate.h"
 #import <Pushwoosh/PushNotificationManager.h>
+#import <UserNotifications/UserNotifications.h>
 
 @implementation AppDelegate
 
@@ -24,6 +25,9 @@
 
 	// set custom delegate for push handling, in our case - view controller
 	[PushNotificationManager pushManager].delegate = self.viewController;
+	
+	// set default Pushwoosh delegate for iOS10 foreground push handling
+	[UNUserNotificationCenter currentNotificationCenter].delegate = [PushNotificationManager pushManager].notificationCenterDelegate;
 
 	// handling push on app start
 	[[PushNotificationManager pushManager] handlePushReceived:launchOptions];
