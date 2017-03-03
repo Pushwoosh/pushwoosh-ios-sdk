@@ -5,4 +5,4 @@
 //
 
 #import "PushNotificationManager.h"
-#import "InAppManager.h"
+#import "PWInAppManager.h"
