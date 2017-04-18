@@ -3,6 +3,9 @@
 ## Classes
 [PushNotificationsManager](PushNotificationsManager.md)  
 [PushNotificationDelegate](PushNotificationDelegate.md)  
+[PWInAppManager](PWInAppManager.md)  
+[PWJavaScriptInterface](PWJavaScriptInterface.md)  
+[PWJavaScriptCallback](PWJavaScriptCallback.md)  
 
 ## Information property list
 [Info.plist](InfoPlist.md)  
