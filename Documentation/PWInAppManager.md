@@ -1,15 +1,18 @@
 # PWInAppManager #
 
+| Header | [PWInAppManager.h](../Framework/Pushwoosh.framework/Versions/A/Headers/PWInAppManager.h) |
+| ------ | ---------------------------------------------------------------------------------------- |
+
 In-App Messages API.
 
-## Tasks
-
+## Summary
 [+ sharedManager](#sharedmanager)  
-[- setUserId](#setiserid)  
-[- postEvent](#postevent)  
-[- addJavascriptInterface](#addjavascriptinterface)  
+[- setUserId:](#setiserid)  
+[- postEvent:withAttributes:completion:](#posteventwithattributescompletion)  
+[- postEvent:withAttributes:](#posteventwithattributes)  
+[- addJavascriptInterface:withName:](#addjavascriptinterfacewithname)  
 
-## Class Methods
+##  Class Methods
 
 ### sharedManager
 
@@ -19,8 +22,12 @@ Returns shared instance of PWInAppManager
 + (instancetype)sharedManager
 ```
 
+---
+---
 
-### setUserId
+## Instance Methods
+
+### setUserId:
 
 Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
 This allows data and events to be matched across multiple user devices.
@@ -29,8 +36,9 @@ This allows data and events to be matched across multiple user devices.
 - (void)setUserId:(NSString *)userId
 ```
 
+---
 
-### postEvent
+### postEvent:withAttributes:completion:
 
 Post events for In-App Messages. This can trigger In-App message display as specified in Pushwoosh Control Panel.
 
@@ -49,8 +57,15 @@ Example:
 [[PWInAppManager sharedManager] postEvent:@"buttonPressed" withAttributes:@{ @"buttonNumber" : @"4", @"buttonLabel" : @"Banner" } completion:nil];
 ```
 
+---
 
-### addJavascriptInterface
+### postEvent:withAttributes:
+
+See [- postEvent:withAttributes:completion:](#posteventwithattributescompletion).
+
+---
+
+### addJavascriptInterface:withName:
 
 Adds ObjC object to be accessible from In-App html page JavaScript. All object methods are exported to JavaScript by removing ":" and whitespaces.
 

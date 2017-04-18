@@ -1,15 +1,18 @@
 # PWJavaScriptInterface Protocol #
 
+| Header | [PWInAppManager.h](../Framework/Pushwoosh.framework/Versions/A/Headers/PWInAppManager.h) |
+| ------ | ---------------------------------------------------------------------------------------- |
+
 `PWJavaScriptInterface` protocol is a representation of Javascript object that can be added at runtime into In-App Message HTML page to provide native calls and callbacks to Objective-C/Swift.
 
-## Tasks
-[– onWebViewStartLoad](#onwebviewstartload)  
-[- onWebViewFinishLoad](#onwebviewfinishload)  
-[- onWebViewStartClose](#onwebviewstartclose)  
+## Summary
+[– onWebViewStartLoad:](#onwebviewstartload)  
+[- onWebViewFinishLoad:](#onwebviewfinishload)  
+[- onWebViewStartClose:](#onwebviewstartclose)  
 
-## Class methods
+## Instance Methods
 
-### onWebViewStartLoad
+### onWebViewStartLoad:
 
 WebView lifecycle callback. Is called when In-App html starts loading.
 
@@ -17,7 +20,9 @@ WebView lifecycle callback. Is called when In-App html starts loading.
 - (void)onWebViewStartLoad:(UIWebView*)webView
 ```
 
-### onWebViewFinishLoad
+---
+
+### onWebViewFinishLoad:
 
 WebView lifecycle callback. Is called when In-App html loading is finished.
 
@@ -26,7 +31,9 @@ WebView lifecycle callback. Is called when In-App html loading is finished.
 - (void)onWebViewFinishLoad:(UIWebView*)webView
 ```
 
-### onWebViewStartClose
+---
+
+### onWebViewStartClose:
 
 WebView lifecycle callback. Is called when In-App html page is about to close.
 

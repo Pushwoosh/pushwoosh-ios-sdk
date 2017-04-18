@@ -1,14 +1,17 @@
 # PWJavaScriptCallback #
 
+| Header | [PWInAppManager.h](../Framework/Pushwoosh.framework/Versions/A/Headers/PWInAppManager.h) |
+| ------ | ---------------------------------------------------------------------------------------- |
+
 `PWJavaScriptCallback` is a representation of Javascript function. Can be used to pass JavaScript functions into Swift/Objective-C code.
 Supports only string(NSString) arguments.
 
-## Tasks
+## Summary
 [– execute](#execute)  
-[- executeWithParam](#executewithparam)  
-[- executeWithParams](#executewithparams)  
+[- executeWithParam:](#executewithparam)  
+[- executeWithParams:](#executewithparams)  
 
-## Class methods
+## Instance Methods
 
 ### execute
 
@@ -18,7 +21,9 @@ Invokes callback with no arguments.
 - (NSString*)execute
 ```
 
-### executeWithParam
+---
+
+### executeWithParam:
 
 Invokes callback with one argument.
 
@@ -26,7 +31,9 @@ Invokes callback with one argument.
 - (NSString*)executeWithParam:(NSString*)param
 ```
 
-### executeWithParams
+---
+
+### executeWithParams:
 
 Invokes callback with multiple arguments.
 

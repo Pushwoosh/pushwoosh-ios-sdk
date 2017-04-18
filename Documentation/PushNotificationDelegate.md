@@ -1,8 +1,12 @@
 # PushNotificationDelegate Protocol #
 
+| Header | [PushNotificationManager.h](../Framework/Pushwoosh.framework/Versions/A/Headers/PushNotificationManager.h) |
+| ------ | ---------------------------------------------------------------------------------------------------------- |
+
+
 `PushNotificationDelegate` protocol defines the methods that can be implemented in the delegate of the `PushNotificationManager` class' singleton object. These methods provide information about the key events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification. These methods implementation allows to react on these events properly.
 
-## Tasks
+## Summary
 [– onDidRegisterForRemoteNotificationsWithDeviceToken:](#ondidregisterforremotenotificationswithdevicetoken)  
 [– onDidFailToRegisterForRemoteNotificationsWithError:](#ondidfailtoregisterforremotenotificationswitherror)  
 [– onPushReceived:withNotification:onStart:](#onpushreceivedwithnotificationonstart)  
@@ -26,6 +30,7 @@ Sent to the delegate when Apple Push Service (APS) could not complete the regist
 
 * **error** - An NSError object encapsulating the information about the reason of the registration failure. Within this method you can define application’s behaviour in case of registration failure.
 
+---
 
 ### onDidRegisterForRemoteNotificationsWithDeviceToken:
 
@@ -37,6 +42,7 @@ Tells the delegate that the application has registered with Apple Push Service (
 
 * **token** - A token used for identifying the device with APS.
 
+---
 
 ### onPushAccepted:withNotification:
 
@@ -45,6 +51,8 @@ Tells the delegate that the user has pressed OK on the push notification. IMPORT
 ```objc
 - (void)onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification
 ```
+
+---
 
 ### onPushAccepted:withNotification:onStart:
 
@@ -67,6 +75,7 @@ Tells the delegate that the user has pressed OK on the push notification.
 ```
 * **onStart** - If the application was not active when the push notification was received, the application will be launched with this parameter equal to YES, otherwise the parameter will be NO.
 
+---
 
 ### onPushReceived:withNotification:onStart:
 
@@ -82,6 +91,8 @@ Tells the delegate that the push manager has received a remote notification.
 
 * **onStart** - If the application was not active when the push notification was received, the application will be launched with this parameter equal to YES, otherwise the parameter will be NO.
 
+---
+
 ### onRichPageBackTapped
 
 User has tapped on the back button on Rich Push Page.
@@ -89,6 +100,8 @@ User has tapped on the back button on Rich Push Page.
 ```objc
 - (void)onRichPageBackTapped
 ```
+
+---
 
 ### onRichPageButtonTapped:
 
@@ -100,6 +113,7 @@ User has tapped on the action button on Rich Push Page.
 
 * **customData** - Data associated with rich page button in the Rich Push Editor
 
+---
 
 ### onTagsFailedToReceive:
 
@@ -110,6 +124,8 @@ Sent to the delegate when push manager could not complete the tags receiving pro
 ```
 
 * **error** - An NSError object that encapsulates information why receiving tags did not succeed.
+
+---
 
 ### onTagsReceived:
 
