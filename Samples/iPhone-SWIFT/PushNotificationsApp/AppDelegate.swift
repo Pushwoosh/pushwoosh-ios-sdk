@@ -18,7 +18,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PushNotificationDelegate 
 
 	func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplicationLaunchOptionsKey : Any]? = nil) -> Bool {
 		PushNotificationManager.push().delegate = self
-		PushNotificationManager.push().handlePushReceived(launchOptions)
 		PushNotificationManager.push().sendAppOpen()
 		PushNotificationManager.push().registerForPushNotifications()
 		if #available(iOS 10.0, *) {
@@ -35,8 +34,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PushNotificationDelegate 
 		PushNotificationManager.push().handlePushRegistrationFailure(error)
 	}
 	
-	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any]) {
+	func application(_ application: UIApplication, didReceiveRemoteNotification userInfo: [AnyHashable : Any],
+	                 fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 		PushNotificationManager.push().handlePushReceived(userInfo)
+		completionHandler(UIBackgroundFetchResult.noData)
 	}
 	
 	func onPushAccepted(_ pushManager: PushNotificationManager!, withNotification pushNotification: [AnyHashable : Any]!, onStart: Bool) {

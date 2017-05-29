@@ -29,9 +29,6 @@
 	// set default Pushwoosh delegate for iOS10 foreground push handling
 	[UNUserNotificationCenter currentNotificationCenter].delegate = [PushNotificationManager pushManager].notificationCenterDelegate;
 
-	// handling push on app start
-	[[PushNotificationManager pushManager] handlePushReceived:launchOptions];
-
 	// make sure we count app open in Pushwoosh stats
 	[[PushNotificationManager pushManager] sendAppOpen];
 
@@ -69,11 +66,6 @@
 // system push notification registration error callback, delegate to pushManager
 - (void)application:(UIApplication *)application didFailToRegisterForRemoteNotificationsWithError:(NSError *)error {
 	[[PushNotificationManager pushManager] handlePushRegistrationFailure:error];
-}
-
-// system push notifications callback, delegate to pushManager
-- (void)application:(UIApplication *)application didReceiveRemoteNotification:(NSDictionary *)userInfo {
-	[[PushNotificationManager pushManager] handlePushReceived:userInfo];
 }
 
 // silent push handling for applications with the "remote-notification" background mode
