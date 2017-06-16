@@ -1,0 +1,6 @@
+framework module PushwooshBeacons {
+  umbrella header "PushwooshBeacons.h"
+
+  export *
+  module * { export * }
+}
