@@ -107,7 +107,8 @@ Returns push notification payload if the app was started in response to push not
 
 ### showPushnotificationAlert
 
-Show push notifications alert when push notification is received while the app is running, default is YES
+Shows push notification banner if the push is received while the app is in the foreground, default is YES. 
+Change the value to NO if you need to display custom banners.
 
 ```objc
 @property (nonatomic, assign) BOOL showPushnotificationAlert
