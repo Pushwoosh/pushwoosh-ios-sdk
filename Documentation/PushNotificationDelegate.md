@@ -46,7 +46,7 @@ Tells the delegate that the application has registered with Apple Push Service (
 
 ### onPushAccepted:withNotification:
 
-Tells the delegate that the user has pressed OK on the push notification. IMPORTANT: This method is used for backwards compatibility and is deprecated. Please use the `onPushAccepted:withNotification:onStart:` method instead
+Tells the delegate that the user has pressed OK on the push notification. IMPORTANT: This method is used for backwards compatibility and is **deprecated**. Please use the `onPushAccepted:withNotification:onStart:` method instead
 
 ```objc
 - (void)onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification
@@ -56,7 +56,7 @@ Tells the delegate that the user has pressed OK on the push notification. IMPORT
 
 ### onPushAccepted:withNotification:onStart:
 
-Tells the delegate that the user has pressed OK on the push notification.
+Tells the delegate that the user has clicked OK on the push notification banner.
 
 ```objc
 - (void)onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart
@@ -73,23 +73,24 @@ Tells the delegate that the user has pressed OK on the push notification.
      p = 1pb;
 }
 ```
-* **onStart** - If the application was not active when the push notification was received, the application will be launched with this parameter equal to YES, otherwise the parameter will be NO.
+* **onStart** - If the application isn't in the foreground when the push notification is received, the application is launched with this parameter equal to YES, otherwise the parameter is NO.
 
 ---
 
 ### onPushReceived:withNotification:onStart:
 
-Tells the delegate that the push manager has received a remote notification.
+Tells the delegate that the push manager has received a remote notification, and shows the banner.
+*To show a custom banner when the app is in the foreground, set it up here.*
 
 ```objc
 - (void)onPushReceived:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart
 ```
 
-* **pushManager** - The push manager that received the remote notification. If this method is implemented `onPushAccepted:withNotification:` will not be called, internal message boxes will not be displayed.
+* **pushManager** - The push manager that received the remote notification. 
 
 * **pushNotification** - A dictionary that contains information referring to the remote notification, potentially including a badge number for the application icon, an alert sound, an alert message to display to the user, a notification identifier, and custom data. The provider originates it as a JSON-defined dictionary that iOS converts to an NSDictionary object; the dictionary may contain only property-list objects plus NSNull.
 
-* **onStart** - If the application was not active when the push notification was received, the application will be launched with this parameter equal to YES, otherwise the parameter will be NO.
+* **onStart** - If the application isn't in the foreground when the push notification is received, the application is launched with this parameter equal to YES, otherwise the parameter is NO.
 
 ---
 
