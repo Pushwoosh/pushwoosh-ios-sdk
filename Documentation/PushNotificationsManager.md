@@ -1,3 +1,4 @@
+
 # PushNotificationManager #
 
 | Header | [PushNotificationManager.h](../Framework/Pushwoosh.framework/Versions/A/Headers/PushNotificationManager.h) |
@@ -17,6 +18,7 @@ PushNotificationManager class offers access to the singletone-instance of the pu
 [+ getRemoteNotificationStatus](#getremotenotificationstatus)  
 [+ clearNotificationCenter](#clearnotificationcenter)  
 [– registerForPushNotifications](#registerforpushnotifications)  
+[– unregisterForPushNotificationsWithCompletion:](#unregisterforpushnotificationswithcompletion)  
 [– unregisterForPushNotifications](#unregisterforpushnotifications)  
 [– startLocationTracking](#startlocationtracking)  
 [– stopLocationTracking](#startbeacontracking)  
@@ -68,16 +70,16 @@ Example logic from Pushwoosh SDK Runtime:
 ```objc
 NSString * appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Pushwoosh_APPNAME"];
 if(!appname)
-	appname = [[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_APPNAME"];
+    appname = [[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_APPNAME"];
 
 if(!appname)
-	appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
+    appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleDisplayName"];
 
 if(!appname)
-	appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
+    appname = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleName"];
 
 if(!appname) {
-	appname = @"";
+    appname = @"";
 }
 
 instance = [[PushNotificationManager alloc] initWithApplicationCode:appid appName:appname ];
@@ -135,11 +137,11 @@ Returns dictionary with enabled remove notificaton types.
 Enabled push example:  
 ```
 {
-	enabled = 1;
-	pushAlert = 1;
-	pushBadge = 1;
-	pushSound = 1;
-	type = 7;
+    enabled = 1;
+    pushAlert = 1;
+    pushBadge = 1;
+    pushSound = 1;
+    type = 7;
 }
 ```
 where “type” field is UIUserNotificationType  
@@ -147,11 +149,11 @@ where “type” field is UIUserNotificationType
 Disabled push example:
 ```
 {
-	enabled = 1;
-	pushAlert = 0;
-	pushBadge = 0;
-	pushSound = 0;
-	type = 0;
+    enabled = 1;
+    pushAlert = 0;
+    pushBadge = 0;
+    pushSound = 0;
+    type = 0;
 }
 ```
 Note: In the latter example “enabled” field means that device can receive push notification but could not display alerts (ex: silent push)
@@ -443,9 +445,19 @@ Stop iBeacon tracking.
 
 ---
 
+### unregisterForPushNotificationsWithCompletion:
+
+ Unregisters from push notifications.
+
+```objc
+- (void)unregisterForPushNotificationsWithCompletion:(void (^)(NSError *error))completion
+```
+
+---
+
 ### unregisterForPushNotifications:
 
-Unregisters from push notifications. You should call this method in rare circumstances only, such as when a new version of the app drops support for remote notifications. Users can temporarily prevent apps from receiving remote notifications through the Notifications section of the Settings app. Apps unregistered through this method can always re-register.
+Deprecated. Use unregisterForPushNotificationsWithCompletion: method instead
 
 ```objc
 - (void)unregisterForPushNotifications
