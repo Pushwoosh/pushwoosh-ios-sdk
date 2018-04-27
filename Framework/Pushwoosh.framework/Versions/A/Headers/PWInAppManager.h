@@ -87,6 +87,11 @@
 + (instancetype)sharedManager;
 
 /**
+ Resets capping of the Pushwoosh out-of-the-box In-App solutions.
+ */
+- (void)resetBusinessCasesFrequencyCapping;
+
+/**
  Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
  This allows data and events to be matched across multiple user devices.
  */
