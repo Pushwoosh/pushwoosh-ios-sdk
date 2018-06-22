@@ -6,6 +6,10 @@
 [PWInAppManager](PWInAppManager.md)  
 [PWJavaScriptInterface](PWJavaScriptInterface.md)  
 [PWJavaScriptCallback](PWJavaScriptCallback.md)  
+[PWRichMedia](PWRichMedia.md)
+[PWRichMediaManager](PWRichMediaManager.md)
+[PWRichMediaPresentingDelegate](PWRichMediaPresentingDelegate.md)
+[PWGDPRManager](PWGDPRManager.md)
 
 ## Information property list
 [Info.plist](InfoPlist.md)  
