@@ -8,9 +8,9 @@ Delegate that would receive the information about events for geozones manager.
 
 ## Summary
 
-[- didStartLocationTrackingWithManager:](#didstartlocationtrackingwithmanager)
-[- geozonesManager:startingLocationTrackingDidFail:](#geozonesmanagerstartinglocationtrackingdidfail)
-[- geozonesManager:didSendLocation:](#geozonesmanagerdidsendlocation)
+[- didStartLocationTrackingWithManager:](#didstartlocationtrackingwithmanager)  
+[- geozonesManager:startingLocationTrackingDidFail:](#geozonesmanagerstartinglocationtrackingdidfail)  
+[- geozonesManager:didSendLocation:](#geozonesmanagerdidsendlocation)  
 
 
 ## Instance Methods

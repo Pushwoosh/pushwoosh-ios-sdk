@@ -6,8 +6,8 @@
 Geozones API.
 
 ## Summary
-[enabled](#enabled) *__property__*
-[delegate](#delegate) *__property__*
+[enabled](#enabled) *__property__*  
+[delegate](#delegate) *__property__*  
 
 [+ sharedManager](#sharedmanager)  
 
