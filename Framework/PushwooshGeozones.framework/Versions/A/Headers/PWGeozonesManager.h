@@ -34,7 +34,7 @@
 @interface PWGeozonesManager: NSObject
 
 /**
- Indicates is location tracking has been started.
+ Indicates that location tracking has started.
  */
 @property (nonatomic, readonly) BOOL enabled;
 
@@ -49,17 +49,17 @@
 + (instancetype)sharedManager;
 
 /**
- Start location tracking.
+ Starts location tracking.
  */
 - (void)startLocationTracking;
 
 /**
- Stops location tracking
+ Stops location tracking.
  */
 - (void)stopLocationTracking;
 
 /**
- Explicitly sends geolocation to the server for GeoFencing push technology. Also called internally, please use `startLocationTracking` and `stopLocationTracking` functions.
+ Explicitly sends geolocation to the server for GeoFencing push technology. Also called internally in `startLocationTracking` and `stopLocationTracking` functions.
 
  @param location Location to be sent.
  */
