@@ -1,7 +1,7 @@
 
 # PWGeozonesDelegate #
 
-| Header | [PWGeozonesManager.h](../Framework/Pushwoosh.framework/Versions/A/Headers/PWGeozonesManager.h) |
+| Header | [PWGeozonesManager.h](../Framework/PushwooshGeozones.framework/Versions/A/Headers/PWGeozonesManager.h) |
 | ------ | ---------------------------------------------------------------------------------------- |
 
 Delegate that would receive the information about events for geozones manager.
