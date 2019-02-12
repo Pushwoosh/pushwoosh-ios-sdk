@@ -357,10 +357,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0bd1b1dd-325a-4238-9e40-8e91b1d6e75e";
-				PROVISIONING_PROFILE_SPECIFIER = "Pushwoosh Demo NotificationService Development";
+				PROVISIONING_PROFILE_SPECIFIER = "Universal Development";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -381,10 +380,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "fe82c4fb-569e-43b6-a507-2a8c16462afe";
-				PROVISIONING_PROFILE_SPECIFIER = "PushwooshDemoApp NotificationService (Ad Hoc)";
+				PROVISIONING_PROFILE_SPECIFIER = "Universal In House";
 				SKIP_INSTALL = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Owholemodule";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -429,6 +427,7 @@
 				ONLY_ACTIVE_ARCH = YES;
 				SDKROOT = iphoneos;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
@@ -466,6 +465,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 9.1;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				SDKROOT = iphoneos;
+				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 			};
@@ -492,10 +492,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "42c7ddb9-8261-4d0a-8ff7-3c628b5cf564";
-				PROVISIONING_PROFILE_SPECIFIER = "Pushwoosh Demo Development";
+				PROVISIONING_PROFILE_SPECIFIER = "Universal Development";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Debug;
 		};
@@ -522,7 +521,6 @@
 				PROVISIONING_PROFILE = "3653de08-dd87-4b8d-8061-5beef66215c6";
 				PROVISIONING_PROFILE_SPECIFIER = "Universal In House";
 				SWIFT_OBJC_BRIDGING_HEADER = "";
-				SWIFT_VERSION = 3.0;
 			};
 			name = Release;
 		};
@@ -536,6 +534,7 @@
 				4649F85A1EDE756500D3D90C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
 		};
 		465447D41BE366A90048DC4B /* Build configuration list for PBXProject "PushNotificationsApp" */ = {
 			isa = XCConfigurationList;
