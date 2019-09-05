@@ -1,45 +1,35 @@
-﻿
-# PWRichMedia #
 
-| Header | [PWRichMediaManager.h](../Framework/Pushwoosh.framework/Versions/A/Headers/PWRichMediaManager.h) |
-| ------ | ---------------------------------------------------------------------------------------- |
+# <a name="heading"></a>class PWRichMedia : NSObject  
 
-Represents Rich Media page object.
+## Members  
 
-## Summary
-[source](#source) *property*  
-[content](#content) *property*  
-[required](#required) *property*  
-
-## Properties
-
-### source
-
-Rich Media presenter type.
+<table>
+	<tr>
+		<td><a href="#1aa0e807bff47630b06e34e6da970205ba">@property PWRichMediaSource source</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a375fb5e717c16d5f602377e7c80de5ac">@property NSString *content</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a4afbbb0ecd2806e4676158576c154866">@property BOOL required</a></td>
+	</tr>
+</table>
 
 
-```objc
-@property (nonatomic, readonly) PWRichMediaSource source;
-```
+----------  
+  
 
----
-### content
+#### <a name="1aa0e807bff47630b06e34e6da970205ba"></a>@property PWRichMediaSource source  
+Rich Media presenter type. 
 
-Content of the Rich Media. For PWRichMediaSourceInApp it's equal to In-App code, for PWRichMediaSourcePush it's equal to Rich Media code.
+----------  
+  
 
+#### <a name="1a375fb5e717c16d5f602377e7c80de5ac"></a>@property NSString \*content  
+Content of the Rich Media. For PWRichMediaSourceInApp it's equal to In-App code, for PWRichMediaSourcePush it's equal to Rich Media code. 
 
-```objc
-@property (nonatomic, readonly) NSString *content;
-```
+----------  
+  
 
----
-### required
-
-Checks if PWRichMediaSourceInApp is a required In-App. Always returns YES for PWRichMediaSourcePush.
-
-
-```objc
-@property (nonatomic, readonly, getter=isRequired) BOOL required;
-```
-
----
+#### <a name="1a4afbbb0ecd2806e4676158576c154866"></a>@property BOOL required  
+Checks if PWRichMediaSourceInApp is a required In-App. Always returns YES for PWRichMediaSourcePush. 

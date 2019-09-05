@@ -1,105 +1,110 @@
-# PWInAppManager #
 
-| Header | [PWInAppManager.h](../Framework/Pushwoosh.framework/Versions/A/Headers/PWInAppManager.h) |
-| ------ | ---------------------------------------------------------------------------------------- |
+# <a name="heading"></a>class PWInAppManager : NSObject  
 
-In-App Messages API.
+## Members  
 
-## Summary
-[+ sharedManager](#sharedmanager)  
-[- setUserId:](#setiserid)  
-[- postEvent:withAttributes:completion:](#posteventwithattributescompletion)  
-[- postEvent:withAttributes:](#posteventwithattributes)  
-[- addJavascriptInterface:withName:](#addjavascriptinterfacewithname)  
+<table>
+	<tr>
+		<td><a href="#1a49c87bae4b7c156655b687d7fef44842">+ (instancetype)sharedManager</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a85005afffc4bb17b154fcecade6c25e6">- (void)resetBusinessCasesFrequencyCapping</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a7b1bb8202b67bfb20ae4fbd8750b1c4a">- (void)setUserId:(NSString *)userId</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a716053392e1af46ed4d8c0a581f41e33">- (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void(^)(NSError *error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a03ea81f92233aa5350abb80aa3265cff">- (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void(^)(NSError *error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a6bbae004bf3b27d6eef87043b5a183a9">- (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1ab8387ffd8946189612595a87c4a4a5fd">- (void)addJavascriptInterface:(NSObject&lt;PWJavaScriptInterface&gt; *)interface withName:(NSString *)name</a></td>
+	</tr>
+</table>
 
-##  Class Methods
 
-### sharedManager
+----------  
+  
 
-Returns shared instance of PWInAppManager
+#### <a name="1a49c87bae4b7c156655b687d7fef44842"></a>+ (instancetype)sharedManager  
 
-```objc
-+ (instancetype)sharedManager
-```
 
----
----
+----------  
+  
 
-## Instance Methods
+#### <a name="1a85005afffc4bb17b154fcecade6c25e6"></a>- (void)resetBusinessCasesFrequencyCapping  
+Resets capping of the Pushwoosh out-of-the-box In-App solutions. 
 
-### setUserId:
+----------  
+  
 
-Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
-This allows data and events to be matched across multiple user devices.
+#### <a name="1a7b1bb8202b67bfb20ae4fbd8750b1c4a"></a>- (void)setUserId:(NSString \*)userId  
+Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices. 
 
-```objc
-- (void)setUserId:(NSString *)userId
-```
+----------  
+  
 
----
+#### <a name="1a716053392e1af46ed4d8c0a581f41e33"></a>- (void)mergeUserId:(NSString \*)oldUserId to:(NSString \*)newUserId doMerge:(BOOL)doMerge completion:(void(^)(NSError \*error))completion  
+Move all events from oldUserId to newUserId if doMerge is true. If doMerge is false all events for oldUserId are removed.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>oldUserId</strong></td>
+		<td>source user </td>
+	</tr>
+	<tr>
+		<td><strong>newUserId</strong></td>
+		<td>destination user </td>
+	</tr>
+	<tr>
+		<td><strong>doMerge</strong></td>
+		<td>if false all events for oldUserId are removed, if true all events for oldUserId are moved to newUserId </td>
+	</tr>
+	<tr>
+		<td><strong>completion</strong></td>
+		<td>callback </td>
+	</tr>
+</table>
 
-### postEvent:withAttributes:completion:
 
-Post events for In-App Messages. This can trigger In-App message display as specified in Pushwoosh Control Panel.
+----------  
+  
 
-```objc
-- (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void (^)(NSError *error))completion
-```
-
- * **event** name of the event
- * **attributes** dictionary with additianal event parameters
- * **completion** postEvent completion handler
-
-Example:
-
-```objc
+#### <a name="1a03ea81f92233aa5350abb80aa3265cff"></a>- (void)postEvent:(NSString \*)event withAttributes:(NSDictionary \*)attributes completion:(void(^)(NSError \*error))completion  
+Post events for In-App Messages. This can trigger In-App message display as specified in Pushwoosh Control Panel.<br/>Example: 
+```Objective-C
 [[PWInAppManager sharedManager] setUserId:@"96da2f590cd7246bbde0051047b0d6f7"];
 [[PWInAppManager sharedManager] postEvent:@"buttonPressed" withAttributes:@{ @"buttonNumber" : @"4", @"buttonLabel" : @"Banner" } completion:nil];
 ```
+<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>event</strong></td>
+		<td>name of the event </td>
+	</tr>
+	<tr>
+		<td><strong>attributes</strong></td>
+		<td>NSDictionary of event attributes </td>
+	</tr>
+	<tr>
+		<td><strong>completion</strong></td>
+		<td>function to call after posting event </td>
+	</tr>
+</table>
 
----
 
-### postEvent:withAttributes:
+----------  
+  
 
-See [- postEvent:withAttributes:completion:](#posteventwithattributescompletion).
+#### <a name="1a6bbae004bf3b27d6eef87043b5a183a9"></a>- (void)postEvent:(NSString \*)event withAttributes:(NSDictionary \*)attributes  
+See postEvent:withAttributes:completion:
 
----
+----------  
+  
 
-### addJavascriptInterface:withName:
-
-Adds ObjC object to be accessible from In-App html page JavaScript. All object methods are exported to JavaScript by removing ":" and whitespaces.
-
-```objc
-- (void)addJavascriptInterface:(NSObject<PWJavaScriptInterface>*)interface withName:(NSString*)name;
-```
-
- * **interface** ObjC object accessible from JavaScript
- * **name** name of JavaScript object
-
-Example:
-
-**LoggerJS**
-```objc
-
-@interface PWInAppStorage : NSObject<PWJavaScriptInterface>
-@end
-
-@implementation LoggerJS
-
-- (void)log:(NSString *)message {
-	NSLog(@"%@", message);
-}
-
-@end
-```
-
-**SomeClass**
-```objc
-...
-[[PWInAppManager sharedManager] addJavascriptInterface:[LoggerJS new] withName:@"nativeLogger"];
-```
-
-**index.js**
-```js
-nativeLogger.log("Some string");
-```
+#### <a name="1ab8387ffd8946189612595a87c4a4a5fd"></a>- (void)addJavascriptInterface:(NSObject&lt;<a href="PWJavaScriptInterface-p.md">PWJavaScriptInterface</a>&gt; \*)interface withName:(NSString \*)name  
+Adds javascript interface for In-App Messages. Interface will be accessible from javascript as object with specified name and functions defined in interface class. 

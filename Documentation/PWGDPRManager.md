@@ -1,106 +1,79 @@
 
-# PWGDPRManager
+# <a name="heading"></a>class PWGDPRManager : NSObject  
 
-| Header | [PWGDPRManager.h](../Framework/Pushwoosh.framework/Versions/A/Headers/PWGDPRManager.h) |
+## Members  
 
-| ------ | ---------------------------------------------------------------------------------------- |
-
-Offers access to the singleton-instance of the manager responsible for channels management required by GDPR.
-
-## Summary
-
-[available](#available) *__property__*
-[communicationEnabled](#communicationenabled) *__property__*
-[deviceDataRemoved](#devicedataremoved) *__property__*
-
-[+ sharedManager](#sharedmanager)
-
-[- setCommunicationEnabled:completion:](#setcommunicationenabledcompletion)
-[- removeAllDeviceDataWithCompletion:](#removealldevicedatawithcompletion)
-[- showGDPRConsentUI:](#showgdprconsentui)
-[- showGDPRDeletionUI:](#showgdprdeletionui)
-
-## Properties
-
-### available
-
-Indicates availability of the GDPR compliance solution.
-
-
-```objc
-@property (nonatomic, readonly, getter=isAvailable) BOOL available;
-```
----
-
-### communicationEnabled
-
-Gets the current status of communication availability. Returns **true** if communication with Pushwoosh servers is enabled and **false** if not.
+<table>
+	<tr>
+		<td><a href="#1aafb4c03bd1b8ce53a6957444f664d586">@property BOOL available</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a218139fc7170faaec0b9cda904963c41">@property BOOL communicationEnabled</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1ae8a86ec152c1e0e5ce73efab81724ea7">@property BOOL deviceDataRemoved</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a6e89b32cccd55d8ae36fceb63aaf97b6">+ (instancetype)sharedManager</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a4d07351b5a24dc21ce30b0c7dfbbf9f6">- (void)setCommunicationEnabled:(BOOL)enabled completion:(void(^)(NSError *error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a5f9c4520f769c841c5da392f4e17003c">- (void)removeAllDeviceDataWithCompletion:(void(^)(NSError *error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1aa4c3bda5d87970eec250d728b5eb24af">- (void)showGDPRConsentUI</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a2bfb71fa2353714b0cbfb671ff82972e">- (void)showGDPRDeletionUI</a></td>
+	</tr>
+</table>
 
 
-```objc
-@property (nonatomic, readonly, getter=isCommunicationEnabled) BOOL communicationEnabled;
-```
----
+----------  
+  
 
-### deviceDataRemoved
+#### <a name="1aafb4c03bd1b8ce53a6957444f664d586"></a>@property BOOL available  
+Indicates availability of the GDPR compliance solution. 
 
-Returns **true** if device data was removed from Pushwoosh servers and **false** if not.
+----------  
+  
 
-
-```objc
-@property (nonatomic, readonly, getter=isDeviceDataRemoved) BOOL deviceDataRemoved;
-```
----
+#### <a name="1a218139fc7170faaec0b9cda904963c41"></a>@property BOOL communicationEnabled  
 
 
-## Class Methods
+----------  
+  
+
+#### <a name="1ae8a86ec152c1e0e5ce73efab81724ea7"></a>@property BOOL deviceDataRemoved  
 
 
-### sharedManager
+----------  
+  
 
-A singleton object that represents the GDPR manager
-
-```objc
-+ (instancetype)sharedManager;
-```
-
----
+#### <a name="1a6e89b32cccd55d8ae36fceb63aaf97b6"></a>+ (instancetype)sharedManager  
 
 
-## Instance Methods
+----------  
+  
 
-### setCommunicationEnabled:completion:
+#### <a name="1a4d07351b5a24dc21ce30b0c7dfbbf9f6"></a>- (void)setCommunicationEnabled:(BOOL)enabled completion:(void(^)(NSError \*error))completion  
+Enable/disable all communication with Pushwoosh. Enabled by default. 
 
-Enable/disable all communication with Pushwoosh. Enabled by default.
+----------  
+  
 
-```objc
-- (void)setCommunicationEnabled:(BOOL)enabled completion:(void (^)(NSError *error))completion;
-```
----
+#### <a name="1a5f9c4520f769c841c5da392f4e17003c"></a>- (void)removeAllDeviceDataWithCompletion:(void(^)(NSError \*error))completion  
+Removes all device data from Pushwoosh and stops all interactions and communication permanently. 
 
-### removeAllDeviceDataWithCompletion:
+----------  
+  
 
-Removes all device data from Pushwoosh and stops all interactions and communication permanently.
+#### <a name="1aa4c3bda5d87970eec250d728b5eb24af"></a>- (void)showGDPRConsentUI  
 
-```objc
-- (void)removeAllDeviceDataWithCompletion:(void (^)(NSError *error))completion;
-```
----
 
-### showGDPRConsentUI:
+----------  
+  
 
-Shows GDPR consent form. This method triggers our system GDPRConsent Event and shows the Consent Form Rich Media. More info can be found [here](https://www.pushwoosh.com/docs/the-gdpr-compliance#section-consent-form)
-
-```objc
-- (void)showGDPRConsentUI;
-```
----
-
-### showGDPRDeletionUI:
-
-Shows GDPR deletion form. This method triggers a system GDPRDeletion Event and displays the Deletion Form Rich Media. More information is available [here](https://www.pushwoosh.com/docs/the-gdpr-compliance#section-deletion-form)
-
-```objc
-- (void)showGDPRDeletionUI;
-```
----
+#### <a name="1a2bfb71fa2353714b0cbfb671ff82972e"></a>- (void)showGDPRDeletionUI  
