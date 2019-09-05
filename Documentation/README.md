@@ -8,7 +8,7 @@
 [PWJavaScriptCallback](PWJavaScriptCallback.md)  
 [PWRichMedia](PWRichMedia.md)  
 [PWRichMediaManager](PWRichMediaManager.md)  
-[PWRichMediaPresentingDelegate](PWRichMediaPresentingDelegate.md)  
+[PWRichMediaPresentingDelegate](PWRichMediaPresentingDelegate-p.md)  
 [PWGDPRManager](PWGDPRManager.md)  
 [PWGeozonesManager](PWGeozonesManager.md)  
 [PWGeozonesDelegate](PWGeozonesDelegate.md)  
