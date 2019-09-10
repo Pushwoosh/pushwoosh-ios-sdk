@@ -2,7 +2,7 @@
 
 ## Classes
 [PushNotificationsManager](PushNotificationsManager.md)  
-[PushNotificationDelegate](PushNotificationDelegate.md)  
+[PushNotificationDelegate](PushNotificationDelegate-p.md)  
 [PWInAppManager](PWInAppManager.md)  
 [PWJavaScriptInterface](PWJavaScriptInterface.md)  
 [PWJavaScriptCallback](PWJavaScriptCallback.md)  
@@ -11,7 +11,7 @@
 [PWRichMediaPresentingDelegate](PWRichMediaPresentingDelegate-p.md)  
 [PWGDPRManager](PWGDPRManager.md)  
 [PWGeozonesManager](PWGeozonesManager.md)  
-[PWGeozonesDelegate](PWGeozonesDelegate.md)  
+[PWGeozonesDelegate](PWGeozonesDelegate-p.md)  
 
 ## Information property list
 [Info.plist](InfoPlist.md)  
