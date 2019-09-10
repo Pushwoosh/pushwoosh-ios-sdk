@@ -1,7 +1,7 @@
 # Pushwoosh iOS Push notifications SDK Documentation #
 
 ## Classes
-[PushNotificationsManager](PushNotificationsManager.md)  
+[PushNotificationManager](PushNotificationManager.md)  
 [PushNotificationDelegate](PushNotificationDelegate-p.md)  
 [PWInAppManager](PWInAppManager.md)  
 [PWJavaScriptInterface](PWJavaScriptInterface.md)  
