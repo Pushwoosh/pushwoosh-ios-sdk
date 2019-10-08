@@ -25,13 +25,13 @@ ObjC.nativeCall("exampleString", function(str) {
 
 <table>
 	<tr>
-		<td><a href="#1a3f80ab32c8ae666b2ecbd0ac6e7e5ec5">- (void)onWebViewStartLoad:(UIWebView *)webView</a></td>
+		<td><a href="#1aca9102ee4315b23f4419c92b5d7f34e7">- (void)onWebViewStartLoad:(WKWebView *)webView</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1acc48793492b4a64c723d844815f07060">- (void)onWebViewFinishLoad:(UIWebView *)webView</a></td>
+		<td><a href="#1a9678811c3251738122d3323ae4eb06a8">- (void)onWebViewFinishLoad:(WKWebView *)webView</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a69ca3a53aa457414e3ba97a6d261ffe4">- (void)onWebViewStartClose:(UIWebView *)webView</a></td>
+		<td><a href="#1ae1a5e1699ff0dcb2d6a32bac3128d7ad">- (void)onWebViewStartClose:(WKWebView *)webView</a></td>
 	</tr>
 </table>
 
@@ -39,17 +39,17 @@ ObjC.nativeCall("exampleString", function(str) {
 ----------  
   
 
-#### <a name="1a3f80ab32c8ae666b2ecbd0ac6e7e5ec5"></a>- (void)onWebViewStartLoad:(UIWebView \*)webView  
+#### <a name="1aca9102ee4315b23f4419c92b5d7f34e7"></a>- (void)onWebViewStartLoad:(WKWebView \*)webView  
 Tells the delegate that In-App Message load stated 
 
 ----------  
   
 
-#### <a name="1acc48793492b4a64c723d844815f07060"></a>- (void)onWebViewFinishLoad:(UIWebView \*)webView  
+#### <a name="1a9678811c3251738122d3323ae4eb06a8"></a>- (void)onWebViewFinishLoad:(WKWebView \*)webView  
 Tells the delegate that In-App Message load finished 
 
 ----------  
   
 
-#### <a name="1a69ca3a53aa457414e3ba97a6d261ffe4"></a>- (void)onWebViewStartClose:(UIWebView \*)webView  
+#### <a name="1ae1a5e1699ff0dcb2d6a32bac3128d7ad"></a>- (void)onWebViewStartClose:(WKWebView \*)webView  
 Tells the delegate that In-App Message is closing 
