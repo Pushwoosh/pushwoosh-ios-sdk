@@ -23,22 +23,25 @@ PushNotificationManager class offers access to the singleton-instance of the pus
 		<td><a href="#1aff74318345084d087e9d895da29065e7">@property id&lt;UNUserNotificationCenterDelegate&gt; notificationCenterDelegate</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a1dd1fab95d86d79a3a104f15b7296c4c">@property NSObject&lt;PushNotificationDelegate&gt; *delegate</a></td>
-	</tr>
-	<tr>
 		<td><a href="#1a28eef8ff3f8f16ebdcae90dabd2659c7">@property NSString *language</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1aef1303a6ee34073d2a5efcfdfd5e0c29">+ (void)initializeWithAppCode:(NSString *)appCode appName:(NSString *)appName</a></td>
+		<td><a href="#1a1dd1fab95d86d79a3a104f15b7296c4c">@property NSObject&lt;PushNotificationDelegate&gt; *delegate</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1abd27a7028f103b88b0d9f4d8dea6631f">+ (PushNotificationManager *)pushManager</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a876867951e728dd137c24cff9d7b22de">+ (BOOL)isPushwooshMessage:(NSDictionary *)message</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1abaf502c205606d4fd359a20972e0580a">+ (NSMutableDictionary *)getRemoteNotificationStatus</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a0b712026b2f4c08cbf8fff89b696f311">+ (void)clearNotificationCenter</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1aef1303a6ee34073d2a5efcfdfd5e0c29">+ (void)initializeWithAppCode:(NSString *)appCode appName:(NSString *)appName</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1abad961781957bdc51cbe48fc878a4ae3">- (void)registerForPushNotifications</a></td>
@@ -62,10 +65,10 @@ PushNotificationManager class offers access to the singleton-instance of the pus
 		<td><a href="#1a48d3ebe9afc7fced4b495bb2dd7367b2">- (void)stopLocationTracking</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1aa49f9f0dfdc254aed61a19a3e8a3b65a">- (void)sendLocation:(CLLocation *)location</a></td>
+		<td><a href="#1a8a9ad34df75ba18b7bfc13e2a775be34">- (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a8a9ad34df75ba18b7bfc13e2a775be34">- (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes</a></td>
+		<td><a href="#1ab0742d0b90fec4cb6d99798a75d96947">- (void)setTags:(NSDictionary *)tags</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a7e59d285b7a24808f632c892fc2f4cc7">- (void)setTags:(NSDictionary *)tags withCompletion:(void(^)(NSError *error))completion</a></td>
@@ -125,7 +128,7 @@ PushNotificationManager class offers access to the singleton-instance of the pus
 		<td><a href="#1a9c072f15aff83a03fb6dc4a0dd2f9ec7">- (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1ab0742d0b90fec4cb6d99798a75d96947">- (void)setTags:(NSDictionary *)tags</a></td>
+		<td><a href="#1aa49f9f0dfdc254aed61a19a3e8a3b65a">- (void)sendLocation:(CLLocation *)location</a></td>
 	</tr>
 </table>
 
@@ -169,37 +172,26 @@ Returns UNUserNotificationCenterDelegate that handles foreground push notificati
 ----------  
   
 
-#### <a name="1a1dd1fab95d86d79a3a104f15b7296c4c"></a>@property NSObject&lt;<a href="PushNotificationDelegate-p.md">PushNotificationDelegate</a>&gt; \*delegate  
-PushNotificationDelegate protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification. Pushwoosh Runtime sets it to ApplicationDelegate by default 
-
-----------  
-  
-
 #### <a name="1a28eef8ff3f8f16ebdcae90dabd2659c7"></a>@property NSString \*language  
 Set custom application language. Must be a lowercase two-letter code according to ISO-639-1 standard ("en", "de", "fr", etc.). Device language used by default. Set to nil if you want to use device language again. 
 
 ----------  
   
 
-#### <a name="1aef1303a6ee34073d2a5efcfdfd5e0c29"></a>+ (void)initializeWithAppCode:(NSString \*)appCode appName:(NSString \*)appName  
-Initializes PushNotificationManager. Usually called by Pushwoosh Runtime internally. <br/><br/><strong>Parameters</strong><br/>
-<table>
-	<tr>
-		<td><strong>appCode</strong></td>
-		<td>Pushwoosh App ID. </td>
-	</tr>
-	<tr>
-		<td><strong>appName</strong></td>
-		<td>Application name. </td>
-	</tr>
-</table>
-
+#### <a name="1a1dd1fab95d86d79a3a104f15b7296c4c"></a>@property NSObject&lt;<a href="PushNotificationDelegate-p.md">PushNotificationDelegate</a>&gt; \*delegate  
+PushNotificationDelegate protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification. Pushwoosh Runtime sets it to ApplicationDelegate by default 
 
 ----------  
   
 
 #### <a name="1abd27a7028f103b88b0d9f4d8dea6631f"></a>+ (<a href="#heading">PushNotificationManager</a> \*)pushManager  
 Returns an object representing the current push manager.<br/><br/><br/><strong>Returns</strong> A singleton object that represents the push manager. 
+
+----------  
+  
+
+#### <a name="1a876867951e728dd137c24cff9d7b22de"></a>+ (BOOL)isPushwooshMessage:(NSDictionary \*)message  
+Check is this message from Pushwoosh. 
 
 ----------  
   
@@ -232,6 +224,23 @@ Returns dictionary with enabled remove notificaton types.<br/>Example enabled pu
 
 #### <a name="1a0b712026b2f4c08cbf8fff89b696f311"></a>+ (void)clearNotificationCenter  
 Clears the notifications from the notification center. 
+
+----------  
+  
+
+#### <a name="1aef1303a6ee34073d2a5efcfdfd5e0c29"></a>+ (void)initializeWithAppCode:(NSString \*)appCode appName:(NSString \*)appName  
+Initializes PushNotificationManager. Usually called by Pushwoosh Runtime internally. <br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>appCode</strong></td>
+		<td>Pushwoosh App ID. </td>
+	</tr>
+	<tr>
+		<td><strong>appName</strong></td>
+		<td>Application name. </td>
+	</tr>
+</table>
+
 
 ----------  
   
@@ -278,22 +287,31 @@ Stops location tracking<br/>Deprecated. Use PushwooshGeozones framework.
 ----------  
   
 
-#### <a name="1aa49f9f0dfdc254aed61a19a3e8a3b65a"></a>- (void)sendLocation:(CLLocation \*)location  
-Explicitly sends geolocation to the server for GeoFencing push technology. Also called internally, please use startLocationTracking and stopLocationTracking functions.<br/><br/><br/><strong>Parameters</strong><br/>
-<table>
-	<tr>
-		<td><strong>location</strong></td>
-		<td>Location to be sent.</td>
-	</tr>
-</table>
-
-Deprecated. Use PushwooshGeozones framework. 
+#### <a name="1a8a9ad34df75ba18b7bfc13e2a775be34"></a>- (void)postEvent:(NSString \*)event withAttributes:(NSDictionary \*)attributes  
+See postEvent:withAttributes:completion:<br/>Deprecated. Use PWInAppManager postEvent method instead 
 
 ----------  
   
 
-#### <a name="1a8a9ad34df75ba18b7bfc13e2a775be34"></a>- (void)postEvent:(NSString \*)event withAttributes:(NSDictionary \*)attributes  
-See postEvent:withAttributes:completion:<br/>Deprecated. Use PWInAppManager postEvent method instead 
+#### <a name="1ab0742d0b90fec4cb6d99798a75d96947"></a>- (void)setTags:(NSDictionary \*)tags  
+Send tags to server. Tag names have to be created in the Pushwoosh Control Panel. Possible tag types: Integer, String, Incremental (integer only), List tags (array of values).<br/>Example: 
+```Objective-C
+NSDictionary *tags =  @{ @"Alias" : aliasField.text,
+                     @"FavNumber" : @([favNumField.text intValue]),
+                         @"price" : [PWTags incrementalTagWithInteger:5],
+                          @"List" : @[ @"Item1", @"Item2", @"Item3" ]
+};
+   
+[[PushNotificationManager pushManager] setTags:tags];
+```
+<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>tags</strong></td>
+		<td>Dictionary representation of tags to send. </td>
+	</tr>
+</table>
+
 
 ----------  
   
@@ -548,21 +566,13 @@ Deprecated. Use PWInAppManager postEvent method instead
 ----------  
   
 
-#### <a name="1ab0742d0b90fec4cb6d99798a75d96947"></a>- (void)setTags:(NSDictionary \*)tags  
-Send tags to server. Tag names have to be created in the Pushwoosh Control Panel. Possible tag types: Integer, String, Incremental (integer only), List tags (array of values).<br/>Example: 
-```Objective-C
-NSDictionary *tags =  @{ @"Alias" : aliasField.text,
-                     @"FavNumber" : @([favNumField.text intValue]),
-                         @"price" : [PWTags incrementalTagWithInteger:5],
-                          @"List" : @[ @"Item1", @"Item2", @"Item3" ]
-};
-   
-[[PushNotificationManager pushManager] setTags:tags];
-```
-<br/><br/><br/><strong>Parameters</strong><br/>
+#### <a name="1aa49f9f0dfdc254aed61a19a3e8a3b65a"></a>- (void)sendLocation:(CLLocation \*)location  
+Explicitly sends geolocation to the server for GeoFencing push technology. Also called internally, please use startLocationTracking and stopLocationTracking functions.<br/><br/><br/><strong>Parameters</strong><br/>
 <table>
 	<tr>
-		<td><strong>tags</strong></td>
-		<td>Dictionary representation of tags to send. </td>
+		<td><strong>location</strong></td>
+		<td>Location to be sent.</td>
 	</tr>
 </table>
+
+Deprecated. Use PushwooshGeozones framework. 
