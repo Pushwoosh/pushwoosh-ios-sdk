@@ -1,11 +1,11 @@
 //
 //  PushNotificationsApp
 //
-//  (c) Pushwoosh 2014
+//  (c) Pushwoosh 2020
 //
 
-#import <Pushwoosh/PushNotificationManager.h>
+#import <Pushwoosh/Pushwoosh.h>
 
-@interface ViewController : UIViewController <UITextFieldDelegate, PushNotificationDelegate>
+@interface ViewController : UIViewController <UITextFieldDelegate, PWMessagingDelegate>
 
 @end

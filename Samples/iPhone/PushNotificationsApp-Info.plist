@@ -35,11 +35,13 @@
 	<key>CFBundleURLTypes</key>
 	<array>
 		<dict>
+			<key>CFBundleTypeRole</key>
+			<string>Editor</string>
 			<key>CFBundleURLName</key>
-			<string>testing.pushwoosh.com</string>
+			<string>com.pushwoosh.scheme</string>
 			<key>CFBundleURLSchemes</key>
 			<array>
-				<string>pwsample</string>
+				<string>pw-4FC89B6D14A655.46488481</string>
 			</array>
 		</dict>
 	</array>
@@ -55,7 +57,7 @@
 	<key>NSLocationAlwaysUsageDescription</key>
 	<string>This demo uses location services for Pushwoosh Geozones and Beacons</string>
 	<key>Pushwoosh_APPID</key>
-	<string>4FC89B6D14A655.46488481</string>
+	<string>YOUR_APPLICATION_CODE</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>
@@ -74,19 +76,6 @@
 		<string>UIInterfaceOrientationPortraitUpsideDown</string>
 		<string>UIInterfaceOrientationLandscapeLeft</string>
 		<string>UIInterfaceOrientationLandscapeRight</string>
-	</array>
-	<key>CFBundleURLTypes</key>
-	<array>
-	  <dict>
-		<key>CFBundleTypeRole</key>
-		<string>Editor</string>
-		<key>CFBundleURLName</key>
-		<string>com.pushwoosh.scheme</string>
-		<key>CFBundleURLSchemes</key>
-		<array>
-		  <string>pw-4FC89B6D14A655.46488481</string>
-		</array>
-	  </dict>
 	</array>
 </dict>
 </plist>

@@ -1,4 +1,0 @@
-
-target 'Newsstand' do
-	pod 'Pushwoosh'
-end

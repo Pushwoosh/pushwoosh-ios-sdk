@@ -1,7 +1,7 @@
 //
 //  PushNotificationsApp
 //
-//  (c) Pushwoosh 2014
+//  (c) Pushwoosh 2020
 //
 
 #import "ViewController.h"
@@ -10,7 +10,5 @@
 
 @property (nonatomic, strong) UIWindow *window;
 @property (nonatomic, strong) ViewController *viewController;
-
-+ (AppDelegate *)sharedDelegate;
 
 @end

@@ -28,7 +28,7 @@
 		<true/>
 	</dict>
 	<key>Pushwoosh_APPID</key>
-	<string>4FC89B6D14A655.46488481</string>
+	<string>YOUR_APPLICATION_CODE</string>
 	<key>UIBackgroundModes</key>
 	<array>
 		<string>remote-notification</string>

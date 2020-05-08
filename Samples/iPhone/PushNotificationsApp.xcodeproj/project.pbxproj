@@ -15,7 +15,6 @@
 		1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 1DF5F4DF0D08C38300B7A737 /* UIKit.framework */; };
 		46E0B46F1D9CDFC4004908AF /* NotificationService.m in Sources */ = {isa = PBXBuildFile; fileRef = 46E0B46E1D9CDFC4004908AF /* NotificationService.m */; };
 		46E0B4731D9CDFC4004908AF /* NotificationService.appex in Embed App Extensions */ = {isa = PBXBuildFile; fileRef = 46E0B46B1D9CDFC4004908AF /* NotificationService.appex */; settings = {ATTRIBUTES = (RemoveHeadersOnCopy, ); }; };
-		46F515981C21A54F009AB76E /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F515971C21A54F009AB76E /* Pushwoosh.framework */; };
 		46F5159A1C21A561009AB76E /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F515991C21A561009AB76E /* libstdc++.tbd */; };
 		46F5159C1C21A569009AB76E /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 46F5159B1C21A569009AB76E /* libz.tbd */; };
 		50A9809015E7AC2F003579A4 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 50A9808F15E7AC2F003579A4 /* ViewController.m */; };
@@ -26,8 +25,7 @@
 		5D5896D7182BA17C00D6C9D1 /* 57.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D5896CF182BA17C00D6C9D1 /* 57.png */; };
 		5D5896DA182BA17C00D6C9D1 /* 114.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D5896D2182BA17C00D6C9D1 /* 114.png */; };
 		5D5896DB182BA17C00D6C9D1 /* 120.png in Resources */ = {isa = PBXBuildFile; fileRef = 5D5896D3182BA17C00D6C9D1 /* 120.png */; };
-		73C129FD17A9008400CA9627 /* CustomPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 73C129FB17A9008400CA9627 /* CustomPageViewController.m */; };
-		73C129FE17A9008400CA9627 /* CustomPageViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 73C129FC17A9008400CA9627 /* CustomPageViewController.xib */; };
+		5DB7447624655F7E004B0228 /* Pushwoosh.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5DB7447524655F7E004B0228 /* Pushwoosh.framework */; };
 		73C12A0217A90C9100CA9627 /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C129FF17A90C9100CA9627 /* Default-568h@2x.png */; };
 		73C12A0317A90C9100CA9627 /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C12A0017A90C9100CA9627 /* Default.png */; };
 		73C12A0417A90C9100CA9627 /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 73C12A0117A90C9100CA9627 /* Default@2x.png */; };
@@ -75,7 +73,6 @@
 		46E0B46E1D9CDFC4004908AF /* NotificationService.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = NotificationService.m; sourceTree = "<group>"; };
 		46E0B4701D9CDFC4004908AF /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		46E0B4781D9CE1C5004908AF /* NotificationService.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = NotificationService.entitlements; sourceTree = "<group>"; };
-		46F515971C21A54F009AB76E /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pushwoosh.framework; sourceTree = "<group>"; };
 		46F515991C21A561009AB76E /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		46F5159B1C21A569009AB76E /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
 		50A9808E15E7AC2F003579A4 /* ViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ViewController.h; sourceTree = "<group>"; };
@@ -88,9 +85,7 @@
 		5D5896CF182BA17C00D6C9D1 /* 57.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 57.png; sourceTree = "<group>"; };
 		5D5896D2182BA17C00D6C9D1 /* 114.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 114.png; sourceTree = "<group>"; };
 		5D5896D3182BA17C00D6C9D1 /* 120.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = 120.png; sourceTree = "<group>"; };
-		73C129FA17A9008400CA9627 /* CustomPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = CustomPageViewController.h; sourceTree = "<group>"; };
-		73C129FB17A9008400CA9627 /* CustomPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = CustomPageViewController.m; sourceTree = "<group>"; };
-		73C129FC17A9008400CA9627 /* CustomPageViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = CustomPageViewController.xib; sourceTree = "<group>"; };
+		5DB7447524655F7E004B0228 /* Pushwoosh.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Pushwoosh.framework; sourceTree = "<group>"; };
 		73C129FF17A90C9100CA9627 /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
 		73C12A0017A90C9100CA9627 /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		73C12A0117A90C9100CA9627 /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
@@ -107,12 +102,12 @@
 			files = (
 				46F5159C1C21A569009AB76E /* libz.tbd in Frameworks */,
 				46F5159A1C21A561009AB76E /* libstdc++.tbd in Frameworks */,
-				46F515981C21A54F009AB76E /* Pushwoosh.framework in Frameworks */,
 				1B6C1706194EC49400E12C46 /* Security.framework in Frameworks */,
 				1B6C1704194EC48F00E12C46 /* CoreGraphics.framework in Frameworks */,
 				1B6C1702194EC48900E12C46 /* CoreLocation.framework in Frameworks */,
 				1D60589F0D05DD5A006BFB54 /* Foundation.framework in Frameworks */,
 				1DF5F4E00D08C38300B7A737 /* UIKit.framework in Frameworks */,
+				5DB7447624655F7E004B0228 /* Pushwoosh.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -134,9 +129,6 @@
 				50A9808E15E7AC2F003579A4 /* ViewController.h */,
 				50A9808F15E7AC2F003579A4 /* ViewController.m */,
 				50A9809715E7AD67003579A4 /* ViewController.xib */,
-				73C129FA17A9008400CA9627 /* CustomPageViewController.h */,
-				73C129FB17A9008400CA9627 /* CustomPageViewController.m */,
-				73C129FC17A9008400CA9627 /* CustomPageViewController.xib */,
 			);
 			path = Classes;
 			sourceTree = "<group>";
@@ -193,9 +185,9 @@
 		29B97323FDCFA39411CA2CEA /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				5DB7447524655F7E004B0228 /* Pushwoosh.framework */,
 				46F5159B1C21A569009AB76E /* libz.tbd */,
 				46F515991C21A561009AB76E /* libstdc++.tbd */,
-				46F515971C21A54F009AB76E /* Pushwoosh.framework */,
 				1B6C1705194EC49400E12C46 /* Security.framework */,
 				1B6C1703194EC48F00E12C46 /* CoreGraphics.framework */,
 				1B6C1701194EC48900E12C46 /* CoreLocation.framework */,
@@ -340,7 +332,6 @@
 				50A9809915E7AD67003579A4 /* InfoPlist.strings in Resources */,
 				50A9809A15E7AD67003579A4 /* ViewController.xib in Resources */,
 				50F4B0791641438D00424547 /* logo.png in Resources */,
-				73C129FE17A9008400CA9627 /* CustomPageViewController.xib in Resources */,
 				73C12A0217A90C9100CA9627 /* Default-568h@2x.png in Resources */,
 				73C12A0317A90C9100CA9627 /* Default.png in Resources */,
 				73C12A0417A90C9100CA9627 /* Default@2x.png in Resources */,
@@ -367,7 +358,6 @@
 				1D60589B0D05DD56006BFB54 /* main.m in Sources */,
 				50A9809015E7AC2F003579A4 /* ViewController.m in Sources */,
 				50A9809315E7ACB6003579A4 /* AppDelegate.m in Sources */,
-				73C129FD17A9008400CA9627 /* CustomPageViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,7 +417,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PushNotificationsApp_Prefix.pch;
 				INFOPLIST_FILE = "PushNotificationsApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -455,7 +444,6 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = PushNotificationsApp_Prefix.pch;
 				INFOPLIST_FILE = "PushNotificationsApp-Info.plist";
-				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				OTHER_LDFLAGS = (
 					"-ObjC",
 					"-all_load",
@@ -515,7 +503,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.demoapp.NotificationService;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				PROVISIONING_PROFILE = "0bd1b1dd-325a-4238-9e40-8e91b1d6e75e";
-				PROVISIONING_PROFILE_SPECIFIER = "Pushwoosh Demo NotificationService Development";
+				PROVISIONING_PROFILE_SPECIFIER = "Universal Development";
 				SKIP_INSTALL = YES;
 			};
 			name = Debug;
@@ -577,7 +565,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "Classes/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				ONLY_ACTIVE_ARCH = YES;
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
@@ -594,7 +582,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				HEADER_SEARCH_PATHS = "Classes/**";
-				IPHONEOS_DEPLOYMENT_TARGET = 6.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				OTHER_CFLAGS = "-DNS_BLOCK_ASSERTIONS=1";
 				OTHER_LDFLAGS = "-ObjC";
 				SDKROOT = iphoneos;
