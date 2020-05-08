@@ -8,9 +8,6 @@
 		<td><a href="#1a49c87bae4b7c156655b687d7fef44842">+ (instancetype)sharedManager</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a85005afffc4bb17b154fcecade6c25e6">- (void)resetBusinessCasesFrequencyCapping</a></td>
-	</tr>
-	<tr>
 		<td><a href="#1a7b1bb8202b67bfb20ae4fbd8750b1c4a">- (void)setUserId:(NSString *)userId</a></td>
 	</tr>
 	<tr>
@@ -22,9 +19,6 @@
 	<tr>
 		<td><a href="#1a6bbae004bf3b27d6eef87043b5a183a9">- (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes</a></td>
 	</tr>
-	<tr>
-		<td><a href="#1ab8387ffd8946189612595a87c4a4a5fd">- (void)addJavascriptInterface:(NSObject&lt;PWJavaScriptInterface&gt; *)interface withName:(NSString *)name</a></td>
-	</tr>
 </table>
 
 
@@ -33,12 +27,6 @@
 
 #### <a name="1a49c87bae4b7c156655b687d7fef44842"></a>+ (instancetype)sharedManager  
 
-
-----------  
-  
-
-#### <a name="1a85005afffc4bb17b154fcecade6c25e6"></a>- (void)resetBusinessCasesFrequencyCapping  
-Resets capping of the Pushwoosh out-of-the-box In-App solutions. 
 
 ----------  
   
@@ -102,9 +90,3 @@ Post events for In-App Messages. This can trigger In-App message display as spec
 
 #### <a name="1a6bbae004bf3b27d6eef87043b5a183a9"></a>- (void)postEvent:(NSString \*)event withAttributes:(NSDictionary \*)attributes  
 See postEvent:withAttributes:completion:
-
-----------  
-  
-
-#### <a name="1ab8387ffd8946189612595a87c4a4a5fd"></a>- (void)addJavascriptInterface:(NSObject&lt;<a href="PWJavaScriptInterface-p.md">PWJavaScriptInterface</a>&gt; \*)interface withName:(NSString \*)name  
-Adds javascript interface for In-App Messages. Interface will be accessible from javascript as object with specified name and functions defined in interface class. 

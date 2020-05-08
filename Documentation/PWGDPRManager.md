@@ -22,12 +22,6 @@
 	<tr>
 		<td><a href="#1a5f9c4520f769c841c5da392f4e17003c">- (void)removeAllDeviceDataWithCompletion:(void(^)(NSError *error))completion</a></td>
 	</tr>
-	<tr>
-		<td><a href="#1aa4c3bda5d87970eec250d728b5eb24af">- (void)showGDPRConsentUI</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1a2bfb71fa2353714b0cbfb671ff82972e">- (void)showGDPRDeletionUI</a></td>
-	</tr>
 </table>
 
 
@@ -66,14 +60,3 @@ Enable/disable all communication with Pushwoosh. Enabled by default.
 
 #### <a name="1a5f9c4520f769c841c5da392f4e17003c"></a>- (void)removeAllDeviceDataWithCompletion:(void(^)(NSError \*error))completion  
 Removes all device data from Pushwoosh and stops all interactions and communication permanently. 
-
-----------  
-  
-
-#### <a name="1aa4c3bda5d87970eec250d728b5eb24af"></a>- (void)showGDPRConsentUI  
-
-
-----------  
-  
-
-#### <a name="1a2bfb71fa2353714b0cbfb671ff82972e"></a>- (void)showGDPRDeletionUI  

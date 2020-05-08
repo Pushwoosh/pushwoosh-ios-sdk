@@ -1,6 +1,6 @@
 
 # <a name="heading"></a>protocol PushNotificationDelegate  
-PushNotificationDelegate protocol defines the methods that can be implemented in the delegate of the PushNotificationManager class' singleton object. These methods provide information about the key events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification. These methods implementation allows to react on these events properly. 
+PushNotificationDelegate protocol defines the methods that can be implemented in the delegate of the PushNotificationManager class' singleton object. These methods provide information about the key events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification. These methods implementation allows to react on these events properly.<br/>Deprecated. Use PWMessagingDelegate instead. 
 ## Members  
 
 <table>
@@ -30,9 +30,6 @@ PushNotificationDelegate protocol defines the methods that can be implemented in
 	</tr>
 	<tr>
 		<td><a href="#1aaf5194ee0c3930f008f5d87ccf3575ea">- (void)onInAppDisplayed:(NSString *)code</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1ab7cfbe4c3e8856775a99243025370963">- (void)pushManager:(PushNotificationManager *)pushManager openSettingsForNotification:(UNNotification *)notification</a></td>
 	</tr>
 </table>
 
@@ -197,22 +194,5 @@ Tells the delegate that In-App with specified code has been displayed<br/><br/><
 	<tr>
 		<td><strong>code</strong></td>
 		<td>In-App code </td>
-	</tr>
-</table>
-
-
-----------  
-  
-
-#### <a name="1ab7cfbe4c3e8856775a99243025370963"></a>- (void)pushManager:(<a href="PushNotificationManager.md">PushNotificationManager</a> \*)pushManager openSettingsForNotification:(UNNotification \*)notification  
-The method will be called on the delegate when the application is launched in response to the user's request to view in-app notification settings. Add UNAuthorizationOptionProvidesAppNotificationSettings as an option in [PushNotificationManager pushManager].additionalAuthorizationOptions to add a button to inline notification settings view and the notification settings view in Settings. The notification will be nil when opened from Settings.<br/><br/><br/><strong>Parameters</strong><br/>
-<table>
-	<tr>
-		<td><strong>pushManager</strong></td>
-		<td>PushNotificationManager instance </td>
-	</tr>
-	<tr>
-		<td><strong>notification</strong></td>
-		<td>Source notification </td>
 	</tr>
 </table>
