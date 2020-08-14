@@ -19,7 +19,7 @@
 #endif
 
 
-#define PUSHWOOSH_VERSION @"6.0.4"
+#define PUSHWOOSH_VERSION @"6.0.5"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -203,6 +203,17 @@ Unregisters from push notifications.
  Handle received push notification.
 */
 - (BOOL)handlePushReceived:(NSDictionary *)userInfo;
+
+/**
+ * Change default base url to reverse proxy url
+ * @param url - reverse proxy url
+*/
+- (void)setReverseProxy:(NSString *)url;
+
+/**
+ * Disables reverse proxy
+*/
+- (void)disableReverseProxy;
 
 /**
  Send tags to server. Tag names have to be created in the Pushwoosh Control Panel. Possible tag types: Integer, String, Incremental (integer only), List tags (array of values).

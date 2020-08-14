@@ -44,16 +44,22 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1ac30104920e79607ee1b645911b7b0ef6">- (void)unregisterForPushNotifications</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a3f901c955da060f6cbd695a127997dfc">- (BOOL)handleOpenURL:(NSURL *)url</a></td>
+		<td><a href="#1a748303ef70f2acb42f064e819566f68e">- (void)unregisterForPushNotificationsWithCompletion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a19bb8534c1ec1e22ada527c2fcfc1f93">- (void)handlePushRegistration:(NSData *)devToken</a></td>
+		<td><a href="#1a3f901c955da060f6cbd695a127997dfc">- (BOOL)handleOpenURL:(NSURL *)url</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a2180719fd1f05032eecadaaae9eb0e31">- (void)handlePushRegistrationFailure:(NSError *)error</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a9f488cd813fbc38716ff94b9b1818329">- (BOOL)handlePushReceived:(NSDictionary *)userInfo</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1aa6ffe7d71c784b048461ddb1c9f1e436">- (void)setReverseProxy:(NSString *)url</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1acc5ce9be719d84d3fcdd4939b10856bf">- (void)disableReverseProxy</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a876d8250c9a9641e7daf77c277c31be7">- (void)setTags:(NSDictionary *)tags</a></td>
@@ -80,7 +86,7 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1a91c67cf46fb878df0db97260de08819e">- (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a748303ef70f2acb42f064e819566f68e">- (void)unregisterForPushNotificationsWithCompletion:(void(^)(NSError *error))completion</a></td>
+		<td><a href="#1a19bb8534c1ec1e22ada527c2fcfc1f93">- (void)handlePushRegistration:(NSData *)devToken</a></td>
 	</tr>
 </table>
 
@@ -193,6 +199,12 @@ Unregisters from push notifications.
 ----------  
   
 
+#### <a name="1a748303ef70f2acb42f064e819566f68e"></a>- (void)unregisterForPushNotificationsWithCompletion:(void(^)(NSError \*error))completion  
+
+
+----------  
+  
+
 #### <a name="1a3f901c955da060f6cbd695a127997dfc"></a>- (BOOL)handleOpenURL:(NSURL \*)url  
 Process URL of some deep link. Primarly used for register test devices.<br/><br/><br/><strong>Parameters</strong><br/>
 <table>
@@ -206,12 +218,6 @@ Process URL of some deep link. Primarly used for register test devices.<br/><br/
 ----------  
   
 
-#### <a name="1a19bb8534c1ec1e22ada527c2fcfc1f93"></a>- (void)handlePushRegistration:(NSData \*)devToken  
-Handle registration to remote notifications. 
-
-----------  
-  
-
 #### <a name="1a2180719fd1f05032eecadaaae9eb0e31"></a>- (void)handlePushRegistrationFailure:(NSError \*)error  
 
 
@@ -220,6 +226,25 @@ Handle registration to remote notifications.
 
 #### <a name="1a9f488cd813fbc38716ff94b9b1818329"></a>- (BOOL)handlePushReceived:(NSDictionary \*)userInfo  
 Handle received push notification. 
+
+----------  
+  
+
+#### <a name="1aa6ffe7d71c784b048461ddb1c9f1e436"></a>- (void)setReverseProxy:(NSString \*)url  
+Change default base url to reverse proxy url <br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>url</strong></td>
+		<td>- reverse proxy url </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1acc5ce9be719d84d3fcdd4939b10856bf"></a>- (void)disableReverseProxy  
+Disables reverse proxy 
 
 ----------  
   
@@ -326,4 +351,5 @@ Move all events from oldUserId to newUserId if doMerge is true. If doMerge is fa
 ----------  
   
 
-#### <a name="1a748303ef70f2acb42f064e819566f68e"></a>- (void)unregisterForPushNotificationsWithCompletion:(void(^)(NSError \*error))completion  
+#### <a name="1a19bb8534c1ec1e22ada527c2fcfc1f93"></a>- (void)handlePushRegistration:(NSData \*)devToken  
+Handle registration to remote notifications. 
