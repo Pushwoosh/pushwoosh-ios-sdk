@@ -101,7 +101,23 @@
  Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
  This allows data and events to be matched across multiple user devices.
  */
-- (void)setUserId:(NSString *)userId;
+- (void)setUserId:(NSString *)userId completion:(void(^)(NSError * error))completion;
+
+/**
+ Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
+ This allows data and events to be matched across multiple user devices.
+
+ @param userId user identifier
+ @param emails user's emails array
+ */
+- (void)setUser:(NSString *)userId emails:(NSArray *)emails completion:(void(^)(NSError * error))completion;
+
+/**
+ Register emails list associated to the current user.
+ 
+ @param emails user's emails array
+ */
+- (void)setEmails:(NSArray *)emails completion:(void(^)(NSError * error))completion;
 
 /**
  Move all events from oldUserId to newUserId if doMerge is true. If doMerge is false all events for oldUserId are removed.

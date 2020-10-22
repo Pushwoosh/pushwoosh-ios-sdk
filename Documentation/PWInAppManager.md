@@ -8,7 +8,13 @@
 		<td><a href="#1a49c87bae4b7c156655b687d7fef44842">+ (instancetype)sharedManager</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a7b1bb8202b67bfb20ae4fbd8750b1c4a">- (void)setUserId:(NSString *)userId</a></td>
+		<td><a href="#1a7a2fa8fb95d6e6a9ec18ef73a000927f">- (void)setUserId:(NSString *)userId completion:(void(^)(NSError *error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a02638dac9aeb7cf8ceb0b555a3a40b65">- (void)setUser:(NSString *)userId emails:(NSArray *)emails completion:(void(^)(NSError *error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1ac12417ff8361927e3a9c565ce3ec4795">- (void)setEmails:(NSArray *)emails completion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a716053392e1af46ed4d8c0a581f41e33">- (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void(^)(NSError *error))completion</a></td>
@@ -31,8 +37,38 @@
 ----------  
   
 
-#### <a name="1a7b1bb8202b67bfb20ae4fbd8750b1c4a"></a>- (void)setUserId:(NSString \*)userId  
+#### <a name="1a7a2fa8fb95d6e6a9ec18ef73a000927f"></a>- (void)setUserId:(NSString \*)userId completion:(void(^)(NSError \*error))completion  
 Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices. 
+
+----------  
+  
+
+#### <a name="1a02638dac9aeb7cf8ceb0b555a3a40b65"></a>- (void)setUser:(NSString \*)userId emails:(NSArray \*)emails completion:(void(^)(NSError \*error))completion  
+Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>userId</strong></td>
+		<td>user identifier </td>
+	</tr>
+	<tr>
+		<td><strong>emails</strong></td>
+		<td>user's emails array </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1ac12417ff8361927e3a9c565ce3ec4795"></a>- (void)setEmails:(NSArray \*)emails completion:(void(^)(NSError \*error))completion  
+Register emails list associated to the current user.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>emails</strong></td>
+		<td>user's emails array </td>
+	</tr>
+</table>
+
 
 ----------  
   

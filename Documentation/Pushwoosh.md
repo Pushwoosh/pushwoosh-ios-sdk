@@ -47,7 +47,7 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1a748303ef70f2acb42f064e819566f68e">- (void)unregisterForPushNotificationsWithCompletion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a3f901c955da060f6cbd695a127997dfc">- (BOOL)handleOpenURL:(NSURL *)url</a></td>
+		<td><a href="#1a19bb8534c1ec1e22ada527c2fcfc1f93">- (void)handlePushRegistration:(NSData *)devToken</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a2180719fd1f05032eecadaaae9eb0e31">- (void)handlePushRegistrationFailure:(NSError *)error</a></td>
@@ -62,10 +62,16 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1acc5ce9be719d84d3fcdd4939b10856bf">- (void)disableReverseProxy</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a876d8250c9a9641e7daf77c277c31be7">- (void)setTags:(NSDictionary *)tags</a></td>
+		<td><a href="#1a3f901c955da060f6cbd695a127997dfc">- (BOOL)handleOpenURL:(NSURL *)url</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a51e9882787068540d016c56b5ec5c50c">- (void)setTags:(NSDictionary *)tags completion:(void(^)(NSError *error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1af14c2945a66c1c7219bbc6ba9c84cb86">- (void)setEmailTags:(NSDictionary *)tags forEmail:(NSString *)email</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a0ddd6f1d9e85253451fe1d5c5490294a">- (void)setEmailTags:(NSDictionary *)tags forEmail:(NSString *)email completion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a7451ea555a6f451c99f8508940c02edb">- (void)getTags:(PushwooshGetTagsHandler)successHandler onFailure:(PushwooshErrorHandler)errorHandler</a></td>
@@ -80,13 +86,40 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1ae5916071d5d72271a239ab7c3970f060">- (NSString *)getHWID</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1a1de9c6bbc5c650d04f9a2c97e641be16">- (void)setUserId:(NSString *)userId completion:(void(^)(NSError *error))completion</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1ab1c821af2cbcded89c6cb16b104bafa9">- (void)setUserId:(NSString *)userId</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1aad3cbbeae4e45eab0085065c0bb83eaf">- (void)setUser:(NSString *)userId emails:(NSArray *)emails completion:(void(^)(NSError *error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a76880b034b01ecb8100f7bb476cc42f9">- (void)setUser:(NSString *)userId emails:(NSArray *)emails</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1ad413d699dc59ac2b19ac88a23c4f2993">- (void)setUser:(NSString *)userId email:(NSString *)email completion:(void(^)(NSError *error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a4f879982c931d7caaee7379a43256737">- (void)setUser:(NSString *)userId email:(NSString *)email</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a8dbe726012aa780a7318073e3ea0b722">- (void)setEmails:(NSArray *)emails completion:(void(^)(NSError *error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a7075ab1e16e686623608763af29443ea">- (void)setEmails:(NSArray *)emails</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a73040b96e6452b8a3f3e9a7476163423">- (void)setEmail:(NSString *)email completion:(void(^)(NSError *error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a290ea9a84c7670143927537ea7a8e3ca">- (void)setEmail:(NSString *)email</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a91c67cf46fb878df0db97260de08819e">- (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a19bb8534c1ec1e22ada527c2fcfc1f93">- (void)handlePushRegistration:(NSData *)devToken</a></td>
+		<td><a href="#1a876d8250c9a9641e7daf77c277c31be7">- (void)setTags:(NSDictionary *)tags</a></td>
 	</tr>
 </table>
 
@@ -205,15 +238,8 @@ Unregisters from push notifications.
 ----------  
   
 
-#### <a name="1a3f901c955da060f6cbd695a127997dfc"></a>- (BOOL)handleOpenURL:(NSURL \*)url  
-Process URL of some deep link. Primarly used for register test devices.<br/><br/><br/><strong>Parameters</strong><br/>
-<table>
-	<tr>
-		<td><strong>url</strong></td>
-		<td>Deep Link URL </td>
-	</tr>
-</table>
-
+#### <a name="1a19bb8534c1ec1e22ada527c2fcfc1f93"></a>- (void)handlePushRegistration:(NSData \*)devToken  
+Handle registration to remote notifications. 
 
 ----------  
   
@@ -249,22 +275,12 @@ Disables reverse proxy
 ----------  
   
 
-#### <a name="1a876d8250c9a9641e7daf77c277c31be7"></a>- (void)setTags:(NSDictionary \*)tags  
-Send tags to server. Tag names have to be created in the Pushwoosh Control Panel. Possible tag types: Integer, String, Incremental (integer only), List tags (array of values).<br/>Example: 
-```Objective-C
-NSDictionary *tags =  @{ @"Alias" : aliasField.text,
-                     @"FavNumber" : @([favNumField.text intValue]),
-                         @"price" : [PWTags incrementalTagWithInteger:5],
-                          @"List" : @[ @"Item1", @"Item2", @"Item3" ]
-};
-   
-[[PushNotificationManager pushManager] setTags:tags];
-```
-<br/><br/><br/><strong>Parameters</strong><br/>
+#### <a name="1a3f901c955da060f6cbd695a127997dfc"></a>- (BOOL)handleOpenURL:(NSURL \*)url  
+Process URL of some deep link. Primarly used for register test devices.<br/><br/><br/><strong>Parameters</strong><br/>
 <table>
 	<tr>
-		<td><strong>tags</strong></td>
-		<td>Dictionary representation of tags to send. </td>
+		<td><strong>url</strong></td>
+		<td>Deep Link URL </td>
 	</tr>
 </table>
 
@@ -274,6 +290,18 @@ NSDictionary *tags =  @{ @"Alias" : aliasField.text,
 
 #### <a name="1a51e9882787068540d016c56b5ec5c50c"></a>- (void)setTags:(NSDictionary \*)tags completion:(void(^)(NSError \*error))completion  
 Send tags to server with completion block. If setTags succeeds competion is called with nil argument. If setTags fails completion is called with error. 
+
+----------  
+  
+
+#### <a name="1af14c2945a66c1c7219bbc6ba9c84cb86"></a>- (void)setEmailTags:(NSDictionary \*)tags forEmail:(NSString \*)email  
+
+
+----------  
+  
+
+#### <a name="1a0ddd6f1d9e85253451fe1d5c5490294a"></a>- (void)setEmailTags:(NSDictionary \*)tags forEmail:(NSString \*)email completion:(void(^)(NSError \*error))completion  
+
 
 ----------  
   
@@ -320,8 +348,148 @@ Gets HWID. Unique device identifier that used in all API calls with Pushwoosh. T
 ----------  
   
 
+#### <a name="1a1de9c6bbc5c650d04f9a2c97e641be16"></a>- (void)setUserId:(NSString \*)userId completion:(void(^)(NSError \*error))completion  
+Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices. If setUserId succeeds competion is called with nil argument. If setUserId fails completion is called with error.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>userId</strong></td>
+		<td>user identifier </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
 #### <a name="1ab1c821af2cbcded89c6cb16b104bafa9"></a>- (void)setUserId:(NSString \*)userId  
-Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices. 
+Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>userId</strong></td>
+		<td>user identifier </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1aad3cbbeae4e45eab0085065c0bb83eaf"></a>- (void)setUser:(NSString \*)userId emails:(NSArray \*)emails completion:(void(^)(NSError \*error))completion  
+Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices. If setUser succeeds competion is called with nil argument. If setUser fails completion is called with error.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>userId</strong></td>
+		<td>user identifier </td>
+	</tr>
+	<tr>
+		<td><strong>emails</strong></td>
+		<td>user's emails array </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1a76880b034b01ecb8100f7bb476cc42f9"></a>- (void)setUser:(NSString \*)userId emails:(NSArray \*)emails  
+Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>userId</strong></td>
+		<td>user identifier </td>
+	</tr>
+	<tr>
+		<td><strong>emails</strong></td>
+		<td>user's emails array </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1ad413d699dc59ac2b19ac88a23c4f2993"></a>- (void)setUser:(NSString \*)userId email:(NSString \*)email completion:(void(^)(NSError \*error))completion  
+Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices. If setUser succeeds competion is called with nil argument. If setUser fails completion is called with error.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>userId</strong></td>
+		<td>user identifier </td>
+	</tr>
+	<tr>
+		<td><strong>email</strong></td>
+		<td>user's email string </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1a4f879982c931d7caaee7379a43256737"></a>- (void)setUser:(NSString \*)userId email:(NSString \*)email  
+Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>userId</strong></td>
+		<td>user identifier </td>
+	</tr>
+	<tr>
+		<td><strong>email</strong></td>
+		<td>user's email string </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1a8dbe726012aa780a7318073e3ea0b722"></a>- (void)setEmails:(NSArray \*)emails completion:(void(^)(NSError \*error))completion  
+Register emails list associated to the current user. If setEmails succeeds competion is called with nil argument. If setEmails fails completion is called with error.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>emails</strong></td>
+		<td>user's emails array </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1a7075ab1e16e686623608763af29443ea"></a>- (void)setEmails:(NSArray \*)emails  
+Register emails list associated to the current user.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>emails</strong></td>
+		<td>user's emails array </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1a73040b96e6452b8a3f3e9a7476163423"></a>- (void)setEmail:(NSString \*)email completion:(void(^)(NSError \*error))completion  
+Register email associated to the current user. Email should be a string and could not be null or empty. If setEmail succeeds competion is called with nil argument. If setEmail fails completion is called with error.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>email</strong></td>
+		<td>user's email string </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1a290ea9a84c7670143927537ea7a8e3ca"></a>- (void)setEmail:(NSString \*)email  
+Register email associated to the current user. Email should be a string and could not be null or empty.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>email</strong></td>
+		<td>user's email string </td>
+	</tr>
+</table>
+
 
 ----------  
   
@@ -351,5 +519,21 @@ Move all events from oldUserId to newUserId if doMerge is true. If doMerge is fa
 ----------  
   
 
-#### <a name="1a19bb8534c1ec1e22ada527c2fcfc1f93"></a>- (void)handlePushRegistration:(NSData \*)devToken  
-Handle registration to remote notifications. 
+#### <a name="1a876d8250c9a9641e7daf77c277c31be7"></a>- (void)setTags:(NSDictionary \*)tags  
+Send tags to server. Tag names have to be created in the Pushwoosh Control Panel. Possible tag types: Integer, String, Incremental (integer only), List tags (array of values).<br/>Example: 
+```Objective-C
+NSDictionary *tags =  @{ @"Alias" : aliasField.text,
+                     @"FavNumber" : @([favNumField.text intValue]),
+                         @"price" : [PWTags incrementalTagWithInteger:5],
+                          @"List" : @[ @"Item1", @"Item2", @"Item3" ]
+};
+   
+[[PushNotificationManager pushManager] setTags:tags];
+```
+<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>tags</strong></td>
+		<td>Dictionary representation of tags to send. </td>
+	</tr>
+</table>
