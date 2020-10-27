@@ -101,6 +101,13 @@
  Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
  This allows data and events to be matched across multiple user devices.
  */
+- (void)setUserId:(NSString *)userId;
+
+/**
+ Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
+ This allows data and events to be matched across multiple user devices.
+ If setUser succeeds competion is called with nil argument. If setUser fails completion is called with error.
+ */
 - (void)setUserId:(NSString *)userId completion:(void(^)(NSError * error))completion;
 
 /**

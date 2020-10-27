@@ -8,6 +8,9 @@
 		<td><a href="#1a49c87bae4b7c156655b687d7fef44842">+ (instancetype)sharedManager</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1a7b1bb8202b67bfb20ae4fbd8750b1c4a">- (void)setUserId:(NSString *)userId</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1a7a2fa8fb95d6e6a9ec18ef73a000927f">- (void)setUserId:(NSString *)userId completion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
@@ -37,8 +40,14 @@
 ----------  
   
 
-#### <a name="1a7a2fa8fb95d6e6a9ec18ef73a000927f"></a>- (void)setUserId:(NSString \*)userId completion:(void(^)(NSError \*error))completion  
+#### <a name="1a7b1bb8202b67bfb20ae4fbd8750b1c4a"></a>- (void)setUserId:(NSString \*)userId  
 Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices. 
+
+----------  
+  
+
+#### <a name="1a7a2fa8fb95d6e6a9ec18ef73a000927f"></a>- (void)setUserId:(NSString \*)userId completion:(void(^)(NSError \*error))completion  
+Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices. If setUser succeeds competion is called with nil argument. If setUser fails completion is called with error. 
 
 ----------  
   
