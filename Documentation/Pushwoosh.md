@@ -8,6 +8,9 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1ad3eed702180c17050080e0df9ec1d3f6">@property NSString *applicationCode</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1a0f7cae72bb8d489c74d25a91147407ca">@property NSObject&lt;PWMessagingDelegate&gt; *delegate</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1a221ce364a31cffe798c0172c5a155b1d">@property NSDictionary *launchNotification</a></td>
 	</tr>
 	<tr>
@@ -15,9 +18,6 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 	</tr>
 	<tr>
 		<td><a href="#1ad29805f70c2d90156603ca8d952f4060">@property NSString *language</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1a0f7cae72bb8d489c74d25a91147407ca">@property NSObject&lt;PWMessagingDelegate&gt; *delegate</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1aa517c7b582ca90591b1362eed7cac960">+ (void)initializeWithAppCode:(NSString *)appCode</a></td>
@@ -62,7 +62,7 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1acc5ce9be719d84d3fcdd4939b10856bf">- (void)disableReverseProxy</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a3f901c955da060f6cbd695a127997dfc">- (BOOL)handleOpenURL:(NSURL *)url</a></td>
+		<td><a href="#1a876d8250c9a9641e7daf77c277c31be7">- (void)setTags:(NSDictionary *)tags</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a51e9882787068540d016c56b5ec5c50c">- (void)setTags:(NSDictionary *)tags completion:(void(^)(NSError *error))completion</a></td>
@@ -119,7 +119,7 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1a91c67cf46fb878df0db97260de08819e">- (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a876d8250c9a9641e7daf77c277c31be7">- (void)setTags:(NSDictionary *)tags</a></td>
+		<td><a href="#1a3f901c955da060f6cbd695a127997dfc">- (BOOL)handleOpenURL:(NSURL *)url</a></td>
 	</tr>
 </table>
 
@@ -129,6 +129,12 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 
 #### <a name="1ad3eed702180c17050080e0df9ec1d3f6"></a>@property NSString \*applicationCode  
 Pushwoosh Application ID. Usually retrieved automatically from Info.plist parameter Pushwoosh\_APPID
+
+----------  
+  
+
+#### <a name="1a0f7cae72bb8d489c74d25a91147407ca"></a>@property NSObject&lt;<a href="PWMessagingDelegate-p.md">PWMessagingDelegate</a>&gt; \*delegate  
+PushNotificationDelegate protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification. Pushwoosh Runtime sets it to ApplicationDelegate by default 
 
 ----------  
   
@@ -147,12 +153,6 @@ Proxy contains UNUserNotificationCenterDelegate objects.
 
 #### <a name="1ad29805f70c2d90156603ca8d952f4060"></a>@property NSString \*language  
 Set custom application language. Must be a lowercase two-letter code according to ISO-639-1 standard ("en", "de", "fr", etc.). Device language used by default. Set to nil if you want to use device language again. 
-
-----------  
-  
-
-#### <a name="1a0f7cae72bb8d489c74d25a91147407ca"></a>@property NSObject&lt;<a href="PWMessagingDelegate-p.md">PWMessagingDelegate</a>&gt; \*delegate  
-PushNotificationDelegate protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification. Pushwoosh Runtime sets it to ApplicationDelegate by default 
 
 ----------  
   
@@ -275,12 +275,22 @@ Disables reverse proxy
 ----------  
   
 
-#### <a name="1a3f901c955da060f6cbd695a127997dfc"></a>- (BOOL)handleOpenURL:(NSURL \*)url  
-Process URL of some deep link. Primarly used for register test devices.<br/><br/><br/><strong>Parameters</strong><br/>
+#### <a name="1a876d8250c9a9641e7daf77c277c31be7"></a>- (void)setTags:(NSDictionary \*)tags  
+Send tags to server. Tag names have to be created in the Pushwoosh Control Panel. Possible tag types: Integer, String, Incremental (integer only), List tags (array of values).<br/>Example: 
+```Objective-C
+NSDictionary *tags =  @{ @"Alias" : aliasField.text,
+                     @"FavNumber" : @([favNumField.text intValue]),
+                         @"price" : [PWTags incrementalTagWithInteger:5],
+                          @"List" : @[ @"Item1", @"Item2", @"Item3" ]
+};
+   
+[[PushNotificationManager pushManager] setTags:tags];
+```
+<br/><br/><br/><strong>Parameters</strong><br/>
 <table>
 	<tr>
-		<td><strong>url</strong></td>
-		<td>Deep Link URL </td>
+		<td><strong>tags</strong></td>
+		<td>Dictionary representation of tags to send. </td>
 	</tr>
 </table>
 
@@ -519,21 +529,11 @@ Move all events from oldUserId to newUserId if doMerge is true. If doMerge is fa
 ----------  
   
 
-#### <a name="1a876d8250c9a9641e7daf77c277c31be7"></a>- (void)setTags:(NSDictionary \*)tags  
-Send tags to server. Tag names have to be created in the Pushwoosh Control Panel. Possible tag types: Integer, String, Incremental (integer only), List tags (array of values).<br/>Example: 
-```Objective-C
-NSDictionary *tags =  @{ @"Alias" : aliasField.text,
-                     @"FavNumber" : @([favNumField.text intValue]),
-                         @"price" : [PWTags incrementalTagWithInteger:5],
-                          @"List" : @[ @"Item1", @"Item2", @"Item3" ]
-};
-   
-[[PushNotificationManager pushManager] setTags:tags];
-```
-<br/><br/><br/><strong>Parameters</strong><br/>
+#### <a name="1a3f901c955da060f6cbd695a127997dfc"></a>- (BOOL)handleOpenURL:(NSURL \*)url  
+Process URL of some deep link. Primarly used for register test devices.<br/><br/><br/><strong>Parameters</strong><br/>
 <table>
 	<tr>
-		<td><strong>tags</strong></td>
-		<td>Dictionary representation of tags to send. </td>
+		<td><strong>url</strong></td>
+		<td>Deep Link URL </td>
 	</tr>
 </table>

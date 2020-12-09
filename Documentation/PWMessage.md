@@ -8,7 +8,7 @@ Message from Pushwoosh.
 		<td><a href="#1ab5c82fb11a261cc567417627d38c5975">@property NSString *title</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1aad03d7da48cd4f84c28d2b3f1524351c">@property BOOL foregroundMessage</a></td>
+		<td><a href="#1a5dcb2cd749bcbe79c941ddb327465517">@property NSString *subTitle</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1ab1fd3f3f97365a25eb2926d49da198ee">@property NSString *message</a></td>
@@ -20,7 +20,7 @@ Message from Pushwoosh.
 		<td><a href="#1ae0e889873dcc1961787928f64da95a69">@property NSString *link</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a5dcb2cd749bcbe79c941ddb327465517">@property NSString *subTitle</a></td>
+		<td><a href="#1aad03d7da48cd4f84c28d2b3f1524351c">@property BOOL foregroundMessage</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1ae676998a2448d3e00e13f3ce3e3ff7bb">@property BOOL contentAvailable</a></td>
@@ -49,8 +49,8 @@ Title of the push message.
 ----------  
   
 
-#### <a name="1aad03d7da48cd4f84c28d2b3f1524351c"></a>@property BOOL foregroundMessage  
-Returns YES if this message received/opened then the app is in foreground state. 
+#### <a name="1a5dcb2cd749bcbe79c941ddb327465517"></a>@property NSString \*subTitle  
+Subtitle of the push message. 
 
 ----------  
   
@@ -73,8 +73,8 @@ Remote URL or deeplink from the push message.
 ----------  
   
 
-#### <a name="1a5dcb2cd749bcbe79c941ddb327465517"></a>@property NSString \*subTitle  
-Subtitle of the push message. 
+#### <a name="1aad03d7da48cd4f84c28d2b3f1524351c"></a>@property BOOL foregroundMessage  
+Returns YES if this message received/opened then the app is in foreground state. 
 
 ----------  
   

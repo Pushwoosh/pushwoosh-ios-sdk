@@ -11,16 +11,19 @@ PushNotificationManager class offers access to the singleton-instance of the pus
 		<td><a href="#1a8eba2b041b2b7ff0c369bc3e05e110ab">@property NSString *appName</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1a1dd1fab95d86d79a3a104f15b7296c4c">@property NSObject&lt;PushNotificationDelegate&gt; *delegate</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1a5caa8c890155ec74ec76549481b3b65e">@property NSDictionary *launchNotification</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a28eef8ff3f8f16ebdcae90dabd2659c7">@property NSString *language</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a1dd1fab95d86d79a3a104f15b7296c4c">@property NSObject&lt;PushNotificationDelegate&gt; *delegate</a></td>
+		<td><a href="#1aef1303a6ee34073d2a5efcfdfd5e0c29">+ (void)initializeWithAppCode:(NSString *)appCode appName:(NSString *)appName</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1aef1303a6ee34073d2a5efcfdfd5e0c29">+ (void)initializeWithAppCode:(NSString *)appCode appName:(NSString *)appName</a></td>
+		<td><a href="#1abd27a7028f103b88b0d9f4d8dea6631f">+ (PushNotificationManager *)pushManager</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1abaf502c205606d4fd359a20972e0580a">+ (NSMutableDictionary *)getRemoteNotificationStatus</a></td>
@@ -30,9 +33,6 @@ PushNotificationManager class offers access to the singleton-instance of the pus
 	</tr>
 	<tr>
 		<td><a href="#1a89cdae8030efe1edc0637bd9b37ffedb">+ (BOOL)isPushwooshMessage:(NSDictionary *)userInfo</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1abd27a7028f103b88b0d9f4d8dea6631f">+ (PushNotificationManager *)pushManager</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1abad961781957bdc51cbe48fc878a4ae3">- (void)registerForPushNotifications</a></td>
@@ -53,7 +53,7 @@ PushNotificationManager class offers access to the singleton-instance of the pus
 		<td><a href="#1a7e59d285b7a24808f632c892fc2f4cc7">- (void)setTags:(NSDictionary *)tags withCompletion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a8a9ad34df75ba18b7bfc13e2a775be34">- (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes</a></td>
+		<td><a href="#1af40e55285458a076cfc3fda863994ea8">- (void)loadTags</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a14eb90b86883c1212a9afe59b5e83573">- (void)loadTags:(PushwooshGetTagsHandler)successHandler error:(PushwooshErrorHandler)errorHandler</a></td>
@@ -101,7 +101,7 @@ PushNotificationManager class offers access to the singleton-instance of the pus
 		<td><a href="#1a9c072f15aff83a03fb6dc4a0dd2f9ec7">- (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1af40e55285458a076cfc3fda863994ea8">- (void)loadTags</a></td>
+		<td><a href="#1a8a9ad34df75ba18b7bfc13e2a775be34">- (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes</a></td>
 	</tr>
 </table>
 
@@ -121,6 +121,12 @@ Application name. Usually retrieved automatically from Info.plist bundle name (C
 ----------  
   
 
+#### <a name="1a1dd1fab95d86d79a3a104f15b7296c4c"></a>@property NSObject&lt;<a href="PushNotificationDelegate-p.md">PushNotificationDelegate</a>&gt; \*delegate  
+PushNotificationDelegate protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification. Pushwoosh Runtime sets it to ApplicationDelegate by default 
+
+----------  
+  
+
 #### <a name="1a5caa8c890155ec74ec76549481b3b65e"></a>@property NSDictionary \*launchNotification  
 Returns push notification payload if the app was started in response to push notification or null otherwise 
 
@@ -129,12 +135,6 @@ Returns push notification payload if the app was started in response to push not
 
 #### <a name="1a28eef8ff3f8f16ebdcae90dabd2659c7"></a>@property NSString \*language  
 Set custom application language. Must be a lowercase two-letter code according to ISO-639-1 standard ("en", "de", "fr", etc.). Device language used by default. Set to nil if you want to use device language again. 
-
-----------  
-  
-
-#### <a name="1a1dd1fab95d86d79a3a104f15b7296c4c"></a>@property NSObject&lt;<a href="PushNotificationDelegate-p.md">PushNotificationDelegate</a>&gt; \*delegate  
-PushNotificationDelegate protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification. Pushwoosh Runtime sets it to ApplicationDelegate by default 
 
 ----------  
   
@@ -152,6 +152,12 @@ Initializes PushNotificationManager. Usually called by Pushwoosh Runtime interna
 	</tr>
 </table>
 
+
+----------  
+  
+
+#### <a name="1abd27a7028f103b88b0d9f4d8dea6631f"></a>+ (<a href="#heading">PushNotificationManager</a> \*)pushManager  
+Returns an object representing the current push manager.<br/><br/><br/><strong>Returns</strong> A singleton object that represents the push manager. 
 
 ----------  
   
@@ -190,12 +196,6 @@ Clears the notifications from the notification center.
 
 #### <a name="1a89cdae8030efe1edc0637bd9b37ffedb"></a>+ (BOOL)isPushwooshMessage:(NSDictionary \*)userInfo  
 
-
-----------  
-  
-
-#### <a name="1abd27a7028f103b88b0d9f4d8dea6631f"></a>+ (<a href="#heading">PushNotificationManager</a> \*)pushManager  
-Returns an object representing the current push manager.<br/><br/><br/><strong>Returns</strong> A singleton object that represents the push manager. 
 
 ----------  
   
@@ -253,8 +253,8 @@ Send tags to server with completion block. If setTags succeeds competion is call
 ----------  
   
 
-#### <a name="1a8a9ad34df75ba18b7bfc13e2a775be34"></a>- (void)postEvent:(NSString \*)event withAttributes:(NSDictionary \*)attributes  
-See postEvent:withAttributes:completion:<br/>Deprecated. Use PWInAppManager postEvent method instead 
+#### <a name="1af40e55285458a076cfc3fda863994ea8"></a>- (void)loadTags  
+Get tags from the server. Calls delegate method onTagsReceived: or onTagsFailedToReceive: depending on the results. 
 
 ----------  
   
@@ -453,5 +453,5 @@ Deprecated. Use PWInAppManager postEvent method instead
 ----------  
   
 
-#### <a name="1af40e55285458a076cfc3fda863994ea8"></a>- (void)loadTags  
-Get tags from the server. Calls delegate method onTagsReceived: or onTagsFailedToReceive: depending on the results. 
+#### <a name="1a8a9ad34df75ba18b7bfc13e2a775be34"></a>- (void)postEvent:(NSString \*)event withAttributes:(NSDictionary \*)attributes  
+See postEvent:withAttributes:completion:<br/>Deprecated. Use PWInAppManager postEvent method instead 

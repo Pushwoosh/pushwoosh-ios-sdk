@@ -5,10 +5,7 @@
 
 <table>
 	<tr>
-		<td><a href="#1ad36308527a6a65a6f11b73eedc739707">+ (void)updateInboxForNewUserId:(void(^)(NSUInteger messagesCount))completion</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1a9a2fdeec674758b710289247308da16a">+ (void)deleteMessagesWithCodes:(NSArray&lt;NSString *&gt; *)codes</a></td>
+		<td><a href="#1a8b76d820c4effcaa3440c4a29ce6fdec">+ (void)messagesWithNoActionPerformedCountWithCompletion:(void(^)(NSInteger count, NSError *error))completion</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1ab73de8dcd7da0865e760d89a2d719fcd">+ (void)unreadMessagesCountWithCompletion:(void(^)(NSInteger count, NSError *error))completion</a></td>
@@ -26,7 +23,7 @@
 		<td><a href="#1ab9ee5b2d0b0aa052e493222ae0458399">+ (void)performActionForMessageWithCode:(NSString *)code</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a8b76d820c4effcaa3440c4a29ce6fdec">+ (void)messagesWithNoActionPerformedCountWithCompletion:(void(^)(NSInteger count, NSError *error))completion</a></td>
+		<td><a href="#1a9a2fdeec674758b710289247308da16a">+ (void)deleteMessagesWithCodes:(NSArray&lt;NSString *&gt; *)codes</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1adf914d8ad61b9a37eedba055e123a87a">+ (id&lt;NSObject&gt;)addObserverForDidReceiveInPushNotificationCompletion:(void(^)(NSArray&lt;NSObject&lt;PWInboxMessageProtocol&gt; *&gt; *messagesAdded))completion</a></td>
@@ -44,6 +41,9 @@
 		<td><a href="#1a3615207158c38bbbe75e81143767c043">+ (void)removeObserver:(id&lt;NSObject&gt;)observer</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1ad36308527a6a65a6f11b73eedc739707">+ (void)updateInboxForNewUserId:(void(^)(NSUInteger messagesCount))completion</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1a4880d842d17260527577455f39107652">- (instancetype)init</a></td>
 	</tr>
 </table>
@@ -52,18 +52,12 @@
 ----------  
   
 
-#### <a name="1ad36308527a6a65a6f11b73eedc739707"></a>+ (void)updateInboxForNewUserId:(void(^)(NSUInteger messagesCount))completion  
-updates observers 
-
-----------  
-  
-
-#### <a name="1a9a2fdeec674758b710289247308da16a"></a>+ (void)deleteMessagesWithCodes:(NSArray&lt;NSString \*&gt; \*)codes  
-Call this method, when the user deletes the list of InboxMessageProtocol manually<br/><br/><br/><strong>Parameters</strong><br/>
+#### <a name="1a8b76d820c4effcaa3440c4a29ce6fdec"></a>+ (void)messagesWithNoActionPerformedCountWithCompletion:(void(^)(NSInteger count, NSError \*error))completion  
+Get the number of the PWInboxMessageProtocol with no action performed<br/><br/><br/><strong>Parameters</strong><br/>
 <table>
 	<tr>
-		<td><strong>codes</strong></td>
-		<td>of the list of InboxMessageProtocol.code that the user deleted </td>
+		<td><strong>completion</strong></td>
+		<td>- if successful, return the number of the InboxMessages with no action performed. Otherwise, return error </td>
 	</tr>
 </table>
 
@@ -136,12 +130,12 @@ Call this method, when the user clicks on the InboxMessageProtocol and the messa
 ----------  
   
 
-#### <a name="1a8b76d820c4effcaa3440c4a29ce6fdec"></a>+ (void)messagesWithNoActionPerformedCountWithCompletion:(void(^)(NSInteger count, NSError \*error))completion  
-Get the number of the PWInboxMessageProtocol with no action performed<br/><br/><br/><strong>Parameters</strong><br/>
+#### <a name="1a9a2fdeec674758b710289247308da16a"></a>+ (void)deleteMessagesWithCodes:(NSArray&lt;NSString \*&gt; \*)codes  
+Call this method, when the user deletes the list of InboxMessageProtocol manually<br/><br/><br/><strong>Parameters</strong><br/>
 <table>
 	<tr>
-		<td><strong>completion</strong></td>
-		<td>- if successful, return the number of the InboxMessages with no action performed. Otherwise, return error </td>
+		<td><strong>codes</strong></td>
+		<td>of the list of InboxMessageProtocol.code that the user deleted </td>
 	</tr>
 </table>
 
@@ -210,6 +204,12 @@ Unsubscribes from notifications<br/><br/><br/><strong>Parameters</strong><br/>
 	</tr>
 </table>
 
+
+----------  
+  
+
+#### <a name="1ad36308527a6a65a6f11b73eedc739707"></a>+ (void)updateInboxForNewUserId:(void(^)(NSUInteger messagesCount))completion  
+updates observers 
 
 ----------  
   

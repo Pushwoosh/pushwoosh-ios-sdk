@@ -17,6 +17,9 @@ PushNotificationDelegate protocol defines the methods that can be implemented in
 		<td><a href="#1aee6ae0863f9f5020be09017042f83a83">- (void)onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1abbc97b9a74ec0a7551e96468d1729cde">- (void)onActionIdentifierReceived:(NSString *)identifier</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1ad88d413d33964da81236c4e151eafcb0">- (void)onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart</a></td>
 	</tr>
 	<tr>
@@ -104,6 +107,19 @@ Tells the delegate that the user has pressed OK on the push notification. IMPORT
 }
 ```
 </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1abbc97b9a74ec0a7551e96468d1729cde"></a>- (void)onActionIdentifierReceived:(NSString \*)identifier  
+Tells the delegate that a custom action was triggered when opening a notification.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>identifier</strong></td>
+		<td>NSString containing an ID of a clicked button. This ID is set by a user when creating a category in the Pushwoosh Control Panel </td>
 	</tr>
 </table>
 
