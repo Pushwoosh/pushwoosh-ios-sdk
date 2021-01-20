@@ -85,8 +85,9 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
  Tells the delegate that a custom action was triggered when opening a notification.
  
  @param identifier NSString containing an ID of a clicked button. This ID is set by a user when creating a category in the Pushwoosh Control Panel
+ @param notification NSDictionary with push payload. 
 */
-- (void)onActionIdentifierReceived:(NSString *)identifier;
+- (void)onActionIdentifierReceived:(NSString *)identifier withNotification:(NSDictionary *)notification;
 
 /**
  Tells the delegate that the user has pressed on the push notification banner.
