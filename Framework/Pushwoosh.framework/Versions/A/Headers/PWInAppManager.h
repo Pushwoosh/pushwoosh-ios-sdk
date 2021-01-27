@@ -163,6 +163,12 @@
  */
 - (void)addJavascriptInterface:(NSObject<PWJavaScriptInterface>*)interface withName:(NSString*)name;
 
+/**
+ Updates In-App messages storage on a device
+ */
+
+- (void)reloadInAppsWithCompletion: (void (^)(NSError *error))completion;
+
 #endif
 
 @end
