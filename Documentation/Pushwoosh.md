@@ -101,9 +101,6 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1ad413d699dc59ac2b19ac88a23c4f2993">- (void)setUser:(NSString *)userId email:(NSString *)email completion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a4f879982c931d7caaee7379a43256737">- (void)setUser:(NSString *)userId email:(NSString *)email</a></td>
-	</tr>
-	<tr>
 		<td><a href="#1a8dbe726012aa780a7318073e3ea0b722">- (void)setEmails:(NSArray *)emails completion:(void(^)(NSError *error))completion</a></td>
 	</tr>
 	<tr>
@@ -117,9 +114,6 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 	</tr>
 	<tr>
 		<td><a href="#1a91c67cf46fb878df0db97260de08819e">- (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void(^)(NSError *error))completion</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1a3f901c955da060f6cbd695a127997dfc">- (BOOL)handleOpenURL:(NSURL *)url</a></td>
 	</tr>
 </table>
 
@@ -145,7 +139,7 @@ Returns push notification payload if the app was started in response to push not
 ----------  
   
 
-#### <a name="1a42e773c001914bf76ed49a4e2828100a"></a>@property <a href="PWNotificationCenterDelegateProxy.md">PWNotificationCenterDelegateProxy</a> \*notificationCenterDelegateProxy  
+#### <a name="1a42e773c001914bf76ed49a4e2828100a"></a>@property PWNotificationCenterDelegateProxy \*notificationCenterDelegateProxy  
 Proxy contains UNUserNotificationCenterDelegate objects. 
 
 ----------  
@@ -435,23 +429,6 @@ Set User indentifier. This could be Facebook ID, username or email, or any other
 ----------  
   
 
-#### <a name="1a4f879982c931d7caaee7379a43256737"></a>- (void)setUser:(NSString \*)userId email:(NSString \*)email  
-Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices.<br/><br/><br/><strong>Parameters</strong><br/>
-<table>
-	<tr>
-		<td><strong>userId</strong></td>
-		<td>user identifier </td>
-	</tr>
-	<tr>
-		<td><strong>email</strong></td>
-		<td>user's email string </td>
-	</tr>
-</table>
-
-
-----------  
-  
-
 #### <a name="1a8dbe726012aa780a7318073e3ea0b722"></a>- (void)setEmails:(NSArray \*)emails completion:(void(^)(NSError \*error))completion  
 Register emails list associated to the current user. If setEmails succeeds competion is called with nil argument. If setEmails fails completion is called with error.<br/><br/><br/><strong>Parameters</strong><br/>
 <table>
@@ -522,18 +499,5 @@ Move all events from oldUserId to newUserId if doMerge is true. If doMerge is fa
 	<tr>
 		<td><strong>completion</strong></td>
 		<td>callback </td>
-	</tr>
-</table>
-
-
-----------  
-  
-
-#### <a name="1a3f901c955da060f6cbd695a127997dfc"></a>- (BOOL)handleOpenURL:(NSURL \*)url  
-Process URL of some deep link. Primarly used for register test devices.<br/><br/><br/><strong>Parameters</strong><br/>
-<table>
-	<tr>
-		<td><strong>url</strong></td>
-		<td>Deep Link URL </td>
 	</tr>
 </table>

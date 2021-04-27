@@ -1,6 +1,6 @@
 
 # <a name="heading"></a>class PWTagsBuilder : NSObject  
-PWTagsBuilder class encapsulates the methods for creating tags parameters for sending them to the server. 
+PWNotificationCenterDelegateProxy class handles notifications on iOS 10 and forwards methods of UNUserNotificationCenterDelegate to all added delegates. Returns UNUserNotificationCenterDelegate that handles foreground push notifications on iOS10 Adds extra UNUserNotificationCenterDelegate that handles foreground push notifications on iOS10. PWTagsBuilder class encapsulates the methods for creating tags parameters for sending them to the server. 
 ## Members  
 
 <table>

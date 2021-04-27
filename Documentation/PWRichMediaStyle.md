@@ -1,17 +1,11 @@
 
 # <a name="heading"></a>class PWRichMediaStyle : NSObject  
-'PWRichMediaStyle' class allows customizing the appearance of Rich Media pages. 
+Custom Rich Media loading view. It is shown while Rich Media is loading. 'PWRichMediaStyle' class allows customizing the appearance of Rich Media pages. 
 ## Members  
 
 <table>
 	<tr>
-		<td><a href="#1ad1133b42aac44d81046fa6ad478005b1">@property UIColor *backgroundColor</a></td>
-	</tr>
-	<tr>
 		<td><a href="#1a0ac5cd12a0eeee733ac5d4c8bdee0e31">@property id&lt;PWRichMediaStyleAnimationDelegate&gt; animationDelegate</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1a0777e36a1dabc089cf68447bc1abbc23">@property PWRichMediaLoadingViewBlock loadingViewBlock</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a460c0c46605926ec378acb7c3bb4b932">@property NSTimeInterval closeButtonPresentingDelay</a></td>
@@ -31,32 +25,20 @@
 ----------  
   
 
-#### <a name="1ad1133b42aac44d81046fa6ad478005b1"></a>@property UIColor \*backgroundColor  
-Background color of Rich Media pages. 
-
-----------  
-  
-
 #### <a name="1a0ac5cd12a0eeee733ac5d4c8bdee0e31"></a>@property id&lt;<a href="PWRichMediaStyleAnimationDelegate-p.md">PWRichMediaStyleAnimationDelegate</a>&gt; animationDelegate  
-Delegate to manage Rich Media presenting animation. 
+Background color of Rich Media pages. Delegate to manage Rich Media presenting animation. 
 
 ----------  
   
 
-#### <a name="1a0777e36a1dabc089cf68447bc1abbc23"></a>@property PWRichMediaLoadingViewBlock loadingViewBlock  
+#### <a name="1a460c0c46605926ec378acb7c3bb4b932"></a>@property NSTimeInterval closeButtonPresentingDelay  
 Block to customize Rich Media loading view.<br/>Example: 
 ```Objective-C
 style.loadingViewBlock = ^PWLoadingView *{
    return [[[NSBundle mainBundle] loadNibNamed:@"LoadingView" owner:self options:nil] lastObject];
 };
 ```
-
-
-----------  
-  
-
-#### <a name="1a460c0c46605926ec378acb7c3bb4b932"></a>@property NSTimeInterval closeButtonPresentingDelay  
-Delay of the close button presenting in seconds. 
+ Delay of the close button presenting in seconds. 
 
 ----------  
   
