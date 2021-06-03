@@ -115,6 +115,12 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 	<tr>
 		<td><a href="#1a91c67cf46fb878df0db97260de08819e">- (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void(^)(NSError *error))completion</a></td>
 	</tr>
+	<tr>
+		<td><a href="#1aebffdb7820a9248fda21c760e46dc196">- (void)startServerCommunication</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a86385c57c5f5a911092f40db090b6de4">- (void)stopServerCommunication</a></td>
+	</tr>
 </table>
 
 
@@ -501,3 +507,16 @@ Move all events from oldUserId to newUserId if doMerge is true. If doMerge is fa
 		<td>callback </td>
 	</tr>
 </table>
+
+
+----------  
+  
+
+#### <a name="1aebffdb7820a9248fda21c760e46dc196"></a>- (void)startServerCommunication  
+Starts communication with Pushwoosh server. 
+
+----------  
+  
+
+#### <a name="1a86385c57c5f5a911092f40db090b6de4"></a>- (void)stopServerCommunication  
+Stops communication with Pushwoosh server. 
