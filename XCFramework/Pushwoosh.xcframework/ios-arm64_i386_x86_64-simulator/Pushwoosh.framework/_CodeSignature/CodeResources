@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/PWNotificationExtensionManager.h</key>
 		<data>
-		MShBHwkqXYNoCdZIlH3jfx3N7To=
+		Hf3i7vLWsrWpg/LmE9UXvexfUiQ=
 		</data>
 		<key>Headers/PWRichMediaManager.h</key>
 		<data>
@@ -46,11 +46,11 @@
 		</data>
 		<key>Headers/PushNotificationManager.h</key>
 		<data>
-		CqJW+zHEyPJVmjnvX1i4iWjKqbs=
+		uEBCIU44+AR3MeGXoyBuu8TNsIA=
 		</data>
 		<key>Headers/Pushwoosh.h</key>
 		<data>
-		CWJc0X7hu6z2EzGtOepzUBcbSSc=
+		t5imk1V4/BwffA4Cpwa+UfndEpY=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -144,11 +144,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			MShBHwkqXYNoCdZIlH3jfx3N7To=
+			Hf3i7vLWsrWpg/LmE9UXvexfUiQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			e00E1LFQdiJHL6arPA9a+2hr6dbSLkS0mvEl0pt/4tc=
+			5pS11sgm9HM4AJqb5eBMiNmxs8SGIhOSSRPxVb8jpig=
 			</data>
 		</dict>
 		<key>Headers/PWRichMediaManager.h</key>
@@ -177,22 +177,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			CqJW+zHEyPJVmjnvX1i4iWjKqbs=
+			uEBCIU44+AR3MeGXoyBuu8TNsIA=
 			</data>
 			<key>hash2</key>
 			<data>
-			H/zymGNIpN+S1H4JE6wUmmaNOse9Foic2Q1wibgMThM=
+			fSuCuuBGVHOUW5XjyCdhq61aOfKPKhK4L8ojLztSmFQ=
 			</data>
 		</dict>
 		<key>Headers/Pushwoosh.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			CWJc0X7hu6z2EzGtOepzUBcbSSc=
+			t5imk1V4/BwffA4Cpwa+UfndEpY=
 			</data>
 			<key>hash2</key>
 			<data>
-			A7/+gfRq9k//xDmEjtcqcqcWpXEXqvvzcpIT8fsi96g=
+			7HNiiMv5C5HeWtSo0ChTQQ/S0G5GkHY+lwMD4+Mfd9Y=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

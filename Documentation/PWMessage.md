@@ -17,6 +17,9 @@ Message from Pushwoosh.
 		<td><a href="#1ab365d5ab62ebc13c91f231f3c2c9a570">@property NSUInteger badge</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1ac7d0b924c194696c787a77fb51cc6a81">@property NSUInteger badgeExtension</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1ae0e889873dcc1961787928f64da95a69">@property NSString *link</a></td>
 	</tr>
 	<tr>
@@ -63,6 +66,12 @@ Body of the push message.
 
 #### <a name="1ab365d5ab62ebc13c91f231f3c2c9a570"></a>@property NSUInteger badge  
 Badge number of the push message. 
+
+----------  
+  
+
+#### <a name="1ac7d0b924c194696c787a77fb51cc6a81"></a>@property NSUInteger badgeExtension  
+Extension badge number of the push message. 
 
 ----------  
   

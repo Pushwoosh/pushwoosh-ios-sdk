@@ -62,9 +62,6 @@ PushNotificationManager class offers access to the singleton-instance of the pus
 		<td><a href="#1a4cd6ec2302bebac9ffcb229eae5d6a59">- (void)sendAppOpen</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a76c754689ec4c6148ae17a4cd8f60ef3">- (void)sendBadges:(NSInteger)badge</a></td>
-	</tr>
-	<tr>
 		<td><a href="#1abdb441794f0b85cfe15093684ec7dd11">- (NSString *)getPushToken</a></td>
 	</tr>
 	<tr>
@@ -278,19 +275,6 @@ Get tags from server. Calls delegate method if exists and handler (block).<br/><
 
 #### <a name="1a4cd6ec2302bebac9ffcb229eae5d6a59"></a>- (void)sendAppOpen  
 Informs the Pushwoosh about the app being launched. Usually called internally by SDK Runtime. 
-
-----------  
-  
-
-#### <a name="1a76c754689ec4c6148ae17a4cd8f60ef3"></a>- (void)sendBadges:(NSInteger)badge  
-Sends current badge value to server. Called internally by SDK Runtime when UIApplicationsetApplicationBadgeNumber: is set. This function is used for "auto-incremeting" badges to work. This way Pushwoosh server can know what current badge value is set for the application.<br/><br/><br/><strong>Parameters</strong><br/>
-<table>
-	<tr>
-		<td><strong>badge</strong></td>
-		<td>Current badge value. </td>
-	</tr>
-</table>
-
 
 ----------  
   
