@@ -5,22 +5,13 @@ Message from Pushwoosh.
 
 <table>
 	<tr>
-		<td><a href="#1ab5c82fb11a261cc567417627d38c5975">@property NSString *title</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1a5dcb2cd749bcbe79c941ddb327465517">@property NSString *subTitle</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1ab1fd3f3f97365a25eb2926d49da198ee">@property NSString *message</a></td>
+		<td><a href="#1a018d9ef3c615dedad1d73b2d5239b16a">@property NSString *_Nullable</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1ab365d5ab62ebc13c91f231f3c2c9a570">@property NSUInteger badge</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1ac7d0b924c194696c787a77fb51cc6a81">@property NSUInteger badgeExtension</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1ae0e889873dcc1961787928f64da95a69">@property NSString *link</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1aad03d7da48cd4f84c28d2b3f1524351c">@property BOOL foregroundMessage</a></td>
@@ -32,13 +23,10 @@ Message from Pushwoosh.
 		<td><a href="#1afb8a25a51b17fdb4d6d0406ea93cb3a1">@property BOOL inboxMessage</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a34fc0dffbfd64bc53e1eed03327ca052">@property NSDictionary *customData</a></td>
+		<td><a href="#1a018d9ef3c615dedad1d73b2d5239b16a">@property NSDictionary *_Nullable</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a8fc910e8a8d8869955f620ac6a8521b3">@property NSDictionary *payload</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1af0d03793d4a4db71b60408c2ded7020d">+ (BOOL)isPushwooshMessage:(NSDictionary *)userInfo</a></td>
+		<td><a href="#1abfddd755ecd6390f7f6f79b36f39ff0b">+ (BOOL)isPushwooshMessage:(NSDictionary *_Nonnull)userInfo</a></td>
 	</tr>
 </table>
 
@@ -46,20 +34,8 @@ Message from Pushwoosh.
 ----------  
   
 
-#### <a name="1ab5c82fb11a261cc567417627d38c5975"></a>@property NSString \*title  
-Title of the push message. 
-
-----------  
-  
-
-#### <a name="1a5dcb2cd749bcbe79c941ddb327465517"></a>@property NSString \*subTitle  
-Subtitle of the push message. 
-
-----------  
-  
-
-#### <a name="1ab1fd3f3f97365a25eb2926d49da198ee"></a>@property NSString \*message  
-Body of the push message. 
+#### <a name="1a018d9ef3c615dedad1d73b2d5239b16a"></a>@property NSString \*_Nullable  
+Title of the push message.<br/>Subtitle of the push message.<br/>Body of the push message.<br/>Remote URL or deeplink from the push message.<br/>Original payload of the message. 
 
 ----------  
   
@@ -72,12 +48,6 @@ Badge number of the push message.
 
 #### <a name="1ac7d0b924c194696c787a77fb51cc6a81"></a>@property NSUInteger badgeExtension  
 Extension badge number of the push message. 
-
-----------  
-  
-
-#### <a name="1ae0e889873dcc1961787928f64da95a69"></a>@property NSString \*link  
-Remote URL or deeplink from the push message. 
 
 ----------  
   
@@ -100,17 +70,11 @@ Returns YES if this is inbox message.
 ----------  
   
 
-#### <a name="1a34fc0dffbfd64bc53e1eed03327ca052"></a>@property NSDictionary \*customData  
-Gets custom JSON data from push notifications dictionary as specified in Pushwoosh Control Panel. 
+#### <a name="1a018d9ef3c615dedad1d73b2d5239b16a"></a>@property NSDictionary \*_Nullable  
+Gets custom JSON data from push notifications dictionary as specified in Pushwoosh Control Panel.<br/>Original payload of the message. 
 
 ----------  
   
 
-#### <a name="1a8fc910e8a8d8869955f620ac6a8521b3"></a>@property NSDictionary \*payload  
-Original payload of the message. 
-
-----------  
-  
-
-#### <a name="1af0d03793d4a4db71b60408c2ded7020d"></a>+ (BOOL)isPushwooshMessage:(NSDictionary \*)userInfo  
+#### <a name="1abfddd755ecd6390f7f6f79b36f39ff0b"></a>+ (BOOL)isPushwooshMessage:(NSDictionary \*\_Nonnull)userInfo  
 Returns YES if this message is recieved from Pushwoosh. 

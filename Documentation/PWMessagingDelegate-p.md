@@ -5,10 +5,10 @@ PWMessagingDelegate protocol defines the methods that can be implemented in the 
 
 <table>
 	<tr>
-		<td><a href="#1a33c3560dff32d557a15e3daab7fdc790">- (void)pushwoosh:(Pushwoosh *)pushwoosh onMessageReceived:(PWMessage *)message</a></td>
+		<td><a href="#1a457e510a5b5e7e8849351f6b641a74b8">- (void)pushwoosh:(Pushwoosh *_Nonnull)pushwoosh onMessageReceived:(PWMessage *_Nonnull)message</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a4f062e06264f937bac98bd0eb4f79227">- (void)pushwoosh:(Pushwoosh *)pushwoosh onMessageOpened:(PWMessage *)message</a></td>
+		<td><a href="#1a072b85687fc5ff31b9ea64112f1c628b">- (void)pushwoosh:(Pushwoosh *_Nonnull)pushwoosh onMessageOpened:(PWMessage *_Nonnull)message</a></td>
 	</tr>
 </table>
 
@@ -16,7 +16,7 @@ PWMessagingDelegate protocol defines the methods that can be implemented in the 
 ----------  
   
 
-#### <a name="1a33c3560dff32d557a15e3daab7fdc790"></a>- (void)pushwoosh:(<a href="Pushwoosh.md">Pushwoosh</a> \*)pushwoosh onMessageReceived:(<a href="PWMessage.md">PWMessage</a> \*)message  
+#### <a name="1a457e510a5b5e7e8849351f6b641a74b8"></a>- (void)pushwoosh:(<a href="Pushwoosh.md">Pushwoosh</a> \*\_Nonnull)pushwoosh onMessageReceived:(<a href="PWMessage.md">PWMessage</a> \*\_Nonnull)message  
 Tells the delegate that the application has received a remote notification.<br/><br/><br/><strong>Parameters</strong><br/>
 <table>
 	<tr>
@@ -33,7 +33,7 @@ Tells the delegate that the application has received a remote notification.<br/>
 ----------  
   
 
-#### <a name="1a4f062e06264f937bac98bd0eb4f79227"></a>- (void)pushwoosh:(<a href="Pushwoosh.md">Pushwoosh</a> \*)pushwoosh onMessageOpened:(<a href="PWMessage.md">PWMessage</a> \*)message  
+#### <a name="1a072b85687fc5ff31b9ea64112f1c628b"></a>- (void)pushwoosh:(<a href="Pushwoosh.md">Pushwoosh</a> \*\_Nonnull)pushwoosh onMessageOpened:(<a href="PWMessage.md">PWMessage</a> \*\_Nonnull)message  
 Tells the delegate that the user has pressed on the push notification banner.<br/><br/><br/><strong>Parameters</strong><br/>
 <table>
 	<tr>

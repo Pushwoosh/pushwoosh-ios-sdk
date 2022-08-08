@@ -5,10 +5,10 @@ PWNotificationCenterDelegateProxy class handles notifications on iOS 10 and forw
 
 <table>
 	<tr>
-		<td><a href="#1a0a2b16c5d61c9dc29a180a9e142e1ec1">+ (NSDictionary *)incrementalTagWithInteger:(NSInteger)delta</a></td>
+		<td><a href="#1a0e2b3db7a764c0ea32c26ab83b50597d">+ (NSDictionary *_Nullable)incrementalTagWithInteger:(NSInteger)delta</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a5957dbb0aa9a819abc2c144452a55e5e">+ (NSDictionary *)appendValuesToListTag:(NSArray&lt;NSString *&gt; *)array</a></td>
+		<td><a href="#1aa14214efae53632b8a2a7bd90a5d8a35">+ (NSDictionary *_Nullable)appendValuesToListTag:(NSArray&lt;NSString *&gt; *_Nonnull)array</a></td>
 	</tr>
 </table>
 
@@ -16,7 +16,7 @@ PWNotificationCenterDelegateProxy class handles notifications on iOS 10 and forw
 ----------  
   
 
-#### <a name="1a0a2b16c5d61c9dc29a180a9e142e1ec1"></a>+ (NSDictionary \*)incrementalTagWithInteger:(NSInteger)delta  
+#### <a name="1a0e2b3db7a764c0ea32c26ab83b50597d"></a>+ (NSDictionary \*\_Nullable)incrementalTagWithInteger:(NSInteger)delta  
 Creates a dictionary for incrementing/decrementing a numeric tag on the server.<br/>Example: 
 ```Objective-C
 NSDictionary *tags = @{
@@ -39,7 +39,7 @@ NSDictionary *tags = @{
 ----------  
   
 
-#### <a name="1a5957dbb0aa9a819abc2c144452a55e5e"></a>+ (NSDictionary \*)appendValuesToListTag:(NSArray&lt;NSString \*&gt; \*)array  
+#### <a name="1aa14214efae53632b8a2a7bd90a5d8a35"></a>+ (NSDictionary \*\_Nullable)appendValuesToListTag:(NSArray&lt;NSString \*&gt; \*\_Nonnull)array  
 Creates a dictionary for extending Tag’s values list with additional values<br/>Example:<br/>
 ```Objective-C
 NSDictionary *tags = @{
