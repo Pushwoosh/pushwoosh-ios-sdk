@@ -11,6 +11,9 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1ae9429c76f749caa36e1f798ef3e06c6c">@property NSObject&lt;PWMessagingDelegate&gt; *_Nullable</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1ad4f33662a2c344c8a590d03b859cf935">@property NSObject&lt;PWPurchaseDelegate&gt; *_Nullable</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1abe8dbad57ad73ac86a51cc0b4dfc64e5">@property NSDictionary *_Nullable</a></td>
 	</tr>
 	<tr>
@@ -132,6 +135,12 @@ Pushwoosh Application ID. Usually retrieved automatically from Info.plist parame
 
 #### <a name="1ae9429c76f749caa36e1f798ef3e06c6c"></a>@property NSObject&lt;<a href="PWMessagingDelegate-p.md">PWMessagingDelegate</a>&gt; \*_Nullable  
 PushNotificationDelegate protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification. Pushwoosh Runtime sets it to ApplicationDelegate by default 
+
+----------  
+  
+
+#### <a name="1ad4f33662a2c344c8a590d03b859cf935"></a>@property NSObject&lt;<a href="PWPurchaseDelegate-p.md">PWPurchaseDelegate</a>&gt; \*_Nullable  
+PushPurchaseDelegate protocol delegate that would receive the information about events related to purchasing InApp products from rich medias 
 
 ----------  
   

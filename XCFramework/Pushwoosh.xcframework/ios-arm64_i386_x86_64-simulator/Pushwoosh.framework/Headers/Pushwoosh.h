@@ -18,7 +18,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.4.4"
+#define PUSHWOOSH_VERSION @"6.4.5"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -52,6 +52,31 @@ Tells the delegate that the user has pressed on the push notification banner.
 @param message A PWMessage object that contains information about the remote notification, potentially including a badge number for the application icon, an alert sound, an alert message to display to the user, a notification identifier, and custom data.
 */
 - (void)pushwoosh:(Pushwoosh * _Nonnull)pushwoosh onMessageOpened:(PWMessage * _Nonnull)message;
+
+@end
+
+/**
+ `PWPurchaseDelegate` protocol defines the methods that can be implemented in the delegate of the `Pushwoosh` class' singleton object.
+ These methods provide callbacks for events related to purchasing In-App products from rich medias, such as successful purchase event, failed payment, etc.
+ These methods implementation allows to react on such events properly.
+ */
+
+@protocol PWPurchaseDelegate <NSObject>
+
+//list of products
+-(void)onPWInAppPurchaseHelperProducts:(NSArray<SKProduct *>* _Nullable)products;
+
+//payment complete
+-(void)onPWInAppPurchaseHelperPaymentComplete:(NSString* _Nullable)identifier;
+
+//payment failed
+-(void)onPWInAppPurchaseHelperPaymentFailedProductIdentifier:(NSString* _Nullable)identifier error:(NSError* _Nullable)error;
+
+//promoted In-App purchase
+-(void)onPWInAppPurchaseHelperCallPromotedPurchase:(NSString* _Nullable)identifier;
+
+//Tells the observer that an error occurred while restoring transactions.
+-(void)onPWInAppPurchaseHelperRestoreCompletedTransactionsFailed:(NSError * _Nullable)error;
 
 @end
 
@@ -139,6 +164,11 @@ Tells the delegate that the user has pressed on the push notification banner.
  Pushwoosh Runtime sets it to ApplicationDelegate by default
  */
 @property (nonatomic, weak) NSObject<PWMessagingDelegate> * _Nullable delegate;
+
+/**
+ `PushPurchaseDelegate` protocol delegate that would receive the information about events related to purchasing InApp products from rich medias
+ */
+@property (nonatomic, weak) NSObject<PWPurchaseDelegate> * _Nullable purchaseDelegate;
 
 #if TARGET_OS_IOS || TARGET_OS_WATCH
 
