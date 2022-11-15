@@ -18,7 +18,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.4.5"
+#define PUSHWOOSH_VERSION @"6.4.6"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -63,20 +63,42 @@ Tells the delegate that the user has pressed on the push notification banner.
 
 @protocol PWPurchaseDelegate <NSObject>
 
-//list of products
--(void)onPWInAppPurchaseHelperProducts:(NSArray<SKProduct *>* _Nullable)products;
+@optional
+/**
+ Tells the delegate that the application received  the array of products
+ 
+ @param products Array of SKProduct instances.
+ */
+- (void)onPWInAppPurchaseHelperProducts:(NSArray<SKProduct *>* _Nullable)products;
 
-//payment complete
--(void)onPWInAppPurchaseHelperPaymentComplete:(NSString* _Nullable)identifier;
+/**
+ Tells the delegate that the transaction is in queue, user has been charged.
+ 
+ @param identifier Identifier agreed upon with the store.
+ */
+- (void)onPWInAppPurchaseHelperPaymentComplete:(NSString* _Nullable)identifier;
 
-//payment failed
--(void)onPWInAppPurchaseHelperPaymentFailedProductIdentifier:(NSString* _Nullable)identifier error:(NSError* _Nullable)error;
+/**
+ Tells the delegate that the transaction was cancelled or failed before being added to the server queue.
+ 
+ @param identifier The unique server-provided identifier.
+ @param error The transaction failed.
+ */
+- (void)onPWInAppPurchaseHelperPaymentFailedProductIdentifier:(NSString* _Nullable)identifier error:(NSError* _Nullable)error;
 
-//promoted In-App purchase
--(void)onPWInAppPurchaseHelperCallPromotedPurchase:(NSString* _Nullable)identifier;
+/**
+ Tells the delegate that a user initiates an IAP buy from the App Store
+ 
+ @param identifier Product identifier
+ */
+- (void)onPWInAppPurchaseHelperCallPromotedPurchase:(NSString* _Nullable)identifier;
 
-//Tells the observer that an error occurred while restoring transactions.
--(void)onPWInAppPurchaseHelperRestoreCompletedTransactionsFailed:(NSError * _Nullable)error;
+/**
+ Tells the delegate that an error occurred while restoring transactions.
+ 
+ @param error Error transaction.
+ */
+- (void)onPWInAppPurchaseHelperRestoreCompletedTransactionsFailed:(NSError * _Nullable)error;
 
 @end
 
