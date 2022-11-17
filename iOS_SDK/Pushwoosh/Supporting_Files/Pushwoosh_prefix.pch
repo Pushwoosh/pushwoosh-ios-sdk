@@ -1,0 +1,25 @@
+//
+//  PushRuntime.h
+//  Pushwoosh SDK
+//  (c) Pushwoosh 2016
+//
+
+#ifndef PushNotificationManager_pch
+#define PushNotificationManager_pch
+
+#ifdef __OBJC__
+
+#import <Foundation/Foundation.h>
+
+#if TARGET_OS_IPHONE
+    #import <UIKit/UIKit.h>
+#else
+    #import <AppKit/AppKit.h>
+#endif
+
+    #import "Constants.h"
+	#import "PWLog+Internal.h"
+#endif
+
+
+#endif

@@ -1,0 +1,51 @@
+//
+//  PWRegisterTestDeviceRequestTest.m
+//  PushwooshTests
+//
+//  Created by Kiselev Andrey on 25.01.2022.
+//  Copyright © 2022 Pushwoosh. All rights reserved.
+//
+
+#import <XCTest/XCTest.h>
+#import <OCMock/OCMock.h>
+#import <OCHamcrestIOS/OCHamcrestIOS.h>
+
+#import "PWRegisterTestDeviceRequest.h"
+
+@interface PWRegisterTestDeviceRequestTest : XCTestCase
+
+@property (nonatomic) PWRegisterTestDeviceRequest *request;
+
+@end
+
+@implementation PWRegisterTestDeviceRequestTest
+
+- (void)setUp {
+    // Put setup code here. This method is called before the invocation of each test method in the class.
+    self.request = [[PWRegisterTestDeviceRequest alloc] init];
+}
+
+- (void)tearDown {
+    // Put teardown code here. This method is called after the invocation of each test method in the class.
+}
+
+- (void)testMethodNameIsCorrect {
+    NSString *methodName = [self.request methodName];
+    
+    XCTAssertEqual(methodName, @"createTestDevice");
+}
+
+- (void)testRequestDictionaryHasCorrectParameters {
+    [self.request setName:@"name"];
+    [self.request setDesc:@"desc"];
+    NSDictionary *parameters = [self.request requestDictionary];
+    
+    assertThat(parameters, hasKey(@"name"));
+    assertThat(parameters, hasKey(@"description"));
+}
+
+- (void)testParseResponseIsEmpty {
+    [self.request parseResponse:@{}];
+}
+
+@end
