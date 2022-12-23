@@ -29,24 +29,18 @@ static IMP pw_original_addTransactionObserver_Imp;
 
 @implementation SKPaymentQueue (Pushwoosh)
 
-- (void)pw_addTransactionObserver:(id <SKPaymentTransactionObserver>)observer {
-    [self performSwizzlingForObserver:observer];
-}
-
 - (void)performSwizzlingForObserver:(id <SKPaymentTransactionObserver>)observer {
     static BOOL swizzleDone = NO;
 
     //do not swizzle twice
     if (swizzleDone || observer == nil) {
-        [self.class swizzle_addTransactionObserver];
+        [self swizzle_paymentQueueUpdatedTransactions:observer];
         return;
     }
 
     swizzleDone = YES;
     
     [self swizzle_paymentQueueUpdatedTransactions:observer];
-    
-    [self.class swizzle_addTransactionObserver];
 }
 
 - (void)swizzle_paymentQueueUpdatedTransactions:(id <SKPaymentTransactionObserver>)observer {
@@ -70,10 +64,6 @@ void _replacement_paymentQueueUpdatedTransactions(SKPaymentQueue * self, SEL _cm
         return;
     swizzleDone = YES;
     
-    [self.class swizzle_addTransactionObserver];
-}
-
-+ (void)swizzle_addTransactionObserver {
     Method originalMethod = class_getInstanceMethod([SKPaymentQueue class], @selector(addTransactionObserver:));
     pw_original_addTransactionObserver_Imp = method_setImplementation(originalMethod, (IMP)_replacement_addTransactionObserver);
 }

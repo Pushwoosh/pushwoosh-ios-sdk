@@ -45,8 +45,6 @@
 
         self.sendPushStatIfAlertsDisabled = [self getBoolean:@"Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED" default:YES];
         
-        self.sendPurchaseTrackingEnabled = [self getBoolean:@"Pushwoosh_PURCHASE_TRACKING_ENABLED" default:NO];
-
         self.alertStyle = PWNotificationAlertStyleBanner;
 
 		NSString *alertTypeString = [bundle objectForInfoDictionaryKey:@"Pushwoosh_ALERT_TYPE"];
