@@ -33,10 +33,8 @@ static IMP pw_original_addTransactionObserver_Imp;
     static BOOL swizzleDone = NO;
 
     //do not swizzle twice
-    if (swizzleDone || observer == nil) {
-        [self swizzle_paymentQueueUpdatedTransactions:observer];
+    if (swizzleDone || observer == nil)
         return;
-    }
 
     swizzleDone = YES;
     
@@ -64,7 +62,7 @@ void _replacement_paymentQueueUpdatedTransactions(SKPaymentQueue * self, SEL _cm
         return;
     swizzleDone = YES;
     
-    Method originalMethod = class_getInstanceMethod([SKPaymentQueue class], @selector(addTransactionObserver:));
+    Method originalMethod = class_getInstanceMethod([self class], @selector(addTransactionObserver:));
     pw_original_addTransactionObserver_Imp = method_setImplementation(originalMethod, (IMP)_replacement_addTransactionObserver);
 }
 

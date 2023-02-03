@@ -67,8 +67,13 @@ void heavy_operation_impl(const char *function) {
 	if ([languagesArr count] > 0) {
 		NSString *value = languagesArr[0];
 
-		if ([value length] > 2)
-			value = [value stringByReplacingCharactersInRange:NSMakeRange(2, [value length] - 2) withString:@""];
+        NSDictionary *languageDictionary = [NSLocale componentsFromLocaleIdentifier:value];
+        NSString *languageCode = [languageDictionary objectForKey:@"kCFLocaleLanguageCodeKey"];
+        NSString *description = [languageDictionary objectForKey:@"kCFLocaleScriptCodeKey"];
+        
+        if ([value length] > 2) {
+            value = description != nil ? [NSString stringWithFormat:@"%@-%@", languageCode, description] : languageCode;
+        }
 
 		appLocale = [value copy];
 	}

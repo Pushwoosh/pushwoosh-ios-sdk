@@ -10,6 +10,7 @@
 #import "PWNotification.h"
 #import "PWNotificationAppSettings_Private.h"
 #import "PWNotificationBannerWindow.h"
+#import "PWUtils.h"
 
 #import <AVFoundation/AVFoundation.h>
 
@@ -116,7 +117,9 @@ static NSString *const _PWSettingsKey = @"PWNotificationSettingsKey";
 			//Fix Apple bug of rotations.
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-			[[UIDevice currentDevice] performSelector:@selector(setOrientation:) withObject:(__bridge id)((void*)[note.userInfo[UIApplicationStatusBarOrientationUserInfoKey] unsignedIntegerValue])];
+            if (TARGET_OS_IOS && ![PWUtils isSystemVersionGreaterOrEqualTo:@"16.0"]) {
+                [[UIDevice currentDevice] performSelector:@selector(setOrientation:) withObject:(__bridge id)((void*)[note.userInfo[UIApplicationStatusBarOrientationUserInfoKey] unsignedIntegerValue])];
+            }
 #pragma clang diagnostic pop
 		}];
 	}
