@@ -65,7 +65,7 @@
 		_updated = [updatedValue doubleValue];
         id requiredValue = [dictionary pw_objectForKey:@"required" ofTypes:@[ [NSString class], [NSNumber class] ]];
         _required = [requiredValue boolValue];
-        _presentationStyleKey = @"topbanner"; // the "layout" parameter we currently use will be removed from requests coming from PW backend in the nearest future
+        _presentationStyleKey = [dictionary pw_stringForKey:@"presentationStyleKey"];
 		id closeButtonValue = [dictionary pw_objectForKey:@"closeButtonType" ofTypes:@[ [NSString class], [NSNumber class] ]];
 		_closeButton = [closeButtonValue boolValue];
 		_tags = [dictionary pw_dictionaryForKey:@"tags"];
@@ -83,7 +83,7 @@
             [PWGDPRManager sharedManager].available = YES;
         }
 
-		if (!_code || !updatedValue || !_url || !_presentationStyleKey) {
+		if (!_code || !updatedValue || !_url) {
 			PWLogError(@"Invalid inapp: %@", dictionary);
 			return nil;
 		}
@@ -106,6 +106,20 @@
 	} else {
 		return IAResourcePresentationUndefined;
 	}
+}
+
+- (IAResourcePresentationStyle)presentationStyle:(NSString *)presentationKey {
+    if ([presentationKey isEqualToString:@"fullscreen"]) {
+        return IAResourcePresentationFullScreen;
+    } else if ([presentationKey isEqualToString:@"centerbox"]) {
+        return IAResourcePresentationCenter;
+    } else if ([presentationKey isEqualToString:@"topbanner"]) {
+        return IAResourcePresentationTopBanner;
+    } else if ([presentationKey isEqualToString:@"bottombanner"]) {
+        return IAResourcePresentationBottomBanner;
+    } else {
+        return IAResourcePresentationUndefined;
+    }
 }
 
 - (double)priority {
@@ -233,7 +247,8 @@
 	self.config = [[PWRichMediaConfig alloc] initWithContentsOfFile:[self configUrl]];
 	if (self.config) {
 		_closeButton = self.config.iosCloseButton;
-	}
+        _presentationStyleKey = self.config.presentationStyleKey;
+    }
 }
 
 - (void)registerDownloadListener:(PWResourceDownloadCompleteBlock)completion {

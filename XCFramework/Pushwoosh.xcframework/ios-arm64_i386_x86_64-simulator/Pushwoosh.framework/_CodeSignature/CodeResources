@@ -38,7 +38,7 @@
 		</data>
 		<key>Headers/PWRichMediaManager.h</key>
 		<data>
-		MAhjXD7FN30ZDzz56DRXL8g/9hM=
+		whL7iuJSBwm2Yyl0XrtclzSwyuw=
 		</data>
 		<key>Headers/PWRichMediaStyle.h</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Headers/Pushwoosh.h</key>
 		<data>
-		1+0qYoYOgd/IX/0dRORe/xOyfuU=
+		c4UgVT1fS42FU1ajrwoSAAFfML0=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -155,11 +155,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			MAhjXD7FN30ZDzz56DRXL8g/9hM=
+			whL7iuJSBwm2Yyl0XrtclzSwyuw=
 			</data>
 			<key>hash2</key>
 			<data>
-			qNXRKXXuCUS6uk8c8YztRyr7M33TaCml/tTfW2mp9Ok=
+			EyemkcNrCQke1+bY4s5uNhk6YOAOcfUcswDFEfcvViQ=
 			</data>
 		</dict>
 		<key>Headers/PWRichMediaStyle.h</key>
@@ -188,11 +188,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			1+0qYoYOgd/IX/0dRORe/xOyfuU=
+			c4UgVT1fS42FU1ajrwoSAAFfML0=
 			</data>
 			<key>hash2</key>
 			<data>
-			FsSHzQ+M6rWXdPpqv//FVhby5Z5b9IrO4SCHHQAi4yM=
+			8zEUy5QMTN6Lo0gahAz/OTjkEAN6xdjfEZfZp+0Equg=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

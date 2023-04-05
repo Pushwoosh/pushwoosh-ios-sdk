@@ -22,12 +22,12 @@
 
 static IMP pw_original_setApplicationIconBadgeNumber_Imp;
 static IMP pw_original_registerForRemoteNotifications_Imp;
+static IMP pw_original_didReceiveRemoteNotification_Imp;
 
 @interface UIApplication (PushwooshRuntime)
 - (void)application:(UIApplication *)application pw_didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)devToken;
 - (void)application:(UIApplication *)application pw_didFailToRegisterForRemoteNotificationsWithError:(NSError *)err;
 - (void)application:(UIApplication *)application pw_didReceiveRemoteNotification:(NSDictionary *)userInfo;
-- (void)application:(UIApplication *)application pw_didReceiveRemoteNotification:(NSDictionary *)userInfo fetchCompletionHandler:(void (^)(UIBackgroundFetchResult))completionHandler;
 
 - (BOOL)application:(UIApplication *)application pw_didFinishLaunchingWithOptions:(NSDictionary *)launchOptions;
 - (BOOL)application:(UIApplication *)application pw_openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
@@ -123,16 +123,12 @@ void dynamicDidReceiveRemoteNotification(id self, SEL _cmd, id application, id u
 	}
 }
 
-void dynamicDidReceiveRemoteNotificationWithFetch(id self, SEL _cmd, id application, id userInfo, void (^completionHandler)(UIBackgroundFetchResult)) {
-	if ([self respondsToSelector:@selector(application:pw_didReceiveRemoteNotification:fetchCompletionHandler:)]) {
-		[self application:application pw_didReceiveRemoteNotification:userInfo fetchCompletionHandler:completionHandler];
-	}
-
-	if ([[PWPreferences preferences] hasAppCode]) {
-		[[PushNotificationManager pushManager] handlePushReceived:userInfo];
-	}
-	
-	completionHandler(UIBackgroundFetchResultNewData);
+void _replacement_didReceiveRemoteNotification(id self, SEL _cmd, UIApplication * application, NSDictionary * userInfo, void (^completionHandler)(UIBackgroundFetchResult)) {
+    ((void(*)(id, SEL, UIApplication *, NSDictionary *, void(^)(UIBackgroundFetchResult)))pw_original_didReceiveRemoteNotification_Imp)(self, _cmd, application, userInfo, completionHandler);
+    
+    if ([[PWPreferences preferences] hasAppCode]) {
+        [[PushNotificationManager pushManager] handlePushReceived:userInfo];
+    }
 }
 
 BOOL dynamicOpenURLSourceApplicationAnnotation(id self, SEL _cmd, id application, id openURL, id sourceApplication, id annotation) {
@@ -338,11 +334,7 @@ static BOOL openURLSwizzled = NO;
       implementation:(IMP)dynamicDidReceiveRemoteNotification
         typeEncoding:"v@:::"];
     
-    [PWUtils swizzle:delegateClass
-        fromSelector:@selector(application:didReceiveRemoteNotification:fetchCompletionHandler:)
-          toSelector:@selector(application:pw_didReceiveRemoteNotification:fetchCompletionHandler:)
-      implementation:(IMP)dynamicDidReceiveRemoteNotificationWithFetch
-        typeEncoding:"v@::::"];
+    [self swizzle_didReceiveRemoteNotificationWithFetchBlock:delegateClass];
     
     [self pw_swizzleOpenURLMethods:delegateClass];
     
@@ -356,6 +348,11 @@ static BOOL openURLSwizzled = NO;
     }
     
     [self pw_setDelegate:proxy ? : delegate];
+}
+
+- (void)swizzle_didReceiveRemoteNotificationWithFetchBlock:(Class)delegateClass {
+    Method originalMethod = class_getInstanceMethod(delegateClass, @selector(application:didReceiveRemoteNotification:fetchCompletionHandler:));
+    pw_original_didReceiveRemoteNotification_Imp = method_setImplementation(originalMethod, (IMP)_replacement_didReceiveRemoteNotification);
 }
 
 - (void)pw_setDelegate:(id<UIApplicationDelegate>)delegate {

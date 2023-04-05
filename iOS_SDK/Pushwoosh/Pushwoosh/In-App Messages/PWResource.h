@@ -37,11 +37,13 @@ typedef NS_ENUM(unsigned int, IAResourcePresentationStyle) {
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;
 
 - (IAResourcePresentationStyle)presentationStyle;
+- (IAResourcePresentationStyle)presentationStyle:(NSString *)presentationKey;
 - (BOOL)isDownloaded;
 - (void)downloadDataWithCompletion:(PWResourceDownloadCompleteBlock)completion;
 - (void)getHTMLDataWithCompletion:(void (^)(NSString *, NSError *))completion;
 - (void)deleteData;
 - (NSString *)localPath;
+- (NSString *)configUrl;
 - (BOOL)isRichMedia;
 - (NSString *)postProcessPageWithContent:(NSString *)pageContent;
 

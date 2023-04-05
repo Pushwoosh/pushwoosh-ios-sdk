@@ -31,7 +31,6 @@
 	PWResource *resource = inapps[@"FE293-BA62E"];
 	XCTAssertEqualObjects(resource.code, @"FE293-BA62E");
 	XCTAssertEqualObjects(resource.url, @"https://inapp.pushwoosh.com/json/1.3/getInApp/FE293-BA62E-1");
-	XCTAssertEqual([resource presentationStyle], IAResourcePresentationTopBanner);
 	XCTAssertEqual(resource.updated, 1465292957);
 	XCTAssertEqual(resource.closeButton, YES);
 }

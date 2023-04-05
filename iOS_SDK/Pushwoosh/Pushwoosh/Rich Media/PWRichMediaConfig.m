@@ -13,6 +13,7 @@
 @property (nonatomic, copy) NSDictionary *localizedStrings;
 
 @property (nonatomic, assign) BOOL iosCloseButton;
+@property (nonatomic) NSString *presentationStyleKey;
 
 @end
 
@@ -69,6 +70,9 @@
 		} else {
 			self.iosCloseButton = YES;
 		}
+        
+        NSString *presentationStyleKeyObj = parsedConfig[@"presentationStyleKey"];
+        self.presentationStyleKey = presentationStyleKeyObj != nil ? presentationStyleKeyObj : @"";
 
 		PWLogDebug(@"iosCloseButton: %d", self.iosCloseButton);
 	}

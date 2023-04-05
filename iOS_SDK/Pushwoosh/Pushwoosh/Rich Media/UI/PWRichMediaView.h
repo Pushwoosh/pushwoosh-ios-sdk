@@ -9,7 +9,7 @@
 #import "PWEasyJSWKWebView.h"
 #import "PWWebClient.h"
 
-@class WRichMedia;
+@class PWRichMedia;
 
 #if TARGET_OS_IOS
 @interface PWRichMediaView : UIView<PWWebClientDelegate>

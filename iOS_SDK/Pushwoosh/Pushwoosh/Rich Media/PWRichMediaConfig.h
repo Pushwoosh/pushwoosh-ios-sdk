@@ -13,5 +13,6 @@
 @property (nonatomic, readonly, copy) NSDictionary *localizedStrings;
 
 @property (nonatomic, assign, readonly) BOOL iosCloseButton;
+@property (nonatomic, assign, readonly) NSString *presentationStyleKey;
 
 @end

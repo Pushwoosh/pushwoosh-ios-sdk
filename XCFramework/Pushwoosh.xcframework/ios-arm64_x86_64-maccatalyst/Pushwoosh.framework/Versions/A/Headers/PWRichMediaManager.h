@@ -114,5 +114,10 @@ typedef NS_ENUM(NSUInteger, PWRichMediaSource) {
  */
 - (void)presentRichMedia:(PWRichMedia *)richMedia;
 
+/**
+ Close toast view after time interval in seconds
+ */
+- (void)closeToastViewAfter:(NSTimeInterval)interval;
+
 @end
 

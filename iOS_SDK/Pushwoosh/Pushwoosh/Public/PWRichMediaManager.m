@@ -7,6 +7,7 @@
 #import "PWRichMediaManager.h"
 #import "PWRichMedia+Internal.h"
 #import "PWMessageViewController.h"
+#import "PWToastView.h"
 
 @implementation PWRichMedia
 
@@ -58,6 +59,10 @@
 
 - (void)presentRichMedia:(PWRichMedia *)richMedia {
     [PWMessageViewController presentWithRichMedia:richMedia];
+}
+
+- (void)closeToastViewAfter:(NSTimeInterval)interval {
+    [PWToastView closeToastViewAfter:interval];
 }
 
 @end

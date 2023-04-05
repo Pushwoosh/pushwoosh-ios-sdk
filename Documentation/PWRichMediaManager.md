@@ -16,6 +16,9 @@
 	<tr>
 		<td><a href="#1a93601cf8b2fa3b6387da0b245a7794a7">- (void)presentRichMedia:(PWRichMedia *)richMedia</a></td>
 	</tr>
+	<tr>
+		<td><a href="#1afe4cc02dd10459c388c569e7d1e03f1d">- (void)closeToastViewAfter:(NSTimeInterval)interval</a></td>
+	</tr>
 </table>
 
 
@@ -42,3 +45,9 @@ A singleton object that represents the rich media manager.
 
 #### <a name="1a93601cf8b2fa3b6387da0b245a7794a7"></a>- (void)presentRichMedia:(PWRichMedia \*)richMedia  
 Presents the rich media object. 
+
+----------  
+  
+
+#### <a name="1afe4cc02dd10459c388c569e7d1e03f1d"></a>- (void)closeToastViewAfter:(NSTimeInterval)interval  
+Close toast view after time interval in seconds 
