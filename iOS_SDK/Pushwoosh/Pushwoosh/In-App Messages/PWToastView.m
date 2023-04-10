@@ -43,8 +43,7 @@ static NSTimeInterval timeInterval = 0;
     [_richMediaView removeFromSuperview];
     _richMediaView = nil;
     
-    CGFloat yPositionTop = 250.f;
-    CGFloat yPositionBottom = 250.f;
+    CGFloat yPositionInitialize = 1000.f;
     
     _richMediaView = [[PWRichMediaView alloc] initWithFrame:self.bounds];
     _richMediaView.webClient.webView.scrollView.scrollEnabled = NO;
@@ -73,9 +72,9 @@ static NSTimeInterval timeInterval = 0;
         if (!error) {
             [wself animateViewWithCompletion:^{
                 if (position == IAResourcePresentationTopBanner) {
-                    wself.frame = CGRectOffset(wself.richMediaView.frame, 0.f, -yPositionTop);
-                } else if (position == IAResourcePresentationBottomBanner) {
-                    wself.frame = CGRectOffset(wself.richMediaView.frame, 0.f, yPositionBottom);
+                    wself.frame = CGRectOffset(wself.richMediaView.frame, 0.f, -yPositionInitialize);
+                } else if (position == IAResourcePresentationBottomBanner || position == IAResourcePresentationCenter) {
+                    wself.frame = CGRectOffset(wself.richMediaView.frame, 0.f, yPositionInitialize);
                 }
                 
                 wself.richMediaView.alpha = 1.0;
@@ -86,10 +85,10 @@ static NSTimeInterval timeInterval = 0;
                       initialSpringVelocity:1.0
                                     options:0 animations:^{
                     if (position == IAResourcePresentationTopBanner) {
-                        frame.origin.y += yPositionTop;
+                        frame.origin.y += yPositionInitialize;
                         wself.frame = frame;
-                    } else if (position == IAResourcePresentationBottomBanner) {
-                        frame.origin.y -= yPositionBottom;
+                    } else if (position == IAResourcePresentationBottomBanner || position == IAResourcePresentationCenter) {
+                        frame.origin.y -= yPositionInitialize;
                         wself.frame = frame;
                     }
                 }
@@ -152,13 +151,13 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (void)hideToastViewWith:(IAResourcePresentationStyle)position {
-    CGFloat hideAnimationPosition = 250.f;
+    CGFloat hideAnimationPosition = 1000.f;
     CGRect frame = self.frame;
     
     if (position == IAResourcePresentationTopBanner) {
         frame.origin.y -= hideAnimationPosition;
         self.frame = frame;
-    } else if (position == IAResourcePresentationBottomBanner) {
+    } else if (position == IAResourcePresentationBottomBanner || position == IAResourcePresentationCenter) {
         frame.origin.y += hideAnimationPosition;
         self.frame = frame;
     }

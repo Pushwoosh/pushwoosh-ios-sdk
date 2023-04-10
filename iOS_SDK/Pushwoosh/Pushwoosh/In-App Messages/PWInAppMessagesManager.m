@@ -430,7 +430,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     [resource getHTMLDataWithCompletion:^(NSString *htmlData, NSError *error) {
         if (!error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                if ([resource presentationStyle:resource.config.presentationStyleKey] == IAResourcePresentationTopBanner || [resource presentationStyle:resource.config.presentationStyleKey] == IAResourcePresentationBottomBanner) {
+                if ([resource presentationStyle:resource.config.presentationStyleKey] == IAResourcePresentationTopBanner || [resource presentationStyle:resource.config.presentationStyleKey] == IAResourcePresentationBottomBanner || [resource presentationStyle:resource.config.presentationStyleKey] == IAResourcePresentationCenter) {
                     [self createToastViewWith:resource config:resource.config];
                 } else {
                     PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourcePush resource:resource pushPayload:userInfo];
@@ -454,7 +454,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         
         [NSLayoutConstraint activateConstraints:@[
             [_toastView.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
-            [_toastView.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor],
+            [_toastView.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor]
         ]];
         
         if ([resource presentationStyle:config.presentationStyleKey] == IAResourcePresentationTopBanner) {
@@ -464,6 +464,11 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         } else if ([resource presentationStyle:config.presentationStyleKey] == IAResourcePresentationBottomBanner) {
             [NSLayoutConstraint activateConstraints:@[
                 [_toastView.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor constant:-20]
+            ]];
+        } else if ([resource presentationStyle:config.presentationStyleKey] == IAResourcePresentationCenter) {
+            [NSLayoutConstraint activateConstraints:@[
+                [_toastView.centerYAnchor constraintEqualToAnchor:safe.centerYAnchor],
+                [_toastView.centerXAnchor constraintEqualToAnchor:safe.centerXAnchor]
             ]];
         }
     } else {
@@ -477,6 +482,9 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
             [_toastView.topAnchor constraintEqualToAnchor:window.bottomAnchor constant:topInset].active = YES;
         } else if ([resource presentationStyle:config.presentationStyleKey] == IAResourcePresentationBottomBanner) {
             [_toastView.topAnchor constraintEqualToAnchor:window.bottomAnchor constant:bottomInset].active = YES;
+        } else if ([resource presentationStyle:config.presentationStyleKey] == IAResourcePresentationCenter) {
+            [_toastView.centerYAnchor constraintEqualToAnchor:window.centerYAnchor].active = YES;
+            [_toastView.centerXAnchor constraintEqualToAnchor:window.centerXAnchor].active = YES;
         }
     }
     [_toastView createToastView:resource position:[resource presentationStyle:config.presentationStyleKey]];
