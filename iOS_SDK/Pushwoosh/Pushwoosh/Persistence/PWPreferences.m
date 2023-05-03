@@ -35,6 +35,7 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 @interface PWPreferences ()
 
 @property (nonatomic, strong) NSObject *lock;
+@property (nonatomic) NSUserDefaults *defaults;
 
 @end
 
@@ -75,7 +76,19 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 		_appName = [PWPreferences readAppName];
 		_pushToken = [[NSUserDefaults standardUserDefaults] objectForKey:KeyPushToken];
 		
-		_userId = [[NSUserDefaults standardUserDefaults] objectForKey:KeyUserId];
+        if ([[PWConfig config] appGroupsName]) {
+            _defaults = [[NSUserDefaults alloc] initWithSuiteName:[[PWConfig config] appGroupsName]];
+            NSString *prevSavedUserId = [[NSUserDefaults standardUserDefaults] objectForKey:KeyUserId];
+            if (prevSavedUserId) {
+                _userId = prevSavedUserId;
+                [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyUserId];
+                [_defaults setObject:_userId forKey:KeyUserId];
+            } else {
+                _userId = [_defaults objectForKey:KeyUserId];
+            }
+        } else {
+            _userId = [[NSUserDefaults standardUserDefaults] objectForKey:KeyUserId];
+        }
 
 		_lastRegTime = [[NSUserDefaults standardUserDefaults] objectForKey:KeyLastRegTime];
 		_lastRegisterUserDate = [[NSUserDefaults standardUserDefaults] objectForKey:KeyLastRegisterUserDate];
@@ -222,9 +235,13 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 	@synchronized(_lock) {
 		_userId = [userId copy];
 	}
-
-	[[NSUserDefaults standardUserDefaults] setObject:userId forKey:KeyUserId];
-	[[NSUserDefaults standardUserDefaults] synchronize];
+    
+    if ([[PWConfig config] appGroupsName]) {
+        _defaults = [[NSUserDefaults alloc] initWithSuiteName:[[PWConfig config] appGroupsName]];
+        [_defaults setObject:userId forKey:KeyUserId];
+    } else {
+        [[NSUserDefaults standardUserDefaults] setObject:userId forKey:KeyUserId];
+    }
 }
 
 - (NSString *)userId {

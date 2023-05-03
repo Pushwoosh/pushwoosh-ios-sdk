@@ -15,8 +15,8 @@
 #import "PWPlatformModule.h"
 #import "PWNotificationManagerCompat.h"
 #import "PWSendPurchaseRequest.h"
-#import <OCHamcrestIOS/OCHamcrestIOS.h>
-#import <OCMockitoIOS/OCMockitoIOS.h>
+#import <OCHamcrest/OCHamcrest.h>
+#import <OCMockito/OCMockito.h>
 #import "PWRegisterUserRequest.h"
 #import "PWPreferences.h"
 #import "PWPostEventRequest.h"

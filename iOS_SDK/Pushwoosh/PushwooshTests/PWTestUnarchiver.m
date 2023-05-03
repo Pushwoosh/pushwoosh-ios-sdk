@@ -7,8 +7,8 @@
 //
 
 #import <XCTest/XCTest.h>
-#import <OCHamcrestIOS/OCHamcrestIOS.h>
-#import <OCMockitoIOS/OCMockitoIOS.h>
+#import <OCHamcrest/OCHamcrest.h>
+#import <OCMockito/OCMockito.h>
 #import <OCMock/OCMock.h>
 
 #import "PWUnarchiver.h"

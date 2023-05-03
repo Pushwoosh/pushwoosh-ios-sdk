@@ -7,8 +7,8 @@
 
 #import "PWPushNotificationDelegateMock.h"
 
-#import <OCHamcrestIOS/OCHamcrestIOS.h>
-#import <OCMockitoIOS/OCMockitoIOS.h>
+#import <OCHamcrest/OCHamcrest.h>
+#import <OCMockito/OCMockito.h>
 
 @implementation PWPushNotificationDelegateMock
 

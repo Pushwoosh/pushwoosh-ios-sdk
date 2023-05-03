@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXAggregateTarget section */
@@ -219,8 +219,6 @@
 		5D2AD9112409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D2AD90C2409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h */; };
 		5D2AD9122409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D2AD90C2409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h */; };
 		5D2AD9132409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D2AD90C2409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h */; };
-		5D4247EB242CBA750029D447 /* OCHamcrestIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D4247E9242CBA750029D447 /* OCHamcrestIOS.framework */; };
-		5D4247EC242CBA750029D447 /* OCMockitoIOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5D4247EA242CBA750029D447 /* OCMockitoIOS.framework */; };
 		5D46160123FBAD7500001E0E /* Pushwoosh.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* Pushwoosh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5D46160223FBAD7500001E0E /* Pushwoosh.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* Pushwoosh.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5D46160323FBAD7500001E0E /* Pushwoosh.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* Pushwoosh.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1198,6 +1196,9 @@
 		AF3084752996A1F500E19F10 /* PWToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF30846F2996A1F500E19F10 /* PWToastView.m */; };
 		AF3084762996A1F500E19F10 /* PWToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF30846F2996A1F500E19F10 /* PWToastView.m */; };
 		AF3084772996A1F500E19F10 /* PWToastView.m in Sources */ = {isa = PBXBuildFile; fileRef = AF30846F2996A1F500E19F10 /* PWToastView.m */; };
+		AFB0024B29F7EA440083A3E6 /* OCHamcrest.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFB0024A29F7EA440083A3E6 /* OCHamcrest.xcframework */; };
+		AFB0024F29F7EBB50083A3E6 /* OCMockito.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFB0024E29F7EBB50083A3E6 /* OCMockito.xcframework */; };
+		AFB0025129F7ED5A0083A3E6 /* PWPreferencesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB0025029F7ED5A0083A3E6 /* PWPreferencesTest.m */; };
 		D6F9155D28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = D6F9155B28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h */; };
 		D6F9155E28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = D6F9155B28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h */; };
 		D6F9155F28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = D6F9155B28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h */; };
@@ -1318,8 +1319,6 @@
 		5D4247DD242CB9840029D447 /* PWRichMediaAnimatorTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWRichMediaAnimatorTest.m; sourceTree = "<group>"; };
 		5D4247DE242CB9840029D447 /* PWMessageViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWMessageViewControllerTest.m; sourceTree = "<group>"; };
 		5D4247E3242CB99B0029D447 /* PWPushNotificationManagerCommonTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWPushNotificationManagerCommonTest.m; path = PushwooshTests/PWPushNotificationManagerCommonTest.m; sourceTree = SOURCE_ROOT; };
-		5D4247E9242CBA750029D447 /* OCHamcrestIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCHamcrestIOS.framework; path = PushwooshTests/OCMockito/OCHamcrestIOS.framework; sourceTree = SOURCE_ROOT; };
-		5D4247EA242CBA750029D447 /* OCMockitoIOS.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = OCMockitoIOS.framework; path = PushwooshTests/OCMockito/OCMockitoIOS.framework; sourceTree = SOURCE_ROOT; };
 		5D4496BF22F01C6B00BD62F4 /* Pushwoosh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pushwoosh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D4615FF23FBAD7500001E0E /* Pushwoosh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pushwoosh.h; sourceTree = "<group>"; };
 		5D46160023FBAD7500001E0E /* Pushwoosh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pushwoosh.m; sourceTree = "<group>"; };
@@ -1566,6 +1565,10 @@
 		97F7D0522771F2430006692B /* PWTestUnarchiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWTestUnarchiver.m; sourceTree = "<group>"; };
 		AF30846E2996A1F500E19F10 /* PWToastView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWToastView.h; sourceTree = "<group>"; };
 		AF30846F2996A1F500E19F10 /* PWToastView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWToastView.m; sourceTree = "<group>"; };
+		AFB0024A29F7EA440083A3E6 /* OCHamcrest.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OCHamcrest.xcframework; path = PushwooshTests/OCMockito/OCHamcrest.xcframework; sourceTree = "<group>"; };
+		AFB0024C29F7EAA00083A3E6 /* OCHamcrest.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OCHamcrest.xcframework; path = OCMockito/OCHamcrest.xcframework; sourceTree = "<group>"; };
+		AFB0024E29F7EBB50083A3E6 /* OCMockito.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OCMockito.xcframework; path = OCMockito/OCMockito.xcframework; sourceTree = "<group>"; };
+		AFB0025029F7ED5A0083A3E6 /* PWPreferencesTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWPreferencesTest.m; sourceTree = "<group>"; };
 		C42A20691D06CBB800CC3BCB /* libPushwoosh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwoosh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2AAC07E0554694100DB518D /* libPushwoosh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwoosh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6F9155B28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInAppPurchaseHelper.h; sourceTree = "<group>"; };
@@ -1595,12 +1598,12 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				AFB0024B29F7EA440083A3E6 /* OCHamcrest.xcframework in Frameworks */,
 				979229B825B5BB9B00F5D0C1 /* libOCMock.a in Frameworks */,
+				AFB0024F29F7EBB50083A3E6 /* OCMockito.xcframework in Frameworks */,
 				46FA9E461C7DB92D00741A11 /* libz.tbd in Frameworks */,
 				46FA9E441C7DB92800741A11 /* libstdc++.tbd in Frameworks */,
 				46FA9E391C7DB1AA00741A11 /* libPushwoosh.a in Frameworks */,
-				5D4247EB242CBA750029D447 /* OCHamcrestIOS.framework in Frameworks */,
-				5D4247EC242CBA750029D447 /* OCMockitoIOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1863,6 +1866,7 @@
 		467F62A41EB883A400548315 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
+				AFB0024A29F7EA440083A3E6 /* OCHamcrest.xcframework */,
 				97A59FED257F6A830022359C /* libc++.tbd */,
 				979229B725B5BB9B00F5D0C1 /* libOCMock.a */,
 			);
@@ -1880,7 +1884,7 @@
 				46376BDF1DF97E8E00126EB3 /* Request */,
 				44F51F602906A06900E603E4 /* Network */,
 				46376BDE1DF97E7500126EB3 /* PushManager */,
-				4649F4CE1ED552AC00D3D90C /* SupportingFiles */,
+				AFB0025229F7ED620083A3E6 /* Persistence */,
 				449CAA232877271000B4EEEF /* Configuration */,
 				976302C527DA21420029240E /* Inbox */,
 				449CAA262877273D00B4EEEF /* Public */,
@@ -1890,6 +1894,7 @@
 				4649F4EF1ED5534200D3D90C /* PWResourceTest.m */,
 				5D84AD102153A04E005D7432 /* PWConfigTest.m */,
 				972C9AA727F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m */,
+				4649F4CE1ED552AC00D3D90C /* SupportingFiles */,
 			);
 			path = PushwooshTests;
 			sourceTree = "<group>";
@@ -2747,11 +2752,19 @@
 			path = "Email Tags";
 			sourceTree = "<group>";
 		};
+		AFB0025229F7ED620083A3E6 /* Persistence */ = {
+			isa = PBXGroup;
+			children = (
+				AFB0025029F7ED5A0083A3E6 /* PWPreferencesTest.m */,
+			);
+			name = Persistence;
+			sourceTree = "<group>";
+		};
 		C4D613741D1974FE00720130 /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				5D4247E9242CBA750029D447 /* OCHamcrestIOS.framework */,
-				5D4247EA242CBA750029D447 /* OCMockitoIOS.framework */,
+				AFB0024C29F7EAA00083A3E6 /* OCHamcrest.xcframework */,
+				AFB0024E29F7EBB50083A3E6 /* OCMockito.xcframework */,
 				46FA9E451C7DB92D00741A11 /* libz.tbd */,
 				46FA9E431C7DB92800741A11 /* libstdc++.tbd */,
 			);
@@ -3882,6 +3895,7 @@
 			files = (
 				449CAA142877267C00B4EEEF /* PWGetTagsRequestTest.m in Sources */,
 				449CA9FC2877253B00B4EEEF /* PWRequestTest.m in Sources */,
+				AFB0025129F7ED5A0083A3E6 /* PWPreferencesTest.m in Sources */,
 				4649F4F21ED5534200D3D90C /* PWRequestManagerTest.m in Sources */,
 				449CAA122877265C00B4EEEF /* PWPushStatRequestTest.m in Sources */,
 				449CAA04287725BD00B4EEEF /* PWRegisterEmailTest.m in Sources */,
@@ -4493,7 +4507,11 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				KEEP_PRIVATE_EXTERNS = NO;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4548,7 +4566,11 @@
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
 				KEEP_PRIVATE_EXTERNS = NO;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
@@ -4601,7 +4623,11 @@
 				INFOPLIST_FILE = "$(SRCROOT)/PushwooshTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				KEEP_PRIVATE_EXTERNS = NO;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -4651,7 +4677,11 @@
 				INFOPLIST_FILE = "$(SRCROOT)/PushwooshTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				KEEP_PRIVATE_EXTERNS = NO;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/../Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/../Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MACOSX_DEPLOYMENT_TARGET = 10.7;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -4682,6 +4712,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Vendor/Carthage/Build/iOS",
@@ -4708,7 +4739,12 @@
 				);
 				INFOPLIST_FILE = PushwooshTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UnitTests/OCMock",
@@ -4740,6 +4776,7 @@
 				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				EXCLUDED_ARCHS = "";
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Vendor/Carthage/Build/iOS",
@@ -4762,7 +4799,12 @@
 				);
 				INFOPLIST_FILE = PushwooshTests/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks $(PROJECT_DIR)/Carthage/Build/iOS";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+					"$(PROJECT_DIR)/Carthage/Build/iOS",
+				);
 				LIBRARY_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/UnitTests/OCMock",
@@ -4825,7 +4867,11 @@
 				INFOPLIST_FILE = "Supporting_Files/Pushwoosh.watchOS.dynamic-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				KEEP_PRIVATE_EXTERNS = NO;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4885,7 +4931,11 @@
 				INFOPLIST_FILE = "Supporting_Files/Pushwoosh.watchOS.dynamic-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				KEEP_PRIVATE_EXTERNS = NO;
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = Pushwoosh.watchOS;

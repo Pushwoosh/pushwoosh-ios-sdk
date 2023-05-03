@@ -12,8 +12,8 @@
 #import "PWDataManager.common.h"
 #import "Pushwoosh.h"
 #import "PWBundleMock.h"
-#import <OCHamcrestIOS/OCHamcrestIOS.h>
-#import <OCMockitoIOS/OCMockitoIOS.h>
+#import <OCHamcrest/OCHamcrest.h>
+#import <OCMockito/OCMockito.h>
 #import "PWVersionTracking.h"
 #import "PWRequestManager.h"
 #import "PWPreferences.h"

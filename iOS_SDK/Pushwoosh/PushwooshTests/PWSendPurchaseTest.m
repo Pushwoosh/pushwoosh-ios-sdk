@@ -19,8 +19,8 @@
 #import "Pushwoosh+Internal.h"
 #import "PWPostEventRequest.h"
 
-#import <OCHamcrestIOS/OCHamcrestIOS.h>
-#import <OCMockitoIOS/OCMockitoIOS.h>
+#import <OCHamcrest/OCHamcrest.h>
+#import <OCMockito/OCMockito.h>
 #import <OCMock/OCMock.h>
 
 @interface PWPurchaseManager (PWSendPurchaseTest)

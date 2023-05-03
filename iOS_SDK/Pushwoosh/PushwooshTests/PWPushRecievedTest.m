@@ -22,8 +22,8 @@
 #import "PWPushStatRequest.h"
 #import "Pushwoosh.h"
 
-#import <OCHamcrestIOS/OCHamcrestIOS.h>
-#import <OCMockitoIOS/OCMockitoIOS.h>
+#import <OCHamcrest/OCHamcrest.h>
+#import <OCMockito/OCMockito.h>
 #import <XCTest/XCTest.h>
 
 @interface PWPushRecievedTest : XCTestCase

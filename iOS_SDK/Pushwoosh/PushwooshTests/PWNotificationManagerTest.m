@@ -12,8 +12,8 @@
 #import "PWPlatformModule.h"
 #import "PWNotificationCategoryBuilder.h"
 
-#import <OCHamcrestIOS/OCHamcrestIOS.h>
-#import <OCMockitoIOS/OCMockitoIOS.h>
+#import <OCHamcrest/OCHamcrest.h>
+#import <OCMockito/OCMockito.h>
 #import <XCTest/XCTest.h>
 
 @interface PWNotificationManagerTest : XCTestCase
