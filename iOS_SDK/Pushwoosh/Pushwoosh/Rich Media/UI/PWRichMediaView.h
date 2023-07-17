@@ -23,7 +23,10 @@
 @property (nonatomic) dispatch_block_t closeActionBlock;
 @property (nonatomic) dispatch_block_t contentSizeDidChangeBlock;
 
-- (instancetype)initWithFrame:(CGRect)frame;
+- (instancetype)initWithFrame:(CGRect)frame
+                      payload:(NSDictionary *)payload
+                         code:(NSString *)code
+                    inAppCode:(NSString *)inAppCode;
 - (void)loadRichMedia:(PWRichMedia *)richMedia completion:(void (^)(NSError *error))completion;
 
 @end

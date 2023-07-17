@@ -34,4 +34,8 @@
 
 - (void)sendStatsForPush:(NSDictionary *)pushDict;
 
+- (void)startLiveActivityWithToken:(NSString *)token completion:(void (^ _Nullable)(NSError * _Nullable error))completion;
+
+- (void)stopLiveActivityWithCompletion:(void (^ _Nullable)(NSError * _Nullable error))completion;
+
 @end

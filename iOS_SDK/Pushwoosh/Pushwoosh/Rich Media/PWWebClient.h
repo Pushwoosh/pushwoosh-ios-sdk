@@ -34,9 +34,9 @@
 + (void)addJavascriptInterface:(NSObject *)interface withName:(NSString *)name;
 
 #if TARGET_OS_IOS
-- (id)initWithParentView:(UIView *)parentView;
+- (id)initWithParentView:(UIView *)parentView payload:(NSDictionary *)payload code:(NSString *)code inAppCode:(NSString *)inAppCode;
 #else
-- (id)initWithParentView:(NSView *)parentView;
+- (id)initWithParentView:(UIView *)parentView payload:(NSDictionary *)payload code:(NSString *)code inAppCode:(NSString *)inAppCode;
 #endif
 
 - (void)close;

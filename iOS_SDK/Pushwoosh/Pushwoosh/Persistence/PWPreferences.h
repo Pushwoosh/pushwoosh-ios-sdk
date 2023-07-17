@@ -47,4 +47,6 @@
 
 - (void)saveCurrentHWIDtoUserDefaults; //call after successfull migration
 
++ (BOOL)checkAppCodeforChanges:(NSString *)appCode;
+
 @end

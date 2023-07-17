@@ -11,5 +11,7 @@
 @interface PWTriggerInAppActionRequest : PWRequest
 
 @property (nonatomic) NSString *inAppCode;
+@property (nonatomic) NSString *messageHash;
+@property (nonatomic) NSString *richMediaCode;
 
 @end

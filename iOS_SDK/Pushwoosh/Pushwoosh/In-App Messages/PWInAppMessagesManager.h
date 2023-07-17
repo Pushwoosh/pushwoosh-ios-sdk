@@ -29,7 +29,7 @@ FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 #if TARGET_OS_IOS || TARGET_OS_OSX
 - (void)presentRichMediaFromPush:(NSDictionary*)userInfo;
 
-- (void)trackInAppWithCode:(NSString *)inAppCode action:(NSString *)action;
+- (void)trackInAppWithCode:(NSString *)inAppCode action:(NSString *)action messageHash:(NSString *)messageHash;
 #endif
 
 #if TARGET_OS_IOS

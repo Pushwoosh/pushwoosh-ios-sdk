@@ -8,6 +8,9 @@
 		<td><a href="#1a49c87bae4b7c156655b687d7fef44842">+ (instancetype)sharedManager</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1aa12c8d575a4969c9d50a50ce0935e5ab">+ (void)updateInAppManagerInstance</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1a7b1bb8202b67bfb20ae4fbd8750b1c4a">- (void)setUserId:(NSString *)userId</a></td>
 	</tr>
 	<tr>
@@ -35,6 +38,12 @@
   
 
 #### <a name="1a49c87bae4b7c156655b687d7fef44842"></a>+ (instancetype)sharedManager  
+
+
+----------  
+  
+
+#### <a name="1aa12c8d575a4969c9d50a50ce0935e5ab"></a>+ (void)updateInAppManagerInstance  
 
 
 ----------  

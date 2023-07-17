@@ -19,6 +19,8 @@
     
     dict[@"action"] = @"show";
     dict[@"code"] = _inAppCode;
+    dict[@"messageHash"] = _messageHash;
+    dict[@"richMediaCode"] = _richMediaCode;
     
     NSInteger timezone = [[NSTimeZone localTimeZone] secondsFromGMT];
     NSInteger timestampUTC = [[NSDate date] timeIntervalSince1970];

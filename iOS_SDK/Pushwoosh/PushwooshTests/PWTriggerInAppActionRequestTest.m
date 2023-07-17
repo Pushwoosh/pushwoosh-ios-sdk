@@ -11,6 +11,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 #import "PWTriggerInAppActionRequest.h"
+#import "PWInAppMessagesManager.h"
 
 @interface PWTriggerInAppActionRequestTest : XCTestCase
 
@@ -36,6 +37,28 @@
     
     assertThat(parameters, hasKey(@"action"));
     assertThat(parameters, hasKey(@"code"));
+    assertThat(parameters, hasKey(@"timestampUTC"));
+    assertThat(parameters, hasKey(@"timestampCurrent"));
+}
+
+- (void)testRequestDictionaryHasParameterRichMediaCode {
+    [self.request setRichMediaCode:@"r-XXXXX-XXXXX"];
+    
+    NSDictionary *parameters = [self.request requestDictionary];
+    
+    assertThat(parameters, hasKey(@"action"));
+    assertThat(parameters, hasKey(@"richMediaCode"));
+    assertThat(parameters, hasKey(@"timestampUTC"));
+    assertThat(parameters, hasKey(@"timestampCurrent"));
+}
+
+- (void)testRequestDictionaryHasParameterMessageHash {
+    [self.request setMessageHash:@"__some_message_hash"];
+    
+    NSDictionary *parameters = [self.request requestDictionary];
+    
+    assertThat(parameters, hasKey(@"action"));
+    assertThat(parameters, hasKey(@"messageHash"));
     assertThat(parameters, hasKey(@"timestampUTC"));
     assertThat(parameters, hasKey(@"timestampCurrent"));
 }

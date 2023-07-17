@@ -30,7 +30,7 @@
 	
 	[PWTestUtils setUp];
 	
-    _webClient = [[PWWebClient alloc] initWithParentView:nil];
+    _webClient = [[PWWebClient alloc] initWithParentView:nil payload:@{} code:@"" inAppCode:@""];
     _webClient.delegate = self;
 	self.jsInterface = [[PWPushwooshJSBridge alloc] initWithClient:_webClient];
 	self.closed = NO;

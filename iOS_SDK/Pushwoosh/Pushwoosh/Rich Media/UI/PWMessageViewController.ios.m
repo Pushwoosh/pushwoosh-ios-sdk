@@ -75,7 +75,10 @@
     //used if there is not ViewController based statusbar appearance
     _statusBarInitiallyHidden = [UIApplication sharedApplication].statusBarHidden;
     
-    _richMediaView = [[PWRichMediaView alloc] initWithFrame:self.view.bounds];
+    _richMediaView = [[PWRichMediaView alloc] initWithFrame:self.view.bounds
+                                                    payload:_richMedia.pushPayload
+                                                       code:(_richMedia.resource.isRichMedia ? _richMedia.content : @"")
+                                                  inAppCode:(!_richMedia.resource.isRichMedia ? _richMedia.content : @"")];
     _richMediaView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_richMediaView];
     

@@ -8,6 +8,7 @@
 
 #import "PWInAppMessagesManager.h"
 #import "PWPreferences.h"
+#import "PWTriggerInAppActionRequest.h"
 
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>

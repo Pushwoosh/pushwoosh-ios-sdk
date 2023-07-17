@@ -35,9 +35,20 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 
 + (void)initializeWithAppCode:(NSString *)appCode {
-    [[PWPreferences preferences] setAppCode:appCode];
+    if ([PWPreferences checkAppCodeforChanges:appCode]) {
+        [Pushwoosh initializeWithNewAppCode:appCode];
+    }
     
     [Pushwoosh sharedInstance];
+}
+
++ (void)initializeWithNewAppCode:(NSString *)appCode {
+    [Pushwoosh destroy];
+
+    [[PWPreferences preferences] setAppCode:appCode];
+    [PWInAppManager updateInAppManagerInstance];
+    [[Pushwoosh sharedInstance].dataManager sendAppOpenWithCompletion:nil];
+
 }
 
 - (instancetype)initWithApplicationCode:(NSString *)appCode {
@@ -222,6 +233,22 @@ static dispatch_once_t pushwooshOncePredicate;
 
 + (NSMutableDictionary *)getRemoteNotificationStatus {
     return [PWPushNotificationsManager getRemoteNotificationStatus];
+}
+
+- (void)startLiveActivityWithToken:(NSString *)token {
+    [self startLiveActivityWithToken:token completion:nil];
+}
+
+- (void)startLiveActivityWithToken:(NSString *)token completion:(void (^)(NSError * _Nullable))completion {
+    [self.dataManager startLiveActivityWithToken:token completion:completion];
+}
+
+- (void)stopLiveActivity {
+    [self stopLiveActivityWithCompletion:nil];
+}
+
+- (void)stopLiveActivityWithCompletion:(void (^)(NSError * _Nullable))completion {
+    [self.dataManager stopLiveActivityWithCompletion:completion];
 }
 
 #if TARGET_OS_IOS

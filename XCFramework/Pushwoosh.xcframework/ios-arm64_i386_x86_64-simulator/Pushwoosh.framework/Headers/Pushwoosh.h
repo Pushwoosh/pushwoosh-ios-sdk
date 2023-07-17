@@ -18,7 +18,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.4.13"
+#define PUSHWOOSH_VERSION @"6.5.0"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -505,6 +505,47 @@ Unregisters from push notifications.
 #if TARGET_OS_IOS || TARGET_OS_WATCH
 - (BOOL)handleOpenURL:(NSURL * _Nonnull)url;
 #endif
+
+/**
+ Sends live activity token to the server.
+ Call this method when you create a live activity.
+ 
+ Example:
+ @code
+ do {
+     let activity = try Activity<PushwooshAppAttributes>.request(
+         attributes: attributes,
+         contentState: contentState,
+         pushType: .token)
+     for await data in activity.pushTokenUpdates {
+         let token = data.map {String(format: "%02x", $0)}.joined()
+         try await Pushwoosh.sharedInstance().startLiveActivity(withToken: token)
+         return token
+     }
+ } catch (let error) {
+     print(error.localizedDescription)
+     return nil
+ }
+ @endcode
+ */
+- (void)startLiveActivityWithToken:(NSString * _Nonnull)token;
+- (void)startLiveActivityWithToken:(NSString * _Nonnull)token completion:(void (^ _Nullable)(NSError * _Nullable error))completion;
+
+/**
+ Call this method when you finish working with the live activity.
+ 
+ Example:
+ @code
+ func end(activity: Activity<PushwooshAppAttributes>) {
+     Task {
+         await activity.end(dismissalPolicy: .immediate)
+         try await Pushwoosh.sharedInstance().stopLiveActivity()
+     }
+ }
+ @endcode
+ */
+- (void)stopLiveActivity;
+- (void)stopLiveActivityWithCompletion:(void (^ _Nullable)(NSError * _Nullable error))completion;
 
 @end
 

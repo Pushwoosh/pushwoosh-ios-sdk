@@ -11,6 +11,9 @@
 #import "Pushwoosh.h"
 #import "PushNotificationManager.h"
 #import "PWUtils.h"
+#import "PWPreferences.h"
+#import "PWResource.h"
+#import "PWInAppStorage.h"
 
 static NSString* PUSHWOOSH_JS = @"window.pushwoosh = {\
 postEvent: function(event, attributes, successCallback, errorCallback) {\
@@ -57,6 +60,30 @@ return this._hwid;\
 \
 getVersion: function() {\
 	return this._version;\
+},\
+\
+getApplication: function() {\
+    return this._application;\
+},\
+\
+getUserId: function() {\
+    return this._user_id;\
+},\
+\
+getRichmediaCode: function() {\
+    return this._richmedia_code;\
+},\
+\
+getDeviceType: function() {\
+    return this._device_type;\
+},\
+\
+getMessageHash: function() {\
+    return this._message_hash;\
+},\
+\
+getInAppCode: function() {\
+    return this._inapp_code;\
 },\
 \
 registerForPushNotifications: function() {\
@@ -125,9 +152,9 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 }
 
 #if TARGET_OS_IOS
-- (id)initWithParentView:(UIView *)parentView {
+- (id)initWithParentView:(UIView *)parentView payload:(NSDictionary *)payload code:(NSString *)code inAppCode:(NSString *)inAppCode {
 #else
-- (id)initWithParentView:(NSView *)parentView {
+- (id)initWithParentView:(NSView *)parentView payload:(NSDictionary *)payload code:(NSString *)code inAppCode:(NSString *)inAppCode {
 #endif
 	self = [super init];
     
@@ -151,6 +178,8 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 #if TARGET_OS_IOS
         config.allowsInlineMediaPlayback = YES;
 #endif
+        NSString *messageHash = [payload objectForKey:@"p"];
+        
         WKUserScript *pushwooshInject = [[WKUserScript alloc] initWithSource:PUSHWOOSH_JS injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
         
         WKUserScript *hwidInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._hwid = \"%@\";", [[PushNotificationManager pushManager] getHWID]]
@@ -160,6 +189,30 @@ static NSMutableDictionary *sJavaScriptInterfaces;
         WKUserScript *versionInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._version = \"%@\";", PUSHWOOSH_VERSION]
                                                              injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                           forMainFrameOnly:NO];
+        
+        WKUserScript *applicationInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._application = \"%@\";", [[PushNotificationManager pushManager] appCode]]
+                                                                 injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                              forMainFrameOnly:NO];
+        
+        WKUserScript *userIdInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._user_id = \"%@\";", [[PWPreferences preferences] userId]]
+                                                                 injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                              forMainFrameOnly:NO];
+        
+        WKUserScript *deviceTypeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._device_type = \"%@\";", @(DEVICE_TYPE)]
+                                                                 injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                              forMainFrameOnly:NO];
+        
+        WKUserScript *messageHashInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._message_hash = \"%@\";", messageHash ? messageHash : @""]
+                                                                 injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                              forMainFrameOnly:NO];
+        
+        WKUserScript *richMediaCodeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._richmedia_code = \"%@\";", code]
+                                                                 injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                              forMainFrameOnly:NO];
+                
+        WKUserScript *inAppCodeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._inapp_code = \"%@\";", inAppCode]
+                                                                 injectionTime:WKUserScriptInjectionTimeAtDocumentStart
+                                                              forMainFrameOnly:NO];
         
         WKUserScript *disableSelectionInject = [[WKUserScript alloc] initWithSource:@"\
                                                 (function() {\
@@ -198,7 +251,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
         _webView = [[PWEasyJSWKWebView alloc] initWithFrame:parentView.bounds
                                               configuration:config
                                    withJavascriptInterfaces:interfaces
-                                                userScripts:@[addViewPortInject, pushwooshInject, hwidInject, versionInject, disableSelectionInject, removeSelectionInject]];
+                                                userScripts:@[addViewPortInject, pushwooshInject, hwidInject, versionInject, applicationInject, userIdInject, deviceTypeInject, messageHashInject, richMediaCodeInject, inAppCodeInject, disableSelectionInject, removeSelectionInject]];
         
 #if TARGET_OS_IOS
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000

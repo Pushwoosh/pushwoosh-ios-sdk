@@ -18,6 +18,7 @@
 #import "PWPreferences.h"
 #import "PWSetEmailTagsRequest.h"
 #import "PWServerCommunicationManager.h"
+#import "PWLiveActivityRequest.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 #import "PWBusinessCaseManager.h"
@@ -311,6 +312,35 @@
     {
         sendPushStatBlock();
     }
+}
+
+- (void)startLiveActivityWithToken:(NSString *)token completion:(void (^)(NSError * _Nullable))completion {
+    [_requestManager sendRequest:[self sendLiveActivityRequestWithToken:token] completion:^(NSError *error) {
+        if (error) {
+            PWLogDebug(@"Live Activity request failed");
+        }
+        
+        if (completion)
+            completion(error);
+    }];
+}
+
+- (void)stopLiveActivityWithCompletion:(void (^)(NSError * _Nullable))completion {
+    [_requestManager sendRequest:[self sendLiveActivityRequestWithToken:nil] completion:^(NSError *error) {
+        if (error) {
+            PWLogDebug(@"Live Activity request failed");
+        }
+        
+        if (completion)
+            completion(error);
+    }];
+}
+
+- (PWLiveActivityRequest *)sendLiveActivityRequestWithToken:(NSString *)token {
+    PWLiveActivityRequest *request = [[PWLiveActivityRequest alloc] init];
+    request.token = token;
+    
+    return request;
 }
 
 @end

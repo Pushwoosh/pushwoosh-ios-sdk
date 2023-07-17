@@ -65,6 +65,12 @@ static dispatch_once_t inAppManagerOnceToken;
 	return self;
 }
 
+// used only to update instance when app code changes dynamically, so we can still keep dispatch_once in sharedManager
++ (void)updateInAppManagerInstance {
+    [PWInAppManager destroy];
+    [PWInAppManager sharedManager];
+}
+
 - (void)resetBusinessCasesFrequencyCapping {
     [self.inAppMessagesManager resetBusinessCasesFrequencyCapping];
 }

@@ -382,9 +382,14 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 }
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
-- (void)trackInAppWithCode:(NSString *)inAppCode action:(NSString *)action {
+- (void)trackInAppWithCode:(NSString *)inAppCode action:(NSString *)action messageHash:(NSString *)messageHash {
     PWTriggerInAppActionRequest *request = [PWTriggerInAppActionRequest new];
-    request.inAppCode = inAppCode;
+    request.inAppCode = [inAppCode hasPrefix:@"r-"] ? @"" : inAppCode;
+    request.messageHash = messageHash;
+    
+    if ([inAppCode hasPrefix:@"r-"]) {
+        request.richMediaCode = [inAppCode substringFromIndex:2];
+    }
     
     [self.requestManager sendRequest:request completion:nil];
 }

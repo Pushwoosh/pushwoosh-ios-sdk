@@ -121,6 +121,18 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 	<tr>
 		<td><a href="#1a86385c57c5f5a911092f40db090b6de4">- (void)stopServerCommunication</a></td>
 	</tr>
+	<tr>
+		<td><a href="#1a5ce3a6b04e8538352ffa47ec63e6168e">- (void)startLiveActivityWithToken:(NSString *_Nonnull)token</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a1849586bdd300dd80309a6c8354134f2">- (void)startLiveActivityWithToken:(NSString *_Nonnull)token completion:(void(^)(NSError *_Nullable error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a0df2937a1b6953ab7d2d495787607cff">- (void)stopLiveActivity</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1adfbf6fe4e6ea6d777df916c0e7fba45c">- (void)stopLiveActivityWithCompletion:(void(^)(NSError *_Nullable error))completion</a></td>
+	</tr>
 </table>
 
 
@@ -520,3 +532,60 @@ Starts communication with Pushwoosh server.
 
 #### <a name="1a86385c57c5f5a911092f40db090b6de4"></a>- (void)stopServerCommunication  
 Stops communication with Pushwoosh server. 
+
+----------  
+  
+
+#### <a name="1a5ce3a6b04e8538352ffa47ec63e6168e"></a>- (void)startLiveActivityWithToken:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)token  
+Process URL of some deep link. Primarly used for register test devices.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>url</strong></td>
+		<td>Deep Link URL Sends live activity token to the server. Call this method when you create a live activity.</td>
+	</tr>
+</table>
+
+Example: 
+```Objective-C
+do {
+    let activity = try Activity<PushwooshAppAttributes>.request(
+        attributes: attributes,
+        contentState: contentState,
+        pushType: .token)
+    for await data in activity.pushTokenUpdates {
+        let token = data.map {String(format: "%02x", $0)}.joined()
+        try await Pushwoosh.sharedInstance().startLiveActivity(withToken: token)
+        return token
+    }
+} catch (let error) {
+    print(error.localizedDescription)
+    return nil
+}
+```
+
+
+----------  
+  
+
+#### <a name="1a1849586bdd300dd80309a6c8354134f2"></a>- (void)startLiveActivityWithToken:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)token completion:(void(^)(NSError \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a> error))completion  
+
+
+----------  
+  
+
+#### <a name="1a0df2937a1b6953ab7d2d495787607cff"></a>- (void)stopLiveActivity  
+Call this method when you finish working with the live activity.<br/>Example: 
+```Objective-C
+func end(activity: Activity<PushwooshAppAttributes>) {
+    Task {
+        await activity.end(dismissalPolicy: .immediate)
+        try await Pushwoosh.sharedInstance().stopLiveActivity()
+    }
+}
+```
+
+
+----------  
+  
+
+#### <a name="1adfbf6fe4e6ea6d777df916c0e7fba45c"></a>- (void)stopLiveActivityWithCompletion:(void(^)(NSError \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a> error))completion  

@@ -65,9 +65,9 @@ static PWMessageViewController *PWMessageViewController_instance = nil;
         [self.window.contentView addSubview:_activityIndicator];
         [_activityIndicator startAnimation:nil];
 #if TARGET_OS_IOS
-        _richMediaView = [[PWRichMediaView alloc] initWithFrame:CGRectMake(0, 0, self.window.contentView.frame.size.width, self.window.contentView.frame.size.height)];
+        _richMediaView = [[PWRichMediaView alloc] initWithFrame:CGRectMake(0, 0, self.window.contentView.frame.size.width, self.window.contentView.frame.size.height) payload:nil code:nil inAppCode:nil];
 #elif TARGET_OS_OSX
-        _richMediaView = [[PWRichMediaView alloc] initWithFrame:CGRectMake(0, 0, self.window.contentView.frame.size.width, self.window.contentView.frame.size.height)];
+        _richMediaView = [[PWRichMediaView alloc] initWithFrame:CGRectMake(0, 0, self.window.contentView.frame.size.width, self.window.contentView.frame.size.height) payload:nil code:nil inAppCode:nil];
 #endif
         _richMediaView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
         [self.window.contentView addSubview:_richMediaView];

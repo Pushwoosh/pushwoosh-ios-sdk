@@ -57,7 +57,7 @@
 - (void)createRichMediaView {
     [_richMediaView removeFromSuperview];
     
-    _richMediaView = [[PWRichMediaView alloc] initWithFrame:self.bounds];
+    _richMediaView = [[PWRichMediaView alloc] initWithFrame:self.bounds payload:nil code:nil inAppCode:nil];
     _richMediaView.webClient.webView.scrollView.scrollEnabled = NO;
     _richMediaView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     _richMediaView.alpha = 0.0f;

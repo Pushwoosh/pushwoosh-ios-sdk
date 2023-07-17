@@ -23,9 +23,9 @@
 
 @implementation PWRichMediaView
 
-- (instancetype)initWithFrame:(CGRect)frame {
+- (instancetype)initWithFrame:(CGRect)frame payload:(NSDictionary *)payload code:(NSString *)code inAppCode:(NSString *)inAppCode {
     if (self = [super initWithFrame:frame]) {
-        _webClient = [[PWWebClient alloc] initWithParentView:self];
+        _webClient = [[PWWebClient alloc] initWithParentView:self payload:payload code:code inAppCode:inAppCode];
         _webClient.delegate = self;
         
         #if TARGET_OS_IOS
@@ -114,7 +114,7 @@
 - (void)webClientDidFinishLoad:(PWWebClient *)webClient {
     [self refreshContentSize];
     
-    [[PWInAppManager sharedManager].inAppMessagesManager trackInAppWithCode:_richMedia.resource.code action:PW_INAPP_ACTION_SHOW];
+    [[PWInAppManager sharedManager].inAppMessagesManager trackInAppWithCode:_richMedia.resource.code action:PW_INAPP_ACTION_SHOW messageHash:[webClient.richMedia.pushPayload objectForKey:@"p"]];
     
     if (_completion) {
         _completion(nil);
