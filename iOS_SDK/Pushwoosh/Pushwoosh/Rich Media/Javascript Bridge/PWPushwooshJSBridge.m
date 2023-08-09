@@ -13,12 +13,18 @@
 #import "PWUtils.h"
 #import "PWChannel.h"
 #import "PWInAppPurchaseHelper.h"
+#import "PWRequestManager.h"
+#import "PWRichMediaActionRequest.h"
+#import "PWNetworkModule.h"
 
 #import "PWEasyJSWKDataFunction.h"
 
 @interface PWPushwooshJSBridge()
 
 @property (nonatomic, weak) PWWebClient *webClient;
+
+// @Inject
+@property (nonatomic, strong) PWRequestManager *requestManager;
 
 @end
 
@@ -28,6 +34,8 @@
 - (id)initWithClient:(PWWebClient*)webClient {
 	self = [super init];
 	if (self) {
+        [[PWNetworkModule module] inject:self];
+        
 		self.webClient = webClient;
 	}
 	return self;
@@ -74,6 +82,28 @@
 			[errorCallback executeWithParam:[error description]];
 		}
 	}];
+}
+
+- (void)richMediaAction:(NSString *)inAppCode
+                       :(NSString *)richMediaCode
+                       :(NSNumber *)actionType
+                       :(NSString *)actionAttributes
+                       :(PWEasyJSWKDataFunction*)successCallback
+                       :(PWEasyJSWKDataFunction*)errorCallback {
+    PWRichMediaActionRequest *request = [[PWRichMediaActionRequest alloc] init];
+    request.richMediaCode = richMediaCode;
+    request.inAppCode = inAppCode;
+    request.actionType = @([actionType integerValue]);
+    request.messageHash = self.webClient.messageHash;
+    request.actionAttributes = actionAttributes;
+        
+    [_requestManager sendRequest:request completion:^(NSError *error) {
+        if (!error) {
+            [successCallback execute];
+        } else {
+            [errorCallback executeWithParam:[error description]];
+        }
+    }];
 }
 
 /**
@@ -217,7 +247,15 @@
  * Close current In-App
  */
 - (void)closeInApp {
+    NSNumber *closeActionType = @4;
+    
 	[self.webClient close];
+    [self richMediaAction:self.webClient.inAppCode
+                         :self.webClient.richMediaCode
+                         :closeActionType
+                         :nil
+                         :nil
+                         :nil];
 }
 
 @end

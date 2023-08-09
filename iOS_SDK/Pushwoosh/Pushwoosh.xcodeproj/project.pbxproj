@@ -1211,6 +1211,18 @@
 		AFB0024B29F7EA440083A3E6 /* OCHamcrest.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFB0024A29F7EA440083A3E6 /* OCHamcrest.xcframework */; };
 		AFB0024F29F7EBB50083A3E6 /* OCMockito.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFB0024E29F7EBB50083A3E6 /* OCMockito.xcframework */; };
 		AFB0025129F7ED5A0083A3E6 /* PWPreferencesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB0025029F7ED5A0083A3E6 /* PWPreferencesTest.m */; };
+		AFC287F12A3A0004001D5D74 /* PWRichMediaActionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AFC287EF2A3A0004001D5D74 /* PWRichMediaActionRequest.h */; };
+		AFC287F22A3A0004001D5D74 /* PWRichMediaActionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AFC287EF2A3A0004001D5D74 /* PWRichMediaActionRequest.h */; };
+		AFC287F32A3A0004001D5D74 /* PWRichMediaActionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AFC287EF2A3A0004001D5D74 /* PWRichMediaActionRequest.h */; };
+		AFC287F42A3A0004001D5D74 /* PWRichMediaActionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AFC287EF2A3A0004001D5D74 /* PWRichMediaActionRequest.h */; };
+		AFC287F52A3A0004001D5D74 /* PWRichMediaActionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AFC287EF2A3A0004001D5D74 /* PWRichMediaActionRequest.h */; };
+		AFC287F62A3A0004001D5D74 /* PWRichMediaActionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AFC287EF2A3A0004001D5D74 /* PWRichMediaActionRequest.h */; };
+		AFC287F72A3A0004001D5D74 /* PWRichMediaActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC287F02A3A0004001D5D74 /* PWRichMediaActionRequest.m */; };
+		AFC287F82A3A0004001D5D74 /* PWRichMediaActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC287F02A3A0004001D5D74 /* PWRichMediaActionRequest.m */; };
+		AFC287F92A3A0004001D5D74 /* PWRichMediaActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC287F02A3A0004001D5D74 /* PWRichMediaActionRequest.m */; };
+		AFC287FA2A3A0004001D5D74 /* PWRichMediaActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC287F02A3A0004001D5D74 /* PWRichMediaActionRequest.m */; };
+		AFC287FB2A3A0004001D5D74 /* PWRichMediaActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC287F02A3A0004001D5D74 /* PWRichMediaActionRequest.m */; };
+		AFC287FC2A3A0004001D5D74 /* PWRichMediaActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = AFC287F02A3A0004001D5D74 /* PWRichMediaActionRequest.m */; };
 		D6F9155D28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = D6F9155B28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h */; };
 		D6F9155E28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = D6F9155B28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h */; };
 		D6F9155F28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = D6F9155B28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h */; };
@@ -1583,6 +1595,8 @@
 		AFB0024C29F7EAA00083A3E6 /* OCHamcrest.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OCHamcrest.xcframework; path = OCMockito/OCHamcrest.xcframework; sourceTree = "<group>"; };
 		AFB0024E29F7EBB50083A3E6 /* OCMockito.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OCMockito.xcframework; path = OCMockito/OCMockito.xcframework; sourceTree = "<group>"; };
 		AFB0025029F7ED5A0083A3E6 /* PWPreferencesTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWPreferencesTest.m; sourceTree = "<group>"; };
+		AFC287EF2A3A0004001D5D74 /* PWRichMediaActionRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWRichMediaActionRequest.h; sourceTree = "<group>"; };
+		AFC287F02A3A0004001D5D74 /* PWRichMediaActionRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWRichMediaActionRequest.m; sourceTree = "<group>"; };
 		C42A20691D06CBB800CC3BCB /* libPushwoosh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwoosh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2AAC07E0554694100DB518D /* libPushwoosh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwoosh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6F9155B28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInAppPurchaseHelper.h; sourceTree = "<group>"; };
@@ -2242,6 +2256,8 @@
 				5DB6E51523F55EB200421AA4 /* PWCachedRequest.m */,
 				5DB6E51823F55EB300421AA4 /* PWRequest.h */,
 				5DB6E51623F55EB300421AA4 /* PWRequest.m */,
+				AFC287EF2A3A0004001D5D74 /* PWRichMediaActionRequest.h */,
+				AFC287F02A3A0004001D5D74 /* PWRichMediaActionRequest.m */,
 			);
 			path = Requests;
 			sourceTree = "<group>";
@@ -2906,6 +2922,7 @@
 				5DB6E62523F562F500421AA4 /* PWResource.h in Headers */,
 				5DB6E59523F5615200421AA4 /* PWShowLoading.h in Headers */,
 				5DB6E58D23F5615200421AA4 /* PWRichMediaView.h in Headers */,
+				AFC287F22A3A0004001D5D74 /* PWRichMediaActionRequest.h in Headers */,
 				5DB6E76B23F569F400421AA4 /* PWNotificationCategoryBuilderiOS10.h in Headers */,
 				5D12C29523F54CD7009A655A /* PWLog+Internal.h in Headers */,
 				5DB6E4C523F55D2900421AA4 /* PWSetTagsRequest.h in Headers */,
@@ -2963,6 +2980,7 @@
 				5DB6E77D23F56A1F00421AA4 /* PWNotificationManagerCompatmacOS.h in Headers */,
 				5DB6E2CA23F5565100421AA4 /* PWRequestsCacheManager.h in Headers */,
 				5DB6E59F23F5615200421AA4 /* PWMessageViewController.h in Headers */,
+				AFC287F42A3A0004001D5D74 /* PWRichMediaActionRequest.h in Headers */,
 				5DB6E5E323F5622200421AA4 /* PWWebClient.h in Headers */,
 				5DB6E7B323F56CA600421AA4 /* PWSendPurchaseRequest.h in Headers */,
 				5DB6E5A323F5615200421AA4 /* PWInteractionDisabledWindow.h in Headers */,
@@ -3068,6 +3086,7 @@
 				5DB6E2F223F5574F00421AA4 /* PWConfig.h in Headers */,
 				5D21C43223F6748000D161F1 /* Pushwoosh_prefix.pch in Headers */,
 				5D2AD9132409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h in Headers */,
+				AFC287F62A3A0004001D5D74 /* PWRichMediaActionRequest.h in Headers */,
 				5DB6E37D23F55A1B00421AA4 /* PWPushNotificationsManager.h in Headers */,
 				5DAEE782246413A900219D92 /* PWUtils.watch.h in Headers */,
 				5DB6E29A23F5551900421AA4 /* PWCache.h in Headers */,
@@ -3139,6 +3158,7 @@
 				5DB6E50D23F55E9800421AA4 /* PWCombinedSetTagsRequest.h in Headers */,
 				9798F8EF25271FC4005AD120 /* PWRegisterEmail.h in Headers */,
 				5D2AD9122409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h in Headers */,
+				AFC287F52A3A0004001D5D74 /* PWRichMediaActionRequest.h in Headers */,
 				5D12C29823F54CD7009A655A /* PWLog+Internal.h in Headers */,
 				5DB6E3A023F55A3000421AA4 /* PWRegisterTestDeviceRequest.h in Headers */,
 				5DAEE781246413A900219D92 /* PWUtils.watch.h in Headers */,
@@ -3283,6 +3303,7 @@
 				5DB6E47823F55C5900421AA4 /* PWGetConfigRequest.h in Headers */,
 				5DB6E29723F5551900421AA4 /* PWCache.h in Headers */,
 				5DB6E2AD23F555BB00421AA4 /* PWUserNotificationCenterDelegate.h in Headers */,
+				AFC287F32A3A0004001D5D74 /* PWRichMediaActionRequest.h in Headers */,
 				5DB6E7E323F572B200421AA4 /* PWPushRuntime.mac.h in Headers */,
 				5DB6E2B723F5565100421AA4 /* PWVersionTracking.h in Headers */,
 				5D12C24A23F544C6009A655A /* PWGDPRManager.h in Headers */,
@@ -3412,6 +3433,7 @@
 				5DB6E62423F562F500421AA4 /* PWResource.h in Headers */,
 				5DB6E59423F5615200421AA4 /* PWShowLoading.h in Headers */,
 				5DB6E58C23F5615200421AA4 /* PWRichMediaView.h in Headers */,
+				AFC287F12A3A0004001D5D74 /* PWRichMediaActionRequest.h in Headers */,
 				5DB6E76A23F569F400421AA4 /* PWNotificationCategoryBuilderiOS10.h in Headers */,
 				5D12C29423F54CD7009A655A /* PWLog+Internal.h in Headers */,
 				5DB6E4C423F55D2900421AA4 /* PWSetTagsRequest.h in Headers */,
@@ -3799,6 +3821,7 @@
 				5DB6E62923F562F500421AA4 /* PWInAppMessagesManager.m in Sources */,
 				5D12C24123F54467009A655A /* PWNotificationExtensionManager.m in Sources */,
 				5DB6E5C923F5619200421AA4 /* PWBaseLoadingViewController.m in Sources */,
+				AFC287F82A3A0004001D5D74 /* PWRichMediaActionRequest.m in Sources */,
 				5DB6E91B23F579C200421AA4 /* NSDictionary+PWDictUtils.m in Sources */,
 				5DB6E7B523F56CA600421AA4 /* PWSendPurchaseRequest.m in Sources */,
 				5DB6E45E23F55C0400421AA4 /* PWPushStatRequest.m in Sources */,
@@ -3856,6 +3879,7 @@
 				5DB6E3A523F55A3000421AA4 /* PWRegisterDeviceRequest.m in Sources */,
 				5DB6E66F23F5655600421AA4 /* PWGetResourcesRequest.m in Sources */,
 				5DB6E8D823F577E800421AA4 /* PWUserNotificationCenterDelegate.m in Sources */,
+				AFC287FA2A3A0004001D5D74 /* PWRichMediaActionRequest.m in Sources */,
 				5DB6E7B723F56CA600421AA4 /* PWSendPurchaseRequest.m in Sources */,
 				5DB6E89723F576F600421AA4 /* PWEasyJSListener.m in Sources */,
 				5DB6E3BD23F55A3000421AA4 /* PWUnregisterDeviceRequest.m in Sources */,
@@ -3990,6 +4014,7 @@
 				5D12C2C423F54D26009A655A /* PWUtils.common.m in Sources */,
 				9798F95625272746005AD120 /* PWSetEmailTagsRequest.m in Sources */,
 				5DAEE7A02464141800219D92 /* PWUtils.watch.m in Sources */,
+				AFC287FC2A3A0004001D5D74 /* PWRichMediaActionRequest.m in Sources */,
 				5DB6E2F823F5574F00421AA4 /* PWConfig.m in Sources */,
 				5DB6E37123F55A1B00421AA4 /* PWPushNotificationsManager.common.m in Sources */,
 				5DB6E3A723F55A3000421AA4 /* PWRegisterDeviceRequest.m in Sources */,
@@ -4049,6 +4074,7 @@
 				5D12C2C323F54D26009A655A /* PWUtils.common.m in Sources */,
 				9798F95525272746005AD120 /* PWSetEmailTagsRequest.m in Sources */,
 				5DAEE79F2464141700219D92 /* PWUtils.watch.m in Sources */,
+				AFC287FB2A3A0004001D5D74 /* PWRichMediaActionRequest.m in Sources */,
 				5DB6E2F723F5574F00421AA4 /* PWConfig.m in Sources */,
 				5DB6E37023F55A1B00421AA4 /* PWPushNotificationsManager.common.m in Sources */,
 				5DB6E3A623F55A3000421AA4 /* PWRegisterDeviceRequest.m in Sources */,
@@ -4146,6 +4172,7 @@
 				5DB6E8A623F576F600421AA4 /* PWEasyJSWKWebView.m in Sources */,
 				5DB6E52123F55EB300421AA4 /* PWRequest.m in Sources */,
 				5DB6E3DA23F55AAD00421AA4 /* PWDataManager.mac.m in Sources */,
+				AFC287F92A3A0004001D5D74 /* PWRichMediaActionRequest.m in Sources */,
 				5DB6E62223F562F500421AA4 /* PWInAppStorage.m in Sources */,
 				9798F95325272746005AD120 /* PWSetEmailTagsRequest.m in Sources */,
 				5DB6E62E23F562F500421AA4 /* PWResource.m in Sources */,
@@ -4301,6 +4328,7 @@
 				5DB6E62823F562F500421AA4 /* PWInAppMessagesManager.m in Sources */,
 				5D12C24023F54467009A655A /* PWNotificationExtensionManager.m in Sources */,
 				5DB6E5C823F5619200421AA4 /* PWBaseLoadingViewController.m in Sources */,
+				AFC287F72A3A0004001D5D74 /* PWRichMediaActionRequest.m in Sources */,
 				5DB6E91A23F579C200421AA4 /* NSDictionary+PWDictUtils.m in Sources */,
 				5DB6E7B423F56CA600421AA4 /* PWSendPurchaseRequest.m in Sources */,
 				5DB6E45D23F55C0400421AA4 /* PWPushStatRequest.m in Sources */,
@@ -4541,7 +4569,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting_Files/Pushwoosh.iOS.dynamic-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4600,7 +4628,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting_Files/Pushwoosh.iOS.dynamic-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

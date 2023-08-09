@@ -12,6 +12,7 @@
 @interface PWDataManagerCommon : NSObject
 
 @property (nonatomic, readonly) NSString *lastHash;
+@property (nonatomic, readonly) NSString *richMediaCode;
 @property (nonatomic, readonly) NSArray<PWChannel *> *channels;
 @property (nonatomic, readonly) NSArray<NSString *> *events;
 @property (nonatomic, readonly) BOOL isLoggerActive;

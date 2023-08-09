@@ -290,6 +290,14 @@
     
     _lastHash = pushDict[@"p"];
     
+    NSDictionary *richMedia = pushDict[@"rm"];
+    NSString *url = richMedia[@"url"];
+    
+    if (url) {
+        NSString *code = [[url lastPathComponent] stringByDeletingPathExtension];
+        _richMediaCode = code;
+    }
+    
     dispatch_block_t sendPushStatBlock = ^{
         PWPushStatRequest *request = [[PWPushStatRequest alloc] init];
         request.pushDict = pushDict;

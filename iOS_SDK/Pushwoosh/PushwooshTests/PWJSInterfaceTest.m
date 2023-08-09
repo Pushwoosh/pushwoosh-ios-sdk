@@ -49,12 +49,6 @@
     [super tearDown];
 }
 
-- (void)testCloseInApp {
-	XCTAssertFalse(_closed);
-	[_jsInterface performSelector:@selector(closeInApp) withObject:nil];
-	XCTAssertTrue(_closed);
-}
-
 - (void)testSendTags {
 	NSString *tags = @"{ \"IntTag\" : 42, \"BoolTag\" : true, \"StringTag\" : \"testString\", \"ListTag\" : [ \"string1\", \"string2\" ] }";
 	[_jsInterface performSelector:@selector(sendTags:) withObject:tags];

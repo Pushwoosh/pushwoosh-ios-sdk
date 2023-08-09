@@ -31,6 +31,21 @@ postEvent: function(event, attributes, successCallback, errorCallback) {\
 	\
 	pushwooshImpl.postEvent(event, JSON.stringify(attributes), successCallback, errorCallback);\
 },\
+richMediaAction: function(inAppCode, richMediaCode, actionType, actionAttributes, successCallback, errorCallback) {\
+    if (!actionAttributes) {\
+        actionAttributes = {};\
+    }\
+    \
+    if (!successCallback) {\
+        successCallback = function() {};\
+    }\
+    \
+    if (!errorCallback) {\
+        errorCallback = function(error) {};\
+    }\
+    \
+    pushwooshImpl.richMediaAction(inAppCode, richMediaCode, actionType, JSON.stringify(actionAttributes), successCallback, errorCallback);\
+},\
 \
 sendTags: function(tags) {\
 	pushwooshImpl.sendTags(JSON.stringify(tags));\
@@ -135,7 +150,6 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 
 @property (nonatomic, strong) NSDictionary *javascriptInterfaces;
 
-
 @end
 
 @implementation PWWebClient
@@ -179,6 +193,9 @@ static NSMutableDictionary *sJavaScriptInterfaces;
         config.allowsInlineMediaPlayback = YES;
 #endif
         NSString *messageHash = [payload objectForKey:@"p"];
+        [self setMessageHash:messageHash ? messageHash : @""];
+        [self setRichMediaCode:code];
+        [self setInAppCode:inAppCode];
         
         WKUserScript *pushwooshInject = [[WKUserScript alloc] initWithSource:PUSHWOOSH_JS injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
         
@@ -202,15 +219,15 @@ static NSMutableDictionary *sJavaScriptInterfaces;
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
         
-        WKUserScript *messageHashInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._message_hash = \"%@\";", messageHash ? messageHash : @""]
+        WKUserScript *messageHashInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._message_hash = \"%@\";", _messageHash]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
         
-        WKUserScript *richMediaCodeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._richmedia_code = \"%@\";", code]
+        WKUserScript *richMediaCodeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._richmedia_code = \"%@\";", _richMediaCode]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
                 
-        WKUserScript *inAppCodeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._inapp_code = \"%@\";", inAppCode]
+        WKUserScript *inAppCodeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._inapp_code = \"%@\";", _inAppCode]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
         
@@ -405,8 +422,8 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 			[jsInterface onWebViewStartClose:_webView];
 		}
 	}
-	
-	[self.delegate webClientDidStartClose:self];
+
+    [self.delegate webClientDidStartClose:self];
 #endif
 }
 

@@ -64,4 +64,32 @@
     XCTAssertEqual(userId, [PWPreferences preferences].userId);
 }
 
+- (void)testRichMedia {
+    PWInAppMessagesManager *manager = [[PWInAppMessagesManager alloc] init];
+    PWTriggerInAppActionRequest *request = [PWTriggerInAppActionRequest new];
+    id mockPWTriggerInAppActionRequest = OCMClassMock([PWTriggerInAppActionRequest class]);
+    OCMStub([mockPWTriggerInAppActionRequest new]).andReturn(request);
+    
+    [manager trackInAppWithCode:@"r-XXXXX-XXXX5" action:@"action" messageHash:@"__xczafasdadgsdf"];
+    
+    XCTAssertEqual(request.inAppCode, @"");
+    XCTAssertEqual(request.messageHash, @"__xczafasdadgsdf");
+    XCTAssertEqualObjects(request.richMediaCode, @"XXXXX-XXXX5");
+    [mockPWTriggerInAppActionRequest stopMocking];
+}
+
+- (void)testOpenInApp {
+    PWInAppMessagesManager *manager = [[PWInAppMessagesManager alloc] init];
+    PWTriggerInAppActionRequest *request = [PWTriggerInAppActionRequest new];
+    id mockPWTriggerInAppActionRequest = OCMClassMock([PWTriggerInAppActionRequest class]);
+    OCMStub([mockPWTriggerInAppActionRequest new]).andReturn(request);
+    
+    [manager trackInAppWithCode:@"12345-67890" action:@"action" messageHash:@""];
+    
+    XCTAssertEqual(request.inAppCode, @"12345-67890");
+    XCTAssertEqual(request.messageHash, @"");
+    XCTAssertNil(request.richMediaCode);
+    [mockPWTriggerInAppActionRequest stopMocking];
+}
+
 @end

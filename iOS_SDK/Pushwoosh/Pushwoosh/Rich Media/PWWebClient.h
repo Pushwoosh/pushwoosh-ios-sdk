@@ -30,6 +30,9 @@
 @property (nonatomic, strong, readonly) WKWebView *webView;
 
 @property (nonatomic) PWRichMedia *richMedia;
+@property (nonatomic) NSString *messageHash;
+@property (nonatomic) NSString *richMediaCode;
+@property (nonatomic) NSString *inAppCode;
 
 + (void)addJavascriptInterface:(NSObject *)interface withName:(NSString *)name;
 

@@ -51,8 +51,12 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 // @Inject
 @property (nonatomic, strong) PWRequestManager *requestManager;
-@property(nonatomic) PWRichMediaView *richMediaView;
+@property (nonatomic) PWRichMediaView *richMediaView;
 @property (nonatomic) PWToastView *toastView;
+
+@property (nonatomic) NSString *richMediaCode;
+@property (nonatomic) NSString *inAppCode;
+@property (nonatomic) NSString *postEventInAppCode;
 
 @end
 
@@ -168,6 +172,14 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         attributesDictionary[@"msgHash"] = [Pushwoosh sharedInstance].dataManager.lastHash;
     }
     
+    if ([Pushwoosh sharedInstance].dataManager.richMediaCode) {
+        attributesDictionary[@"richMediaCode"] = [Pushwoosh sharedInstance].dataManager.richMediaCode;
+    }
+    
+    if (self.postEventInAppCode) {
+        attributesDictionary[@"inAppCode"] = self.postEventInAppCode;
+    }
+    
     if (attributes) {
         [attributesDictionary addEntriesFromDictionary:attributes];
     }
@@ -187,6 +199,8 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 		}
         
         #if TARGET_OS_IOS || TARGET_OS_OSX
+        [self setPostEventInAppCode:request.resultCode];
+        
         PWResource *resource = [[PWInAppStorage storage] resourceForCode:request.resultCode];
         if (request.required && resource == nil) {
             if (!isInlineInApp) {
@@ -389,6 +403,11 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     
     if ([inAppCode hasPrefix:@"r-"]) {
         request.richMediaCode = [inAppCode substringFromIndex:2];
+        [self setRichMediaCode:[inAppCode substringFromIndex:2]];
+        [self setInAppCode:nil];
+    } else {
+        [self setInAppCode:inAppCode];
+        [self setRichMediaCode:nil];
     }
     
     [self.requestManager sendRequest:request completion:nil];
