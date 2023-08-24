@@ -53,7 +53,7 @@ body:
         This happens only if dependency XYZ v.1.2.3 is installed
     validations:
       required: true
-  - type: input
+  - type: dropdown
     id: affected-version
     attributes:
       label: Your Pushwoosh iOS SDK version
