@@ -25,6 +25,7 @@
 - (NSUInteger)increaseRequestCounter:(PWRequest *)request;
 - (double)initialTime:(PWRequest *)request;
 - (BOOL)isNeedToRetryAfterAppOpenedWith:(PWRequest *)request;
+- (NSUInteger)retryCountWith:(PWRequest *)request;
 
 - (void)onRequestError:(PWRequest *)request
            requestData:(NSString *)requestData
@@ -326,6 +327,7 @@ static id _mockNSBundle;
         handler(nil, response, nil);
     });
     OCMStub([mockHTTPResponse statusCode]).andReturn(statusCode);
+    OCMStub([mockPWRequestManager retryCountWith:OCMOCK_ANY]).andReturn(2);
     OCMExpect([mockPWRequestManager increaseRequestCounter:OCMOCK_ANY]);
     
     [_requestManager sendRequestInternal:cachedRequest completion:^(NSError *error) {}];

@@ -72,7 +72,7 @@
         NSURL *url = [NSURL fileURLWithPath:self.tagsCacheFile];
         NSData *data = [NSData dataWithContentsOfURL:url];
         
-        NSSet *set = [NSSet setWithObjects:[NSDictionary class], [NSArray class], nil];
+        NSSet *set = [NSSet setWithObjects:[NSDictionary class], [NSString class], [NSNumber class], [NSArray class], nil];
         PWUnarchiver *unarchiver = [[PWUnarchiver alloc] init];
         tags = [unarchiver unarchivedObjectOfClasses:set data:data];
     } else {

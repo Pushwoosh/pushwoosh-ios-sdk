@@ -50,7 +50,7 @@
 		</data>
 		<key>Headers/Pushwoosh.h</key>
 		<data>
-		r7PDBf6MtLtGkZMBPHDIs9BSSNk=
+		KqpnLbcVGmlN0QjVkX0BAtWyCvc=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -188,11 +188,11 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			r7PDBf6MtLtGkZMBPHDIs9BSSNk=
+			KqpnLbcVGmlN0QjVkX0BAtWyCvc=
 			</data>
 			<key>hash2</key>
 			<data>
-			vmf3UODIcUSAgollmjWc/9TonM0yhSjt5LXvVkNpve4=
+			dMLuvMzkHEweL88LSo34EUX8ID2hkrWnjCrPy4g5eHM=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -40,7 +40,7 @@ static NSString *const KeyInAppSavedResources = @"InAppSavedResources";
 
 		if (data) {
             if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
-                NSSet *set = [NSSet setWithObjects:[PWResource class], [NSDictionary class], nil];
+                NSSet *set = [NSSet setWithObjects:[PWResource class], [NSString class], [NSDictionary class], nil];
                 
                 PWUnarchiver *unarchiver = [[PWUnarchiver alloc] init];
                 _resources = [unarchiver unarchivedObjectOfClasses:set data:data];

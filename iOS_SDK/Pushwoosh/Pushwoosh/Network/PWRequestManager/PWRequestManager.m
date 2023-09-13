@@ -147,7 +147,9 @@
     NSMutableURLRequest *urlRequest = [self prepareRequest:requestUrl jsonRequestData:requestData];
     
     if ([request isKindOfClass:[PWCachedRequest class]] && [self retryCountWith:request]) {
-        [urlRequest addValue:[NSString stringWithFormat:@"%ld", [self retryCountWith:request]] forHTTPHeaderField:@"X-Retry-Count"];
+        if ([self retryCountWith:request] >= 0) {
+            [urlRequest addValue:[NSString stringWithFormat:@"%ld", [self retryCountWith:request]] forHTTPHeaderField:@"X-Retry-Count"];
+        }
     }
     
     NSURLSessionDataTask *postDataTask = [_session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
@@ -207,7 +209,12 @@
 }
 
 - (NSUInteger)retryCountWith:(PWRequest *)request {
-    return [[NSUserDefaults standardUserDefaults] integerForKey:request.requestIdentifier];
+    if (request.requestIdentifier) {
+        return [[NSUserDefaults standardUserDefaults] integerForKey:request.requestIdentifier];
+    } else {
+        // delete cached request
+        return 3;
+    }
 }
 
 - (void)sendRequestWithDelay:(double)delay forRequest:(PWRequest *)request {
