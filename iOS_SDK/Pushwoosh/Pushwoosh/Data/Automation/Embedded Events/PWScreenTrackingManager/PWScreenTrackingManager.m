@@ -26,12 +26,6 @@ static IMP pw_original_viewDidAppear_Imp;
 
 @implementation PWScreenTrackingManager
 
-+ (void)load {
-    if (NSClassFromString(@"PWRateMyAppManager")) {
-        [[self sharedManager] startTracking];
-    }
-}
-
 + (instancetype)sharedManager {
     static dispatch_once_t once;
     static id sharedInstance;
@@ -64,10 +58,6 @@ void _replacement_viewDidAppear(UIViewController * self, SEL _cmd, BOOL animated
             
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kScreenOpenedEventDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
                 @try {
-                    if (NSClassFromString(@"PWRateMyAppManager")) {
-                        [[PWInAppManager sharedManager] postEvent:kScreenOpenedEvent withAttributes:nil];
-                    }
-                    
                     if ([PWScreenTrackingManager sharedManager].defaultScreenOpenAllowed) {
                         NSString *screenName = self.title.length > 0 ? self.title : self.navigationItem.title;
                         

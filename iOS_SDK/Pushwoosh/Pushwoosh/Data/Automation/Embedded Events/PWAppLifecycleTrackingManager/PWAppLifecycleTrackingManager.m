@@ -15,10 +15,6 @@
 #import "PWUtils.h"
 #import "PWServerCommunicationManager.h"
 
-//RMA events
-static NSString * const kApplicationOpenedEvent = @"_ApplicationOpened";
-static NSString * const kApplicationClosedEvent = @"_ApplicationClosed";
-
 NSString * const defaultApplicationOpenedEvent = @"PW_ApplicationOpen";
 NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 
@@ -34,10 +30,6 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 
 @implementation PWAppLifecycleTrackingManager {
     id _communicationStartedHandler;
-}
-
-+ (void)load {
-    [[self sharedManager] startTracking];
 }
 
 + (instancetype)sharedManager {
@@ -75,11 +67,6 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
         });
         
         _appInForeground = YES;
-        
-        //send inital event
-        if (NSClassFromString(@"PWRateMyAppManager")) {
-           [self sendAppOpenEvent];
-        }
         
         if (_defaultAppOpenAllowed == YES) {
             [self sendDefaultEvent: defaultApplicationOpenedEvent];
@@ -132,19 +119,9 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
             [[Pushwoosh sharedInstance].dataManager sendAppOpenWithCompletion:nil];
         });
         
-        if (NSClassFromString(@"PWRateMyAppManager")) {
-            [self sendAppOpenEvent];
-        }
-        
         if (_defaultAppOpenAllowed == YES) {
             [self sendDefaultEvent: defaultApplicationOpenedEvent];
         }
-    }
-}
-
-- (void)sendAppOpenEvent {
-    if (UIApplication.sharedApplication.applicationState != UIApplicationStateBackground) {
-        [[PWInAppManager sharedManager] postEvent:kApplicationOpenedEvent withAttributes:nil completion:nil];
     }
 }
 
@@ -158,16 +135,10 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 
 - (void)onApplicationClosed {
     _appInForeground = NO;
-    if (NSClassFromString(@"PWRateMyAppManager")) {
-        [self sendAppClosedEvent];
-    }
+
     if (_defaultAppClosedAllowed == YES) {
         [self sendDefaultEvent: defaultApplicationClosedEvent];
     }
-}
-
-- (void)sendAppClosedEvent {
-    [[PWInAppManager sharedManager] postEvent:kApplicationClosedEvent withAttributes:nil completion:nil];
 }
 
 - (void)setDefaultAppOpenAllowed:(BOOL)defaultAppOpenAllowed {

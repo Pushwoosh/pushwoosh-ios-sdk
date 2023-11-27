@@ -20,6 +20,8 @@ FOUNDATION_EXPORT NSString * const defaultApplicationClosedEvent;
 
 + (instancetype)sharedManager;
 
+- (void)startTracking;
+
 @end
 
 NS_ASSUME_NONNULL_END
