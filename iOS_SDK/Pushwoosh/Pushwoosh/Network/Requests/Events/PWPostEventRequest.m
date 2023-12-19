@@ -11,6 +11,8 @@
 @interface PWPostEventRequest () 
 
 @property (nonatomic, strong) NSString *resultCode;
+@property (nonatomic, strong) NSDictionary *richMedia;
+
 
 @end
 
@@ -80,8 +82,75 @@
 
 - (void)parseResponse:(NSDictionary *)response {
 	_resultCode = [response pw_stringForKey:@"code"];
+    
+    if ([_resultCode length] == 0) {
+        if ([response objectForKey:@"richmedia"]){
+            NSDictionary *richMediaDictionary = response[@"richmedia"];
+            
+            if (![richMediaDictionary isKindOfClass:[NSDictionary class]]) {
+                PWLogError(@"Invalid json type: %@, %@", [richMediaDictionary class], richMediaDictionary);
+                return;
+            }
+            
+            NSString *url = richMediaDictionary[@"url"];
+            if (!url) {
+                PWLogError(@"Url is missing");
+                return;
+            }
+            
+            NSDictionary *tags = richMediaDictionary[@"tags"];
+            if (!tags)
+                tags = @{};
+            
+            tags = [self convertTags:tags];
+            
+            NSString *ts = richMediaDictionary[@"ts"];
+            if (!ts) {
+                PWLogError(@"Timestamp is missing");
+                return;
+            }
+            
+            NSString *code = [[url lastPathComponent] stringByDeletingPathExtension];
+            code = [@"r-" stringByAppendingString:code];  // avoid inapp and richmedia code conflicts
+            
+            _richMedia = @{ @"code" : code,
+                            @"url" : url,
+                            @"closeButtonType" : @"YES",
+                            @"layout" : @"topbanner",
+                            @"updated" : ts,
+                            @"tags" : tags };
+        }
+    }
     NSNumber *required = [response pw_numberForKey:@"required"];
     _required = required.boolValue;
+}
+
+// tags must be NSString -> NSString dictionary
+- (NSDictionary *)convertTags:(NSDictionary *)tags {
+    if (![tags isKindOfClass:[NSDictionary class]]) {
+        return @{};
+    }
+
+    NSMutableDictionary *result = [tags mutableCopy];
+    for (NSString *key in [tags keyEnumerator]) {
+        id value = tags[key];
+
+        if (![key isKindOfClass:[NSString class]]) {
+            [result removeObjectForKey:key];
+            continue;
+        }
+
+        if ([value isKindOfClass:[NSNumber class]]) {
+            result[key] = [(NSNumber *)value stringValue];
+            continue;
+        }
+
+        if (![value isKindOfClass:[NSString class]]) {
+            [result removeObjectForKey:key];
+        }
+    }
+
+    return result;
 }
 
 @end

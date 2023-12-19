@@ -187,40 +187,44 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 	request.attributes = attributesDictionary;
 
     __weak typeof(self) wself = self;
-	[_requestManager sendRequest:request completion:^(NSError *error) {
-		if (error) {
-			completion(nil, error);
-			return;
-		}
-		if (!request.resultCode) {
-			PWLogInfo(@"No inapp is associated with this event: %@", event);
-			completion(nil, nil);
-			return;
-		}
-        
-        #if TARGET_OS_IOS || TARGET_OS_OSX
-        [self setPostEventInAppCode:request.resultCode];
-        
-        PWResource *resource = [[PWInAppStorage storage] resourceForCode:request.resultCode];
-        if (request.required && resource == nil) {
-            if (!isInlineInApp) {
-                [PWShowLoading showLoadingWithCancelBlock:^{
-                    [[PWInAppStorage storage] resetBlocks];
-                }];
-            }
-            
-            [[PWInAppStorage storage] resourcesForCode:request.resultCode
-                                       completionBlock:^(PWResource *resource) {
-                                           [PWShowLoading hideLoading];
-                                           [wself processingResource:resource withRequest:request completion:completion];
-                                       }];
-        } else {
-            [wself processingResource:resource withRequest:request completion:completion];
+    [_requestManager sendRequest:request completion:^(NSError *error) {
+        if (error) {
+            completion(nil, error);
+            return;
         }
-        #else
-        completion(nil, nil);
-        #endif
-	}];
+        if ([request.resultCode length] != 0) {
+            
+#if TARGET_OS_IOS || TARGET_OS_OSX
+            [self setPostEventInAppCode:request.resultCode];
+            
+            PWResource *resource = [[PWInAppStorage storage] resourceForCode:request.resultCode];
+            if (request.required && resource == nil) {
+                if (!isInlineInApp) {
+                    [PWShowLoading showLoadingWithCancelBlock:^{
+                        [[PWInAppStorage storage] resetBlocks];
+                    }];
+                }
+                
+                [[PWInAppStorage storage] resourcesForCode:request.resultCode
+                                           completionBlock:^(PWResource *resource) {
+                    [PWShowLoading hideLoading];
+                    [wself processingResource:resource withRequest:request completion:completion];
+                }];
+            } else {
+                [wself processingResource:resource withRequest:request completion:completion];
+            }
+        } else if (request.richMedia) {
+            PWResource *resource = [[PWInAppStorage storage] resourceForDictionary:request.richMedia];
+            [resource getHTMLDataWithCompletion:^(NSString *htmlData, NSError *error){
+                [wself processingResource:resource withRequest:request completion:completion];
+            }];
+        } else {
+            completion(nil, nil);
+        }
+#else
+            completion(nil, nil);
+#endif
+    }];
 }
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
