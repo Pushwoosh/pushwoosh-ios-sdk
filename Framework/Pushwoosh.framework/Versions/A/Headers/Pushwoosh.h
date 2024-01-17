@@ -18,7 +18,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.5.6"
+#define PUSHWOOSH_VERSION @"6.5.7"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -364,6 +364,13 @@ Unregisters from push notifications.
  @return Unique device identifier.
  */
 - (NSString * _Nonnull)getHWID;
+
+/**
+ Gets UserId.
+ 
+ @return userId. If the userId hasn't been set previously, then the userId is assigned the HWID.
+ */
+- (NSString * _Nonnull)getUserId;
 
 /**
  Returns dictionary with enabled remove notificaton types.

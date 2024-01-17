@@ -223,6 +223,10 @@ static dispatch_once_t pushwooshOncePredicate;
     return [PWPreferences preferences].hwid;
 }
 
+- (NSString *)getUserId {
+    return [PWPreferences preferences].userId;
+}
+
 - (NSString *)applicationCode {
     return [PWPreferences preferences].appCode;
 }

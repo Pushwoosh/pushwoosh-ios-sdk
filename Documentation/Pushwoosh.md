@@ -86,6 +86,9 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1a0e0d155a862e9ca4c3839e2c3f8d4115">- (NSString *_Nonnull)getHWID</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1ad7d1b0957e50d70e5ae445a295744350">- (NSString *_Nonnull)getUserId</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1ab614f1fcd98bce58db800a09baf22f6d">- (void)setUserId:(NSString *_Nonnull)userId completion:(void(^)(NSError *_Nullable error))completion</a></td>
 	</tr>
 	<tr>
@@ -366,6 +369,12 @@ Gets current push token.<br/><br/><br/><strong>Returns</strong> Current push tok
 
 #### <a name="1a0e0d155a862e9ca4c3839e2c3f8d4115"></a>- (NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)getHWID  
 Gets HWID. Unique device identifier that used in all API calls with Pushwoosh. This is identifierForVendor for iOS &gt;= 7.<br/><br/><br/><strong>Returns</strong> Unique device identifier. 
+
+----------  
+  
+
+#### <a name="1ad7d1b0957e50d70e5ae445a295744350"></a>- (NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)getUserId  
+Gets UserId.<br/><br/><br/><strong>Returns</strong> userId. If the userId hasn't been set previously, then the userId is assigned the HWID. 
 
 ----------  
   

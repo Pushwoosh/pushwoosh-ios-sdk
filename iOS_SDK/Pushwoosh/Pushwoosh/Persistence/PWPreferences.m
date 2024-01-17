@@ -84,10 +84,19 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
                 [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyUserId];
                 [_defaults setObject:_userId forKey:KeyUserId];
             } else {
-                _userId = [_defaults objectForKey:KeyUserId];
+                if ([_defaults objectForKey:KeyUserId]) {
+                    _userId = [_defaults objectForKey:KeyUserId];
+                } else {
+                    _userId = _hwid;
+                }
             }
         } else {
-            _userId = [[NSUserDefaults standardUserDefaults] objectForKey:KeyUserId];
+            NSString *userId = [[NSUserDefaults standardUserDefaults] objectForKey:KeyUserId];
+            if (userId) {
+                _userId = userId;
+            } else {
+                _userId = _hwid;
+            }
         }
 
 		_lastRegTime = [[NSUserDefaults standardUserDefaults] objectForKey:KeyLastRegTime];
@@ -471,8 +480,7 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
     NSString *userDefaultsAppCode = [[NSUserDefaults standardUserDefaults] objectForKey:KeyAppId];
     
     if (userDefaultsAppCode && infoPlistAppCode) {
-        //Info plist app code updated, we need update cache Info.plist app code and change defaults app code
-        if (![infoPlistAppCode isEqualToString:saveInfoPlistAppCode]) {
+         if (![infoPlistAppCode isEqualToString:saveInfoPlistAppCode]) {
             if (![userDefaultsAppCode isEqualToString:infoPlistAppCode]) {
                 [self resetCache];
             }
