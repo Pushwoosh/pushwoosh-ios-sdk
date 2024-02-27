@@ -66,33 +66,8 @@ BOOL _replacement_didFinishLaunchingWithOptionsExtensionRequest(id self, SEL _cm
     ((BOOL(*)(id, SEL, UIApplication *, NSDictionary *))pw_original_didFinishLaunchingWithOptionsExtension)(self, _cmd, application, launchOptions);
     
     BOOL result = YES;
-    BOOL useRuntime = [PWConfig config].useRuntime;
     
     [[PWAppLifecycleTrackingManager sharedManager] startTracking];
-    
-    if ([[UIApplication sharedApplication] respondsToSelector:@selector(pushwooshUseRuntimeMagic)] && useRuntime) {
-        if (launchOptions[UIApplicationLaunchOptionsRemoteNotificationKey]) {
-            NSLog(@"Application was launched from a remote notification");
-        }
-            
-        if (![[PWPreferences preferences] hasAppCode]) {
-            // pushwoosh has not been initialized yet
-            return result;
-        }
-        
-        if (![PushNotificationManager pushManager].delegate) {
-            if ([[UIApplication sharedApplication] respondsToSelector:@selector(getPushwooshDelegate)]) {
-                [PushNotificationManager pushManager].delegate = [[UIApplication sharedApplication] getPushwooshDelegate];
-            } else {
-                [PushNotificationManager pushManager].delegate = (NSObject<PushNotificationDelegate> *)self;
-            }
-        }
-        
-        if (![UNUserNotificationCenter currentNotificationCenter].delegate) {
-            //this function will also handle UIApplicationLaunchOptionsLocationKey
-            [[PushNotificationManager pushManager] handlePushReceived:launchOptions];
-        }
-    }
     
     return result;
 }
@@ -296,6 +271,7 @@ static BOOL openURLSwizzled = NO;
     
     Class delegateClass = [delegate class];
     
+    [self swizzle_didFinishLaunchingWithOptions:delegateClass];
     [self swizzle_didRegisterForRemoteNotificationsWithDeviceToken:delegateClass];
     [self swizzle_didFailToRegisterForRemoteNotificationsWithError:delegateClass];
     [self swizzle_didReceiveRemoteNotification:delegateClass];
@@ -386,6 +362,11 @@ void _replacement_setApplicationIconBadgeNumber(UIApplication * self, SEL _cmd, 
 	}
 }
 
+- (void)swizzle_didFinishLaunchingWithOptions:(Class)delegateClass {
+    Method originalMethod = class_getInstanceMethod(delegateClass, @selector(application:didFinishLaunchingWithOptions:));
+    pw_original_didFinishLaunchingWithOptions = method_setImplementation(originalMethod, (IMP)_replacement_didFinishLaunchingWithOptions);
+}
+
 - (void)swizzle_didRegisterForRemoteNotificationsWithDeviceToken:(Class)delegateClass {
     Method originalMethod = class_getInstanceMethod(delegateClass, @selector(application:didRegisterForRemoteNotificationsWithDeviceToken:));
     pw_original_didRegisterForRemoteNotificationWithDeviceToken_Imp = method_setImplementation(originalMethod, (IMP)_replacement_didRegisterForRemoteNotificationWithToken);
@@ -404,6 +385,37 @@ void _replacement_setApplicationIconBadgeNumber(UIApplication * self, SEL _cmd, 
 + (void)swizzle_registerForRemoteNotifications {
     Method originalMethod = class_getInstanceMethod(self, @selector(registerForRemoteNotifications));
     pw_original_registerForRemoteNotifications_Imp = method_setImplementation(originalMethod, (IMP)_replacement_registerForRemoteNotifications);
+}
+
+BOOL _replacement_didFinishLaunchingWithOptions(id self, SEL _cmd, UIApplication *application, NSDictionary *launchOptions) {
+    BOOL result = YES;
+    
+    if ([self respondsToSelector:@selector(application:didFinishLaunchingWithOptions:)]) {
+        result = ((BOOL(*)(id, SEL, UIApplication *, NSDictionary *))pw_original_didFinishLaunchingWithOptions)(self, _cmd, application, launchOptions);
+    } else {
+        [self applicationDidFinishLaunching:application];
+        result = YES;
+    }
+    
+    if (![[PWPreferences preferences] hasAppCode]) {
+        // pushwoosh has not been initialized yet
+        return result;
+    }
+    
+    if (![PushNotificationManager pushManager].delegate) {
+        if ([[UIApplication sharedApplication] respondsToSelector:@selector(getPushwooshDelegate)]) {
+            [PushNotificationManager pushManager].delegate = [[UIApplication sharedApplication] getPushwooshDelegate];
+        } else {
+            [PushNotificationManager pushManager].delegate = (NSObject<PushNotificationDelegate> *)self;
+        }
+    }
+    
+    if (![UNUserNotificationCenter currentNotificationCenter].delegate) {
+        //this function will also handle UIApplicationLaunchOptionsLocationKey
+        [[PushNotificationManager pushManager] handlePushReceived:launchOptions];
+    }
+    
+    return result;
 }
 
 void _replacement_registerForRemoteNotifications(UIApplication * self, SEL _cmd) {
