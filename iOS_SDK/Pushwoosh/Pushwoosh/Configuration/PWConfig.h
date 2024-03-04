@@ -117,6 +117,8 @@
 
 @property (nonatomic, readonly) BOOL sendPurchaseTrackingEnabled;
 
+@property (nonatomic, assign, readonly) BOOL preHandleNotificationsWithUrl;
+
 
 /**
 key: Pushwoosh_AUTO_ACCEPT_DEEP_LINK_FOR_SILENT_PUSH

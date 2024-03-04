@@ -21,6 +21,7 @@
 @property (nonatomic, readwrite) BOOL sendPushStatIfAlertsDisabled;
 @property (nonatomic, assign, readwrite) BOOL acceptedDeepLinkForSilentPush;
 @property (nonatomic, readwrite) BOOL sendPurchaseTrackingEnabled;
+@property (nonatomic, assign, readwrite) BOOL preHandleNotificationsWithUrl;
 
 @property (nonatomic) NSBundle *bundle;
 
@@ -76,6 +77,7 @@
         
         // this key is used to allow server communication (by default it is allowed)
         self.allowServerCommunication = [self getBoolean:@"Pushwoosh_ALLOW_SERVER_COMMUNICATION" default: YES];
+        self.preHandleNotificationsWithUrl = [self getBoolean:@"Pushwoosh_PREHANDLE_URL_NOTIFICATIONS" default:YES];
 
         // this key is used to allow collecting and sending device data (by default it is allowed)
         self.allowCollectingDeviceData = [self getBoolean:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_DATA" default: YES];

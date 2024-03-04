@@ -273,7 +273,7 @@ const NSTimeInterval kRegistrationUpdateInterval = 5 * 60;
     }
 #endif
     
-    if (linkUrl) {
+    if (linkUrl && [[PWConfig config] preHandleNotificationsWithUrl]) {
         if ([self isSilentPush:userInfo] && ![[PWConfig config] acceptedDeepLinkForSilentPush])
             return;
 
