@@ -12,7 +12,7 @@ The guide for SDK integration is available on Pushwoosh website:
 https://www.pushwoosh.com/platform-docs/pushwoosh-sdk/ios-push-notifications/setting-up-pushwoosh-ios-sdk
 
 The sample project is available here:  
-https://github.com/Pushwoosh/pushwoosh-ios-sdk/tree/master/Samples/iPhone
+https://github.com/Pushwoosh/pushwoosh-ios-sample
 
 Documentation:
 https://github.com/Pushwoosh/pushwoosh-ios-sdk/tree/master/Documentation
