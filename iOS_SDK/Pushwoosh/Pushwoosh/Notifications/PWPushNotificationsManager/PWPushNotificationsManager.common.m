@@ -163,9 +163,13 @@ const NSTimeInterval kRegistrationUpdateInterval = 5 * 60;
 
 	PWRegisterDeviceRequest *request = [[PWRegisterDeviceRequest alloc] init];
 	request.pushToken = deviceID;
+    request.customTags = [[PWPreferences preferences] customTags];
     [PWPreferences preferences].lastRegTime = [NSDate date];
     
 	[_requestManager sendRequest:request completion:^(NSError *error) {
+        
+        [[PWPreferences preferences] setCustomTags:nil];
+        
 		if (error == nil) {
 			PWLogInfo(@"Registered for push notifications: %@", deviceID);
 

@@ -39,20 +39,38 @@
     return self;
 }
 
-- (void)handleNotificationRequest:(UNNotificationRequest *)request withAppGroups:(NSString *)appGroupsName {
+- (void)handleNotificationRequest:(UNNotificationRequest *)request 
+                    withAppGroups:(NSString * _Nonnull)appGroupsName
+                   contentHandler:(void (^ _Nonnull)(UNNotificationContent * _Nonnull))contentHandler {
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
+        
+    NSString *group = [[PWConfig config] appGroupsName];
+    if (group && ![group isEqualToString:@""])
+        return;
 
-    [self setUpBadgesWithGroupsName:appGroupsName bestAttemptContent:bestAttemptContent];
+    dispatch_group_t requestsGroup = dispatch_group_create();
+
+    dispatch_group_enter(requestsGroup);
+    [self setUpBadgesWithGroupsName:appGroupsName contentHadler:bestAttemptContent completion:^{
+        dispatch_group_leave(requestsGroup);
+    }];
+    
+    dispatch_group_notify(requestsGroup, dispatch_get_main_queue(), ^{
+        contentHandler(bestAttemptContent);
+    });
 }
 
 - (void)handleNotificationRequest:(UNNotificationRequest *)request contentHandler:(void (^ _Nonnull)(UNNotificationContent * _Nonnull))contentHandler {
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
     
     NSString *appGroupsName = [[PWConfig config] appGroupsName];
-    
-    [self setUpBadgesWithGroupsName:appGroupsName bestAttemptContent:bestAttemptContent];
-    
+        
     dispatch_group_t requestsGroup = dispatch_group_create();
+    
+    dispatch_group_enter(requestsGroup);
+    [self setUpBadgesWithGroupsName:appGroupsName contentHadler:bestAttemptContent completion:^{
+        dispatch_group_leave(requestsGroup);
+    }];
     
     dispatch_group_enter(requestsGroup);
     [self sendDeliveryEventForPushNotification:bestAttemptContent.userInfo completion:^{
@@ -69,7 +87,10 @@
     });
 }
 
-- (void)setUpBadgesWithGroupsName:(NSString *)appGroupsName bestAttemptContent:(UNMutableNotificationContent *)bestAttemptContent{
+- (void)setUpBadgesWithGroupsName:(NSString *)appGroupsName
+                    contentHadler:(UNMutableNotificationContent *)bestAttemptContent
+                       completion:(dispatch_block_t)completion {
+    
     NSString *key = @"badge_count";
 
     if (appGroupsName && ![appGroupsName isEqualToString:@""] && [appGroupsName isKindOfClass:[NSString class]]) {
@@ -108,6 +129,10 @@
         }
     } else {
         PWLogWarn(@"App Groups aren't installed");
+    }
+    
+    if (completion) {
+        completion();
     }
 }
 

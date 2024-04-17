@@ -69,7 +69,6 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
     _succeeded = YES;
     
     //used if there is not ViewController based statusbar appearance

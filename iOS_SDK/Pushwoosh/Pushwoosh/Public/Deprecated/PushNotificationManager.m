@@ -25,6 +25,10 @@
     return [NSMutableDictionary dictionaryWithObjectsAndKeys:@"append", @"operation", array, @"value", nil];
 }
 
++ (NSDictionary *)removeValuesFromListTag:(NSArray<NSString *> *)array {
+    return [NSMutableDictionary dictionaryWithObjectsAndKeys:@"remove", @"operation", array, @"value", nil];
+}
+
 @end
 
 @implementation PushNotificationManager

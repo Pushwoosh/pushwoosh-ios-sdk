@@ -66,6 +66,10 @@
 
 	NSArray *soundsList = [self buildSoundsList];
 	dict[@"sounds"] = soundsList;
+    
+    if (_customTags != nil) {
+        dict[@"tags"] =  _customTags;
+    }
 
 	return dict;
 }

@@ -274,6 +274,9 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
+        if ([PWUtils isSystemVersionGreaterOrEqualTo:@"16.4"]) {
+            
+        }
         if ([_webView.scrollView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
             _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }

@@ -22,9 +22,9 @@
 
 @implementation PWBaseLoadingViewController
 
+
 + (UIWindow *)presentedWindow {
     CGRect bounds = [UIScreen mainScreen].bounds;
-    
     UIWindow *presentedWindow = [[PWInteractionDisabledWindow alloc] initWithFrame:bounds];
     presentedWindow.hidden = YES;
     presentedWindow.windowLevel = UIWindowLevelNormal + ([UIViewController instancesRespondToSelector:@selector(restoresFocusAfterTransition)] ? 1 : 0); //iOS 10 check
@@ -55,7 +55,7 @@
 
         #pragma clang diagnostic pop
     }
-   
+    
     self.view.frame = window.bounds;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [window makeKeyAndVisible];

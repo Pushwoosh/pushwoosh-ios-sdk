@@ -42,6 +42,8 @@
 
 @property (copy) NSString *language;
 
+@property (copy) NSDictionary *customTags;
+
 - (BOOL)hasAppCode;
 - (NSString *)defaultBaseUrl;
 

@@ -18,4 +18,3 @@
 - (void)reset;
 
 @end
-

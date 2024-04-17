@@ -55,7 +55,7 @@
 
 - (void)setUpInAppAlerts {
 	//get app icon for in-app alert module
-	UIImage *appIcon = [UIImage imageNamed:[[[NSBundle mainBundle] infoDictionary][@"CFBundleIcons"][@"CFBundlePrimaryIcon"][@"CFBundleIconFiles"] firstObject]];
+    UIImage *appIcon = [UIImage imageNamed:[[[NSBundle mainBundle] infoDictionary][@"CFBundleIcons"][@"CFBundlePrimaryIcon"][@"CFBundleIconFiles"] firstObject]];
 
 	if (!appIcon) {
 		appIcon = [UIImage imageNamed:[[[NSBundle mainBundle] infoDictionary][@"CFBundleIconFiles"] firstObject]];

@@ -18,7 +18,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.5.9"
+#define PUSHWOOSH_VERSION @"6.5.10"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -242,6 +242,13 @@ Tells the delegate that the user has pressed on the push notification banner.
  */
 - (void)registerForPushNotifications;
 - (void)registerForPushNotificationsWithCompletion:(PushwooshRegistrationHandler _Nullable )completion;
+
+/**
+ Registers for push notifications with custom tags. By default registeres for "UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert" flags.
+ Automatically detects if you have "newsstand-content" in "UIBackgroundModes" and adds "UIRemoteNotificationTypeNewsstandContentAvailability" flag.
+ */
+- (void)registerForPushNotificationsWith:(NSDictionary * _Nonnull)tags;
+- (void)registerForPushNotificationsWith:(NSDictionary * _Nonnull)tags completion:(PushwooshRegistrationHandler _Nullable )completion;
 
 /**
 Unregisters from push notifications.
@@ -626,5 +633,26 @@ Unregisters from push notifications.
  @return Dictionary to be sent as the value for the tag
  */
 + (NSDictionary * _Nullable)appendValuesToListTag:(NSArray<NSString *> * _Nonnull)array;
+
+/**
+ Creates a dictionary for removing Tag’s values from existing values list
+ 
+ Example:
+ 
+ @code
+ NSDictionary *tags = @{
+     @"Alias" : aliasField.text,
+     @"FavNumber" : @([favNumField.text intValue]),
+     @"List" : [PWTags removeValuesFromListTag:@[ @"Item1" ]]
+ };
+ 
+ [[PushNotificationManager pushManager] setTags:tags];
+ @endcode
+ 
+ @param array Array of values to be removed from the tag.
+ 
+ @return Dictionary to be sent as the value for the tag
+ */
++ (NSDictionary * _Nullable)removeValuesFromListTag:(NSArray<NSString *> * _Nonnull)array;
 
 @end

@@ -12,9 +12,9 @@
 
 #if TARGET_OS_IOS
     #import "PWAppDelegate.h"
+    #import "PWNotificationExtensionManager.h"
     #import "PWRichMediaManager.h"
     #import "PWRichMediaStyle.h"
     #import "PWInbox.h"
     #import "PWInlineInAppView.h"
-    #import "PWNotificationExtensionManager.h"
 #endif

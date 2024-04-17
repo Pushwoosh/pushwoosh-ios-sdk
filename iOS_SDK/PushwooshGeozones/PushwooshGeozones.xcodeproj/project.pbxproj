@@ -21,6 +21,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		442A29682BBAC118009BEF78 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 442A29672BBAC118009BEF78 /* PrivacyInfo.xcprivacy */; };
 		5D0E315D213D519D0086AC05 /* PWGeozonesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0E315B213D519D0086AC05 /* PWGeozonesManager.m */; };
 		5D0E3176213E4BB30086AC05 /* PWLocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0E3167213E4BB20086AC05 /* PWLocationHelper.m */; };
 		5D0E3178213E4BB30086AC05 /* PWRemoveLocationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0E3168213E4BB20086AC05 /* PWRemoveLocationRequest.m */; };
@@ -44,6 +45,13 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
+		442A29732BBAC118009BEF78 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 5D0E3229214125C70086AC05 /* Pushwoosh.xcodeproj */;
+			proxyType = 2;
+			remoteGlobalIDString = 449CC00B2BA9C289003E16DC;
+			remoteInfo = PushwooshVisionOS;
+		};
 		5D0E3234214125C80086AC05 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 5D0E3229214125C70086AC05 /* Pushwoosh.xcodeproj */;
@@ -103,6 +111,7 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		442A29672BBAC118009BEF78 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		5D0E3126213D42260086AC05 /* libPushwooshGeozones.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwooshGeozones.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D0E315A213D519D0086AC05 /* PWGeozonesManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWGeozonesManager.h; sourceTree = "<group>"; };
 		5D0E315B213D519D0086AC05 /* PWGeozonesManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWGeozonesManager.m; sourceTree = "<group>"; };
@@ -171,6 +180,7 @@
 		5D0E3128213D42260086AC05 /* PushwooshGeozones */ = {
 			isa = PBXGroup;
 			children = (
+				442A29672BBAC118009BEF78 /* PrivacyInfo.xcprivacy */,
 				5D0E315A213D519D0086AC05 /* PWGeozonesManager.h */,
 				5D0E315B213D519D0086AC05 /* PWGeozonesManager.m */,
 				5D0E318D213E4C4B0086AC05 /* Service */,
@@ -236,6 +246,7 @@
 				5DAEE76A2463FB9B00219D92 /* libPushwoosh.watchOS.a */,
 				5DAEE76C2463FB9B00219D92 /* Pushwoosh.framework */,
 				5D0E3239214125C80086AC05 /* PushwooshTests.xctest */,
+				442A29742BBAC118009BEF78 /* Pushwoosh.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -346,6 +357,13 @@
 /* End PBXProject section */
 
 /* Begin PBXReferenceProxy section */
+		442A29742BBAC118009BEF78 /* Pushwoosh.framework */ = {
+			isa = PBXReferenceProxy;
+			fileType = wrapper.framework;
+			path = Pushwoosh.framework;
+			remoteRef = 442A29732BBAC118009BEF78 /* PBXContainerItemProxy */;
+			sourceTree = BUILT_PRODUCTS_DIR;
+		};
 		5D0E3235214125C80086AC05 /* libPushwoosh.a */ = {
 			isa = PBXReferenceProxy;
 			fileType = archive.ar;
@@ -402,6 +420,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				442A29682BBAC118009BEF78 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

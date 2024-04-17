@@ -21,12 +21,12 @@
 @implementation PWRichPushManager
 
 - (instancetype)init {
-	if (self = [super init]) {
-		_richPushWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
-		_supportedOrientations = PWOrientationPortrait | PWOrientationPortraitUpsideDown | PWOrientationLandscapeLeft | PWOrientationLandscapeRight;
-	}
-	return self;
-}
+    if (self = [super init]) {
+        _richPushWindow = [[UIWindow alloc] initWithFrame:[UIScreen mainScreen].bounds];
+        _supportedOrientations = PWOrientationPortrait | PWOrientationPortraitUpsideDown | PWOrientationLandscapeLeft | PWOrientationLandscapeRight;
+        }
+        return self;
+    }
 
 - (void)showPushPage:(NSString *)pageId {
 	[self showHTMLViewControllerWithURLString:[NSString stringWithFormat:kServiceHtmlContentFormatUrl, @"go.pushwoosh.com", pageId]];

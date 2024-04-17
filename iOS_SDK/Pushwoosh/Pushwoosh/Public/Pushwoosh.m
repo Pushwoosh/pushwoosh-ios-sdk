@@ -92,10 +92,22 @@ static dispatch_once_t pushwooshOncePredicate;
 #pragma mark - Register/Unregister
 
 - (void)registerForPushNotifications {
-    [self registerForPushNotificationsWithCompletion:nil];
+    [self internalRegisterForPushNotificationWith:nil completion:nil];
 }
 
 - (void)registerForPushNotificationsWithCompletion:(PushwooshRegistrationHandler)completion {
+    [self internalRegisterForPushNotificationWith:nil completion:completion];
+}
+
+- (void)registerForPushNotificationsWith:(NSDictionary *)tags {
+    [self internalRegisterForPushNotificationWith:tags completion:nil];
+}
+
+- (void)registerForPushNotificationsWith:(NSDictionary *)tags completion:(PushwooshRegistrationHandler)completion {
+    [self internalRegisterForPushNotificationWith:tags completion:completion];
+}
+
+- (void)internalRegisterForPushNotificationWith:(NSDictionary *)tags completion:(PushwooshRegistrationHandler)completion {
     if (![[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
         NSString *error = @"Communication with Pushwoosh is disabled. You have to enable the server communication to register for push notifications. To enable the server communication use startServerCommunication method.";
         if (completion) {
@@ -107,6 +119,8 @@ static dispatch_once_t pushwooshOncePredicate;
     }
 #if TARGET_OS_IOS
     static BOOL isSubscriptionSegmentsCasePresented = NO;
+    
+    [[PWPreferences preferences] setCustomTags:tags];
     
     if (!isSubscriptionSegmentsCasePresented) {
         isSubscriptionSegmentsCasePresented = YES;
@@ -417,6 +431,10 @@ static dispatch_once_t pushwooshOncePredicate;
 
 + (NSDictionary *)appendValuesToListTag:(NSArray<NSString *> *)array {
     return [NSMutableDictionary dictionaryWithObjectsAndKeys:@"append", @"operation", array, @"value", nil];
+}
+
++ (NSDictionary *)removeValuesFromListTag:(NSArray<NSString *> *)array {
+    return [NSMutableDictionary dictionaryWithObjectsAndKeys:@"remove", @"operation", array, @"value", nil];
 }
 
 @end

@@ -5,9 +5,11 @@
 #import "PWPlatformModule.h"
 #import "PWNotificationManagerCompat.h"
 #import "PWNotificationCategoryBuilder.h"
+#import "Pushwoosh.h"
 
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
+#import <OCMock/OCMock.h>
 
 #import <XCTest/XCTest.h>
 #import "PWBaseRequestTest.h"
@@ -17,6 +19,8 @@
 @property (nonatomic, strong) Class originalCategoryBuilder;
 
 @property (nonatomic, strong) PWNotificationManagerCompat *originalNotificationManager;
+
+@property (nonatomic) PWRegisterDeviceRequest *request;
 
 @end
 
@@ -41,8 +45,8 @@
 }
 
 - (void)testMethodName {
-	PWRegisterDeviceRequest *request = [PWRegisterDeviceRequest new];
-	XCTAssertEqualObjects([request methodName], @"registerDevice");
+	_request = [PWRegisterDeviceRequest new];
+	XCTAssertEqualObjects([_request methodName], @"registerDevice");
 }
 
 // valid categories are tested in CategoriesTest.m

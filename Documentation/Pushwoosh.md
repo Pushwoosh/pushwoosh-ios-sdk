@@ -41,6 +41,12 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1a8fa8f03c76e3b4dec6899f86518ef00c">- (void)registerForPushNotificationsWithCompletion:(PushwooshRegistrationHandler _Nullable)completion</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1adc3d83ed9f6302149e961da11be8ff57">- (void)registerForPushNotificationsWith:(NSDictionary *_Nonnull)tags</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1ade933d38cfbac899053fe3d2e86d0c78">- (void)registerForPushNotificationsWith:(NSDictionary *_Nonnull)tags completion:(PushwooshRegistrationHandler _Nullable)completion</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1ac30104920e79607ee1b645911b7b0ef6">- (void)unregisterForPushNotifications</a></td>
 	</tr>
 	<tr>
@@ -236,6 +242,18 @@ Registers for push notifications. By default registeres for "UIRemoteNotificatio
   
 
 #### <a name="1a8fa8f03c76e3b4dec6899f86518ef00c"></a>- (void)registerForPushNotificationsWithCompletion:(PushwooshRegistrationHandler <a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a>)completion  
+
+
+----------  
+  
+
+#### <a name="1adc3d83ed9f6302149e961da11be8ff57"></a>- (void)registerForPushNotificationsWith:(NSDictionary \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)tags  
+Registers for push notifications with custom tags. By default registeres for "UIRemoteNotificationTypeBadge | UIRemoteNotificationTypeSound | UIRemoteNotificationTypeAlert" flags. Automatically detects if you have "newsstand-content" in "UIBackgroundModes" and adds "UIRemoteNotificationTypeNewsstandContentAvailability" flag. 
+
+----------  
+  
+
+#### <a name="1ade933d38cfbac899053fe3d2e86d0c78"></a>- (void)registerForPushNotificationsWith:(NSDictionary \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)tags completion:(PushwooshRegistrationHandler <a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a>)completion  
 
 
 ----------  

@@ -11,7 +11,6 @@ NSTimeInterval const PWRichMediaStyleDefaultAnimationDuration = 0.3f;
 #if TARGET_OS_IOS
 void PWRichMediaStyleRunAnimation(dispatch_block_t animationBlock, dispatch_block_t completion) {
     [[UIApplication sharedApplication] beginIgnoringInteractionEvents];
-    
     [UIView animateWithDuration:PWRichMediaStyleDefaultAnimationDuration
                      animations:animationBlock
                      completion:^(BOOL finished) {

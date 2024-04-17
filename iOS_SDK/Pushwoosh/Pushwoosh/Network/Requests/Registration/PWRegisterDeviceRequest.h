@@ -10,5 +10,6 @@
 @interface PWRegisterDeviceRequest : PWAppOpenRequest
 
 @property (nonatomic, copy) NSString *pushToken;
+@property (nonatomic, copy) NSDictionary *customTags;
 
 @end

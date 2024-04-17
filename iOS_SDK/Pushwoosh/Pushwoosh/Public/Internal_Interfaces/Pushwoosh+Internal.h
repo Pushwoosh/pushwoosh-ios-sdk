@@ -9,7 +9,7 @@
 #import "PWPushNotificationsManager.h"
 #import "PWInAppManager.h"
 
-#if TARGET_OS_IOS || TARGET_OS_OSX
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_IPHONE
 #import "PWBusinessCaseManager.h"
 #import "PWRichPushManager.h"
 #import "PWInAppMessagesManager.h"
@@ -24,7 +24,7 @@
 
 @property (nonatomic, strong) PWInAppManager *inAppManager;
 
-#if TARGET_OS_IOS || TARGET_OS_OSX
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_IPHONE
 
 @property (nonatomic, strong) PWPurchaseManager *purchaseManager;
 

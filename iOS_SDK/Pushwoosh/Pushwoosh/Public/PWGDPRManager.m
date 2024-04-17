@@ -122,11 +122,11 @@ typedef void (^Completion)(NSError *error);
                     } else {
                         [[PushNotificationManager pushManager] loadTags:^(NSDictionary *tags) {
                             NSMutableDictionary *emptyTags = [NSMutableDictionary new];
-
+                            
                             for (NSString *key in tags.allKeys) {
                                 emptyTags[key] = [NSNull null];
                             }
-
+                            
                             [[PushNotificationManager pushManager] setTags:emptyTags withCompletion:^(NSError *error) {
                                 if (!error) {
                                     self.deviceDataRemoved = YES;
@@ -138,7 +138,7 @@ typedef void (^Completion)(NSError *error);
                             }];
                         } error:^(NSError *error) {
                             PWLogError(@"%@", error);
-
+                            
                             if (completion) {
                                 completion(error);
                             }
@@ -171,7 +171,6 @@ typedef void (^Completion)(NSError *error);
         [PWMessageViewController presentWithRichMedia:richMedia];
     }
 }
-
 #endif
 
 - (void)performGDPRAction:(void (^)(void (^completion)(NSError *error)))action completion:(void (^)(NSError *error))completion {

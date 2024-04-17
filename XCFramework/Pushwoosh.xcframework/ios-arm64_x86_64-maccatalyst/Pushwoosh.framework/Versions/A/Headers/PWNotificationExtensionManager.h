@@ -35,12 +35,15 @@ NS_ASSUME_NONNULL_BEGIN
      self.contentHandler = contentHandler;
      self.bestAttemptContent = [request.content mutableCopy];
      
-     [[PWNotificationExtensionManager sharedManager] handleNotificationRequest:request withAppGroups:@"group.com.example_domain.example_app_name."];
+     [[PWNotificationExtensionManager sharedManager] handleNotificationRequest:request
+                                                                 withAppGroups:@"group.com.example_domain.example_app_name"
+                                                                contentHandler:contentHandler];
  }
  @endcode
  */
-- (void)handleNotificationRequest:(UNNotificationRequest *)request withAppGroups:(NSString * _Nullable)appGroupsName;
-
+- (void)handleNotificationRequest:(UNNotificationRequest *)request 
+                    withAppGroups:(NSString * _Nonnull)appGroupsName
+                   contentHandler:(void (^ _Nonnull)(UNNotificationContent * _Nonnull))contentHandler;
 @end
 
 NS_ASSUME_NONNULL_END

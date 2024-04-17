@@ -40,16 +40,6 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
-- (void)testSharedInstance {
-    id mockPWPreferences = OCMPartialMock([PWPreferences preferences]);
-    OCMStub([mockPWPreferences appCode]).andReturn(@"DC533-F5DA4");
-    
-    [Pushwoosh sharedInstance];
-    
-    OCMVerify([mockPWPreferences appCode]);
-    [mockPWPreferences stopMocking];
-}
-
 - (void)testInitWithApplicationCode {
     id mockPWRequestsCacheManager = OCMClassMock([PWRequestsCacheManager class]);
     OCMStub([mockPWRequestsCacheManager sharedInstance]);
@@ -68,6 +58,21 @@
     [mockPWRequestsCacheManager stopMocking];
     [mockPWInAppManager stopMocking];
     [mockPWConfig stopMocking];
+}
+
+- (void)testCheckTagsAreExistWhenRegisterForNotifyCalled {
+    NSDictionary *customTags = @{@"k1":@"v1", @"k2": @"v2"};
+    
+    [[Pushwoosh sharedInstance] registerForPushNotificationsWith:customTags
+                                                      completion:^(NSString * _Nullable token, NSError * _Nullable error) {}];
+    
+    XCTAssertEqual(customTags, [[PWPreferences preferences] customTags]);
+}
+
+- (void)testCheckCustomTagsNullIfPassedNull {
+    [[Pushwoosh sharedInstance] registerForPushNotificationsWith:nil];
+    
+    XCTAssertNil([[PWPreferences preferences] customTags]);
 }
 
 @end

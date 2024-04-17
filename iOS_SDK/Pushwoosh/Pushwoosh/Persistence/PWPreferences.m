@@ -54,6 +54,7 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 @synthesize logLevel = _logLevel;
 @synthesize language = _language;
 @synthesize isServerCommunicationEnabled = _isServerCommunicationEnabled;
+@synthesize customTags = _customTags;
 
 - (instancetype)init {
 	self = [super init];
@@ -352,6 +353,20 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 	@synchronized(_lock) {
 		return [_hwid copy];
 	}
+}
+
+- (void)setCustomTags:(NSDictionary *)customTags {
+    _customTags = nil;
+    
+    @synchronized (_lock) {
+        _customTags = [customTags copy];
+    }
+}
+
+- (NSDictionary *)customTags {
+    @synchronized(_lock) {
+        return [_customTags copy];
+    }
 }
 
 // Priority:

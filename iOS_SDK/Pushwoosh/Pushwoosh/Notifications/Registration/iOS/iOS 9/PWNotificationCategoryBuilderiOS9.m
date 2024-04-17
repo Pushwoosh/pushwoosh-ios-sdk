@@ -5,7 +5,6 @@
 //  Created by Fectum on 19/07/2019.
 //  Copyright © 2019 Pushwoosh. All rights reserved.
 //
-
 #import "PWNotificationCategoryBuilderiOS9.h"
 
 @implementation PWNotificationCategoryBuilderiOS9

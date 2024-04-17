@@ -6,6 +6,7 @@
 //  Copyright © 2019 Pushwoosh. All rights reserved.
 //
 
+
 #import "PWNotificationCategoryBuilderiOS8.h"
 
 @interface PWNotificationCategoryBuilderiOS8()
@@ -97,7 +98,7 @@
             [self.result addObject:category];
         }
     }
-    
+
     if (completion) {
         completion();
     }
@@ -110,4 +111,3 @@
 }
 
 @end
-

@@ -30,11 +30,11 @@
 		</data>
 		<key>Headers/PWMessaging.h</key>
 		<data>
-		Xa2zMNlEQdzmn92rr5LIcry7Ypg=
+		UhLl8WuUXT0J43LakyKrnAmxa/k=
 		</data>
 		<key>Headers/PWNotificationExtensionManager.h</key>
 		<data>
-		Hf3i7vLWsrWpg/LmE9UXvexfUiQ=
+		Ek2HCa0O1kWvXD6Ubv74T0jrVyQ=
 		</data>
 		<key>Headers/PWRichMediaManager.h</key>
 		<data>
@@ -46,19 +46,23 @@
 		</data>
 		<key>Headers/PushNotificationManager.h</key>
 		<data>
-		uEBCIU44+AR3MeGXoyBuu8TNsIA=
+		naKxfNYUyCh3WoA9EI5oxjrofJ4=
 		</data>
 		<key>Headers/Pushwoosh.h</key>
 		<data>
-		q/uBHrPGiXzSpKvpPZQOkkZbBxc=
+		ORQwepkfZjfS1WL7bnrx358VTdY=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		qFoCAHccKZ3xo9yu/XaapwwE9xg=
+		+0q0GC7kaEl/UhokCCr+UKWOVbk=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
 		dw0xpT/wCWkyu/+sVPBUS5ie7rs=
+		</data>
+		<key>PrivacyInfo.xcprivacy</key>
+		<data>
+		7NzAl/qfKZwy0neaQU691RMQzrw=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -133,22 +137,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			Xa2zMNlEQdzmn92rr5LIcry7Ypg=
+			UhLl8WuUXT0J43LakyKrnAmxa/k=
 			</data>
 			<key>hash2</key>
 			<data>
-			SgWb1cukbj0Nzyl4+r4WT/SYN86X1rH+ZqO75cBnO7I=
+			ohwClTUk0Kh6UHYCaem5ViFj+3PQ4l339+jhrgJLMyg=
 			</data>
 		</dict>
 		<key>Headers/PWNotificationExtensionManager.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			Hf3i7vLWsrWpg/LmE9UXvexfUiQ=
+			Ek2HCa0O1kWvXD6Ubv74T0jrVyQ=
 			</data>
 			<key>hash2</key>
 			<data>
-			5pS11sgm9HM4AJqb5eBMiNmxs8SGIhOSSRPxVb8jpig=
+			kfuBSKJKkjryuhoVcuA+6R+mXe25Jqj6/VWlohrLQrI=
 			</data>
 		</dict>
 		<key>Headers/PWRichMediaManager.h</key>
@@ -177,22 +181,22 @@
 		<dict>
 			<key>hash</key>
 			<data>
-			uEBCIU44+AR3MeGXoyBuu8TNsIA=
+			naKxfNYUyCh3WoA9EI5oxjrofJ4=
 			</data>
 			<key>hash2</key>
 			<data>
-			fSuCuuBGVHOUW5XjyCdhq61aOfKPKhK4L8ojLztSmFQ=
+			uZCm/WroHaFimzCwwBQihrkTSYYQRS1qODWwkkhazTA=
 			</data>
 		</dict>
 		<key>Headers/Pushwoosh.h</key>
 		<dict>
 			<key>hash</key>
 			<data>
-			q/uBHrPGiXzSpKvpPZQOkkZbBxc=
+			ORQwepkfZjfS1WL7bnrx358VTdY=
 			</data>
 			<key>hash2</key>
 			<data>
-			StBpRY1TdzG44R+UtMMDLWZdHJXnY1+gDuf+QWy99Yk=
+			38XTVEcRt0I/io0Q6I9Vmq7upAqWI2NuKwLIXGdE8Uc=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
@@ -204,6 +208,17 @@
 			<key>hash2</key>
 			<data>
 			rGyq9mcV9XmZ9FRYSxtFS+rLLHBVDbpzU6Y3Ttj0vVA=
+			</data>
+		</dict>
+		<key>PrivacyInfo.xcprivacy</key>
+		<dict>
+			<key>hash</key>
+			<data>
+			7NzAl/qfKZwy0neaQU691RMQzrw=
+			</data>
+			<key>hash2</key>
+			<data>
+			5JV1VLSsu0iGctH5UBK5JwFbMxxCcRJL5PJrqjkX+ZM=
 			</data>
 		</dict>
 	</dict>

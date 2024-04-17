@@ -207,6 +207,28 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
  */
 + (NSDictionary *)appendValuesToListTag:(NSArray<NSString *> *)array;
 
+
+/**
+ Creates a dictionary for removing Tag’s values from existing values list
+ 
+ Example:
+ 
+ @code
+ NSDictionary *tags = @{
+     @"Alias" : aliasField.text,
+     @"FavNumber" : @([favNumField.text intValue]),
+     @"List" : [PWTags removeValuesFromListTag:@[ @"Item1" ]]
+ };
+ 
+ [[PushNotificationManager pushManager] setTags:tags];
+ @endcode
+ 
+ @param array Array of values to be removed from the tag.
+ 
+ @return Dictionary to be sent as the value for the tag
+ */
++ (NSDictionary *)removeValuesFromListTag:(NSArray<NSString *> *)array;
+
 @end
 
 /**

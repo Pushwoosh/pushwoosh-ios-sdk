@@ -134,8 +134,7 @@
 }
 
 + (BOOL)handleURL:(NSURL *)url {
-    NSString *scheme = [NSString stringWithFormat:@"pw-%@", [PWPreferences preferences].appCode];
-    if ([[url scheme] caseInsensitiveCompare:scheme] == NSOrderedSame) {
+    if ([[url scheme] hasPrefix:@"pushwoosh-"]) {
         if ([[url host] isEqualToString:@"createTestDevice"]) {
                 dispatch_block_t registerTestDeviceBlock = ^{
                     [[Pushwoosh sharedInstance].pushNotificationManager registerTestDevice];

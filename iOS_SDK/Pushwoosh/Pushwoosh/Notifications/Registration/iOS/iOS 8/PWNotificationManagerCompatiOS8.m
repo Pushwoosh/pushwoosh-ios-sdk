@@ -39,10 +39,11 @@
     UIUserNotificationSettings *pushSettings = [UIUserNotificationSettings settingsForTypes:types categories:categories];
     [PWPushRuntime swizzleNotificationSettingsHandler];
     [self registerUserNotificationSettings:pushSettings];
-    
+
     if (completion) {
         completion();
     }
+    
 }
 
 //Due to BUG in iOS9 registering again while "allow notifications" popup is active will result in two notifiations on homescreen.
@@ -80,7 +81,6 @@
 
 - (void)getRemoteNotificationStatusWithCompletion:(void (^)(NSDictionary*))completion {
     NSMutableDictionary *results = [NSMutableDictionary dictionary];
-    
     UIUserNotificationSettings *settings = [[UIApplication sharedApplication] currentUserNotificationSettings];
     NSInteger type = settings.types;
     results[@"type"] = [NSString stringWithFormat:@"%d", (int)type];
@@ -101,14 +101,12 @@
     if (type & UIUserNotificationTypeSound) {
         results[@"pushSound"] = @"1";
     }
-    
     completion(results);
 }
 
 - (NSDictionary *)startPushInfoFromInfoDictionary:(NSDictionary *)userInfo {
     //try as launchOptions dictionary
     NSDictionary *pushDict = userInfo[UIApplicationLaunchOptionsRemoteNotificationKey];
-    
     if (pushDict == nil) {
         id notification = userInfo[UIApplicationLaunchOptionsLocalNotificationKey];
         
@@ -120,7 +118,7 @@
             }
         }
     }
-    
+
     return pushDict;
 }
 

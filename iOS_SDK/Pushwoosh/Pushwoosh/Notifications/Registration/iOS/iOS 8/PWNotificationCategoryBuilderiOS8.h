@@ -12,7 +12,6 @@
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PWNotificationCategoryBuilderiOS8 : PWNotificationCategoryBuilder
-
 @property (nonatomic, strong) UIMutableUserNotificationAction *currentAction;
 
 @end
