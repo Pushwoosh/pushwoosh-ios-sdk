@@ -46,6 +46,20 @@
 		442A29632BBABEC5009BEF78 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */; };
 		442A29782BBAC211009BEF78 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */; };
 		44378CC628BE347300175DE2 /* PWInAppPurchaseHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44378CC528BE347300175DE2 /* PWInAppPurchaseHelperTest.m */; };
+		4477FC912BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */; };
+		4477FC922BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
+		4477FC932BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
+		4477FC942BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */; };
+		4477FC952BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
+		4477FC962BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */; };
+		4477FC972BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
+		4477FC982BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */; };
+		4477FC992BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */; };
+		4477FC9A2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
+		4477FC9B2BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */; };
+		4477FC9C2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
+		4477FC9D2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
+		4477FC9E2BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */; };
 		449CA9FC2877253B00B4EEEF /* PWRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CA9FB2877253B00B4EEEF /* PWRequestTest.m */; };
 		449CAA04287725BD00B4EEEF /* PWRegisterEmailTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA02287725BD00B4EEEF /* PWRegisterEmailTest.m */; };
 		449CAA05287725BD00B4EEEF /* PWRegisterEmailUserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA03287725BD00B4EEEF /* PWRegisterEmailUserTest.m */; };
@@ -1494,6 +1508,8 @@
 /* Begin PBXFileReference section */
 		442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		44378CC528BE347300175DE2 /* PWInAppPurchaseHelperTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInAppPurchaseHelperTest.m; sourceTree = "<group>"; };
+		4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWStartLiveActivityRequest.h; sourceTree = "<group>"; };
+		4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWStartLiveActivityRequest.m; sourceTree = "<group>"; };
 		449CA9FB2877253B00B4EEEF /* PWRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWRequestTest.m; sourceTree = "<group>"; };
 		449CAA02287725BD00B4EEEF /* PWRegisterEmailTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWRegisterEmailTest.m; sourceTree = "<group>"; };
 		449CAA03287725BD00B4EEEF /* PWRegisterEmailUserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWRegisterEmailUserTest.m; sourceTree = "<group>"; };
@@ -3040,6 +3056,8 @@
 			children = (
 				AF2201A72A443E8A0054F20A /* PWLiveActivityRequest.h */,
 				AF2201A82A443E8A0054F20A /* PWLiveActivityRequest.m */,
+				4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */,
+				4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */,
 			);
 			path = "Live Activity";
 			sourceTree = "<group>";
@@ -3167,6 +3185,7 @@
 				449CC0C52BA9DDC0003E16DC /* PWPushManagerJSBridge.h in Headers */,
 				449CC0772BA9D78E003E16DC /* PWSetEmailTagsRequest.h in Headers */,
 				449CC02C2BA9C533003E16DC /* PWGDPRManager.h in Headers */,
+				4477FC9D2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */,
 				449CC15A2BAA02AF003E16DC /* zip.h in Headers */,
 				449CC08D2BA9D91A003E16DC /* PWLiveActivityRequest.h in Headers */,
 				449CC04B2BA9CFCC003E16DC /* PWLog+Internal.h in Headers */,
@@ -3306,6 +3325,7 @@
 				5DB6E2EE23F5574F00421AA4 /* PWConfig.h in Headers */,
 				5DB6E85F23F5762C00421AA4 /* PWInboxAllMessagesRequest.h in Headers */,
 				5DB6E29623F5551900421AA4 /* PWCache.h in Headers */,
+				4477FC932BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */,
 				5D2AD8EA2408F42300588516 /* PWMessage+Internal.h in Headers */,
 				5DB6E78D23F56B2400421AA4 /* PWHtmlWebViewController.ios.h in Headers */,
 				97F7D0472771C95F0006692B /* PWUnarchiver.h in Headers */,
@@ -3383,6 +3403,7 @@
 				5DB6E50C23F55E9800421AA4 /* PWCombinedSetTagsRequest.h in Headers */,
 				97F7D0492771C95F0006692B /* PWUnarchiver.h in Headers */,
 				5D12C24323F5448F009A655A /* PushNotificationManager.h in Headers */,
+				4477FC972BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */,
 				5DB6E29223F5551900421AA4 /* PWPreferences.h in Headers */,
 				5DB6E39F23F55A3000421AA4 /* PWRegisterTestDeviceRequest.h in Headers */,
 				5DB6E3AB23F55A3000421AA4 /* PWUnregisterDeviceRequest.h in Headers */,
@@ -3469,6 +3490,7 @@
 				9021094E2670802F00F811B4 /* PWServerCommunicationManager.h in Headers */,
 				9798F92C25272060005AD120 /* PWRegisterEmailUser.h in Headers */,
 				5DB6E6EA23F565DA00421AA4 /* PWNotificationCategoryBuilder.h in Headers */,
+				4477FC9C2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */,
 				5DB6E3AD23F55A3000421AA4 /* PWUnregisterDeviceRequest.h in Headers */,
 				5DB6E30623F558A500421AA4 /* PWSupportedOrientations.h in Headers */,
 				9798F95025272746005AD120 /* PWSetEmailTagsRequest.h in Headers */,
@@ -3541,6 +3563,7 @@
 				5D2AD8ED2408F42300588516 /* PWMessage+Internal.h in Headers */,
 				9021094D2670802F00F811B4 /* PWServerCommunicationManager.h in Headers */,
 				9798F92B25272060005AD120 /* PWRegisterEmailUser.h in Headers */,
+				4477FC9A2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */,
 				5DB6E2F123F5574F00421AA4 /* PWConfig.h in Headers */,
 				5DB6E41523F55B4B00421AA4 /* PWAppOpenRequest.h in Headers */,
 				5DB6E3AC23F55A3000421AA4 /* PWUnregisterDeviceRequest.h in Headers */,
@@ -3605,6 +3628,7 @@
 				5DB6E3AA23F55A3000421AA4 /* PWUnregisterDeviceRequest.h in Headers */,
 				5DB6E39E23F55A3000421AA4 /* PWRegisterTestDeviceRequest.h in Headers */,
 				9798F94D25272746005AD120 /* PWSetEmailTagsRequest.h in Headers */,
+				4477FC952BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */,
 				5DB6E7DD23F572B200421AA4 /* PWPushRuntime.h in Headers */,
 				AF2201AB2A443E8A0054F20A /* PWLiveActivityRequest.h in Headers */,
 				5DB6E88A23F576F600421AA4 /* WKWebView+PWSynchronousEvaluateJavaScript.h in Headers */,
@@ -3817,6 +3841,7 @@
 				5DB6E2ED23F5574F00421AA4 /* PWConfig.h in Headers */,
 				5DB6E85E23F5762C00421AA4 /* PWInboxAllMessagesRequest.h in Headers */,
 				5DB6E29523F5551900421AA4 /* PWCache.h in Headers */,
+				4477FC922BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */,
 				5D2AD8E92408F42300588516 /* PWMessage+Internal.h in Headers */,
 				5DB6E78C23F56B2400421AA4 /* PWHtmlWebViewController.ios.h in Headers */,
 				97F7D0462771C95F0006692B /* PWUnarchiver.h in Headers */,
@@ -4107,7 +4132,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#available values: USE_LOCATION, USE_IBEACONS\nexport PW_PREPROCESSOR_DEFS=\"USE_LOCATION\"\nexport PW_SIMULATOR_ARCHS=\"i386 x86_64\"\nexport PW_DEVICE_ARCHS=\"${ARCHS_STANDARD} armv7s\"\n\n. ../build/create_framework_ios.sh && \\\n. ../build/create_xcframework_ios.sh || exit 1\n";
+			shellScript = "#available values: USE_LOCATION, USE_IBEACONS\nexport PW_PREPROCESSOR_DEFS=\"USE_LOCATION\"\nexport PW_SIMULATOR_ARCHS=\"x86_64\"\nexport PW_DEVICE_ARCHS=\"${ARCHS_STANDARD}\"\n\n. ../build/create_framework_ios.sh && \\\n. ../build/create_xcframework_ios.sh || exit 1\n";
 		};
 		449CC1A12BAC2004003E16DC /* Create framework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4232,6 +4257,7 @@
 				449CC14B2BA9F88C003E16DC /* PWNotificationCategoryBuilderiOS9.m in Sources */,
 				449CC0332BA9C771003E16DC /* PWMessageViewController.ios.m in Sources */,
 				449CC0702BA9D73B003E16DC /* PWVersionTracking.m in Sources */,
+				4477FC9E2BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */,
 				449CC0862BA9D8DA003E16DC /* PWRegisterUserRequest.m in Sources */,
 				449CC09B2BA9D9EE003E16DC /* PWRegisterDeviceRequest.m in Sources */,
 				449CC0132BA9C29A003E16DC /* Pushwoosh.m in Sources */,
@@ -4275,6 +4301,7 @@
 				5DB6E55923F55F3400421AA4 /* PWChannel.m in Sources */,
 				5DB6E45523F55BF300421AA4 /* PWMessageDeliveryRequest.m in Sources */,
 				5DB6E82D23F5761400421AA4 /* PWInboxStorage.m in Sources */,
+				4477FC942BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */,
 				5D2AD9072409286A00588516 /* PWNotificationCenterDelegateProxy.m in Sources */,
 				9021094226707FDC00F811B4 /* PWServerCommunicationManager.m in Sources */,
 				9798F8F225271FC4005AD120 /* PWRegisterEmail.m in Sources */,
@@ -4475,6 +4502,7 @@
 				5DB6E54C23F55EF400421AA4 /* PWNetworkModule.m in Sources */,
 				5DB6E45723F55BF300421AA4 /* PWMessageDeliveryRequest.m in Sources */,
 				5D46160A23FBAD7500001E0E /* Pushwoosh.m in Sources */,
+				4477FC982BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */,
 				5DB6E28C23F5551900421AA4 /* PWCache.m in Sources */,
 				5DB6E53823F55EEF00421AA4 /* PWRequestManager.m in Sources */,
 				5DB6E4E923F55D2E00421AA4 /* PWMergeUserRequest.m in Sources */,
@@ -4566,6 +4594,7 @@
 				5DB6E44423F55BDA00421AA4 /* PWBasePushTrackingRequest.m in Sources */,
 				5DB6E28E23F5551900421AA4 /* PWCache.m in Sources */,
 				5DB6E91923F579C200421AA4 /* NSDate+PWDateUtils.m in Sources */,
+				4477FC9B2BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */,
 				AF2201B42A443E8A0054F20A /* PWLiveActivityRequest.m in Sources */,
 				9798F8F625271FC4005AD120 /* PWRegisterEmail.m in Sources */,
 				5D12C26D23F545CF009A655A /* PWLog.m in Sources */,
@@ -4626,6 +4655,7 @@
 				5DB6E44323F55BDA00421AA4 /* PWBasePushTrackingRequest.m in Sources */,
 				5DB6E28D23F5551900421AA4 /* PWCache.m in Sources */,
 				5DB6E91823F579C200421AA4 /* NSDate+PWDateUtils.m in Sources */,
+				4477FC992BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */,
 				AF2201B32A443E8A0054F20A /* PWLiveActivityRequest.m in Sources */,
 				9798F8F525271FC4005AD120 /* PWRegisterEmail.m in Sources */,
 				5D12C26C23F545CF009A655A /* PWLog.m in Sources */,
@@ -4695,6 +4725,7 @@
 				5D12C24623F5449F009A655A /* PushNotificationManager.m in Sources */,
 				5DB6E4D223F55D2900421AA4 /* PWGetTagsRequest.m in Sources */,
 				5DB6E78A23F56B2300421AA4 /* PWHtmlWebViewController.mac.m in Sources */,
+				4477FC962BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */,
 				5DB6E51B23F55EB300421AA4 /* PWCachedRequest.m in Sources */,
 				5D2AD9082409286A00588516 /* PWNotificationCenterDelegateProxy.m in Sources */,
 				5DB6E89223F576F600421AA4 /* WKWebView+PWSynchronousEvaluateJavaScript.m in Sources */,
@@ -4782,6 +4813,7 @@
 				5DB6E55823F55F3400421AA4 /* PWChannel.m in Sources */,
 				5DB6E45423F55BF300421AA4 /* PWMessageDeliveryRequest.m in Sources */,
 				5DB6E82C23F5761400421AA4 /* PWInboxStorage.m in Sources */,
+				4477FC912BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */,
 				5D2AD9062409286A00588516 /* PWNotificationCenterDelegateProxy.m in Sources */,
 				9021094126707FDC00F811B4 /* PWServerCommunicationManager.m in Sources */,
 				9798F8F125271FC4005AD120 /* PWRegisterEmail.m in Sources */,
@@ -4923,7 +4955,7 @@
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
 				INSTALL_PATH = /usr/local/lib;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -4955,7 +4987,7 @@
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
 				INSTALL_PATH = /usr/local/lib;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				PRODUCT_NAME = Pushwoosh;
@@ -5036,7 +5068,8 @@
 			buildSettings = {
 				ARCHS = (
 					"$(ARCHS_STANDARD)",
-					armv7s,
+					x86_64h,
+					x86_64,
 				);
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = YES;
@@ -5045,7 +5078,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				PRODUCT_NAME = Pushwoosh;
 				WRAPPER_EXTENSION = framework;
@@ -5057,7 +5090,8 @@
 			buildSettings = {
 				ARCHS = (
 					"$(ARCHS_STANDARD)",
-					armv7s,
+					x86_64h,
+					x86_64,
 				);
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = YES;
@@ -5066,7 +5100,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				PRODUCT_NAME = Pushwoosh;
 				WRAPPER_EXTENSION = framework;
@@ -5315,7 +5349,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting_Files/Pushwoosh.iOS.dynamic-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5376,7 +5410,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting_Files/Pushwoosh.iOS.dynamic-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5434,7 +5468,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/PushwooshTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5489,7 +5523,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/PushwooshTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5680,7 +5714,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting_Files/Pushwoosh.watchOS.dynamic-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5745,7 +5779,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting_Files/Pushwoosh.watchOS.dynamic-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5807,7 +5841,7 @@
 				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
@@ -5858,7 +5892,7 @@
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
@@ -5901,7 +5935,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -5936,7 +5970,7 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = Pushwoosh;
@@ -5951,7 +5985,7 @@
 			buildSettings = {
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Pushwoosh;
 				SUPPORTED_PLATFORMS = macosx;
@@ -5964,7 +5998,7 @@
 			buildSettings = {
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Pushwoosh;
 				SUPPORTED_PLATFORMS = macosx;

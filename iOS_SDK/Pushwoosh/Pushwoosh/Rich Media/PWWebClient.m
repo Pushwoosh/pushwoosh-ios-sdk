@@ -160,9 +160,15 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 		sJavaScriptInterfaces = [NSMutableDictionary new];
 	});
 	
-	@synchronized (sJavaScriptInterfaces) {
-		sJavaScriptInterfaces[name] = interface;
-	}
+    @synchronized (sJavaScriptInterfaces) {
+        sJavaScriptInterfaces[name] = interface;
+        
+        [[NSNotificationCenter defaultCenter] postNotificationName:kJavaScriptUpdated object:nil userInfo:@{kInterface: sJavaScriptInterfaces}];
+    }
+}
+
+- (void)reloadWebView {
+    [_webView reload];
 }
 
 #if TARGET_OS_IOS
@@ -170,9 +176,12 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 #else
 - (id)initWithParentView:(NSView *)parentView payload:(NSDictionary *)payload code:(NSString *)code inAppCode:(NSString *)inAppCode {
 #endif
-	self = [super init];
+    
+    self = [super init];
     
 	if (self) {
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadWebView) name:kReloadWebView object:nil];
+        
         @synchronized (sJavaScriptInterfaces) {
             _javascriptInterfaces = [sJavaScriptInterfaces copy];
         }
@@ -264,12 +273,12 @@ static NSMutableDictionary *sJavaScriptInterfaces;
         if (_javascriptInterfaces) {
             [interfaces addEntriesFromDictionary:_javascriptInterfaces];
         }
-        
+                
         _webView = [[PWEasyJSWKWebView alloc] initWithFrame:parentView.bounds
                                               configuration:config
                                    withJavascriptInterfaces:interfaces
                                                 userScripts:@[addViewPortInject, pushwooshInject, hwidInject, versionInject, applicationInject, userIdInject, deviceTypeInject, messageHashInject, richMediaCodeInject, inAppCodeInject, disableSelectionInject, removeSelectionInject]];
-        
+                
 #if TARGET_OS_IOS
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
 #pragma clang diagnostic push

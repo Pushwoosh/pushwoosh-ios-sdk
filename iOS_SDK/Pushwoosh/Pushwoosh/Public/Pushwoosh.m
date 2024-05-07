@@ -253,6 +253,14 @@ static dispatch_once_t pushwooshOncePredicate;
     return [PWPushNotificationsManager getRemoteNotificationStatus];
 }
 
+- (void)sendPushToStartLiveActivityToken:(NSString *)token {
+    [self sendPushToStartLiveActivityToken:token completion:nil];
+}
+
+- (void)sendPushToStartLiveActivityToken:(NSString *_Nullable)token completion:(void (^ _Nullable)(NSError * _Nullable))completion {
+    [self.dataManager sendPushToStartLiveActivityToken:token completion:completion];
+}
+
 - (void)startLiveActivityWithToken:(NSString *)token {
     [self startLiveActivityWithToken:token completion:nil];
 }

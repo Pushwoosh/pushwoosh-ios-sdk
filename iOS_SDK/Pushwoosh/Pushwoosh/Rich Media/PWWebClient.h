@@ -12,6 +12,10 @@
 
 #import <WebKit/WebKit.h>
 
+#define kJavaScriptUpdated @"keyJavaScriptUpdate"
+#define kReloadWebView @"keyReloadWebView"
+#define kInterface @"keyInterface"
+
 @class PWWebClient;
 
 @protocol PWWebClientDelegate <NSObject>

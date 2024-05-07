@@ -19,6 +19,7 @@
 #import "PWSetEmailTagsRequest.h"
 #import "PWServerCommunicationManager.h"
 #import "PWLiveActivityRequest.h"
+#import "PWStartLiveActivityRequest.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 #import "PWBusinessCaseManager.h"
@@ -322,6 +323,17 @@
     }
 }
 
+- (void)sendPushToStartLiveActivityToken:(NSString *)token completion:(void (^)(NSError * _Nullable))completion {
+    [_requestManager sendRequest:[self sendStartLiveActivityRequestWithToken:token] completion:^(NSError *error) {
+        if (error) {
+            PWLogDebug(@"Start Live Activity request failed");
+        }
+        
+        if (completion)
+            completion(error);
+    }];
+}
+
 - (void)startLiveActivityWithToken:(NSString *)token completion:(void (^)(NSError * _Nullable))completion {
     [_requestManager sendRequest:[self sendLiveActivityRequestWithToken:token] completion:^(NSError *error) {
         if (error) {
@@ -346,6 +358,13 @@
 
 - (PWLiveActivityRequest *)sendLiveActivityRequestWithToken:(NSString *)token {
     PWLiveActivityRequest *request = [[PWLiveActivityRequest alloc] init];
+    request.token = token;
+    
+    return request;
+}
+
+- (PWStartLiveActivityRequest *)sendStartLiveActivityRequestWithToken:(NSString *)token {
+    PWStartLiveActivityRequest *request = [[PWStartLiveActivityRequest alloc] init];
     request.token = token;
     
     return request;

@@ -131,6 +131,12 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1a86385c57c5f5a911092f40db090b6de4">- (void)stopServerCommunication</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1a52505171bf9f13f972680d795e796661">- (void)sendPushToStartLiveActivityToken:(NSString *_Nullable)token</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a67fc0820b2e3d2e4164fe77946b46366">- (void)sendPushToStartLiveActivityToken:(NSString *_Nullable)token completion:(void(^)(NSError *_Nullable))completion</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1a5ce3a6b04e8538352ffa47ec63e6168e">- (void)startLiveActivityWithToken:(NSString *_Nonnull)token</a></td>
 	</tr>
 	<tr>
@@ -563,16 +569,43 @@ Stops communication with Pushwoosh server.
 ----------  
   
 
-#### <a name="1a5ce3a6b04e8538352ffa47ec63e6168e"></a>- (void)startLiveActivityWithToken:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)token  
+#### <a name="1a52505171bf9f13f972680d795e796661"></a>- (void)sendPushToStartLiveActivityToken:(NSString \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a>)token  
 Process URL of some deep link. Primarly used for register test devices.<br/><br/><br/><strong>Parameters</strong><br/>
 <table>
 	<tr>
 		<td><strong>url</strong></td>
-		<td>Deep Link URL Sends live activity token to the server. Call this method when you create a live activity.</td>
+		<td>Deep Link URL Sends push to start live activity token to the server. Call this method when you want to initiate live activity via push notification</td>
 	</tr>
 </table>
 
 Example: 
+```Objective-C
+if #available(iOS 17.2, *) {
+        Task {
+            for await data in Activity<LiveActivityAttributes>.pushToStartTokenUpdates {
+                let token = data.map { String(format: "%02x", $0) }.joined()
+                do {
+                    try await Pushwoosh.sharedInstance().sendPush(toStartLiveActivityToken: token)
+                } catch {
+                    print("Error sending push to start live activity: \(error)")
+                }
+           }
+       }
+ }
+```
+
+
+----------  
+  
+
+#### <a name="1a67fc0820b2e3d2e4164fe77946b46366"></a>- (void)sendPushToStartLiveActivityToken:(NSString \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a>)token completion:(void(^)(NSError \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a>))completion  
+
+
+----------  
+  
+
+#### <a name="1a5ce3a6b04e8538352ffa47ec63e6168e"></a>- (void)startLiveActivityWithToken:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)token  
+Sends live activity token to the server. Call this method when you create a live activity.<br/>Example: 
 ```Objective-C
 do {
     let activity = try Activity<PushwooshAppAttributes>.request(

@@ -18,7 +18,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.5.10"
+#define PUSHWOOSH_VERSION @"6.5.11"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -519,6 +519,32 @@ Unregisters from push notifications.
 #if TARGET_OS_IOS || TARGET_OS_WATCH
 - (BOOL)handleOpenURL:(NSURL * _Nonnull)url;
 #endif
+
+/**
+ Sends push to start live activity token to the server.
+ Call this method when you want to initiate live activity via push notification
+ 
+ Example:
+ @code
+ 
+ if #available(iOS 17.2, *) {
+         Task {
+             for await data in Activity<LiveActivityAttributes>.pushToStartTokenUpdates {
+                 let token = data.map { String(format: "%02x", $0) }.joined()
+                 do {
+                     try await Pushwoosh.sharedInstance().sendPush(toStartLiveActivityToken: token)
+                 } catch {
+                     print("Error sending push to start live activity: \(error)")
+                 }
+            }
+        }
+  }
+ 
+ @endcode
+ */
+
+- (void)sendPushToStartLiveActivityToken:(NSString *_Nullable)token;
+- (void)sendPushToStartLiveActivityToken:(NSString *_Nullable)token completion:(void (^ _Nullable)(NSError * _Nullable))completion;
 
 /**
  Sends live activity token to the server.

@@ -16,5 +16,6 @@
 @interface PWEasyJSListener : NSObject <WKUIDelegate>
 
 @property (nonatomic) NSDictionary* javascriptInterfaces;
+@property (nonatomic) NSMutableDictionary *updatedJavascriptInterfaces;
 
 @end
