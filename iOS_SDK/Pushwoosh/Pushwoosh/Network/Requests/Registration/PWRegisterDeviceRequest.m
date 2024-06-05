@@ -28,7 +28,7 @@
 
 - (instancetype)init {
     if (self = [super init]) {
-        self.cacheable = NO;
+        self.cacheable = YES;
     }
     return self;
 }

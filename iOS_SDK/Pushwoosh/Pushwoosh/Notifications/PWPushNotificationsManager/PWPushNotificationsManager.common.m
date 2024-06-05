@@ -27,7 +27,7 @@
 #import "PWInAppManager+Internal.h"
 
 
-const NSTimeInterval kRegistrationUpdateInterval = 5 * 60;
+const NSTimeInterval kRegistrationUpdateInterval = 24 * 60 * 60;
 
 @interface PWPushNotificationsManagerCommon ()
 
@@ -152,7 +152,8 @@ const NSTimeInterval kRegistrationUpdateInterval = 5 * 60;
 	NSDate *lastReg = [PWPreferences preferences].lastRegTime;
 	if (lastReg) {
 		NSTimeInterval secondsBetween = [[NSDate date] timeIntervalSinceDate:lastReg];
-		if (secondsBetween < kRegistrationUpdateInterval) {
+        
+		if ([[PWPreferences preferences].pushToken isEqualToString:deviceID] && secondsBetween < kRegistrationUpdateInterval) {
 			PWLogInfo(@"Registered for push notifications: %@", deviceID);
 
             [self sendTokenToDelegate:deviceID triggerCallbacks:triggerCallbacks];
