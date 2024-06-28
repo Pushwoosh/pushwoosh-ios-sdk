@@ -119,6 +119,8 @@
 
 @property (nonatomic, assign, readonly) BOOL preHandleNotificationsWithUrl;
 
+@property (nonatomic, readonly) BOOL lazyInitialization;
+
 
 /**
 key: Pushwoosh_AUTO_ACCEPT_DEEP_LINK_FOR_SILENT_PUSH

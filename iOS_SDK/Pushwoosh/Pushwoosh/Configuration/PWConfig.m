@@ -22,6 +22,7 @@
 @property (nonatomic, assign, readwrite) BOOL acceptedDeepLinkForSilentPush;
 @property (nonatomic, readwrite) BOOL sendPurchaseTrackingEnabled;
 @property (nonatomic, assign, readwrite) BOOL preHandleNotificationsWithUrl;
+@property (nonatomic, assign, readwrite) BOOL lazyInitialization;
 
 @property (nonatomic) NSBundle *bundle;
 
@@ -118,6 +119,8 @@
 		}
 
 		self.logLevel = (LogLevel)logLevelObject.integerValue;
+        
+        self.lazyInitialization = [self getBoolean:@"Pushwoosh_LAZY_INITIALIZATION" default:NO];
 	}
 
 	return self;
