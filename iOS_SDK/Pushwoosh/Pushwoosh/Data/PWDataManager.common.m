@@ -334,8 +334,8 @@
     }];
 }
 
-- (void)startLiveActivityWithToken:(NSString *)token completion:(void (^)(NSError * _Nullable))completion {
-    [_requestManager sendRequest:[self sendLiveActivityRequestWithToken:token] completion:^(NSError *error) {
+- (void)startLiveActivityWithToken:(NSString *)token activityId:(NSString *)activityId completion:(void (^)(NSError * _Nullable))completion {
+    [_requestManager sendRequest:[self sendLiveActivityRequestWithToken:token activityId:activityId] completion:^(NSError *error) {
         if (error) {
             PWLogDebug(@"Live Activity request failed");
         }
@@ -346,7 +346,7 @@
 }
 
 - (void)stopLiveActivityWithCompletion:(void (^)(NSError * _Nullable))completion {
-    [_requestManager sendRequest:[self sendLiveActivityRequestWithToken:nil] completion:^(NSError *error) {
+    [_requestManager sendRequest:[self sendLiveActivityRequestWithToken:nil activityId:nil] completion:^(NSError *error) {
         if (error) {
             PWLogDebug(@"Live Activity request failed");
         }
@@ -356,9 +356,10 @@
     }];
 }
 
-- (PWLiveActivityRequest *)sendLiveActivityRequestWithToken:(NSString *)token {
+- (PWLiveActivityRequest *)sendLiveActivityRequestWithToken:(NSString *)token activityId:(NSString *)activityId {
     PWLiveActivityRequest *request = [[PWLiveActivityRequest alloc] init];
     request.token = token;
+    request.activityId = activityId;
     
     return request;
 }

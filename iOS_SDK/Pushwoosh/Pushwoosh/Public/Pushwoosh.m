@@ -261,12 +261,12 @@ static dispatch_once_t pushwooshOncePredicate;
     [self.dataManager sendPushToStartLiveActivityToken:token completion:completion];
 }
 
-- (void)startLiveActivityWithToken:(NSString *)token {
-    [self startLiveActivityWithToken:token completion:nil];
+- (void)startLiveActivityWithToken:(NSString *)token activityId:(NSString * _Nullable)activityId {
+    [self startLiveActivityWithToken:token activityId:activityId completion:nil];
 }
 
-- (void)startLiveActivityWithToken:(NSString *)token completion:(void (^)(NSError * _Nullable))completion {
-    [self.dataManager startLiveActivityWithToken:token completion:completion];
+- (void)startLiveActivityWithToken:(NSString *)token activityId:(NSString * _Nullable)activityId completion:(void (^)(NSError * _Nullable))completion {
+    [self.dataManager startLiveActivityWithToken:token activityId:activityId completion:completion];
 }
 
 - (void)stopLiveActivity {

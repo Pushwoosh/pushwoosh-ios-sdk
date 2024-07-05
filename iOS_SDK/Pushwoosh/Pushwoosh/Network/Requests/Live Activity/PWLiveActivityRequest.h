@@ -13,6 +13,7 @@ NS_ASSUME_NONNULL_BEGIN
 @interface PWLiveActivityRequest : PWRequest
 
 @property (nonatomic) NSString *token;
+@property (nonatomic) NSString *activityId;
 
 @end
 

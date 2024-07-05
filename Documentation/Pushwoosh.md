@@ -137,10 +137,10 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1a67fc0820b2e3d2e4164fe77946b46366">- (void)sendPushToStartLiveActivityToken:(NSString *_Nullable)token completion:(void(^)(NSError *_Nullable))completion</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a5ce3a6b04e8538352ffa47ec63e6168e">- (void)startLiveActivityWithToken:(NSString *_Nonnull)token</a></td>
+		<td><a href="#1a5f19b5be349429bad1ef85e8eaaf5786">- (void)startLiveActivityWithToken:(NSString *_Nonnull)token activityId:(NSString *_Nullable)activityId</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1a1849586bdd300dd80309a6c8354134f2">- (void)startLiveActivityWithToken:(NSString *_Nonnull)token completion:(void(^)(NSError *_Nullable error))completion</a></td>
+		<td><a href="#1a33a157a696f3084f23fb5b2df9193705">- (void)startLiveActivityWithToken:(NSString *_Nonnull)token activityId:(NSString *_Nullable)activityId completion:(void(^)(NSError *_Nullable error))completion</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a0df2937a1b6953ab7d2d495787607cff">- (void)stopLiveActivity</a></td>
@@ -604,7 +604,7 @@ if #available(iOS 17.2, *) {
 ----------  
   
 
-#### <a name="1a5ce3a6b04e8538352ffa47ec63e6168e"></a>- (void)startLiveActivityWithToken:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)token  
+#### <a name="1a5f19b5be349429bad1ef85e8eaaf5786"></a>- (void)startLiveActivityWithToken:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)token activityId:(NSString \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a>)activityId  
 Sends live activity token to the server. Call this method when you create a live activity.<br/>Example: 
 ```Objective-C
 do {
@@ -612,22 +612,43 @@ do {
         attributes: attributes,
         contentState: contentState,
         pushType: .token)
+    
     for await data in activity.pushTokenUpdates {
-        let token = data.map {String(format: "%02x", $0)}.joined()
-        try await Pushwoosh.sharedInstance().startLiveActivity(withToken: token)
-        return token
+        guard let token = data.map { String(format: "%02x", $0) }.joined(separator: "") else {
+            continue
+        }
+        
+        do {
+            try await Pushwoosh.sharedInstance().startLiveActivity(withToken: token)
+            return token
+        } catch {
+            print("Failed to start live activity with token \(token): \(error.localizedDescription)")
+            return nil
+        }
     }
-} catch (let error) {
-    print(error.localizedDescription)
+    return nil
+} catch {
+    print("Error requesting activity: \(error.localizedDescription)")
     return nil
 }
 ```
+<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>token</strong></td>
+		<td>Activity token </td>
+	</tr>
+	<tr>
+		<td><strong>activityId</strong></td>
+		<td>Activity ID for updating Live Activities by segments </td>
+	</tr>
+</table>
 
 
 ----------  
   
 
-#### <a name="1a1849586bdd300dd80309a6c8354134f2"></a>- (void)startLiveActivityWithToken:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)token completion:(void(^)(NSError \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a> error))completion  
+#### <a name="1a33a157a696f3084f23fb5b2df9193705"></a>- (void)startLiveActivityWithToken:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)token activityId:(NSString \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a>)activityId completion:(void(^)(NSError \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a> error))completion  
 
 
 ----------  

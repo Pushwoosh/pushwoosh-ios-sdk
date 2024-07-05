@@ -60,6 +60,7 @@
 		4477FC9C2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
 		4477FC9D2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
 		4477FC9E2BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */; };
+		44812A212C36C91200D5326E /* PWLiveActivityRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44812A202C36C91200D5326E /* PWLiveActivityRequestTest.m */; };
 		449CA9FC2877253B00B4EEEF /* PWRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CA9FB2877253B00B4EEEF /* PWRequestTest.m */; };
 		449CAA04287725BD00B4EEEF /* PWRegisterEmailTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA02287725BD00B4EEEF /* PWRegisterEmailTest.m */; };
 		449CAA05287725BD00B4EEEF /* PWRegisterEmailUserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA03287725BD00B4EEEF /* PWRegisterEmailUserTest.m */; };
@@ -1510,6 +1511,7 @@
 		44378CC528BE347300175DE2 /* PWInAppPurchaseHelperTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInAppPurchaseHelperTest.m; sourceTree = "<group>"; };
 		4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWStartLiveActivityRequest.h; sourceTree = "<group>"; };
 		4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWStartLiveActivityRequest.m; sourceTree = "<group>"; };
+		44812A202C36C91200D5326E /* PWLiveActivityRequestTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWLiveActivityRequestTest.m; sourceTree = "<group>"; };
 		449CA9FB2877253B00B4EEEF /* PWRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWRequestTest.m; sourceTree = "<group>"; };
 		449CAA02287725BD00B4EEEF /* PWRegisterEmailTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWRegisterEmailTest.m; sourceTree = "<group>"; };
 		449CAA03287725BD00B4EEEF /* PWRegisterEmailUserTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWRegisterEmailUserTest.m; sourceTree = "<group>"; };
@@ -1974,6 +1976,14 @@
 			name = "Javascript Bridge";
 			sourceTree = "<group>";
 		};
+		44812A222C36C91D00D5326E /* Live Activity */ = {
+			isa = PBXGroup;
+			children = (
+				44812A202C36C91200D5326E /* PWLiveActivityRequestTest.m */,
+			);
+			name = "Live Activity";
+			sourceTree = "<group>";
+		};
 		449CA9FD2877255600B4EEEF /* Email */ = {
 			isa = PBXGroup;
 			children = (
@@ -2144,6 +2154,7 @@
 				449CA9FE2877256100B4EEEF /* Statistics */,
 				449CA9FF2877257300B4EEEF /* Segmentation */,
 				449CAA012877259900B4EEEF /* Registration */,
+				44812A222C36C91D00D5326E /* Live Activity */,
 			);
 			name = Request;
 			sourceTree = "<group>";
@@ -4545,6 +4556,7 @@
 				4649F4F01ED5534200D3D90C /* PWCacheTest.m in Sources */,
 				4649F4E51ED5531B00D3D90C /* PWSendPurchaseTest.m in Sources */,
 				976302C427DA21180029240E /* PWInboxMessageInternalTest.m in Sources */,
+				44812A212C36C91200D5326E /* PWLiveActivityRequestTest.m in Sources */,
 				5DAEE7552460182F00219D92 /* PWPushNotificationManagerCommonTest.m in Sources */,
 				4649F4E71ED5531B00D3D90C /* PWSetTagsTest.m in Sources */,
 				9798F9E52791A608007B1590 /* PWGetConfigRequestTest.m in Sources */,

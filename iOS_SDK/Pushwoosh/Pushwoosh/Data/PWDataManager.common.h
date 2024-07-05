@@ -37,7 +37,7 @@
 
 - (void)sendPushToStartLiveActivityToken:(NSString *_Nullable)token completion:(void (^ _Nullable)(NSError * _Nullable))completion;
 
-- (void)startLiveActivityWithToken:(NSString *_Nullable)token completion:(void (^ _Nullable)(NSError * _Nullable error))completion;
+- (void)startLiveActivityWithToken:(NSString *_Nullable)token activityId:(NSString *_Nullable)activityId completion:(void (^ _Nullable)(NSError * _Nullable error))completion;
 
 - (void)stopLiveActivityWithCompletion:(void (^ _Nullable)(NSError * _Nullable error))completion;
 

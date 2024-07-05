@@ -19,6 +19,12 @@
     
     dict[@"activity_token"] = _token;
     
+    if (!_activityId) {
+        dict[@"activity_id"] = @"";
+    } else {
+        dict[@"activity_id"] = _activityId;
+    }
+    
     return dict;
 }
 
