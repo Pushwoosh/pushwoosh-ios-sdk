@@ -46,6 +46,7 @@
 		442A29632BBABEC5009BEF78 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */; };
 		442A29782BBAC211009BEF78 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */; };
 		44378CC628BE347300175DE2 /* PWInAppPurchaseHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44378CC528BE347300175DE2 /* PWInAppPurchaseHelperTest.m */; };
+		446894C32C51286A0060AE0D /* PWDataManagerCommonTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 446894C22C51286A0060AE0D /* PWDataManagerCommonTest.m */; };
 		4477FC912BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */; };
 		4477FC922BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
 		4477FC932BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
@@ -1509,6 +1510,7 @@
 /* Begin PBXFileReference section */
 		442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		44378CC528BE347300175DE2 /* PWInAppPurchaseHelperTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInAppPurchaseHelperTest.m; sourceTree = "<group>"; };
+		446894C22C51286A0060AE0D /* PWDataManagerCommonTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDataManagerCommonTest.m; sourceTree = "<group>"; };
 		4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWStartLiveActivityRequest.h; sourceTree = "<group>"; };
 		4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWStartLiveActivityRequest.m; sourceTree = "<group>"; };
 		44812A202C36C91200D5326E /* PWLiveActivityRequestTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWLiveActivityRequestTest.m; sourceTree = "<group>"; };
@@ -1976,6 +1978,14 @@
 			name = "Javascript Bridge";
 			sourceTree = "<group>";
 		};
+		446894C12C5128290060AE0D /* Data */ = {
+			isa = PBXGroup;
+			children = (
+				446894C22C51286A0060AE0D /* PWDataManagerCommonTest.m */,
+			);
+			name = Data;
+			sourceTree = "<group>";
+		};
 		44812A222C36C91D00D5326E /* Live Activity */ = {
 			isa = PBXGroup;
 			children = (
@@ -2184,6 +2194,7 @@
 			children = (
 				5D4247DC242CB9840029D447 /* InApp */,
 				44378CC728BE347900175DE2 /* Rich Media */,
+				446894C12C5128290060AE0D /* Data */,
 				C4D613741D1974FE00720130 /* Frameworks */,
 				46376BC91DF6DA2700126EB3 /* Utils */,
 				46FA9E5A1C7DD1A000741A11 /* Mock */,
@@ -4579,6 +4590,7 @@
 				5D84AD112153A04E005D7432 /* PWConfigTest.m in Sources */,
 				449CAA1B287726C100B4EEEF /* PWMergeUserRequestTest.m in Sources */,
 				4649F4DD1ED5531B00D3D90C /* PWApplicationOpenTest.m in Sources */,
+				446894C32C51286A0060AE0D /* PWDataManagerCommonTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

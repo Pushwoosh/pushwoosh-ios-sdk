@@ -17,8 +17,6 @@
 @property (nonatomic, readonly) NSArray<NSString *> *events;
 @property (nonatomic, readonly) BOOL isLoggerActive;
 
-- (void)loadConfig;
-
 - (void)setTags:(NSDictionary *)tags;
 
 - (void)setTags:(NSDictionary *)tags withCompletion:(PushwooshErrorHandler)completion;

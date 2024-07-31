@@ -16,6 +16,7 @@
 #import "PWVersionTracking.h"
 #import "PWPlatformModule.h"
 #import "PWPreferences.h"
+#import "PWConfig.h"
 #import "PWSetEmailTagsRequest.h"
 #import "PWServerCommunicationManager.h"
 #import "PWLiveActivityRequest.h"
@@ -48,36 +49,18 @@
 	if (self) {
 		[[PWNetworkModule module] inject:self];
         [[NSOperationQueue currentQueue] addOperationWithBlock:^{
-            [self loadConfig];
+            if ([[PWConfig config] isCollectingLifecycleEventsAllowed] == YES) {
+                [self defaultEvents];
+            }
         }];
 	}
 	return self;
 }
 
-- (void)loadConfig {
-    // wait until server communication is allowed
-    if (![[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
-        [self addServerCommunicationStartedObserver];
-        return;
-    }
-#if TARGET_OS_IOS || TARGET_OS_OSX
-    PWGetConfigRequest *request = [PWGetConfigRequest new];
-    [_requestManager sendRequest:request completion:^(NSError *error) {
-        _channels = request.channels;
-
-        [[PWPreferences preferences] setIsLoggerActive:request.isLoggerActive];
-
-        #if TARGET_OS_IOS
-        
-        _events = request.events;
-        
-        [PWAppLifecycleTrackingManager sharedManager].defaultAppClosedAllowed = [_events containsObject:defaultApplicationClosedEvent];
-        [PWAppLifecycleTrackingManager sharedManager].defaultAppOpenAllowed = [_events containsObject:defaultApplicationOpenedEvent];
-        [PWScreenTrackingManager sharedManager].defaultScreenOpenAllowed = [_events containsObject:defaultScreenOpenEvent];
-        
-        #endif
-    }];
-#endif
+- (void)defaultEvents {
+    [PWAppLifecycleTrackingManager sharedManager].defaultAppClosedAllowed = YES;
+    [PWAppLifecycleTrackingManager sharedManager].defaultAppOpenAllowed = YES;
+    [PWScreenTrackingManager sharedManager].defaultScreenOpenAllowed = YES;
 }
 
 - (void)addServerCommunicationStartedObserver {
@@ -86,7 +69,6 @@
 
             [[NSNotificationCenter defaultCenter] removeObserver:_communicationStartedHandler];
             _communicationStartedHandler = nil;
-            [self loadConfig];
         }];
     }
 }

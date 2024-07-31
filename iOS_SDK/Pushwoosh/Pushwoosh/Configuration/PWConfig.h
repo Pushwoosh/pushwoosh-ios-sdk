@@ -107,6 +107,13 @@
 @property (nonatomic, assign, readonly) BOOL allowCollectingDeviceModel;
 
 /**
+ key: Pushwoosh_ALLOW_COLLECTING_EVENTS
+ type: boolean
+ value: Allows the SDK to send events (PW_ScreenOpen, PW_ApplicationOpen, PW_ApplicationMinimized) request ti the server (by default it is allwed)
+ */
+@property (nonatomic, assign, readonly) BOOL isCollectingLifecycleEventsAllowed;
+
+/**
  key: Pushwoosh_LOG_LEVEL
  type: string
  value: Pushwoosh SDK logging level (NONE, ERROR, WARNING, INFO, DEBUG, VERBOSE)

@@ -33,7 +33,8 @@
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    _config = nil;
+    [super tearDown];
 }
 
 - (void)testCheckAllParametersWithInitmethod {
@@ -121,21 +122,23 @@
     XCTAssertEqual(false, _config.allowCollectingDeviceOsVersion);
     XCTAssertEqual(false, _config.allowCollectingDeviceLocale);
     XCTAssertEqual(false, _config.allowCollectingDeviceModel);
+    XCTAssertEqual(false, _config.isCollectingLifecycleEventsAllowed);
     [mockNSBundle stopMocking];
 }
 
 - (void)testAllowCollectingDeviceDataIsTrue {
     id mockNSBundle = OCMPartialMock([NSBundle mainBundle]);
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_DATA"]).andReturn(@YES);
-    OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_OS_VERSION"]).andReturn(@YES);
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_LOCALE"]).andReturn(@YES);
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_MODEL"]).andReturn(@YES);
+    OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALLOW_COLLECTING_EVENTS"]).andReturn(@YES);
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
     
-    XCTAssertTrue(_config.allowCollectingDeviceOsVersion);
+    XCTAssertFalse(_config.allowCollectingDeviceOsVersion);
     XCTAssertTrue(_config.allowCollectingDeviceLocale);
     XCTAssertTrue(_config.allowCollectingDeviceModel);
+    XCTAssertTrue(_config.isCollectingLifecycleEventsAllowed);
     [mockNSBundle stopMocking];
 }
 

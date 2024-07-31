@@ -17,6 +17,7 @@
 @property (nonatomic, assign, readwrite) BOOL allowCollectingDeviceOsVersion;
 @property (nonatomic, assign, readwrite) BOOL allowCollectingDeviceLocale;
 @property (nonatomic, assign, readwrite) BOOL allowCollectingDeviceModel;
+@property (nonatomic, assign, readwrite) BOOL isCollectingLifecycleEventsAllowed;
 @property (nonatomic, assign, readwrite) LogLevel logLevel;
 @property (nonatomic, readwrite) BOOL sendPushStatIfAlertsDisabled;
 @property (nonatomic, assign, readwrite) BOOL acceptedDeepLinkForSilentPush;
@@ -87,15 +88,19 @@
             self.allowCollectingDeviceOsVersion = NO;
             self.allowCollectingDeviceLocale = NO;
             self.allowCollectingDeviceModel = NO;
+            self.isCollectingLifecycleEventsAllowed = NO;
         } else {
             // this key is used to allow collecting and sending device os version (by default it is allowed)
-            self.allowCollectingDeviceOsVersion = [self getBoolean:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_OS_VERSION" default: YES];
+            self.isCollectingLifecycleEventsAllowed = [self getBoolean:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_OS_VERSION" default: YES];
             
             // this key is used to allow collecting and sending device locale (by default it is allowed)
             self.allowCollectingDeviceLocale = [self getBoolean:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_LOCALE" default: YES];
             
             // this key is used to allow collecting and sending device model (by default it is allowed)
             self.allowCollectingDeviceModel = [self getBoolean:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_MODEL" default: YES];
+            
+            // this key is used to allow sending events (by default it is allowed)
+            self.isCollectingLifecycleEventsAllowed = [self getBoolean:@"Pushwoosh_ALLOW_COLLECTING_EVENTS" default: YES];
         }
         
 		NSString *logLevelString = [bundle objectForInfoDictionaryKey:@"Pushwoosh_LOG_LEVEL"];

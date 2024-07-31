@@ -123,12 +123,6 @@ removeAllDeviceData: function() {\
     pushwooshImpl.removeAllDeviceData();\
 },\
 \
-getChannels: function(callback) {\
-    pushwooshImpl.getChannels(function(channels) {\
-        callback(JSON.parse(channels));\
-    });\
-},\
-\
 unregisterForPushNotifications: function(callback) {\
     pushwooshImpl.unregisterForPushNotifications(callback);\
 },\

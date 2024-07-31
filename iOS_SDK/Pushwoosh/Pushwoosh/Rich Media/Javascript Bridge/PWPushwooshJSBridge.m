@@ -200,17 +200,6 @@
 #endif
 }
 
-- (void)getChannels:(PWEasyJSWKDataFunction *)callback {
-    NSArray<PWChannel *> *pwChannels = [Pushwoosh sharedInstance].dataManager.channels;
-    NSMutableArray<NSDictionary *> *channelsDicts = [NSMutableArray arrayWithCapacity:pwChannels.count];
-    for (PWChannel *channel in pwChannels) {
-        [channelsDicts addObject:[channel dictionaryRepresentation]];
-    }
-    NSData *paramData = [NSJSONSerialization dataWithJSONObject:channelsDicts options:NSJSONWritingPrettyPrinted error:NULL];
-    NSString *paramString = [[NSString alloc] initWithData:paramData encoding:NSUTF8StringEncoding];
-    [callback executeWithParam:paramString];
-}
-
 - (void)unregisterForPushNotifications:(PWEasyJSWKDataFunction *)callback {
     [[PushNotificationManager pushManager] unregisterForPushNotificationsWithCompletion:^(NSError *error) {
         if (error != nil) {
