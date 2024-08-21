@@ -274,9 +274,14 @@
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:requestUrl]];
     [urlRequest setHTTPMethod:@"POST"];
     [urlRequest addValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    [urlRequest addValue:[NSString stringWithFormat:@"Token %@", [self getApiToken]] forHTTPHeaderField:@"Authorization"];
     [urlRequest setHTTPBody:[jsonRequestData dataUsingEncoding:NSUTF8StringEncoding]];
     
     return urlRequest;
+}
+
+- (NSString *)getApiToken {
+    return [[PWConfig config] apiToken];
 }
 
 - (void)processResponse:(NSHTTPURLResponse *)httpResponse responseData:(NSData *)responseData request:(PWRequest *)request url:(NSString *)requestUrl requestData:(NSString *)requestData error:(NSError **)outError {

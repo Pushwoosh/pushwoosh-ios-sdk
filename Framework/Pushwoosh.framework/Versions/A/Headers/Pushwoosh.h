@@ -18,7 +18,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.6.0"
+#define PUSHWOOSH_VERSION @"6.6.1"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -162,6 +162,11 @@ Tells the delegate that the user has pressed on the push notification banner.
  Original payload of the message.
 */
 @property (nonatomic, readonly) NSDictionary * _Nullable payload;
+
+/**
+ Returns actionIdentifier of the button pressed
+ */
+@property (nonatomic, readonly) NSString * _Nullable actionIdentifier;
 
 /**
  Returns YES if this message is recieved from Pushwoosh.

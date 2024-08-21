@@ -5,7 +5,7 @@ Message from Pushwoosh.
 
 <table>
 	<tr>
-		<td><a href="#1a018d9ef3c615dedad1d73b2d5239b16a">@property NSString *_Nullable</a></td>
+		<td><a href="#1aecf83b72f600bc65ae4dbe7706a90cc6">@property NSString *_Nullable</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1ab365d5ab62ebc13c91f231f3c2c9a570">@property NSUInteger badge</a></td>
@@ -34,8 +34,8 @@ Message from Pushwoosh.
 ----------  
   
 
-#### <a name="1a018d9ef3c615dedad1d73b2d5239b16a"></a>@property NSString \*_Nullable  
-Title of the push message.<br/>Subtitle of the push message.<br/>Body of the push message.<br/>Remote URL or deeplink from the push message.<br/>Original payload of the message. 
+#### <a name="1aecf83b72f600bc65ae4dbe7706a90cc6"></a>@property NSString \*_Nullable  
+Title of the push message.<br/>Subtitle of the push message.<br/>Body of the push message.<br/>Remote URL or deeplink from the push message.<br/>Returns actionIdentifier of the button pressed<br/>Original payload of the message. 
 
 ----------  
   

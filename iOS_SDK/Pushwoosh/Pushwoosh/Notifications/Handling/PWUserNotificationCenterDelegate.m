@@ -63,7 +63,9 @@
                 [[PushNotificationManager pushManager].delegate onActionIdentifierReceived:response.actionIdentifier withNotification:[self pushPayloadFromContent:response.notification.request.content]];
             }
             NSDictionary *userInfo = [self pushPayloadFromContent:response.notification.request.content];
-            [_notificationManager handlePushAccepted:userInfo onStart:_notificationManager.isAppInBackground];
+            NSMutableDictionary *userInfoWithActionIdentifier = [NSMutableDictionary dictionaryWithDictionary:userInfo];
+            [userInfoWithActionIdentifier addEntriesFromDictionary:@{@"actionIdentifier": response.actionIdentifier}];
+            [_notificationManager handlePushAccepted:userInfoWithActionIdentifier onStart:_notificationManager.isAppInBackground];
         }
     };
     

@@ -4,6 +4,7 @@
 @interface PWConfig ()
 
 @property (nonatomic, copy, readwrite) NSString *appId;
+@property (nonatomic, copy, readwrite) NSString *apiToken;
 @property (nonatomic, copy, readwrite) NSString *appIdDev;
 @property (nonatomic, copy, readwrite) NSString *appName;
 @property (nonatomic, copy, readwrite) NSString *appGroupsName;
@@ -37,6 +38,8 @@
         _bundle = bundle;
         
 		self.appId = [bundle objectForInfoDictionaryKey:@"Pushwoosh_APPID"];
+        
+        self.apiToken = [bundle objectForInfoDictionaryKey:@"PW_API_TOKEN"];
 
 		self.appIdDev = [bundle objectForInfoDictionaryKey:@"Pushwoosh_APPID_Dev"];
 

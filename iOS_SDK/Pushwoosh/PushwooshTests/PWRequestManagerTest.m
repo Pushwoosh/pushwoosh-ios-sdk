@@ -9,6 +9,7 @@
 #import "PWGetConfigRequest.h"
 #import "PWRequestsCacheManager.h"
 #import "PWCachedRequest.h"
+#import "PWConfig.h"
 
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
@@ -19,6 +20,7 @@
 
 @property (nonatomic, strong) NSURLSession *session;
 
+- (NSMutableURLRequest *)prepareRequest:(NSString *)requestUrl jsonRequestData:(NSString *)jsonRequestData;
 - (void)sendRequestInternal:(PWRequest *)request completion:(void (^)(NSError *error))completion;
 - (void)processResponse:(NSHTTPURLResponse *)httpResponse responseData:(NSData *)responseData request:(PWRequest *)request url:(NSString *)requestUrl requestData:(NSString *)requestData error:(NSError **)outError;
 - (BOOL)needToRetry:(NSInteger)statusCode;
@@ -333,6 +335,20 @@ static id _mockNSBundle;
     [_requestManager sendRequestInternal:cachedRequest completion:^(NSError *error) {}];
     
     OCMVerify([mockPWRequestManager increaseRequestCounter:OCMOCK_ANY]);
+}
+
+- (void)testHeaderAuthExist {
+    NSString *apiToken = @"somEpusHwooSHtOkenMocK";
+    NSString *correctFormat = [NSString stringWithFormat:@"Token %@", apiToken];
+    id mockNSMutableURLRequest = OCMClassMock([NSMutableURLRequest class]);
+    OCMStub([mockNSMutableURLRequest alloc]).andReturn(mockNSMutableURLRequest);
+    OCMStub([mockNSMutableURLRequest initWithURL:OCMOCK_ANY]).andReturn(mockNSMutableURLRequest);
+    id mockPWConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockPWConfig apiToken]).andReturn(apiToken);
+    
+    [_requestManager prepareRequest:@"" jsonRequestData:@""];
+    
+    OCMVerify([mockNSMutableURLRequest addValue:correctFormat forHTTPHeaderField:@"Authorization"]);
 }
 
 - (void)testCheckCurrectCulculateDelay {

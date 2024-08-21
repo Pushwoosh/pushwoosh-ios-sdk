@@ -408,6 +408,7 @@ static dispatch_once_t pushwooshOncePredicate;
         }
         
         _payload = payload;
+        _actionIdentifier = [payload pw_stringForKey:@"actionIdentifier"];
         _contentAvailable = apsDict[@"content-available"] != nil;
         _foregroundMessage = foreground;
         _inboxMessage = apsDict[@"pw_inbox"] != nil;

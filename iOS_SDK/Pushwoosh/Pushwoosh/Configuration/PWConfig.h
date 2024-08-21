@@ -16,6 +16,14 @@
 @property (nonatomic, copy, readonly) NSString *appId;
 
 /**
+ key: PW_API_TOKEN
+ type: string
+ value: Sets the Pushwoosh API auth token
+ */
+
+@property (nonatomic, copy, readonly) NSString *apiToken;
+
+/**
  key: Pushwoosh_APPID_Dev
  type: string
  value: Sets the Pushwoosh application ID for development build
