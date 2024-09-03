@@ -18,7 +18,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.6.1"
+#define PUSHWOOSH_VERSION @"6.7.0"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -604,6 +604,9 @@ Unregisters from push notifications.
  */
 - (void)stopLiveActivity;
 - (void)stopLiveActivityWithCompletion:(void (^ _Nullable)(NSError * _Nullable error))completion;
+
+- (void)stopLiveActivityWith:(NSString *_Nullable)activityId;
+- (void)stopLiveActivityWith:(NSString *_Nullable)activityId completion:(void (^ _Nullable)(NSError * _Nullable error))completion;
 
 @end
 

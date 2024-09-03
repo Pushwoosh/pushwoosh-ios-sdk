@@ -46,7 +46,12 @@
 		442A29632BBABEC5009BEF78 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */; };
 		442A29782BBAC211009BEF78 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */; };
 		44378CC628BE347300175DE2 /* PWInAppPurchaseHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44378CC528BE347300175DE2 /* PWInAppPurchaseHelperTest.m */; };
+		4463DB642C64FB4C005F547E /* PushwooshLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4463DB622C64FB4C005F547E /* PushwooshLiveActivityAttributes.swift */; };
+		4463DB672C64FC95005F547E /* PushwooshLiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4463DB652C64FC95005F547E /* PushwooshLiveActivities.swift */; };
+		4463DB6A2C64FD3E005F547E /* PushwooshLiveActivitiesImplementationSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4463DB682C64FD3E005F547E /* PushwooshLiveActivitiesImplementationSetup.swift */; };
 		446894C32C51286A0060AE0D /* PWDataManagerCommonTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 446894C22C51286A0060AE0D /* PWDataManagerCommonTest.m */; };
+		4475F8872C6B6266002C1136 /* Pushwoosh.ios-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4475F8842C6B613A002C1136 /* Pushwoosh.ios-Bridging-Header.h */; };
+		4475F89B2C6CF3DB002C1136 /* Pushwoosh.ios-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4475F8842C6B613A002C1136 /* Pushwoosh.ios-Bridging-Header.h */; };
 		4477FC912BDA6B400066F7E7 /* PWStartLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */; };
 		4477FC922BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
 		4477FC932BDA6B400066F7E7 /* PWStartLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */; };
@@ -1510,7 +1515,11 @@
 /* Begin PBXFileReference section */
 		442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		44378CC528BE347300175DE2 /* PWInAppPurchaseHelperTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInAppPurchaseHelperTest.m; sourceTree = "<group>"; };
+		4463DB622C64FB4C005F547E /* PushwooshLiveActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushwooshLiveActivityAttributes.swift; sourceTree = "<group>"; };
+		4463DB652C64FC95005F547E /* PushwooshLiveActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushwooshLiveActivities.swift; sourceTree = "<group>"; };
+		4463DB682C64FD3E005F547E /* PushwooshLiveActivitiesImplementationSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushwooshLiveActivitiesImplementationSetup.swift; sourceTree = "<group>"; };
 		446894C22C51286A0060AE0D /* PWDataManagerCommonTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDataManagerCommonTest.m; sourceTree = "<group>"; };
+		4475F8842C6B613A002C1136 /* Pushwoosh.ios-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Pushwoosh.ios-Bridging-Header.h"; sourceTree = "<group>"; };
 		4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWStartLiveActivityRequest.h; sourceTree = "<group>"; };
 		4477FC902BDA6B400066F7E7 /* PWStartLiveActivityRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWStartLiveActivityRequest.m; sourceTree = "<group>"; };
 		44812A202C36C91200D5326E /* PWLiveActivityRequestTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWLiveActivityRequestTest.m; sourceTree = "<group>"; };
@@ -1978,6 +1987,15 @@
 			name = "Javascript Bridge";
 			sourceTree = "<group>";
 		};
+		4463DB5D2C64FAD7005F547E /* Live Activities Swift */ = {
+			isa = PBXGroup;
+			children = (
+				4463DB622C64FB4C005F547E /* PushwooshLiveActivityAttributes.swift */,
+				4463DB682C64FD3E005F547E /* PushwooshLiveActivitiesImplementationSetup.swift */,
+			);
+			path = "Live Activities Swift";
+			sourceTree = "<group>";
+		};
 		446894C12C5128290060AE0D /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -2237,6 +2255,7 @@
 			isa = PBXGroup;
 			children = (
 				442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */,
+				4463DB5D2C64FAD7005F547E /* Live Activities Swift */,
 				5DB6E7EE23F574BF00421AA4 /* Inbox */,
 				5DB6E61123F562DD00421AA4 /* In-App Messages */,
 				5DB6E56E23F5600F00421AA4 /* Rich Media */,
@@ -2275,6 +2294,7 @@
 				5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */,
 				5D4615FF23FBAD7500001E0E /* Pushwoosh.h */,
 				5D46160023FBAD7500001E0E /* Pushwoosh.m */,
+				4463DB652C64FC95005F547E /* PushwooshLiveActivities.swift */,
 				5D2AD8FF2409286A00588516 /* PWNotificationCenterDelegateProxy.m */,
 			);
 			path = Public;
@@ -2341,6 +2361,7 @@
 			children = (
 				5D21C42C23F6748000D161F1 /* Pushwoosh_prefix.pch */,
 				5D21C43523F67B2A00D161F1 /* Pushwoosh_watchOS_dynamic.h */,
+				4475F8842C6B613A002C1136 /* Pushwoosh.ios-Bridging-Header.h */,
 				5D21C43423F67B2A00D161F1 /* Pushwoosh.iOS.dynamic-Info.plist */,
 				5D21C44223F67BC400D161F1 /* Pushwoosh.watchOS.dynamic-Info.plist */,
 			);
@@ -3320,6 +3341,7 @@
 				5DAEE797246413C200219D92 /* PWUtils.ios.h in Headers */,
 				5D12C27423F54C28009A655A /* PWInAppManager+Internal.h in Headers */,
 				5D2AD90F2409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h in Headers */,
+				4475F8872C6B6266002C1136 /* Pushwoosh.ios-Bridging-Header.h in Headers */,
 				5DB6E64F23F5639C00421AA4 /* PWBusinessCaseManager.h in Headers */,
 				5DB6E75F23F569EF00421AA4 /* PWNotificationCategoryBuilderiOS9.h in Headers */,
 				5DB6E71123F5676A00421AA4 /* Constants.h in Headers */,
@@ -3836,6 +3858,7 @@
 				5DAEE798246413C200219D92 /* PWUtils.ios.h in Headers */,
 				5D12C27323F54C28009A655A /* PWInAppManager+Internal.h in Headers */,
 				5D2AD90E2409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h in Headers */,
+				4475F89B2C6CF3DB002C1136 /* Pushwoosh.ios-Bridging-Header.h in Headers */,
 				5DB6E64E23F5639C00421AA4 /* PWBusinessCaseManager.h in Headers */,
 				5DB6E75E23F569EF00421AA4 /* PWNotificationCategoryBuilderiOS9.h in Headers */,
 				5DB6E71023F5676A00421AA4 /* Constants.h in Headers */,
@@ -4046,6 +4069,7 @@
 					};
 					467EB9361DFEC23A00506823 = {
 						CreatedOnToolsVersion = 8.1;
+						LastSwiftMigration = 1540;
 						ProvisioningStyle = Manual;
 					};
 					467F61F11EB87F3300548315 = {
@@ -4054,6 +4078,7 @@
 					};
 					46FA9E331C7DB1AA00741A11 = {
 						CreatedOnToolsVersion = 7.2;
+						LastSwiftMigration = 1540;
 						ProvisioningStyle = Manual;
 					};
 					5D4496BE22F01C6B00BD62F4 = {
@@ -4070,6 +4095,9 @@
 					};
 					C4D612BB1D12C73000720130 = {
 						CreatedOnToolsVersion = 7.3.1;
+					};
+					D2AAC07D0554694100DB518D = {
+						LastSwiftMigration = 1540;
 					};
 				};
 			};
@@ -4327,6 +4355,7 @@
 				5D2AD9072409286A00588516 /* PWNotificationCenterDelegateProxy.m in Sources */,
 				9021094226707FDC00F811B4 /* PWServerCommunicationManager.m in Sources */,
 				9798F8F225271FC4005AD120 /* PWRegisterEmail.m in Sources */,
+				4463DB6A2C64FD3E005F547E /* PushwooshLiveActivitiesImplementationSetup.swift in Sources */,
 				5DB6E69223F565DA00421AA4 /* PWNotificationManagerCompat.m in Sources */,
 				5DB6E76523F569F400421AA4 /* PWNotificationManagerCompatiOS10.m in Sources */,
 				5DB6E58523F5615200421AA4 /* PWShowLoading.m in Sources */,
@@ -4403,8 +4432,10 @@
 				5DB6E5B923F5615200421AA4 /* PWRichMediaView.m in Sources */,
 				9798F92E25272060005AD120 /* PWRegisterEmailUser.m in Sources */,
 				5DB6E4F323F55D2E00421AA4 /* PWRegisterUserRequest.m in Sources */,
+				4463DB642C64FB4C005F547E /* PushwooshLiveActivityAttributes.swift in Sources */,
 				5DB6E62D23F562F500421AA4 /* PWResource.m in Sources */,
 				5DB6E6FE23F565DA00421AA4 /* PWPlatformModule.m in Sources */,
+				4463DB672C64FC95005F547E /* PushwooshLiveActivities.swift in Sources */,
 				5DB6E2BC23F5565100421AA4 /* PWVersionTracking.m in Sources */,
 				5DB6E51023F55E9800421AA4 /* PWCombinedSetTagsRequest.m in Sources */,
 				5DB6E54A23F55EF400421AA4 /* PWNetworkModule.m in Sources */,
@@ -4964,6 +4995,7 @@
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = NO;
+				DEFINES_MODULE = YES;
 				DSTROOT = /tmp/PushNotificationManager.dst;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -4985,6 +5017,9 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = Pushwoosh;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wno-error=unused-command-line-argument";
 				WRAPPER_EXTENSION = "";
@@ -4998,6 +5033,7 @@
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				CLANG_ENABLE_MODULES = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
 				DSTROOT = /tmp/PushNotificationManager.dst;
 				ENABLE_BITCODE = NO;
 				FRAMEWORK_SEARCH_PATHS = (
@@ -5016,6 +5052,8 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				PRODUCT_NAME = Pushwoosh;
 				SKIP_INSTALL = YES;
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wno-error=unused-command-line-argument";
 				WRAPPER_EXTENSION = "";
@@ -5095,6 +5133,7 @@
 					x86_64h,
 					x86_64,
 				);
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = YES;
 				ENABLE_BITCODE = NO;
@@ -5117,6 +5156,7 @@
 					x86_64h,
 					x86_64,
 				);
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEPLOYMENT_POSTPROCESSING = YES;
 				ENABLE_BITCODE = NO;
@@ -5331,6 +5371,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BITCODE_GENERATION_MODE = bitcode;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -5386,6 +5427,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
 				PRODUCT_NAME = Pushwoosh;
 				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -5397,6 +5441,7 @@
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BITCODE_GENERATION_MODE = bitcode;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -5446,6 +5491,9 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
 				PRODUCT_NAME = Pushwoosh;
 				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
@@ -5610,7 +5658,7 @@
 					"$(PROJECT_DIR)/usr/include",
 				);
 				INFOPLIST_FILE = PushwooshTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5627,6 +5675,9 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.sdk.UnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/UnitTests/Carthage/Build/iOS";
 			};
 			name = Debug;
@@ -5670,7 +5721,7 @@
 					"$(PROJECT_DIR)/usr/include",
 				);
 				INFOPLIST_FILE = PushwooshTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 9.2;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5686,6 +5737,8 @@
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.sdk.UnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "";
+				SWIFT_VERSION = 5.0;
 				USER_HEADER_SEARCH_PATHS = "$(PROJECT_DIR)/UnitTests/Carthage/Build/iOS";
 				VALIDATE_PRODUCT = YES;
 			};

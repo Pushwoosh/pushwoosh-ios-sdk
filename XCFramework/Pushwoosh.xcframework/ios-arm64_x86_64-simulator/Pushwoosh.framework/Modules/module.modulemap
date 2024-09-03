@@ -4,3 +4,8 @@ framework module Pushwoosh {
   export *
   module * { export * }
 }
+
+module Pushwoosh.Swift {
+  header "Pushwoosh-Swift.h"
+  requires objc
+}

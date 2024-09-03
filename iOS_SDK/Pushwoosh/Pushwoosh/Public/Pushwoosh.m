@@ -274,7 +274,15 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 
 - (void)stopLiveActivityWithCompletion:(void (^)(NSError * _Nullable))completion {
-    [self.dataManager stopLiveActivityWithCompletion:completion];
+    [self.dataManager stopLiveActivityWith:nil completion:completion];
+}
+
+- (void)stopLiveActivityWith:(NSString *)activityId {
+    [self.dataManager stopLiveActivityWith:activityId completion:nil];
+}
+
+- (void)stopLiveActivityWith:(NSString *)activityId completion:(void (^)(NSError * _Nullable))completion {
+    [self.dataManager stopLiveActivityWith:activityId completion:completion];
 }
 
 #if TARGET_OS_IOS

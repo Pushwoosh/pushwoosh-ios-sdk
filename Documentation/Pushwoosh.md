@@ -148,6 +148,12 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 	<tr>
 		<td><a href="#1adfbf6fe4e6ea6d777df916c0e7fba45c">- (void)stopLiveActivityWithCompletion:(void(^)(NSError *_Nullable error))completion</a></td>
 	</tr>
+	<tr>
+		<td><a href="#1a41d9f1c160ba507c2e99164d3031d06f">- (void)stopLiveActivityWith:(NSString *_Nullable)activityId</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a98ac20ec9cd2e9cc1f4e6a9bd5561e45">- (void)stopLiveActivityWith:(NSString *_Nullable)activityId completion:(void(^)(NSError *_Nullable error))completion</a></td>
+	</tr>
 </table>
 
 
@@ -670,3 +676,15 @@ func end(activity: Activity<PushwooshAppAttributes>) {
   
 
 #### <a name="1adfbf6fe4e6ea6d777df916c0e7fba45c"></a>- (void)stopLiveActivityWithCompletion:(void(^)(NSError \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a> error))completion  
+
+
+----------  
+  
+
+#### <a name="1a41d9f1c160ba507c2e99164d3031d06f"></a>- (void)stopLiveActivityWith:(NSString \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a>)activityId  
+
+
+----------  
+  
+
+#### <a name="1a98ac20ec9cd2e9cc1f4e6a9bd5561e45"></a>- (void)stopLiveActivityWith:(NSString \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a>)activityId completion:(void(^)(NSError \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a> error))completion  

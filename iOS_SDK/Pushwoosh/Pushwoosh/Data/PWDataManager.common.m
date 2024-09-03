@@ -327,8 +327,9 @@
     }];
 }
 
-- (void)stopLiveActivityWithCompletion:(void (^)(NSError * _Nullable))completion {
-    [_requestManager sendRequest:[self sendLiveActivityRequestWithToken:nil activityId:nil] completion:^(NSError *error) {
+- (void)stopLiveActivityWith:(NSString * _Nullable)activityId completion:(void (^)(NSError * _Nullable))completion {
+    NSString *activityIdentifier = activityId == nil ? nil : activityId;
+    [_requestManager sendRequest:[self sendLiveActivityRequestWithToken:nil activityId:activityIdentifier] completion:^(NSError *error) {
         if (error) {
             PWLogDebug(@"Live Activity request failed");
         }
