@@ -7,7 +7,7 @@
 #import "PWRequest.h"
 
 #import "Constants.h"
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 #import "PWPreferences.h"
 #import "PWUtils.h"
 

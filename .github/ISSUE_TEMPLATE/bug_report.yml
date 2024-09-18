@@ -60,6 +60,10 @@ body:
       description: Your iOS SDK version which was integrated to the app. You may find it on the [releases page](https://github.com/Pushwoosh/pushwoosh-ios-sdk/releases)
       options:
         - 6.7.0
+        - 6.7.3
+        - 6.7.2
+        - 6.7.1
+        - 6.7.0
         - 6.7.0
         - 6.7.0
         - 6.6.3

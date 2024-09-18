@@ -8,7 +8,7 @@
 
 #import "PWNotificationManagerCompatiOS10.h"
 #import <UserNotifications/UserNotifications.h>
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 #import "PWLog+Internal.h"
 #import "PWUtils.h"
 

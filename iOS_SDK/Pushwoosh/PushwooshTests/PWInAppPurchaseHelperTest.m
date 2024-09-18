@@ -8,7 +8,7 @@
 
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 
 #import "PWInAppPurchaseHelper.h"
 

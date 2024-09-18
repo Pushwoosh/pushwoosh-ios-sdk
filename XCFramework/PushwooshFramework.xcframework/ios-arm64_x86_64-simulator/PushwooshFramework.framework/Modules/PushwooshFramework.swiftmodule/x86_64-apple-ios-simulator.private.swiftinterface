@@ -1,0 +1,47 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.9.2 (swiftlang-5.9.2.2.56 clang-1500.1.0.2.5)
+// swift-module-flags: -target x86_64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -module-name PushwooshFramework
+// swift-module-flags-ignorable: -enable-bare-slash-regex
+import ActivityKit
+import Foundation
+@_exported import PushwooshFramework
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc @_inheritsConvenienceInitializers public class PushwooshLiveActivitiesImplementationSetup : ObjectiveC.NSObject {
+  @available(iOS 17.2, *)
+  public static func setPushToStartToken<Attributes>(_ activityType: Attributes.Type, withToken: Swift.String) where Attributes : ActivityKit.ActivityAttributes
+  @objc override dynamic public init()
+  @objc deinit
+}
+@available(iOS 16.1, *)
+public protocol PushwooshLiveActivityAttributes : ActivityKit.ActivityAttributes where Self.ContentState : PushwooshFramework.PushwooshLiveActivityContentState {
+  var pushwoosh: PushwooshFramework.PushwooshLiveActivityAttributeData { get set }
+}
+public struct PushwooshLiveActivityAttributeData : Swift.Codable {
+  public var activityId: Swift.String
+  public init(activityId: Swift.String)
+  public static func create(activityId: Swift.String) -> PushwooshFramework.PushwooshLiveActivityAttributeData
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
+}
+@available(iOS 16.1, *)
+public protocol PushwooshLiveActivityContentState : Swift.Decodable, Swift.Encodable, Swift.Hashable {
+  var pushwoosh: PushwooshFramework.PushwooshLiveActivityContentStateData? { get set }
+}
+public struct PushwooshLiveActivityContentStateData : Swift.Codable, Swift.Hashable {
+  public func hash(into hasher: inout Swift.Hasher)
+  public static func == (a: PushwooshFramework.PushwooshLiveActivityContentStateData, b: PushwooshFramework.PushwooshLiveActivityContentStateData) -> Swift.Bool
+  public func encode(to encoder: any Swift.Encoder) throws
+  public var hashValue: Swift.Int {
+    get
+  }
+  public init(from decoder: any Swift.Decoder) throws
+}
+@objc @_inheritsConvenienceInitializers public class PushwooshLiveActivities : ObjectiveC.NSObject {
+  @available(iOS 16.1, *)
+  public static func setup<Attributes>(_ activityType: Attributes.Type) where Attributes : PushwooshFramework.PushwooshLiveActivityAttributes
+  @objc override dynamic public init()
+  @objc deinit
+}

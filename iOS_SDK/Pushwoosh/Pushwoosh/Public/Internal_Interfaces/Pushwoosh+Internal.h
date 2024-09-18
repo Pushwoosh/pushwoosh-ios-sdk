@@ -4,7 +4,7 @@
 //  (c) Pushwoosh 2015
 //
 
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 #import "PWDataManager.h"
 #import "PWPushNotificationsManager.h"
 #import "PWInAppManager.h"

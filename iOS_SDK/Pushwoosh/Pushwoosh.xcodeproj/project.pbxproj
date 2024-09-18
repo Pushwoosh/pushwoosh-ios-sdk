@@ -84,7 +84,7 @@
 		449CAA282877274F00B4EEEF /* PushwooshTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA272877274F00B4EEEF /* PushwooshTest.m */; };
 		449CAA2B2877276500B4EEEF /* PWAppDelegateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA2A2877276500B4EEEF /* PWAppDelegateTest.m */; };
 		449CAA2D287C3A1B00B4EEEF /* PWInAppMessagesManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA2C287C3A1B00B4EEEF /* PWInAppMessagesManagerTest.m */; };
-		449CC0122BA9C296003E16DC /* Pushwoosh.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* Pushwoosh.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		449CC0122BA9C296003E16DC /* PushwooshFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* PushwooshFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		449CC0132BA9C29A003E16DC /* Pushwoosh.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D46160023FBAD7500001E0E /* Pushwoosh.m */; };
 		449CC0142BA9C2FA003E16DC /* PWResource.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB6E61723F562F500421AA4 /* PWResource.m */; };
 		449CC0152BA9C302003E16DC /* PWResource.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB6E61523F562F500421AA4 /* PWResource.h */; };
@@ -476,12 +476,12 @@
 		5D2AD9112409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D2AD90C2409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h */; };
 		5D2AD9122409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D2AD90C2409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h */; };
 		5D2AD9132409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D2AD90C2409393D00588516 /* PWNotificationCenterDelegateProxy+Internal.h */; };
-		5D46160123FBAD7500001E0E /* Pushwoosh.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* Pushwoosh.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5D46160223FBAD7500001E0E /* Pushwoosh.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* Pushwoosh.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5D46160323FBAD7500001E0E /* Pushwoosh.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* Pushwoosh.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5D46160423FBAD7500001E0E /* Pushwoosh.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* Pushwoosh.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5D46160523FBAD7500001E0E /* Pushwoosh.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* Pushwoosh.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		5D46160623FBAD7500001E0E /* Pushwoosh.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* Pushwoosh.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D46160123FBAD7500001E0E /* PushwooshFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* PushwooshFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D46160223FBAD7500001E0E /* PushwooshFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* PushwooshFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D46160323FBAD7500001E0E /* PushwooshFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* PushwooshFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D46160423FBAD7500001E0E /* PushwooshFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* PushwooshFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D46160523FBAD7500001E0E /* PushwooshFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* PushwooshFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5D46160623FBAD7500001E0E /* PushwooshFramework.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D4615FF23FBAD7500001E0E /* PushwooshFramework.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5D46160723FBAD7500001E0E /* Pushwoosh.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D46160023FBAD7500001E0E /* Pushwoosh.m */; };
 		5D46160823FBAD7500001E0E /* Pushwoosh.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D46160023FBAD7500001E0E /* Pushwoosh.m */; };
 		5D46160923FBAD7500001E0E /* Pushwoosh.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D46160023FBAD7500001E0E /* Pushwoosh.m */; };
@@ -1569,7 +1569,7 @@
 		4649F4ED1ED5534200D3D90C /* PWJSInterfaceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWJSInterfaceTest.m; path = PushwooshTests/PWJSInterfaceTest.m; sourceTree = SOURCE_ROOT; };
 		4649F4EE1ED5534200D3D90C /* PWRequestManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWRequestManagerTest.m; path = PushwooshTests/PWRequestManagerTest.m; sourceTree = SOURCE_ROOT; };
 		4649F4EF1ED5534200D3D90C /* PWResourceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWResourceTest.m; path = PushwooshTests/PWResourceTest.m; sourceTree = SOURCE_ROOT; };
-		467EB9371DFEC23A00506823 /* Pushwoosh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pushwoosh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		467EB9371DFEC23A00506823 /* PushwooshFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		467F61F21EB87F3300548315 /* Pushwoosh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pushwoosh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46FA9E341C7DB1AA00741A11 /* PushwooshTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushwooshTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		46FA9E431C7DB92800741A11 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
@@ -1613,7 +1613,7 @@
 		5D4247DE242CB9840029D447 /* PWMessageViewControllerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWMessageViewControllerTest.m; sourceTree = "<group>"; };
 		5D4247E3242CB99B0029D447 /* PWPushNotificationManagerCommonTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWPushNotificationManagerCommonTest.m; path = PushwooshTests/PWPushNotificationManagerCommonTest.m; sourceTree = SOURCE_ROOT; };
 		5D4496BF22F01C6B00BD62F4 /* Pushwoosh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pushwoosh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		5D4615FF23FBAD7500001E0E /* Pushwoosh.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Pushwoosh.h; sourceTree = "<group>"; };
+		5D4615FF23FBAD7500001E0E /* PushwooshFramework.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushwooshFramework.h; sourceTree = "<group>"; };
 		5D46160023FBAD7500001E0E /* Pushwoosh.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Pushwoosh.m; sourceTree = "<group>"; };
 		5D84AD102153A04E005D7432 /* PWConfigTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PWConfigTest.m; path = PushwooshTests/PWConfigTest.m; sourceTree = SOURCE_ROOT; };
 		5D84AD122153A846005D7432 /* PWBundleMock.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PWBundleMock.h; path = PushwooshTests/Mock/PWBundleMock.h; sourceTree = SOURCE_ROOT; };
@@ -1949,7 +1949,7 @@
 				D2AAC07E0554694100DB518D /* libPushwoosh.a */,
 				46FA9E341C7DB1AA00741A11 /* PushwooshTests.xctest */,
 				C42A20691D06CBB800CC3BCB /* libPushwoosh.a */,
-				467EB9371DFEC23A00506823 /* Pushwoosh.framework */,
+				467EB9371DFEC23A00506823 /* PushwooshFramework.framework */,
 				467F61F21EB87F3300548315 /* Pushwoosh.framework */,
 				5DA6EBC722E18CAD00097C50 /* libPushwoosh.watchOS.a */,
 				5D4496BF22F01C6B00BD62F4 /* Pushwoosh.framework */,
@@ -2292,7 +2292,7 @@
 				5D12C25C23F545B6009A655A /* PWLog.h */,
 				5D12C25D23F545B6009A655A /* PWLog.m */,
 				5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */,
-				5D4615FF23FBAD7500001E0E /* Pushwoosh.h */,
+				5D4615FF23FBAD7500001E0E /* PushwooshFramework.h */,
 				5D46160023FBAD7500001E0E /* Pushwoosh.m */,
 				4463DB652C64FC95005F547E /* PushwooshLiveActivities.swift */,
 				5D2AD8FF2409286A00588516 /* PWNotificationCenterDelegateProxy.m */,
@@ -3217,7 +3217,7 @@
 				449CC0502BA9D10E003E16DC /* PWInteractionDisabledWindow.h in Headers */,
 				449CC0BB2BA9DD00003E16DC /* PWCombinedSetTagsRequest.h in Headers */,
 				449CC0B02BA9DB92003E16DC /* PWToastView.h in Headers */,
-				449CC0122BA9C296003E16DC /* Pushwoosh.h in Headers */,
+				449CC0122BA9C296003E16DC /* PushwooshFramework.h in Headers */,
 				449CC1632BAA0A51003E16DC /* PWNotificationExtensionManager.h in Headers */,
 				449CC05F2BA9D616003E16DC /* PWConfig.h in Headers */,
 				449CC0352BA9C7CD003E16DC /* PWBaseLoadingViewController.h in Headers */,
@@ -3267,7 +3267,7 @@
 				5DB6E90823F5783400421AA4 /* PWReachability.h in Headers */,
 				5D12C22823F54429009A655A /* PWGDPRManager.h in Headers */,
 				5D12C2BA23F54D25009A655A /* PWUtils.common.h in Headers */,
-				5D46160223FBAD7500001E0E /* Pushwoosh.h in Headers */,
+				5D46160223FBAD7500001E0E /* PushwooshFramework.h in Headers */,
 				5DB6E79823F56B2900421AA4 /* PWRichPushManager.h in Headers */,
 				5DB6E8AD23F576F600421AA4 /* WKUserScript+PWInterfacesScriptGenerator.h in Headers */,
 				5DB6E47723F55C5900421AA4 /* PWGetConfigRequest.h in Headers */,
@@ -3468,7 +3468,7 @@
 				5DB6E7E423F572B200421AA4 /* PWPushRuntime.mac.h in Headers */,
 				5DB6E6B823F565DA00421AA4 /* PWNotificationManagerCompat.h in Headers */,
 				5D12C27C23F54C28009A655A /* PWGDPRManager+Internal.h in Headers */,
-				5D46160423FBAD7500001E0E /* Pushwoosh.h in Headers */,
+				5D46160423FBAD7500001E0E /* PushwooshFramework.h in Headers */,
 				5DB6E45123F55BF300421AA4 /* PWMessageDeliveryRequest.h in Headers */,
 				5DB6E4EF23F55D2E00421AA4 /* PWRegisterUserRequest.h in Headers */,
 				5DB6E64D23F5639C00421AA4 /* PWBusinessCase.h in Headers */,
@@ -3513,7 +3513,7 @@
 				5DB6E29423F5551900421AA4 /* PWPreferences.h in Headers */,
 				5DB6E3CB23F55AAD00421AA4 /* PWDataManager.h in Headers */,
 				5DB6E71523F5676A00421AA4 /* Constants.h in Headers */,
-				5D46160623FBAD7500001E0E /* Pushwoosh.h in Headers */,
+				5D46160623FBAD7500001E0E /* PushwooshFramework.h in Headers */,
 				5D12C2E223F54D26009A655A /* PWUtils+Internal.h in Headers */,
 				5DB6E53023F55EB300421AA4 /* PWRequest.h in Headers */,
 				5DB6E4C923F55D2900421AA4 /* PWSetTagsRequest.h in Headers */,
@@ -3586,7 +3586,7 @@
 				5DB6E71423F5676A00421AA4 /* Constants.h in Headers */,
 				5DB6E66723F5653500421AA4 /* PWPostEventRequest.h in Headers */,
 				5DB6E6E923F565DA00421AA4 /* PWNotificationCategoryBuilder.h in Headers */,
-				5D46160523FBAD7500001E0E /* Pushwoosh.h in Headers */,
+				5D46160523FBAD7500001E0E /* PushwooshFramework.h in Headers */,
 				5D12C26823F545C5009A655A /* PWLog.h in Headers */,
 				5DB6E46723F55C0400421AA4 /* PWPushStatRequest.h in Headers */,
 				5D12C2E123F54D26009A655A /* PWUtils+Internal.h in Headers */,
@@ -3736,7 +3736,7 @@
 				5DB6E5A623F5615200421AA4 /* PWInteractionDisabledView.h in Headers */,
 				5D12C29623F54CD7009A655A /* PWLog+Internal.h in Headers */,
 				5DB6E55423F55F3400421AA4 /* PWChannel.h in Headers */,
-				5D46160323FBAD7500001E0E /* Pushwoosh.h in Headers */,
+				5D46160323FBAD7500001E0E /* PushwooshFramework.h in Headers */,
 				5DB6E61E23F562F500421AA4 /* PWInAppStorage.h in Headers */,
 				5DB6E30323F558A500421AA4 /* PWSupportedOrientations.h in Headers */,
 				5DB6E4C623F55D2900421AA4 /* PWSetTagsRequest.h in Headers */,
@@ -3784,7 +3784,7 @@
 				5DB6E90723F5783400421AA4 /* PWReachability.h in Headers */,
 				5D12C22723F54429009A655A /* PWGDPRManager.h in Headers */,
 				5D12C2B923F54D25009A655A /* PWUtils.common.h in Headers */,
-				5D46160123FBAD7500001E0E /* Pushwoosh.h in Headers */,
+				5D46160123FBAD7500001E0E /* PushwooshFramework.h in Headers */,
 				5DB6E79723F56B2900421AA4 /* PWRichPushManager.h in Headers */,
 				5DB6E8AC23F576F600421AA4 /* WKUserScript+PWInterfacesScriptGenerator.h in Headers */,
 				5DB6E47623F55C5900421AA4 /* PWGetConfigRequest.h in Headers */,
@@ -3942,7 +3942,7 @@
 			);
 			name = PushwooshiOS;
 			productName = PushwooshiOS;
-			productReference = 467EB9371DFEC23A00506823 /* Pushwoosh.framework */;
+			productReference = 467EB9371DFEC23A00506823 /* PushwooshFramework.framework */;
 			productType = "com.apple.product-type.framework";
 		};
 		467F61F11EB87F3300548315 /* PushwooshMac */ = {
@@ -5143,7 +5143,7 @@
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
-				PRODUCT_NAME = Pushwoosh;
+				PRODUCT_NAME = PushwooshFramework;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Debug;
@@ -5166,7 +5166,7 @@
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
 				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
-				PRODUCT_NAME = Pushwoosh;
+				PRODUCT_NAME = PushwooshFramework;
 				WRAPPER_EXTENSION = framework;
 			};
 			name = Release;
@@ -5425,7 +5425,7 @@
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
-				PRODUCT_NAME = Pushwoosh;
+				PRODUCT_NAME = PushwooshFramework;
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
@@ -5489,7 +5489,7 @@
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
-				PRODUCT_NAME = Pushwoosh;
+				PRODUCT_NAME = PushwooshFramework;
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;

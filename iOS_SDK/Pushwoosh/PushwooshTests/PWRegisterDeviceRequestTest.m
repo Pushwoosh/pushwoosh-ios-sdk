@@ -5,7 +5,7 @@
 #import "PWPlatformModule.h"
 #import "PWNotificationManagerCompat.h"
 #import "PWNotificationCategoryBuilder.h"
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>

@@ -5,7 +5,7 @@
 #import "PWNetworkModule.h"
 #import "PWGDPRManager.h"
 #import "PWRequest.h"
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 #import "PWGetConfigRequest.h"
 #import "PWRequestsCacheManager.h"
 #import "PWCachedRequest.h"

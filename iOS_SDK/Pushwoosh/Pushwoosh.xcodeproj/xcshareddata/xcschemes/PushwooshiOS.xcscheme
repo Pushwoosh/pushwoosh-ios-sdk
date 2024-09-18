@@ -15,7 +15,7 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "467EB9361DFEC23A00506823"
-               BuildableName = "Pushwoosh.framework"
+               BuildableName = "PushwooshFramework.framework"
                BlueprintName = "PushwooshiOS"
                ReferencedContainer = "container:Pushwoosh.xcodeproj">
             </BuildableReference>
@@ -61,7 +61,7 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "467EB9361DFEC23A00506823"
-            BuildableName = "Pushwoosh.framework"
+            BuildableName = "PushwooshFramework.framework"
             BlueprintName = "PushwooshiOS"
             ReferencedContainer = "container:Pushwoosh.xcodeproj">
          </BuildableReference>

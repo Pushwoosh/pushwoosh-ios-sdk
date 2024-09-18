@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 #import "PWPreferences.h"
 #import "PWRequestsCacheManager.h"
 #import "PWInAppManager.h"

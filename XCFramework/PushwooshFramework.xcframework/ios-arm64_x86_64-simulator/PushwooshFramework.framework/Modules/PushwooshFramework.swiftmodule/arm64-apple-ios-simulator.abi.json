@@ -1,0 +1,1095 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "TopLevel",
+    "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshFramework"
+      },
+      {
+        "kind": "Import",
+        "name": "ActivityKit",
+        "printedName": "ActivityKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshFramework"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshLiveActivitiesImplementationSetup",
+        "printedName": "PushwooshLiveActivitiesImplementationSetup",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "setPushToStartToken",
+            "printedName": "setPushToStartToken(_:withToken:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Metatype",
+                "printedName": "τ_0_0.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GenericTypeParam",
+                    "printedName": "τ_0_0"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18PushwooshFramework0A33LiveActivitiesImplementationSetupC19setPushToStartToken_04withK0yxm_SSt11ActivityKit0M10AttributesRzlFZ",
+            "mangledName": "$s18PushwooshFramework0A33LiveActivitiesImplementationSetupC19setPushToStartToken_04withK0yxm_SSt11ActivityKit0M10AttributesRzlFZ",
+            "moduleName": "PushwooshFramework",
+            "genericSig": "<τ_0_0 where τ_0_0 : ActivityKit.ActivityAttributes>",
+            "sugared_genericSig": "<Attributes where Attributes : ActivityKit.ActivityAttributes>",
+            "static": true,
+            "intro_iOS": "17.2",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "Available"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshLiveActivitiesImplementationSetup",
+                "printedName": "PushwooshFramework.PushwooshLiveActivitiesImplementationSetup",
+                "usr": "c:@M@PushwooshFramework@objc(cs)PushwooshLiveActivitiesImplementationSetup"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshFramework@objc(cs)PushwooshLiveActivitiesImplementationSetup(im)init",
+            "mangledName": "$s18PushwooshFramework0A33LiveActivitiesImplementationSetupCACycfc",
+            "moduleName": "PushwooshFramework",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshFramework@objc(cs)PushwooshLiveActivitiesImplementationSetup",
+        "mangledName": "$s18PushwooshFramework0A33LiveActivitiesImplementationSetupC",
+        "moduleName": "PushwooshFramework",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshFramework"
+      },
+      {
+        "kind": "Import",
+        "name": "ActivityKit",
+        "printedName": "ActivityKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshFramework"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshLiveActivityAttributes",
+        "printedName": "PushwooshLiveActivityAttributes",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "pushwoosh",
+            "printedName": "pushwoosh",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshLiveActivityAttributeData",
+                "printedName": "PushwooshFramework.PushwooshLiveActivityAttributeData",
+                "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18PushwooshFramework0A22LiveActivityAttributesP9pushwooshAA0acD13AttributeDataVvp",
+            "mangledName": "$s18PushwooshFramework0A22LiveActivityAttributesP9pushwooshAA0acD13AttributeDataVvp",
+            "moduleName": "PushwooshFramework",
+            "protocolReq": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshLiveActivityAttributeData",
+                    "printedName": "PushwooshFramework.PushwooshLiveActivityAttributeData",
+                    "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18PushwooshFramework0A22LiveActivityAttributesP9pushwooshAA0acD13AttributeDataVvg",
+                "mangledName": "$s18PushwooshFramework0A22LiveActivityAttributesP9pushwooshAA0acD13AttributeDataVvg",
+                "moduleName": "PushwooshFramework",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshFramework.PushwooshLiveActivityAttributes>",
+                "sugared_genericSig": "<Self where Self : PushwooshFramework.PushwooshLiveActivityAttributes>",
+                "protocolReq": true,
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshLiveActivityAttributeData",
+                    "printedName": "PushwooshFramework.PushwooshLiveActivityAttributeData",
+                    "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18PushwooshFramework0A22LiveActivityAttributesP9pushwooshAA0acD13AttributeDataVvs",
+                "mangledName": "$s18PushwooshFramework0A22LiveActivityAttributesP9pushwooshAA0acD13AttributeDataVvs",
+                "moduleName": "PushwooshFramework",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshFramework.PushwooshLiveActivityAttributes>",
+                "sugared_genericSig": "<Self where Self : PushwooshFramework.PushwooshLiveActivityAttributes>",
+                "protocolReq": true,
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18PushwooshFramework0A22LiveActivityAttributesP9pushwooshAA0acD13AttributeDataVvM",
+                "mangledName": "$s18PushwooshFramework0A22LiveActivityAttributesP9pushwooshAA0acD13AttributeDataVvM",
+                "moduleName": "PushwooshFramework",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshFramework.PushwooshLiveActivityAttributes>",
+                "sugared_genericSig": "<Self where Self : PushwooshFramework.PushwooshLiveActivityAttributes>",
+                "protocolReq": true,
+                "implicit": true,
+                "intro_iOS": "16.1",
+                "declAttributes": [
+                  "Available"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:18PushwooshFramework0A22LiveActivityAttributesP",
+        "mangledName": "$s18PushwooshFramework0A22LiveActivityAttributesP",
+        "moduleName": "PushwooshFramework",
+        "genericSig": "<τ_0_0 : ActivityKit.ActivityAttributes, τ_0_0.ContentState : PushwooshFramework.PushwooshLiveActivityContentState>",
+        "sugared_genericSig": "<Self : ActivityKit.ActivityAttributes, Self.ContentState : PushwooshFramework.PushwooshLiveActivityContentState>",
+        "intro_iOS": "16.1",
+        "declAttributes": [
+          "AccessControl",
+          "Available"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "ActivityAttributes",
+            "printedName": "ActivityAttributes",
+            "usr": "s:11ActivityKit0A10AttributesP",
+            "mangledName": "$s11ActivityKit0A10AttributesP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshLiveActivityAttributeData",
+        "printedName": "PushwooshLiveActivityAttributeData",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "activityId",
+            "printedName": "activityId",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV10activityIdSSvp",
+            "mangledName": "$s18PushwooshFramework0A25LiveActivityAttributeDataV10activityIdSSvp",
+            "moduleName": "PushwooshFramework",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV10activityIdSSvg",
+                "mangledName": "$s18PushwooshFramework0A25LiveActivityAttributeDataV10activityIdSSvg",
+                "moduleName": "PushwooshFramework",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV10activityIdSSvs",
+                "mangledName": "$s18PushwooshFramework0A25LiveActivityAttributeDataV10activityIdSSvs",
+                "moduleName": "PushwooshFramework",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV10activityIdSSvM",
+                "mangledName": "$s18PushwooshFramework0A25LiveActivityAttributeDataV10activityIdSSvM",
+                "moduleName": "PushwooshFramework",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(activityId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshLiveActivityAttributeData",
+                "printedName": "PushwooshFramework.PushwooshLiveActivityAttributeData",
+                "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV10activityIdACSS_tcfc",
+            "mangledName": "$s18PushwooshFramework0A25LiveActivityAttributeDataV10activityIdACSS_tcfc",
+            "moduleName": "PushwooshFramework",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "create",
+            "printedName": "create(activityId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshLiveActivityAttributeData",
+                "printedName": "PushwooshFramework.PushwooshLiveActivityAttributeData",
+                "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV6create10activityIdACSS_tFZ",
+            "mangledName": "$s18PushwooshFramework0A25LiveActivityAttributeDataV6create10activityIdACSS_tFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshLiveActivityAttributeData",
+                "printedName": "PushwooshFramework.PushwooshLiveActivityAttributeData",
+                "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Decoder",
+                "printedName": "Swift.Decoder",
+                "usr": "s:s7DecoderP"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV4fromACs7Decoder_p_tKcfc",
+            "mangledName": "$s18PushwooshFramework0A25LiveActivityAttributeDataV4fromACs7Decoder_p_tKcfc",
+            "moduleName": "PushwooshFramework",
+            "implicit": true,
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(to:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Encoder",
+                "printedName": "Swift.Encoder",
+                "usr": "s:s7EncoderP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV6encode2toys7Encoder_p_tKF",
+            "mangledName": "$s18PushwooshFramework0A25LiveActivityAttributeDataV6encode2toys7Encoder_p_tKF",
+            "moduleName": "PushwooshFramework",
+            "implicit": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:18PushwooshFramework0A25LiveActivityAttributeDataV",
+        "mangledName": "$s18PushwooshFramework0A25LiveActivityAttributeDataV",
+        "moduleName": "PushwooshFramework",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshLiveActivityContentState",
+        "printedName": "PushwooshLiveActivityContentState",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "pushwoosh",
+            "printedName": "pushwoosh",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshFramework.PushwooshLiveActivityContentStateData?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshLiveActivityContentStateData",
+                    "printedName": "PushwooshFramework.PushwooshLiveActivityContentStateData",
+                    "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18PushwooshFramework0A24LiveActivityContentStateP9pushwooshAA0acdeF4DataVSgvp",
+            "mangledName": "$s18PushwooshFramework0A24LiveActivityContentStateP9pushwooshAA0acdeF4DataVSgvp",
+            "moduleName": "PushwooshFramework",
+            "protocolReq": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "PushwooshFramework.PushwooshLiveActivityContentStateData?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PushwooshLiveActivityContentStateData",
+                        "printedName": "PushwooshFramework.PushwooshLiveActivityContentStateData",
+                        "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18PushwooshFramework0A24LiveActivityContentStateP9pushwooshAA0acdeF4DataVSgvg",
+                "mangledName": "$s18PushwooshFramework0A24LiveActivityContentStateP9pushwooshAA0acdeF4DataVSgvg",
+                "moduleName": "PushwooshFramework",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshFramework.PushwooshLiveActivityContentState>",
+                "sugared_genericSig": "<Self where Self : PushwooshFramework.PushwooshLiveActivityContentState>",
+                "protocolReq": true,
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "PushwooshFramework.PushwooshLiveActivityContentStateData?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PushwooshLiveActivityContentStateData",
+                        "printedName": "PushwooshFramework.PushwooshLiveActivityContentStateData",
+                        "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18PushwooshFramework0A24LiveActivityContentStateP9pushwooshAA0acdeF4DataVSgvs",
+                "mangledName": "$s18PushwooshFramework0A24LiveActivityContentStateP9pushwooshAA0acdeF4DataVSgvs",
+                "moduleName": "PushwooshFramework",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshFramework.PushwooshLiveActivityContentState>",
+                "sugared_genericSig": "<Self where Self : PushwooshFramework.PushwooshLiveActivityContentState>",
+                "protocolReq": true,
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18PushwooshFramework0A24LiveActivityContentStateP9pushwooshAA0acdeF4DataVSgvM",
+                "mangledName": "$s18PushwooshFramework0A24LiveActivityContentStateP9pushwooshAA0acdeF4DataVSgvM",
+                "moduleName": "PushwooshFramework",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshFramework.PushwooshLiveActivityContentState>",
+                "sugared_genericSig": "<Self where Self : PushwooshFramework.PushwooshLiveActivityContentState>",
+                "protocolReq": true,
+                "implicit": true,
+                "intro_iOS": "16.1",
+                "declAttributes": [
+                  "Available"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:18PushwooshFramework0A24LiveActivityContentStateP",
+        "mangledName": "$s18PushwooshFramework0A24LiveActivityContentStateP",
+        "moduleName": "PushwooshFramework",
+        "genericSig": "<τ_0_0 : Swift.Decodable, τ_0_0 : Swift.Encodable, τ_0_0 : Swift.Hashable>",
+        "sugared_genericSig": "<Self : Swift.Decodable, Self : Swift.Encodable, Self : Swift.Hashable>",
+        "intro_iOS": "16.1",
+        "declAttributes": [
+          "AccessControl",
+          "Available"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshLiveActivityContentStateData",
+        "printedName": "PushwooshLiveActivityContentStateData",
+        "children": [
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshLiveActivityContentStateData",
+                "printedName": "PushwooshFramework.PushwooshLiveActivityContentStateData",
+                "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Decoder",
+                "printedName": "Swift.Decoder",
+                "usr": "s:s7DecoderP"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV4fromACs7Decoder_p_tKcfc",
+            "mangledName": "$s18PushwooshFramework0A28LiveActivityContentStateDataV4fromACs7Decoder_p_tKcfc",
+            "moduleName": "PushwooshFramework",
+            "implicit": true,
+            "throwing": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "encode",
+            "printedName": "encode(to:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Encoder",
+                "printedName": "Swift.Encoder",
+                "usr": "s:s7EncoderP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV6encode2toys7Encoder_p_tKF",
+            "mangledName": "$s18PushwooshFramework0A28LiveActivityContentStateDataV6encode2toys7Encoder_p_tKF",
+            "moduleName": "PushwooshFramework",
+            "implicit": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "hashValue",
+            "printedName": "hashValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV9hashValueSivp",
+            "mangledName": "$s18PushwooshFramework0A28LiveActivityContentStateDataV9hashValueSivp",
+            "moduleName": "PushwooshFramework",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV9hashValueSivg",
+                "mangledName": "$s18PushwooshFramework0A28LiveActivityContentStateDataV9hashValueSivg",
+                "moduleName": "PushwooshFramework",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "hash",
+            "printedName": "hash(into:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Hasher",
+                "printedName": "Swift.Hasher",
+                "paramValueOwnership": "InOut",
+                "usr": "s:s6HasherV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV4hash4intoys6HasherVz_tF",
+            "mangledName": "$s18PushwooshFramework0A28LiveActivityContentStateDataV4hash4intoys6HasherVz_tF",
+            "moduleName": "PushwooshFramework",
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshLiveActivityContentStateData",
+                "printedName": "PushwooshFramework.PushwooshLiveActivityContentStateData",
+                "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshLiveActivityContentStateData",
+                "printedName": "PushwooshFramework.PushwooshLiveActivityContentStateData",
+                "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV2eeoiySbAC_ACtFZ",
+            "mangledName": "$s18PushwooshFramework0A28LiveActivityContentStateDataV2eeoiySbAC_ACtFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:18PushwooshFramework0A28LiveActivityContentStateDataV",
+        "mangledName": "$s18PushwooshFramework0A28LiveActivityContentStateDataV",
+        "moduleName": "PushwooshFramework",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Decodable",
+            "printedName": "Decodable",
+            "usr": "s:Se",
+            "mangledName": "$sSe"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Encodable",
+            "printedName": "Encodable",
+            "usr": "s:SE",
+            "mangledName": "$sSE"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshFramework"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshLiveActivities",
+        "printedName": "PushwooshLiveActivities",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "setup",
+            "printedName": "setup(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Metatype",
+                "printedName": "τ_0_0.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GenericTypeParam",
+                    "printedName": "τ_0_0"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:18PushwooshFramework0A14LiveActivitiesC5setupyyxmAA0aC18ActivityAttributesRzlFZ",
+            "mangledName": "$s18PushwooshFramework0A14LiveActivitiesC5setupyyxmAA0aC18ActivityAttributesRzlFZ",
+            "moduleName": "PushwooshFramework",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshFramework.PushwooshLiveActivityAttributes>",
+            "sugared_genericSig": "<Attributes where Attributes : PushwooshFramework.PushwooshLiveActivityAttributes>",
+            "static": true,
+            "intro_iOS": "16.1",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "Available",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshLiveActivities",
+                "printedName": "PushwooshFramework.PushwooshLiveActivities",
+                "usr": "c:@M@PushwooshFramework@objc(cs)PushwooshLiveActivities"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshFramework@objc(cs)PushwooshLiveActivities(im)init",
+            "mangledName": "$s18PushwooshFramework0A14LiveActivitiesCACycfc",
+            "moduleName": "PushwooshFramework",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshFramework@objc(cs)PushwooshLiveActivities",
+        "mangledName": "$s18PushwooshFramework0A14LiveActivitiesC",
+        "moduleName": "PushwooshFramework",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "kind": "StringLiteral",
+      "offset": 1762,
+      "length": 6,
+      "value": "\"%02x\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "kind": "StringLiteral",
+      "offset": 2104,
+      "length": 17,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "kind": "StringLiteral",
+      "offset": 2120,
+      "length": 24,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "kind": "StringLiteral",
+      "offset": 2181,
+      "length": 91,
+      "value": "\"Failed to set push token for activity type \""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "kind": "StringLiteral",
+      "offset": 2240,
+      "length": 1,
+      "value": "\": \""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "kind": "StringLiteral",
+      "offset": 2271,
+      "length": 2,
+      "value": "\"\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "kind": "StringLiteral",
+      "offset": 2581,
+      "length": 58,
+      "value": "\"Unable to convert activity type to a URL-encoded string.\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "kind": "StringLiteral",
+      "offset": 4800,
+      "length": 6,
+      "value": "\"%02x\""
+    }
+  ]
+}

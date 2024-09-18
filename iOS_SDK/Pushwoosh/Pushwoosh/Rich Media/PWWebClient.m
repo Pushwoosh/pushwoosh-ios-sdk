@@ -8,7 +8,7 @@
 #import "PWPushManagerJSBridge.h"
 #import "PWPushwooshJSBridge.h"
 #import "PWInAppManager.h"
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 #import "PushNotificationManager.h"
 #import "PWUtils.h"
 #import "PWPreferences.h"

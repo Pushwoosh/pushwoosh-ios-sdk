@@ -13,7 +13,7 @@
 #import "PWTestUtils.h"
 #import "PWConfig.h"
 #import "PWPurchaseRuntime.h"
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 #import "PWPurchaseManager.h"
 
 @interface PWPurchaseRuntime (UnitTests)

@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 #import "PWConfig.h"
 
 @interface PWPushNotificationsManagerCommon : NSObject

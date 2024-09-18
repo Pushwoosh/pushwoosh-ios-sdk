@@ -20,7 +20,7 @@
 #import "PWUnregisterDeviceRequest.h"
 #import "PWUtils.h"
 #import "PWPushStatRequest.h"
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>

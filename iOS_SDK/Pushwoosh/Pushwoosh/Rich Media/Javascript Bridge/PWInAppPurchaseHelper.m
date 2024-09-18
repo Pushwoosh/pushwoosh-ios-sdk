@@ -6,7 +6,7 @@
 //  Copyright © 2022 Pushwoosh. All rights reserved.
 //
 #import "PWInAppPurchaseHelper.h"
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 #import "PWInAppManager.h"
 
 #import <Foundation/Foundation.h>

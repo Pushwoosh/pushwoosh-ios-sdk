@@ -10,7 +10,7 @@
 #import "PWPushNotificationsManager.common.h"
 #import "PushNotificationManager.h"
 #import "PWDataManager.common.h"
-#import "Pushwoosh.h"
+#import "PushwooshFramework.h"
 #import "PWBundleMock.h"
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
