@@ -25,6 +25,7 @@
 @property (nonatomic, readwrite) BOOL sendPurchaseTrackingEnabled;
 @property (nonatomic, assign, readwrite) BOOL preHandleNotificationsWithUrl;
 @property (nonatomic, assign, readwrite) BOOL lazyInitialization;
+@property (nonatomic, assign, readwrite) RichMediaStyleType richMediaStyle;
 
 @property (nonatomic) NSBundle *bundle;
 
@@ -52,6 +53,8 @@
         self.sendPushStatIfAlertsDisabled = [self getBoolean:@"Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED" default:YES];
         
         self.alertStyle = PWNotificationAlertStyleBanner;
+        
+        [self styleRichMediaTypeFromString:[bundle objectForInfoDictionaryKey:@"Pushwoosh_RICH_MEDIA_STYLE"]];
 
 		NSString *alertTypeString = [bundle objectForInfoDictionaryKey:@"Pushwoosh_ALERT_TYPE"];
 		if ([alertTypeString isKindOfClass:[NSString class]] && [alertTypeString isEqualToString:@"BANNER"]) {
@@ -132,6 +135,16 @@
 	}
 
 	return self;
+}
+
+- (void)styleRichMediaTypeFromString:(NSString *)style {
+    if ([style isEqualToString:@"MODAL_RICH_MEDIA"]) {
+        self.richMediaStyle = PWRichMediaStyleTypeModal;
+    } else if ([style isEqualToString:@"LEGACY_RICH_MEDIA"]) {
+        self.richMediaStyle = PWRichMediaStyleTypeLegacy;
+    } else {
+        self.richMediaStyle = PWRichMediaStyleTypeDefault;
+    }
 }
 
 + (PWConfig *)config {

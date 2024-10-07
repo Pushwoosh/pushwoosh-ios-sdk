@@ -20,7 +20,7 @@
 #import "PWRegisterEmailUser.h"
 #import "PWServerCommunicationManager.h"
 #import "PWRichMediaView.h"
-#import "PWToastView.h"
+#import "PWModalWindow.h"
 #import "PWInteractionDisabledWindow.h"
 #import "PWInteractionDisabledView.h"
 
@@ -52,7 +52,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 // @Inject
 @property (nonatomic, strong) PWRequestManager *requestManager;
 @property (nonatomic) PWRichMediaView *richMediaView;
-@property (nonatomic) PWToastView *toastView;
+@property (nonatomic) PWModalWindow *modalWindow;
 
 @property (nonatomic) NSString *richMediaCode;
 @property (nonatomic) NSString *inAppCode;
@@ -458,64 +458,32 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     [resource getHTMLDataWithCompletion:^(NSString *htmlData, NSError *error) {
         if (!error) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                if ([resource presentationStyle:resource.config.presentationStyleKey] == IAResourcePresentationTopBanner || [resource presentationStyle:resource.config.presentationStyleKey] == IAResourcePresentationBottomBanner || [resource presentationStyle:resource.config.presentationStyleKey] == IAResourcePresentationCenter) {
-                    [self createToastViewWith:resource config:resource.config];
-                } else {
-                    PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourcePush resource:resource pushPayload:userInfo];
-                    [PWMessageViewController presentWithRichMedia:richMedia];
-                }
+                PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourcePush resource:resource pushPayload:userInfo];
+                [self richMediaTypeWith:richMedia resource:resource];
             });
         }
     }];
 }
 
-- (void)createToastViewWith:(PWResource *)resource config:(PWRichMediaConfig *)config {
+- (void)richMediaTypeWith:(PWRichMedia *)richMedia resource:(PWResource *)resource {
     UIWindow *window = [self keyWindow];
-    
-    _toastView = [[PWToastView alloc] initWithFrame:CGRectMake(0, 0, window.bounds.size.width, 0)];
-    _toastView.translatesAutoresizingMaskIntoConstraints = NO;
-    
-    [window addSubview:_toastView];
-    
-    if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
-        UILayoutGuide *safe = window.safeAreaLayoutGuide;
-        
-        [NSLayoutConstraint activateConstraints:@[
-            [_toastView.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
-            [_toastView.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor]
-        ]];
-        
-        if ([resource presentationStyle:config.presentationStyleKey] == IAResourcePresentationTopBanner) {
-            [NSLayoutConstraint activateConstraints:@[
-                [_toastView.topAnchor constraintEqualToAnchor:safe.topAnchor constant:20]
-            ]];
-        } else if ([resource presentationStyle:config.presentationStyleKey] == IAResourcePresentationBottomBanner) {
-            [NSLayoutConstraint activateConstraints:@[
-                [_toastView.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor constant:-20]
-            ]];
-        } else if ([resource presentationStyle:config.presentationStyleKey] == IAResourcePresentationCenter) {
-            [NSLayoutConstraint activateConstraints:@[
-                [_toastView.centerYAnchor constraintEqualToAnchor:safe.centerYAnchor],
-                [_toastView.centerXAnchor constraintEqualToAnchor:safe.centerXAnchor]
-            ]];
-        }
-    } else {
-        CGFloat topInset = 40.f;
-        CGFloat bottomInset = 30.f;
-        
-        [_toastView.leadingAnchor constraintEqualToAnchor:window.leadingAnchor].active = YES;
-        [_toastView.trailingAnchor constraintEqualToAnchor:window.trailingAnchor].active = YES;
-        
-        if ([resource presentationStyle:config.presentationStyleKey] == IAResourcePresentationTopBanner) {
-            [_toastView.topAnchor constraintEqualToAnchor:window.bottomAnchor constant:topInset].active = YES;
-        } else if ([resource presentationStyle:config.presentationStyleKey] == IAResourcePresentationBottomBanner) {
-            [_toastView.topAnchor constraintEqualToAnchor:window.bottomAnchor constant:bottomInset].active = YES;
-        } else if ([resource presentationStyle:config.presentationStyleKey] == IAResourcePresentationCenter) {
-            [_toastView.centerYAnchor constraintEqualToAnchor:window.centerYAnchor].active = YES;
-            [_toastView.centerXAnchor constraintEqualToAnchor:window.centerXAnchor].active = YES;
-        }
+    _modalWindow = [[PWModalWindow alloc] initWithFrame:CGRectMake(0, 0, window.bounds.size.width, 0)];
+
+    switch ([[PWConfig config] richMediaStyle]) {
+        case PWRichMediaStyleTypeModal:
+            [_modalWindow createModalWindowWith:resource
+                                      richMedia:richMedia
+                                    modalWindow:_modalWindow
+                                         window:window];
+            break;
+        case PWRichMediaStyleTypeLegacy:
+        case PWRichMediaStyleTypeDefault:
+            [PWMessageViewController presentWithRichMedia:richMedia];
+            break;
+        default:
+            [PWMessageViewController presentWithRichMedia:richMedia];
+            break;
     }
-    [_toastView createToastView:resource position:[resource presentationStyle:config.presentationStyleKey]];
 }
 
 - (UIWindow *)keyWindow {

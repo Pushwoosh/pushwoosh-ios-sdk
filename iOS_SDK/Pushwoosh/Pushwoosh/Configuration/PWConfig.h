@@ -4,6 +4,12 @@
 #import "PWNotificationAppSettings.h"
 #import "PWLog+Internal.h"
 
+typedef NS_ENUM(NSInteger, RichMediaStyleType) {
+    PWRichMediaStyleTypeModal,
+    PWRichMediaStyleTypeLegacy,
+    PWRichMediaStyleTypeDefault
+};
+
 @interface PWConfig : NSObject
 
 + (PWConfig *)config;
@@ -135,6 +141,8 @@
 @property (nonatomic, assign, readonly) BOOL preHandleNotificationsWithUrl;
 
 @property (nonatomic, readonly) BOOL lazyInitialization;
+
+@property (nonatomic, readonly) RichMediaStyleType richMediaStyle;
 
 
 /**

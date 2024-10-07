@@ -48,14 +48,17 @@
 		443117BF2C6FA092008F82C6 /* PWModalWindowSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 443117BB2C6FA091008F82C6 /* PWModalWindowSettings.h */; };
 		443117C02C6FA092008F82C6 /* PWModalWindowSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 443117BC2C6FA091008F82C6 /* PWModalWindowSettings.m */; };
 		44378CC628BE347300175DE2 /* PWInAppPurchaseHelperTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44378CC528BE347300175DE2 /* PWInAppPurchaseHelperTest.m */; };
-		4463DB642C64FB4C005F547E /* PushwooshLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4463DB622C64FB4C005F547E /* PushwooshLiveActivityAttributes.swift */; };
-		4463DB672C64FC95005F547E /* PushwooshLiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4463DB652C64FC95005F547E /* PushwooshLiveActivities.swift */; };
-		4463DB6A2C64FD3E005F547E /* PushwooshLiveActivitiesImplementationSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4463DB682C64FD3E005F547E /* PushwooshLiveActivitiesImplementationSetup.swift */; };
+<<<<<<< HEAD
 		4463DC512CAC488800E2BAAC /* PWModalWindowConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 4463DC4F2CAC488800E2BAAC /* PWModalWindowConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4463DC522CAC488800E2BAAC /* PWModalWindowConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 4463DC4F2CAC488800E2BAAC /* PWModalWindowConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4463DC542CAC488800E2BAAC /* PWModalWindowConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4463DC502CAC488800E2BAAC /* PWModalWindowConfiguration.m */; };
 		4463DC552CAC488800E2BAAC /* PWModalWindowConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4463DC502CAC488800E2BAAC /* PWModalWindowConfiguration.m */; };
 		4463DC682CAD64FB00E2BAAC /* PWModalWindowSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 443117BB2C6FA091008F82C6 /* PWModalWindowSettings.h */; };
+=======
+		4463DB642C64FB4C005F547E /* PushwooshLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4463DB622C64FB4C005F547E /* PushwooshLiveActivityAttributes.swift */; };
+		4463DB672C64FC95005F547E /* PushwooshLiveActivities.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4463DB652C64FC95005F547E /* PushwooshLiveActivities.swift */; };
+		4463DB6A2C64FD3E005F547E /* PushwooshLiveActivitiesImplementationSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4463DB682C64FD3E005F547E /* PushwooshLiveActivitiesImplementationSetup.swift */; };
+>>>>>>> 1164f8907dea0f331cb05d3766e8f41801076e76
 		446894C32C51286A0060AE0D /* PWDataManagerCommonTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 446894C22C51286A0060AE0D /* PWDataManagerCommonTest.m */; };
 		4475F8872C6B6266002C1136 /* Pushwoosh.ios-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4475F8842C6B613A002C1136 /* Pushwoosh.ios-Bridging-Header.h */; };
 		4475F89B2C6CF3DB002C1136 /* Pushwoosh.ios-Bridging-Header.h in Headers */ = {isa = PBXBuildFile; fileRef = 4475F8842C6B613A002C1136 /* Pushwoosh.ios-Bridging-Header.h */; };
@@ -1519,11 +1522,14 @@
 		443117BB2C6FA091008F82C6 /* PWModalWindowSettings.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWModalWindowSettings.h; sourceTree = "<group>"; };
 		443117BC2C6FA091008F82C6 /* PWModalWindowSettings.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWModalWindowSettings.m; sourceTree = "<group>"; };
 		44378CC528BE347300175DE2 /* PWInAppPurchaseHelperTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInAppPurchaseHelperTest.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
 		4463DC4F2CAC488800E2BAAC /* PWModalWindowConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWModalWindowConfiguration.h; sourceTree = "<group>"; };
 		4463DC502CAC488800E2BAAC /* PWModalWindowConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWModalWindowConfiguration.m; sourceTree = "<group>"; };
+=======
 		4463DB622C64FB4C005F547E /* PushwooshLiveActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushwooshLiveActivityAttributes.swift; sourceTree = "<group>"; };
 		4463DB652C64FC95005F547E /* PushwooshLiveActivities.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushwooshLiveActivities.swift; sourceTree = "<group>"; };
 		4463DB682C64FD3E005F547E /* PushwooshLiveActivitiesImplementationSetup.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushwooshLiveActivitiesImplementationSetup.swift; sourceTree = "<group>"; };
+>>>>>>> 1164f8907dea0f331cb05d3766e8f41801076e76
 		446894C22C51286A0060AE0D /* PWDataManagerCommonTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDataManagerCommonTest.m; sourceTree = "<group>"; };
 		4475F8842C6B613A002C1136 /* Pushwoosh.ios-Bridging-Header.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "Pushwoosh.ios-Bridging-Header.h"; sourceTree = "<group>"; };
 		4477FC8F2BDA6B400066F7E7 /* PWStartLiveActivityRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWStartLiveActivityRequest.h; sourceTree = "<group>"; };
@@ -1993,6 +1999,7 @@
 			name = "Javascript Bridge";
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
 		4463DC5C2CAD57EF00E2BAAC /* Modal Window */ = {
 			isa = PBXGroup;
 			children = (
@@ -2002,8 +2009,7 @@
 				AF30846F2996A1F500E19F10 /* PWModalWindow.m */,
 			);
 			path = "Modal Window";
-			sourceTree = "<group>";
-		};
+=======
 		4463DB5D2C64FAD7005F547E /* Live Activities Swift */ = {
 			isa = PBXGroup;
 			children = (
@@ -2011,6 +2017,7 @@
 				4463DB682C64FD3E005F547E /* PushwooshLiveActivitiesImplementationSetup.swift */,
 			);
 			path = "Live Activities Swift";
+>>>>>>> 1164f8907dea0f331cb05d3766e8f41801076e76
 			sourceTree = "<group>";
 		};
 		446894C12C5128290060AE0D /* Data */ = {
@@ -3234,8 +3241,12 @@
 				449CC0C12BA9DD83003E16DC /* PWRichMediaView.h in Headers */,
 				449CC0502BA9D10E003E16DC /* PWInteractionDisabledWindow.h in Headers */,
 				449CC0BB2BA9DD00003E16DC /* PWCombinedSetTagsRequest.h in Headers */,
+<<<<<<< HEAD
+				449CC0122BA9C296003E16DC /* Pushwoosh.h in Headers */,
+=======
 				449CC0B02BA9DB92003E16DC /* PWToastView.h in Headers */,
 				449CC0122BA9C296003E16DC /* PushwooshFramework.h in Headers */,
+>>>>>>> 1164f8907dea0f331cb05d3766e8f41801076e76
 				449CC1632BAA0A51003E16DC /* PWNotificationExtensionManager.h in Headers */,
 				449CC05F2BA9D616003E16DC /* PWConfig.h in Headers */,
 				449CC0352BA9C7CD003E16DC /* PWBaseLoadingViewController.h in Headers */,
@@ -4090,7 +4101,11 @@
 					};
 					467EB9361DFEC23A00506823 = {
 						CreatedOnToolsVersion = 8.1;
+<<<<<<< HEAD
+						LastSwiftMigration = 1520;
+=======
 						LastSwiftMigration = 1540;
+>>>>>>> 1164f8907dea0f331cb05d3766e8f41801076e76
 						ProvisioningStyle = Manual;
 					};
 					467F61F11EB87F3300548315 = {
@@ -4122,7 +4137,11 @@
 						CreatedOnToolsVersion = 7.3.1;
 					};
 					D2AAC07D0554694100DB518D = {
+<<<<<<< HEAD
+						LastSwiftMigration = 1520;
+=======
 						LastSwiftMigration = 1540;
+>>>>>>> 1164f8907dea0f331cb05d3766e8f41801076e76
 					};
 				};
 			};
@@ -5043,7 +5062,10 @@
 				ONLY_ACTIVE_ARCH = YES;
 				PRODUCT_NAME = Pushwoosh;
 				SKIP_INSTALL = YES;
+<<<<<<< HEAD
+=======
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+>>>>>>> 1164f8907dea0f331cb05d3766e8f41801076e76
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5078,7 +5100,10 @@
 				LINK_WITH_STANDARD_LIBRARIES = YES;
 				PRODUCT_NAME = Pushwoosh;
 				SKIP_INSTALL = YES;
+<<<<<<< HEAD
+=======
 				SWIFT_OBJC_BRIDGING_HEADER = "";
+>>>>>>> 1164f8907dea0f331cb05d3766e8f41801076e76
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				WARNING_CFLAGS = "-Wno-error=unused-command-line-argument";
@@ -5453,7 +5478,10 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
 				PRODUCT_NAME = PushwooshFramework;
 				SKIP_INSTALL = YES;
+<<<<<<< HEAD
+=======
 				SWIFT_EMIT_LOC_STRINGS = YES;
+>>>>>>> 1164f8907dea0f331cb05d3766e8f41801076e76
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5517,8 +5545,11 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
 				PRODUCT_NAME = PushwooshFramework;
 				SKIP_INSTALL = YES;
+<<<<<<< HEAD
+=======
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
+>>>>>>> 1164f8907dea0f331cb05d3766e8f41801076e76
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VALIDATE_PRODUCT = YES;

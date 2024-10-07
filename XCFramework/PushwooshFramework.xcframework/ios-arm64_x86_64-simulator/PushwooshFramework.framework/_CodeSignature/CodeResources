@@ -30,7 +30,11 @@
 		</data>
 		<key>Headers/PWMessaging.h</key>
 		<data>
-		2vIPgVOjU+GczuhuOHEv5hVvvgk=
+		4ccvYQcCL32CEwIKC/2an7fzv3o=
+		</data>
+		<key>Headers/PWModalWindowConfiguration.h</key>
+		<data>
+		okyn4l58CEuumfcgv/iiYMDX43Y=
 		</data>
 		<key>Headers/PWNotificationExtensionManager.h</key>
 		<data>
@@ -38,7 +42,7 @@
 		</data>
 		<key>Headers/PWRichMediaManager.h</key>
 		<data>
-		whL7iuJSBwm2Yyl0XrtclzSwyuw=
+		/l36nOtl4pEVOomaR7Q5CJz8SBg=
 		</data>
 		<key>Headers/PWRichMediaStyle.h</key>
 		<data>
@@ -54,7 +58,7 @@
 		</data>
 		<key>Headers/PushwooshFramework.h</key>
 		<data>
-		x37FecCD86/wfWMoasZSeB1ihhU=
+		fFjxqg/04fEkQiqWi0zxyHXkcgE=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -157,7 +161,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fnks+FudKmrgLCGwMOluL0LLapH63UWqDbtJruPxu0M=
+			LHkBVEb54pMFHq3c+MAES2IjnJNNBSBsKaX1JGrmbdc=
+			</data>
+		</dict>
+		<key>Headers/PWModalWindowConfiguration.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tHSdwdWhj0eXFozNGGNyCU8fxKA1uxtWXtUbLvQXEl0=
 			</data>
 		</dict>
 		<key>Headers/PWNotificationExtensionManager.h</key>
@@ -171,7 +182,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			EyemkcNrCQke1+bY4s5uNhk6YOAOcfUcswDFEfcvViQ=
+			t81VnwLZuNpzC8YPUwualtkO6UQNy6qBsn8l9uSyht4=
 			</data>
 		</dict>
 		<key>Headers/PWRichMediaStyle.h</key>
@@ -199,7 +210,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tT3obh647Pz4NeY+C81d3ezJIWsp6U//B9phw0tqiyU=
+			UHXrDKwpcemDpu9STGMWTb6az7j2T+u57erKeG0cSx8=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.abi.json</key>

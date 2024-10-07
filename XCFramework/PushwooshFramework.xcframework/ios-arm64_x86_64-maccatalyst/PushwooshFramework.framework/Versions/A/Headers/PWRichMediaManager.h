@@ -24,7 +24,6 @@ typedef NS_ENUM(NSUInteger, PWRichMediaSource) {
     PWRichMediaSourceInApp
 };
 
-
 /*
  `PWRichMedia` class represents Rich Media page object.
  */
@@ -113,11 +112,6 @@ typedef NS_ENUM(NSUInteger, PWRichMediaSource) {
  Presents the rich media object.
  */
 - (void)presentRichMedia:(PWRichMedia *)richMedia;
-
-/**
- Close toast view after time interval in seconds
- */
-- (void)closeToastViewAfter:(NSTimeInterval)interval;
 
 @end
 

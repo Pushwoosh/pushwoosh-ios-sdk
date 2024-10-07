@@ -14,6 +14,7 @@
     #import "PWAppDelegate.h"
     #import "PWNotificationExtensionManager.h"
     #import "PWRichMediaManager.h"
+    #import "PWModalWindowConfiguration.h"
     #import "PWRichMediaStyle.h"
     #import "PWInbox.h"
     #import "PWInlineInAppView.h"
