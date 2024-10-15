@@ -13,6 +13,7 @@
 @interface PWUserNotificationCenterDelegate()
 
 @property (nonatomic, strong) PWPushNotificationsManager *notificationManager;
+@property (nonatomic) NSString *lastHash;
 
 @end
 
@@ -33,7 +34,6 @@
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
     if ([self isRemoteNotification:notification] && [PWMessage isPushwooshMessage:notification.request.content.userInfo]) {
         UNMutableNotificationContent *content = notification.request.content.mutableCopy;
-        
         NSMutableDictionary *userInfo = content.userInfo.mutableCopy;
         userInfo[@"pw_push"] = @(YES);
         
@@ -50,7 +50,14 @@
         
         completionHandler(UNNotificationPresentationOptionNone);
     } else if ([PushNotificationManager pushManager].showPushnotificationAlert || [notification.request.content.userInfo objectForKey:@"pw_push"] == nil) {
-        completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
+        UNMutableNotificationContent *content = notification.request.content.mutableCopy;
+
+        if ([_lastHash isEqualToString:content.userInfo[@"p"]]) {
+            completionHandler(UNNotificationPresentationOptionNone);
+        } else {
+            _lastHash = content.userInfo[@"p"];
+            completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
+        }
     } else {
         completionHandler(UNNotificationPresentationOptionNone);
     }
