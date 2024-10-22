@@ -28,7 +28,7 @@
 }
 
 + (void)applicationOpenURL:(NSURL *)url {
-	[[UIApplication sharedApplication] openURL:url];
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }
 
 + (UIButton *)webViewCloseButton {
