@@ -458,6 +458,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 //If the push is received while the app is running. Call it only for iOS version < 10. For iOS 10 and higher use notificationCenterDelegate.
 - (BOOL)handlePushReceived:(NSDictionary *)userInfo;
+- (void)handlePushAccepted:(NSDictionary *)userInfo onStart:(BOOL)onStart;
 
 /**
  Gets APN payload from push notifications dictionary.

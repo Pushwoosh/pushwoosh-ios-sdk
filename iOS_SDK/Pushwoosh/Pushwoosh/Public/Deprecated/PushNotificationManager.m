@@ -49,7 +49,10 @@ static dispatch_once_t pushManagerOncePredicate;
 - (instancetype)init {
     if (self = [super init]) {
         [Pushwoosh sharedInstance];
-        _notificationCenterDelegate = [[PWUserNotificationCenterDelegate alloc] initWithNotificationManager:[Pushwoosh sharedInstance].pushNotificationManager];
+        
+        if (![PWConfig config].isUsingPluginForPushHandling) {
+            _notificationCenterDelegate = [[PWUserNotificationCenterDelegate alloc] initWithNotificationManager:[Pushwoosh sharedInstance].pushNotificationManager];
+        } 
     }
     return self;
 }
@@ -109,6 +112,10 @@ static dispatch_once_t pushManagerOncePredicate;
 
 - (void)handlePushRegistrationString:(NSString *)deviceID {
 	[[Pushwoosh sharedInstance].pushNotificationManager handlePushRegistrationString:deviceID];
+}
+
+- (void)handlePushAccepted:(NSDictionary *)userInfo onStart:(BOOL)onStart {
+    [[Pushwoosh sharedInstance].pushNotificationManager handlePushAccepted:userInfo onStart:onStart];
 }
 
 - (NSDictionary *)getCustomPushDataAsNSDict:(NSDictionary *)pushNotification {

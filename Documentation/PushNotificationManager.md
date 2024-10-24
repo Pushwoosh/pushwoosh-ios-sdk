@@ -80,6 +80,9 @@ PushNotificationManager class offers access to the singleton-instance of the pus
 		<td><a href="#1a90302222210e3de8c1fb2e327688c6ed">- (BOOL)handlePushReceived:(NSDictionary *)userInfo</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1a039c586600ee9e576d71a11800853b49">- (void)handlePushAccepted:(NSDictionary *)userInfo onStart:(BOOL)onStart</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1ab29c158f17a957eb0e9b317903c9123a">- (NSDictionary *)getApnPayload:(NSDictionary *)pushNotification</a></td>
 	</tr>
 	<tr>
@@ -310,6 +313,12 @@ Gets HWID. Unique device identifier that used in all API calls with Pushwoosh. T
   
 
 #### <a name="1a90302222210e3de8c1fb2e327688c6ed"></a>- (BOOL)handlePushReceived:(NSDictionary \*)userInfo  
+
+
+----------  
+  
+
+#### <a name="1a039c586600ee9e576d71a11800853b49"></a>- (void)handlePushAccepted:(NSDictionary \*)userInfo onStart:(BOOL)onStart  
 
 
 ----------  

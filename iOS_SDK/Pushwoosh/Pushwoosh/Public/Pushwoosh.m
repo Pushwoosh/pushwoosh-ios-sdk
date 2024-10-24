@@ -12,6 +12,7 @@
 #import "PWPreferences.h"
 #import "PWInAppStorage.h"
 #import "PWServerCommunicationManager.h"
+#import "PushNotificationManager.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 #import "PWVersionTracking.h"
@@ -82,8 +83,11 @@ static dispatch_once_t pushwooshOncePredicate;
         self.pushNotificationManager = [[PWPushNotificationsManager alloc] initWithConfig:[PWConfig config]];
 
         self.dataManager = [PWDataManager new];
-
-        _notificationCenterDelegateProxy = [[PWNotificationCenterDelegateProxy alloc] initWithNotificationManager:self.pushNotificationManager];
+                
+        if (![PWConfig config].isUsingPluginForPushHandling) {
+            _notificationCenterDelegateProxy = [[PWNotificationCenterDelegateProxy alloc] initWithNotificationManager:self.pushNotificationManager];
+        }
+        
     }
     
     return self;

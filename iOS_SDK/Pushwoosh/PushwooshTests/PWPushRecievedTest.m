@@ -21,6 +21,9 @@
 #import "PWUtils.h"
 #import "PWPushStatRequest.h"
 #import "PushwooshFramework.h"
+#import "PWBundleMock.h"
+#import "PWConfig.h"
+#import <OCMock/OCMock.h>
 
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
@@ -121,6 +124,8 @@
     [PushNotificationManager pushManager].showPushnotificationAlert = NO;
     
     //Precondition:
+    id mockPWConfigPartial = OCMPartialMock([PWConfig config]);
+    OCMStub([mockPWConfigPartial sendPushStatIfAlertsDisabled]).andReturn(YES);
     XCTestExpectation *requestExpectation = [self expectationWithDescription:@"mainQueueExpectation"];
     NSDictionary *userInfo = @{ @"aps" : @{ @"alert" : @"push message", @"badge" : @3, @"sound" : @"sound.mp3" }, @"p" : @"42", @"pw_msg" : @"1"};
     __block PWRequest *pushStatRequest = nil;
@@ -144,6 +149,8 @@
     [PushNotificationManager pushManager].showPushnotificationAlert = NO;
     
     //Precondition:
+    id mockPWConfigPartial = OCMPartialMock([PWConfig config]);
+    OCMStub([mockPWConfigPartial sendPushStatIfAlertsDisabled]).andReturn(YES);
     XCTestExpectation *requestExpectation = [self expectationWithDescription:@"mainQueueExpectation"];
     NSDictionary *userInfo = @{ @"aps" : @{ @"alert" : @"push message", @"badge" : @3, @"sound" : @"sound.mp3"}, @"pw_msg" : @"1"};
     __block PWRequest *pushStatRequest = nil;

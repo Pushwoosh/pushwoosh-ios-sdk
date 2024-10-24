@@ -26,6 +26,7 @@
 @property (nonatomic, assign, readwrite) BOOL preHandleNotificationsWithUrl;
 @property (nonatomic, assign, readwrite) BOOL lazyInitialization;
 @property (nonatomic, assign, readwrite) RichMediaStyleType richMediaStyle;
+@property (nonatomic, readwrite) BOOL isUsingPluginForPushHandling;
 
 @property (nonatomic) NSBundle *bundle;
 
@@ -47,10 +48,12 @@
 		self.appName = [bundle objectForInfoDictionaryKey:@"Pushwoosh_APPNAME"];
         
         self.appGroupsName = [bundle objectForInfoDictionaryKey:@"PW_APP_GROUPS_NAME"];
+        
+        self.isUsingPluginForPushHandling = [self getBoolean:@"Pushwoosh_PLUGIN_NOTIFICATION_HANDLER" default:NO];
 
 		self.showAlert = [self getBoolean:@"Pushwoosh_SHOW_ALERT" default:YES];
 
-        self.sendPushStatIfAlertsDisabled = [self getBoolean:@"Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED" default:YES];
+        self.sendPushStatIfAlertsDisabled = [self getBoolean:@"Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED" default:NO];
         
         self.alertStyle = PWNotificationAlertStyleBanner;
         

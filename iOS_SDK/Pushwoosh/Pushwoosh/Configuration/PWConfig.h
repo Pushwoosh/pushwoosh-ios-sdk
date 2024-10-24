@@ -144,6 +144,13 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
 
 @property (nonatomic, readonly) RichMediaStyleType richMediaStyle;
 
+/**
+ key: Pushwoosh_PLUGIN_NOTIFICATION_HANDLER
+ type: boolean
+ value: Flag indicating whether the push notification handling is implemented by the plugin (YES) or by the SDK (NO). By default, this is set to NO.
+ */
+@property (nonatomic, readonly) BOOL isUsingPluginForPushHandling;
+
 
 /**
 key: Pushwoosh_AUTO_ACCEPT_DEEP_LINK_FOR_SILENT_PUSH
