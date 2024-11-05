@@ -20,7 +20,13 @@
 #error "ARC is required to compile Pushwoosh SDK"
 #endif
 
-@interface PWRegisterDeviceRequest () 
+typedef NS_ENUM(NSInteger, PWPlatform) {
+    iOS = 1,
+    SMS = 18,
+    Whatsapp = 21
+};
+
+@interface PWRegisterDeviceRequest ()
 
 @end
 
@@ -53,25 +59,42 @@
 }
 
 - (NSDictionary *)requestDictionary {
-	NSMutableDictionary *dict = [[super requestDictionary] mutableCopy];
+    NSMutableDictionary *dict = [[super requestDictionary] mutableCopy];
 
-	dict[@"push_token"] = _pushToken;
-	dict[@"timezone"] = [PWUtils timezone];
+    dict[@"push_token"] = _token;
+    dict[@"device_type"] = @(_platform);
+    dict[@"timezone"] = [PWUtils timezone];
 
-	BOOL sandbox = ![PWUtils getAPSProductionStatus:NO];
-	if (sandbox)
-		dict[@"gateway"] = @"sandbox";
-	else
-		dict[@"gateway"] = @"production";
-
-	NSArray *soundsList = [self buildSoundsList];
-	dict[@"sounds"] = soundsList;
-    
-    if (_customTags != nil) {
-        dict[@"tags"] =  _customTags;
+    switch (_platform) {
+        case SMS:
+            dict[@"hwid"] = _token;
+            break;
+            
+        case Whatsapp: {
+            NSString *whatsappToken = [@"whatsapp:" stringByAppendingString:_token];
+            dict[@"hwid"] = whatsappToken;
+            dict[@"push_token"] = whatsappToken;
+            break;
+        }
+        
+        case iOS: {
+            BOOL sandbox = ![PWUtils getAPSProductionStatus:NO];
+            dict[@"gateway"] = sandbox ? @"sandbox" : @"production";
+            
+            NSArray *soundsList = [self buildSoundsList];
+            dict[@"sounds"] = soundsList;
+            break;
+        }
+            
+        default:
+            break;
     }
 
-	return dict;
+    if (_customTags) {
+        dict[@"tags"] = _customTags;
+    }
+
+    return dict;
 }
 
 - (void)parseResponse:(NSDictionary *)response {

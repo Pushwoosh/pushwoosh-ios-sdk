@@ -468,7 +468,7 @@
               {
                 "kind": "TypeNominal",
                 "name": "Decoder",
-                "printedName": "Swift.Decoder",
+                "printedName": "any Swift.Decoder",
                 "usr": "s:s7DecoderP"
               }
             ],
@@ -493,7 +493,7 @@
               {
                 "kind": "TypeNominal",
                 "name": "Encoder",
-                "printedName": "Swift.Encoder",
+                "printedName": "any Swift.Encoder",
                 "usr": "s:s7EncoderP"
               }
             ],
@@ -716,7 +716,7 @@
               {
                 "kind": "TypeNominal",
                 "name": "Decoder",
-                "printedName": "Swift.Decoder",
+                "printedName": "any Swift.Decoder",
                 "usr": "s:s7DecoderP"
               }
             ],
@@ -741,7 +741,7 @@
               {
                 "kind": "TypeNominal",
                 "name": "Encoder",
-                "printedName": "Swift.Encoder",
+                "printedName": "any Swift.Encoder",
                 "usr": "s:s7EncoderP"
               }
             ],
@@ -1034,62 +1034,5 @@
     ],
     "json_format_version": 8
   },
-  "ConstValues": [
-    {
-      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
-      "kind": "StringLiteral",
-      "offset": 1762,
-      "length": 6,
-      "value": "\"%02x\""
-    },
-    {
-      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
-      "kind": "StringLiteral",
-      "offset": 2104,
-      "length": 17,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
-      "kind": "StringLiteral",
-      "offset": 2120,
-      "length": 24,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
-      "kind": "StringLiteral",
-      "offset": 2181,
-      "length": 91,
-      "value": "\"Failed to set push token for activity type \""
-    },
-    {
-      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
-      "kind": "StringLiteral",
-      "offset": 2240,
-      "length": 1,
-      "value": "\": \""
-    },
-    {
-      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
-      "kind": "StringLiteral",
-      "offset": 2271,
-      "length": 2,
-      "value": "\"\""
-    },
-    {
-      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
-      "kind": "StringLiteral",
-      "offset": 2581,
-      "length": 58,
-      "value": "\"Unable to convert activity type to a URL-encoded string.\""
-    },
-    {
-      "filePath": "\/Users\/pushwoosh\/builds\/UCTM6n-A\/0\/SDK\/iOS\/Pushwoosh\/Pushwoosh\/Live Activities Swift\/PushwooshLiveActivitiesImplementationSetup.swift",
-      "kind": "StringLiteral",
-      "offset": 4800,
-      "length": 6,
-      "value": "\"%02x\""
-    }
-  ]
+  "ConstValues": []
 }

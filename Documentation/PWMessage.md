@@ -11,6 +11,12 @@ Message from Pushwoosh.
 		<td><a href="#1ab365d5ab62ebc13c91f231f3c2c9a570">@property NSUInteger badge</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1a5ab472e4bef8f1ced38a12e8651c50d2">@property uint64_t messageId</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1aec059e69dbd3e7c012c6b4de4da4c568">@property uint64_t campaignId</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1ac7d0b924c194696c787a77fb51cc6a81">@property NSUInteger badgeExtension</a></td>
 	</tr>
 	<tr>
@@ -35,13 +41,25 @@ Message from Pushwoosh.
   
 
 #### <a name="1aecf83b72f600bc65ae4dbe7706a90cc6"></a>@property NSString \*_Nullable  
-Title of the push message.<br/>Subtitle of the push message.<br/>Body of the push message.<br/>Remote URL or deeplink from the push message.<br/>Returns actionIdentifier of the button pressed<br/>Original payload of the message. 
+Title of the push message.<br/>Subtitle of the push message.<br/>Body of the push message.<br/>Message code of the push message.<br/>Remote URL or deeplink from the push message.<br/>Returns actionIdentifier of the button pressed<br/>Original payload of the message. 
 
 ----------  
   
 
 #### <a name="1ab365d5ab62ebc13c91f231f3c2c9a570"></a>@property NSUInteger badge  
 Badge number of the push message. 
+
+----------  
+  
+
+#### <a name="1a5ab472e4bef8f1ced38a12e8651c50d2"></a>@property uint64\_t messageId  
+Unique identifier of the message. 
+
+----------  
+  
+
+#### <a name="1aec059e69dbd3e7c012c6b4de4da4c568"></a>@property uint64\_t campaignId  
+Unique identifier of the campaign. 
 
 ----------  
   

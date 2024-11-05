@@ -18,7 +18,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.7.8"
+#define PUSHWOOSH_VERSION @"6.7.9"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -127,6 +127,21 @@ Tells the delegate that the user has pressed on the push notification banner.
  Badge number of the push message.
 */
 @property (nonatomic, readonly) NSUInteger badge;
+
+/**
+ Message code of the push message.
+ */
+@property (nonatomic, readonly) NSString *_Nullable messageCode;
+
+/**
+ Unique identifier of the message.
+ */
+@property (nonatomic, readonly) uint64_t messageId;
+
+/**
+ Unique identifier of the campaign.
+ */
+@property (nonatomic, readonly) uint64_t campaignId;
 
 /**
  Extension badge number of the push message.
@@ -254,6 +269,13 @@ Tells the delegate that the user has pressed on the push notification banner.
  */
 - (void)registerForPushNotificationsWith:(NSDictionary * _Nonnull)tags;
 - (void)registerForPushNotificationsWith:(NSDictionary * _Nonnull)tags completion:(PushwooshRegistrationHandler _Nullable )completion;
+
+
+/**
+ Registration methods for Whatsapp and SMS
+ */
+- (void)registerSmsNumber:(NSString * _Nonnull) number;
+- (void)registerWhatsappNumber:(NSString * _Nonnull) number;
 
 /**
 Unregisters from push notifications.

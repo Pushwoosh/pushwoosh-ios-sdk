@@ -42,4 +42,7 @@
 - (void)setReverseProxy:(NSString *)url;
 - (void)disableReverseProxy;
 
+- (void)registerSmsNumber:(NSString *)number;
+- (void)registerWhatsappNumber:(NSString *)number;
+
 @end

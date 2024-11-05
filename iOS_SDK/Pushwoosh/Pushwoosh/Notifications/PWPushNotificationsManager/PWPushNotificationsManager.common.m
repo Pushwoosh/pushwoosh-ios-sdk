@@ -29,6 +29,13 @@
 
 const NSTimeInterval kRegistrationUpdateInterval = 24 * 60 * 60;
 
+typedef NS_ENUM(NSInteger, PWPlatform) {
+    iOS = 1,
+    SMS = 18,
+    Whatsapp = 21
+};
+
+
 @interface PWPushNotificationsManagerCommon ()
 
 @property (nonatomic, strong) NSDictionary *lastPushMessage;
@@ -42,6 +49,8 @@ const NSTimeInterval kRegistrationUpdateInterval = 24 * 60 * 60;
 @property (nonatomic) PWConfig *config;
 
 @property (nonatomic) PushwooshRegistrationHandler registrationHandler;
+
+@property (nonatomic) PWRegisterDeviceRequest *request;
 
 @end
 
@@ -162,12 +171,9 @@ const NSTimeInterval kRegistrationUpdateInterval = 24 * 60 * 60;
 		}
 	}
 
-	PWRegisterDeviceRequest *request = [[PWRegisterDeviceRequest alloc] init];
-	request.pushToken = deviceID;
-    request.customTags = [[PWPreferences preferences] customTags];
     [PWPreferences preferences].lastRegTime = [NSDate date];
-    
-	[_requestManager sendRequest:request completion:^(NSError *error) {
+
+	[_requestManager sendRequest:[self requestParameters:deviceID platform:iOS] completion:^(NSError *error) {
         
         [[PWPreferences preferences] setCustomTags:nil];
         
@@ -449,10 +455,10 @@ const NSTimeInterval kRegistrationUpdateInterval = 24 * 60 * 60;
 }
 
 - (void)registerTestDevice {
-	PWRegisterTestDeviceRequest *request = [[PWRegisterTestDeviceRequest alloc] init];
-	request.pushToken = [PWPreferences preferences].pushToken;
-	request.name = [PWUtils deviceName];
-	request.desc = @"Imported from the app";
+    PWRegisterTestDeviceRequest *request = [[PWRegisterTestDeviceRequest alloc] init];
+    request.token = [PWPreferences preferences].pushToken;
+    request.name = [PWUtils deviceName];
+    request.desc = @"Imported from the app";
 
 	[_requestManager sendRequest:request completion:^(NSError *error) {
 		if (error == nil) {
@@ -472,6 +478,35 @@ const NSTimeInterval kRegistrationUpdateInterval = 24 * 60 * 60;
 
 - (void)disableReverseProxy {
     [_requestManager disableReverseProxy];
+}
+
+- (void)registerNumber:(NSString *)number forPlatform:(PWPlatform)platform {
+    [_requestManager sendRequest:[self requestParameters:number platform:platform] completion:^(NSError *error) {
+        [[PWPreferences preferences] setCustomTags:nil];
+        
+        if (error == nil) {
+            PWLogInfo(@"Registered for %@ notifications: %@", (platform == Whatsapp) ? @"WhatsApp" : @"SMS", number);
+        } else {
+            PWLogError(@"Registration for %@ notifications failed", (platform == Whatsapp) ? @"WhatsApp" : @"SMS");
+        }
+    }];
+}
+
+- (PWRegisterDeviceRequest *)requestParameters:(NSString *)token platform:(PWPlatform)platform {
+    _request = [[PWRegisterDeviceRequest alloc] init];
+    _request.platform = platform;
+    _request.token = token;
+    _request.customTags = [[PWPreferences preferences] customTags];
+    
+    return _request;
+}
+
+- (void)registerWhatsappNumber:(NSString *)number {
+    [self registerNumber:number forPlatform:Whatsapp];
+}
+
+- (void)registerSmsNumber:(NSString *)number {
+    [self registerNumber:number forPlatform:SMS];
 }
 
 @end

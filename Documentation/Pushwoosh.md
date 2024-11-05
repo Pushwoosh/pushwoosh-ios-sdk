@@ -47,6 +47,12 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1ade933d38cfbac899053fe3d2e86d0c78">- (void)registerForPushNotificationsWith:(NSDictionary *_Nonnull)tags completion:(PushwooshRegistrationHandler _Nullable)completion</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1a75ae1c085d180b3fe36e0f719983e5ab">- (void)registerSmsNumber:(NSString *_Nonnull)number</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1acd181e94d5156f6c3ed48be289866182">- (void)registerWhatsappNumber:(NSString *_Nonnull)number</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1ac30104920e79607ee1b645911b7b0ef6">- (void)unregisterForPushNotifications</a></td>
 	</tr>
 	<tr>
@@ -266,6 +272,18 @@ Registers for push notifications with custom tags. By default registeres for "UI
   
 
 #### <a name="1ade933d38cfbac899053fe3d2e86d0c78"></a>- (void)registerForPushNotificationsWith:(NSDictionary \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)tags completion:(PushwooshRegistrationHandler <a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a>)completion  
+
+
+----------  
+  
+
+#### <a name="1a75ae1c085d180b3fe36e0f719983e5ab"></a>- (void)registerSmsNumber:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)number  
+Registration methods for Whatsapp and SMS 
+
+----------  
+  
+
+#### <a name="1acd181e94d5156f6c3ed48be289866182"></a>- (void)registerWhatsappNumber:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)number  
 
 
 ----------  
