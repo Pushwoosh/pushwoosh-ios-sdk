@@ -37,6 +37,38 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject {
         }
         observeActivity(activityType)
     }
+    
+    @available(iOS 16.1, *)
+    public static func defaultSetup() {
+        configureLiveActivity(DefaultLiveActivityAttributes.self)
+    }
+    
+    @objc
+    @available(iOS 16.1, *)
+    public static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any]) {
+        let pushwooshAttribute = PushwooshLiveActivityAttributeData.create(activityId: activityId)
+
+        var attributeData = [String: AnyCodable]()
+        for attribute in attributes {
+            attributeData.updateValue(AnyCodable(attribute.value), forKey: attribute.key)
+        }
+
+        var contentData = [String: AnyCodable]()
+        for contentItem in content {
+            contentData.updateValue(AnyCodable(contentItem.value), forKey: contentItem.key)
+        }
+
+        let attributes = DefaultLiveActivityAttributes(data: attributeData, pushwoosh: pushwooshAttribute)
+        let contentState = DefaultLiveActivityAttributes.ContentState(data: contentData)
+        do {
+            _ = try Activity<DefaultLiveActivityAttributes>.request(
+                    attributes: attributes,
+                    contentState: contentState,
+                    pushType: .token)
+        } catch let error {
+            print("Start default live activity error: \(error.localizedDescription)")
+        }
+    }
 
     // MARK: - OBSERVE PUSH TO START TOKEN
     @available(iOS 17.2, *)

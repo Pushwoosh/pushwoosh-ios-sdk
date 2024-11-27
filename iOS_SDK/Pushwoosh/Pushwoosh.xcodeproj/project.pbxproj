@@ -343,6 +343,8 @@
 		449CC1682BAA11B5003E16DC /* WKUserScript+PWInterfacesScriptGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB6E88723F576F600421AA4 /* WKUserScript+PWInterfacesScriptGenerator.h */; };
 		449CC1692BAA11E8003E16DC /* WKWebView+PWSynchronousEvaluateJavaScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DB6E88023F576F500421AA4 /* WKWebView+PWSynchronousEvaluateJavaScript.m */; };
 		449CC16A2BAA11EB003E16DC /* WKWebView+PWSynchronousEvaluateJavaScript.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DB6E87E23F576F500421AA4 /* WKWebView+PWSynchronousEvaluateJavaScript.h */; };
+		44E75ED52CF7644E00717C5B /* AnyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E75ED42CF7644E00717C5B /* AnyCodable.swift */; };
+		44E75ED72CF7648D00717C5B /* DefaultLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44E75ED62CF7648D00717C5B /* DefaultLiveActivityAttributes.swift */; };
 		44FE0D392CAD6CDD001C34FD /* PWModalWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AF30846F2996A1F500E19F10 /* PWModalWindow.m */; };
 		44FE0D3A2CAD6CF0001C34FD /* PWModalWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = AF30846E2996A1F500E19F10 /* PWModalWindow.h */; };
 		44FE0D3B2CAD6CF4001C34FD /* PWModalWindowSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 443117BC2C6FA091008F82C6 /* PWModalWindowSettings.m */; };
@@ -1587,6 +1589,8 @@
 		449CC00B2BA9C289003E16DC /* Pushwoosh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pushwoosh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		449CC0F22BA9E699003E16DC /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/XROS.platform/Developer/SDKs/XROS1.1.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
 		449CC0F42BA9E6A9003E16DC /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/XROS.platform/Developer/SDKs/XROS1.1.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
+		44E75ED42CF7644E00717C5B /* AnyCodable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnyCodable.swift; sourceTree = "<group>"; };
+		44E75ED62CF7648D00717C5B /* DefaultLiveActivityAttributes.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DefaultLiveActivityAttributes.swift; sourceTree = "<group>"; };
 		4649F4B61ED5517A00D3D90C /* PushNotificationManager+Mock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PushNotificationManager+Mock.h"; path = "PushwooshTests/Mock/PushNotificationManager+Mock.h"; sourceTree = SOURCE_ROOT; };
 		4649F4B71ED5517A00D3D90C /* PushNotificationManager+Mock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PushNotificationManager+Mock.m"; path = "PushwooshTests/Mock/PushNotificationManager+Mock.m"; sourceTree = SOURCE_ROOT; };
 		4649F4B81ED5517A00D3D90C /* PWPushNotificationDelegateMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWPushNotificationDelegateMock.h; path = PushwooshTests/Mock/PWPushNotificationDelegateMock.h; sourceTree = SOURCE_ROOT; };
@@ -2036,6 +2040,8 @@
 			children = (
 				4463DB622C64FB4C005F547E /* PushwooshLiveActivityAttributes.swift */,
 				4463DB682C64FD3E005F547E /* PushwooshLiveActivitiesImplementationSetup.swift */,
+				44E75ED42CF7644E00717C5B /* AnyCodable.swift */,
+				44E75ED62CF7648D00717C5B /* DefaultLiveActivityAttributes.swift */,
 			);
 			path = "Live Activities Swift";
 			sourceTree = "<group>";
@@ -4501,6 +4507,7 @@
 				5DAEE790246413A900219D92 /* PWUtilsMobile.m in Sources */,
 				5DB6E89123F576F600421AA4 /* WKWebView+PWSynchronousEvaluateJavaScript.m in Sources */,
 				5DB6E65723F5639C00421AA4 /* PWBusinessCaseManager.m in Sources */,
+				44E75ED72CF7648D00717C5B /* DefaultLiveActivityAttributes.swift in Sources */,
 				5DB6E89523F576F600421AA4 /* PWEasyJSListener.m in Sources */,
 				5DB6E52023F55EB300421AA4 /* PWRequest.m in Sources */,
 				5DB6E75723F5695300421AA4 /* PWNotificationManagerCompatiOS8.m in Sources */,
@@ -4557,6 +4564,7 @@
 				5DB6E7C023F56E5700421AA4 /* PWInteractivePush.m in Sources */,
 				5DB6E3D323F55AAD00421AA4 /* PWDataManager.ios.m in Sources */,
 				5DB6E51A23F55EB300421AA4 /* PWCachedRequest.m in Sources */,
+				44E75ED52CF7644E00717C5B /* AnyCodable.swift in Sources */,
 				5DB6E66D23F5655600421AA4 /* PWGetResourcesRequest.m in Sources */,
 				5DB6E5B123F5615200421AA4 /* PWInteractionDisabledWindow.m in Sources */,
 				5DB6E85923F5762C00421AA4 /* PWInboxMessagesRequest.m in Sources */,

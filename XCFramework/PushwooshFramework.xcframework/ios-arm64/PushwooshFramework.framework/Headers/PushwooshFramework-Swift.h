@@ -277,6 +277,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import Foundation;
 @import ObjectiveC;
 #endif
 
@@ -304,9 +305,11 @@ SWIFT_CLASS("_TtC18PushwooshFramework23PushwooshLiveActivities")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class NSString;
 
 SWIFT_CLASS("_TtC18PushwooshFramework42PushwooshLiveActivitiesImplementationSetup")
 @interface PushwooshLiveActivitiesImplementationSetup : NSObject
++ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content SWIFT_AVAILABILITY(ios,introduced=16.1);
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

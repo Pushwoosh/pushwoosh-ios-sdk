@@ -1,0 +1,851 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 48;
+	objects = {
+
+/* Begin PBXAggregateTarget section */
+		A469F59B1FBC3C970062CBF5 /* PushwooshInboxUIFramework */ = {
+			isa = PBXAggregateTarget;
+			buildConfigurationList = A469F59E1FBC3C970062CBF5 /* Build configuration list for PBXAggregateTarget "PushwooshInboxUIFramework" */;
+			buildPhases = (
+				A469F5A01FBC4A520062CBF5 /* Create Framework */,
+			);
+			dependencies = (
+			);
+			name = PushwooshInboxUIFramework;
+			productName = PushwooshInboxUIFramework;
+		};
+/* End PBXAggregateTarget section */
+
+/* Begin PBXBuildFile section */
+		2A708F9322C15C01002086B2 /* PWIInboxAttachmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9090D98E22A12ECD005853B9 /* PWIInboxAttachmentViewController.m */; };
+		2A708F9422C15C15002086B2 /* PWIInboxAttachmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9090D98F22A12ECD005853B9 /* PWIInboxAttachmentViewController.xib */; };
+		2A708F9522C15C16002086B2 /* PWIInboxAttachmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9090D98F22A12ECD005853B9 /* PWIInboxAttachmentViewController.xib */; };
+		2A708F9622C15C24002086B2 /* PWIInboxAttachmentViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9090D98D22A12ECD005853B9 /* PWIInboxAttachmentViewController.h */; };
+		9090D99022A12ECD005853B9 /* PWIInboxAttachmentViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 9090D98D22A12ECD005853B9 /* PWIInboxAttachmentViewController.h */; };
+		9090D99122A12ECD005853B9 /* PWIInboxAttachmentViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9090D98E22A12ECD005853B9 /* PWIInboxAttachmentViewController.m */; };
+		9090D99222A12ECD005853B9 /* PWIInboxAttachmentViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9090D98F22A12ECD005853B9 /* PWIInboxAttachmentViewController.xib */; };
+		A42B59F11FBF12C80061E583 /* NSBundle+PWIHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = A42B59EF1FBF12C80061E583 /* NSBundle+PWIHelper.h */; };
+		A42B59F21FBF12C80061E583 /* NSBundle+PWIHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = A42B59EF1FBF12C80061E583 /* NSBundle+PWIHelper.h */; };
+		A42B59F31FBF12C80061E583 /* NSBundle+PWIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A42B59F01FBF12C80061E583 /* NSBundle+PWIHelper.m */; };
+		A42B59F41FBF12C80061E583 /* NSBundle+PWIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A42B59F01FBF12C80061E583 /* NSBundle+PWIHelper.m */; };
+		A469F5B41FBD74390062CBF5 /* inbox_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A4F321BD1FAA0F7A00A8058E /* inbox_icon.png */; };
+		A469F5B51FBD743C0062CBF5 /* unread.png in Resources */ = {isa = PBXBuildFile; fileRef = A4F321C71FABFF9D00A8058E /* unread.png */; };
+		A469F5B61FBD74400062CBF5 /* noMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46D6F4A1FB303E4003979C7 /* noMessage@2x.png */; };
+		A469F5B71FBD74430062CBF5 /* errorMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46D6F4C1FB303EB003979C7 /* errorMessage@2x.png */; };
+		A469F5B81FBD74930062CBF5 /* PWIInboxMessageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DB69D21FA990AD007210E6 /* PWIInboxMessageViewCell.xib */; };
+		A469F5B91FBD749B0062CBF5 /* PWIInboxViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F321AE1FA9B74B00A8058E /* PWIInboxViewController.xib */; };
+		A469F61F1FBD851A0062CBF5 /* inbox_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A4F321BD1FAA0F7A00A8058E /* inbox_icon.png */; };
+		A469F6201FBD851D0062CBF5 /* unread.png in Resources */ = {isa = PBXBuildFile; fileRef = A4F321C71FABFF9D00A8058E /* unread.png */; };
+		A469F6211FBD85210062CBF5 /* noMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46D6F4A1FB303E4003979C7 /* noMessage@2x.png */; };
+		A469F6221FBD85250062CBF5 /* errorMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46D6F4C1FB303EB003979C7 /* errorMessage@2x.png */; };
+		A469F6231FBD852D0062CBF5 /* PWIInboxMessageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DB69D21FA990AD007210E6 /* PWIInboxMessageViewCell.xib */; };
+		A469F6241FBD85310062CBF5 /* PWIInboxViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F321AE1FA9B74B00A8058E /* PWIInboxViewController.xib */; };
+		A46D6F4B1FB303E4003979C7 /* noMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46D6F4A1FB303E4003979C7 /* noMessage@2x.png */; };
+		A46D6F4D1FB303EB003979C7 /* errorMessage@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = A46D6F4C1FB303EB003979C7 /* errorMessage@2x.png */; };
+		A4DB69A61FA98A37007210E6 /* PushwooshInboxUI.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69A41FA98A37007210E6 /* PushwooshInboxUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4DB69C11FA98DDA007210E6 /* PWIInboxStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69BF1FA98DDA007210E6 /* PWIInboxStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4DB69C21FA98DDA007210E6 /* PWIInboxStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69C01FA98DDA007210E6 /* PWIInboxStyle.m */; };
+		A4DB69C51FA98E67007210E6 /* PWIInboxUI.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69C31FA98E67007210E6 /* PWIInboxUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4DB69C61FA98E67007210E6 /* PWIInboxUI.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69C41FA98E67007210E6 /* PWIInboxUI.m */; };
+		A4DB69CD1FA98FE9007210E6 /* PWIInboxViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69CA1FA98FE9007210E6 /* PWIInboxViewController.h */; };
+		A4DB69CE1FA98FE9007210E6 /* PWIInboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69CB1FA98FE9007210E6 /* PWIInboxViewController.m */; };
+		A4DB69D31FA990AD007210E6 /* PWIInboxMessageViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69D01FA990AD007210E6 /* PWIInboxMessageViewCell.h */; };
+		A4DB69D41FA990AD007210E6 /* PWIInboxMessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69D11FA990AD007210E6 /* PWIInboxMessageViewCell.m */; };
+		A4DB69D51FA990AD007210E6 /* PWIInboxMessageViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4DB69D21FA990AD007210E6 /* PWIInboxMessageViewCell.xib */; };
+		A4DB69DD1FA9913F007210E6 /* PWIWeakRef.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69D91FA9913F007210E6 /* PWIWeakRef.m */; };
+		A4DB69DE1FA9913F007210E6 /* UITableViewCell+PWIHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69DA1FA9913F007210E6 /* UITableViewCell+PWIHelper.h */; };
+		A4DB69DF1FA9913F007210E6 /* PWIWeakRef.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69DB1FA9913F007210E6 /* PWIWeakRef.h */; };
+		A4DB69E01FA9913F007210E6 /* UITableViewCell+PWIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69DC1FA9913F007210E6 /* UITableViewCell+PWIHelper.m */; };
+		A4DB69E71FA9AA50007210E6 /* UIImageView+PWILoadImage.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69E51FA9AA50007210E6 /* UIImageView+PWILoadImage.h */; };
+		A4DB69E81FA9AA50007210E6 /* UIImageView+PWILoadImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69E61FA9AA50007210E6 /* UIImageView+PWILoadImage.m */; };
+		A4DCE5121FBAE9F4009CE923 /* PWIInboxUI.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69C41FA98E67007210E6 /* PWIInboxUI.m */; };
+		A4DCE5131FBAEA03009CE923 /* PWIInboxStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69C01FA98DDA007210E6 /* PWIInboxStyle.m */; };
+		A4DCE5141FBAEA10009CE923 /* PWIInboxViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69CB1FA98FE9007210E6 /* PWIInboxViewController.m */; };
+		A4DCE5151FBAEA16009CE923 /* PWIInboxMessageViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69D11FA990AD007210E6 /* PWIInboxMessageViewCell.m */; };
+		A4DCE5161FBAEA1E009CE923 /* UIImageView+PWILoadImage.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69E61FA9AA50007210E6 /* UIImageView+PWILoadImage.m */; };
+		A4DCE5171FBAEA35009CE923 /* UIImage+PWITintColor.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F321D11FAC07FC00A8058E /* UIImage+PWITintColor.m */; };
+		A4DCE5181FBAEABB009CE923 /* PWIPushwooshHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F321B71FA9E9C000A8058E /* PWIPushwooshHelper.m */; };
+		A4DCE5191FBAEAC0009CE923 /* UITableViewCell+PWIHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69DC1FA9913F007210E6 /* UITableViewCell+PWIHelper.m */; };
+		A4DCE51A1FBAEAC5009CE923 /* PWIWeakRef.m in Sources */ = {isa = PBXBuildFile; fileRef = A4DB69D91FA9913F007210E6 /* PWIWeakRef.m */; };
+		A4DCE51C1FBAEB4E009CE923 /* PWInbox.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69E11FA9A990007210E6 /* PWInbox.h */; };
+		A4DCE51F1FBB1742009CE923 /* PWInbox.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69E11FA9A990007210E6 /* PWInbox.h */; };
+		A4DCE5201FBB1751009CE923 /* PWIWeakRef.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69DB1FA9913F007210E6 /* PWIWeakRef.h */; };
+		A4DCE5211FBB1754009CE923 /* UITableViewCell+PWIHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69DA1FA9913F007210E6 /* UITableViewCell+PWIHelper.h */; };
+		A4DCE5221FBB1759009CE923 /* PWIPushwooshHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = A4F321B61FA9E9C000A8058E /* PWIPushwooshHelper.h */; };
+		A4DCE5231FBB175E009CE923 /* UIImage+PWITintColor.h in Headers */ = {isa = PBXBuildFile; fileRef = A4F321D01FAC07FC00A8058E /* UIImage+PWITintColor.h */; };
+		A4DCE5241FBB1764009CE923 /* UIImageView+PWILoadImage.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69E51FA9AA50007210E6 /* UIImageView+PWILoadImage.h */; };
+		A4DCE5251FBB1768009CE923 /* PWIInboxMessageViewCell.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69D01FA990AD007210E6 /* PWIInboxMessageViewCell.h */; };
+		A4DCE5261FBB176C009CE923 /* PWIInboxViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69CA1FA98FE9007210E6 /* PWIInboxViewController.h */; };
+		A4DCE5271FBB1772009CE923 /* PWIInboxStyle.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69BF1FA98DDA007210E6 /* PWIInboxStyle.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4DCE5281FBB177A009CE923 /* PWIInboxUI.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69C31FA98E67007210E6 /* PWIInboxUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4DCE5291FBB1783009CE923 /* PushwooshInboxUI.h in Headers */ = {isa = PBXBuildFile; fileRef = A4DB69A41FA98A37007210E6 /* PushwooshInboxUI.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		A4F321AF1FA9B74B00A8058E /* PWIInboxViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = A4F321AE1FA9B74B00A8058E /* PWIInboxViewController.xib */; };
+		A4F321B81FA9E9C000A8058E /* PWIPushwooshHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = A4F321B61FA9E9C000A8058E /* PWIPushwooshHelper.h */; };
+		A4F321B91FA9E9C000A8058E /* PWIPushwooshHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F321B71FA9E9C000A8058E /* PWIPushwooshHelper.m */; };
+		A4F321D21FAC07FC00A8058E /* UIImage+PWITintColor.h in Headers */ = {isa = PBXBuildFile; fileRef = A4F321D01FAC07FC00A8058E /* UIImage+PWITintColor.h */; };
+		A4F321D31FAC07FC00A8058E /* UIImage+PWITintColor.m in Sources */ = {isa = PBXBuildFile; fileRef = A4F321D11FAC07FC00A8058E /* UIImage+PWITintColor.m */; };
+		A4F321D51FAC0C6800A8058E /* unread.png in Resources */ = {isa = PBXBuildFile; fileRef = A4F321C71FABFF9D00A8058E /* unread.png */; };
+		A4F321D61FAC0C6B00A8058E /* inbox_icon.png in Resources */ = {isa = PBXBuildFile; fileRef = A4F321BD1FAA0F7A00A8058E /* inbox_icon.png */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXCopyFilesBuildPhase section */
+		A4DCE5071FBAE3E7009CE923 /* CopyFiles */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "include/$(PRODUCT_NAME)";
+			dstSubfolderSpec = 16;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
+/* Begin PBXFileReference section */
+		9090D98D22A12ECD005853B9 /* PWIInboxAttachmentViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWIInboxAttachmentViewController.h; sourceTree = "<group>"; };
+		9090D98E22A12ECD005853B9 /* PWIInboxAttachmentViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWIInboxAttachmentViewController.m; sourceTree = "<group>"; };
+		9090D98F22A12ECD005853B9 /* PWIInboxAttachmentViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PWIInboxAttachmentViewController.xib; sourceTree = "<group>"; };
+		A42B59EF1FBF12C80061E583 /* NSBundle+PWIHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "NSBundle+PWIHelper.h"; sourceTree = "<group>"; };
+		A42B59F01FBF12C80061E583 /* NSBundle+PWIHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "NSBundle+PWIHelper.m"; sourceTree = "<group>"; };
+		A469F6191FBD85030062CBF5 /* PushwooshInboxBundle.bundle */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushwooshInboxBundle.bundle; sourceTree = BUILT_PRODUCTS_DIR; };
+		A469F61B1FBD85030062CBF5 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A46D6F4A1FB303E4003979C7 /* noMessage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "noMessage@2x.png"; sourceTree = "<group>"; };
+		A46D6F4C1FB303EB003979C7 /* errorMessage@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "errorMessage@2x.png"; sourceTree = "<group>"; };
+		A4DB69A11FA98A37007210E6 /* PushwooshInboxUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshInboxUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4DB69A41FA98A37007210E6 /* PushwooshInboxUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushwooshInboxUI.h; sourceTree = "<group>"; };
+		A4DB69A51FA98A37007210E6 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		A4DB69BF1FA98DDA007210E6 /* PWIInboxStyle.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWIInboxStyle.h; sourceTree = "<group>"; };
+		A4DB69C01FA98DDA007210E6 /* PWIInboxStyle.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWIInboxStyle.m; sourceTree = "<group>"; };
+		A4DB69C31FA98E67007210E6 /* PWIInboxUI.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWIInboxUI.h; sourceTree = "<group>"; };
+		A4DB69C41FA98E67007210E6 /* PWIInboxUI.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWIInboxUI.m; sourceTree = "<group>"; };
+		A4DB69CA1FA98FE9007210E6 /* PWIInboxViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWIInboxViewController.h; sourceTree = "<group>"; };
+		A4DB69CB1FA98FE9007210E6 /* PWIInboxViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWIInboxViewController.m; sourceTree = "<group>"; };
+		A4DB69D01FA990AD007210E6 /* PWIInboxMessageViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWIInboxMessageViewCell.h; sourceTree = "<group>"; };
+		A4DB69D11FA990AD007210E6 /* PWIInboxMessageViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWIInboxMessageViewCell.m; sourceTree = "<group>"; };
+		A4DB69D21FA990AD007210E6 /* PWIInboxMessageViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PWIInboxMessageViewCell.xib; sourceTree = "<group>"; };
+		A4DB69D91FA9913F007210E6 /* PWIWeakRef.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWIWeakRef.m; sourceTree = "<group>"; };
+		A4DB69DA1FA9913F007210E6 /* UITableViewCell+PWIHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UITableViewCell+PWIHelper.h"; sourceTree = "<group>"; };
+		A4DB69DB1FA9913F007210E6 /* PWIWeakRef.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWIWeakRef.h; sourceTree = "<group>"; };
+		A4DB69DC1FA9913F007210E6 /* UITableViewCell+PWIHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UITableViewCell+PWIHelper.m"; sourceTree = "<group>"; };
+		A4DB69E11FA9A990007210E6 /* PWInbox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInbox.h; sourceTree = "<group>"; };
+		A4DB69E51FA9AA50007210E6 /* UIImageView+PWILoadImage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIImageView+PWILoadImage.h"; sourceTree = "<group>"; };
+		A4DB69E61FA9AA50007210E6 /* UIImageView+PWILoadImage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIImageView+PWILoadImage.m"; sourceTree = "<group>"; };
+		A4DCE5091FBAE3E7009CE923 /* libPushwooshInboxUI.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwooshInboxUI.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		A4F321AE1FA9B74B00A8058E /* PWIInboxViewController.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PWIInboxViewController.xib; sourceTree = "<group>"; };
+		A4F321B61FA9E9C000A8058E /* PWIPushwooshHelper.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWIPushwooshHelper.h; sourceTree = "<group>"; };
+		A4F321B71FA9E9C000A8058E /* PWIPushwooshHelper.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWIPushwooshHelper.m; sourceTree = "<group>"; };
+		A4F321BD1FAA0F7A00A8058E /* inbox_icon.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = inbox_icon.png; sourceTree = "<group>"; };
+		A4F321C71FABFF9D00A8058E /* unread.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = unread.png; sourceTree = "<group>"; };
+		A4F321D01FAC07FC00A8058E /* UIImage+PWITintColor.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UIImage+PWITintColor.h"; sourceTree = "<group>"; };
+		A4F321D11FAC07FC00A8058E /* UIImage+PWITintColor.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UIImage+PWITintColor.m"; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		A469F6161FBD85030062CBF5 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4DB699D1FA98A37007210E6 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4DCE5061FBAE3E7009CE923 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		A469F61A1FBD85030062CBF5 /* PushwooshInboxBundle */ = {
+			isa = PBXGroup;
+			children = (
+				A469F61B1FBD85030062CBF5 /* Info.plist */,
+			);
+			path = PushwooshInboxBundle;
+			sourceTree = "<group>";
+		};
+		A4DB69971FA98A37007210E6 = {
+			isa = PBXGroup;
+			children = (
+				A4DB69A31FA98A37007210E6 /* PushwooshInboxUI */,
+				A469F61A1FBD85030062CBF5 /* PushwooshInboxBundle */,
+				A4DB69A21FA98A37007210E6 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		A4DB69A21FA98A37007210E6 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB69A11FA98A37007210E6 /* PushwooshInboxUI.framework */,
+				A4DCE5091FBAE3E7009CE923 /* libPushwooshInboxUI.a */,
+				A469F6191FBD85030062CBF5 /* PushwooshInboxBundle.bundle */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		A4DB69A31FA98A37007210E6 /* PushwooshInboxUI */ = {
+			isa = PBXGroup;
+			children = (
+				A4F321BC1FAA0F6900A8058E /* Resources */,
+				A4DB69BE1FA98DC2007210E6 /* Classes */,
+				A4DB69A41FA98A37007210E6 /* PushwooshInboxUI.h */,
+				A4DB69A51FA98A37007210E6 /* Info.plist */,
+			);
+			path = PushwooshInboxUI;
+			sourceTree = "<group>";
+		};
+		A4DB69BE1FA98DC2007210E6 /* Classes */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB69D81FA9913F007210E6 /* Utils */,
+				A4DB69E41FA9AA50007210E6 /* Views */,
+				A4DB69D61FA990F6007210E6 /* ViewControllers */,
+				A4DB69D71FA9911E007210E6 /* Public */,
+			);
+			name = Classes;
+			sourceTree = "<group>";
+		};
+		A4DB69D61FA990F6007210E6 /* ViewControllers */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB69D01FA990AD007210E6 /* PWIInboxMessageViewCell.h */,
+				A4DB69D11FA990AD007210E6 /* PWIInboxMessageViewCell.m */,
+				A4DB69D21FA990AD007210E6 /* PWIInboxMessageViewCell.xib */,
+				A4DB69CA1FA98FE9007210E6 /* PWIInboxViewController.h */,
+				A4DB69CB1FA98FE9007210E6 /* PWIInboxViewController.m */,
+				A4F321AE1FA9B74B00A8058E /* PWIInboxViewController.xib */,
+				9090D98D22A12ECD005853B9 /* PWIInboxAttachmentViewController.h */,
+				9090D98E22A12ECD005853B9 /* PWIInboxAttachmentViewController.m */,
+				9090D98F22A12ECD005853B9 /* PWIInboxAttachmentViewController.xib */,
+			);
+			path = ViewControllers;
+			sourceTree = "<group>";
+		};
+		A4DB69D71FA9911E007210E6 /* Public */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB69BF1FA98DDA007210E6 /* PWIInboxStyle.h */,
+				A4DB69C01FA98DDA007210E6 /* PWIInboxStyle.m */,
+				A4DB69C31FA98E67007210E6 /* PWIInboxUI.h */,
+				A4DB69C41FA98E67007210E6 /* PWIInboxUI.m */,
+			);
+			path = Public;
+			sourceTree = "<group>";
+		};
+		A4DB69D81FA9913F007210E6 /* Utils */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB69E11FA9A990007210E6 /* PWInbox.h */,
+				A4DB69DB1FA9913F007210E6 /* PWIWeakRef.h */,
+				A4DB69D91FA9913F007210E6 /* PWIWeakRef.m */,
+				A4DB69DA1FA9913F007210E6 /* UITableViewCell+PWIHelper.h */,
+				A4DB69DC1FA9913F007210E6 /* UITableViewCell+PWIHelper.m */,
+				A4F321B61FA9E9C000A8058E /* PWIPushwooshHelper.h */,
+				A4F321B71FA9E9C000A8058E /* PWIPushwooshHelper.m */,
+				A4F321D01FAC07FC00A8058E /* UIImage+PWITintColor.h */,
+				A4F321D11FAC07FC00A8058E /* UIImage+PWITintColor.m */,
+				A42B59EF1FBF12C80061E583 /* NSBundle+PWIHelper.h */,
+				A42B59F01FBF12C80061E583 /* NSBundle+PWIHelper.m */,
+			);
+			path = Utils;
+			sourceTree = "<group>";
+		};
+		A4DB69E41FA9AA50007210E6 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				A4DB69E51FA9AA50007210E6 /* UIImageView+PWILoadImage.h */,
+				A4DB69E61FA9AA50007210E6 /* UIImageView+PWILoadImage.m */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		A4F321BC1FAA0F6900A8058E /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				A4F321BD1FAA0F7A00A8058E /* inbox_icon.png */,
+				A4F321C71FABFF9D00A8058E /* unread.png */,
+				A46D6F4A1FB303E4003979C7 /* noMessage@2x.png */,
+				A46D6F4C1FB303EB003979C7 /* errorMessage@2x.png */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXHeadersBuildPhase section */
+		A4DB699E1FA98A37007210E6 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4DB69C11FA98DDA007210E6 /* PWIInboxStyle.h in Headers */,
+				A4DB69DE1FA9913F007210E6 /* UITableViewCell+PWIHelper.h in Headers */,
+				A4DB69CD1FA98FE9007210E6 /* PWIInboxViewController.h in Headers */,
+				A4DCE51C1FBAEB4E009CE923 /* PWInbox.h in Headers */,
+				A4F321B81FA9E9C000A8058E /* PWIPushwooshHelper.h in Headers */,
+				A4DB69D31FA990AD007210E6 /* PWIInboxMessageViewCell.h in Headers */,
+				A4DB69E71FA9AA50007210E6 /* UIImageView+PWILoadImage.h in Headers */,
+				A4DB69DF1FA9913F007210E6 /* PWIWeakRef.h in Headers */,
+				A4DB69C51FA98E67007210E6 /* PWIInboxUI.h in Headers */,
+				9090D99022A12ECD005853B9 /* PWIInboxAttachmentViewController.h in Headers */,
+				A4F321D21FAC07FC00A8058E /* UIImage+PWITintColor.h in Headers */,
+				A4DB69A61FA98A37007210E6 /* PushwooshInboxUI.h in Headers */,
+				A42B59F11FBF12C80061E583 /* NSBundle+PWIHelper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4DCE51E1FBB1730009CE923 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4DCE5211FBB1754009CE923 /* UITableViewCell+PWIHelper.h in Headers */,
+				A4DCE51F1FBB1742009CE923 /* PWInbox.h in Headers */,
+				A4DCE5231FBB175E009CE923 /* UIImage+PWITintColor.h in Headers */,
+				A4DCE5271FBB1772009CE923 /* PWIInboxStyle.h in Headers */,
+				A4DCE5281FBB177A009CE923 /* PWIInboxUI.h in Headers */,
+				A4DCE5221FBB1759009CE923 /* PWIPushwooshHelper.h in Headers */,
+				A4DCE5251FBB1768009CE923 /* PWIInboxMessageViewCell.h in Headers */,
+				A4DCE5261FBB176C009CE923 /* PWIInboxViewController.h in Headers */,
+				A4DCE5291FBB1783009CE923 /* PushwooshInboxUI.h in Headers */,
+				2A708F9622C15C24002086B2 /* PWIInboxAttachmentViewController.h in Headers */,
+				A4DCE5241FBB1764009CE923 /* UIImageView+PWILoadImage.h in Headers */,
+				A4DCE5201FBB1751009CE923 /* PWIWeakRef.h in Headers */,
+				A42B59F21FBF12C80061E583 /* NSBundle+PWIHelper.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXHeadersBuildPhase section */
+
+/* Begin PBXNativeTarget section */
+		A469F6181FBD85030062CBF5 /* PushwooshInboxBundle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A469F61C1FBD85030062CBF5 /* Build configuration list for PBXNativeTarget "PushwooshInboxBundle" */;
+			buildPhases = (
+				A469F6151FBD85030062CBF5 /* Sources */,
+				A469F6161FBD85030062CBF5 /* Frameworks */,
+				A469F6171FBD85030062CBF5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PushwooshInboxBundle;
+			productName = PushwooshInboxBundle;
+			productReference = A469F6191FBD85030062CBF5 /* PushwooshInboxBundle.bundle */;
+			productType = "com.apple.product-type.bundle";
+		};
+		A4DB69A01FA98A37007210E6 /* PushwooshInboxUI */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A4DB69A91FA98A37007210E6 /* Build configuration list for PBXNativeTarget "PushwooshInboxUI" */;
+			buildPhases = (
+				A4DB699C1FA98A37007210E6 /* Sources */,
+				A4DB699D1FA98A37007210E6 /* Frameworks */,
+				A4DB699E1FA98A37007210E6 /* Headers */,
+				A4DB699F1FA98A37007210E6 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PushwooshInboxUI;
+			productName = PushwooshInboxUI;
+			productReference = A4DB69A11FA98A37007210E6 /* PushwooshInboxUI.framework */;
+			productType = "com.apple.product-type.framework";
+		};
+		A4DCE5081FBAE3E7009CE923 /* PushwooshInboxUI.iOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = A4DCE5111FBAE3E7009CE923 /* Build configuration list for PBXNativeTarget "PushwooshInboxUI.iOS" */;
+			buildPhases = (
+				A4DCE5051FBAE3E7009CE923 /* Sources */,
+				A4DCE51E1FBB1730009CE923 /* Headers */,
+				A4DCE5071FBAE3E7009CE923 /* CopyFiles */,
+				A4DCE5061FBAE3E7009CE923 /* Frameworks */,
+				A469F5B31FBD74290062CBF5 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = PushwooshInboxUI.iOS;
+			productName = PushwooshInboxUI.iOS;
+			productReference = A4DCE5091FBAE3E7009CE923 /* libPushwooshInboxUI.a */;
+			productType = "com.apple.product-type.library.static";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		A4DB69981FA98A37007210E6 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				CLASSPREFIX = PWI;
+				LastUpgradeCheck = 0920;
+				ORGANIZATIONNAME = Pushwoosh;
+				TargetAttributes = {
+					A469F59B1FBC3C970062CBF5 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+					A469F6181FBD85030062CBF5 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Manual;
+					};
+					A4DB69A01FA98A37007210E6 = {
+						CreatedOnToolsVersion = 9.0.1;
+						ProvisioningStyle = Automatic;
+					};
+					A4DCE5081FBAE3E7009CE923 = {
+						CreatedOnToolsVersion = 9.1;
+						ProvisioningStyle = Automatic;
+					};
+				};
+			};
+			buildConfigurationList = A4DB699B1FA98A37007210E6 /* Build configuration list for PBXProject "PushwooshInboxUI" */;
+			compatibilityVersion = "Xcode 8.0";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+			);
+			mainGroup = A4DB69971FA98A37007210E6;
+			productRefGroup = A4DB69A21FA98A37007210E6 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				A4DB69A01FA98A37007210E6 /* PushwooshInboxUI */,
+				A4DCE5081FBAE3E7009CE923 /* PushwooshInboxUI.iOS */,
+				A469F59B1FBC3C970062CBF5 /* PushwooshInboxUIFramework */,
+				A469F6181FBD85030062CBF5 /* PushwooshInboxBundle */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		A469F5B31FBD74290062CBF5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A469F5B91FBD749B0062CBF5 /* PWIInboxViewController.xib in Resources */,
+				2A708F9422C15C15002086B2 /* PWIInboxAttachmentViewController.xib in Resources */,
+				A469F5B81FBD74930062CBF5 /* PWIInboxMessageViewCell.xib in Resources */,
+				A469F5B51FBD743C0062CBF5 /* unread.png in Resources */,
+				A469F5B41FBD74390062CBF5 /* inbox_icon.png in Resources */,
+				A469F5B61FBD74400062CBF5 /* noMessage@2x.png in Resources */,
+				A469F5B71FBD74430062CBF5 /* errorMessage@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A469F6171FBD85030062CBF5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A469F6241FBD85310062CBF5 /* PWIInboxViewController.xib in Resources */,
+				2A708F9522C15C16002086B2 /* PWIInboxAttachmentViewController.xib in Resources */,
+				A469F6201FBD851D0062CBF5 /* unread.png in Resources */,
+				A469F61F1FBD851A0062CBF5 /* inbox_icon.png in Resources */,
+				A469F6231FBD852D0062CBF5 /* PWIInboxMessageViewCell.xib in Resources */,
+				A469F6211FBD85210062CBF5 /* noMessage@2x.png in Resources */,
+				A469F6221FBD85250062CBF5 /* errorMessage@2x.png in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4DB699F1FA98A37007210E6 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A46D6F4D1FB303EB003979C7 /* errorMessage@2x.png in Resources */,
+				9090D99222A12ECD005853B9 /* PWIInboxAttachmentViewController.xib in Resources */,
+				A4F321D51FAC0C6800A8058E /* unread.png in Resources */,
+				A4F321D61FAC0C6B00A8058E /* inbox_icon.png in Resources */,
+				A4F321AF1FA9B74B00A8058E /* PWIInboxViewController.xib in Resources */,
+				A46D6F4B1FB303E4003979C7 /* noMessage@2x.png in Resources */,
+				A4DB69D51FA990AD007210E6 /* PWIInboxMessageViewCell.xib in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		A469F5A01FBC4A520062CBF5 /* Create Framework */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = "Create Framework";
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "set -x\n\n. ../build/create_inbox_xcframework_ios.sh || exit 1\n";
+		};
+/* End PBXShellScriptBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		A469F6151FBD85030062CBF5 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4DB699C1FA98A37007210E6 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4DB69D41FA990AD007210E6 /* PWIInboxMessageViewCell.m in Sources */,
+				A4F321D31FAC07FC00A8058E /* UIImage+PWITintColor.m in Sources */,
+				A4DB69C21FA98DDA007210E6 /* PWIInboxStyle.m in Sources */,
+				A4DB69E01FA9913F007210E6 /* UITableViewCell+PWIHelper.m in Sources */,
+				A4DB69CE1FA98FE9007210E6 /* PWIInboxViewController.m in Sources */,
+				9090D99122A12ECD005853B9 /* PWIInboxAttachmentViewController.m in Sources */,
+				A4DB69DD1FA9913F007210E6 /* PWIWeakRef.m in Sources */,
+				A42B59F31FBF12C80061E583 /* NSBundle+PWIHelper.m in Sources */,
+				A4DB69C61FA98E67007210E6 /* PWIInboxUI.m in Sources */,
+				A4F321B91FA9E9C000A8058E /* PWIPushwooshHelper.m in Sources */,
+				A4DB69E81FA9AA50007210E6 /* UIImageView+PWILoadImage.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		A4DCE5051FBAE3E7009CE923 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				A4DCE51A1FBAEAC5009CE923 /* PWIWeakRef.m in Sources */,
+				A4DCE5131FBAEA03009CE923 /* PWIInboxStyle.m in Sources */,
+				A4DCE5151FBAEA16009CE923 /* PWIInboxMessageViewCell.m in Sources */,
+				A4DCE5141FBAEA10009CE923 /* PWIInboxViewController.m in Sources */,
+				A4DCE5171FBAEA35009CE923 /* UIImage+PWITintColor.m in Sources */,
+				2A708F9322C15C01002086B2 /* PWIInboxAttachmentViewController.m in Sources */,
+				A4DCE5121FBAE9F4009CE923 /* PWIInboxUI.m in Sources */,
+				A42B59F41FBF12C80061E583 /* NSBundle+PWIHelper.m in Sources */,
+				A4DCE5191FBAEAC0009CE923 /* UITableViewCell+PWIHelper.m in Sources */,
+				A4DCE5161FBAEA1E009CE923 /* UIImageView+PWILoadImage.m in Sources */,
+				A4DCE5181FBAEABB009CE923 /* PWIPushwooshHelper.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin XCBuildConfiguration section */
+		A469F59C1FBC3C970062CBF5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				INFOPLIST_FILE = PushwooshInboxUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MODULEMAP_FILE = "$(SRCROOT)/module.modulemap";
+				PRODUCT_NAME = PushwooshInboxUI;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Debug;
+		};
+		A469F59D1FBC3C970062CBF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GCC_GENERATE_DEBUGGING_SYMBOLS = NO;
+				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				INFOPLIST_FILE = PushwooshInboxUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MODULEMAP_FILE = "$(SRCROOT)/module.modulemap";
+				PRODUCT_NAME = PushwooshInboxUI;
+				WRAPPER_EXTENSION = framework;
+			};
+			name = Release;
+		};
+		A469F61D1FBD85030062CBF5 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PushwooshInboxBundle/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshInboxBundle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Debug;
+		};
+		A469F61E1FBD85030062CBF5 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				COMBINE_HIDPI_IMAGES = YES;
+				INFOPLIST_FILE = PushwooshInboxBundle/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Bundles";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshInboxBundle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				VERSIONING_SYSTEM = "";
+				WRAPPER_EXTENSION = bundle;
+			};
+			name = Release;
+		};
+		A4DB69A71FA98A37007210E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 5.8.5;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-fembed-bitcode";
+				SDKROOT = iphoneos;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		A4DB69A81FA98A37007210E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				BITCODE_GENERATION_MODE = bitcode;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 5.8.5;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 9.0;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "-fembed-bitcode";
+				SDKROOT = iphoneos;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
+		A4DB69AA1FA98A37007210E6 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				DEFINES_MODULE = YES;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 5.8.5;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PushwooshInboxUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "$(SRCROOT)/module.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshInboxUI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A4DB69AB1FA98A37007210E6 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_IDENTITY = "";
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				DEFINES_MODULE = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 5.8.5;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				INFOPLIST_FILE = PushwooshInboxUI/Info.plist;
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				MODULEMAP_FILE = "$(SRCROOT)/module.modulemap";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshInboxUI;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		A4DCE50F1FBAE3E7009CE923 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEPLOYMENT_POSTPROCESSING = NO;
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				INFOPLIST_FILE = PushwooshInboxUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MODULEMAP_FILE = "$(SRCROOT)/module.modulemap";
+				PRODUCT_NAME = PushwooshInboxUI;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		A4DCE5101FBAE3E7009CE923 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = YES;
+				DEPLOYMENT_POSTPROCESSING = YES;
+				GENERATE_MASTER_OBJECT_FILE = YES;
+				INFOPLIST_FILE = PushwooshInboxUI/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				MODULEMAP_FILE = "$(SRCROOT)/module.modulemap";
+				PRODUCT_NAME = PushwooshInboxUI;
+				SKIP_INSTALL = YES;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		A469F59E1FBC3C970062CBF5 /* Build configuration list for PBXAggregateTarget "PushwooshInboxUIFramework" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A469F59C1FBC3C970062CBF5 /* Debug */,
+				A469F59D1FBC3C970062CBF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A469F61C1FBD85030062CBF5 /* Build configuration list for PBXNativeTarget "PushwooshInboxBundle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A469F61D1FBD85030062CBF5 /* Debug */,
+				A469F61E1FBD85030062CBF5 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A4DB699B1FA98A37007210E6 /* Build configuration list for PBXProject "PushwooshInboxUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A4DB69A71FA98A37007210E6 /* Debug */,
+				A4DB69A81FA98A37007210E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A4DB69A91FA98A37007210E6 /* Build configuration list for PBXNativeTarget "PushwooshInboxUI" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A4DB69AA1FA98A37007210E6 /* Debug */,
+				A4DB69AB1FA98A37007210E6 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		A4DCE5111FBAE3E7009CE923 /* Build configuration list for PBXNativeTarget "PushwooshInboxUI.iOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A4DCE50F1FBAE3E7009CE923 /* Debug */,
+				A4DCE5101FBAE3E7009CE923 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = A4DB69981FA98A37007210E6 /* Project object */;
+}

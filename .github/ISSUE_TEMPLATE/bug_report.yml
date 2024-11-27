@@ -46,7 +46,7 @@ body:
     attributes:
       label: Steps to Reproduce
       description: Describe all the steps needed to reproduce the issue. If an issue is only reproducible under particular circumstances, put all required details here. E.g., if a push is not shown only for a specific API request, provide the full request body. Or, if an issue is reproducible with a particular Rich Media, deep link, etc. — specify it.
-      placeholder: | 
+      placeholder: |
         1. Open the app;
         2. Switch it to the background;
         3. Received notification with "root_params" causes the app to crash.
@@ -59,6 +59,8 @@ body:
       label: Your Pushwoosh iOS SDK version
       description: Your iOS SDK version which was integrated to the app. You may find it on the [releases page](https://github.com/Pushwoosh/pushwoosh-ios-sdk/releases)
       options:
+        - 6.7.10
+        - 6.7.10
         - 6.7.9
         - 6.7.8
         - 6.7.7

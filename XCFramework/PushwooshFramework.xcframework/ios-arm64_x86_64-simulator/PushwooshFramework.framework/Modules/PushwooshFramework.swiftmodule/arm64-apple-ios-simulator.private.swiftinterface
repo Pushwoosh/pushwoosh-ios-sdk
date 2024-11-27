@@ -9,10 +9,31 @@ import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
 @objc @_inheritsConvenienceInitializers public class PushwooshLiveActivitiesImplementationSetup : ObjectiveC.NSObject {
+  @available(iOS 16.1, *)
+  public static func defaultSetup()
+  @available(iOS 16.1, *)
+  @objc public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
   @available(iOS 17.2, *)
   public static func setPushToStartToken<Attributes>(_ activityType: Attributes.Type, withToken: Swift.String) where Attributes : ActivityKit.ActivityAttributes
   @objc override dynamic public init()
   @objc deinit
+}
+public struct DefaultLiveActivityAttributes : PushwooshFramework.PushwooshLiveActivityAttributes {
+  public var data: [Swift.String : PushwooshFramework.AnyCodable]
+  public var pushwoosh: PushwooshFramework.PushwooshLiveActivityAttributeData
+  public struct ContentState : PushwooshFramework.PushwooshLiveActivityContentState {
+    public var data: [Swift.String : PushwooshFramework.AnyCodable]
+    public var pushwoosh: PushwooshFramework.PushwooshLiveActivityContentStateData?
+    public func hash(into hasher: inout Swift.Hasher)
+    public static func == (a: PushwooshFramework.DefaultLiveActivityAttributes.ContentState, b: PushwooshFramework.DefaultLiveActivityAttributes.ContentState) -> Swift.Bool
+    public func encode(to encoder: any Swift.Encoder) throws
+    public var hashValue: Swift.Int {
+      get
+    }
+    public init(from decoder: any Swift.Decoder) throws
+  }
+  public func encode(to encoder: any Swift.Encoder) throws
+  public init(from decoder: any Swift.Decoder) throws
 }
 @available(iOS 16.1, *)
 public protocol PushwooshLiveActivityAttributes : ActivityKit.ActivityAttributes where Self.ContentState : PushwooshFramework.PushwooshLiveActivityContentState {
@@ -41,6 +62,75 @@ public struct PushwooshLiveActivityContentStateData : Swift.Codable, Swift.Hasha
 @objc @_inheritsConvenienceInitializers public class PushwooshLiveActivities : ObjectiveC.NSObject {
   @available(iOS 16.1, *)
   public static func setup<Attributes>(_ activityType: Attributes.Type) where Attributes : PushwooshFramework.PushwooshLiveActivityAttributes
+  @available(iOS 16.1, *)
+  public static func defaultSetup()
+  @available(iOS 16.1, *)
+  public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
   @objc override dynamic public init()
   @objc deinit
+}
+@frozen public struct AnyCodable : Swift.Codable {
+  public let value: Any
+  public func asBool() -> Swift.Bool?
+  public func asInt() -> Swift.Int?
+  public func asDouble() -> Swift.Double?
+  public func asString() -> Swift.String?
+  public func asArray() -> [PushwooshFramework.AnyCodable]?
+  public func asDict() -> [Swift.String : PushwooshFramework.AnyCodable]?
+  public init<T>(_ value: T?)
+  public init(nilLiteral _: ())
+  public init(booleanLiteral value: Swift.Bool)
+  public init(integerLiteral value: Swift.Int)
+  public init(floatLiteral value: Swift.Double)
+  public init(extendedGraphemeClusterLiteral value: Swift.String)
+  public init(stringLiteral value: Swift.String)
+  public init(arrayLiteral elements: Any...)
+  public init(dictionaryLiteral elements: (Swift.AnyHashable, Any)...)
+  public init(from decoder: any Swift.Decoder) throws
+  public func encode(to encoder: any Swift.Encoder) throws
+}
+extension PushwooshFramework.AnyCodable : Swift.Equatable {
+  public static func == (lhs: PushwooshFramework.AnyCodable, rhs: PushwooshFramework.AnyCodable) -> Swift.Bool
+}
+extension PushwooshFramework.AnyCodable : Swift.CustomStringConvertible {
+  public var description: Swift.String {
+    get
+  }
+}
+extension PushwooshFramework.AnyCodable : Swift.CustomDebugStringConvertible {
+  public var debugDescription: Swift.String {
+    get
+  }
+}
+extension PushwooshFramework.AnyCodable : Swift.ExpressibleByNilLiteral {
+}
+extension PushwooshFramework.AnyCodable : Swift.ExpressibleByBooleanLiteral {
+  public typealias BooleanLiteralType = Swift.Bool
+}
+extension PushwooshFramework.AnyCodable : Swift.ExpressibleByIntegerLiteral {
+  public typealias IntegerLiteralType = Swift.Int
+}
+extension PushwooshFramework.AnyCodable : Swift.ExpressibleByFloatLiteral {
+  public typealias FloatLiteralType = Swift.Double
+}
+extension PushwooshFramework.AnyCodable : Swift.ExpressibleByStringLiteral {
+  public typealias ExtendedGraphemeClusterLiteralType = Swift.String
+  public typealias StringLiteralType = Swift.String
+  public typealias UnicodeScalarLiteralType = Swift.String
+}
+extension PushwooshFramework.AnyCodable : Swift.ExpressibleByStringInterpolation {
+  public typealias StringInterpolation = Swift.DefaultStringInterpolation
+}
+extension PushwooshFramework.AnyCodable : Swift.ExpressibleByArrayLiteral {
+  public typealias ArrayLiteralElement = Any
+}
+extension PushwooshFramework.AnyCodable : Swift.ExpressibleByDictionaryLiteral {
+  public typealias Key = Swift.AnyHashable
+  public typealias Value = Any
+}
+extension PushwooshFramework.AnyCodable : Swift.Hashable {
+  public func hash(into hasher: inout Swift.Hasher)
+  public var hashValue: Swift.Int {
+    get
+  }
 }
