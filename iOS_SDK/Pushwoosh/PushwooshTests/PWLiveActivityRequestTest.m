@@ -37,7 +37,7 @@
 - (void)testMethodName {
     NSString *methodName = @"setActivityToken";
     
-    XCTAssertEqual([_request methodName], methodName);
+    XCTAssertEqualObjects([_request methodName], methodName);
 }
 
 - (void)testRequestDictionaryWithActivityId {

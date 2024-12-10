@@ -72,7 +72,7 @@
     
     [manager trackInAppWithCode:@"r-XXXXX-XXXX5" action:@"action" messageHash:@"__xczafasdadgsdf"];
     
-    XCTAssertEqual(request.inAppCode, @"");
+    XCTAssertEqualObjects(request.inAppCode, @"");
     XCTAssertEqual(request.messageHash, @"__xczafasdadgsdf");
     XCTAssertEqualObjects(request.richMediaCode, @"XXXXX-XXXX5");
     [mockPWTriggerInAppActionRequest stopMocking];

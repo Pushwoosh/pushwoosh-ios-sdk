@@ -8,6 +8,7 @@
 #if !targetEnvironment(macCatalyst)
 import Foundation
 
+@objc
 public class PushwooshLiveActivities: NSObject {
     
     /**
@@ -43,6 +44,7 @@ public class PushwooshLiveActivities: NSObject {
        - options: An optional parameter for providing more detailed configuration options.
      */
     @available(iOS 16.1, *)
+    @objc
     public static func defaultSetup() {
         PushwooshLiveActivitiesImplementationSetup.defaultSetup()
     }
@@ -57,6 +59,7 @@ public class PushwooshLiveActivities: NSObject {
        - content: A dictionary containing the initial content state to initialize `DefaultLiveActivityAttributes`.
      */
     @available(iOS 16.1, *)
+    @objc
     public static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any]) {
         PushwooshLiveActivitiesImplementationSetup.defaultStart(activityId, attributes: attributes, content: content)
     }

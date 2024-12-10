@@ -59,13 +59,13 @@ public struct PushwooshLiveActivityContentStateData : Swift.Codable, Swift.Hasha
   }
   public init(from decoder: any Swift.Decoder) throws
 }
-@objc @_inheritsConvenienceInitializers public class PushwooshLiveActivities : ObjectiveC.NSObject {
+@_inheritsConvenienceInitializers @objc public class PushwooshLiveActivities : ObjectiveC.NSObject {
   @available(iOS 16.1, *)
   public static func setup<Attributes>(_ activityType: Attributes.Type) where Attributes : PushwooshFramework.PushwooshLiveActivityAttributes
   @available(iOS 16.1, *)
-  public static func defaultSetup()
+  @objc public static func defaultSetup()
   @available(iOS 16.1, *)
-  public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
+  @objc public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
   @objc override dynamic public init()
   @objc deinit
 }

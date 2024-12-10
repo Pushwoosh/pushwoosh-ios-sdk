@@ -8,14 +8,13 @@
 
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
-
-@import PushwooshFramework;
+#import <PushwooshFramework/PushwooshFramework.h>
 
 @interface PWMessageTest : XCTestCase
 
 @end
 
-@interface PWMessage (TESTING)
+@interface PWMessage (TEST)
 
 - (instancetype)initWithPayload:(NSDictionary *)payload foreground:(BOOL)foreground;
 
@@ -40,7 +39,7 @@
     
     XCTAssertEqual(expectedMessageid, message.messageId);
     XCTAssertEqual(expectedCampaignId, message.campaignId);
-    XCTAssertEqual(expectedMessageCode, message.messageCode);
+    XCTAssertEqualObjects(expectedMessageCode, message.messageCode);
 }
 
 - (void)testPayloadWithValidHash {

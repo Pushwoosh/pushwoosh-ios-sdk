@@ -66,7 +66,7 @@
 - (void)testMethodNameIsCorret {
     NSString *methodName = [self.request methodName];
     
-    XCTAssertEqual(methodName, @"triggerInAppAction");
+    XCTAssertEqualObjects(methodName, @"triggerInAppAction");
 }
 
 @end

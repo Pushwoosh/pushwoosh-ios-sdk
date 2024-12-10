@@ -200,7 +200,7 @@
     
     //Postcondition:
     XCTAssertTrue([methodResult isKindOfClass:[NSDictionary class]]);
-    XCTAssertEqual(methodResult, pushNotification[@"aps"]);
+    XCTAssertEqualObjects(methodResult, pushNotification[@"aps"]);
 }
 
 ////- (NSString *)getCustomPushData:(NSDictionary *)pushNotification part
@@ -216,7 +216,7 @@
     
     //Postcondition:
     XCTAssertTrue([methodResult isKindOfClass:[NSString class]]);
-    XCTAssertEqual(methodResult, pushNotification[@"u"]);
+    XCTAssertEqualObjects(methodResult, pushNotification[@"u"]);
 }
 
 //tests method returns nil if custom data string is null

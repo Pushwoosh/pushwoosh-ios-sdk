@@ -1802,7 +1802,7 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:18PushwooshFramework0A14LiveActivitiesC12defaultSetupyyFZ",
+            "usr": "c:@M@PushwooshFramework@objc(cs)PushwooshLiveActivities(cm)defaultSetup",
             "mangledName": "$s18PushwooshFramework0A14LiveActivitiesC12defaultSetupyyFZ",
             "moduleName": "PushwooshFramework",
             "static": true,
@@ -1810,6 +1810,7 @@
             "declAttributes": [
               "Final",
               "AccessControl",
+              "ObjC",
               "Available",
               "RawDocComment"
             ],
@@ -1871,7 +1872,7 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:18PushwooshFramework0A14LiveActivitiesC12defaultStart_10attributes7contentySS_SDySSypGAGtFZ",
+            "usr": "c:@M@PushwooshFramework@objc(cs)PushwooshLiveActivities(cm)defaultStart:attributes:content:",
             "mangledName": "$s18PushwooshFramework0A14LiveActivitiesC12defaultStart_10attributes7contentySS_SDySSypGAGtFZ",
             "moduleName": "PushwooshFramework",
             "static": true,
@@ -1879,6 +1880,7 @@
             "declAttributes": [
               "Final",
               "AccessControl",
+              "ObjC",
               "Available",
               "RawDocComment"
             ],

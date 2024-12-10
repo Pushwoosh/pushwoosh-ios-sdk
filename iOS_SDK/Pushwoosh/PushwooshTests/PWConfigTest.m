@@ -10,7 +10,6 @@
 #import "PWConfig.h"
 #import "PWBundleMock.h"
 
-
 @interface PWConfigTest : XCTestCase
 
 @property (nonatomic) PWConfig *config;

@@ -57,6 +57,8 @@
 		4463DC552CAC488800E2BAAC /* PWModalWindowConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4463DC502CAC488800E2BAAC /* PWModalWindowConfiguration.m */; };
 		4463DC682CAD64FB00E2BAAC /* PWModalWindowSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 443117BB2C6FA091008F82C6 /* PWModalWindowSettings.h */; };
 		446894C32C51286A0060AE0D /* PWDataManagerCommonTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 446894C22C51286A0060AE0D /* PWDataManagerCommonTest.m */; };
+		446C0DF42CFF1BEB006F8B12 /* PushwooshFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467EB9371DFEC23A00506823 /* PushwooshFramework.framework */; };
+		446C0DF52CFF1BEB006F8B12 /* PushwooshFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 467EB9371DFEC23A00506823 /* PushwooshFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		447214572CD663D500D23645 /* PWHashDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 447214562CD663D500D23645 /* PWHashDecoder.m */; };
 		447214582CD663D500D23645 /* PWHashDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 447214552CD663D500D23645 /* PWHashDecoder.h */; };
 		447214592CD663D500D23645 /* PWHashDecoder.m in Sources */ = {isa = PBXBuildFile; fileRef = 447214562CD663D500D23645 /* PWHashDecoder.m */; };
@@ -366,7 +368,6 @@
 		4649F4F11ED5534200D3D90C /* PWJSInterfaceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4649F4ED1ED5534200D3D90C /* PWJSInterfaceTest.m */; };
 		4649F4F21ED5534200D3D90C /* PWRequestManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4649F4EE1ED5534200D3D90C /* PWRequestManagerTest.m */; };
 		4649F4F31ED5534200D3D90C /* PWResourceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4649F4EF1ED5534200D3D90C /* PWResourceTest.m */; };
-		46FA9E391C7DB1AA00741A11 /* libPushwoosh.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D2AAC07E0554694100DB518D /* libPushwoosh.a */; };
 		46FA9E441C7DB92800741A11 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FA9E431C7DB92800741A11 /* libstdc++.tbd */; };
 		46FA9E461C7DB92D00741A11 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FA9E451C7DB92D00741A11 /* libz.tbd */; };
 		5D12C22523F54429009A655A /* PWInlineInAppView.h in Headers */ = {isa = PBXBuildFile; fileRef = 5D12C21823F54428009A655A /* PWInlineInAppView.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -1526,16 +1527,27 @@
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
-		46FA9E3A1C7DB1AA00741A11 /* PBXContainerItemProxy */ = {
+		446C0DF62CFF1BEB006F8B12 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
-			remoteGlobalIDString = D2AAC07D0554694100DB518D;
-			remoteInfo = PushNotificationManager;
+			remoteGlobalIDString = 467EB9361DFEC23A00506823;
+			remoteInfo = PushwooshiOS;
 		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
+		446C0DF82CFF1BEB006F8B12 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				446C0DF52CFF1BEB006F8B12 /* PushwooshFramework.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		5DA6EBC522E18CAD00097C50 /* CopyFiles */ = {
 			isa = PBXCopyFilesBuildPhase;
 			buildActionMask = 2147483647;
@@ -1955,8 +1967,8 @@
 				979229B825B5BB9B00F5D0C1 /* libOCMock.a in Frameworks */,
 				AFB0024F29F7EBB50083A3E6 /* OCMockito.xcframework in Frameworks */,
 				46FA9E461C7DB92D00741A11 /* libz.tbd in Frameworks */,
+				446C0DF42CFF1BEB006F8B12 /* PushwooshFramework.framework in Frameworks */,
 				46FA9E441C7DB92800741A11 /* libstdc++.tbd in Frameworks */,
-				46FA9E391C7DB1AA00741A11 /* libPushwoosh.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4070,11 +4082,12 @@
 				46FA9E301C7DB1AA00741A11 /* Sources */,
 				46FA9E311C7DB1AA00741A11 /* Frameworks */,
 				46FA9E321C7DB1AA00741A11 /* Resources */,
+				446C0DF82CFF1BEB006F8B12 /* Embed Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
-				46FA9E3B1C7DB1AA00741A11 /* PBXTargetDependency */,
+				446C0DF72CFF1BEB006F8B12 /* PBXTargetDependency */,
 			);
 			name = PushwooshTests;
 			productName = UnitTests;
@@ -5105,10 +5118,10 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
-		46FA9E3B1C7DB1AA00741A11 /* PBXTargetDependency */ = {
+		446C0DF72CFF1BEB006F8B12 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			target = D2AAC07D0554694100DB518D /* Pushwoosh.ios */;
-			targetProxy = 46FA9E3A1C7DB1AA00741A11 /* PBXContainerItemProxy */;
+			target = 467EB9361DFEC23A00506823 /* PushwooshiOS */;
+			targetProxy = 446C0DF62CFF1BEB006F8B12 /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -5117,6 +5130,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = YES;
@@ -5156,6 +5170,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ENABLE_CODE_COVERAGE = YES;
 				CLANG_ENABLE_MODULES = YES;
 				COPY_PHASE_STRIP = YES;
@@ -5499,6 +5514,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BITCODE_GENERATION_MODE = bitcode;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -5552,6 +5568,10 @@
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = (
+					"-fembed-bitcode",
+					"-DPWS_DYNAMIC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
 				PRODUCT_NAME = PushwooshFramework;
 				SKIP_INSTALL = YES;
@@ -5570,6 +5590,7 @@
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BITCODE_GENERATION_MODE = bitcode;
 				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ALLOW_NON_MODULAR_INCLUDES_IN_FRAMEWORK_MODULES = NO;
 				CLANG_ANALYZER_NONNULL = YES;
 				CLANG_CXX_LANGUAGE_STANDARD = "gnu++0x";
 				CLANG_CXX_LIBRARY = "libc++";
@@ -5618,6 +5639,10 @@
 				);
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = (
+					"-fembed-bitcode",
+					"-DPWS_DYNAMIC",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
 				PRODUCT_NAME = PushwooshFramework;
 				SKIP_INSTALL = YES;
@@ -5762,6 +5787,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
@@ -5805,6 +5831,7 @@
 				);
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = YES;
+				OTHER_CFLAGS = "-fembed-bitcode";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.sdk.UnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -5829,6 +5856,7 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				COPY_PHASE_STRIP = NO;
 				DEBUG_INFORMATION_FORMAT = dwarf;
+				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = "";
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
@@ -5867,6 +5895,7 @@
 					"$(PROJECT_DIR)/usr/lib",
 				);
 				MTL_ENABLE_DEBUG_INFO = NO;
+				OTHER_CFLAGS = "-fembed-bitcode";
 				OTHER_LDFLAGS = "-ObjC";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.sdk.UnitTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";

@@ -38,7 +38,7 @@
 - (void)testCorrectMethodName {
     NSString *methodName = [self.request methodName];
     
-    XCTAssertEqual(methodName, @"unregisterDevice");
+    XCTAssertEqualObjects(methodName, @"unregisterDevice");
 }
 
 @end

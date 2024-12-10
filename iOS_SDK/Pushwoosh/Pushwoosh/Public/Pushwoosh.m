@@ -32,7 +32,7 @@ static dispatch_once_t pushwooshOncePredicate;
         NSString *appCode = [PWPreferences preferences].appCode;
         pushwooshInstance = [[Pushwoosh alloc] initWithApplicationCode:appCode];
     });
-
+    
     return pushwooshInstance;
 }
 
@@ -46,11 +46,11 @@ static dispatch_once_t pushwooshOncePredicate;
 
 + (void)initializeWithNewAppCode:(NSString *)appCode {
     [Pushwoosh destroy];
-
+    
     [[PWPreferences preferences] setAppCode:appCode];
     [PWInAppManager updateInAppManagerInstance];
     [[Pushwoosh sharedInstance].dataManager sendAppOpenWithCompletion:nil];
-
+    
 }
 
 - (instancetype)initWithApplicationCode:(NSString *)appCode {
@@ -80,11 +80,11 @@ static dispatch_once_t pushwooshOncePredicate;
 #endif
         
         self.inAppManager = [PWInAppManager sharedManager];
-
+        
         self.pushNotificationManager = [[PWPushNotificationsManager alloc] initWithConfig:[PWConfig config]];
-
+        
         self.dataManager = [PWDataManager new];
-                
+        
         if (![PWConfig config].isUsingPluginForPushHandling) {
             _notificationCenterDelegateProxy = [[PWNotificationCenterDelegateProxy alloc] initWithNotificationManager:self.pushNotificationManager];
         }

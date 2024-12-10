@@ -32,7 +32,7 @@
 - (void)testMethodNameIsCorrect {
     NSString *methodName = [self.request methodName];
     
-    XCTAssertEqual(methodName, @"createTestDevice");
+    XCTAssertEqualObjects(methodName, @"createTestDevice");
 }
 
 - (void)testRequestDictionaryHasCorrectParameters {

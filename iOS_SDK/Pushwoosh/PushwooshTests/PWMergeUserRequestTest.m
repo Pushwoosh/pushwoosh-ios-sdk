@@ -40,7 +40,7 @@
 - (void)testMethodNameIsCorrect {
     NSString *methodName = [self.request methodName];
     
-    XCTAssertEqual(methodName, @"mergeUser");
+    XCTAssertEqualObjects(methodName, @"mergeUser");
 }
 
 - (void)testRequestDictionaryHasParameters {

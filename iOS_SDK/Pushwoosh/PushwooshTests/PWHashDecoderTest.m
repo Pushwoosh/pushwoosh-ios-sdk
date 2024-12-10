@@ -16,7 +16,7 @@
 
 @end
 
-@interface PWHashDecoder(TESTING)
+@interface PWHashDecoder(TEST)
 
 - (NSString *)prependZerosIfNeeded:(BOOL)isFirstPart hexNumber:(NSString *)hexNumber;
 - (NSString *)decodeMessageCode:(NSString *)messageCode;

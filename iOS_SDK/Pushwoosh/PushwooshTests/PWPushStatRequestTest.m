@@ -32,7 +32,7 @@
 - (void)testMethodNameIsCorrect {
     NSString *methodName = [self.request methodName];
     
-    XCTAssertEqual(methodName, @"pushStat");
+    XCTAssertEqualObjects(methodName, @"pushStat");
 }
 
 - (void)testRequestDictionaryHasParameters {

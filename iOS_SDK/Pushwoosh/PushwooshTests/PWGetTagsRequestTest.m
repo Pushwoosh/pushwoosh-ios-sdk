@@ -38,7 +38,7 @@
 - (void)testMethodNameIsCorrect {
     NSString *methodName = [self.request methodName];
     
-    XCTAssertEqual(methodName, @"getTags");
+    XCTAssertEqualObjects(methodName, @"getTags");
 }
 
 - (void)testRequestDictionaryHasParameters {

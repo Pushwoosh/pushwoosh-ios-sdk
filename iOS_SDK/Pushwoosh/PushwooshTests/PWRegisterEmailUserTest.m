@@ -52,7 +52,7 @@
 - (void)testMethodNameIsCorrect {
     NSString *methodName = [self.request methodName];
     
-    XCTAssertEqual(methodName, @"registerEmailUser");
+    XCTAssertEqualObjects(methodName, @"registerEmailUser");
 }
 
 @end

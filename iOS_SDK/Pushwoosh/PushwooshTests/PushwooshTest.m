@@ -16,7 +16,6 @@
 #import "PWConfig.h"
 #import "PWPushNotificationsManager.h"
 
-
 @interface Pushwoosh (TEST)
 
 - (instancetype)initWithApplicationCode:(NSString *)appCode;

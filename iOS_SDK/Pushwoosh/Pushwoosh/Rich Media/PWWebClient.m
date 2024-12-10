@@ -397,7 +397,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
             //small fix to prevent app freeezes on iOS7
             //see: http://stackoverflow.com/questions/19356488/openurl-freezes-app-for-over-10-seconds
             dispatch_async(dispatch_get_main_queue(), ^{
-                [[UIApplication sharedApplication] openURL:navigationAction.request.URL];
+                [[UIApplication sharedApplication] openURL:navigationAction.request.URL options:@{} completionHandler:nil];
             });
 #else
             [[NSWorkspace sharedWorkspace] openURL:navigationAction.request.URL];
