@@ -5,6 +5,7 @@
 
 @property (nonatomic, copy, readwrite) NSString *appId;
 @property (nonatomic, copy, readwrite) NSString *apiToken;
+@property (nonatomic, copy, readwrite) NSString *pushwooshApiToken;
 @property (nonatomic, copy, readwrite) NSString *appIdDev;
 @property (nonatomic, copy, readwrite) NSString *appName;
 @property (nonatomic, copy, readwrite) NSString *appGroupsName;
@@ -42,6 +43,8 @@
 		self.appId = [bundle objectForInfoDictionaryKey:@"Pushwoosh_APPID"];
         
         self.apiToken = [bundle objectForInfoDictionaryKey:@"PW_API_TOKEN"];
+        
+        self.pushwooshApiToken = [bundle objectForInfoDictionaryKey:@"Pushwoosh_API_TOKEN"];
 
 		self.appIdDev = [bundle objectForInfoDictionaryKey:@"Pushwoosh_APPID_Dev"];
 
@@ -116,7 +119,7 @@
 
 		if (!logLevelString) {
 			// default log level
-			logLevelString = @"DEBUG";
+			logLevelString = @"INFO";
 		}
 
 		NSDictionary *logLevelMap = @{ @"NONE" : @(kLogNone),
@@ -128,7 +131,7 @@
 
 		NSNumber *logLevelObject = logLevelMap[logLevelString];
 		if (!logLevelObject) {
-			NSLog(@"[PW] [E] Error! Invalid log level. Setting default (DEBUG)");
+            PWLogError(@"[PW] [E] Error! Invalid log level. Setting default (DEBUG)");
 			logLevelObject = @(kLogDebug);
 		}
 

@@ -28,6 +28,7 @@
 - (double)initialTime:(PWRequest *)request;
 - (BOOL)isNeedToRetryAfterAppOpenedWith:(PWRequest *)request;
 - (NSUInteger)retryCountWith:(PWRequest *)request;
+- (NSString *)getApiToken;
 
 - (void)onRequestError:(PWRequest *)request
            requestData:(NSString *)requestData
@@ -137,6 +138,26 @@ static id _mockNSBundle;
 	}];
 	
 	[self waitForExpectationsWithTimeout:1 handler:nil];
+}
+
+- (void)testPushwooshApiTokenAvailable {
+    NSString *pushwooshApiToken = @"qwertyuiopasdfghjklzxcvbnm_new";
+    id mockNSBundle = OCMPartialMock([PWConfig config]);
+    OCMStub([mockNSBundle pushwooshApiToken]).andReturn(pushwooshApiToken);
+    
+    [_requestManager getApiToken];
+    
+    XCTAssertEqual(pushwooshApiToken, [_requestManager getApiToken]);
+}
+
+- (void)testPwApiTokenAvailable {
+    NSString *pwApiToken = @"qwertyuiopasdfghjklzxcvbnm_old";
+    id mockNSBundle = OCMPartialMock([PWConfig config]);
+    OCMStub([mockNSBundle apiToken]).andReturn(pwApiToken);
+    
+    [_requestManager getApiToken];
+    
+    XCTAssertEqual(pwApiToken, [_requestManager getApiToken]);
 }
 
 - (void)testNoHttpResponse {

@@ -55,8 +55,18 @@ static dispatch_once_t pushwooshOncePredicate;
 
 - (instancetype)initWithApplicationCode:(NSString *)appCode {
     if (self = [super init]) {
-        // Mandatory log
+        // Mandatory logs
+        NSLog(@"[PW] BUNDLE ID: %@", [PWUtils bundleId]);
+        NSLog(@"[PW] APP CODE: %@", [PWPreferences preferences].appCode);
+        NSLog(@"[PW] PUSHWOOSH SDK VERSION: %@", PUSHWOOSH_VERSION);
+        NSString *apiToken = [PWConfig config].apiToken ?: [PWConfig config].pushwooshApiToken;
+        if (apiToken) {
+            NSLog(@"[PW] API TOKEN: %@", [PWUtils stringWithVisibleFirstAndLastFourCharacters:apiToken]);
+        } else {
+            NSLog(@"[PW] API TOKEN: (null)");
+        }
         NSLog(@"[PW] HWID: %@", [PWPreferences preferences].hwid);
+        NSLog(@"[PW] PUSH TOKEN: %@", [PWPreferences preferences].pushToken);
         
         [PWPreferences preferences].appCode = appCode;
         
@@ -76,7 +86,7 @@ static dispatch_once_t pushwooshOncePredicate;
 #endif
         
 #if TARGET_OS_IOS || TARGET_OS_WATCH
-        PWLogInfo(@"Will show foreground notifications: %d", self.showPushnotificationAlert);
+        PWLogDebug(@"Will show foreground notifications: %d", self.showPushnotificationAlert);
 #endif
         
         self.inAppManager = [PWInAppManager sharedManager];
@@ -236,6 +246,7 @@ static dispatch_once_t pushwooshOncePredicate;
 
 - (void)setLanguage:(NSString *)language {
     [PWPreferences preferences].language = language;
+    PWLogInfo(@"Language has been set to: %@", language);
 }
 
 - (NSString *)language {

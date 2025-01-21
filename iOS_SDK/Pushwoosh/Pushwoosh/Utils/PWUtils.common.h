@@ -35,6 +35,10 @@ void heavy_operation_impl(const char *function);
 
 + (NSString *)appVersion;
 
++ (NSString *)bundleId;
+
++ (NSString *)stringWithVisibleFirstAndLastFourCharacters:(NSString *)inputString;
+
 + (NSString *)preferredLanguage;
 
 + (NSString *)timezone;

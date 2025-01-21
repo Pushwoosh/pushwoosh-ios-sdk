@@ -89,11 +89,11 @@
 	request.tags = tags;
 
 	[_requestManager sendRequest:request completion:^(NSError *error) {
-		if (error == nil) {
-			PWLogDebug(@"setTags completed");
-		} else {
+		if (error) {
 			PWLogError(@"setTags failed");
-		}
+        } else {
+            PWLogInfo(@"Tags successfully set: %@", tags);
+        }
 
 		if (completion)
 			completion(error);
@@ -107,7 +107,6 @@
 - (void)loadTags:(PushwooshGetTagsHandler)successHandler error:(PushwooshErrorHandler)errorHandler {
 	PWGetTagsRequest *request = [[PWGetTagsRequest alloc] init];
 	[_requestManager sendRequest:request completion:^(NSError *error) {
-		PWLogDebug(@"loadTags completed");
 		if (error == nil && [request.tags isKindOfClass:[NSDictionary class]]) {
 			[[PWCache cache] setTags:request.tags];
 
@@ -122,7 +121,7 @@
 		} else {
 			NSDictionary *tags = [[PWCache cache] getTags];
 			if (tags) {
-				PWLogWarn(@"loadTags failed, return cached tags");
+                PWLogError(@"loadTags failed, return cached tags");
 
 				if ([[PushNotificationManager pushManager].delegate respondsToSelector:@selector(onTagsReceived:)]) {
 					[[PushNotificationManager pushManager].delegate onTagsReceived:tags];
@@ -169,7 +168,7 @@
     
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {
-            PWLogDebug(@"setEmailTags completed");
+            PWLogInfo(@"Email tags successfully set for email: %@ with tags: %@", email, tags);
         } else {
             PWLogError(@"setEmailTags failed");
         }
@@ -207,8 +206,6 @@
     
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {
-            PWLogDebug(@"sending appOpen completed");
-            
             #if TARGET_OS_IOS || TARGET_OS_OSX
             [[PWBusinessCaseManager sharedManager] handleBusinessCaseResources:request.businessCasesDict];
             #endif
@@ -228,7 +225,7 @@
                 }
             }
         } else {
-            PWLogInfo(@"sending appOpen failed");
+            PWLogError(@"sending appOpen failed");
         }
         
         if (completion) {
@@ -286,10 +283,10 @@
         request.pushDict = pushDict;
         
         [_requestManager sendRequest:request completion:^(NSError *error) {
-            if (error == nil) {
-                PWLogDebug(@"sendStats completed");
-            } else {
+            if (error) {
                 PWLogError(@"sendStats failed");
+            } else {
+                PWLogInfo(@"sendStats executed with parameters: %@", pushDict);
             }
         }];
     };
@@ -308,7 +305,7 @@
 - (void)sendPushToStartLiveActivityToken:(NSString *)token completion:(void (^)(NSError * _Nullable))completion {
     [_requestManager sendRequest:[self sendStartLiveActivityRequestWithToken:token] completion:^(NSError *error) {
         if (error) {
-            PWLogDebug(@"Start Live Activity request failed");
+            PWLogError(@"Start Live Activity request failed");
         }
         
         if (completion)
@@ -319,7 +316,7 @@
 - (void)startLiveActivityWithToken:(NSString *)token activityId:(NSString *)activityId completion:(void (^)(NSError * _Nullable))completion {
     [_requestManager sendRequest:[self sendLiveActivityRequestWithToken:token activityId:activityId] completion:^(NSError *error) {
         if (error) {
-            PWLogDebug(@"Live Activity request failed");
+            PWLogError(@"Live Activity request failed");
         }
         
         if (completion)
@@ -331,7 +328,7 @@
     NSString *activityIdentifier = activityId == nil ? nil : activityId;
     [_requestManager sendRequest:[self sendLiveActivityRequestWithToken:nil activityId:activityIdentifier] completion:^(NSError *error) {
         if (error) {
-            PWLogDebug(@"Live Activity request failed");
+            PWLogError(@"Live Activity request failed");
         }
         
         if (completion)

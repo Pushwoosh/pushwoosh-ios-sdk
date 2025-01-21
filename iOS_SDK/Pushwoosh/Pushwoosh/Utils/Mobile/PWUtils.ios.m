@@ -119,7 +119,7 @@
         regionMonitoringBGTask = UIBackgroundTaskInvalid;
     }];
     
-    PWLogInfo(@"started task: %ld", (long)regionMonitoringBGTask);
+    PWLogDebug(@"started task: %ld", (long)regionMonitoringBGTask);
     return @(regionMonitoringBGTask);
 }
 
@@ -129,7 +129,7 @@
         return;
     }
     
-    PWLogInfo(@"stopping task: %ld", (long)[taskId integerValue]);
+    PWLogDebug(@"stopping task: %ld", (long)[taskId integerValue]);
     [[UIApplication sharedApplication] endBackgroundTask:[taskId integerValue]];
 }
 

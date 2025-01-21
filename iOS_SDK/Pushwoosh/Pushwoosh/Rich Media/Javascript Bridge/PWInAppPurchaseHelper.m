@@ -56,7 +56,7 @@
         [Pushwoosh.sharedInstance.purchaseDelegate onPWInAppPurchaseHelperProducts:self.products];
     }
     for (NSString *invalidIdentifier in response.invalidProductIdentifiers)
-        NSLog(@"PWInAppPurchaseHelper - Invalid identifier : %@", invalidIdentifier);
+        PWLogWarn(@"PWInAppPurchaseHelper - Invalid identifier : %@", invalidIdentifier);
 }
 
 #pragma mark - pay and restore
@@ -81,24 +81,18 @@
     for (SKPaymentTransaction *transaction in transactions) {
         switch (transaction.transactionState) {
             case SKPaymentTransactionStatePurchased:
-                NSLog(@"PWInAppPurchaseHelper - SKPaymentTransactionStatePurchased:  %@",transaction.payment.productIdentifier);
-
                 if ([Pushwoosh.sharedInstance.purchaseDelegate respondsToSelector:@selector(onPWInAppPurchaseHelperPaymentComplete:)]) {
                     [Pushwoosh.sharedInstance.purchaseDelegate onPWInAppPurchaseHelperPaymentComplete:transaction.payment.productIdentifier];
                 }
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
             case SKPaymentTransactionStateFailed:
-                NSLog(@"PWInAppPurchaseHelper - SKPaymentTransactionStateFailed: %@",transaction.error.description);
-                
                 if ([Pushwoosh.sharedInstance.purchaseDelegate respondsToSelector:@selector(onPWInAppPurchaseHelperPaymentFailedProductIdentifier:error:)]) {
                     [Pushwoosh.sharedInstance.purchaseDelegate onPWInAppPurchaseHelperPaymentFailedProductIdentifier:transaction.transactionIdentifier error:transaction.error];
                 }
                 [[SKPaymentQueue defaultQueue] finishTransaction:transaction];
                 break;
             case SKPaymentTransactionStateRestored:
-                NSLog(@"PWInAppPurchaseHelper - SKPaymentTransactionStateRestored: %@",transaction.payment.productIdentifier);
-                
                 if ([Pushwoosh.sharedInstance.purchaseDelegate respondsToSelector:@selector(onPWInAppPurchaseHelperPaymentComplete:)]) {
                     [Pushwoosh.sharedInstance.purchaseDelegate onPWInAppPurchaseHelperPaymentComplete:transaction.payment.productIdentifier];
                 }
@@ -113,8 +107,6 @@
 #pragma mark - Promoted Purchase
 
 - (BOOL)paymentQueue:(SKPaymentQueue *)queue shouldAddStorePayment:(SKPayment *)payment forProduct:(SKProduct *)product {
-    NSLog(@"PWInAppPurchaseHelper - shouldAddStorePayment: %@",product.productIdentifier);
-    
     if ([Pushwoosh.sharedInstance.purchaseDelegate respondsToSelector:@selector(onPWInAppPurchaseHelperCallPromotedPurchase:)]) {
         [Pushwoosh.sharedInstance.purchaseDelegate onPWInAppPurchaseHelperCallPromotedPurchase:product.productIdentifier];
     }
@@ -124,7 +116,6 @@
 #pragma mark - Restore Completed Transactions Failed
 
 - (void)paymentQueue:(SKPaymentQueue *)queue restoreCompletedTransactionsFailedWithError:(NSError *)error {
-    NSLog(@"PWInAppPurchaseHelper - restorCompletedTransactionsFailedWithError: %@",error.description);
     if ([Pushwoosh.sharedInstance.purchaseDelegate respondsToSelector:@selector(onPWInAppPurchaseHelperRestoreCompletedTransactionsFailed:)]) {
         [Pushwoosh.sharedInstance.purchaseDelegate onPWInAppPurchaseHelperRestoreCompletedTransactionsFailed:error];
     }

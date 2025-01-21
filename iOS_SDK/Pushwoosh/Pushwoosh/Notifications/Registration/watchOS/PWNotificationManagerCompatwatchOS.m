@@ -52,7 +52,7 @@
 #pragma clang diagnostic pop
         
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
-            PWLogDebug(@"NotificationCenter authorization granted: %d", granted);
+            PWLogInfo(@"NotificationCenter authorization granted: %d", granted);
             
             dispatch_async(dispatch_get_main_queue(), ^{
                 if (completion) {

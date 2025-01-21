@@ -43,7 +43,7 @@
     }
     
     if (!finished) {
-        NSLog(@"Timed out");
+        PWLogDebug(@"Timed out");
     }
 
     

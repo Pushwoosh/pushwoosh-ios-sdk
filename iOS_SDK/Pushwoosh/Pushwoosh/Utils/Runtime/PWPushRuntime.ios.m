@@ -234,9 +234,9 @@ static BOOL openURLSwizzled = NO;
                 }
             }
         } @catch (NSException *exception) {
-            NSLog(@"");
-            NSLog(@"!!!!!!-----Exception caused by AppDelegate proxy: %@-----!!!!!!", exception);
-            NSLog(@"");
+            PWLogError(@"");
+            PWLogError(@"!!!!!!-----Exception caused by AppDelegate proxy: %@-----!!!!!!", exception);
+            PWLogError(@"");
         }
     }
     

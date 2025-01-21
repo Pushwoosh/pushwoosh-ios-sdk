@@ -76,7 +76,7 @@
     XCTAssertTrue(_config.acceptedDeepLinkForSilentPush);
     XCTAssertTrue(_config.allowServerCommunication);
     XCTAssertTrue(_config.allowCollectingDeviceData);
-    XCTAssertEqual(_config.logLevel, kLogDebug);
+    XCTAssertEqual(_config.logLevel, kLogInfo);
     [mockNSBundle stopMocking];
 }
 

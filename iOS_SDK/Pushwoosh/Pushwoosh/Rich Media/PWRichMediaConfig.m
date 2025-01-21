@@ -54,7 +54,7 @@
 
 		if (!self.localizedStrings) {
 			NSString *defaultLanguage = parsedConfig[@"default_language"];
-			PWLogInfo(@"Device preferred language not found, using default language: %@", defaultLanguage);
+            PWLogDebug(@"Device preferred language not found, using default language: %@", defaultLanguage);
 			self.localizedStrings = localization[defaultLanguage];
             
             if (![_localizedStrings isKindOfClass:[NSDictionary class]]) {

@@ -163,7 +163,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 		NSTimeInterval secondsBetween = [[NSDate date] timeIntervalSinceDate:lastReg];
         
 		if ([[PWPreferences preferences].pushToken isEqualToString:deviceID] && secondsBetween < kRegistrationUpdateInterval) {
-			PWLogInfo(@"Registered for push notifications: %@", deviceID);
+            PWLogDebug(@"Registered for push notifications: %@", deviceID);
 
             [self sendTokenToDelegate:deviceID triggerCallbacks:triggerCallbacks];
 
@@ -178,7 +178,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         [[PWPreferences preferences] setCustomTags:nil];
         
 		if (error == nil) {
-			PWLogInfo(@"Registered for push notifications: %@", deviceID);
+            PWLogInfo(@"Registered for push notifications: %@", deviceID);
 
 			//registered on server, save last registration time to prevent multiple register request
 			[PWPreferences preferences].lastRegTime = [NSDate date];
@@ -365,6 +365,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([Pushwoosh.sharedInstance.delegate respondsToSelector:@selector(pushwoosh:onMessageReceived:)]) {
                 [Pushwoosh.sharedInstance.delegate pushwoosh:Pushwoosh.sharedInstance onMessageReceived:message];
+                PWLogInfo(@"Method 'pushwoosh:onMessageReceived:' was called with payload: %@", userInfo);
             }
             
             if (autoAcceptAllowed && ![self showForegroundAlert:userInfo onStart:isPushFromBackground]) {

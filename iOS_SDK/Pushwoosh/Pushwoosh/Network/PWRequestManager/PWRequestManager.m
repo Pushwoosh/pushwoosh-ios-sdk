@@ -147,7 +147,10 @@
     NSMutableURLRequest *urlRequest = [self prepareRequest:requestUrl jsonRequestData:requestData];
     
     if ([request isKindOfClass:[PWCachedRequest class]] && [self retryCountWith:request]) {
-        if ([self retryCountWith:request] >= 0) {
+        NSInteger retryCount = [self retryCountWith:request];
+        
+        if (retryCount >= 0) {
+            PWLogDebug(@"Retry count for request %@: %ld", request.methodName, (long)retryCount);
             [urlRequest addValue:[NSString stringWithFormat:@"%ld", [self retryCountWith:request]] forHTTPHeaderField:@"X-Retry-Count"];
         }
     }
@@ -281,32 +284,7 @@
 }
 
 - (NSString *)getApiToken {
-    if (![[PWConfig config] apiToken] || [[[PWConfig config] apiToken] isEqualToString:@""]) {
-        PWLogError(@"\n"
-                   @"\n"
-                   @"*********************************************************\n"
-                   @"*                                                       *\n"
-                   @"*  !!! WARNING: PUSHWOOSH PW_API_TOKEN IS MISSING !!!   *\n"
-                   @"*                                                       *\n"
-                   @"*    ------------------------------------------------   *\n"
-                   @"*   |                                                |  *\n"
-                   @"*   |  It looks like you forgot to add               |  *\n"
-                   @"*   |  PW_API_TOKEN to your Info.plist file.         |  *\n"
-                   @"*   |  The token is either missing or empty.         |  *\n"
-                   @"*   |  Please make sure to add it to ensure          |  *\n"
-                   @"*   |  PUSHWOOSH services work correctly.            |  *\n"
-                   @"*   |                                                |  *\n"
-                   @"*    ------------------------------------------------   *\n"
-                   @"*                                                       *\n"
-                   @"*  For more information, please refer to the            *\n"
-                   @"*  documentation:                                       *\n"
-                   @"*  https://docs.pushwoosh.com/platform-docs             *\n"
-                   @"*                                                       *\n"
-                   @"*********************************************************\n"
-                   @"\n"
-                   );
-    }
-    return [[PWConfig config] apiToken];
+    return [[PWConfig config] pushwooshApiToken] ? [[PWConfig config] pushwooshApiToken] : [[PWConfig config] apiToken];
 }
 
 - (void)processResponse:(NSHTTPURLResponse *)httpResponse responseData:(NSData *)responseData request:(PWRequest *)request url:(NSString *)requestUrl requestData:(NSString *)requestData error:(NSError **)outError {
@@ -317,7 +295,7 @@
     if (error == nil) {
         NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
         
-        PWLogInfo(@"\n"
+        PWLogDebug(@"\n"
                   @"x\n"
                   @"|    Pushwoosh request:\n"
                   @"| Url:      %@\n"
@@ -399,7 +377,7 @@
 	NSURLSessionConfiguration *sessionConfig = [NSURLSessionConfiguration defaultSessionConfiguration];
 	NSURLSession *session = [NSURLSession sessionWithConfiguration:sessionConfig delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
 
-	PWLogInfo(@"%@", [NSString stringWithFormat:@"Pushwoosh In-App: will download data:%@\n", url.absoluteString]);
+    PWLogDebug(@"%@", [NSString stringWithFormat:@"Pushwoosh In-App: will download data:%@\n", url.absoluteString]);
 
 	[[session downloadTaskWithURL:url completionHandler:^(NSURL *location, NSURLResponse *response, NSError *error) {
 		if (!completion)

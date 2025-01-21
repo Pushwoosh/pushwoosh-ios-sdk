@@ -71,8 +71,8 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
     [PWInbox loadMessagesWithCompletion:^(NSArray<NSObject<PWInboxMessageProtocol> *> *messages, NSError *error) {
         if (!error && messages.count) {
             [PWInbox sendMessageFromPushNotification:@[messages.lastObject]];
-        } else {
-            PWLogDebug(@"Load inbox message error: %@", error.localizedDescription);
+        } else if (error) {
+            PWLogError(@"Load inbox message error: %@", error.localizedDescription);
         }
     }];
 }
@@ -337,7 +337,7 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
         if (!error || messages != nil)
             completion(messages.count);
         else
-            PWLogDebug(@"Messages array is equail nil or something went wrong with error: %@", error.localizedDescription);
+            PWLogError(@"Messages array is equail nil or something went wrong with error: %@", error.localizedDescription);
     }];
     
 }

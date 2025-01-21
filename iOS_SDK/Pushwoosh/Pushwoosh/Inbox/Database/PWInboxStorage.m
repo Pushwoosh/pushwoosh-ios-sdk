@@ -245,10 +245,14 @@
         NSURL *url = [NSURL fileURLWithPath:path];
         NSData *data = [NSData dataWithContentsOfURL:url];
         
+        if (data == nil) {
+            return nil;
+        }
+        
         NSError *error = nil;
         NSMutableDictionary *dict = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSMutableDictionary class] fromData:data error:&error];
         if (error != nil) {
-            NSLog(@"Deserialization failed: %@", error);
+            PWLogError(@"Deserialization failed: %@", error.localizedDescription);
             return nil;
         } else {
             return dict;

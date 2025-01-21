@@ -128,9 +128,7 @@
     }
     
     [_requestManager sendRequest:postEventRequest completion:^(NSError *error) {
-        if (error == nil) {
-            PWLogDebug(@"sendPurchase completed");
-        } else {
+        if (error) {
             PWLogError(@"sendPurchase failed");
         }
     }];
@@ -192,9 +190,7 @@
         };
         
         [_requestManager sendRequest:postEventRequest completion:^(NSError *error) {
-            if (error == nil) {
-                PWLogDebug(@"sendPurchase completed");
-            } else {
+            if (error) {
                 PWLogError(@"sendPurchase failed");
             }
         }];

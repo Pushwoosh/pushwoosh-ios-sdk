@@ -69,7 +69,6 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
         _appInForeground = YES;
         
         if (_defaultAppOpenAllowed == YES) {
-            [self sendDefaultEvent: defaultApplicationOpenedEvent];
             _initialDefaultOpenEventSent = YES;
         }
     }

@@ -65,8 +65,6 @@
     self.UIDelegate = _listener;
     
     [[NSNotificationCenter defaultCenter] postNotificationName:kReloadWebView object:nil userInfo:nil];
-    
-    NSLog(@"updateScript CALLED");
 }
 
 @end

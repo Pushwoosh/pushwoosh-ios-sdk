@@ -43,6 +43,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		2828948EBA30EE597A40165C /* Pods_PushwooshiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC48237B5AA323C0C022ECC5 /* Pods_PushwooshiOS.framework */; };
 		442A29632BBABEC5009BEF78 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */; };
 		442A29782BBAC211009BEF78 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */; };
 		443117BF2C6FA092008F82C6 /* PWModalWindowSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 443117BB2C6FA091008F82C6 /* PWModalWindowSettings.h */; };
@@ -1916,6 +1917,7 @@
 		97F7D0442771C95F0006692B /* PWUnarchiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWUnarchiver.h; sourceTree = "<group>"; };
 		97F7D0452771C95F0006692B /* PWUnarchiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWUnarchiver.m; sourceTree = "<group>"; };
 		97F7D0522771F2430006692B /* PWTestUnarchiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWTestUnarchiver.m; sourceTree = "<group>"; };
+		AC48237B5AA323C0C022ECC5 /* Pods_PushwooshiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushwooshiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		AF2201A72A443E8A0054F20A /* PWLiveActivityRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWLiveActivityRequest.h; sourceTree = "<group>"; };
 		AF2201A82A443E8A0054F20A /* PWLiveActivityRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWLiveActivityRequest.m; sourceTree = "<group>"; };
 		AF30846E2996A1F500E19F10 /* PWModalWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWModalWindow.h; sourceTree = "<group>"; };
@@ -1930,6 +1932,8 @@
 		D2AAC07E0554694100DB518D /* libPushwoosh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwoosh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6F9155B28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInAppPurchaseHelper.h; sourceTree = "<group>"; };
 		D6F9155C28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWInAppPurchaseHelper.m; sourceTree = "<group>"; };
+		EC1E1C7EEB84460E08134704 /* Pods-PushwooshiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshiOS.release.xcconfig"; path = "Target Support Files/Pods-PushwooshiOS/Pods-PushwooshiOS.release.xcconfig"; sourceTree = "<group>"; };
+		FF5E62118D7FD74C6DC9663A /* Pods-PushwooshiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshiOS.debug.xcconfig"; path = "Target Support Files/Pods-PushwooshiOS/Pods-PushwooshiOS.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1947,6 +1951,7 @@
 			files = (
 				5D21BA2B208F4CDF00F23B64 /* libstdc++.tbd in Frameworks */,
 				5D21BA2A208F4CD900F23B64 /* libz.tbd in Frameworks */,
+				2828948EBA30EE597A40165C /* Pods_PushwooshiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2027,6 +2032,7 @@
 				034768DFFF38A50411DB9C8B /* Products */,
 				467F62A41EB883A400548315 /* Frameworks */,
 				97937A5F262838F700E57C64 /* Recovered References */,
+				5777D9C5A86E356AB33F12AA /* Pods */,
 			);
 			name = PushNotificationManager;
 			sourceTree = "<group>";
@@ -2297,6 +2303,7 @@
 				AFB0024A29F7EA440083A3E6 /* OCHamcrest.xcframework */,
 				97A59FED257F6A830022359C /* libc++.tbd */,
 				979229B725B5BB9B00F5D0C1 /* libOCMock.a */,
+				AC48237B5AA323C0C022ECC5 /* Pods_PushwooshiOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -2344,6 +2351,16 @@
 				5D84AD132153A846005D7432 /* PWBundleMock.m */,
 			);
 			name = Mock;
+			sourceTree = "<group>";
+		};
+		5777D9C5A86E356AB33F12AA /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				FF5E62118D7FD74C6DC9663A /* Pods-PushwooshiOS.debug.xcconfig */,
+				EC1E1C7EEB84460E08134704 /* Pods-PushwooshiOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../Samples/PushwooshSampleApp/Pods;
 			sourceTree = "<group>";
 		};
 		5D12C21523F54365009A655A /* Pushwoosh */ = {
@@ -4043,6 +4060,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 467EB93E1DFEC23A00506823 /* Build configuration list for PBXNativeTarget "PushwooshiOS" */;
 			buildPhases = (
+				AFB27389709D483BC1A5D1F7 /* [CP] Check Pods Manifest.lock */,
 				467EB9321DFEC23A00506823 /* Sources */,
 				467EB9331DFEC23A00506823 /* Frameworks */,
 				467EB9341DFEC23A00506823 /* Headers */,
@@ -4319,6 +4337,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -x\n. ../build/create_xcframework_vision.sh || exit 1\n";
+		};
+		AFB27389709D483BC1A5D1F7 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PushwooshiOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 		C4D612BF1D12C74F00720130 /* Create framework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5138,6 +5178,7 @@
 				DEFINES_MODULE = YES;
 				DSTROOT = /tmp/PushNotificationManager.dst;
 				ENABLE_BITCODE = NO;
+				EXCLUDED_SOURCE_FILE_NAMES = Pods_PushwooshiOS.framework;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -5178,6 +5219,7 @@
 				DEFINES_MODULE = YES;
 				DSTROOT = /tmp/PushNotificationManager.dst;
 				ENABLE_BITCODE = NO;
+				EXCLUDED_SOURCE_FILE_NAMES = Pods_PushwooshiOS.framework;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -5510,6 +5552,7 @@
 		};
 		467EB93C1DFEC23A00506823 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = FF5E62118D7FD74C6DC9663A /* Pods-PushwooshiOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BITCODE_GENERATION_MODE = bitcode;
@@ -5541,6 +5584,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = NO;
 				EXCLUDED_ARCHS = "";
+				EXCLUDED_SOURCE_FILE_NAMES = Pods_PushwooshiOS.framework;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -5572,6 +5616,7 @@
 					"-fembed-bitcode",
 					"-DPWS_DYNAMIC",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
 				PRODUCT_NAME = PushwooshFramework;
 				SKIP_INSTALL = YES;
@@ -5586,6 +5631,7 @@
 		};
 		467EB93D1DFEC23A00506823 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EC1E1C7EEB84460E08134704 /* Pods-PushwooshiOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				BITCODE_GENERATION_MODE = bitcode;
@@ -5618,6 +5664,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = NO;
 				EXCLUDED_ARCHS = "";
+				EXCLUDED_SOURCE_FILE_NAMES = Pods_PushwooshiOS.framework;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)",
@@ -5643,6 +5690,7 @@
 					"-fembed-bitcode",
 					"-DPWS_DYNAMIC",
 				);
+				OTHER_LDFLAGS = "";
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
 				PRODUCT_NAME = PushwooshFramework;
 				SKIP_INSTALL = YES;
@@ -5792,6 +5840,7 @@
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
 				EXCLUDED_ARCHS = "";
+				EXCLUDED_SOURCE_FILE_NAMES = Pods_PushwooshiOS.framework;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Vendor/Carthage/Build/iOS",
@@ -5861,6 +5910,7 @@
 				ENABLE_NS_ASSERTIONS = NO;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				EXCLUDED_ARCHS = "";
+				EXCLUDED_SOURCE_FILE_NAMES = Pods_PushwooshiOS.framework;
 				FRAMEWORK_SEARCH_PATHS = (
 					"$(inherited)",
 					"$(PROJECT_DIR)/../Vendor/Carthage/Build/iOS",

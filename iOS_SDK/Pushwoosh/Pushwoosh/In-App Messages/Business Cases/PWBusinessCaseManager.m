@@ -53,7 +53,7 @@ NSString * const kPWRecoveryBusinessCase = @"push-unregister";
             businessCase = [self.class businessCasesDictionary][identifier];
             
             if (!businessCase) {
-                NSLog(@"Unknown business case %@", identifier);
+                PWLogWarn(@"Unknown business case %@", identifier);
                 return;
             }
             
@@ -71,7 +71,7 @@ NSString * const kPWRecoveryBusinessCase = @"push-unregister";
                 }
             }];
         } else {
-            NSLog(@"Business case is already active");
+            PWLogInfo(@"Business case is already active");
         }
     }
 }

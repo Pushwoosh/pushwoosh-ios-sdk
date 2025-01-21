@@ -141,9 +141,7 @@
     request.pushDict = pushNotification;
 
     [_requestManager sendRequest:request completion:^(NSError *error) {
-        if (error == nil) {
-            PWLogInfo(@"messageDeliveryEvent completed");
-        } else {
+        if (error) {
             PWLogError(@"messageDeliveryEvent failed");
         }
 
@@ -189,15 +187,15 @@
                 UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:attachmentID URL:[NSURL fileURLWithPath:tempFilePath] options:nil error:&error];
                 
                 if (!attachment) {
-                    NSLog(@"Create attachment error: %@", error);
+                    PWLogError(@"Create attachment error: %@", error);
                 } else {
                     bestAttemptContent.attachments = [bestAttemptContent.attachments arrayByAddingObject:attachment];
                 }
             } else {
-                NSLog(@"Move file error: %@", error);
+                PWLogError(@"Move file error: %@", error);
             }
         } else {
-            NSLog(@"Download file error: %@", error);
+            PWLogError(@"Download file error: %@", error);
         }
         
         if (completion) {

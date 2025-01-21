@@ -49,6 +49,26 @@ void heavy_operation_impl(const char *function) {
 	return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleShortVersionString"];
 }
 
++ (NSString *)bundleId {
+    return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
+}
+
++ (NSString *)stringWithVisibleFirstAndLastFourCharacters:(NSString *)inputString {
+    NSUInteger length = inputString.length;
+    
+    if (length <= 8) {
+        return [@"" stringByPaddingToLength:length withString:@"*" startingAtIndex:0];
+    }
+    
+    NSString *firstFour = [inputString substringToIndex:4]; // Первые 4 символа.
+    NSString *lastFour = [inputString substringFromIndex:length - 4]; // Последние 4 символа.
+    NSString *maskedMiddle = [@"" stringByPaddingToLength:length - 8 withString:@"*" startingAtIndex:0]; // Маскировка остальных символов.
+    
+    return [NSString stringWithFormat:@"%@%@%@", firstFour, maskedMiddle, lastFour];
+}
+
+
+
 + (NSString *)preferredLanguage {
 	NSString *appLocale = @"en";
     if ([PWConfig config].allowCollectingDeviceLocale == NO) {

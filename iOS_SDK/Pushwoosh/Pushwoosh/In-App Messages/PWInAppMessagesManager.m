@@ -147,19 +147,19 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 - (void)postEventInternal:(NSString *)event withAttributes:(NSDictionary *)attributes isInlineInApp:(BOOL)isInlineInApp completion:(void (^)(id resource, NSError *error))completion {
 	if (event.length == 0) {
-		PWLogError(@"Pushwoosh: Event is missing");
+        PWLogWarn(@"Pushwoosh: Event is missing");
 		completion(nil, [PWUtils pushwooshError:@"Pushwoosh: Event is missing"]);
 		return;
 	}
 
 	if ([[PWPreferences preferences].appCode isEqualToString:@""]) {
-		PWLogError(@"Pushwoosh App code is missing. Initialize Pushwoosh manager in application:didFinishLaunchingWithOptions:");
+        PWLogWarn(@"Pushwoosh App code is missing. Initialize Pushwoosh manager in application:didFinishLaunchingWithOptions:");
 		completion(nil, [PWUtils pushwooshError:@"Pushwoosh App code is missing"]);
 		return;
 	}
 
 	if (![PWPreferences preferences].userId) {
-		PWLogError(@"Pushwoosh: You need to setup UserId, [PushNotificationManager pushmanager] setUserId:]");
+        PWLogWarn(@"Pushwoosh: You need to setup UserId, [PushNotificationManager pushManager] setUserId:]");
 		completion(nil, [PWUtils pushwooshError:@"Pushwoosh User Id is missing"]);
 		return;
 	}
@@ -281,7 +281,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
                 }
             }];
         } else {
-            NSLog(@"Failed to update inbox for a new user. error: %@", error.localizedDescription);
+            PWLogError(@"Failed to update inbox for a new user. error: %@", error.localizedDescription);
             [PWPreferences preferences].userId = previousUserId;
             [PWPreferences preferences].lastRegisterUserDate = previousRegisterUserDate;
         }
@@ -351,7 +351,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 - (void)setEmails:(NSArray *)emails completion:(void(^)(NSError * error))completion {
     if (emails == nil || emails.count == 0) {
-        PWLogInfo(@"Email cannot be a nil or empty");
+        PWLogWarn(@"Email cannot be a nil or empty");
         return;
     }
     for (NSString *email in emails) {
@@ -361,9 +361,10 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
                 if (completion)
                     completion(error);
                 else
-                    PWLogInfo(@"Something went wrong with setEmail. Use completion handler to handle the error");
+                    PWLogWarn(@"Something went wrong with setEmail. Use completion handler to handle the error");
                 return;
             } else {
+                PWLogInfo(@"Email %@ was successfully registered", email);
                 [wself registerEmailUser:email userId:nil];
             }
             if (completion)
@@ -394,7 +395,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     }
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error) {
-            NSLog(@"%@", error.localizedDescription);
+            PWLogError(@"Error registering email: %@, with userId: %@. Error: %@", email, request.userId, error.localizedDescription);
         }
     }];
 }
