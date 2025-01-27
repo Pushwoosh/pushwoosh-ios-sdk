@@ -352,6 +352,10 @@ static NSMutableDictionary *sJavaScriptInterfaces;
         NSString *customData = [[PushNotificationManager pushManager] getCustomPushData:_richMedia.pushPayload];
         
         if (customData) {
+            /**
+             Starting with iOS 14, we use WKContentWorld to run injected JavaScript in a secure sandboxed environment,
+             isolating it from untrusted web JavaScript. More details: https://developer.apple.com/documentation/webkit/wkcontentworld
+             */
             if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"14.0"]) {
                 WKContentWorld* sandbox = [WKContentWorld pageWorld];
                 [webView evaluateJavaScript:[NSString stringWithFormat:@"window.pushwoosh._customData = %@;", customData]

@@ -10,7 +10,7 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
-@interface PWUnarchiver : NSObject <NSCoding, NSSecureCoding>
+@interface PWUnarchiver : NSObject <NSSecureCoding>
 
 - (id)unarchivedObjectOfClasses:(NSSet<Class> *)classes data:(NSData *)data;
 

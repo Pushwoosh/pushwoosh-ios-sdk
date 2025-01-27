@@ -68,15 +68,13 @@
 - (NSDictionary *)getTags {
     NSDictionary *tags = nil;
     
-    if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
+    if (TARGET_OS_IOS) {
         NSURL *url = [NSURL fileURLWithPath:self.tagsCacheFile];
         NSData *data = [NSData dataWithContentsOfURL:url];
         
         NSSet *set = [NSSet setWithObjects:[NSDictionary class], [NSString class], [NSNumber class], [NSArray class], nil];
         PWUnarchiver *unarchiver = [[PWUnarchiver alloc] init];
         tags = [unarchiver unarchivedObjectOfClasses:set data:data];
-    } else {
-        tags = [NSKeyedUnarchiver unarchiveObjectWithFile:self.tagsCacheFile];
     }
     
 	PWLogVerbose(@"Get cached tags: %@", tags);
@@ -114,15 +112,13 @@
 - (NSDictionary *)getEmailTags {
     NSDictionary *tags = nil;
     
-    if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
+    if (TARGET_OS_IOS) {
         NSURL *url = [NSURL fileURLWithPath:self.emailTagsCacheFile];
         NSData *data = [NSData dataWithContentsOfURL:url];
                 
         NSSet *set = [NSSet setWithObjects:[NSString class], [NSDictionary class], nil];
         PWUnarchiver *unarchiver = [[PWUnarchiver alloc] init];
         tags = [unarchiver unarchivedObjectOfClasses:set data:data];
-    } else {
-        tags = [NSKeyedUnarchiver unarchiveObjectWithFile:self.emailTagsCacheFile];
     }
 
     PWLogVerbose(@"Get cached email tags: %@", tags);

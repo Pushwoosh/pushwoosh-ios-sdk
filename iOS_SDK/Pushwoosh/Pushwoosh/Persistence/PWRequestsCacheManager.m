@@ -67,7 +67,7 @@
         NSFileManager *fileManager = [NSFileManager new];
         NSString *cachePath = [self cachePath:fileManager];
         if ([fileManager fileExistsAtPath:cachePath]) {
-            if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
+            if (TARGET_OS_IOS) {
                 NSURL *url = [NSURL fileURLWithPath:cachePath];
                 NSData *data = [NSData dataWithContentsOfURL:url];
 
@@ -75,8 +75,6 @@
                 
                 PWUnarchiver *unarchiver = [[PWUnarchiver alloc] init];
                 _requestsQueue = [unarchiver unarchivedObjectOfClasses:set data:data];
-            } else {
-                _requestsQueue = [NSKeyedUnarchiver unarchiveObjectWithFile:cachePath];
             }
         }
         if (!_requestsQueue) {

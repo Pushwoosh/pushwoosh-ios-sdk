@@ -18,6 +18,10 @@
     __block NSError *tmpError = nil;
     __weak typeof(self) wself = self;
 
+    /**
+     Starting with iOS 14, we use WKContentWorld to run injected JavaScript in a secure sandboxed environment,
+     isolating it from untrusted web JavaScript. More details: https://developer.apple.com/documentation/webkit/wkcontentworld
+     */
     if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"14.0"]) {
         WKContentWorld* sandbox = [WKContentWorld pageWorld];
         [self evaluateJavaScript:script
@@ -69,6 +73,10 @@
 
 //just execute the JS, dont wait for a response
 - (void)pw_executeJavaScriptFromString:(NSString *)script {
+    /**
+     Starting with iOS 14, we use WKContentWorld to run injected JavaScript in a secure sandboxed environment,
+     isolating it from untrusted web JavaScript. More details: https://developer.apple.com/documentation/webkit/wkcontentworld
+     */
     if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"14.0"]) {
         WKContentWorld* sandbox = [WKContentWorld pageWorld];
         [self evaluateJavaScript:script

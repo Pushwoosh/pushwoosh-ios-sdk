@@ -103,6 +103,10 @@
 			if (successCallback) {
 				NSString *javaScriptRequest = [NSString stringWithFormat:@"%@()", successCallback, nil];
 
+                /**
+                 Starting with iOS 14, we use WKContentWorld to run injected JavaScript in a secure sandboxed environment,
+                 isolating it from untrusted web JavaScript. More details: https://developer.apple.com/documentation/webkit/wkcontentworld
+                 */
                 if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"14.0"]) {
                     WKContentWorld* sandbox = [WKContentWorld pageWorld];
                     [self.webClient.webView evaluateJavaScript:javaScriptRequest
@@ -117,7 +121,10 @@
 		} else {
 			if (errorCallback) {
 				NSString *javaScriptRequest = [NSString stringWithFormat:@"%@('%@')", errorCallback, error.localizedDescription, nil];
-                
+                /**
+                 Starting with iOS 14, we use WKContentWorld to run injected JavaScript in a secure sandboxed environment,
+                 isolating it from untrusted web JavaScript. More details: https://developer.apple.com/documentation/webkit/wkcontentworld
+                 */
                 if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"14.0"]) {
                     WKContentWorld* sandbox = [WKContentWorld pageWorld];
                     [self.webClient.webView evaluateJavaScript:javaScriptRequest
