@@ -43,7 +43,7 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		2828948EBA30EE597A40165C /* Pods_PushwooshiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC48237B5AA323C0C022ECC5 /* Pods_PushwooshiOS.framework */; };
+		27D33B36BA6093E729059571 /* Pods_PushwooshiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = AC48237B5AA323C0C022ECC5 /* Pods_PushwooshiOS.framework */; };
 		442A29632BBABEC5009BEF78 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */; };
 		442A29782BBAC211009BEF78 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 442A29622BBABEC5009BEF78 /* PrivacyInfo.xcprivacy */; };
 		443117BF2C6FA092008F82C6 /* PWModalWindowSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 443117BB2C6FA091008F82C6 /* PWModalWindowSettings.h */; };
@@ -1385,8 +1385,8 @@
 		9021094C2670802F00F811B4 /* PWServerCommunicationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 902109482670802F00F811B4 /* PWServerCommunicationManager.h */; };
 		9021094D2670802F00F811B4 /* PWServerCommunicationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 902109482670802F00F811B4 /* PWServerCommunicationManager.h */; };
 		9021094E2670802F00F811B4 /* PWServerCommunicationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 902109482670802F00F811B4 /* PWServerCommunicationManager.h */; };
-		9703585F27A2793100DEA758 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		9703586227A2796400DEA758 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		9703585F27A2793100DEA758 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		9703586227A2796400DEA758 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		972C9AA827F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 972C9AA727F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m */; };
 		9762CEA9277B17B9003196C1 /* PWTestPurchaseRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9762CEA8277B17B9003196C1 /* PWTestPurchaseRuntime.m */; };
 		976302C427DA21180029240E /* PWInboxMessageInternalTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 976302C327DA21180029240E /* PWInboxMessageInternalTest.m */; };
@@ -1951,7 +1951,7 @@
 			files = (
 				5D21BA2B208F4CDF00F23B64 /* libstdc++.tbd in Frameworks */,
 				5D21BA2A208F4CD900F23B64 /* libz.tbd in Frameworks */,
-				2828948EBA30EE597A40165C /* Pods_PushwooshiOS.framework in Frameworks */,
+				27D33B36BA6093E729059571 /* Pods_PushwooshiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2023,7 +2023,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0867D691FE84028FC02AAC07 /* PushNotificationManager */ = {
+		0867D691FE84028FC02AAC07 = {
 			isa = PBXGroup;
 			children = (
 				5D12C21523F54365009A655A /* Pushwoosh */,
@@ -4245,7 +4245,7 @@
 				Base,
 				en,
 			);
-			mainGroup = 0867D691FE84028FC02AAC07 /* PushNotificationManager */;
+			mainGroup = 0867D691FE84028FC02AAC07;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -4779,12 +4779,12 @@
 				4649F4E01ED5531B00D3D90C /* PWPostEventTest.m in Sources */,
 				449CAA05287725BD00B4EEEF /* PWRegisterEmailUserTest.m in Sources */,
 				449CAA252877272B00B4EEEF /* PWConfigurationTest.m in Sources */,
-				9703585F27A2793100DEA758 /* (null) in Sources */,
+				9703585F27A2793100DEA758 /* BuildFile in Sources */,
 				5D84AD142153A846005D7432 /* PWBundleMock.m in Sources */,
 				4649F4CD1ED5523F00D3D90C /* PWRegisterDeviceRequestTest.m in Sources */,
 				976302C927DA540B0029240E /* PWInboxServiceTest.m in Sources */,
 				449CAA282877274F00B4EEEF /* PushwooshTest.m in Sources */,
-				9703586227A2796400DEA758 /* (null) in Sources */,
+				9703586227A2796400DEA758 /* BuildFile in Sources */,
 				449CAA22287726ED00B4EEEF /* PWRegisterTestDeviceRequestTest.m in Sources */,
 				44378CC628BE347300175DE2 /* PWInAppPurchaseHelperTest.m in Sources */,
 				5D84AD112153A04E005D7432 /* PWConfigTest.m in Sources */,
