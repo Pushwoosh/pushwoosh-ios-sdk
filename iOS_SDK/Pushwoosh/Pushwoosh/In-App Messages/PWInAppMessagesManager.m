@@ -270,6 +270,8 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     PWRegisterUserRequest *request = [PWRegisterUserRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {
+            PWLogInfo(@"User \"%@\" was successfully registered", userId);
+
             [PWInbox updateInboxForNewUserId:^(NSUInteger messagesCount) {
                 if (messagesCount == 0) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:PWInboxMessagesDidUpdateNotification

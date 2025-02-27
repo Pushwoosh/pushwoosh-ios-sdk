@@ -12,6 +12,7 @@
 #import "PWReachability.h"
 #import "PWPreferences.h"
 #import "Pushwoosh+Internal.h"
+#import "PushNotificationManager.h"
 
 @implementation PWUtils
 
@@ -152,6 +153,30 @@
         return YES;
     }
     return NO;
+}
+
++ (NSInteger)getStatusesMask {
+    NSDictionary *permissionsStatusDict = [PushNotificationManager getRemoteNotificationStatus];
+    
+    BOOL soundsEnabled = [permissionsStatusDict[@"pushSound"] boolValue];
+    BOOL badgesEnabled = [permissionsStatusDict[@"pushBadge"] boolValue];
+    BOOL alertEnabled = [permissionsStatusDict[@"pushAlert"] boolValue];
+    
+    NSInteger statusesMask = 0;
+    
+    if (badgesEnabled) {
+        statusesMask |= 1;
+    }
+    
+    if (soundsEnabled) {
+        statusesMask |= 1 << 1;
+    }
+    
+    if (alertEnabled) {
+        statusesMask |= 1 << 2;
+    }
+        
+    return statusesMask;
 }
 
 @end

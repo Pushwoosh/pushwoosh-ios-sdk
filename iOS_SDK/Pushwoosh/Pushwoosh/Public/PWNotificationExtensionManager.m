@@ -8,7 +8,7 @@
 
 #import "PWNotificationExtensionManager.h"
 #import "PWMessageDeliveryRequest.h"
-//#import "Pushwoosh+Internal.h"
+#import "PWMessage+Internal.h"
 #import "PWNetworkModule.h"
 #import "NSDictionary+PWDictUtils.h"
 #import "PWConfig.h"
@@ -62,6 +62,13 @@
 
 - (void)handleNotificationRequest:(UNNotificationRequest *)request contentHandler:(void (^ _Nonnull)(UNNotificationContent * _Nonnull))contentHandler {
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
+    
+    if (![PWMessage isPushwooshMessage:bestAttemptContent.userInfo]) {
+        contentHandler(bestAttemptContent);
+        return;
+    }
+    
+    PWLogInfo(@"Service notification extension was called with payload: %@", bestAttemptContent.userInfo);
     
     NSString *appGroupsName = [[PWConfig config] appGroupsName];
         

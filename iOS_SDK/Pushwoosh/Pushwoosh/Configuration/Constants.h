@@ -10,6 +10,7 @@
 #define kBaseDefaultURLOld @"https://cp.pushwoosh.com/json/1.3/"
 #define kBaseDefaultURLFormat @"https://%@.api.pushwoosh.com/json/1.3/"
 #define kServiceHtmlContentFormatUrl @"https://%@/content/%@"
+#define kNotificationAuthorizationStatusUpdated @"KeyNotificationAuthorizationStatusUpdated"
 
 #if TARGET_OS_IPHONE
 

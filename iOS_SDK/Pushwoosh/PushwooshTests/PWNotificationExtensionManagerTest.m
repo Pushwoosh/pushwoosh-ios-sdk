@@ -46,7 +46,7 @@
     OCMStub([mockNSUserDefaults alloc]).andReturn(mockNSUserDefaults);
     OCMStub([mockNSUserDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockNSUserDefaults);
     OCMStub([mockNSUserDefaults integerForKey:OCMOCK_ANY]).andReturn(0);
-    OCMStub([(UNMutableNotificationContent *)mockUNMutableNotificationContent userInfo]).andReturn(@{@"aps": @{@"pw_badge": @"0"}});
+    OCMStub([(UNMutableNotificationContent *)mockUNMutableNotificationContent userInfo]).andReturn((@{@"aps": @{@"pw_badge": @"0"}, @"pw_msg": @"1"}));
     OCMExpect([mockNSUserDefaults setInteger:0 forKey:@"badge_count"]);
     
     [[PWNotificationExtensionManager sharedManager] handleNotificationRequest:request contentHandler:block];
@@ -74,7 +74,7 @@
     OCMStub([mockNSUserDefaults alloc]).andReturn(mockNSUserDefaults);
     OCMStub([mockNSUserDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockNSUserDefaults);
     OCMStub([mockNSUserDefaults integerForKey:OCMOCK_ANY]).andReturn(0);
-    OCMStub([(UNMutableNotificationContent *)mockUNMutableNotificationContent userInfo]).andReturn(@{@"aps": @{@"pw_badge": @"+2"}});
+    OCMStub([(UNMutableNotificationContent *)mockUNMutableNotificationContent userInfo]).andReturn((@{@"aps": @{@"pw_badge": @"+2"}, @"pw_msg": @"1"}));
     OCMExpect([mockNSUserDefaults integerForKey:@"badge_count"]).andReturn(2);
     OCMExpect([mockNSUserDefaults setInteger:4 forKey:@"badge_count"]);
 
@@ -104,7 +104,7 @@
     OCMStub([mockNSUserDefaults alloc]).andReturn(mockNSUserDefaults);
     OCMStub([mockNSUserDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockNSUserDefaults);
     OCMStub([mockNSUserDefaults integerForKey:OCMOCK_ANY]).andReturn(4);
-    OCMStub([(UNMutableNotificationContent *)mockUNMutableNotificationContent userInfo]).andReturn(@{@"aps": @{@"pw_badge": @"-2"}});
+    OCMStub([(UNMutableNotificationContent *)mockUNMutableNotificationContent userInfo]).andReturn((@{@"aps": @{@"pw_badge": @"-2"}, @"pw_msg": @"1"}));
     OCMExpect([mockNSUserDefaults setInteger:2 forKey:@"badge_count"]);
 
     [[PWNotificationExtensionManager sharedManager] handleNotificationRequest:request contentHandler:block];
@@ -133,7 +133,7 @@
     OCMStub([mockNSUserDefaults alloc]).andReturn(mockNSUserDefaults);
     OCMStub([mockNSUserDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockNSUserDefaults);
     OCMStub([mockNSUserDefaults integerForKey:OCMOCK_ANY]).andReturn(4);
-    OCMStub([(UNMutableNotificationContent *)mockUNMutableNotificationContent userInfo]).andReturn(@{@"aps": @{@"pw_badge": @"-100"}});
+    OCMStub([(UNMutableNotificationContent *)mockUNMutableNotificationContent userInfo]).andReturn((@{@"aps": @{@"pw_badge": @"-100"}, @"pw_msg": @"1"}));
     OCMExpect([mockNSUserDefaults setInteger:0 forKey:@"badge_count"]);
 
     [[PWNotificationExtensionManager sharedManager] handleNotificationRequest:request contentHandler:block];

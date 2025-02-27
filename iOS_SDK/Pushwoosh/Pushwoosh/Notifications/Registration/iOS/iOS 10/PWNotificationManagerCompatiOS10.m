@@ -62,8 +62,10 @@
         
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
             PWLogInfo(@"NotificationCenter authorization granted: %d", granted);
-            
+                        
             dispatch_async(dispatch_get_main_queue(), ^{
+                [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAuthorizationStatusUpdated object:nil];
+
                 if (completion) {
                     completion();
                 }

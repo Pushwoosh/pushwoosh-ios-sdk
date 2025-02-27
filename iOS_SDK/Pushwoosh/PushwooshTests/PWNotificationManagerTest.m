@@ -9,18 +9,29 @@
 #import "PWTestUtils.h"
 #import "PushNotificationManager.h"
 #import "PWPreferences.h"
+#import "PWUtils.h"
 #import "PWPlatformModule.h"
 #import "PWNotificationCategoryBuilder.h"
+#import "PWPushNotificationsManager.common.h"
 
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
 #import <XCTest/XCTest.h>
+#import <OCMock/OCMock.h>
 
 @interface PWNotificationManagerTest : XCTestCase
 
 @property PushNotificationManager *pushManager;
 
 @property (nonatomic, strong) PWNotificationManagerCompat *originalNotificationManager;
+@property (nonatomic) PWPushNotificationsManagerCommon *pushNotificationsManagerCommon;
+
+@end
+
+@interface PWPushNotificationsManagerCommon (TEST)
+
+- (void)sendDevTokenToServer:(NSString *)deviceID triggerCallbacks:(BOOL)triggerCallbacks;
+- (void)sendTokenToDelegate:(NSString *)deviceID triggerCallbacks:(BOOL)triggerCallbacks;
 
 @end
 
@@ -33,6 +44,8 @@
     id notificationManagerMock = mock([PWNotificationManagerCompat class]);
     self.originalNotificationManager = [PWPlatformModule module].notificationManagerCompat;
     [PWPlatformModule module].notificationManagerCompat = notificationManagerMock;
+    
+    self.pushNotificationsManagerCommon = [[PWPushNotificationsManagerCommon alloc] init];
 }
 
 - (void)tearDown {
@@ -76,5 +89,47 @@
     XCTAssertEqualObjects(pushManager.appCode, @"testString1");
 }
 
+- (void)testLastStatusMaskIsEqualToPreviousValue {
+    id mockPWPreferences = OCMPartialMock([PWPreferences preferences]);
+    OCMStub([mockPWPreferences lastStatusMask]).andReturn(3);
+    id mockPWUtils = OCMClassMock([PWUtils class]);
+    OCMStub([mockPWUtils getStatusesMask]).andReturn(5);
+    
+    [self.pushNotificationsManagerCommon sendDevTokenToServer:@"fake_token" triggerCallbacks:YES];
+    
+    XCTAssertEqual([PWUtils getStatusesMask], 5);
+}
+
+- (void)testSendTokenToDelegateCalled {
+    NSDate *date = [NSDate date];
+    id mockPushManager = OCMPartialMock(self.pushNotificationsManagerCommon);
+    id mockPWUtils = OCMClassMock([PWUtils class]);
+    OCMStub([mockPWUtils getStatusesMask]).andReturn(3);
+    id mockPWPreferences = OCMPartialMock([PWPreferences preferences]);
+    OCMStub([mockPWPreferences lastRegTime]).andReturn(date);
+    OCMStub([mockPWPreferences lastStatusMask]).andReturn(3);
+    OCMStub([mockPWPreferences pushToken]).andReturn(@"fake_token");
+    OCMExpect([mockPushManager sendTokenToDelegate:@"fake_token" triggerCallbacks:YES]);
+
+    [self.pushNotificationsManagerCommon sendDevTokenToServer:@"fake_token" triggerCallbacks:YES];
+
+    OCMVerifyAll(mockPushManager);
+}
+
+- (void)testSendTokenToDelegateNotCalled {
+    NSDate *date = [NSDate date];
+    id mockPushManager = OCMPartialMock(self.pushNotificationsManagerCommon);
+    id mockPWUtils = OCMClassMock([PWUtils class]);
+    OCMStub([mockPWUtils getStatusesMask]).andReturn(5);
+    id mockPWPreferences = OCMPartialMock([PWPreferences preferences]);
+    OCMStub([mockPWPreferences lastRegTime]).andReturn(date);
+    OCMStub([mockPWPreferences lastStatusMask]).andReturn(3);
+    OCMStub([mockPWPreferences pushToken]).andReturn(@"fake_token");
+    OCMReject([mockPushManager sendTokenToDelegate:[OCMArg any] triggerCallbacks:[OCMArg any]]);
+
+    [self.pushNotificationsManagerCommon sendDevTokenToServer:@"fake_token" triggerCallbacks:NO];
+
+    OCMVerifyAll(mockPushManager);
+}
 
 @end

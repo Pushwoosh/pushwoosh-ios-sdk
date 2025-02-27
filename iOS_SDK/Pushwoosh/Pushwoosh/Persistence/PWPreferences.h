@@ -22,6 +22,8 @@
 
 @property (copy) NSDate *lastRegTime;
 
+@property (nonatomic) NSInteger lastStatusMask;
+
 @property (copy) NSArray *categories;
 
 @property (copy) NSString *baseUrl;

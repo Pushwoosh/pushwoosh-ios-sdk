@@ -59,4 +59,6 @@ void heavy_operation_impl(const char *function);
 
 + (BOOL)isValidUserId:(NSString*)userId;
 
++ (NSInteger)getStatusesMask;
+
 @end

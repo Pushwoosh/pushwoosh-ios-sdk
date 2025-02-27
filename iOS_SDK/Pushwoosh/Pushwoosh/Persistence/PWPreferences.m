@@ -21,6 +21,7 @@ static NSString *const KeyAppName = @"Pushwoosh_APPNAME";
 static NSString *const KeyPushToken = @"PWPushUserId";
 static NSString *const KeyUserId = @"PWInAppUserId";
 static NSString *const KeyLastRegTime = @"PWLastRegTime";
+static NSString *const KeyLastStatusMask = @"PWLastStatusMask";
 static NSString *const KeyPushwooshCategories = @"pushwooshIOSCategories";
 static NSString *const KeyBaseUrl = @"Pushwoosh_BASEURL";
 static NSString *const KeyLastSendAttrDate = @"PWLastSetAttrRegTime";
@@ -46,6 +47,7 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 @synthesize pushToken = _pushToken;
 @synthesize userId = _userId;
 @synthesize lastRegTime = _lastRegTime;
+@synthesize lastStatusMask = _lastStatusMask;
 @synthesize categories = _categories;
 @synthesize baseUrl = _baseUrl;
 @synthesize isLoggerActive = _isLoggerActive;
@@ -101,6 +103,7 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
         }
 
 		_lastRegTime = [[NSUserDefaults standardUserDefaults] objectForKey:KeyLastRegTime];
+        _lastStatusMask = [[[NSUserDefaults standardUserDefaults] objectForKey:KeyLastStatusMask] integerValue];
 		_lastRegisterUserDate = [[NSUserDefaults standardUserDefaults] objectForKey:KeyLastRegisterUserDate];
 
 		_categories = [[NSUserDefaults standardUserDefaults] objectForKey:KeyPushwooshCategories];
@@ -234,6 +237,20 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 	@synchronized(_lock) {
 		return [_lastRegTime copy];
 	}
+}
+
+- (void)setLastStatusMask:(NSInteger)lastStatusMask {
+    @synchronized (_lock) {
+        _lastStatusMask = lastStatusMask;
+    }
+    [[NSUserDefaults standardUserDefaults] setInteger:lastStatusMask forKey:KeyLastStatusMask];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSInteger)lastStatusMask {
+    @synchronized (_lock) {
+        return _lastStatusMask;
+    }
 }
 
 - (void)setUserId:(NSString *)userId {
