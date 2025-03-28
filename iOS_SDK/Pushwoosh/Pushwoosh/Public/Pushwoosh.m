@@ -59,12 +59,6 @@ static dispatch_once_t pushwooshOncePredicate;
         NSLog(@"[PW] BUNDLE ID: %@", [PWUtils bundleId]);
         NSLog(@"[PW] APP CODE: %@", [PWPreferences preferences].appCode);
         NSLog(@"[PW] PUSHWOOSH SDK VERSION: %@", PUSHWOOSH_VERSION);
-        NSString *apiToken = [PWConfig config].apiToken ?: [PWConfig config].pushwooshApiToken;
-        if (apiToken) {
-            NSLog(@"[PW] API TOKEN: %@", [PWUtils stringWithVisibleFirstAndLastFourCharacters:apiToken]);
-        } else {
-            NSLog(@"[PW] API TOKEN: (null)");
-        }
         NSLog(@"[PW] HWID: %@", [PWPreferences preferences].hwid);
         NSLog(@"[PW] PUSH TOKEN: %@", [PWPreferences preferences].pushToken);
         

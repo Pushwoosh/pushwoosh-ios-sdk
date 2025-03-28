@@ -22,6 +22,8 @@
         sharedSettings.hapticFeedbackType = PWHapticFeedbackNone;
         sharedSettings.presentAnimation = PWAnimationPresentFromBottom;
         sharedSettings.dismissAnimation = PWAnimationCurveEaseInOut;
+        sharedSettings.cornerType = PWCornerTypeNone;
+        sharedSettings.cornerRadius = 0;
     });
     return sharedSettings;
 }

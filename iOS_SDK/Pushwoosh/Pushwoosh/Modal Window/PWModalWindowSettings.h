@@ -18,6 +18,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) HapticFeedbackType hapticFeedbackType;
 @property (nonatomic) PresentModalWindowAnimation presentAnimation;
 @property (nonatomic) DismissModalWindowAnimation dismissAnimation;
+@property (nonatomic) CornerType cornerType;
+@property (nonatomic) CGFloat cornerRadius;
 
 + (instancetype)sharedSettings;
 

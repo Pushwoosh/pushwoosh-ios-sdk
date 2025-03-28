@@ -54,6 +54,11 @@
     self.settings.hapticFeedbackType = type;
 }
 
+- (void)setCornerType:(CornerType)type withRadius:(CGFloat)radius {
+    self.settings.cornerType = type;
+    self.settings.cornerRadius = radius;
+}
+
 - (void)closeModalWindowAfter:(NSTimeInterval)interval {
     [self.modalWindow closeModalWindowAfter:interval];
 }

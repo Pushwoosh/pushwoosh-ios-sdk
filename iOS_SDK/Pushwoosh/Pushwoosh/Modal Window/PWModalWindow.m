@@ -57,6 +57,8 @@ static NSTimeInterval timeInterval = 0;
     self.hapticFeedbackType = settings.hapticFeedbackType;
     self.presentAnimation = settings.presentAnimation;
     self.dismissAnimation = settings.dismissAnimation;
+    self.cornerType = settings.cornerType;
+    self.cornerRadius = settings.cornerRadius;
 }
 
 - (void)createModalWindowWith:(PWResource *)resource
@@ -111,6 +113,11 @@ static NSTimeInterval timeInterval = 0;
         case PWModalWindowPositionBottom:
             [NSLayoutConstraint activateConstraints:@[
                 [_modalWindow.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor constant:-15]
+            ]];
+            break;
+        case PWModalWindowPositionBottomSheet:
+            [NSLayoutConstraint activateConstraints:@[
+                [_modalWindow.bottomAnchor constraintEqualToAnchor:window.bottomAnchor constant:0]
             ]];
             break;
         case PWModalWindowPositionCenter:
@@ -173,7 +180,7 @@ static NSTimeInterval timeInterval = 0;
     self.richMediaView.alpha = 0.0f;
     self.richMediaView.userInteractionEnabled = YES;
     self.richMediaView.exclusiveTouch = YES;
-    
+        
     BOOL shouldShow = YES;
     
     if ([[PWRichMediaManager sharedManager].delegate respondsToSelector:@selector(richMediaManager:shouldPresentRichMedia:)]) {
@@ -192,7 +199,7 @@ static NSTimeInterval timeInterval = 0;
         };
         
         [self addSubview:self.richMediaView];
-        
+                
         __block CGRect frame = self.frame;
         
         [self.richMediaView loadRichMedia:richMedia completion:^(NSError *error) {
@@ -201,15 +208,12 @@ static NSTimeInterval timeInterval = 0;
                     
                     weakSelf.richMediaView.alpha = 1.0f;
                     weakSelf.modalWindow.closeButton.alpha = 1.0f;
+                    
+                    frame.origin.y = ([UIScreen mainScreen].bounds.size.height - weakSelf.richMediaView.frame.size.height) / 2;
 
-                    [UIView animateWithDuration:0.75
-                                          delay:0.2
-                         usingSpringWithDamping:0.8
-                          initialSpringVelocity:1.0
-                                        options:0 animations:^{
-                        
-                        frame.origin.y = ([UIScreen mainScreen].bounds.size.height - weakSelf.richMediaView.frame.size.height) / 2;
-
+                    UIViewPropertyAnimator *animator = [[UIViewPropertyAnimator alloc] initWithDuration:0.75
+                                                                                          dampingRatio:0.8
+                                                                                            animations:^{
                         switch (self.presentAnimation) {
                             case PWAnimationPresentFromTop:
                                 frame.origin.y += yPositionInitialize;
@@ -226,16 +230,18 @@ static NSTimeInterval timeInterval = 0;
                             case PWAnimationPresentFromRight:
                                 frame.origin.y = [self yPositionForModalWindow:weakSelf.modalWindowPosition safeAreaGap:safeAreaGap];
                                 frame.origin.x += (self.presentAnimation == PWAnimationPresentFromLeft) ? xPositionInitialize : -xPositionInitialize;
-
                                 weakSelf.frame = frame;
                                 break;
                             default:
                                 break;
                         }
-                    }
-                                     completion:^(BOOL finished) {
+                    }];
+                    
+                    [animator addCompletion:^(UIViewAnimatingPosition finalPosition) {
                         [weakSelf handlePostAnimationTasks];
                     }];
+                    
+                    [animator startAnimation];
                 }];
             } else {
                 if ([[PWRichMediaManager sharedManager].delegate respondsToSelector:@selector(richMediaManager:presentingDidFailForRichMedia:withError:)]) {
@@ -246,15 +252,56 @@ static NSTimeInterval timeInterval = 0;
     }
 }
 
+- (void)layoutSubviews {
+    [super layoutSubviews];
+    [self setCornerTypeForRichMedia:self.richMediaView];
+}
+
+- (void)setCornerTypeForRichMedia:(PWRichMediaView *)view {
+    UIRectCorner corners = 0;
+
+    if (self.cornerType & PWCornerTypeTopLeft) {
+        corners |= UIRectCornerTopLeft;
+    }
+    if (self.cornerType & PWCornerTypeTopRight) {
+        corners |= UIRectCornerTopRight;
+    }
+    if (self.cornerType & PWCornerTypeBottomLeft) {
+        corners |= UIRectCornerBottomLeft;
+    }
+    if (self.cornerType & PWCornerTypeBottomRight) {
+        corners |= UIRectCornerBottomRight;
+    }
+
+    if (corners == 0) {
+        view.layer.mask = nil;
+        return;
+    }
+
+    CGFloat radius = self.cornerRadius;
+    [view layoutIfNeeded];
+    
+    UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:view.bounds
+                                               byRoundingCorners:corners
+                                                     cornerRadii:CGSizeMake(radius, radius)];
+    
+    CAShapeLayer *maskLayer = [CAShapeLayer layer];
+    maskLayer.path = path.CGPath;
+    maskLayer.frame = view.bounds;
+    
+    view.layer.mask = maskLayer;
+}
+
 - (CGFloat)yPositionForModalWindow:(ModalWindowPosition)position safeAreaGap:(CGFloat)safeAreaGap {
     CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    if (position == PWModalWindowPositionBottom || position == PWModalWindowPositionDefault) {
+    if (position == PWModalWindowPositionBottom) {
         return screenHeight - self.richMediaView.frame.size.height - safeAreaGap;
     } else if (position == PWModalWindowPositionTop) {
         CGFloat safeAreaHeight = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets.top;
         return safeAreaHeight + safeAreaGap;
+    } else {
+        return ([UIScreen mainScreen].bounds.size.height - self.richMediaView.frame.size.height) / 2;
     }
-    return 0;
 }
 
 - (void)bottomPositionY:(CGRect)frame {

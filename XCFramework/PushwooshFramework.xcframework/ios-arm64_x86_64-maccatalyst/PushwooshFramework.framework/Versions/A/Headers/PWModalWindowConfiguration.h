@@ -10,22 +10,20 @@
 #import "PWRichMediaManager.h"
 
 /**
- Enum defining the possible positions for displaying the modal window on the screen.
+ Enum defining the possible positions for displaying a modal window.
 
- - `PWModalWindowPositionTop`: The modal window appears at the top of the screen.
- - `PWModalWindowPositionCenter`: The modal window appears at the center of the screen.
- - `PWModalWindowPositionBottom`: The modal window appears at the bottom of the screen.
- - `PWModalWindowPositionDefault`: The default position is the center of the screen.
+ - `PWModalWindowPositionTop`: The modal window appears at the top of the screen, within the safe area.
+ - `PWModalWindowPositionCenter`: The modal window appears at the center of the screen, within the safe area.
+ - `PWModalWindowPositionBottom`: The modal window appears at the bottom of the screen, within the safe area.
+ - `PWModalWindowPositionBottomSheet`: The modal window appears at the very bottom of the screen, ignoring the safe area.
+ - `PWModalWindowPositionDefault`: The default position is the center of the screen, within the safe area.
  */
 typedef NS_ENUM(NSInteger, ModalWindowPosition) {
-    PWModalWindowPositionTop,       // Toast appears at the top of the screen
-    PWModalWindowPositionCenter,    // Toast appears at the center of the screen
-    PWModalWindowPositionBottom,    // Toast appears at the bottom of the screen
-    
-    /**
-     * Default position is the center of the screen.
-     */
-    PWModalWindowPositionDefault
+    PWModalWindowPositionTop,       // Appears at the top of the screen (within safe area)
+    PWModalWindowPositionCenter,    // Appears at the center of the screen (within safe area)
+    PWModalWindowPositionBottom,    // Appears at the bottom of the screen (within safe area)
+    PWModalWindowPositionBottomSheet, // Appears at the very bottom of the screen (ignores safe area)
+    PWModalWindowPositionDefault    // Default position (center of the screen, within safe area)
 };
 
 /**
@@ -97,6 +95,30 @@ typedef NS_ENUM(NSInteger, PresentModalWindowAnimation) {
     PWAnimationPresentNone
 };
 
+/**
+ Enum options defining the corners that can be rounded in a modal window.
+
+ - `PWCornerTypeNone`: No corners are rounded.
+ - `PWCornerTypeTopLeft`: The top-left corner is rounded.
+ - `PWCornerTypeTopRight`: The top-right corner is rounded.
+ - `PWCornerTypeBottomLeft`: The bottom-left corner is rounded.
+ - `PWCornerTypeBottomRight`: The bottom-right corner is rounded.
+ 
+ In Objective-C, multiple values can be combined using the bitwise OR operator (`|`).
+
+ In Swift, you can use the `OptionSet` syntax to combine multiple corner types. For example:
+ 
+ ```swift
+ let cornerTypes: CornerType = [.topLeft, .bottomRight]
+ */
+typedef NS_OPTIONS(NSUInteger, CornerType) {
+    PWCornerTypeNone        = 0,
+    PWCornerTypeTopLeft     = 1 << 0,
+    PWCornerTypeTopRight    = 1 << 1,
+    PWCornerTypeBottomLeft  = 1 << 2,
+    PWCornerTypeBottomRight = 1 << 3,
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 @interface PWModalWindowConfiguration : NSObject
@@ -132,6 +154,14 @@ NS_ASSUME_NONNULL_BEGIN
  @param type The type of haptic feedback to be used (e.g., light, medium, heavy).
  */
 - (void)setPresentHapticFeedbackType:(HapticFeedbackType)type;
+
+/**
+ Sets the corner type and radius for rounding specific corners of the view.
+
+ @param type The type of corners to be rounded (e.g., top-left, bottom-right, or a combination).
+ @param radius The radius of the corner rounding.
+ */
+- (void)setCornerType:(CornerType)type withRadius:(CGFloat)radius;
 
 /**
  Schedules the automatic closing of the modal window after a specified time interval.
