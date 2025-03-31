@@ -383,6 +383,10 @@ void _replacement_setApplicationIconBadgeNumber(UIApplication * self, SEL _cmd, 
 }
 
 + (void)load {
+    if ([[PWConfig config] lazyInitialization]) {
+        return;
+    }
+
     static BOOL swizzleDone = NO;
     if (swizzleDone)
         return;
