@@ -59,6 +59,7 @@ body:
       label: Your Pushwoosh iOS SDK version
       description: Your iOS SDK version which was integrated to the app. You may find it on the [releases page](https://github.com/Pushwoosh/pushwoosh-ios-sdk/releases)
       options:
+        - 6.7.18
         - 6.7.17
         - 6.7.16
         - 6.7.15

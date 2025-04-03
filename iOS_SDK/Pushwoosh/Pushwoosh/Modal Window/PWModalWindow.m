@@ -20,6 +20,7 @@
 @property (nonatomic) PWRichMedia *richMediaQueue;
 @property (nonatomic) PWWebClient *webClient;
 @property (nonatomic) PWModalWindow *modalWindow;
+@property (nonatomic) PWModalWindowSettings *settings;
 
 @end
 
@@ -33,7 +34,7 @@ static NSTimeInterval timeInterval = 0;
 
 - (void)presentModalWindow:(PWRichMedia *)richMedia modalWindow:(PWModalWindow *)modalWindow {
     UIWindow *window = [self keyWindow];
-    _modalWindow = modalWindow;
+    _modalWindow = [[PWModalWindow alloc] initWithFrame:CGRectMake(0, 0, window.bounds.size.width, 0)];
     [self createModalWindowWith:richMedia.resource
                       richMedia:richMedia
                     modalWindow:_modalWindow
@@ -51,14 +52,7 @@ static NSTimeInterval timeInterval = 0;
 - (void)commonInit {
     self.clipsToBounds = YES;
     
-    PWModalWindowSettings *settings = [PWModalWindowSettings sharedSettings];
-    self.modalWindowPosition = settings.modalWindowPosition;
-    self.dismissSwipeDirections = settings.dismissSwipeDirections;
-    self.hapticFeedbackType = settings.hapticFeedbackType;
-    self.presentAnimation = settings.presentAnimation;
-    self.dismissAnimation = settings.dismissAnimation;
-    self.cornerType = settings.cornerType;
-    self.cornerRadius = settings.cornerRadius;
+    _settings = [PWModalWindowSettings sharedSettings];
 }
 
 - (void)createModalWindowWith:(PWResource *)resource
@@ -80,11 +74,11 @@ static NSTimeInterval timeInterval = 0;
 
 - (BOOL)shouldShowCloseButtonForResource:(PWResource *)resource {
     return resource.closeButton &&
-           (_modalWindow.modalWindowPosition == PWModalWindowPositionCenter ||
-            _modalWindow.modalWindowPosition == PWModalWindowPositionDefault) &&
-           _modalWindow.presentAnimation == PWAnimationPresentFromBottom &&
-           (_modalWindow.dismissAnimation == PWAnimationCurveEaseInOut ||
-            _modalWindow.dismissAnimation == PWAnimationDismissDefault);
+           (_settings.modalWindowPosition == PWModalWindowPositionCenter ||
+            _settings.modalWindowPosition == PWModalWindowPositionDefault) &&
+    _settings.presentAnimation == PWAnimationPresentFromBottom &&
+           (_settings.dismissAnimation == PWAnimationCurveEaseInOut ||
+            _settings.dismissAnimation == PWAnimationDismissDefault);
 }
 
 - (void)setupCloseButtonForModalWindow:(PWModalWindow *)modalWindow inWindow:(UIWindow *)window {
@@ -104,7 +98,7 @@ static NSTimeInterval timeInterval = 0;
         [_modalWindow.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor]
     ]];
     
-    switch (_modalWindow.modalWindowPosition) {
+    switch (_settings.modalWindowPosition) {
         case PWModalWindowPositionTop:
             [NSLayoutConstraint activateConstraints:@[
                 [_modalWindow.topAnchor constraintEqualToAnchor:safe.topAnchor constant:15]
@@ -187,7 +181,7 @@ static NSTimeInterval timeInterval = 0;
         shouldShow = [[PWRichMediaManager sharedManager].delegate richMediaManager:[PWRichMediaManager sharedManager] shouldPresentRichMedia:_richMedia];
     }
     
-    if (!richMedia.resource.locked && shouldShow) {
+    if (!_richMedia.resource.locked && shouldShow) {
         __weak typeof(self) weakSelf = self;
         
         self.richMediaView.closeActionBlock = ^{
@@ -214,7 +208,8 @@ static NSTimeInterval timeInterval = 0;
                     UIViewPropertyAnimator *animator = [[UIViewPropertyAnimator alloc] initWithDuration:0.75
                                                                                           dampingRatio:0.8
                                                                                             animations:^{
-                        switch (self.presentAnimation) {
+
+                        switch (_settings.presentAnimation) {
                             case PWAnimationPresentFromTop:
                                 frame.origin.y += yPositionInitialize;
                                 weakSelf.frame = frame;
@@ -228,8 +223,8 @@ static NSTimeInterval timeInterval = 0;
                                 break;
                             case PWAnimationPresentFromLeft:
                             case PWAnimationPresentFromRight:
-                                frame.origin.y = [self yPositionForModalWindow:weakSelf.modalWindowPosition safeAreaGap:safeAreaGap];
-                                frame.origin.x += (self.presentAnimation == PWAnimationPresentFromLeft) ? xPositionInitialize : -xPositionInitialize;
+                                frame.origin.y = [self yPositionForModalWindow:_settings.modalWindowPosition safeAreaGap:safeAreaGap];
+                                frame.origin.x += (_settings.presentAnimation == PWAnimationPresentFromLeft) ? xPositionInitialize : -xPositionInitialize;
                                 weakSelf.frame = frame;
                                 break;
                             default:
@@ -260,16 +255,16 @@ static NSTimeInterval timeInterval = 0;
 - (void)setCornerTypeForRichMedia:(PWRichMediaView *)view {
     UIRectCorner corners = 0;
 
-    if (self.cornerType & PWCornerTypeTopLeft) {
+    if (_settings.cornerType & PWCornerTypeTopLeft) {
         corners |= UIRectCornerTopLeft;
     }
-    if (self.cornerType & PWCornerTypeTopRight) {
+    if (_settings.cornerType & PWCornerTypeTopRight) {
         corners |= UIRectCornerTopRight;
     }
-    if (self.cornerType & PWCornerTypeBottomLeft) {
+    if (_settings.cornerType & PWCornerTypeBottomLeft) {
         corners |= UIRectCornerBottomLeft;
     }
-    if (self.cornerType & PWCornerTypeBottomRight) {
+    if (_settings.cornerType & PWCornerTypeBottomRight) {
         corners |= UIRectCornerBottomRight;
     }
 
@@ -278,7 +273,7 @@ static NSTimeInterval timeInterval = 0;
         return;
     }
 
-    CGFloat radius = self.cornerRadius;
+    CGFloat radius = _settings.cornerRadius;
     [view layoutIfNeeded];
     
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:view.bounds
@@ -328,13 +323,13 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (void)addHapticFeedbackToModalWindow {
-    if (self.hapticFeedbackType == PWHapticFeedbackNone) {
+    if (_settings.hapticFeedbackType == PWHapticFeedbackNone) {
         return;
     }
     
     UIImpactFeedbackStyle feedbackStyle;
     
-    switch (self.hapticFeedbackType) {
+    switch (_settings.hapticFeedbackType) {
         case PWHapticFeedbackLight:
             feedbackStyle = UIImpactFeedbackStyleLight;
             break;
@@ -355,11 +350,11 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (void)addSwipeDismissDirection {
-    if (self.dismissSwipeDirections.count == 0 || [self.dismissSwipeDirections containsObject:@(PWSwipeDismissNone)]) {
+    if (_settings.dismissSwipeDirections.count == 0 || [_settings.dismissSwipeDirections containsObject:@(PWSwipeDismissNone)]) {
         return;
     }
 
-    for (NSNumber *swipeNumber in self.dismissSwipeDirections) {
+    for (NSNumber *swipeNumber in _settings.dismissSwipeDirections) {
         DismissModalWindowAnimation swipeDismissDirection = [swipeNumber integerValue];
         UISwipeGestureRecognizerDirection direction;
 
@@ -394,7 +389,7 @@ static NSTimeInterval timeInterval = 0;
     [self.richMediaView loadRichMedia:nil completion:nil];
     
     if ([self shouldDismissModalWindow]) {
-        [self animateDismissModalWindow:self.dismissAnimation completion:nil];
+        [self animateDismissModalWindow:_settings.dismissAnimation completion:nil];
         return;
     }
     
@@ -406,7 +401,7 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (BOOL)shouldDismissModalWindow {
-    return self.dismissSwipeDirections.count == 0 || [self.dismissSwipeDirections containsObject:@(PWSwipeDismissNone)];
+    return _settings.dismissSwipeDirections.count == 0 || [_settings.dismissSwipeDirections containsObject:@(PWSwipeDismissNone)];
 }
 
 - (DismissModalWindowAnimation)animationDirectionForSwipeDirection:(UISwipeGestureRecognizerDirection)direction {
@@ -429,6 +424,7 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (void)animateDismissModalWindow:(DismissModalWindowAnimation)direction completion:(dispatch_block_t)completion {
+    _richMedia.resource.locked = NO;
     if (direction == PWAnimationCurveEaseInOut || direction == PWAnimationDismissDefault) {
         [self animateCurveEaseInOut:self.richMediaView completion:nil];
         return;

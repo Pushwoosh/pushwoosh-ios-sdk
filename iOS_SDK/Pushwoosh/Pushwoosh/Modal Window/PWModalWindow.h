@@ -15,14 +15,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @interface PWModalWindow : UIView
 
-@property (nonatomic) ModalWindowPosition modalWindowPosition;
-@property (nonatomic) NSArray<NSNumber *> *dismissSwipeDirections;
-@property (nonatomic) HapticFeedbackType hapticFeedbackType;
-@property (nonatomic) PresentModalWindowAnimation presentAnimation;
-@property (nonatomic) DismissModalWindowAnimation dismissAnimation;
-@property (nonatomic) CornerType cornerType;
-@property (nonatomic) CGFloat cornerRadius;
-
 @property (nonatomic) UIButton *closeButton;
 
 - (void)closeModalWindowAfter:(NSTimeInterval)interval;

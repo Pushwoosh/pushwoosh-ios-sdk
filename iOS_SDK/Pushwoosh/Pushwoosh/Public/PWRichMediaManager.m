@@ -9,6 +9,8 @@
 #import "PWMessageViewController.h"
 #import "PWModalWindow.h"
 #import "PWModalWindowSettings.h"
+#import "PWModalWindowConfiguration.h"
+#import "PWConfig.h"
 
 @implementation PWRichMedia
 
@@ -59,7 +61,18 @@
 }
 
 - (void)presentRichMedia:(PWRichMedia *)richMedia {
-    [PWMessageViewController presentWithRichMedia:richMedia];
+    switch ([[PWConfig config] richMediaStyle]) {
+        case PWRichMediaStyleTypeModal:
+            [[PWModalWindowConfiguration shared] presentModalWindow:richMedia];
+            break;
+        case PWRichMediaStyleTypeLegacy:
+        case PWRichMediaStyleTypeDefault:
+            [PWMessageViewController presentWithRichMedia:richMedia];
+            break;
+        default:
+            break;
+    }
+    
 }
 
 @end
