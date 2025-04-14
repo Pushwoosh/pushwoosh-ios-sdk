@@ -84,7 +84,9 @@
         }
 
 		if (!_code || !updatedValue || !_url) {
-			PWLogError(@"Invalid inapp: %@", dictionary);
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:[NSString stringWithFormat:@"Invalid inapp: %@", dictionary]];
 			return nil;
 		}
 
@@ -201,7 +203,7 @@
         void (^completionWrapper)(NSString *errorString) = ^(NSString *errorString) {
             NSError *error = nil;
             if (errorString) {
-                PWLogError(errorString);
+                [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorString];
                 error = [PWUtils pushwooshError:errorString];
             }
             if (completion) {
@@ -283,7 +285,7 @@
         void (^completionWrapper)(NSString *htmlData, NSString *errorString) = ^(NSString *htmlData, NSString *errorString) {
             NSError *error = nil;
             if (errorString) {
-                PWLogError(errorString);
+                [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorString];
                 error = [PWUtils pushwooshError:errorString];
             }
             if (completion) {
@@ -346,7 +348,9 @@
 	NSError *error = nil;
 	NSRegularExpression *tagsRegex = [NSRegularExpression regularExpressionWithPattern:tagsRegexString options:options error:&error];
 	if (error) {
-		PWLogError(@"Failed to create regex, error: %@", [error localizedDescription]);
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:[NSString stringWithFormat:@"Failed to create regex, error: %@", [error localizedDescription]]];
 		return nil;
 	}
 
@@ -371,10 +375,14 @@
                 tagDefaultValue = [pageContent substringWithRange:[match rangeAtIndex:1]];
             }
         } else {
-            PWLogWarn(@"Incorrect number of matches");
+            [PushwooshLog pushwooshLog:PW_LL_WARN
+                             className:self
+                               message:@"Incorrect number of matches"];
         }
         
-        PWLogVerbose(@"Found tag placement: %@, key: %@, default value: %@, modifier: %@", tagPlacement, tagKey, tagDefaultValue, modifier);
+        [PushwooshLog pushwooshLog:PW_LL_VERBOSE
+                         className:self
+                           message:[NSString stringWithFormat:@"Found tag placement: %@, key: %@, default value: %@, modifier: %@", tagPlacement, tagKey, tagDefaultValue, modifier]];
         
 		NSString *tagReplacement = parameters[tagKey];
         
@@ -402,7 +410,9 @@
             tagReplacement = [NSString stringWithFormat:@"%@", tagReplacement];
         }
         
-		PWLogDebug(@"Replacing: %@, with: %@", tagPlacement, tagReplacement);
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG
+                         className:self
+                           message:[NSString stringWithFormat:@"Replacing: %@, with: %@", tagPlacement, tagReplacement]];
 		pageContent = [pageContent stringByReplacingOccurrencesOfString:tagPlacement withString:tagReplacement];
 	}
     

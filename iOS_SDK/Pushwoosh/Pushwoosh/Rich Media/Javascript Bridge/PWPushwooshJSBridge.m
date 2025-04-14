@@ -70,7 +70,9 @@
 															   error:&jsonError];
 	
 	if (jsonError) {
-		PWLogError(@"Invalid postEvent argument %@", [jsonError description]);
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:[NSString stringWithFormat:@"Invalid postEvent argument %@", [jsonError description]]];
 		[errorCallback executeWithParam:[jsonError description]];
 		return;
 	}
@@ -125,7 +127,9 @@
 														   error:&jsonError];
 	
 	if (jsonError) {
-		PWLogError(@"Invalid sendTags argument %@", [jsonError localizedDescription]);
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:[NSString stringWithFormat:@"Invalid sendTags argument %@", [jsonError localizedDescription]]];
 		return;
 	}
 	
@@ -214,7 +218,7 @@
  * helper method to print javascipt logs to iOS console
  */
 - (void)log:(NSString*)str {
-	PWLogDebug(str);
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:str];
 }
 
 /**

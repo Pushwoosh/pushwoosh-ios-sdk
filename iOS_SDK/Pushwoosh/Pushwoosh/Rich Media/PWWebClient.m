@@ -317,7 +317,9 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 	if ([url.host isEqualToString:@"close"]) {
 		[self.delegate webClientDidStartClose:self];
 	} else {
-		PWLogError(@"Unrecognized pushwoosh url: %@", url.absoluteString);
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:[NSString stringWithFormat:@"Unrecognized pushwoosh url: %@", url.absoluteString]];
 		return NO;
 	}
 	
@@ -338,7 +340,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 }
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
-    PWLogDebug(@"webViewDidFinishLoad");
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"webViewDidFinishLoad"];
 #if TARGET_OS_IOS || TARGET_OS_WATCH
     for (NSString* name in _javascriptInterfaces) {
         NSObject<PWJavaScriptInterface> *jsInterface = _javascriptInterfaces[name];
@@ -415,7 +417,9 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {
-    PWLogError(@"webView: didFailLoadWithError: %@", [error description]);
+    [PushwooshLog pushwooshLog:PW_LL_ERROR
+                     className:self
+                       message:[NSString stringWithFormat:@"webView: didFailLoadWithError: %@", [error description]]];
 }
 
 #pragma mark PWMessageJSBridgeDelegate

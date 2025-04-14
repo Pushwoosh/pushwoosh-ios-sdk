@@ -49,7 +49,7 @@
         [_richMedia.resource getHTMLDataWithCompletion:^(NSString *htmlData, NSError *error) {
             if (!htmlData) {
                 NSString *errorString = [NSString stringWithFormat: @"Failed to load InApp: %@", _richMedia.resource.url];
-                PWLogError(errorString);
+                [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorString];
                 error = [PWUtils pushwooshError:errorString];
             }
             

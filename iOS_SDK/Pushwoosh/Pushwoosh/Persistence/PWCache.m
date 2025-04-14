@@ -5,7 +5,6 @@
 //
 
 #import "PWCache.h"
-#import "PWLog+Internal.h"
 #import "PWUtils.h"
 #import "PWUnarchiver.h"
 
@@ -45,7 +44,10 @@
 }
 
 - (void)setTags:(NSDictionary *)tags {
-    PWLogVerbose(@"Set cached tags: %@", tags);
+    [PushwooshLog pushwooshLog:PW_LL_VERBOSE
+                     className:self
+                       message:[NSString stringWithFormat:@"Set cached tags: %@", tags]];
+    
     if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
         NSError *error = nil;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tags requiringSecureCoding:YES error:&error];
@@ -77,11 +79,14 @@
         tags = [unarchiver unarchivedObjectOfClasses:set data:data];
     }
     
-	PWLogVerbose(@"Get cached tags: %@", tags);
+    [PushwooshLog pushwooshLog:PW_LL_VERBOSE
+                     className:self
+                       message:[NSString stringWithFormat:@"Get cached tags: %@", tags]];
 
 	if (tags && ![tags isKindOfClass:[NSDictionary class]]) {
-		PWLogWarn(@"Invalid cached tags");
-
+        [PushwooshLog pushwooshLog:PW_LL_VERBOSE
+                         className:self
+                           message:@"Invalid cached tags"];
 		return nil;
 	}
 
@@ -89,7 +94,10 @@
 }
 
 - (void)setEmailTags:(NSDictionary *)tags {
-    PWLogVerbose(@"Set cached email tags: %@", tags);
+    [PushwooshLog pushwooshLog:PW_LL_VERBOSE
+                     className:self
+                       message:[NSString stringWithFormat:@"Set cached email tags: %@", tags]];
+    
     if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
         NSError *error = nil;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tags requiringSecureCoding:YES error:&error];
@@ -121,11 +129,14 @@
         tags = [unarchiver unarchivedObjectOfClasses:set data:data];
     }
 
-    PWLogVerbose(@"Get cached email tags: %@", tags);
+    [PushwooshLog pushwooshLog:PW_LL_VERBOSE
+                     className:self
+                       message:[NSString stringWithFormat:@"Get cached email tags: %@", tags]];
 
     if (tags && ![tags isKindOfClass:[NSDictionary class]]) {
-        PWLogWarn(@"Invalid cached email tags");
-
+        [PushwooshLog pushwooshLog:PW_LL_VERBOSE
+                         className:self
+                           message:@"Invalid cached email tags"];
         return nil;
     }
 

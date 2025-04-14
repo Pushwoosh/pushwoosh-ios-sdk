@@ -7,7 +7,6 @@
 //
 
 #import "PWNotificationManagerCompat.h"
-#import "PWLog+Internal.h"
 
 // Default implementation
 @implementation PWNotificationManagerCompat
@@ -17,33 +16,33 @@
         completion();
     }
     
-	PWLogDebug(@"STUB");
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"STUB"];
 }
 
 - (void)registerForPushNotifications {
-	PWLogDebug(@"STUB");
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"STUB"];
 }
 
 - (void)unregisterForPushNotifications {
-	PWLogDebug(@"STUB");
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"STUB"];
 }
 
 - (void)getRemoteNotificationStatusWithCompletion:(void (^)(NSDictionary*))completion {
-	PWLogDebug(@"STUB");
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"STUB"];
 	completion(nil);
 }
 
 - (NSDictionary *)startPushInfoFromInfoDictionary:(NSDictionary *)userInfo {
-	PWLogDebug(@"STUB");
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"STUB"];
 	return nil;
 }
 
 - (void)clearLocalNotifications {
-	PWLogDebug(@"STUB");
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"STUB"];
 }
 
 - (void)didRegisterUserNotificationSettings:(id)notificationSettings {
-	PWLogDebug(@"STUB");
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"STUB"];
 }
 
 @end

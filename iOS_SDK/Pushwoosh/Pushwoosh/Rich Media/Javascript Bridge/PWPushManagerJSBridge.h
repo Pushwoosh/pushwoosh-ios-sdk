@@ -1,6 +1,7 @@
 
 #import "PWMessageViewController.h"
 #import <WebKit/WebKit.h>
+#import <PushwooshCore/PushwooshLog.h>
 #import "PWWebClient.h"
 
 @protocol PWPushManagerJSBridgeDelegate <NSObject>

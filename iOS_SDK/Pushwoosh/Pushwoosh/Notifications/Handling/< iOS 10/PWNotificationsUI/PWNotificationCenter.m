@@ -13,6 +13,7 @@
 #import "PWUtils.h"
 
 #import <AVFoundation/AVFoundation.h>
+#import <PushwooshCore/PushwooshLog.h>
 
 @interface PWNotificationAlertView : UIAlertView <UIAlertViewDelegate>
 
@@ -323,7 +324,9 @@ static NSString *const _PWSettingsKey = @"PWNotificationSettingsKey";
     }
     
     if (![fileName isKindOfClass:[NSString class]] && fileName != nil) {
-        PWLogWarn(@"Sound file name isn't a string class. Sound: %@", fileName);
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:self
+                           message:[NSString stringWithFormat:@"Sound file name isn't a string class. Sound: %@", fileName]];
         return;
     }
     

@@ -1,0 +1,882 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "TopLevel",
+    "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWLiveActivities",
+        "printedName": "PWLiveActivities",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "sendPushToStartLiveActivity",
+            "printedName": "sendPushToStartLiveActivity(token:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWLiveActivities(cm)sendPushToStartLiveActivityWithToken:",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP27sendPushToStartLiveActivity5tokenySS_tFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "sendPushToStartLiveActivity",
+            "printedName": "sendPushToStartLiveActivity(token:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "((any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWLiveActivities(cm)sendPushToStartLiveActivityWithToken:completion:",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP27sendPushToStartLiveActivity5token10completionySS_ys5Error_pSgctFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "startLiveActivity",
+            "printedName": "startLiveActivity(token:activityId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWLiveActivities(cm)startLiveActivityWithToken:activityId:",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP17startLiveActivity5token10activityIdySS_SStFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "startLiveActivity",
+            "printedName": "startLiveActivity(token:activityId:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "((any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWLiveActivities(cm)startLiveActivityWithToken:activityId:completion:",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP17startLiveActivity5token10activityId10completionySS_SSys5Error_pSgctFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stopLiveActivity",
+            "printedName": "stopLiveActivity()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWLiveActivities(cm)stopLiveActivity",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP16stopLiveActivityyyFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stopLiveActivity",
+            "printedName": "stopLiveActivity(completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "((any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWLiveActivities(cm)stopLiveActivityWithCompletion:",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP16stopLiveActivity10completionyys5Error_pSgc_tFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stopLiveActivity",
+            "printedName": "stopLiveActivity(activityId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWLiveActivities(cm)stopLiveActivityWithActivityId:",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP16stopLiveActivity10activityIdySS_tFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stopLiveActivity",
+            "printedName": "stopLiveActivity(activityId:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "((any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWLiveActivities(cm)stopLiveActivityWithActivityId:completion:",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP16stopLiveActivity10activityId10completionySS_ys5Error_pSgctFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@PushwooshBridge@objc(pl)PWLiveActivities",
+        "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP",
+        "moduleName": "PushwooshBridge",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWStubLiveActivities",
+        "printedName": "PWStubLiveActivities",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "liveActivities",
+            "printedName": "liveActivities()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any AnyObject.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "AnyObject"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWStubLiveActivities(cm)liveActivities",
+            "mangledName": "$s15PushwooshBridge20PWStubLiveActivitiesC04liveE0yXlXpyFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "sendPushToStartLiveActivity",
+            "printedName": "sendPushToStartLiveActivity(token:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWStubLiveActivities(cm)sendPushToStartLiveActivityWithToken:",
+            "mangledName": "$s15PushwooshBridge20PWStubLiveActivitiesC015sendPushToStartD8Activity5tokenySS_tFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "sendPushToStartLiveActivityWithToken:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "sendPushToStartLiveActivity",
+            "printedName": "sendPushToStartLiveActivity(token:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "((any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWStubLiveActivities(cm)sendPushToStartLiveActivityWithToken:completion:",
+            "mangledName": "$s15PushwooshBridge20PWStubLiveActivitiesC015sendPushToStartD8Activity5token10completionySS_ys5Error_pSgctFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "sendPushToStartLiveActivityWithToken:completion:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "startLiveActivity",
+            "printedName": "startLiveActivity(token:activityId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWStubLiveActivities(cm)startLiveActivityWithToken:activityId:",
+            "mangledName": "$s15PushwooshBridge20PWStubLiveActivitiesC05startD8Activity5token10activityIdySS_SStFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "startLiveActivityWithToken:activityId:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "startLiveActivity",
+            "printedName": "startLiveActivity(token:activityId:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "((any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWStubLiveActivities(cm)startLiveActivityWithToken:activityId:completion:",
+            "mangledName": "$s15PushwooshBridge20PWStubLiveActivitiesC05startD8Activity5token10activityId10completionySS_SSys5Error_pSgctFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "startLiveActivityWithToken:activityId:completion:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stopLiveActivity",
+            "printedName": "stopLiveActivity()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWStubLiveActivities(cm)stopLiveActivity",
+            "mangledName": "$s15PushwooshBridge20PWStubLiveActivitiesC04stopD8ActivityyyFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "stopLiveActivity",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stopLiveActivity",
+            "printedName": "stopLiveActivity(completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "((any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWStubLiveActivities(cm)stopLiveActivityWithCompletion:",
+            "mangledName": "$s15PushwooshBridge20PWStubLiveActivitiesC04stopD8Activity10completionyys5Error_pSgc_tFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "stopLiveActivityWithCompletion:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stopLiveActivity",
+            "printedName": "stopLiveActivity(activityId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWStubLiveActivities(cm)stopLiveActivityWithActivityId:",
+            "mangledName": "$s15PushwooshBridge20PWStubLiveActivitiesC04stopD8Activity10activityIdySS_tFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "stopLiveActivityWithActivityId:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "stopLiveActivity",
+            "printedName": "stopLiveActivity(activityId:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "((any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWStubLiveActivities(cm)stopLiveActivityWithActivityId:completion:",
+            "mangledName": "$s15PushwooshBridge20PWStubLiveActivitiesC04stopD8Activity10activityId10completionySS_ys5Error_pSgctFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "stopLiveActivityWithActivityId:completion:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWStubLiveActivities",
+                "printedName": "PushwooshBridge.PWStubLiveActivities",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWStubLiveActivities"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWStubLiveActivities(im)init",
+            "mangledName": "$s15PushwooshBridge20PWStubLiveActivitiesCACycfc",
+            "moduleName": "PushwooshBridge",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshBridge@objc(cs)PWStubLiveActivities",
+        "mangledName": "$s15PushwooshBridge20PWStubLiveActivitiesC",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "PWLiveActivities",
+            "printedName": "PWLiveActivities",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWLiveActivities",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": []
+}

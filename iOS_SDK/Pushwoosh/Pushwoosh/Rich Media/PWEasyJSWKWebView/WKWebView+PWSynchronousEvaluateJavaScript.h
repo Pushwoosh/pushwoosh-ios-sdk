@@ -7,6 +7,7 @@
 //
 
 @import WebKit;
+#import <PushwooshCore/PushwooshLog.h>
 
 @interface WKWebView (PWSynchronousEvaluateJavaScript)
 - (NSString *)pw_stringByEvaluatingJavaScriptFromString:(NSString *)script error:(NSError **)error;

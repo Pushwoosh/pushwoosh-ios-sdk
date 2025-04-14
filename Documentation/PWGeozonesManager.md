@@ -1,5 +1,5 @@
 
-# <a name="heading"></a>class PWGeozonesManager : NSObject  
+# <a name="heading"></a>class PWGeozonesManager : &lt;NSObject&gt;  
 
 ## Members  
 

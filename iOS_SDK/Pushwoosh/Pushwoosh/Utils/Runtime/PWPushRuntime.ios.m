@@ -234,9 +234,12 @@ static BOOL openURLSwizzled = NO;
                 }
             }
         } @catch (NSException *exception) {
-            PWLogError(@"");
-            PWLogError(@"!!!!!!-----Exception caused by AppDelegate proxy: %@-----!!!!!!", exception);
-            PWLogError(@"");
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@""];
+            [PushwooshLog pushwooshLog:PW_LL_ERROR 
+                             className:self
+                               message:[NSString stringWithFormat:@"!!!!!!-----Exception caused by AppDelegate proxy: %@-----!!!!!!", exception]];
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@""];
+
         }
     }
     
@@ -368,7 +371,7 @@ void _replacement_didFailToRegisterForRemoteNotificationsWithError(id self, SEL 
         ((void(*)(id, SEL, UIApplication*, NSError*))pw_original_didFailToRegisterForRemoteNotificationsWithError_Imp)(self, _cmd, application, error);
     }
 
-    PWLogError(@"Error registering for push notifications. Error: %@", error);
+    [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Error registering for push notifications. Error: %@", error]];
 
     if ([[PWPreferences preferences] hasAppCode]) {
         [[PushNotificationManager pushManager] handlePushRegistrationFailure:error];

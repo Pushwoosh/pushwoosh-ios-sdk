@@ -9,7 +9,6 @@
 #import "PWUtils.h"
 #import "Pushwoosh+Internal.h"
 #import "Constants.h"
-#import "PWLog+Internal.h"
 
 #if TARGET_OS_IOS
 #import "PWInbox+Internal.h"
@@ -255,7 +254,7 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 
 - (void)setUserId:(NSString *)userId {
 	if (!userId) {
-		PWLogError(@"userId cannot be nil");
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"userId cannot be nil"];
 		return;
 	}
 
@@ -279,7 +278,7 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 
 - (void)setCategories:(NSArray *)categories {
 	if (![PWPreferences verifyObject:categories]) {
-		PWLogError(@"Unable to save categories: %@", categories);
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Unable to save categories: %@", categories]];
 		return;
 	}
 

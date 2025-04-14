@@ -5,6 +5,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <PushwooshCore/PushwooshLog.h>
+#import <PushwooshCore/PWCoreServerCommunicationManager.h>
 #import "PWRequest.h"
 
 typedef void (^PWRequestDownloadCompleteBlock)(NSString *, NSError *);

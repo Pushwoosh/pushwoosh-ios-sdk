@@ -27,34 +27,43 @@
 		NSError *error = nil;
 		NSData *rawContent = [NSData dataWithContentsOfFile:filePath];
 		if (!rawContent) {
-			PWLogError(@"Unable to read pushwoosh config file");
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Unable to read pushwoosh config file"];
 			return nil;
 		}
 
 		NSDictionary *parsedConfig = [NSJSONSerialization JSONObjectWithData:rawContent options:0 error:&error];
 		if (error) {
-			PWLogError(@"Failed to parse pushwoosh config file: @$", [error localizedDescription]);
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:[NSString stringWithFormat:@"Failed to parse pushwoosh config file: %@", error.localizedDescription]];
 			return nil;
 		}
 
 		if (![parsedConfig isKindOfClass:[NSDictionary class]]) {
-			PWLogError(@"Invalid pushwoosh config file structure, expected top level dictionary");
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:@"Invalid pushwoosh config file structure, expected top level dictionary"];
 			return nil;
 		}
 
 		NSDictionary *localization = parsedConfig[@"localization"];
 		if (!localization || ![localization isKindOfClass:[NSDictionary class]]) {
-			PWLogError(@"Invalid pushwoosh config file structure, expected \"localization\" dicrionary");
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:@"Invalid pushwoosh config file structure, expected \"localization\" dicrionary"];
 			return nil;
 		}
 
-		PWLogDebug(@"Current device preferred language: %@", [PWPreferences preferences].language);
-
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG
+                         className:self
+                           message:[NSString stringWithFormat:@"Current device preferred language: %@", [PWPreferences preferences].language]];
 		self.localizedStrings = localization[[PWPreferences preferences].language];
 
 		if (!self.localizedStrings) {
 			NSString *defaultLanguage = parsedConfig[@"default_language"];
-            PWLogDebug(@"Device preferred language not found, using default language: %@", defaultLanguage);
+            [PushwooshLog pushwooshLog:PW_LL_DEBUG
+                             className:self
+                               message:[NSString stringWithFormat:@"Device preferred language not found, using default language: %@", defaultLanguage]];
 			self.localizedStrings = localization[defaultLanguage];
             
             if (![_localizedStrings isKindOfClass:[NSDictionary class]]) {
@@ -62,8 +71,10 @@
             }
 		}
 
-		PWLogDebug(@"Localized strings: %@", self.localizedStrings);
-
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG
+                         className:self
+                           message:[NSString stringWithFormat:@"Localized strings: %@", self.localizedStrings]];
+        
 		NSNumber *iosCloseButtonObj = parsedConfig[@"ios_close_button"];
 		if (iosCloseButtonObj && [iosCloseButtonObj isKindOfClass:[NSNumber class]]) {
 			self.iosCloseButton = iosCloseButtonObj.boolValue;
@@ -74,7 +85,9 @@
         NSString *presentationStyleKeyObj = parsedConfig[@"presentationStyleKey"];
         self.presentationStyleKey = presentationStyleKeyObj != nil ? presentationStyleKeyObj : @"";
 
-		PWLogDebug(@"iosCloseButton: %d", self.iosCloseButton);
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG
+                         className:self
+                           message:[NSString stringWithFormat:@"iosCloseButton: %d", self.iosCloseButton]];
 	}
 
 	return self;

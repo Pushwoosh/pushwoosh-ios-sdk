@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
+#import <PushwooshCore/PushwooshLog.h>
 
 @interface PWPushRuntime : NSObject
 

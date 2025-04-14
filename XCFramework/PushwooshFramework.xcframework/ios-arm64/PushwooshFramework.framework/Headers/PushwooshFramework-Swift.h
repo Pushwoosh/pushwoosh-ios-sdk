@@ -277,8 +277,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
-@import Foundation;
-@import ObjectiveC;
 #endif
 
 #endif
@@ -299,45 +297,6 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 #if defined(__OBJC__)
-@class NSString;
-
-SWIFT_CLASS("_TtC18PushwooshFramework23PushwooshLiveActivities")
-@interface PushwooshLiveActivities : NSObject
-/// Configures the Pushwoosh SDK to manage the default <code>DefaultLiveActivityAttributes</code> structure, which conforms to the
-/// <code>PushwooshLiveActivityAttributes</code> protocol. By using this function, the widget attributes are controlled by the Pushwoosh SDK,
-/// enabling the SDK to handle the entire lifecycle of the live activity. From the app’s perspective, the only requirement is to create
-/// a Live Activity widget within a widget extension, including an <code>ActivityConfiguration</code> for <code>DefaultLiveActivityAttributes</code>.
-/// This approach is particularly useful for scenarios where:
-/// <ol>
-///   <li>
-///     There is only one Live Activity widget in the app.
-///   </li>
-///   <li>
-///     A cross-platform framework is used, and the developer wants to avoid creating bindings between the framework and iOS native
-///     ActivityKit.
-///   </li>
-/// </ol>
-/// \param options An optional parameter for providing more detailed configuration options.
-///
-+ (void)defaultSetup SWIFT_AVAILABILITY(ios,introduced=16.1);
-/// Starts a new Live Activity modeled by the <code>DefaultLiveActivityAttributes</code> structure. The <code>DefaultLiveActivityAttributes</code>
-/// is initialized using the dynamic <code>attributes</code> and <code>content</code> provided.
-/// \param activityId The identifier for the live activity on this device, which will be used to start the activity and make it eligible for updates.
-///
-/// \param attributes A dictionary containing the static attributes to initialize <code>DefaultLiveActivityAttributes</code>.
-///
-/// \param content A dictionary containing the initial content state to initialize <code>DefaultLiveActivityAttributes</code>.
-///
-+ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content SWIFT_AVAILABILITY(ios,introduced=16.1);
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
-
-SWIFT_CLASS("_TtC18PushwooshFramework42PushwooshLiveActivitiesImplementationSetup")
-@interface PushwooshLiveActivitiesImplementationSetup : NSObject
-+ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content SWIFT_AVAILABILITY(ios,introduced=16.1);
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
 
 #endif
 #if __has_attribute(external_source_symbol)

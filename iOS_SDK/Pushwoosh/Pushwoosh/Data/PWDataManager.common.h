@@ -6,6 +6,8 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <PushwooshCore/PushwooshLog.h>
+#import <PushwooshCore/PWCoreServerCommunicationManager.h>
 #import "PushNotificationManager.h"
 #import "PWChannel.h"
 

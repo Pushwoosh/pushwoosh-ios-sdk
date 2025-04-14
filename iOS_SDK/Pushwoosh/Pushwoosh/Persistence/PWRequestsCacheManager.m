@@ -137,7 +137,7 @@
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:requestsQueue requiringSecureCoding:YES error:&error];
         [data writeToFile:path options:NSDataWritingAtomic error:&error];
         if (error != nil) {
-            PWLogError(@"Write to file failed: %@", error);
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Write to file failed: %@", error.localizedDescription]];
         }
     } else {
         [NSKeyedArchiver archiveRootObject:requestsQueue toFile:path];

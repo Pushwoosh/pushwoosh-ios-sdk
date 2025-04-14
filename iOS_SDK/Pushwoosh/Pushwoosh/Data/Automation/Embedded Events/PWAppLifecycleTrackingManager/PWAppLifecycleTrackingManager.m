@@ -13,7 +13,6 @@
 #import <objc/runtime.h>
 #import "PWPreferences.h"
 #import "PWUtils.h"
-#import "PWServerCommunicationManager.h"
 
 NSString * const defaultApplicationOpenedEvent = @"PW_ApplicationOpen";
 NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
@@ -83,7 +82,7 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationClosed) name:UIApplicationDidEnterBackgroundNotification object:nil];
     
     // wait until server communication is allowed before sending appOpen
-    if (![[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
+    if (![[PWCoreServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
         [self addServerCommunicationStartedObserver];
     } else {
         _serverCommunicationEnabled = YES;
@@ -92,7 +91,7 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 
 - (void)addServerCommunicationStartedObserver {
     if (!_communicationStartedHandler) {
-        _communicationStartedHandler = [[NSNotificationCenter defaultCenter] addObserverForName:kPWServerCommunicationStarted object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
+        _communicationStartedHandler = [[NSNotificationCenter defaultCenter] addObserverForName:kPWCoreServerCommunicationStarted object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
 
             _serverCommunicationEnabled = YES;
             [[NSNotificationCenter defaultCenter] removeObserver:_communicationStartedHandler];

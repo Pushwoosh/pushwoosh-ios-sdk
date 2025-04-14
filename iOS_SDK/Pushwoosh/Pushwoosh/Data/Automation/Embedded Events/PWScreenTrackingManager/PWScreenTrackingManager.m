@@ -78,9 +78,15 @@ void _replacement_viewDidAppear(UIViewController * self, SEL _cmd, BOOL animated
                         [[PWInAppManager sharedManager] postEvent:defaultScreenOpenEvent withAttributes:attrs];
                     }
                 } @catch (NSException *exception) {
-                    PWLogError(@"----------------------------------------------------");
-                    PWLogError(@"PW_ScreenOpen exception: %@", exception);
-                    PWLogError(@"----------------------------------------------------");
+                    [PushwooshLog pushwooshLog:PW_LL_ERROR
+                                     className:self
+                                       message:@"----------------------------------------------------"];
+                    [PushwooshLog pushwooshLog:PW_LL_ERROR
+                                     className:self
+                                       message:[NSString stringWithFormat:@"PW_ScreenOpen exception: %@", exception]];
+                    [PushwooshLog pushwooshLog:PW_LL_ERROR
+                                     className:self
+                                       message:@"----------------------------------------------------"];
                 }
                 
                 [PWScreenTrackingManager sharedManager].isWaitingToSendEvent = NO;

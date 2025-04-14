@@ -18,7 +18,7 @@
     NSError *error = nil;
     id returnValue = [NSKeyedUnarchiver unarchivedObjectOfClasses:classes fromData:data error:&error];
     if (error != nil) {
-        PWLogError(@"Deserialization failed: %@", error.localizedDescription);
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Deserialization failed: %@", error.localizedDescription]];
     }
     return returnValue;
 }

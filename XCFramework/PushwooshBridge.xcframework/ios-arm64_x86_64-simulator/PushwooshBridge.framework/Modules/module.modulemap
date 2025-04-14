@@ -1,0 +1,11 @@
+framework module PushwooshBridge {
+  umbrella header "PushwooshBridge.h"
+  export *
+
+  module * { export * }
+}
+
+module PushwooshBridge.Swift {
+  header "PushwooshBridge-Swift.h"
+  requires objc
+}

@@ -188,7 +188,7 @@ static dispatch_once_t pushManagerOncePredicate;
     NSString *message = @"This Geozones API is deprecated. Please use PushwooshGeozones Framework";
     
     if ([PWUtils getAPSProductionStatus:NO]) {
-        PWLogError(message);
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:message];
     } else {
         [NSException raise:@"PWGeozonesException" format:@"%@", message];
     }

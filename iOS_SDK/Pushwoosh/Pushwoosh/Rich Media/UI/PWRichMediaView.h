@@ -9,6 +9,8 @@
 #import "PWEasyJSWKWebView.h"
 #import "PWWebClient.h"
 
+#import <PushwooshCore/PushwooshLog.h>
+
 @class PWRichMedia;
 
 #if TARGET_OS_IOS

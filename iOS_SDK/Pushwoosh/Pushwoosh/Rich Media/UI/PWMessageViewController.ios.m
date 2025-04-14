@@ -269,7 +269,7 @@
                 frame.origin = CGPointMake(0.0, self.view.frame.size.height - height);
             }
         } else {
-            PWLogError(@"Inapp measurement failed");
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Inapp measurement failed"];
         }
         
         _richMediaView.webClient.webView.frame = frame;

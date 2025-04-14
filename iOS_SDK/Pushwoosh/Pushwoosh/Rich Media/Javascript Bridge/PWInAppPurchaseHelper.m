@@ -56,7 +56,7 @@
         [Pushwoosh.sharedInstance.purchaseDelegate onPWInAppPurchaseHelperProducts:self.products];
     }
     for (NSString *invalidIdentifier in response.invalidProductIdentifiers)
-        PWLogWarn(@"PWInAppPurchaseHelper - Invalid identifier : %@", invalidIdentifier);
+        [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:[NSString stringWithFormat:@"PWInAppPurchaseHelper - Invalid identifier : %@", invalidIdentifier]];
 }
 
 #pragma mark - pay and restore

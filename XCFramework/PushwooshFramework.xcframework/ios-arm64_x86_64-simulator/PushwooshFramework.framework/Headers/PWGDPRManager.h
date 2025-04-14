@@ -5,6 +5,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <PushwooshCore/PushwooshLog.h>
 
 /*
  `PWGDPRManager` class offers access to the singleton-instance of the manager responsible for channels management required by GDPR.

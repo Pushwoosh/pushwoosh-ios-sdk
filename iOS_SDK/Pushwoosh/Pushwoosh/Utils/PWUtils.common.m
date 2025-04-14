@@ -16,14 +16,16 @@ NSErrorDomain const PWErrorDomain = @"pushwoosh";
 
 void heavy_operation_impl(const char *function) {
 	if ([NSThread isMainThread]) {
-		PWLogWarn(@"[%s] Executing long running operation on main thread", function);
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                                 className:NSStringFromClass([PWUtilsCommon class])
+                                   message:[NSString stringWithFormat:@"[%s] Executing long running operation on main thread", function]];
 	}
 }
 
 @implementation PWUtilsCommon
 
 + (void)showAlertWithTitle:(NSString *)title message:(NSString *)message {
-	PWLogDebug(@"stub");
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"stub"];
 }
 
 + (NSString *)systemVersion {
@@ -196,7 +198,7 @@ void heavy_operation_impl(const char *function) {
 
 + (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request
 			redirectResponse:(NSURLResponse *)redirectResponse {
-	PWLogDebug(@"Url: %@", [request URL]);
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Url: %@", [request URL]]];
 
 	NSURL *url = [request URL];
 	if ([[url scheme] hasPrefix:@"http"] && [self isShortenedUrl:url]) {

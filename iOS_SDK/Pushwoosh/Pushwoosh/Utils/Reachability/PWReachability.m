@@ -205,7 +205,9 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     if (!SCNetworkReachabilitySetCallback(self.reachabilityRef, TMReachabilityCallback, &context)) 
     {
 #ifdef DEBUG
-        PWLogError(@"SCNetworkReachabilitySetCallback() failed: %s", SCErrorString(SCError()));
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:[NSString stringWithFormat:@"SCNetworkReachabilitySetCallback() failed: %s", SCErrorString(SCError())]];
 #endif
         
         //clear out the dispatch queue
@@ -226,7 +228,9 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     if(!SCNetworkReachabilitySetDispatchQueue(self.reachabilityRef, self.reachabilitySerialQueue))
     {
 #ifdef DEBUG
-        PWLogError(@"SCNetworkReachabilitySetDispatchQueue() failed: %s", SCErrorString(SCError()));
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:[NSString stringWithFormat:@"SCNetworkReachabilitySetDispatchQueue() failed: %s", SCErrorString(SCError())]];
 #endif
 
         //UH OH - FAILURE!

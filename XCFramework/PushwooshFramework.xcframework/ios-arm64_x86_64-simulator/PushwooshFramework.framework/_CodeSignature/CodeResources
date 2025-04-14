@@ -10,15 +10,15 @@
 		</data>
 		<key>Headers/PWGDPRManager.h</key>
 		<data>
-		FGIhL/tlQxgGZGiqgoKpxbMfKF4=
+		zTlCGHQ4UmQ7StFocPfrCFB7PAs=
 		</data>
 		<key>Headers/PWInAppManager.h</key>
 		<data>
-		G/ykt8oTaVVi5DJ/YP9jCXkIiXM=
+		C7iqQqTOS1mE3P3h5YopF1Pcs2A=
 		</data>
 		<key>Headers/PWInbox.h</key>
 		<data>
-		xEPQw/mGxsU0wwUjqZiAJREF7VA=
+		JHOTQVcWa3okUc6XF+xVbo/3zNk=
 		</data>
 		<key>Headers/PWInlineInAppView.h</key>
 		<data>
@@ -50,15 +50,15 @@
 		</data>
 		<key>Headers/PushNotificationManager.h</key>
 		<data>
-		rrta+cKAy++lbuc/rw66Xd6g9Pk=
+		Q6FZ1ShY8okQefvsely2s2iCgKE=
 		</data>
 		<key>Headers/PushwooshFramework-Swift.h</key>
 		<data>
-		GKK1p+6mQRfvApJ3RDY2uLwXs6Y=
+		03qvkH2YL7842bAsLfFocRh6u+k=
 		</data>
 		<key>Headers/PushwooshFramework.h</key>
 		<data>
-		Va+9/lCFYJXErc+viPEz3/0pU34=
+		bW11zdiKloGEw9Q/lghtR9E1dBg=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -66,43 +66,43 @@
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		brlFW8Mj0tGRFJZxNeTdOP5B4AA=
+		h82Fg4a1zretWAocH4CMP+zcvzU=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		2T1Fv477qIBk3sbGAmXsjSFgp30=
+		ro7F1744rZ1wPszuEpDjXvm+9bw=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		PUJqEEz7iKWm9s0TuLiPPdyViX0=
+		TzhReMdtq6EHZwmbfTmhFWarYpc=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		2T1Fv477qIBk3sbGAmXsjSFgp30=
+		ro7F1744rZ1wPszuEpDjXvm+9bw=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		U4Lm75yYaziAUka7CJzG2inqgFg=
+		0GRPL46LipJkYMa+9pAYnQfKnN8=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		brlFW8Mj0tGRFJZxNeTdOP5B4AA=
+		h82Fg4a1zretWAocH4CMP+zcvzU=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		6ccawhEnPENOB9sdAk/lEnW2+jY=
+		bDhnILYY3JLbVjvSVAT3uQpa08c=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		OW5JbWMQz+cBY2DCC9o3c+uABRI=
+		+SlJHc4OUF99WDoaj6xI7vy3U0E=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		6ccawhEnPENOB9sdAk/lEnW2+jY=
+		bDhnILYY3JLbVjvSVAT3uQpa08c=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		x8rPlqNeUIhaeyFNtN5jFQ0PgXA=
+		TKu/R4JT9ZCb4OFbMqlLlDi6tfg=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -126,21 +126,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8pdyaO5tsekBkzkIKPUXRQZx9sCeYloPM5WyQXy9BS0=
+			RkOGRh5Xb18tJE0PfMGSCTFQXcj1RDrluqjicgaTO8U=
 			</data>
 		</dict>
 		<key>Headers/PWInAppManager.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			dxyXheFyIE3yWUatZY5jFsnblAbTjtvLf9Ldbeq5gMc=
+			TzFhlXHO2pkk6Et4EvcsbOJdJgxl9rZlFufZ4TdNo7s=
 			</data>
 		</dict>
 		<key>Headers/PWInbox.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			hYLqgFDrKIfK/Tf2yewWcL1ZE/uIUmordc8Pgx0XkpU=
+			3Nx5falpRswXO7m7soPRqyJBcSpd0pWBUKn9HGRwyx8=
 			</data>
 		</dict>
 		<key>Headers/PWInlineInAppView.h</key>
@@ -196,91 +196,91 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zN0B4By0LQLVuiy9Z3yz0atf38aYxAdIVqmKWFktOrc=
+			1/8pVbXg9/en4nhI3JIqnEL0A8hhUuaW6nGAyVyNiuo=
 			</data>
 		</dict>
 		<key>Headers/PushwooshFramework-Swift.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			fPChw0LXyH3w9Rj6yFfghcVWEgTKWYYzefqZWZ3Wbk0=
+			i5WHXI7zPuHse/vjAGmgZ2EAWNZ/nri0KUObRNCpvlQ=
 			</data>
 		</dict>
 		<key>Headers/PushwooshFramework.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			UEAnEqdeVRG1AR0uMO+fX3qWBifmw1G8tEby86rFEPU=
+			AAvodbBkknrZRWmITDg13iwzLCL7vbLpjmnQkzGRd7I=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			R3n5Uczg3dnPVWkCnVqotKwDKEc5bYRbBNODQNirx34=
+			vgT2Y4Ue5kMgAFun1Xp0Wvb69sRe33MbTjYMAKcDauQ=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6cMY2Q08ULDpte7UZsp68y7h+1pBYLTyjz+kMpUPxfc=
+			E1mSlYpXSIV8mnbb6vzz6KzR3SM72Yt/tAJvQPQ8nM8=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9ereLDK1SD3S5q4+cwfB48LzKyyWOGHQV31BEV/3czk=
+			7cTvw8oe++VeZgkx1m6/RIIG2JrCMST3jSxfasiTKkE=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			6cMY2Q08ULDpte7UZsp68y7h+1pBYLTyjz+kMpUPxfc=
+			E1mSlYpXSIV8mnbb6vzz6KzR3SM72Yt/tAJvQPQ8nM8=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			zpX6mAFxbc5mHPLhYXVdkPQXVCqMp28jxjRNz0E0AcU=
+			8k3ZuvCxcEZjUWU7MTthz696KXZG589fYwEce7dupXg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			R3n5Uczg3dnPVWkCnVqotKwDKEc5bYRbBNODQNirx34=
+			vgT2Y4Ue5kMgAFun1Xp0Wvb69sRe33MbTjYMAKcDauQ=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			OvsX98wb4giGoITisO3rCF3LayfvgIz600ad94GAva4=
+			SBAiWDmG9pHIW+inqcOKdLvXEbmcwJMwewwcnB7sMSg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			smkPwdKPybPivvrUjvsu7tuqV5C9QoIsO0tTdYhrEXE=
+			rM9LYozLxb+VOMSBfjtdPg0Db3M5CuWGLmrBAuy6kYI=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			OvsX98wb4giGoITisO3rCF3LayfvgIz600ad94GAva4=
+			SBAiWDmG9pHIW+inqcOKdLvXEbmcwJMwewwcnB7sMSg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			9i0lNHPcH5oYsRf4VsIgwICTqzs+ccu9W51BXhgumQo=
+			Aai5tMriBUe4hNIOO7BJwldWnPmHHpJVHAbUrjjBSh4=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

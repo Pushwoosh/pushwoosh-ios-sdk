@@ -9,6 +9,7 @@
 #if TARGET_OS_IOS
 
 #import "PWMessageViewController.ios.h"
+#import <PushwooshCore/PushwooshLog.h>
 
 #else
 

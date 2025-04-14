@@ -123,13 +123,13 @@
     };
     
     if (![postEventRequest.attributes isKindOfClass:[NSDictionary class]]) {
-        PWLogError(@"Uncorrect attributes format");
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Uncorrect attributes format"];
         return;
     }
     
     [_requestManager sendRequest:postEventRequest completion:^(NSError *error) {
         if (error) {
-            PWLogError(@"sendPurchase failed");
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"sendPurchase failed"];
         }
     }];
 }
@@ -148,7 +148,9 @@
         
 		SKProduct *product = (self.productArray)[productIdentifier];
 		if (!product) {
-			PWLogWarn(@"Could not find product for transaction: %@", productIdentifier);
+            [PushwooshLog pushwooshLog:PW_LL_WARN
+                              className:self
+                               message:[NSString stringWithFormat:@"Could not find product for transaction: %@", productIdentifier]];
 			continue;
 		}
 
@@ -191,7 +193,7 @@
         
         [_requestManager sendRequest:postEventRequest completion:^(NSError *error) {
             if (error) {
-                PWLogError(@"sendPurchase failed");
+                [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"sendPurchase failed"];
             }
         }];
 	}

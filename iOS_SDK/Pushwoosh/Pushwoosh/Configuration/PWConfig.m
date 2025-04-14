@@ -20,7 +20,7 @@
 @property (nonatomic, assign, readwrite) BOOL allowCollectingDeviceLocale;
 @property (nonatomic, assign, readwrite) BOOL allowCollectingDeviceModel;
 @property (nonatomic, assign, readwrite) BOOL isCollectingLifecycleEventsAllowed;
-@property (nonatomic, assign, readwrite) LogLevel logLevel;
+@property (nonatomic, assign, readwrite) PUSHWOOSH_LOG_LEVEL logLevel;
 @property (nonatomic, readwrite) BOOL sendPushStatIfAlertsDisabled;
 @property (nonatomic, assign, readwrite) BOOL acceptedDeepLinkForSilentPush;
 @property (nonatomic, readwrite) BOOL sendPurchaseTrackingEnabled;
@@ -122,20 +122,20 @@
 			logLevelString = @"INFO";
 		}
 
-		NSDictionary *logLevelMap = @{ @"NONE" : @(kLogNone),
-									   @"ERROR" : @(kLogError),
-									   @"WARNING" : @(kLogWarning),
-									   @"INFO" : @(kLogInfo),
-									   @"DEBUG" : @(kLogDebug),
-									   @"VERBOSE" : @(kLogVerbose) };
+		NSDictionary *logLevelMap = @{ @"NONE" : @(PW_LL_NONE),
+									   @"ERROR" : @(PW_LL_ERROR),
+									   @"WARNING" : @(PW_LL_WARN),
+									   @"INFO" : @(PW_LL_INFO),
+									   @"DEBUG" : @(PW_LL_DEBUG),
+									   @"VERBOSE" : @(PW_LL_VERBOSE) };
 
 		NSNumber *logLevelObject = logLevelMap[logLevelString];
 		if (!logLevelObject) {
-            PWLogError(@"[PW] [E] Error! Invalid log level. Setting default (DEBUG)");
-			logLevelObject = @(kLogDebug);
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"[PW] [E] Error! Invalid log level. Setting default (DEBUG)"];
+			logLevelObject = @(PW_LL_INFO);
 		}
 
-		self.logLevel = (LogLevel)logLevelObject.integerValue;
+		self.logLevel = (PUSHWOOSH_LOG_LEVEL)logLevelObject.integerValue;
         
         self.lazyInitialization = [self getBoolean:@"Pushwoosh_LAZY_INITIALIZATION" default:NO];
 	}

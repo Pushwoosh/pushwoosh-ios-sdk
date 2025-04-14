@@ -1,0 +1,32 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target x86_64-apple-ios13.1-macabi -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PushwooshBridge
+import Foundation
+@_exported import PushwooshBridge
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc public protocol PWLiveActivities {
+  @objc static func sendPushToStartLiveActivity(token: Swift.String)
+  @objc static func sendPushToStartLiveActivity(token: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc static func startLiveActivity(token: Swift.String, activityId: Swift.String)
+  @objc static func startLiveActivity(token: Swift.String, activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc static func stopLiveActivity()
+  @objc static func stopLiveActivity(completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc static func stopLiveActivity(activityId: Swift.String)
+  @objc static func stopLiveActivity(activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+}
+@objc @_inheritsConvenienceInitializers public class PWStubLiveActivities : ObjectiveC.NSObject, PushwooshBridge.PWLiveActivities {
+  @objc public static func liveActivities() -> Swift.AnyClass
+  @objc public static func sendPushToStartLiveActivity(token: Swift.String)
+  @objc public static func sendPushToStartLiveActivity(token: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc public static func startLiveActivity(token: Swift.String, activityId: Swift.String)
+  @objc public static func startLiveActivity(token: Swift.String, activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc public static func stopLiveActivity()
+  @objc public static func stopLiveActivity(completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc public static func stopLiveActivity(activityId: Swift.String)
+  @objc public static func stopLiveActivity(activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}

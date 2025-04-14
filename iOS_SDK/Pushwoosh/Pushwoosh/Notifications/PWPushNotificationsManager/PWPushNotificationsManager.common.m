@@ -127,7 +127,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     }];
     
     if (dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 2*(NSEC_PER_SEC)))) {
-        PWLogError(@"Failed to get notification setttings");
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Failed to get notification setttings"];
     }
     
     return [result mutableCopy];
@@ -174,7 +174,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
             secondsBetween < kRegistrationUpdateInterval &&
             lastStatusMask == [PWUtils getStatusesMask]) {
             
-            PWLogDebug(@"Registered for push notifications: %@", deviceID);
+            [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Registered for push notifications: %@", deviceID]];
             
             [self sendTokenToDelegate:deviceID triggerCallbacks:triggerCallbacks];
             
@@ -190,12 +190,13 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         [[PWPreferences preferences] setCustomTags:nil];
         
         if (error == nil) {
-            PWLogInfo(@"\n==============================\n"
-                      "Registered for push notifications\n"
-                      "Device ID: %@\n"
-                      "HWID: %@\n"
-                      "==============================",
-                      deviceID, [PWPreferences preferences].hwid);
+            [PushwooshLog pushwooshLog:PW_LL_INFO
+                             className:self
+                               message:[NSString stringWithFormat:
+                                        @"\nRegistered for push notifications\n"
+                                        "Device ID: %@\n"
+                                        "HWID: %@\n",
+                                        deviceID, [PWPreferences preferences].hwid]];
             //registered on server, save last registration time to prevent multiple register request
             [PWPreferences preferences].lastRegTime = [NSDate date];
             
@@ -204,7 +205,10 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
             //reset time
             [PWPreferences preferences].lastRegTime = NSDate.distantPast;
             
-            PWLogError(@"Registered for push notifications failed");
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:@"Registered for push notifications failed"];
+            
             if (triggerCallbacks) {
                 if ([[PushNotificationManager pushManager].delegate respondsToSelector:@selector(onDidFailToRegisterForRemoteNotificationsWithError:)]) {
                     [[PushNotificationManager pushManager].delegate performSelectorOnMainThread:@selector(onDidFailToRegisterForRemoteNotificationsWithError:) withObject:error waitUntilDone:NO];
@@ -223,9 +227,13 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     [_requestManager sendRequest:[PWUnregisterDeviceRequest new] completion:^(NSError *error) {
         if (error == nil) {
             [PWPreferences preferences].pushToken = nil;
-            PWLogInfo(@"Unregistered for push notifications");
+            [PushwooshLog pushwooshLog:PW_LL_INFO
+                             className:self
+                               message:@"Unregistered for push notifications"];
         } else {
-            PWLogError(@"Unregistering for push notifications failed");
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:@"Unregistering for push notifications failed"];
         }
         
         if (completion) {
@@ -386,7 +394,9 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([Pushwoosh.sharedInstance.delegate respondsToSelector:@selector(pushwoosh:onMessageReceived:)]) {
                 [Pushwoosh.sharedInstance.delegate pushwoosh:Pushwoosh.sharedInstance onMessageReceived:message];
-                PWLogInfo(@"Method 'pushwoosh:onMessageReceived:' was called with payload: %@", userInfo);
+                [PushwooshLog pushwooshLog:PW_LL_INFO
+                                 className:self
+                                   message:[NSString stringWithFormat:@"Method 'pushwoosh:onMessageReceived:' was called with payload: %@", userInfo]];
             }
             
             if (autoAcceptAllowed && ![self showForegroundAlert:userInfo onStart:isPushFromBackground]) {
@@ -484,10 +494,10 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {
-            PWLogInfo(@"Registered test device");
+            [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:@"Registered test device"];
             [PWUtils showAlertWithTitle:@"Success" message:@"Test device has been registered."];
         } else {
-            PWLogError(@"Registering test device failed");
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Registering test device failed"];
             NSString *errorMsg = [NSString stringWithFormat:@"Test device registration has been failed. %@", error.description];
             [PWUtils showAlertWithTitle:@"Error" message:errorMsg];
         }
@@ -507,9 +517,13 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         [[PWPreferences preferences] setCustomTags:nil];
         
         if (error == nil) {
-            PWLogInfo(@"Registered for %@ notifications: %@", (platform == Whatsapp) ? @"WhatsApp" : @"SMS", number);
+            [PushwooshLog pushwooshLog:PW_LL_INFO
+                             className:self
+                               message:[NSString stringWithFormat:@"Registered for %@ notifications: %@", (platform == Whatsapp) ? @"WhatsApp" : @"SMS", number]];
         } else {
-            PWLogError(@"Registration for %@ notifications failed", (platform == Whatsapp) ? @"WhatsApp" : @"SMS");
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:[NSString stringWithFormat:@"Registration for %@ notifications failed", (platform == Whatsapp) ? @"WhatsApp" : @"SMS"]];
         }
     }];
 }

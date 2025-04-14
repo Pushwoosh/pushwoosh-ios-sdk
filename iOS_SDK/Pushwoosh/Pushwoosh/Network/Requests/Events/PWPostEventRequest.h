@@ -6,6 +6,7 @@
 //
 
 #import "PWRequest.h"
+#import <PushwooshCore/PushwooshLog.h>
 
 @interface PWPostEventRequest : PWRequest
 

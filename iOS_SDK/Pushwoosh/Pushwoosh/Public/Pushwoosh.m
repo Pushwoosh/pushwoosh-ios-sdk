@@ -11,7 +11,6 @@
 #import "PWNotificationCenterDelegateProxy+Internal.h"
 #import "PWPreferences.h"
 #import "PWInAppStorage.h"
-#import "PWServerCommunicationManager.h"
 #import "PushNotificationManager.h"
 #import "PWHashDecoder.h"
 
@@ -20,7 +19,30 @@
 #import "PWRequestsCacheManager.h"
 #endif
 
+#if defined(__cplusplus)
+#define let auto const
+#else
+#define let const __auto_type
+#endif
+
 @implementation Pushwoosh
+
++ (Class<PWLiveActivities>)LiveActivities {
+    let pushwooshLiveActivities = NSClassFromString(@"PushwooshLiveActivitiesImplementationSetup");
+    if (pushwooshLiveActivities != nil) {
+        return [pushwooshLiveActivities performSelector:@selector(liveActivities)];
+    } else {
+        return [PWStubLiveActivities liveActivities];
+    }
+}
+
++ (Class<PWDebug>)Debug {
+    return [PushwooshLog Debug];
+}
+
++ (Class<PWGDPR>)GDPR {
+    return [PWCoreGDPRManager GDPR];
+}
 
 static Pushwoosh *pushwooshInstance = nil;
 static dispatch_once_t pushwooshOncePredicate;
@@ -80,7 +102,7 @@ static dispatch_once_t pushwooshOncePredicate;
 #endif
         
 #if TARGET_OS_IOS || TARGET_OS_WATCH
-        PWLogDebug(@"Will show foreground notifications: %d", self.showPushnotificationAlert);
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Will show foreground notifications: %d", self.showPushnotificationAlert]];
 #endif
         
         self.inAppManager = [PWInAppManager sharedManager];
@@ -117,12 +139,12 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 
 - (void)internalRegisterForPushNotificationWith:(NSDictionary *)tags completion:(PushwooshRegistrationHandler)completion {
-    if (![[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
+    if (![[PWCoreServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
         NSString *error = @"Communication with Pushwoosh is disabled. You have to enable the server communication to register for push notifications. To enable the server communication use startServerCommunication method.";
         if (completion) {
             completion(nil, [PWUtils pushwooshErrorWithCode:PWErrorCommunicationDisabled description:error]);
         } else {
-            PWLogError(error);
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"%@", error]];
         }
         return;
     }
@@ -166,12 +188,12 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 
 - (void)unregisterForPushNotificationsWithCompletion:(void (^)(NSError *error))completion {
-    if (![[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
+    if (![[PWCoreServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
         NSString *error = @"Communication with Pushwoosh is disabled. You have to enable the server communication to unregister from push notifications. To enable the server communication use startServerCommunication method.";
         if (completion) {
             completion([PWUtils pushwooshErrorWithCode:PWErrorCommunicationDisabled description:error]);
         } else {
-            PWLogError(error);
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"%@", error]];
         }
         return;
     }
@@ -240,7 +262,7 @@ static dispatch_once_t pushwooshOncePredicate;
 
 - (void)setLanguage:(NSString *)language {
     [PWPreferences preferences].language = language;
-    PWLogInfo(@"Language has been set to: %@", language);
+    [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"Language has been set to: %@", language]];
 }
 
 - (NSString *)language {
@@ -382,14 +404,12 @@ static dispatch_once_t pushwooshOncePredicate;
     [self.inAppManager setEmails:emails completion:nil];
 }
 
-
-
 - (void)startServerCommunication {
-    [[PWServerCommunicationManager sharedInstance] startServerCommunication];
+    [[PWCoreServerCommunicationManager sharedInstance] startServerCommunication];
 }
 
 - (void)stopServerCommunication {
-    [[PWServerCommunicationManager sharedInstance] stopServerCommunication];
+    [[PWCoreServerCommunicationManager sharedInstance] stopServerCommunication];
 }
 
 #pragma mark - Teardown

@@ -25,7 +25,9 @@
 		categoryBuilder = [PWInteractivePush arrayToCategories:categories];
 	}
 	@catch (NSException *exception) {
-		PWLogError(@"Invalid categories: %@", categories);
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:[NSString stringWithFormat:@"Invalid categories: %@", categories]];
 	}
 	
 	[categoryBuilder addCurrentCategoriesWithCompletion:^() {
@@ -53,7 +55,9 @@
 		BOOL launchApp = [button[@"startApplication"] boolValue];
 
 		if (![label isKindOfClass:[NSString class]]) {
-			PWLogError(@"Invalid action label: %@", label);
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:[NSString stringWithFormat:@"Invalid action label: %@", label]];
 			return;
 		}
 		
@@ -86,12 +90,16 @@
 	
 	for (NSDictionary *category in array) {
 		if (![category isKindOfClass:[NSDictionary class]]) {
-			PWLogError(@"Invalid category: %@", category);
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:[NSString stringWithFormat:@"Invalid category: %@", category]];
 			continue;
 		}
         NSNumber *categoryNumberId = category[@"categoryId"];
         if (![categoryNumberId isKindOfClass:[NSNumber class]]) {
-            PWLogError(@"Invalid categoryId: %@", category);
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:[NSString stringWithFormat:@"Invalid categoryId: %@", category]];
             continue;
         }
 
@@ -99,7 +107,9 @@
 		NSArray *buttons = category[@"buttons"];
 
 		if (![categoryId isKindOfClass:[NSString class]] || ![buttons isKindOfClass:[NSArray class]]) {
-			PWLogError(@"Invalid category: %@", category);
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:[NSString stringWithFormat:@"Invalid category: %@", category]];
 			continue;
 		}
 		

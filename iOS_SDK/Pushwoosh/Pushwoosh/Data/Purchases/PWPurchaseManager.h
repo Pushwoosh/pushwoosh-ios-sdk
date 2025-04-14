@@ -6,6 +6,8 @@
 //  (c) Pushwoosh 2016
 //
 
+#import <PushwooshCore/PushwooshLog.h>
+
 @import Foundation;
 @import StoreKit;
 

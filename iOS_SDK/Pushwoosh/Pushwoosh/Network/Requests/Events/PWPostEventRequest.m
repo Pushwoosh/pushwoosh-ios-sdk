@@ -88,13 +88,17 @@
             NSDictionary *richMediaDictionary = response[@"richmedia"];
             
             if (![richMediaDictionary isKindOfClass:[NSDictionary class]]) {
-                PWLogError(@"Invalid json type: %@, %@", [richMediaDictionary class], richMediaDictionary);
+                [PushwooshLog pushwooshLog:PW_LL_ERROR
+                                 className:self
+                                   message:[NSString stringWithFormat:@"Invalid json type: %@, %@", [richMediaDictionary class], richMediaDictionary]];
                 return;
             }
             
             NSString *url = richMediaDictionary[@"url"];
             if (!url) {
-                PWLogError(@"Url is missing");
+                [PushwooshLog pushwooshLog:PW_LL_ERROR
+                                 className:self
+                                   message:@"Url is missing"];
                 return;
             }
             
@@ -106,7 +110,9 @@
             
             NSString *ts = richMediaDictionary[@"ts"];
             if (!ts) {
-                PWLogError(@"Timestamp is missing");
+                [PushwooshLog pushwooshLog:PW_LL_ERROR
+                                 className:self
+                                   message:@"Timestamp is missing"];
                 return;
             }
             

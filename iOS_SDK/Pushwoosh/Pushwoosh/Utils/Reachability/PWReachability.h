@@ -26,6 +26,7 @@
  */
 
 #import <SystemConfiguration/SystemConfiguration.h>
+#import <PushwooshCore/PushwooshLog.h>
 
 #import <sys/socket.h>
 #import <netinet/in.h>

@@ -120,17 +120,17 @@
         regionMonitoringBGTask = UIBackgroundTaskInvalid;
     }];
     
-    PWLogDebug(@"started task: %ld", (long)regionMonitoringBGTask);
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"started task: %ld", (long)regionMonitoringBGTask]];
     return @(regionMonitoringBGTask);
 }
 
 + (void)stopBackgroundTask:(NSNumber *)taskId {
     if (!taskId || [taskId integerValue] == UIBackgroundTaskInvalid) {
-        PWLogWarn(@"Empty task id to stop!");
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Empty task id to stop!"];
         return;
     }
     
-    PWLogDebug(@"stopping task: %ld", (long)[taskId integerValue]);
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"stopping task: %ld", (long)[taskId integerValue]]];
     [[UIApplication sharedApplication] endBackgroundTask:[taskId integerValue]];
 }
 
@@ -148,7 +148,7 @@
                     registerTestDeviceBlock();
                 }
         } else {
-            PWLogWarn(@"Unrecognized pushwoosh command: %@", [url host]);
+            [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:[NSString stringWithFormat:@"Unrecognized pushwoosh command: %@", [url host]]];
         }
         return YES;
     }

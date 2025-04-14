@@ -5,6 +5,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <PushwooshCore/PushwooshLog.h>
 
 #import "PWWebClient.h"
 

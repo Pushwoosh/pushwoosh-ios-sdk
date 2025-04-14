@@ -5,7 +5,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PushwooshXCFramework"
-  s.version      = "6.7.18"
+  s.version      = "6.8.0"
   s.summary      = "Push notifications library by Pushwoosh."
   s.platform     = :ios
 
@@ -23,12 +23,34 @@ Pod::Spec.new do |s|
   s.default_subspec = 'Core'
   s.ios.deployment_target = "11.0"
 
+  # Core Subspec 
   s.subspec 'Core' do |core|
     core.ios.vendored_frameworks  = 'XCFramework/PushwooshFramework.xcframework'
     core.library  = 'c++', 'z'
     core.frameworks  = 'Security', 'StoreKit'
+    core.dependency 'PushwooshXCFramework/PushwooshCore'
+    core.dependency 'PushwooshXCFramework/PushwooshBridge'
+    core.dependency 'PushwooshXCFramework/PushwooshLiveActivities'
   end
 
+  s.subspec 'PushwooshCore' do |corep|
+    corep.vendored_frameworks = 'XCFramework/PushwooshCore.xcframework'
+  end
+
+  # PushwooshBridge Subspec
+  s.subspec 'PushwooshBridge' do |bridge|
+    bridge.dependency 'PushwooshXCFramework/PushwooshCore'
+    bridge.vendored_frameworks = 'XCFramework/PushwooshBridge.xcframework'
+  end
+
+  # PushwooshLiveActivities 
+  s.subspec 'PushwooshLiveActivities' do |activities|
+    activities.dependency 'PushwooshXCFramework/PushwooshCore'
+    activities.dependency 'PushwooshXCFramework/PushwooshBridge'
+    activities.vendored_frameworks = 'XCFramework/PushwooshLiveActivities.xcframework'
+  end
+
+  # Geozones Subspec
   s.subspec 'Geozones' do |geozones|
     geozones.ios.vendored_frameworks  = 'XCFramework/PushwooshGeozones.xcframework'
     geozones.frameworks  = 'CoreLocation'

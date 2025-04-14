@@ -27,16 +27,16 @@
 @implementation PWJavaScriptCallback
 
 - (NSString*) execute {
-	PWLogError(@"STUB!");
+    [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"STUB!"];
 	return nil;
 }
 
 - (NSString*) executeWithParam: (NSString*) param {
-	PWLogError(@"STUB!");
+    [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"STUB!"];
 	return nil;
 }
 - (NSString*) executeWithParams: (NSArray*) params {
-	PWLogError(@"STUB!");
+    [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"STUB!"];
 	return nil;
 }
 

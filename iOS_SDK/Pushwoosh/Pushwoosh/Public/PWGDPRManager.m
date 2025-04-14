@@ -100,7 +100,7 @@ typedef void (^Completion)(NSError *error);
                     }
                 }
             } else {
-                PWLogError(@"%@", error);
+                [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:error.localizedDescription];
                 
                 if (completion) {
                     completion(error);
@@ -137,7 +137,7 @@ typedef void (^Completion)(NSError *error);
                                 }
                             }];
                         } error:^(NSError *error) {
-                            PWLogError(@"%@", error);
+                            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:error.localizedDescription];
                             
                             if (completion) {
                                 completion(error);
@@ -146,8 +146,8 @@ typedef void (^Completion)(NSError *error);
                     }
                 }];
             } else {
-                PWLogError(@"%@", error);
-                
+                [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:error.localizedDescription];
+
                 if (completion) {
                     completion(error);
                 }
@@ -187,8 +187,8 @@ typedef void (^Completion)(NSError *error);
     } else {
         NSString *logString = @"The GDPR solution isn’t available for this account";
         
-        PWLogError(@"%@", logString);
-        
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:logString];
+
         if (completion) {
             completion([PWUtilsCommon pushwooshErrorWithCode:PWErrorGDPRNotAvailable description:logString]);
         }

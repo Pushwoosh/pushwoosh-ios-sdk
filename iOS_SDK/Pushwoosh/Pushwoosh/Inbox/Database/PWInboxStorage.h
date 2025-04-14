@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <PushwooshCore/PushwooshLog.h>
 #import "PWInboxMessageInternal.h"
 
 @interface PWInboxStorage : NSObject

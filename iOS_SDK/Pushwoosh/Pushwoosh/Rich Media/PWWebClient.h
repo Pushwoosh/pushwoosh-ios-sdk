@@ -9,6 +9,7 @@
 #import "PWEasyJSWKWebView.h"
 #import <Foundation/Foundation.h>
 #import "PWRichMediaManager.h"
+#import <PushwooshCore/PushwooshLog.h>
 
 #import <WebKit/WebKit.h>
 

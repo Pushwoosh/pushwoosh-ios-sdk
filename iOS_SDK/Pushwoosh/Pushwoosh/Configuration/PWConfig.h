@@ -2,7 +2,7 @@
 #import <Foundation/Foundation.h>
 
 #import "PWNotificationAppSettings.h"
-#import "PWLog+Internal.h"
+#import <PushwooshCore/PushwooshLog.h>
 
 typedef NS_ENUM(NSInteger, RichMediaStyleType) {
     PWRichMediaStyleTypeModal,
@@ -140,7 +140,7 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
  type: string
  value: Pushwoosh SDK logging level (NONE, ERROR, WARNING, INFO, DEBUG, VERBOSE)
  */
-@property (nonatomic, assign, readonly) LogLevel logLevel;
+@property (nonatomic, assign, readonly) PUSHWOOSH_LOG_LEVEL logLevel;
 
 @property (nonatomic, readonly) BOOL sendPushStatIfAlertsDisabled;
 

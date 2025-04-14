@@ -18,7 +18,6 @@
 #import "PWInbox+Internal.h"
 #import "PWRegisterEmail.h"
 #import "PWRegisterEmailUser.h"
-#import "PWServerCommunicationManager.h"
 #import "PWRichMediaView.h"
 #import "PWModalWindow.h"
 #import "PWInteractionDisabledWindow.h"
@@ -69,7 +68,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 	if (self) {
 		[[PWNetworkModule module] inject:self];
 		
-        if ([[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
+        if ([[PWCoreServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
             [self sendInitRequests];
         } else {
             // wait until server communication is allowed
@@ -90,7 +89,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 - (void)addServerCommunicationStartedObserver {
     if (!_communicationStartedHandler) {
-        _communicationStartedHandler = [[NSNotificationCenter defaultCenter] addObserverForName:kPWServerCommunicationStarted object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
+        _communicationStartedHandler = [[NSNotificationCenter defaultCenter] addObserverForName:kPWCoreServerCommunicationStarted object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
 
             [[NSNotificationCenter defaultCenter] removeObserver:_communicationStartedHandler];
             _communicationStartedHandler = nil;
@@ -147,19 +146,25 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 - (void)postEventInternal:(NSString *)event withAttributes:(NSDictionary *)attributes isInlineInApp:(BOOL)isInlineInApp completion:(void (^)(id resource, NSError *error))completion {
 	if (event.length == 0) {
-        PWLogWarn(@"Pushwoosh: Event is missing");
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:self
+                           message:@"Pushwoosh: Event is missing"];
 		completion(nil, [PWUtils pushwooshError:@"Pushwoosh: Event is missing"]);
 		return;
 	}
 
 	if ([[PWPreferences preferences].appCode isEqualToString:@""]) {
-        PWLogWarn(@"Pushwoosh App code is missing. Initialize Pushwoosh manager in application:didFinishLaunchingWithOptions:");
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:self
+                           message:@"Pushwoosh App code is missing. Initialize Pushwoosh manager in application:didFinishLaunchingWithOptions:"];
 		completion(nil, [PWUtils pushwooshError:@"Pushwoosh App code is missing"]);
 		return;
 	}
 
 	if (![PWPreferences preferences].userId) {
-        PWLogWarn(@"Pushwoosh: You need to setup UserId, [PushNotificationManager pushManager] setUserId:]");
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:self
+                           message:@"Pushwoosh: You need to setup UserId, [PushNotificationManager pushManager] setUserId:]"];
 		completion(nil, [PWUtils pushwooshError:@"Pushwoosh User Id is missing"]);
 		return;
 	}
@@ -231,14 +236,14 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 - (void)processingResource:(PWResource *)resource withRequest:(PWPostEventRequest *)request completion:(void (^)(PWResource *resource, NSError *error))completion {
     if (!resource) {
         NSString *message = [NSString stringWithFormat:@"Pushwoosh In-App Resource with code %@ is not found", request.resultCode];
-        PWLogError(@"%@", message);
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:message];
         completion(nil, [PWUtils pushwooshError:message]);
         return;
     }
     
     if (!resource.isDownloaded && !resource.required) {
         NSString *message = [NSString stringWithFormat:@"Pushwoosh In-App: Resource with code %@ is not downloaded yet", request.resultCode];
-        PWLogWarn(@"%@", message);
+        [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:message];
         completion(nil, [PWUtils pushwooshError:message]);
         return;
     }
@@ -254,9 +259,9 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 	}
 	
 	if ([self isDeviceRestored]) {
-        PWLogDebug(@"Device is restored from iCloud backup");
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Device is restored from iCloud backup"];
     } else if ([[PWPreferences preferences].userId isEqualToString:userId] && (lastRegPeriod < kRegisterUserUpdateInterval)) {
-		PWLogDebug(@"/registerUser with same id already sent this day");
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"/registerUser with same id already sent this day"];
         if (completion)
             completion(nil);
         
@@ -270,7 +275,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     PWRegisterUserRequest *request = [PWRegisterUserRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {
-            PWLogInfo(@"User \"%@\" was successfully registered", userId);
+            [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"User \"%@\" was successfully registered", userId]];
 
             [PWInbox updateInboxForNewUserId:^(NSUInteger messagesCount) {
                 if (messagesCount == 0) {
@@ -283,7 +288,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
                 }
             }];
         } else {
-            PWLogError(@"Failed to update inbox for a new user. error: %@", error.localizedDescription);
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Failed to update inbox for a new user. error: %@", error.localizedDescription]];
             [PWPreferences preferences].userId = previousUserId;
             [PWPreferences preferences].lastRegisterUserDate = previousRegisterUserDate;
         }
@@ -353,7 +358,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 - (void)setEmails:(NSArray *)emails completion:(void(^)(NSError * error))completion {
     if (emails == nil || emails.count == 0) {
-        PWLogWarn(@"Email cannot be a nil or empty");
+        [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:@"Email cannot be a nil or empty"];
         return;
     }
     for (NSString *email in emails) {
@@ -363,10 +368,11 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
                 if (completion)
                     completion(error);
                 else
-                    PWLogWarn(@"Something went wrong with setEmail. Use completion handler to handle the error");
+                    [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:@"Something went wrong with setEmail. Use completion handler to handle the error"];
+                
                 return;
             } else {
-                PWLogInfo(@"Email %@ was successfully registered", email);
+                [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"Email %@ was successfully registered", email]];
                 [wself registerEmailUser:email userId:nil];
             }
             if (completion)
@@ -397,7 +403,9 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     }
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error) {
-            PWLogError(@"Error registering email: %@, with userId: %@. Error: %@", email, request.userId, error.localizedDescription);
+            [PushwooshLog pushwooshLog:PW_LL_WARN
+                             className:self
+                               message:[NSString stringWithFormat:@"Error registering email: %@, with userId: %@. Error: %@", email, request.userId, error.localizedDescription]];
         }
     }];
 }
@@ -424,13 +432,17 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     NSDictionary *richMedia = userInfo[@"rm"];
     
 	if (![richMedia isKindOfClass:[NSDictionary class]]) {
-		PWLogError(@"Invalid json type: %@, %@", [richMedia class], richMedia);
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:[NSString stringWithFormat:@"Invalid json type: %@, %@", [richMedia class], richMedia]];
 		return;
 	}
 
 	NSString *url = richMedia[@"url"];
 	if (!url) {
-		PWLogError(@"Url is missing");
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:@"Url is missing"];
 		return;
 	}
 
@@ -442,7 +454,9 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 	NSString *ts = richMedia[@"ts"];
 	if (!ts) {
-		PWLogError(@"Timestamp is missing");
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:@"Timestamp is missing"];
 		return;
 	}
 

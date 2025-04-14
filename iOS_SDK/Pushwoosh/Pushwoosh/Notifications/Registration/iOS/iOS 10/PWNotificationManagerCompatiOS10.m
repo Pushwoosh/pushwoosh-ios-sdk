@@ -9,7 +9,6 @@
 #import "PWNotificationManagerCompatiOS10.h"
 #import <UserNotifications/UserNotifications.h>
 #import "PushwooshFramework.h"
-#import "PWLog+Internal.h"
 #import "PWUtils.h"
 
 #define SETTING_ENABLED @2
@@ -61,7 +60,9 @@
 #pragma clang diagnostic pop
         
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
-            PWLogInfo(@"NotificationCenter authorization granted: %d", granted);
+            [PushwooshLog pushwooshLog:PW_LL_INFO
+                             className:self
+                               message:[NSString stringWithFormat:@"NotificationCenter authorization granted: %d", granted]];
                         
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAuthorizationStatusUpdated object:nil];

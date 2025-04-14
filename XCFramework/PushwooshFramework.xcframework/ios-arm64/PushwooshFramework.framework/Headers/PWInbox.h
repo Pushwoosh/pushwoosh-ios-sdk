@@ -5,7 +5,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <PushwooshCore/PushwooshLog.h>
 
 /**
  The notification arriving on the Inbox messages renewal 

@@ -1,0 +1,11 @@
+framework module PushwooshLiveActivities {
+  umbrella header "PushwooshLiveActivities.h"
+  export *
+
+  module * { export * }
+}
+
+module PushwooshLiveActivities.Swift {
+  header "PushwooshLiveActivities-Swift.h"
+  requires objc
+}

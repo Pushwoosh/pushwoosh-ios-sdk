@@ -47,7 +47,7 @@
     }
     
     if (!finished) {
-        PWLogDebug(@"Timed out");
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Timed out"];
     }
 
     
