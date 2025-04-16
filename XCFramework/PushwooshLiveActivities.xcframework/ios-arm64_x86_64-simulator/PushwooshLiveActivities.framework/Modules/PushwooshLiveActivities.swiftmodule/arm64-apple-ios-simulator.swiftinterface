@@ -81,7 +81,7 @@ public struct DefaultLiveActivityAttributes : PushwooshLiveActivities.PushwooshL
   @available(iOS 16.1, *)
   public static func configureLiveActivity<Attributes>(_ activityType: Attributes.Type) where Attributes : PushwooshLiveActivities.PushwooshLiveActivityAttributes
   @available(iOS 16.1, *)
-  public static func defaultSetup()
+  @objc public static func defaultSetup()
   @available(iOS 16.1, *)
   @objc public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
   @available(iOS 17.2, *)

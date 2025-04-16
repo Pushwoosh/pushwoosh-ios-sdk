@@ -85,6 +85,7 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
         observeActivity(activityType)
     }
     
+    @objc
     @available(iOS 16.1, *)
     public static func defaultSetup() {
         configureLiveActivity(DefaultLiveActivityAttributes.self)

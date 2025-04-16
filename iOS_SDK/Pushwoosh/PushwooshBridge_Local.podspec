@@ -4,7 +4,7 @@
 
 Pod::Spec.new do |s|
   s.name         = 'PushwooshBridge_Local'
-  s.version      = '6.7.15'
+  s.version      = '6.8.1'
   s.summary      = 'Pushwoosh SDK'
   s.description  = 'Local podspec for Pushwoosh iOS SDK.'
   s.homepage     = 'https://www.pushwoosh.com'

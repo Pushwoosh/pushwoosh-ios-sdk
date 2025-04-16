@@ -2062,7 +2062,7 @@
               }
             ],
             "declKind": "Func",
-            "usr": "s:23PushwooshLiveActivities0abC19ImplementationSetupC07defaultE0yyFZ",
+            "usr": "c:@M@PushwooshLiveActivities@objc(cs)PushwooshLiveActivitiesImplementationSetup(cm)defaultSetup",
             "mangledName": "$s23PushwooshLiveActivities0abC19ImplementationSetupC07defaultE0yyFZ",
             "moduleName": "PushwooshLiveActivities",
             "static": true,
@@ -2070,7 +2070,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "Available"
+              "Available",
+              "ObjC"
             ],
             "funcSelfKind": "NonMutating"
           },

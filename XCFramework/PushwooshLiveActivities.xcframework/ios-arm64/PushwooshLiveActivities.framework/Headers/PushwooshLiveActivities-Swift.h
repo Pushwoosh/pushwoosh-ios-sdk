@@ -313,6 +313,7 @@ SWIFT_CLASS_NAMED("PushwooshLiveActivitiesImplementationSetup")
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId;
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 + (Class _Nonnull)liveActivities SWIFT_WARN_UNUSED_RESULT;
++ (void)defaultSetup SWIFT_AVAILABILITY(ios,introduced=16.1);
 + (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content SWIFT_AVAILABILITY(ios,introduced=16.1);
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end

@@ -1647,6 +1647,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		14AA5830F857B7DC14EE9D03 /* Pods_PushwooshCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushwooshCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		1A30E337D05B2900DEA31DD2 /* Pods-PushwooshBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshBridge.debug.xcconfig"; path = "Target Support Files/Pods-PushwooshBridge/Pods-PushwooshBridge.debug.xcconfig"; sourceTree = "<group>"; };
 		44155FD32D77B30E00358B1C /* PWLiveActivitiesStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWLiveActivitiesStub.swift; sourceTree = "<group>"; };
 		441806DF2D7B285900DE71A7 /* PushwooshCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		441806EE2D7B290E00DE71A7 /* PushwooshCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushwooshCore.h; sourceTree = "<group>"; };
@@ -1762,6 +1764,10 @@
 		46FA9E341C7DB1AA00741A11 /* PushwooshTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushwooshTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		46FA9E431C7DB92800741A11 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		46FA9E451C7DB92D00741A11 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		49D7EB03664CA02ABBD140F9 /* Pods_PushwooshBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushwooshBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		596F46C1CA31D5624E304F10 /* Pods_PushwooshiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushwooshiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B5C1A4EB19D69A1E4121A01 /* Pods_PushwooshLiveActivities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushwooshLiveActivities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5C767AB510EF4D0D1FC796EF /* Pods-PushwooshiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshiOS.release.xcconfig"; path = "Target Support Files/Pods-PushwooshiOS/Pods-PushwooshiOS.release.xcconfig"; sourceTree = "<group>"; };
 		5D12C21823F54428009A655A /* PWInlineInAppView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInlineInAppView.h; sourceTree = "<group>"; };
 		5D12C21923F54428009A655A /* PWGDPRManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWGDPRManager.h; sourceTree = "<group>"; };
 		5D12C21A23F54428009A655A /* PWGDPRManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWGDPRManager.m; sourceTree = "<group>"; };
@@ -2023,6 +2029,7 @@
 		5DC48F3B2047C863005A6822 /* PWBaseRequestTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PWBaseRequestTest.h; path = PushwooshTests/PWBaseRequestTest.h; sourceTree = SOURCE_ROOT; };
 		5DC48F3C2047C863005A6822 /* PWBaseRequestTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PWBaseRequestTest.m; path = PushwooshTests/PWBaseRequestTest.m; sourceTree = SOURCE_ROOT; };
 		5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWMessaging.h; sourceTree = "<group>"; };
+		7768EBA986EE352B4FB3BABB /* Pods-PushwooshLiveActivities.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshLiveActivities.release.xcconfig"; path = "Target Support Files/Pods-PushwooshLiveActivities/Pods-PushwooshLiveActivities.release.xcconfig"; sourceTree = "<group>"; };
 		972C9AA727F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWNotificationExtensionManagerTest.m; sourceTree = "<group>"; };
 		9762CEA8277B17B9003196C1 /* PWTestPurchaseRuntime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWTestPurchaseRuntime.m; sourceTree = "<group>"; };
 		976302C327DA21180029240E /* PWInboxMessageInternalTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInboxMessageInternalTest.m; sourceTree = "<group>"; };
@@ -2052,10 +2059,15 @@
 		AFB0025029F7ED5A0083A3E6 /* PWPreferencesTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWPreferencesTest.m; sourceTree = "<group>"; };
 		AFC287EF2A3A0004001D5D74 /* PWRichMediaActionRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWRichMediaActionRequest.h; sourceTree = "<group>"; };
 		AFC287F02A3A0004001D5D74 /* PWRichMediaActionRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWRichMediaActionRequest.m; sourceTree = "<group>"; };
+		B008FAA0C7293463A5F0F6AF /* Pods-PushwooshiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshiOS.debug.xcconfig"; path = "Target Support Files/Pods-PushwooshiOS/Pods-PushwooshiOS.debug.xcconfig"; sourceTree = "<group>"; };
+		BCFFE3A7CF538FC547066CFD /* Pods-PushwooshBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshBridge.release.xcconfig"; path = "Target Support Files/Pods-PushwooshBridge/Pods-PushwooshBridge.release.xcconfig"; sourceTree = "<group>"; };
 		C42A20691D06CBB800CC3BCB /* libPushwoosh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwoosh.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		C92BB8B25CEBB7726AFD73E2 /* Pods-PushwooshCore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshCore.debug.xcconfig"; path = "Target Support Files/Pods-PushwooshCore/Pods-PushwooshCore.debug.xcconfig"; sourceTree = "<group>"; };
 		D2AAC07E0554694100DB518D /* libPushwoosh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwoosh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6F9155B28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInAppPurchaseHelper.h; sourceTree = "<group>"; };
 		D6F9155C28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWInAppPurchaseHelper.m; sourceTree = "<group>"; };
+		E80A3F40FB89EC3AC551461C /* Pods-PushwooshLiveActivities.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshLiveActivities.debug.xcconfig"; path = "Target Support Files/Pods-PushwooshLiveActivities/Pods-PushwooshLiveActivities.debug.xcconfig"; sourceTree = "<group>"; };
+		EE171E3EA673560036AF9240 /* Pods-PushwooshCore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshCore.release.xcconfig"; path = "Target Support Files/Pods-PushwooshCore/Pods-PushwooshCore.release.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2189,8 +2201,25 @@
 				034768DFFF38A50411DB9C8B /* Products */,
 				467F62A41EB883A400548315 /* Frameworks */,
 				97937A5F262838F700E57C64 /* Recovered References */,
+				3D9EA8CD7BE11404EC13C398 /* Pods */,
 			);
 			name = PushNotificationManager;
+			sourceTree = "<group>";
+		};
+		3D9EA8CD7BE11404EC13C398 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1A30E337D05B2900DEA31DD2 /* Pods-PushwooshBridge.debug.xcconfig */,
+				BCFFE3A7CF538FC547066CFD /* Pods-PushwooshBridge.release.xcconfig */,
+				C92BB8B25CEBB7726AFD73E2 /* Pods-PushwooshCore.debug.xcconfig */,
+				EE171E3EA673560036AF9240 /* Pods-PushwooshCore.release.xcconfig */,
+				E80A3F40FB89EC3AC551461C /* Pods-PushwooshLiveActivities.debug.xcconfig */,
+				7768EBA986EE352B4FB3BABB /* Pods-PushwooshLiveActivities.release.xcconfig */,
+				B008FAA0C7293463A5F0F6AF /* Pods-PushwooshiOS.debug.xcconfig */,
+				5C767AB510EF4D0D1FC796EF /* Pods-PushwooshiOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../Samples/PushwooshSampleApp/Pods;
 			sourceTree = "<group>";
 		};
 		441806E02D7B285900DE71A7 /* PushwooshCore */ = {
@@ -2647,6 +2676,10 @@
 				AFB0024A29F7EA440083A3E6 /* OCHamcrest.xcframework */,
 				97A59FED257F6A830022359C /* libc++.tbd */,
 				979229B725B5BB9B00F5D0C1 /* libOCMock.a */,
+				49D7EB03664CA02ABBD140F9 /* Pods_PushwooshBridge.framework */,
+				14AA5830F857B7DC14EE9D03 /* Pods_PushwooshCore.framework */,
+				5B5C1A4EB19D69A1E4121A01 /* Pods_PushwooshLiveActivities.framework */,
+				596F46C1CA31D5624E304F10 /* Pods_PushwooshiOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -4388,6 +4421,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 441806E52D7B285900DE71A7 /* Build configuration list for PBXNativeTarget "PushwooshCore" */;
 			buildPhases = (
+				4BDA080406F51B1E7D37651A /* [CP] Check Pods Manifest.lock */,
 				441806DA2D7B285900DE71A7 /* Headers */,
 				441806DB2D7B285900DE71A7 /* Sources */,
 				441806DC2D7B285900DE71A7 /* Frameworks */,
@@ -4406,6 +4440,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 447CEF9D2D77883300CD410A /* Build configuration list for PBXNativeTarget "PushwooshBridge" */;
 			buildPhases = (
+				7B8D77D074BDBDBF831F476B /* [CP] Check Pods Manifest.lock */,
 				447CEF922D77883300CD410A /* Headers */,
 				447CEF932D77883300CD410A /* Sources */,
 				447CEF942D77883300CD410A /* Frameworks */,
@@ -4425,6 +4460,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 447CEFBE2D77938A00CD410A /* Build configuration list for PBXNativeTarget "PushwooshLiveActivities" */;
 			buildPhases = (
+				EDA1EB0359208A8F2F76F52C /* [CP] Check Pods Manifest.lock */,
 				447CEFB52D77938A00CD410A /* Headers */,
 				447CEFB62D77938A00CD410A /* Sources */,
 				447CEFB72D77938A00CD410A /* Frameworks */,
@@ -4463,6 +4499,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 467EB93E1DFEC23A00506823 /* Build configuration list for PBXNativeTarget "PushwooshiOS" */;
 			buildPhases = (
+				0BC1C4C2E154DC1D1ACA98A0 /* [CP] Check Pods Manifest.lock */,
 				467EB9321DFEC23A00506823 /* Sources */,
 				467EB9331DFEC23A00506823 /* Frameworks */,
 				467EB9341DFEC23A00506823 /* Headers */,
@@ -4752,6 +4789,28 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		0BC1C4C2E154DC1D1ACA98A0 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PushwooshiOS-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		4396B2AD187D222C000A19EC /* Create framework */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4784,6 +4843,50 @@
 			shellPath = /bin/sh;
 			shellScript = "set -x\n. ../build/create_xcframework_vision.sh || exit 1\n";
 		};
+		4BDA080406F51B1E7D37651A /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PushwooshCore-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+		7B8D77D074BDBDBF831F476B /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PushwooshBridge-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
 		C4D612BF1D12C74F00720130 /* Create framework */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;
@@ -4797,6 +4900,28 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "set -x\n. ../build/create_xcframework_mac.sh || exit 1\n";
+		};
+		EDA1EB0359208A8F2F76F52C /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-PushwooshLiveActivities-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -5856,6 +5981,7 @@
 		};
 		441806E32D7B285900DE71A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = C92BB8B25CEBB7726AFD73E2 /* Pods-PushwooshCore.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -5937,6 +6063,7 @@
 		};
 		441806E42D7B285900DE71A7 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = EE171E3EA673560036AF9240 /* Pods-PushwooshCore.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -6014,6 +6141,7 @@
 		};
 		447CEF9B2D77883300CD410A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 1A30E337D05B2900DEA31DD2 /* Pods-PushwooshBridge.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -6100,6 +6228,7 @@
 		};
 		447CEF9C2D77883300CD410A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = BCFFE3A7CF538FC547066CFD /* Pods-PushwooshBridge.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -6181,6 +6310,7 @@
 		};
 		447CEFBF2D77938A00CD410A /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = E80A3F40FB89EC3AC551461C /* Pods-PushwooshLiveActivities.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -6267,6 +6397,7 @@
 		};
 		447CEFC02D77938A00CD410A /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 7768EBA986EE352B4FB3BABB /* Pods-PushwooshLiveActivities.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -6543,6 +6674,7 @@
 		};
 		467EB93C1DFEC23A00506823 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = B008FAA0C7293463A5F0F6AF /* Pods-PushwooshiOS.debug.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -6626,6 +6758,7 @@
 		};
 		467EB93D1DFEC23A00506823 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = 5C767AB510EF4D0D1FC796EF /* Pods-PushwooshiOS.release.xcconfig */;
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
