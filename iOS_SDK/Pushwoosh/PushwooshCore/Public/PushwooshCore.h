@@ -16,7 +16,7 @@
 #import <PushwooshCore/PWCoreGDPRManager.h>
 #import <PushwooshCore/PWCoreServerCommunicationManager.h>
 
-#define PUSHWOOSH_VERSION @"6.8.2"
+#define PUSHWOOSH_VERSION @"6.8.3"
 
 @interface PushwooshCoreManager : NSObject
 

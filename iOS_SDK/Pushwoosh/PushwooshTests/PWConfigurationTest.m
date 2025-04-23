@@ -129,13 +129,10 @@
 - (void)testAllowCollectingDeviceDataIsTrue {
     id mockNSBundle = OCMPartialMock([NSBundle mainBundle]);
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_DATA"]).andReturn(@YES);
-    OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_LOCALE"]).andReturn(@YES);
-    OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_MODEL"]).andReturn(@YES);
-    OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALLOW_COLLECTING_EVENTS"]).andReturn(@YES);
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
     
-    XCTAssertFalse(_config.allowCollectingDeviceOsVersion);
+    XCTAssertTrue(_config.allowCollectingDeviceOsVersion);
     XCTAssertTrue(_config.allowCollectingDeviceLocale);
     XCTAssertTrue(_config.allowCollectingDeviceModel);
     XCTAssertTrue(_config.isCollectingLifecycleEventsAllowed);

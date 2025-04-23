@@ -114,6 +114,14 @@ static NSTimeInterval timeInterval = 0;
                 [_modalWindow.bottomAnchor constraintEqualToAnchor:window.bottomAnchor constant:0]
             ]];
             break;
+        case PWModalWindowPositionFullScreen:
+            [NSLayoutConstraint activateConstraints:@[
+                [_modalWindow.topAnchor constraintEqualToAnchor:window.topAnchor],
+                [_modalWindow.bottomAnchor constraintEqualToAnchor:window.bottomAnchor],
+                [_modalWindow.leadingAnchor constraintEqualToAnchor:window.leadingAnchor],
+                [_modalWindow.trailingAnchor constraintEqualToAnchor:window.trailingAnchor]
+            ]];
+            break;
         case PWModalWindowPositionCenter:
         case PWModalWindowPositionDefault:
             [self activateCenterConstraintsForModalWindow:safe];
@@ -189,6 +197,10 @@ static NSTimeInterval timeInterval = 0;
         };
         
         self.richMediaView.contentSizeDidChangeBlock = ^{
+            [weakSelf invalidateIntrinsicContentSize];
+            [weakSelf.superview setNeedsLayout];
+            [weakSelf.superview layoutIfNeeded];
+            
             [weakSelf animateViewWithCompletion:nil];
         };
         
@@ -199,14 +211,13 @@ static NSTimeInterval timeInterval = 0;
         [self.richMediaView loadRichMedia:richMedia completion:^(NSError *error) {
             if (!error) {
                 [weakSelf animateViewWithCompletion:^{
-                    
                     weakSelf.richMediaView.alpha = 1.0f;
                     weakSelf.modalWindow.closeButton.alpha = 1.0f;
                     
                     frame.origin.y = ([UIScreen mainScreen].bounds.size.height - weakSelf.richMediaView.frame.size.height) / 2;
 
-                    UIViewPropertyAnimator *animator = [[UIViewPropertyAnimator alloc] initWithDuration:0.75
-                                                                                          dampingRatio:0.8
+                    UIViewPropertyAnimator *animator = [[UIViewPropertyAnimator alloc] initWithDuration:0.9
+                                                                                          dampingRatio:1.0
                                                                                             animations:^{
 
                         switch (_settings.presentAnimation) {
@@ -430,7 +441,7 @@ static NSTimeInterval timeInterval = 0;
         return;
     }
     
-    [UIView animateWithDuration:0.75 animations:^{
+    [UIView animateWithDuration:0.5 animations:^{
         CGFloat dismissAnimationPosition = 1000.0f;
         CGRect frame = self.frame;
         
@@ -453,17 +464,10 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (void)animateViewWithCompletion:(dispatch_block_t)completion {
-    [UIView animateWithDuration:0.3f
-                     animations:^{
-        [self invalidateIntrinsicContentSize];
-        [self.superview setNeedsLayout];
-        [self.superview layoutIfNeeded];
-    } completion:^(BOOL finished) {
-        [self handleRichMediaViewClosure];
-        if (completion) {
-            completion();
-        }
-    }];
+    [self handleRichMediaViewClosure];
+    if (completion) {
+        completion();
+    }
 }
 
 - (void)animateCurveEaseInOut:(UIView *)view completion:(dispatch_block_t)completion {

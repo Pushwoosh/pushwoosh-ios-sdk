@@ -103,7 +103,7 @@
             self.isCollectingLifecycleEventsAllowed = NO;
         } else {
             // this key is used to allow collecting and sending device os version (by default it is allowed)
-            self.isCollectingLifecycleEventsAllowed = [self getBoolean:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_OS_VERSION" default: YES];
+            self.allowCollectingDeviceOsVersion = [self getBoolean:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_OS_VERSION" default: YES];
             
             // this key is used to allow collecting and sending device locale (by default it is allowed)
             self.allowCollectingDeviceLocale = [self getBoolean:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_LOCALE" default: YES];

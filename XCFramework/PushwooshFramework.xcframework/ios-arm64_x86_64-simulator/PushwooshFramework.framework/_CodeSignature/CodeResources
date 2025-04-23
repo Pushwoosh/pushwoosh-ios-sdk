@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/PWModalWindowConfiguration.h</key>
 		<data>
-		YPLjXTKKbWqdTCeYNpywp7pghXE=
+		ofj3F2rETCInbE31nJmSOBX/kyo=
 		</data>
 		<key>Headers/PWNotificationExtensionManager.h</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>Headers/PushwooshFramework.h</key>
 		<data>
-		4EVuij0sUkN6k/7U/QglXQYnRkA=
+		JdRNhDNRv6uFNxhAEjHQXZaONOc=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -168,7 +168,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			u6/EIQ309Y8Z9U67vOCLwcAn/y1fbEpAKCkYAhLqoEI=
+			+fFP2zaqsRh5/TTRFLE/cekHQmVZE0sROZUjCQSqv4E=
 			</data>
 		</dict>
 		<key>Headers/PWNotificationExtensionManager.h</key>
@@ -210,7 +210,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			mDD9IusS/NDCkw0Vj6hdc4sCVUdok0ukya5fHtCzPf8=
+			Unfgp5NnCYKi3vcwi7yldro2OZXPMSOBy9F6k4YSV2s=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.abi.json</key>

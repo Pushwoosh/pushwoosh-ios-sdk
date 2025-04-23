@@ -23,6 +23,7 @@ typedef NS_ENUM(NSInteger, ModalWindowPosition) {
     PWModalWindowPositionCenter,    // Appears at the center of the screen (within safe area)
     PWModalWindowPositionBottom,    // Appears at the bottom of the screen (within safe area)
     PWModalWindowPositionBottomSheet, // Appears at the very bottom of the screen (ignores safe area)
+    PWModalWindowPositionFullScreen, // Fullscreen, ignores safe area insets
     PWModalWindowPositionDefault    // Default position (center of the screen, within safe area)
 };
 
