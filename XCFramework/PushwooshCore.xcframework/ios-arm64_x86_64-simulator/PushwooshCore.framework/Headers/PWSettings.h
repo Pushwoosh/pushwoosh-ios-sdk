@@ -36,6 +36,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy, readonly) NSDate *lastRegisterUserDate;
 
+@property (copy) NSString *apiToken;
+
 @property (copy, readonly) NSString *hwid;
 
 @property (copy, readonly) NSString *previosHWID; //not nil if hwid has been changed

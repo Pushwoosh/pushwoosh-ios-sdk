@@ -21,6 +21,7 @@ static NSString *const KeyAppId = @"Pushwoosh_APPID";
 static NSString *const KeyInfoPlistAppId = @"Pushwoosh_INFO_PLIST_APPID";
 static NSString *const KeyAppName = @"Pushwoosh_APPNAME";
 static NSString *const KeyPushToken = @"PWPushUserId";
+static NSString *const KeyApiToken = @"PWApiToken";
 static NSString *const KeyUserId = @"PWInAppUserId";
 static NSString *const KeyLastRegTime = @"PWLastRegTime";
 static NSString *const KeyLastStatusMask = @"PWLastStatusMask";
@@ -47,6 +48,7 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 @synthesize appCode = _appCode;
 @synthesize appName = _appName;
 @synthesize pushToken = _pushToken;
+@synthesize apiToken = _apiToken;
 @synthesize userId = _userId;
 @synthesize lastRegTime = _lastRegTime;
 @synthesize lastStatusMask = _lastStatusMask;
@@ -219,6 +221,21 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 - (NSString *)pushToken {
     @synchronized(_lock) {
         return [_pushToken copy];
+    }
+}
+
+- (void)setApiToken:(NSString *)apiToken {
+    @synchronized(_lock) {
+        _apiToken = [apiToken copy];
+    }
+
+    [[NSUserDefaults standardUserDefaults] setObject:apiToken forKey:KeyApiToken];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)apiToken {
+    @synchronized(_lock) {
+        return [_apiToken copy];
     }
 }
 

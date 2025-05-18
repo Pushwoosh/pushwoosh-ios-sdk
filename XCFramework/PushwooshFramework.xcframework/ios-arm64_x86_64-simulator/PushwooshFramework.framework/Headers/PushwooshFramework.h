@@ -9,6 +9,7 @@
 #import <PushwooshCore/PushwooshCore.h>
 #import <PushwooshCore/PushwooshLog.h>
 #import <PushwooshCore/PWCoreGDPRManager.h>
+#import <PushwooshCore/PushwooshConfig.h>
 
 #if TARGET_OS_IOS || TARGET_OS_WATCH
 
@@ -22,7 +23,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.8.4"
+#define PUSHWOOSH_VERSION @"6.8.5"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -208,6 +209,9 @@ Tells the delegate that the user has pressed on the push notification banner.
 
 #pragma mark - GDPR
 + (Class<PWGDPR>_Nonnull)GDPR NS_REFINED_FOR_SWIFT;
+
+#pragma mark - Configuration
++ (Class<PWConfiguration>_Nonnull)Configuration NS_REFINED_FOR_SWIFT;
 
 /**
  Pushwoosh Application ID. Usually retrieved automatically from Info.plist parameter `Pushwoosh_APPID`

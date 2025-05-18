@@ -58,7 +58,7 @@
 		</data>
 		<key>Headers/PushwooshFramework.h</key>
 		<data>
-		HewW2PrAqksZ9qf+jbFeM05QIVk=
+		J+C+Ascc/TNwYueZttuDwSo315w=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -66,11 +66,11 @@
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		h82Fg4a1zretWAocH4CMP+zcvzU=
+		/U/ZcWmx3X21zTGwBPkNE70Ky94=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		ro7F1744rZ1wPszuEpDjXvm+9bw=
+		cqrkCuvPtyqRV2C/WlZ8GJLZHMQ=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -78,19 +78,19 @@
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		ro7F1744rZ1wPszuEpDjXvm+9bw=
+		cqrkCuvPtyqRV2C/WlZ8GJLZHMQ=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		0GRPL46LipJkYMa+9pAYnQfKnN8=
+		0GpicR6q5HaXFAODz1PmZ1JIDV8=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		h82Fg4a1zretWAocH4CMP+zcvzU=
+		/U/ZcWmx3X21zTGwBPkNE70Ky94=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		bDhnILYY3JLbVjvSVAT3uQpa08c=
+		KqlSAuDC0ybw5ESjJRzQi/kBtzQ=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -98,11 +98,11 @@
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		bDhnILYY3JLbVjvSVAT3uQpa08c=
+		KqlSAuDC0ybw5ESjJRzQi/kBtzQ=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		TKu/R4JT9ZCb4OFbMqlLlDi6tfg=
+		rGeMirz4cYSZmreL3iCKrMjlNgQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -210,21 +210,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			DIMQdhRMJKHSPd66rcvStif0ieaMiSWiAWagsV6sndk=
+			Qv7lshKhdsmbuDoOTQ8v4VImd8lE0votBBYmG6DsGtI=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vgT2Y4Ue5kMgAFun1Xp0Wvb69sRe33MbTjYMAKcDauQ=
+			lraMh08Bnphmu/Zz2yNMpk5eponaJqpN5ggsQWvliPM=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			E1mSlYpXSIV8mnbb6vzz6KzR3SM72Yt/tAJvQPQ8nM8=
+			pRIR8SNfmgfLFSWP4RPQTIWGW9/S2+4KLGLw1gCDitg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -238,28 +238,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			E1mSlYpXSIV8mnbb6vzz6KzR3SM72Yt/tAJvQPQ8nM8=
+			pRIR8SNfmgfLFSWP4RPQTIWGW9/S2+4KLGLw1gCDitg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8k3ZuvCxcEZjUWU7MTthz696KXZG589fYwEce7dupXg=
+			uBtHRS9sEgx/TKZG/iulLQCcRdFJweul5l4MPKdrlzY=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			vgT2Y4Ue5kMgAFun1Xp0Wvb69sRe33MbTjYMAKcDauQ=
+			lraMh08Bnphmu/Zz2yNMpk5eponaJqpN5ggsQWvliPM=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			SBAiWDmG9pHIW+inqcOKdLvXEbmcwJMwewwcnB7sMSg=
+			+NlA5Rt7DqH33uMeRymzA2jMQwCX2lKxtGikCh6IcG4=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -273,14 +273,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SBAiWDmG9pHIW+inqcOKdLvXEbmcwJMwewwcnB7sMSg=
+			+NlA5Rt7DqH33uMeRymzA2jMQwCX2lKxtGikCh6IcG4=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Aai5tMriBUe4hNIOO7BJwldWnPmHHpJVHAbUrjjBSh4=
+			eyEFGQBd/fdU+lGYjYzmtn+1Q752IZwbIHs5l6XUkrc=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

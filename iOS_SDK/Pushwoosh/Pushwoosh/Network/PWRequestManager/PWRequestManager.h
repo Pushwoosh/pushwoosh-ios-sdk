@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
+#import <PushwooshCore/PushwooshConfig.h>
 #import <PushwooshCore/PWCoreServerCommunicationManager.h>
 #import "PWRequest.h"
 

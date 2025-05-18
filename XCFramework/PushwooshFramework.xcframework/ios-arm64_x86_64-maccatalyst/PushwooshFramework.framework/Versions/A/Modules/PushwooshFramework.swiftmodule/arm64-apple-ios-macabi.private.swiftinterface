@@ -16,6 +16,9 @@ extension PushwooshFramework.Pushwoosh {
   public static var Debug: any PushwooshCore.PWDebug.Type {
     get
   }
+  public static var Configuration: any PushwooshCore.PWConfiguration.Type {
+    get
+  }
   @available(*, unavailable, message: "This property is not available yet and will be introduced in future releases.")
   public static var GDPR: any PushwooshCore.PWGDPR.Type {
     get

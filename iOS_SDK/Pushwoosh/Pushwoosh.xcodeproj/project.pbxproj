@@ -43,7 +43,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
-		2FE21B96BC15C0FC3C569EB8 /* Pods_PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 14AA5830F857B7DC14EE9D03 /* Pods_PushwooshCore.framework */; };
+		4400975B2DAFE1DA00B67ED6 /* PushwooshConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 440097592DAFE1DA00B67ED6 /* PushwooshConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4400975C2DAFE1DA00B67ED6 /* PushwooshConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4400975A2DAFE1DA00B67ED6 /* PushwooshConfig.m */; };
 		44155FD42D77B30E00358B1C /* PWLiveActivitiesStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44155FD32D77B30E00358B1C /* PWLiveActivitiesStub.swift */; };
 		44155FE32D78893B00358B1C /* PushwooshBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEF972D77883300CD410A /* PushwooshBridge.framework */; };
 		441806E82D7B28A500DE71A7 /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; };
@@ -1409,9 +1410,8 @@
 		5DFE627023F6B46C00A25AA5 /* PWMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DFE627123F6B46C00A25AA5 /* PWMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DFE627223F6B46C00A25AA5 /* PWMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		8918DAEFB51FCE9E12C7530B /* Pods_PushwooshLiveActivities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 5B5C1A4EB19D69A1E4121A01 /* Pods_PushwooshLiveActivities.framework */; };
-		9703585F27A2793100DEA758 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
-		9703586227A2796400DEA758 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		9703585F27A2793100DEA758 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		9703586227A2796400DEA758 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		972C9AA827F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 972C9AA727F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m */; };
 		9762CEA9277B17B9003196C1 /* PWTestPurchaseRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9762CEA8277B17B9003196C1 /* PWTestPurchaseRuntime.m */; };
 		976302C427DA21180029240E /* PWInboxMessageInternalTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 976302C327DA21180029240E /* PWInboxMessageInternalTest.m */; };
@@ -1652,10 +1652,9 @@
 
 /* Begin PBXFileReference section */
 		14AA5830F857B7DC14EE9D03 /* Pods_PushwooshCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushwooshCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		155DEF23BCFFEFAE4CBB5B3C /* Pods-PushwooshiOS.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshiOS.release.xcconfig"; path = "Target Support Files/Pods-PushwooshiOS/Pods-PushwooshiOS.release.xcconfig"; sourceTree = "<group>"; };
-		2B9BE174EF535FB5EDC9F791 /* Pods-PushwooshBridge.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshBridge.release.xcconfig"; path = "Target Support Files/Pods-PushwooshBridge/Pods-PushwooshBridge.release.xcconfig"; sourceTree = "<group>"; };
-		356FDFF284F9CB0779FAAD83 /* Pods-PushwooshiOS.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshiOS.debug.xcconfig"; path = "Target Support Files/Pods-PushwooshiOS/Pods-PushwooshiOS.debug.xcconfig"; sourceTree = "<group>"; };
-		430975CEEC48D46344C28622 /* Pods-PushwooshCore.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshCore.release.xcconfig"; path = "Target Support Files/Pods-PushwooshCore/Pods-PushwooshCore.release.xcconfig"; sourceTree = "<group>"; };
+		1A30E337D05B2900DEA31DD2 /* Pods-PushwooshBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshBridge.debug.xcconfig"; path = "Target Support Files/Pods-PushwooshBridge/Pods-PushwooshBridge.debug.xcconfig"; sourceTree = "<group>"; };
+		440097592DAFE1DA00B67ED6 /* PushwooshConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushwooshConfig.h; sourceTree = "<group>"; };
+		4400975A2DAFE1DA00B67ED6 /* PushwooshConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushwooshConfig.m; sourceTree = "<group>"; };
 		44155FD32D77B30E00358B1C /* PWLiveActivitiesStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWLiveActivitiesStub.swift; sourceTree = "<group>"; };
 		441806DF2D7B285900DE71A7 /* PushwooshCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		441806EE2D7B290E00DE71A7 /* PushwooshCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushwooshCore.h; sourceTree = "<group>"; };
@@ -2079,7 +2078,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				2FE21B96BC15C0FC3C569EB8 /* Pods_PushwooshCore.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2088,7 +2086,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				441806EB2D7B28CA00DE71A7 /* PushwooshCore.framework in Frameworks */,
-				A83A4E19932741EE13569B29 /* Pods_PushwooshBridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2098,7 +2095,6 @@
 			files = (
 				441807032D7B2A7100DE71A7 /* PushwooshCore.framework in Frameworks */,
 				44155FE32D78893B00358B1C /* PushwooshBridge.framework in Frameworks */,
-				8918DAEFB51FCE9E12C7530B /* Pods_PushwooshLiveActivities.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2197,7 +2193,7 @@
 			name = Products;
 			sourceTree = "<group>";
 		};
-		0867D691FE84028FC02AAC07 = {
+		0867D691FE84028FC02AAC07 /* PushNotificationManager */ = {
 			isa = PBXGroup;
 			children = (
 				5D12C21523F54365009A655A /* Pushwoosh */,
@@ -2212,6 +2208,31 @@
 				5F82FAADF9D4E1F78B643A6A /* Pods */,
 			);
 			name = PushNotificationManager;
+			sourceTree = "<group>";
+		};
+		3D9EA8CD7BE11404EC13C398 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1A30E337D05B2900DEA31DD2 /* Pods-PushwooshBridge.debug.xcconfig */,
+				BCFFE3A7CF538FC547066CFD /* Pods-PushwooshBridge.release.xcconfig */,
+				C92BB8B25CEBB7726AFD73E2 /* Pods-PushwooshCore.debug.xcconfig */,
+				EE171E3EA673560036AF9240 /* Pods-PushwooshCore.release.xcconfig */,
+				E80A3F40FB89EC3AC551461C /* Pods-PushwooshLiveActivities.debug.xcconfig */,
+				7768EBA986EE352B4FB3BABB /* Pods-PushwooshLiveActivities.release.xcconfig */,
+				B008FAA0C7293463A5F0F6AF /* Pods-PushwooshiOS.debug.xcconfig */,
+				5C767AB510EF4D0D1FC796EF /* Pods-PushwooshiOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../Samples/PushwooshSampleApp/Pods;
+			sourceTree = "<group>";
+		};
+		4400975D2DAFE1EA00B67ED6 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				440097592DAFE1DA00B67ED6 /* PushwooshConfig.h */,
+				4400975A2DAFE1DA00B67ED6 /* PushwooshConfig.m */,
+			);
+			path = Configuration;
 			sourceTree = "<group>";
 		};
 		441806E02D7B285900DE71A7 /* PushwooshCore */ = {
@@ -2537,6 +2558,7 @@
 			children = (
 				441806EE2D7B290E00DE71A7 /* PushwooshCore.h */,
 				441806EF2D7B290E00DE71A7 /* PushwooshCore.m */,
+				4400975D2DAFE1EA00B67ED6 /* Configuration */,
 				442544162D8878F1003DCB5F /* GDPR */,
 				44A29BB52D80F5BB00FBF3D3 /* Logging */,
 			);
@@ -3613,6 +3635,7 @@
 				44A29B592D7F35FE00FBF3D3 /* PWCoreUtils.h in Headers */,
 				44A29BC52D8109E900FBF3D3 /* NSDate+PWCoreDateUtils.h in Headers */,
 				4425440E2D8872A8003DCB5F /* PWCoreServerCommunicationManager.h in Headers */,
+				4400975B2DAFE1DA00B67ED6 /* PushwooshConfig.h in Headers */,
 				44A29B482D7F30EC00FBF3D3 /* PWCConfig.h in Headers */,
 				44A29BA52D808DEA00FBF3D3 /* PushwooshLog.h in Headers */,
 				442544142D887876003DCB5F /* PWCoreGDPRManager.h in Headers */,
@@ -4709,7 +4732,7 @@
 				Base,
 				en,
 			);
-			mainGroup = 0867D691FE84028FC02AAC07;
+			mainGroup = 0867D691FE84028FC02AAC07 /* PushNotificationManager */;
 			productRefGroup = 034768DFFF38A50411DB9C8B /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -4948,6 +4971,7 @@
 				44A29B492D7F30EC00FBF3D3 /* PWCConfig.m in Sources */,
 				44A29B4E2D7F316200FBF3D3 /* PWCNotificationAppSettings.m in Sources */,
 				44A29BBC2D81077B00FBF3D3 /* PWCoreRequest.m in Sources */,
+				4400975C2DAFE1DA00B67ED6 /* PushwooshConfig.m in Sources */,
 				44A29B5A2D7F35FE00FBF3D3 /* PWCoreUtils.m in Sources */,
 				44A29BB22D80E55300FBF3D3 /* PWSettings.m in Sources */,
 			);
@@ -5372,12 +5396,12 @@
 				4649F4E01ED5531B00D3D90C /* PWPostEventTest.m in Sources */,
 				449CAA05287725BD00B4EEEF /* PWRegisterEmailUserTest.m in Sources */,
 				449CAA252877272B00B4EEEF /* PWConfigurationTest.m in Sources */,
-				9703585F27A2793100DEA758 /* BuildFile in Sources */,
+				9703585F27A2793100DEA758 /* (null) in Sources */,
 				5D84AD142153A846005D7432 /* PWBundleMock.m in Sources */,
 				4649F4CD1ED5523F00D3D90C /* PWRegisterDeviceRequestTest.m in Sources */,
 				976302C927DA540B0029240E /* PWInboxServiceTest.m in Sources */,
 				449CAA282877274F00B4EEEF /* PushwooshTest.m in Sources */,
-				9703586227A2796400DEA758 /* BuildFile in Sources */,
+				9703586227A2796400DEA758 /* (null) in Sources */,
 				449CAA22287726ED00B4EEEF /* PWRegisterTestDeviceRequestTest.m in Sources */,
 				44378CC628BE347300175DE2 /* PWInAppPurchaseHelperTest.m in Sources */,
 				5D84AD112153A04E005D7432 /* PWConfigTest.m in Sources */,

@@ -20,6 +20,10 @@ public extension Pushwoosh {
         return __debug()
     }
     
+    static var Configuration: PWConfiguration.Type {
+        return __configuration()
+    }
+    
     @available(*, unavailable, message: "This property is not available yet and will be introduced in future releases.")
     static var GDPR: PWGDPR.Type {
         return __gdpr();

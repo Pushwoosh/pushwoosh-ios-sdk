@@ -44,6 +44,10 @@
     return [PWCoreGDPRManager GDPR];
 }
 
++ (Class<PWConfiguration>)Configuration {
+    return [PushwooshConfig Configuration];
+}
+
 static Pushwoosh *pushwooshInstance = nil;
 static dispatch_once_t pushwooshOncePredicate;
 

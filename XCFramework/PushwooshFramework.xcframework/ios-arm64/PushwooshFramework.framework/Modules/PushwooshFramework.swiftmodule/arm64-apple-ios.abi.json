@@ -154,6 +154,67 @@
                 "accessorKind": "get"
               }
             ]
+          },
+          {
+            "kind": "Var",
+            "name": "Configuration",
+            "printedName": "Configuration",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any PushwooshCore.PWConfiguration.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWConfiguration",
+                    "printedName": "PushwooshCore.PWConfiguration",
+                    "usr": "c:objc(pl)PWConfiguration"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So9PushwooshC0A9FrameworkE13ConfigurationSo15PWConfiguration_pXpvpZ",
+            "mangledName": "$sSo9PushwooshC0A9FrameworkE13ConfigurationSo15PWConfiguration_pXpvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ExistentialMetatype",
+                    "printedName": "any PushwooshCore.PWConfiguration.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWConfiguration",
+                        "printedName": "PushwooshCore.PWConfiguration",
+                        "usr": "c:objc(pl)PWConfiguration"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So9PushwooshC0A9FrameworkE13ConfigurationSo15PWConfiguration_pXpvgZ",
+                "mangledName": "$sSo9PushwooshC0A9FrameworkE13ConfigurationSo15PWConfiguration_pXpvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
           }
         ],
         "declKind": "Class",

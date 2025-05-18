@@ -34,11 +34,15 @@
 		</data>
 		<key>Headers/PWSettings.h</key>
 		<data>
-		4a2nvl1UlOSHuGnxH/TkjBUwmJ4=
+		FCRZ8j85R3pVDPsVl3tW14WMguk=
+		</data>
+		<key>Headers/PushwooshConfig.h</key>
+		<data>
+		JawEWpnkgZWpLH5hv0pPW4qyE4s=
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		4/prv35EUDZg+9ygALFjjnGgm2Y=
+		6Mmn8UdIkUl29iCM4dY1TIhah9o=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -112,14 +116,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Jpz/qm1/DVrIS/hFpgTO5tcljlzwSD/uRRI5UqEycyI=
+			z+lpLxY0EV4c8q9Xm29MGcuq7eIcOVGaTSjIwXWq5pQ=
+			</data>
+		</dict>
+		<key>Headers/PushwooshConfig.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			f+pp29/dvRt7Ku1VPGPlt6EkHvamPLm/hAimKLZDiFM=
 			</data>
 		</dict>
 		<key>Headers/PushwooshCore.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			yGKWEU4OgayZ6ErUu3ssX5/F/+2KbwKUUKls+juAUu0=
+			Sxsv1ymxnQyz9wEGlbj+takY8//ZSSrpCewW8ZWwzSo=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>

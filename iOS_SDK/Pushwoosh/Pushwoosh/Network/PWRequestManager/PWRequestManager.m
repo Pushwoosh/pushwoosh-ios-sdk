@@ -278,7 +278,8 @@
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:requestUrl]];
     [urlRequest setHTTPMethod:@"POST"];
     [urlRequest addValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    [urlRequest addValue:[NSString stringWithFormat:@"Token %@", [self getApiToken]] forHTTPHeaderField:@"Authorization"];
+    NSString *apiToken = [self getApiToken] ? [self getApiToken] : [self getConfigApiToken];
+    [urlRequest addValue:[NSString stringWithFormat:@"Token %@", apiToken] forHTTPHeaderField:@"Authorization"];
     [urlRequest setHTTPBody:[jsonRequestData dataUsingEncoding:NSUTF8StringEncoding]];
     
     return urlRequest;
@@ -286,6 +287,10 @@
 
 - (NSString *)getApiToken {
     return [[PWConfig config] pushwooshApiToken] ? [[PWConfig config] pushwooshApiToken] : [[PWConfig config] apiToken];
+}
+
+- (NSString *)getConfigApiToken {
+    return [PushwooshConfig getApiToken];
 }
 
 - (void)processResponse:(NSHTTPURLResponse *)httpResponse responseData:(NSData *)responseData request:(PWRequest *)request url:(NSString *)requestUrl requestData:(NSString *)requestData error:(NSError **)outError {
