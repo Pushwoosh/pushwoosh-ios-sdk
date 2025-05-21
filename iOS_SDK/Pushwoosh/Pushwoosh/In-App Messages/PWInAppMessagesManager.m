@@ -128,7 +128,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 		if (!error && resource)
             dispatch_async(dispatch_get_main_queue(), ^{
                 PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourceInApp resource:resource];
-                [PWMessageViewController presentWithRichMedia:richMedia];
+                [self richMediaTypeWith:richMedia resource:resource];
             });
 #endif
 		if (completion)
