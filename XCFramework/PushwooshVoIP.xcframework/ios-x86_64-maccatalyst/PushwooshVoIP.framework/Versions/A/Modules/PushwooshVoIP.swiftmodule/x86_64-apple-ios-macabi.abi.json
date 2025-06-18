@@ -1,0 +1,2720 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "TopLevel",
+    "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshBridge",
+        "printedName": "PushwooshBridge",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "Import",
+        "name": "PushKit",
+        "printedName": "PushKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "Import",
+        "name": "CallKit",
+        "printedName": "CallKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "Import",
+        "name": "AVFoundation",
+        "printedName": "AVFoundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshVoIPImplementation",
+        "printedName": "PushwooshVoIPImplementation",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "shared",
+            "printedName": "shared",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshVoIPImplementation",
+                "printedName": "PushwooshVoIP.PushwooshVoIPImplementation",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cpy)shared",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC6sharedACvpZ",
+            "moduleName": "PushwooshVoIP",
+            "static": true,
+            "objc_name": "shared",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshVoIPImplementation",
+                    "printedName": "PushwooshVoIP.PushwooshVoIPImplementation",
+                    "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cm)shared",
+                "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC6sharedACvgZ",
+                "moduleName": "PushwooshVoIP",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "delegate",
+            "printedName": "delegate",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "WeakStorage",
+                "printedName": "AnyObject?"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cpy)delegate",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC8delegateyXlSgvpZ",
+            "moduleName": "PushwooshVoIP",
+            "static": true,
+            "objc_name": "delegate",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "ReferenceOwnership",
+              "AccessControl"
+            ],
+            "ownership": 1,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "AnyObject?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "AnyObject"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cm)delegate",
+                "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC8delegateyXlSgvgZ",
+                "moduleName": "PushwooshVoIP",
+                "static": true,
+                "objc_name": "delegate",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "AnyObject?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "AnyObject"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cm)setDelegate:",
+                "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC8delegateyXlSgvsZ",
+                "moduleName": "PushwooshVoIP",
+                "static": true,
+                "objc_name": "setDelegate:",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:13PushwooshVoIP0aB16IPImplementationC8delegateyXlSgvMZ",
+                "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC8delegateyXlSgvMZ",
+                "moduleName": "PushwooshVoIP",
+                "static": true,
+                "implicit": true,
+                "intro_iOS": "14.0",
+                "declAttributes": [
+                  "Final",
+                  "Available"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "voip",
+            "printedName": "voip()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any AnyObject.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "AnyObject"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cm)voip",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC4voipyXlXpyFZ",
+            "moduleName": "PushwooshVoIP",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "initializeVoIP",
+            "printedName": "initializeVoIP(_:ringtoneSound:handleTypes:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cm)initializeVoIP:ringtoneSound:handleTypes:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC010initializebC0_13ringtoneSound11handleTypesySb_SSSitFZ",
+            "moduleName": "PushwooshVoIP",
+            "static": true,
+            "objc_name": "initializeVoIP:ringtoneSound:handleTypes:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setVoIPToken",
+            "printedName": "setVoIPToken(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Data",
+                "printedName": "Foundation.Data",
+                "usr": "s:10Foundation4DataV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cm)setVoIPToken:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC03setB7IPTokenyy10Foundation4DataVFZ",
+            "moduleName": "PushwooshVoIP",
+            "static": true,
+            "objc_name": "setVoIPToken:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "pushRegistry",
+            "printedName": "pushRegistry(_:didUpdate:for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PKPushRegistry",
+                "printedName": "PushKit.PKPushRegistry",
+                "usr": "c:objc(cs)PKPushRegistry"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PKPushCredentials",
+                "printedName": "PushKit.PKPushCredentials",
+                "usr": "c:objc(cs)PKPushCredentials"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PKPushType",
+                "printedName": "PushKit.PKPushType",
+                "usr": "c:@T@PKPushType"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)pushRegistry:didUpdatePushCredentials:forType:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC12pushRegistry_9didUpdate3forySo06PKPushF0C_So0J11CredentialsCSo0J4TypeatF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "pushRegistry:didUpdatePushCredentials:forType:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "pushRegistry",
+            "printedName": "pushRegistry(_:didInvalidatePushTokenFor:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PKPushRegistry",
+                "printedName": "PushKit.PKPushRegistry",
+                "usr": "c:objc(cs)PKPushRegistry"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PKPushType",
+                "printedName": "PushKit.PKPushType",
+                "usr": "c:@T@PKPushType"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)pushRegistry:didInvalidatePushTokenForType:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC12pushRegistry_25didInvalidatePushTokenForySo06PKPushF0C_So0L4TypeatF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "pushRegistry:didInvalidatePushTokenForType:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "pushRegistry",
+            "printedName": "pushRegistry(_:didReceiveIncomingPushWith:for:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PKPushRegistry",
+                "printedName": "PushKit.PKPushRegistry",
+                "usr": "c:objc(cs)PKPushRegistry"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PKPushPayload",
+                "printedName": "PushKit.PKPushPayload",
+                "usr": "c:objc(cs)PKPushPayload"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PKPushType",
+                "printedName": "PushKit.PKPushType",
+                "usr": "c:@T@PKPushType"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "() -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)pushRegistry:didReceiveIncomingPushWithPayload:forType:withCompletionHandler:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC12pushRegistry_26didReceiveIncomingPushWith3for10completionySo06PKPushF0C_So0N7PayloadCSo0N4TypeayyctF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "pushRegistry:didReceiveIncomingPushWithPayload:forType:withCompletionHandler:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "provider",
+            "printedName": "provider(_:perform:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXStartCallAction",
+                "printedName": "CallKit.CXStartCallAction",
+                "usr": "c:objc(cs)CXStartCallAction"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)provider:performStartCallAction:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC8provider_7performySo10CXProviderC_So17CXStartCallActionCtF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "provider:performStartCallAction:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "provider",
+            "printedName": "provider(_:perform:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXEndCallAction",
+                "printedName": "CallKit.CXEndCallAction",
+                "usr": "c:objc(cs)CXEndCallAction"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)provider:performEndCallAction:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC8provider_7performySo10CXProviderC_So15CXEndCallActionCtF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "provider:performEndCallAction:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "provider",
+            "printedName": "provider(_:perform:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXAnswerCallAction",
+                "printedName": "CallKit.CXAnswerCallAction",
+                "usr": "c:objc(cs)CXAnswerCallAction"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)provider:performAnswerCallAction:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC8provider_7performySo10CXProviderC_So18CXAnswerCallActionCtF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "provider:performAnswerCallAction:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "provider",
+            "printedName": "provider(_:perform:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXSetMutedCallAction",
+                "printedName": "CallKit.CXSetMutedCallAction",
+                "usr": "c:objc(cs)CXSetMutedCallAction"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)provider:performSetMutedCallAction:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC8provider_7performySo10CXProviderC_So20CXSetMutedCallActionCtF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "provider:performSetMutedCallAction:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "provider",
+            "printedName": "provider(_:perform:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXSetHeldCallAction",
+                "printedName": "CallKit.CXSetHeldCallAction",
+                "usr": "c:objc(cs)CXSetHeldCallAction"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)provider:performSetHeldCallAction:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC8provider_7performySo10CXProviderC_So19CXSetHeldCallActionCtF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "provider:performSetHeldCallAction:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "provider",
+            "printedName": "provider(_:perform:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXPlayDTMFCallAction",
+                "printedName": "CallKit.CXPlayDTMFCallAction",
+                "usr": "c:objc(cs)CXPlayDTMFCallAction"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)provider:performPlayDTMFCallAction:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC8provider_7performySo10CXProviderC_So20CXPlayDTMFCallActionCtF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "provider:performPlayDTMFCallAction:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "provider",
+            "printedName": "provider(_:didActivate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "AVAudioSession",
+                "printedName": "AVFAudio.AVAudioSession",
+                "usr": "c:objc(cs)AVAudioSession"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)provider:didActivateAudioSession:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC8provider_11didActivateySo10CXProviderC_So14AVAudioSessionCtF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "provider:didActivateAudioSession:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "provider",
+            "printedName": "provider(_:didDeactivate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "AVAudioSession",
+                "printedName": "AVFAudio.AVAudioSession",
+                "usr": "c:objc(cs)AVAudioSession"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)provider:didDeactivateAudioSession:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC8provider_13didDeactivateySo10CXProviderC_So14AVAudioSessionCtF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "provider:didDeactivateAudioSession:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "providerDidReset",
+            "printedName": "providerDidReset(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)providerDidReset:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC16providerDidResetyySo10CXProviderCF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "providerDidReset:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "providerDidBegin",
+            "printedName": "providerDidBegin(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)providerDidBegin:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC16providerDidBeginyySo10CXProviderCF",
+            "moduleName": "PushwooshVoIP",
+            "objc_name": "providerDidBegin:",
+            "declAttributes": [
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshVoIPImplementation",
+                "printedName": "PushwooshVoIP.PushwooshVoIPImplementation",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(im)init",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationCACycfc",
+            "moduleName": "PushwooshVoIP",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation",
+        "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC",
+        "moduleName": "PushwooshVoIP",
+        "intro_iOS": "14.0",
+        "objc_name": "PushwooshVoIPImplementation",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "Available"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "PWVoIP",
+            "printedName": "PWVoIP",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWVoIP",
+            "mangledName": "$s15PushwooshBridge6PWVoIPP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshBridge",
+        "printedName": "PushwooshBridge",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "Import",
+        "name": "CallKit",
+        "printedName": "CallKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "Import",
+        "name": "AVFoundation",
+        "printedName": "AVFoundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWVoIPCallDelegate",
+        "printedName": "PWVoIPCallDelegate",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "voipDidReceiveIncomingCall",
+            "printedName": "voipDidReceiveIncomingCall(payload:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWVoIPMessage",
+                "printedName": "PushwooshVoIP.PWVoIPMessage",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)voipDidReceiveIncomingCallWithPayload:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP26voipDidReceiveIncomingCall7payloadyAA0D9IPMessageC_tF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "objc_name": "voipDidReceiveIncomingCallWithPayload:",
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "voipDidReportIncomingCallSuccessfully",
+            "printedName": "voipDidReportIncomingCallSuccessfully(voipMessage:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWVoIPMessage",
+                "printedName": "PushwooshVoIP.PWVoIPMessage",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)voipDidReportIncomingCallSuccessfullyWithVoipMessage:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP37voipDidReportIncomingCallSuccessfully0G7MessageyAA0D9IPMessageC_tF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "objc_name": "voipDidReportIncomingCallSuccessfullyWithVoipMessage:",
+            "declAttributes": [
+              "Optional",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "voipDidFailToReportIncomingCall",
+            "printedName": "voipDidFailToReportIncomingCall(error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)voipDidFailToReportIncomingCallWithError:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP31voipDidFailToReportIncomingCall5errorys5Error_p_tF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "objc_name": "voipDidFailToReportIncomingCallWithError:",
+            "declAttributes": [
+              "Optional",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "startCall",
+            "printedName": "startCall(_:perform:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXStartCallAction",
+                "printedName": "CallKit.CXStartCallAction",
+                "usr": "c:objc(cs)CXStartCallAction"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)startCall:perform:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP9startCall_7performySo10CXProviderC_So07CXStartH6ActionCtF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "endCall",
+            "printedName": "endCall(_:perform:voipMessage:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXEndCallAction",
+                "printedName": "CallKit.CXEndCallAction",
+                "usr": "c:objc(cs)CXEndCallAction"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshVoIP.PWVoIPMessage?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWVoIPMessage",
+                    "printedName": "PushwooshVoIP.PWVoIPMessage",
+                    "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)endCall:perform:voipMessage:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP7endCall_7perform11voipMessageySo10CXProviderC_So05CXEndH6ActionCAA0D9IPMessageCSgtF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "answerCall",
+            "printedName": "answerCall(_:perform:voipMessage:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXAnswerCallAction",
+                "printedName": "CallKit.CXAnswerCallAction",
+                "usr": "c:objc(cs)CXAnswerCallAction"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshVoIP.PWVoIPMessage?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWVoIPMessage",
+                    "printedName": "PushwooshVoIP.PWVoIPMessage",
+                    "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)answerCall:perform:voipMessage:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP10answerCall_7perform11voipMessageySo10CXProviderC_So08CXAnswerH6ActionCAA0D9IPMessageCSgtF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "mutedCall",
+            "printedName": "mutedCall(_:perform:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXSetMutedCallAction",
+                "printedName": "CallKit.CXSetMutedCallAction",
+                "usr": "c:objc(cs)CXSetMutedCallAction"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)mutedCall:perform:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP9mutedCall_7performySo10CXProviderC_So010CXSetMutedH6ActionCtF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "heldCall",
+            "printedName": "heldCall(_:perform:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXSetHeldCallAction",
+                "printedName": "CallKit.CXSetHeldCallAction",
+                "usr": "c:objc(cs)CXSetHeldCallAction"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)heldCall:perform:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP8heldCall_7performySo10CXProviderC_So09CXSetHeldH6ActionCtF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "playDTMF",
+            "printedName": "playDTMF(_:perform:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXPlayDTMFCallAction",
+                "printedName": "CallKit.CXPlayDTMFCallAction",
+                "usr": "c:objc(cs)CXPlayDTMFCallAction"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)playDTMF:perform:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP8playDTMF_7performySo10CXProviderC_So20CXPlayDTMFCallActionCtF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "pwProviderDidReset",
+            "printedName": "pwProviderDidReset(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)pwProviderDidReset:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP18pwProviderDidResetyySo10CXProviderCF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "pwProviderDidBegin",
+            "printedName": "pwProviderDidBegin(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)pwProviderDidBegin:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP18pwProviderDidBeginyySo10CXProviderCF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "returnedCallController",
+            "printedName": "returnedCallController(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXCallController",
+                "printedName": "CallKit.CXCallController",
+                "usr": "c:objc(cs)CXCallController"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)returnedCallController:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP22returnedCallControlleryySo06CXCallI0CF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "returnedProvider",
+            "printedName": "returnedProvider(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)returnedProvider:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP16returnedProvideryySo10CXProviderCF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "activatedAudioSession",
+            "printedName": "activatedAudioSession(_:didActivate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "AVAudioSession",
+                "printedName": "AVFAudio.AVAudioSession",
+                "usr": "c:objc(cs)AVAudioSession"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)activatedAudioSession:didActivate:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP21activatedAudioSession_11didActivateySo10CXProviderC_So07AVAudioI0CtF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "deactivatedAudioSession",
+            "printedName": "deactivatedAudioSession(_:didDeactivate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CXProvider",
+                "printedName": "CallKit.CXProvider",
+                "usr": "c:objc(cs)CXProvider"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "AVAudioSession",
+                "printedName": "AVFAudio.AVAudioSession",
+                "usr": "c:objc(cs)AVAudioSession"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)deactivatedAudioSession:didDeactivate:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP23deactivatedAudioSession_13didDeactivateySo10CXProviderC_So07AVAudioI0CtF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate",
+        "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP",
+        "moduleName": "PushwooshVoIP",
+        "genericSig": "<τ_0_0 : ObjectiveC.NSObjectProtocol>",
+        "sugared_genericSig": "<Self : ObjectiveC.NSObjectProtocol>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshBridge",
+        "printedName": "PushwooshBridge",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWVoIPHandleType",
+        "printedName": "PWVoIPHandleType",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "generic",
+            "printedName": "generic",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshVoIP.PWVoIPHandleType.Type) -> PushwooshVoIP.PWVoIPHandleType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWVoIPHandleType",
+                    "printedName": "PushwooshVoIP.PWVoIPHandleType",
+                    "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshVoIP.PWVoIPHandleType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWVoIPHandleType",
+                        "printedName": "PushwooshVoIP.PWVoIPHandleType",
+                        "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType@PWVoIPHandleTypeGeneric",
+            "mangledName": "$s13PushwooshVoIP16PWVoIPHandleTypeO7genericyA2CmF",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "phoneNumber",
+            "printedName": "phoneNumber",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshVoIP.PWVoIPHandleType.Type) -> PushwooshVoIP.PWVoIPHandleType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWVoIPHandleType",
+                    "printedName": "PushwooshVoIP.PWVoIPHandleType",
+                    "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshVoIP.PWVoIPHandleType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWVoIPHandleType",
+                        "printedName": "PushwooshVoIP.PWVoIPHandleType",
+                        "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType@PWVoIPHandleTypePhoneNumber",
+            "mangledName": "$s13PushwooshVoIP16PWVoIPHandleTypeO11phoneNumberyA2CmF",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Var",
+            "name": "email",
+            "printedName": "email",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshVoIP.PWVoIPHandleType.Type) -> PushwooshVoIP.PWVoIPHandleType",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWVoIPHandleType",
+                    "printedName": "PushwooshVoIP.PWVoIPHandleType",
+                    "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshVoIP.PWVoIPHandleType.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWVoIPHandleType",
+                        "printedName": "PushwooshVoIP.PWVoIPHandleType",
+                        "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType@PWVoIPHandleTypeEmail",
+            "mangledName": "$s13PushwooshVoIP16PWVoIPHandleTypeO5emailyA2CmF",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 2
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshVoIP.PWVoIPHandleType?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWVoIPHandleType",
+                    "printedName": "PushwooshVoIP.PWVoIPHandleType",
+                    "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:13PushwooshVoIP16PWVoIPHandleTypeO8rawValueACSgSi_tcfc",
+            "mangledName": "$s13PushwooshVoIP16PWVoIPHandleTypeO8rawValueACSgSi_tcfc",
+            "moduleName": "PushwooshVoIP",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:13PushwooshVoIP16PWVoIPHandleTypeO8rawValueSivp",
+            "mangledName": "$s13PushwooshVoIP16PWVoIPHandleTypeO8rawValueSivp",
+            "moduleName": "PushwooshVoIP",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:13PushwooshVoIP16PWVoIPHandleTypeO8rawValueSivg",
+                "mangledName": "$s13PushwooshVoIP16PWVoIPHandleTypeO8rawValueSivg",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType",
+        "mangledName": "$s13PushwooshVoIP16PWVoIPHandleTypeO",
+        "moduleName": "PushwooshVoIP",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWVoIPMessage",
+        "printedName": "PWVoIPMessage",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "uuid",
+            "printedName": "uuid",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(py)uuid",
+            "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC4uuidSSvp",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(im)uuid",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC4uuidSSvg",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(im)setUuid:",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC4uuidSSvs",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:13PushwooshVoIP13PWVoIPMessageC4uuidSSvM",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC4uuidSSvM",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "handleType",
+            "printedName": "handleType",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWVoIPHandleType",
+                "printedName": "PushwooshVoIP.PWVoIPHandleType",
+                "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(py)handleType",
+            "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC10handleTypeAA0d8IPHandleG0Ovp",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWVoIPHandleType",
+                    "printedName": "PushwooshVoIP.PWVoIPHandleType",
+                    "usr": "c:@M@PushwooshVoIP@E@PWVoIPHandleType"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(im)handleType",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC10handleTypeAA0d8IPHandleG0Ovg",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "callerName",
+            "printedName": "callerName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(py)callerName",
+            "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC10callerNameSSvp",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(im)callerName",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC10callerNameSSvg",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "hasVideo",
+            "printedName": "hasVideo",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(py)hasVideo",
+            "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC8hasVideoSbvp",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(im)hasVideo",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC8hasVideoSbvg",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(im)setHasVideo:",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC8hasVideoSbvs",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:13PushwooshVoIP13PWVoIPMessageC8hasVideoSbvM",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC8hasVideoSbvM",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "supportsHolding",
+            "printedName": "supportsHolding",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(py)supportsHolding",
+            "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC15supportsHoldingSbvp",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(im)supportsHolding",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC15supportsHoldingSbvg",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "supportsDTMF",
+            "printedName": "supportsDTMF",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(py)supportsDTMF",
+            "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC12supportsDTMFSbvp",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(im)supportsDTMF",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC12supportsDTMFSbvg",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "rawPayload",
+            "printedName": "rawPayload",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.AnyHashable : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AnyHashable",
+                    "printedName": "Swift.AnyHashable",
+                    "usr": "s:s11AnyHashableV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(py)rawPayload",
+            "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC10rawPayloadSDys11AnyHashableVypGvp",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.AnyHashable : Any]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "AnyHashable",
+                        "printedName": "Swift.AnyHashable",
+                        "usr": "s:s11AnyHashableV"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "Any"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(im)rawPayload",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC10rawPayloadSDys11AnyHashableVypGvg",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawPayload:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWVoIPMessage",
+                "printedName": "PushwooshVoIP.PWVoIPMessage",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.AnyHashable : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AnyHashable",
+                    "printedName": "Swift.AnyHashable",
+                    "usr": "s:s11AnyHashableV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:13PushwooshVoIP13PWVoIPMessageC10rawPayloadACSDys11AnyHashableVypG_tcfc",
+            "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC10rawPayloadACSDys11AnyHashableVypG_tcfc",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWVoIPMessage",
+                "printedName": "PushwooshVoIP.PWVoIPMessage",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(im)init",
+            "mangledName": "$s13PushwooshVoIP13PWVoIPMessageCACycfc",
+            "moduleName": "PushwooshVoIP",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage",
+        "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC",
+        "moduleName": "PushwooshVoIP",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWVoIP",
+        "printedName": "PWVoIP",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "delegate",
+            "printedName": "delegate",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "AnyObject?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "AnyObject"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:15PushwooshBridge6PWVoIPP0a2VoD0E8delegateyXlSgvpZ",
+            "mangledName": "$s15PushwooshBridge6PWVoIPP0a2VoD0E8delegateyXlSgvpZ",
+            "moduleName": "PushwooshVoIP",
+            "static": true,
+            "intro_iOS": "14.0",
+            "declAttributes": [
+              "Available"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "AnyObject?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "AnyObject"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge6PWVoIPP0a2VoD0E8delegateyXlSgvgZ",
+                "mangledName": "$s15PushwooshBridge6PWVoIPP0a2VoD0E8delegateyXlSgvgZ",
+                "moduleName": "PushwooshVoIP",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
+                "static": true,
+                "isFromExtension": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "AnyObject?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "AnyObject"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge6PWVoIPP0a2VoD0E8delegateyXlSgvsZ",
+                "mangledName": "$s15PushwooshBridge6PWVoIPP0a2VoD0E8delegateyXlSgvsZ",
+                "moduleName": "PushwooshVoIP",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
+                "static": true,
+                "isFromExtension": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge6PWVoIPP0a2VoD0E8delegateyXlSgvMZ",
+                "mangledName": "$s15PushwooshBridge6PWVoIPP0a2VoD0E8delegateyXlSgvMZ",
+                "moduleName": "PushwooshVoIP",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
+                "static": true,
+                "implicit": true,
+                "intro_iOS": "14.0",
+                "declAttributes": [
+                  "Available"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "initializeVoIP",
+            "printedName": "initializeVoIP(_:ringtoneSound:handleTypes:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge6PWVoIPP0a2VoD0E010initializeeD0_13ringtoneSound11handleTypesySb_SSSitFZ",
+            "mangledName": "$s15PushwooshBridge6PWVoIPP0a2VoD0E010initializeeD0_13ringtoneSound11handleTypesySb_SSSitFZ",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
+            "static": true,
+            "intro_iOS": "14.0",
+            "declAttributes": [
+              "Available"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setVoIPToken",
+            "printedName": "setVoIPToken(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Data",
+                "printedName": "Foundation.Data",
+                "usr": "s:10Foundation4DataV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge6PWVoIPP0a2VoD0E03setE7IPTokenyy10Foundation4DataVFZ",
+            "mangledName": "$s15PushwooshBridge6PWVoIPP0a2VoD0E03setE7IPTokenyy10Foundation4DataVFZ",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
+            "static": true,
+            "intro_iOS": "14.0",
+            "declAttributes": [
+              "Available"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@PushwooshBridge@objc(pl)PWVoIP",
+        "mangledName": "$s15PushwooshBridge6PWVoIPP",
+        "moduleName": "PushwooshBridge",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "ObjC"
+        ],
+        "isExternal": true
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Requests\/PWRequestVoIPTokenRegistration.swift",
+      "kind": "StringLiteral",
+      "offset": 209,
+      "length": 21,
+      "value": "\"PushwooshVoIP.PWSetVoIPTokenRequest\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
+      "kind": "Dictionary",
+      "offset": 982,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 244,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 269,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 288,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 244,
+      "length": 1,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 269,
+      "length": 1,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 288,
+      "length": 1,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
+      "kind": "StringLiteral",
+      "offset": 312,
+      "length": 13,
+      "value": "\"PushwooshVoIP.PWVoIPMessage\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Requests\/PWRequestVoIPDeviceUnregister.swift",
+      "kind": "StringLiteral",
+      "offset": 212,
+      "length": 29,
+      "value": "\"PushwooshVoIP.PWUnregisterVoIPDeviceRequest\""
+    }
+  ]
+}

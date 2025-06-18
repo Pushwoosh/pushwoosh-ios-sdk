@@ -39,6 +39,11 @@ let package = Package(
             name: "PushwooshLiveActivities",
             url: "__PushwooshLiveActivities_URL__",
             checksum: "__PushwooshLiveActivities_CHECKSUM__"
+        ),
+        .binaryTarget(
+            name: "PushwooshVoIP",
+            url: "__PushwooshVoIP_URL__",
+            checksum: "__PushwooshVoIP_CHECKSUM__"
         )
     ]
 )

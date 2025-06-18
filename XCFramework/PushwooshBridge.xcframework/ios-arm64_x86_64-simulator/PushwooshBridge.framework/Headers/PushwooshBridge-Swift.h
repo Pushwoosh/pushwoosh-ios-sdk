@@ -407,6 +407,93 @@ SWIFT_CLASS("_TtC15PushwooshBridge20PWStubLiveActivities")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class NSData;
+
+SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWVoIP_")
+@protocol PWVoIP
+/// Initializes VoIP configuration with the specified parameters.
+/// Call this method during app initialization before starting any CallKit-related operations.
+/// \param supportVideo A Boolean value indicating whether video calls are supported.
+///
+/// \param ringtoneSound The name of the custom ringtone sound file to be used for incoming calls.
+///
+/// \param handleTypes The type of call handle to support:
+/// (Pass one of the following values)
+/// <ul>
+///   <li>
+///     1 – Generic
+///   </li>
+///   <li>
+///     2 – Phone number
+///   </li>
+///   <li>
+///     3 – Email address
+///   </li>
+/// </ul>
+///
++ (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
+/// Sets the VoIP push token for Pushwoosh.
+/// This method should be called once you receive the VoIP push token from the system.
+/// It registers the device with Pushwoosh to enable receiving VoIP push notifications.
+/// important:
+/// Make sure to call this method from within the <code>pushRegistry(_:didUpdate:for:)</code> delegate method.
+/// <ul>
+///   <li>
+///     Usage:
+///   </li>
+/// </ul>
+/// \code
+/// func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
+///     Pushwoosh.VoIP.setVoIPToken(pushCredentials.token)
+/// }
+///
+///
+/// \endcode\param token The VoIP push token received from <code>PKPushRegistry</code>.
+///
++ (void)setVoIPToken:(NSData * _Nonnull)token;
+@optional
+/// A delegate object that conforms to the <code>PWVoIPCallDelegate</code> protocol.
+/// Use this property to set an object that handles VoIP call events such as answering,
+/// ending, muting, or playing DTMF tones. The delegate should conform to the
+/// <code>PWVoIPCallDelegate</code> protocol and must be assigned before handling any call actions.
+/// note:
+/// This is an optional static property. Set to <code>nil</code> to remove the delegate.
+/// <ul>
+///   <li>
+///     Usage (Swift):
+///   </li>
+/// </ul>
+/// \code
+/// Pushwoosh.VoIP.delegate = self
+///
+/// \endcodeEnsure that <code>self</code> conforms to <code>PWVoIPCallDelegate</code>.
+/// <ul>
+///   <li>
+///     Usage (Objective-C):
+///   </li>
+/// </ul>
+/// \code
+/// [[Pushwoosh VoIP] setDelegate:self];
+///
+/// \endcodeMake sure <code>self</code> conforms to <code><PWVoIPCallDelegate></code>.
+/// Call <code>.delegate = self</code> before <code>initializeVoip()</code>
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;)
++ (id _Nullable)delegate SWIFT_WARN_UNUSED_RESULT;
++ (void)setDelegate:(id _Nullable)newValue;
+@end
+
+
+SWIFT_CLASS("_TtC15PushwooshBridge10PWVoIPStub")
+@interface PWVoIPStub : NSObject <PWVoIP>
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;)
++ (id _Nullable)delegate SWIFT_WARN_UNUSED_RESULT;
++ (void)setDelegate:(id _Nullable)value;
++ (Class _Nonnull)voip SWIFT_WARN_UNUSED_RESULT;
++ (void)setVoIPToken:(NSData * _Nonnull)token;
++ (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 #endif
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -821,6 +908,93 @@ SWIFT_CLASS("_TtC15PushwooshBridge20PWStubLiveActivities")
 + (void)stopLiveActivityWithCompletion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId;
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class NSData;
+
+SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWVoIP_")
+@protocol PWVoIP
+/// Initializes VoIP configuration with the specified parameters.
+/// Call this method during app initialization before starting any CallKit-related operations.
+/// \param supportVideo A Boolean value indicating whether video calls are supported.
+///
+/// \param ringtoneSound The name of the custom ringtone sound file to be used for incoming calls.
+///
+/// \param handleTypes The type of call handle to support:
+/// (Pass one of the following values)
+/// <ul>
+///   <li>
+///     1 – Generic
+///   </li>
+///   <li>
+///     2 – Phone number
+///   </li>
+///   <li>
+///     3 – Email address
+///   </li>
+/// </ul>
+///
++ (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
+/// Sets the VoIP push token for Pushwoosh.
+/// This method should be called once you receive the VoIP push token from the system.
+/// It registers the device with Pushwoosh to enable receiving VoIP push notifications.
+/// important:
+/// Make sure to call this method from within the <code>pushRegistry(_:didUpdate:for:)</code> delegate method.
+/// <ul>
+///   <li>
+///     Usage:
+///   </li>
+/// </ul>
+/// \code
+/// func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
+///     Pushwoosh.VoIP.setVoIPToken(pushCredentials.token)
+/// }
+///
+///
+/// \endcode\param token The VoIP push token received from <code>PKPushRegistry</code>.
+///
++ (void)setVoIPToken:(NSData * _Nonnull)token;
+@optional
+/// A delegate object that conforms to the <code>PWVoIPCallDelegate</code> protocol.
+/// Use this property to set an object that handles VoIP call events such as answering,
+/// ending, muting, or playing DTMF tones. The delegate should conform to the
+/// <code>PWVoIPCallDelegate</code> protocol and must be assigned before handling any call actions.
+/// note:
+/// This is an optional static property. Set to <code>nil</code> to remove the delegate.
+/// <ul>
+///   <li>
+///     Usage (Swift):
+///   </li>
+/// </ul>
+/// \code
+/// Pushwoosh.VoIP.delegate = self
+///
+/// \endcodeEnsure that <code>self</code> conforms to <code>PWVoIPCallDelegate</code>.
+/// <ul>
+///   <li>
+///     Usage (Objective-C):
+///   </li>
+/// </ul>
+/// \code
+/// [[Pushwoosh VoIP] setDelegate:self];
+///
+/// \endcodeMake sure <code>self</code> conforms to <code><PWVoIPCallDelegate></code>.
+/// Call <code>.delegate = self</code> before <code>initializeVoip()</code>
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;)
++ (id _Nullable)delegate SWIFT_WARN_UNUSED_RESULT;
++ (void)setDelegate:(id _Nullable)newValue;
+@end
+
+
+SWIFT_CLASS("_TtC15PushwooshBridge10PWVoIPStub")
+@interface PWVoIPStub : NSObject <PWVoIP>
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;)
++ (id _Nullable)delegate SWIFT_WARN_UNUSED_RESULT;
++ (void)setDelegate:(id _Nullable)value;
++ (Class _Nonnull)voip SWIFT_WARN_UNUSED_RESULT;
++ (void)setVoIPToken:(NSData * _Nonnull)token;
++ (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

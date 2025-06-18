@@ -44,6 +44,15 @@
     return [PWCoreGDPRManager GDPR];
 }
 
++ (Class<PWVoIP>)VoIP {
+    let pushwooshVoIP = NSClassFromString(@"PushwooshVoIPImplementation");
+    if (pushwooshVoIP != nil) {
+        return [pushwooshVoIP performSelector:@selector(voip)];
+    } else {
+        return [PWVoIPStub voip];
+    }
+}
+
 + (Class<PWConfiguration>)Configuration {
     return [PushwooshConfig Configuration];
 }

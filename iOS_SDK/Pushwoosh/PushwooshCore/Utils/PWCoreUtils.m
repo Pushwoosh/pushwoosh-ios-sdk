@@ -41,6 +41,10 @@ NSErrorDomain const PWCoreErrorDomain = @"pushwoosh";
     return YES;
 }
 
++ (BOOL)isSystemVersionGreaterOrEqualTo:(NSString *)systemVersion {
+    return ([[[UIDevice currentDevice] systemVersion] compare:systemVersion options:NSNumericSearch] != NSOrderedAscending);
+}
+
 + (NSString *)preferredLanguage {
     NSString *appLocale = @"en";
     if ([PWCConfig config].allowCollectingDeviceLocale == NO) {
@@ -123,6 +127,10 @@ NSErrorDomain const PWCoreErrorDomain = @"pushwoosh";
 
 + (void)showAlertWithTitle:(NSString *)title message:(NSString *)message {
     [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"stub"];
+}
+
++ (NSString *)timezone {
+    return [NSString stringWithFormat:@"%ld", (long)[[NSTimeZone localTimeZone] secondsFromGMT]];
 }
 
 @end

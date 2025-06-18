@@ -43,6 +43,8 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		4400975B2DAFE1DA00B67ED6 /* PushwooshConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 440097592DAFE1DA00B67ED6 /* PushwooshConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		4400975C2DAFE1DA00B67ED6 /* PushwooshConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 4400975A2DAFE1DA00B67ED6 /* PushwooshConfig.m */; };
 		44155FD42D77B30E00358B1C /* PWLiveActivitiesStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44155FD32D77B30E00358B1C /* PWLiveActivitiesStub.swift */; };
 		44155FE32D78893B00358B1C /* PushwooshBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEF972D77883300CD410A /* PushwooshBridge.framework */; };
 		441806E82D7B28A500DE71A7 /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; };
@@ -52,6 +54,15 @@
 		441806F32D7B292A00DE71A7 /* PWCConstants.h in Headers */ = {isa = PBXBuildFile; fileRef = 441806F22D7B292A00DE71A7 /* PWCConstants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		441807012D7B2A3200DE71A7 /* NetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441807002D7B2A3200DE71A7 /* NetworkManager.swift */; };
 		441807032D7B2A7100DE71A7 /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; };
+		441CC93B2DCA558B00DBE44A /* PushwooshBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEF972D77883300CD410A /* PushwooshBridge.framework */; };
+		441CC93F2DCA558B00DBE44A /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; };
+		441CC9452DCA55FF00DBE44A /* PWVoIP.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CC9442DCA55FF00DBE44A /* PWVoIP.swift */; };
+		441CC9472DCA568500DBE44A /* PWVoIPStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CC9462DCA568500DBE44A /* PWVoIPStub.swift */; };
+		441CC9492DCA571F00DBE44A /* PushwooshVoIPImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CC9482DCA571F00DBE44A /* PushwooshVoIPImplementation.swift */; };
+		441CC94B2DCA57EB00DBE44A /* PWVoIPExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CC94A2DCA57EB00DBE44A /* PWVoIPExtension.swift */; };
+		441CC94D2DCA627800DBE44A /* VoipNetworkManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CC94C2DCA627700DBE44A /* VoipNetworkManager.swift */; };
+		441CC9512DCA62A700DBE44A /* PWRequestVoIPTokenRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CC9502DCA62A700DBE44A /* PWRequestVoIPTokenRegistration.swift */; };
+		441CC9542DCA633900DBE44A /* PWVoIPRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 441CC9532DCA633900DBE44A /* PWVoIPRequestProtocol.swift */; };
 		4425440E2D8872A8003DCB5F /* PWCoreServerCommunicationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 4425440C2D8872A8003DCB5F /* PWCoreServerCommunicationManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		4425440F2D8872A8003DCB5F /* PWCoreServerCommunicationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4425440D2D8872A8003DCB5F /* PWCoreServerCommunicationManager.m */; };
 		442544142D887876003DCB5F /* PWCoreGDPRManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 442544122D887876003DCB5F /* PWCoreGDPRManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -128,7 +139,7 @@
 		447CEFA82D778F1D00CD410A /* PushwooshSwiftInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CEFA32D7789A100CD410A /* PushwooshSwiftInterface.swift */; };
 		447CEFBD2D77938A00CD410A /* PushwooshLiveActivities.h in Headers */ = {isa = PBXBuildFile; fileRef = 447CEFBC2D77938A00CD410A /* PushwooshLiveActivities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		447CEFC22D7793A100CD410A /* PWLiveActivitiesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CEFC12D7793A100CD410A /* PWLiveActivitiesExtension.swift */; };
-		447CEFC52D7793F400CD410A /* PushwooshLiveActivities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEFBA2D77938A00CD410A /* PushwooshLiveActivities.framework */; };
+		447CEFC52D7793F400CD410A /* PushwooshLiveActivities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEFBA2D77938A00CD410A /* PushwooshLiveActivities.framework */; platformFilter = ios; };
 		447CEFCF2D779E0000CD410A /* AnyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CEFCC2D779E0000CD410A /* AnyCodable.swift */; };
 		447CEFD02D779E0000CD410A /* PushwooshLiveActivitiesImplementationSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CEFCD2D779E0000CD410A /* PushwooshLiveActivitiesImplementationSetup.swift */; };
 		447CEFD12D779E0000CD410A /* PushwooshLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CEFCE2D779E0000CD410A /* PushwooshLiveActivityAttributes.swift */; };
@@ -372,7 +383,7 @@
 		44A29B492D7F30EC00FBF3D3 /* PWCConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A29B472D7F30EC00FBF3D3 /* PWCConfig.m */; };
 		44A29B4D2D7F316200FBF3D3 /* PWCNotificationAppSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 44A29B4B2D7F316200FBF3D3 /* PWCNotificationAppSettings.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44A29B4E2D7F316200FBF3D3 /* PWCNotificationAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A29B4C2D7F316200FBF3D3 /* PWCNotificationAppSettings.m */; };
-		44A29B592D7F35FE00FBF3D3 /* PWCoreUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 44A29B572D7F35FE00FBF3D3 /* PWCoreUtils.h */; };
+		44A29B592D7F35FE00FBF3D3 /* PWCoreUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 44A29B572D7F35FE00FBF3D3 /* PWCoreUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44A29B5A2D7F35FE00FBF3D3 /* PWCoreUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A29B582D7F35FE00FBF3D3 /* PWCoreUtils.m */; };
 		44A29BA52D808DEA00FBF3D3 /* PushwooshLog.h in Headers */ = {isa = PBXBuildFile; fileRef = 44A29BA32D808DEA00FBF3D3 /* PushwooshLog.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44A29BA62D808DEA00FBF3D3 /* PushwooshLog.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A29BA42D808DEA00FBF3D3 /* PushwooshLog.m */; };
@@ -391,6 +402,7 @@
 		44A29BCA2D810A6D00FBF3D3 /* PWCoreRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A29BC82D810A6D00FBF3D3 /* PWCoreRequestManager.m */; };
 		44A29BCD2D81DB2200FBF3D3 /* PWRequestSetActivityToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A29BCC2D81DB2200FBF3D3 /* PWRequestSetActivityToken.swift */; };
 		44A829AB2D81E1A200058555 /* PWLiveActivityRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A829AA2D81E1A200058555 /* PWLiveActivityRequestProtocol.swift */; };
+		44C0F3492DCA323300BE6564 /* PushwooshVoIP.h in Headers */ = {isa = PBXBuildFile; fileRef = 44C0F3462DCA323300BE6564 /* PushwooshVoIP.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		44FE0D392CAD6CDD001C34FD /* PWModalWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AF30846F2996A1F500E19F10 /* PWModalWindow.m */; };
 		44FE0D3A2CAD6CF0001C34FD /* PWModalWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = AF30846E2996A1F500E19F10 /* PWModalWindow.h */; };
 		44FE0D3B2CAD6CF4001C34FD /* PWModalWindowSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 443117BC2C6FA091008F82C6 /* PWModalWindowSettings.m */; };
@@ -1408,21 +1420,6 @@
 		5DFE627023F6B46C00A25AA5 /* PWMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DFE627123F6B46C00A25AA5 /* PWMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DFE627223F6B46C00A25AA5 /* PWMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
-<<<<<<< HEAD
-		9021094126707FDC00F811B4 /* PWServerCommunicationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9021094026707FDC00F811B4 /* PWServerCommunicationManager.m */; };
-		9021094226707FDC00F811B4 /* PWServerCommunicationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9021094026707FDC00F811B4 /* PWServerCommunicationManager.m */; };
-		9021094326707FDC00F811B4 /* PWServerCommunicationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9021094026707FDC00F811B4 /* PWServerCommunicationManager.m */; };
-		9021094426707FDC00F811B4 /* PWServerCommunicationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9021094026707FDC00F811B4 /* PWServerCommunicationManager.m */; };
-		9021094526707FDC00F811B4 /* PWServerCommunicationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9021094026707FDC00F811B4 /* PWServerCommunicationManager.m */; };
-		9021094626707FDC00F811B4 /* PWServerCommunicationManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 9021094026707FDC00F811B4 /* PWServerCommunicationManager.m */; };
-		902109492670802F00F811B4 /* PWServerCommunicationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 902109482670802F00F811B4 /* PWServerCommunicationManager.h */; };
-		9021094A2670802F00F811B4 /* PWServerCommunicationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 902109482670802F00F811B4 /* PWServerCommunicationManager.h */; };
-		9021094B2670802F00F811B4 /* PWServerCommunicationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 902109482670802F00F811B4 /* PWServerCommunicationManager.h */; };
-		9021094C2670802F00F811B4 /* PWServerCommunicationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 902109482670802F00F811B4 /* PWServerCommunicationManager.h */; };
-		9021094D2670802F00F811B4 /* PWServerCommunicationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 902109482670802F00F811B4 /* PWServerCommunicationManager.h */; };
-		9021094E2670802F00F811B4 /* PWServerCommunicationManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 902109482670802F00F811B4 /* PWServerCommunicationManager.h */; };
-=======
->>>>>>> 745f612c16d7fdc4de0cffefdd19bd6f92b1f23f
 		9703585F27A2793100DEA758 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		9703586227A2796400DEA758 /* (null) in Sources */ = {isa = PBXBuildFile; };
 		972C9AA827F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 972C9AA727F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m */; };
@@ -1526,6 +1523,7 @@
 		97F7D0502771C95F0006692B /* PWUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F7D0452771C95F0006692B /* PWUnarchiver.m */; };
 		97F7D0512771C95F0006692B /* PWUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F7D0452771C95F0006692B /* PWUnarchiver.m */; };
 		97F7D0532771F2430006692B /* PWTestUnarchiver.m in Sources */ = {isa = PBXBuildFile; fileRef = 97F7D0522771F2430006692B /* PWTestUnarchiver.m */; };
+		A83A4E19932741EE13569B29 /* Pods_PushwooshBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 49D7EB03664CA02ABBD140F9 /* Pods_PushwooshBridge.framework */; };
 		AF2201A92A443E8A0054F20A /* PWLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AF2201A72A443E8A0054F20A /* PWLiveActivityRequest.h */; };
 		AF2201AA2A443E8A0054F20A /* PWLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AF2201A72A443E8A0054F20A /* PWLiveActivityRequest.h */; };
 		AF2201AB2A443E8A0054F20A /* PWLiveActivityRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = AF2201A72A443E8A0054F20A /* PWLiveActivityRequest.h */; };
@@ -1563,6 +1561,12 @@
 		D6F9156228B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F9155C28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.m */; };
 		D6F9156328B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F9155C28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.m */; };
 		D6F9156428B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = D6F9155C28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.m */; };
+<<<<<<< HEAD
+		E124FB452DD52E9700737A6D /* PWRequestVoIPDeviceUnregister.swift in Sources */ = {isa = PBXBuildFile; fileRef = E124FB442DD52E9700737A6D /* PWRequestVoIPDeviceUnregister.swift */; };
+		E16237C82DD38AA70008EA2B /* PWVoIPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16237C72DD38AA70008EA2B /* PWVoIPMessage.swift */; };
+=======
+		FD7C4694B7CF508705D6EFCA /* Pods_PushwooshiOS.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 596F46C1CA31D5624E304F10 /* Pods_PushwooshiOS.framework */; };
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1588,6 +1592,34 @@
 			remoteInfo = PushwooshCore;
 		};
 		441806EC2D7B28DE00DE71A7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 441806DE2D7B285900DE71A7;
+			remoteInfo = PushwooshCore;
+		};
+		441CC9372DCA557600DBE44A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 447CEF962D77883300CD410A;
+			remoteInfo = PushwooshBridge;
+		};
+		441CC9392DCA557600DBE44A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 441806DE2D7B285900DE71A7;
+			remoteInfo = PushwooshCore;
+		};
+		441CC93D2DCA558B00DBE44A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 447CEF962D77883300CD410A;
+			remoteInfo = PushwooshBridge;
+		};
+		441CC9412DCA558B00DBE44A /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
@@ -1662,12 +1694,26 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		14AA5830F857B7DC14EE9D03 /* Pods_PushwooshCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushwooshCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+<<<<<<< HEAD
+=======
+		1A30E337D05B2900DEA31DD2 /* Pods-PushwooshBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshBridge.debug.xcconfig"; path = "Target Support Files/Pods-PushwooshBridge/Pods-PushwooshBridge.debug.xcconfig"; sourceTree = "<group>"; };
+		440097592DAFE1DA00B67ED6 /* PushwooshConfig.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushwooshConfig.h; sourceTree = "<group>"; };
+		4400975A2DAFE1DA00B67ED6 /* PushwooshConfig.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushwooshConfig.m; sourceTree = "<group>"; };
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 		44155FD32D77B30E00358B1C /* PWLiveActivitiesStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWLiveActivitiesStub.swift; sourceTree = "<group>"; };
 		441806DF2D7B285900DE71A7 /* PushwooshCore.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshCore.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		441806EE2D7B290E00DE71A7 /* PushwooshCore.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushwooshCore.h; sourceTree = "<group>"; };
 		441806EF2D7B290E00DE71A7 /* PushwooshCore.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushwooshCore.m; sourceTree = "<group>"; };
 		441806F22D7B292A00DE71A7 /* PWCConstants.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCConstants.h; sourceTree = "<group>"; };
 		441807002D7B2A3200DE71A7 /* NetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkManager.swift; sourceTree = "<group>"; };
+		441CC9442DCA55FF00DBE44A /* PWVoIP.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWVoIP.swift; sourceTree = "<group>"; };
+		441CC9462DCA568500DBE44A /* PWVoIPStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWVoIPStub.swift; sourceTree = "<group>"; };
+		441CC9482DCA571F00DBE44A /* PushwooshVoIPImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushwooshVoIPImplementation.swift; sourceTree = "<group>"; };
+		441CC94A2DCA57EB00DBE44A /* PWVoIPExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWVoIPExtension.swift; sourceTree = "<group>"; };
+		441CC94C2DCA627700DBE44A /* VoipNetworkManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = VoipNetworkManager.swift; sourceTree = "<group>"; };
+		441CC9502DCA62A700DBE44A /* PWRequestVoIPTokenRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWRequestVoIPTokenRegistration.swift; sourceTree = "<group>"; };
+		441CC9532DCA633900DBE44A /* PWVoIPRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWVoIPRequestProtocol.swift; sourceTree = "<group>"; };
 		4425440C2D8872A8003DCB5F /* PWCoreServerCommunicationManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCoreServerCommunicationManager.h; sourceTree = "<group>"; };
 		4425440D2D8872A8003DCB5F /* PWCoreServerCommunicationManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCoreServerCommunicationManager.m; sourceTree = "<group>"; };
 		442544122D887876003DCB5F /* PWCoreGDPRManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWCoreGDPRManager.h; sourceTree = "<group>"; };
@@ -1746,6 +1792,8 @@
 		44A29BC82D810A6D00FBF3D3 /* PWCoreRequestManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCoreRequestManager.m; sourceTree = "<group>"; };
 		44A29BCC2D81DB2200FBF3D3 /* PWRequestSetActivityToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWRequestSetActivityToken.swift; sourceTree = "<group>"; };
 		44A829AA2D81E1A200058555 /* PWLiveActivityRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWLiveActivityRequestProtocol.swift; sourceTree = "<group>"; };
+		44C0F3442DCA323300BE6564 /* PushwooshVoIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshVoIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		44C0F3462DCA323300BE6564 /* PushwooshVoIP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushwooshVoIP.h; sourceTree = "<group>"; };
 		4649F4B61ED5517A00D3D90C /* PushNotificationManager+Mock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PushNotificationManager+Mock.h"; path = "PushwooshTests/Mock/PushNotificationManager+Mock.h"; sourceTree = SOURCE_ROOT; };
 		4649F4B71ED5517A00D3D90C /* PushNotificationManager+Mock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PushNotificationManager+Mock.m"; path = "PushwooshTests/Mock/PushNotificationManager+Mock.m"; sourceTree = SOURCE_ROOT; };
 		4649F4B81ED5517A00D3D90C /* PWPushNotificationDelegateMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWPushNotificationDelegateMock.h; path = PushwooshTests/Mock/PWPushNotificationDelegateMock.h; sourceTree = SOURCE_ROOT; };
@@ -1777,6 +1825,9 @@
 		46FA9E341C7DB1AA00741A11 /* PushwooshTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushwooshTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		46FA9E431C7DB92800741A11 /* libstdc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libstdc++.tbd"; path = "usr/lib/libstdc++.tbd"; sourceTree = SDKROOT; };
 		46FA9E451C7DB92D00741A11 /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = usr/lib/libz.tbd; sourceTree = SDKROOT; };
+		49D7EB03664CA02ABBD140F9 /* Pods_PushwooshBridge.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushwooshBridge.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		596F46C1CA31D5624E304F10 /* Pods_PushwooshiOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushwooshiOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		5B5C1A4EB19D69A1E4121A01 /* Pods_PushwooshLiveActivities.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_PushwooshLiveActivities.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		5D12C21823F54428009A655A /* PWInlineInAppView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInlineInAppView.h; sourceTree = "<group>"; };
 		5D12C21923F54428009A655A /* PWGDPRManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWGDPRManager.h; sourceTree = "<group>"; };
 		5D12C21A23F54428009A655A /* PWGDPRManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWGDPRManager.m; sourceTree = "<group>"; };
@@ -2038,6 +2089,12 @@
 		5DC48F3B2047C863005A6822 /* PWBaseRequestTest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = PWBaseRequestTest.h; path = PushwooshTests/PWBaseRequestTest.h; sourceTree = SOURCE_ROOT; };
 		5DC48F3C2047C863005A6822 /* PWBaseRequestTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PWBaseRequestTest.m; path = PushwooshTests/PWBaseRequestTest.m; sourceTree = SOURCE_ROOT; };
 		5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWMessaging.h; sourceTree = "<group>"; };
+<<<<<<< HEAD
+=======
+		73429EE00934E89D63591579 /* Pods-PushwooshCore.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshCore.debug.xcconfig"; path = "Target Support Files/Pods-PushwooshCore/Pods-PushwooshCore.debug.xcconfig"; sourceTree = "<group>"; };
+		7E8A1C0EEA94BD33729D7AD1 /* Pods-PushwooshLiveActivities.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshLiveActivities.debug.xcconfig"; path = "Target Support Files/Pods-PushwooshLiveActivities/Pods-PushwooshLiveActivities.debug.xcconfig"; sourceTree = "<group>"; };
+		8C397A0DEE1BDE8BACC8DEAC /* Pods-PushwooshLiveActivities.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshLiveActivities.release.xcconfig"; path = "Target Support Files/Pods-PushwooshLiveActivities/Pods-PushwooshLiveActivities.release.xcconfig"; sourceTree = "<group>"; };
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 		972C9AA727F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWNotificationExtensionManagerTest.m; sourceTree = "<group>"; };
 		9762CEA8277B17B9003196C1 /* PWTestPurchaseRuntime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWTestPurchaseRuntime.m; sourceTree = "<group>"; };
 		976302C327DA21180029240E /* PWInboxMessageInternalTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInboxMessageInternalTest.m; sourceTree = "<group>"; };
@@ -2057,6 +2114,7 @@
 		97F7D0442771C95F0006692B /* PWUnarchiver.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWUnarchiver.h; sourceTree = "<group>"; };
 		97F7D0452771C95F0006692B /* PWUnarchiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWUnarchiver.m; sourceTree = "<group>"; };
 		97F7D0522771F2430006692B /* PWTestUnarchiver.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWTestUnarchiver.m; sourceTree = "<group>"; };
+		A803A44361D4BB16790E5635 /* Pods-PushwooshBridge.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-PushwooshBridge.debug.xcconfig"; path = "Target Support Files/Pods-PushwooshBridge/Pods-PushwooshBridge.debug.xcconfig"; sourceTree = "<group>"; };
 		AF2201A72A443E8A0054F20A /* PWLiveActivityRequest.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWLiveActivityRequest.h; sourceTree = "<group>"; };
 		AF2201A82A443E8A0054F20A /* PWLiveActivityRequest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWLiveActivityRequest.m; sourceTree = "<group>"; };
 		AF30846E2996A1F500E19F10 /* PWModalWindow.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWModalWindow.h; sourceTree = "<group>"; };
@@ -2071,6 +2129,11 @@
 		D2AAC07E0554694100DB518D /* libPushwoosh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwoosh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D6F9155B28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PWInAppPurchaseHelper.h; sourceTree = "<group>"; };
 		D6F9155C28B4DB1F00D4FDD0 /* PWInAppPurchaseHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWInAppPurchaseHelper.m; sourceTree = "<group>"; };
+<<<<<<< HEAD
+		E124FB442DD52E9700737A6D /* PWRequestVoIPDeviceUnregister.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWRequestVoIPDeviceUnregister.swift; sourceTree = "<group>"; };
+		E16237C72DD38AA70008EA2B /* PWVoIPMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWVoIPMessage.swift; sourceTree = "<group>"; };
+=======
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2106,6 +2169,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		44C0F3412DCA323300BE6564 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				441CC93F2DCA558B00DBE44A /* PushwooshCore.framework in Frameworks */,
+				441CC93B2DCA558B00DBE44A /* PushwooshBridge.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		467EB9331DFEC23A00506823 /* Frameworks */ = {
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
@@ -2115,6 +2187,7 @@
 				447CEFC52D7793F400CD410A /* PushwooshLiveActivities.framework in Frameworks */,
 				5D21BA2B208F4CDF00F23B64 /* libstdc++.tbd in Frameworks */,
 				5D21BA2A208F4CD900F23B64 /* libz.tbd in Frameworks */,
+				FD7C4694B7CF508705D6EFCA /* Pods_PushwooshiOS.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -2188,6 +2261,7 @@
 				447CEF972D77883300CD410A /* PushwooshBridge.framework */,
 				447CEFBA2D77938A00CD410A /* PushwooshLiveActivities.framework */,
 				441806DF2D7B285900DE71A7 /* PushwooshCore.framework */,
+				44C0F3442DCA323300BE6564 /* PushwooshVoIP.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2199,15 +2273,48 @@
 				441806E02D7B285900DE71A7 /* PushwooshCore */,
 				447CEF982D77883300CD410A /* PushwooshBridge */,
 				447CEFBB2D77938A00CD410A /* PushwooshLiveActivities */,
+				44C0F3452DCA323300BE6564 /* PushwooshVoIP */,
 				5D21C42B23F6746100D161F1 /* Supporting_Files */,
 				46FA9E351C7DB1AA00741A11 /* PushwooshTests */,
 				034768DFFF38A50411DB9C8B /* Products */,
 				467F62A41EB883A400548315 /* Frameworks */,
 				97937A5F262838F700E57C64 /* Recovered References */,
+<<<<<<< HEAD
+=======
+				5F82FAADF9D4E1F78B643A6A /* Pods */,
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 			);
 			name = PushNotificationManager;
 			sourceTree = "<group>";
 		};
+<<<<<<< HEAD
+=======
+		3D9EA8CD7BE11404EC13C398 /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				1A30E337D05B2900DEA31DD2 /* Pods-PushwooshBridge.debug.xcconfig */,
+				BCFFE3A7CF538FC547066CFD /* Pods-PushwooshBridge.release.xcconfig */,
+				C92BB8B25CEBB7726AFD73E2 /* Pods-PushwooshCore.debug.xcconfig */,
+				EE171E3EA673560036AF9240 /* Pods-PushwooshCore.release.xcconfig */,
+				E80A3F40FB89EC3AC551461C /* Pods-PushwooshLiveActivities.debug.xcconfig */,
+				7768EBA986EE352B4FB3BABB /* Pods-PushwooshLiveActivities.release.xcconfig */,
+				B008FAA0C7293463A5F0F6AF /* Pods-PushwooshiOS.debug.xcconfig */,
+				5C767AB510EF4D0D1FC796EF /* Pods-PushwooshiOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../Samples/PushwooshSampleApp/Pods;
+			sourceTree = "<group>";
+		};
+		4400975D2DAFE1EA00B67ED6 /* Configuration */ = {
+			isa = PBXGroup;
+			children = (
+				440097592DAFE1DA00B67ED6 /* PushwooshConfig.h */,
+				4400975A2DAFE1DA00B67ED6 /* PushwooshConfig.m */,
+			);
+			path = Configuration;
+			sourceTree = "<group>";
+		};
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 		441806E02D7B285900DE71A7 /* PushwooshCore */ = {
 			isa = PBXGroup;
 			children = (
@@ -2258,6 +2365,32 @@
 				441806FB2D7B29CF00DE71A7 /* Requests */,
 			);
 			path = API;
+			sourceTree = "<group>";
+		};
+		441CC94E2DCA627D00DBE44A /* API */ = {
+			isa = PBXGroup;
+			children = (
+				441CC94F2DCA628600DBE44A /* VoIP Network Manager */,
+			);
+			path = API;
+			sourceTree = "<group>";
+		};
+		441CC94F2DCA628600DBE44A /* VoIP Network Manager */ = {
+			isa = PBXGroup;
+			children = (
+				441CC94C2DCA627700DBE44A /* VoipNetworkManager.swift */,
+			);
+			path = "VoIP Network Manager";
+			sourceTree = "<group>";
+		};
+		441CC9522DCA62AE00DBE44A /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				441CC9532DCA633900DBE44A /* PWVoIPRequestProtocol.swift */,
+				441CC9502DCA62A700DBE44A /* PWRequestVoIPTokenRegistration.swift */,
+				E124FB442DD52E9700737A6D /* PWRequestVoIPDeviceUnregister.swift */,
+			);
+			path = Requests;
 			sourceTree = "<group>";
 		};
 		442544102D8872B0003DCB5F /* Server Communication Manager */ = {
@@ -2349,7 +2482,9 @@
 				447CCF012DA561EC00D071AD /* PrivacyInfo.xcprivacy */,
 				447CEF992D77883300CD410A /* PushwooshBridge.h */,
 				447CEF9E2D7788D900CD410A /* PWLiveActivities.swift */,
+				441CC9442DCA55FF00DBE44A /* PWVoIP.swift */,
 				44155FD32D77B30E00358B1C /* PWLiveActivitiesStub.swift */,
+				441CC9462DCA568500DBE44A /* PWVoIPStub.swift */,
 			);
 			path = PushwooshBridge;
 			sourceTree = "<group>";
@@ -2531,6 +2666,7 @@
 			children = (
 				441806EE2D7B290E00DE71A7 /* PushwooshCore.h */,
 				441806EF2D7B290E00DE71A7 /* PushwooshCore.m */,
+				4400975D2DAFE1EA00B67ED6 /* Configuration */,
 				442544162D8878F1003DCB5F /* GDPR */,
 				44A29BB52D80F5BB00FBF3D3 /* Logging */,
 			);
@@ -2581,6 +2717,19 @@
 				44A29BC82D810A6D00FBF3D3 /* PWCoreRequestManager.m */,
 			);
 			path = "Request Manager";
+			sourceTree = "<group>";
+		};
+		44C0F3452DCA323300BE6564 /* PushwooshVoIP */ = {
+			isa = PBXGroup;
+			children = (
+				44C0F3462DCA323300BE6564 /* PushwooshVoIP.h */,
+				441CC94E2DCA627D00DBE44A /* API */,
+				441CC9522DCA62AE00DBE44A /* Requests */,
+				E16237C92DD38ABA0008EA2B /* Message Struct */,
+				441CC9482DCA571F00DBE44A /* PushwooshVoIPImplementation.swift */,
+				441CC94A2DCA57EB00DBE44A /* PWVoIPExtension.swift */,
+			);
+			path = PushwooshVoIP;
 			sourceTree = "<group>";
 		};
 		44F51F602906A06900E603E4 /* Network */ = {
@@ -2662,6 +2811,10 @@
 				AFB0024A29F7EA440083A3E6 /* OCHamcrest.xcframework */,
 				97A59FED257F6A830022359C /* libc++.tbd */,
 				979229B725B5BB9B00F5D0C1 /* libOCMock.a */,
+				49D7EB03664CA02ABBD140F9 /* Pods_PushwooshBridge.framework */,
+				14AA5830F857B7DC14EE9D03 /* Pods_PushwooshCore.framework */,
+				5B5C1A4EB19D69A1E4121A01 /* Pods_PushwooshLiveActivities.framework */,
+				596F46C1CA31D5624E304F10 /* Pods_PushwooshiOS.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3492,6 +3645,22 @@
 			path = PWAppLifecycleTrackingManager;
 			sourceTree = "<group>";
 		};
+		5F82FAADF9D4E1F78B643A6A /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				A803A44361D4BB16790E5635 /* Pods-PushwooshBridge.debug.xcconfig */,
+				2B9BE174EF535FB5EDC9F791 /* Pods-PushwooshBridge.release.xcconfig */,
+				73429EE00934E89D63591579 /* Pods-PushwooshCore.debug.xcconfig */,
+				430975CEEC48D46344C28622 /* Pods-PushwooshCore.release.xcconfig */,
+				7E8A1C0EEA94BD33729D7AD1 /* Pods-PushwooshLiveActivities.debug.xcconfig */,
+				8C397A0DEE1BDE8BACC8DEAC /* Pods-PushwooshLiveActivities.release.xcconfig */,
+				356FDFF284F9CB0779FAAD83 /* Pods-PushwooshiOS.debug.xcconfig */,
+				155DEF23BCFFEFAE4CBB5B3C /* Pods-PushwooshiOS.release.xcconfig */,
+			);
+			name = Pods;
+			path = ../Samples/PushwooshSampleApp/Pods;
+			sourceTree = "<group>";
+		};
 		976302C527DA21420029240E /* Inbox */ = {
 			isa = PBXGroup;
 			children = (
@@ -3575,6 +3744,14 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		E16237C92DD38ABA0008EA2B /* Message Struct */ = {
+			isa = PBXGroup;
+			children = (
+				E16237C72DD38AA70008EA2B /* PWVoIPMessage.swift */,
+			);
+			path = "Message Struct";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -3587,6 +3764,7 @@
 				44A29B592D7F35FE00FBF3D3 /* PWCoreUtils.h in Headers */,
 				44A29BC52D8109E900FBF3D3 /* NSDate+PWCoreDateUtils.h in Headers */,
 				4425440E2D8872A8003DCB5F /* PWCoreServerCommunicationManager.h in Headers */,
+				4400975B2DAFE1DA00B67ED6 /* PushwooshConfig.h in Headers */,
 				44A29B482D7F30EC00FBF3D3 /* PWCConfig.h in Headers */,
 				44A29BA52D808DEA00FBF3D3 /* PushwooshLog.h in Headers */,
 				442544142D887876003DCB5F /* PWCoreGDPRManager.h in Headers */,
@@ -3731,6 +3909,14 @@
 				449CC0DC2BA9DFE6003E16DC /* PWGetResourcesRequest.h in Headers */,
 				449CC1462BA9F80A003E16DC /* PWNotificationCategoryBuilder.h in Headers */,
 				449CC0182BA9C367003E16DC /* PWUtils.common.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44C0F33F2DCA323300BE6564 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				44C0F3492DCA323300BE6564 /* PushwooshVoIP.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4474,6 +4660,28 @@
 			productReference = 449CC00B2BA9C289003E16DC /* Pushwoosh.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		44C0F3432DCA323300BE6564 /* PushwooshVoIP */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 44C0F34C2DCA323300BE6564 /* Build configuration list for PBXNativeTarget "PushwooshVoIP" */;
+			buildPhases = (
+				44C0F33F2DCA323300BE6564 /* Headers */,
+				44C0F3402DCA323300BE6564 /* Sources */,
+				44C0F3412DCA323300BE6564 /* Frameworks */,
+				44C0F3422DCA323300BE6564 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				441CC93A2DCA557600DBE44A /* PBXTargetDependency */,
+				441CC9382DCA557600DBE44A /* PBXTargetDependency */,
+				441CC93E2DCA558B00DBE44A /* PBXTargetDependency */,
+				441CC9422DCA558B00DBE44A /* PBXTargetDependency */,
+			);
+			name = PushwooshVoIP;
+			productName = PushwooshVoIP;
+			productReference = 44C0F3442DCA323300BE6564 /* PushwooshVoIP.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 		467EB9361DFEC23A00506823 /* PushwooshiOS */ = {
 			isa = PBXNativeTarget;
 			buildConfigurationList = 467EB93E1DFEC23A00506823 /* Build configuration list for PBXNativeTarget "PushwooshiOS" */;
@@ -4633,6 +4841,9 @@
 					449CC19D2BAC1F39003E16DC = {
 						CreatedOnToolsVersion = 15.3;
 					};
+					44C0F3432DCA323300BE6564 = {
+						CreatedOnToolsVersion = 15.4;
+					};
 					467EB9361DFEC23A00506823 = {
 						CreatedOnToolsVersion = 8.1;
 						LastSwiftMigration = 1540;
@@ -4689,6 +4900,7 @@
 				441806DE2D7B285900DE71A7 /* PushwooshCore */,
 				447CEF962D77883300CD410A /* PushwooshBridge */,
 				447CEFB92D77938A00CD410A /* PushwooshLiveActivities */,
+				44C0F3432DCA323300BE6564 /* PushwooshVoIP */,
 				C42A20681D06CBB800CC3BCB /* Pushwoosh.mac */,
 				467F61F11EB87F3300548315 /* PushwooshMac */,
 				5DA6EBC622E18CAD00097C50 /* Pushwoosh.watchOS */,
@@ -4732,6 +4944,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				442A29782BBAC211009BEF78 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44C0F3422DCA323300BE6564 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4779,7 +4998,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#available values: USE_LOCATION, USE_IBEACONS\nexport PW_PREPROCESSOR_DEFS=\"USE_LOCATION\"\nexport PW_SIMULATOR_ARCHS=\"x86_64\"\nexport PW_DEVICE_ARCHS=\"${ARCHS_STANDARD}\"\n\n. ../build/create_framework_ios.sh && \\\n. ../build/create_xcframework_ios.sh \\\n. ../build/create_xcframework_core_ios.sh \\\n. ../build/create_xcframework_bridge_ios.sh \\\n. ../build/create_xcframework_live_activities_ios.sh || exit 1\n";
+			shellScript = "#available values: USE_LOCATION, USE_IBEACONS\nexport PW_PREPROCESSOR_DEFS=\"USE_LOCATION\"\nexport PW_SIMULATOR_ARCHS=\"x86_64\"\nexport PW_DEVICE_ARCHS=\"${ARCHS_STANDARD}\"\n\n. ../build/create_xcframework_live_activities_ios.sh && \\\n. ../build/create_xcframework_bridge_ios.sh && \\\n. ../build/create_xcframework_core_ios.sh && \\\n. ../build/create_xcframework_ios.sh || exit 1\n";
 		};
 		449CC1A12BAC2004003E16DC /* Create framework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4830,6 +5049,7 @@
 				44A29B492D7F30EC00FBF3D3 /* PWCConfig.m in Sources */,
 				44A29B4E2D7F316200FBF3D3 /* PWCNotificationAppSettings.m in Sources */,
 				44A29BBC2D81077B00FBF3D3 /* PWCoreRequest.m in Sources */,
+				4400975C2DAFE1DA00B67ED6 /* PushwooshConfig.m in Sources */,
 				44A29B5A2D7F35FE00FBF3D3 /* PWCoreUtils.m in Sources */,
 				44A29BB22D80E55300FBF3D3 /* PWSettings.m in Sources */,
 			);
@@ -4839,7 +5059,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				441CC9452DCA55FF00DBE44A /* PWVoIP.swift in Sources */,
 				447CEF9F2D7788D900CD410A /* PWLiveActivities.swift in Sources */,
+				441CC9472DCA568500DBE44A /* PWVoIPStub.swift in Sources */,
 				44155FD42D77B30E00358B1C /* PWLiveActivitiesStub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -4974,6 +5196,20 @@
 				449CC1642BAA0A53003E16DC /* PWNotificationExtensionManager.m in Sources */,
 				449CC1662BAA0A69003E16DC /* PWMessageDeliveryRequest.m in Sources */,
 				449CC0E12BA9E04C003E16DC /* PWEasyJSWKWebView.m in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		44C0F3402DCA323300BE6564 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				441CC9512DCA62A700DBE44A /* PWRequestVoIPTokenRegistration.swift in Sources */,
+				441CC9492DCA571F00DBE44A /* PushwooshVoIPImplementation.swift in Sources */,
+				441CC94B2DCA57EB00DBE44A /* PWVoIPExtension.swift in Sources */,
+				441CC94D2DCA627800DBE44A /* VoipNetworkManager.swift in Sources */,
+				441CC9542DCA633900DBE44A /* PWVoIPRequestProtocol.swift in Sources */,
+				E16237C82DD38AA70008EA2B /* PWVoIPMessage.swift in Sources */,
+				E124FB452DD52E9700737A6D /* PWRequestVoIPDeviceUnregister.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5647,6 +5883,26 @@
 			target = 441806DE2D7B285900DE71A7 /* PushwooshCore */;
 			targetProxy = 441806EC2D7B28DE00DE71A7 /* PBXContainerItemProxy */;
 		};
+		441CC9382DCA557600DBE44A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 447CEF962D77883300CD410A /* PushwooshBridge */;
+			targetProxy = 441CC9372DCA557600DBE44A /* PBXContainerItemProxy */;
+		};
+		441CC93A2DCA557600DBE44A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 441806DE2D7B285900DE71A7 /* PushwooshCore */;
+			targetProxy = 441CC9392DCA557600DBE44A /* PBXContainerItemProxy */;
+		};
+		441CC93E2DCA558B00DBE44A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 447CEF962D77883300CD410A /* PushwooshBridge */;
+			targetProxy = 441CC93D2DCA558B00DBE44A /* PBXContainerItemProxy */;
+		};
+		441CC9422DCA558B00DBE44A /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 441806DE2D7B285900DE71A7 /* PushwooshCore */;
+			targetProxy = 441CC9412DCA558B00DBE44A /* PBXContainerItemProxy */;
+		};
 		446C0DF72CFF1BEB006F8B12 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 467EB9361DFEC23A00506823 /* PushwooshiOS */;
@@ -5659,6 +5915,7 @@
 		};
 		447CEFC42D7793EF00CD410A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
+			platformFilter = ios;
 			target = 447CEFB92D77938A00CD410A /* PushwooshLiveActivities */;
 			targetProxy = 447CEFC32D7793EF00CD410A /* PBXContainerItemProxy */;
 		};
@@ -5871,6 +6128,10 @@
 		};
 		441806E32D7B285900DE71A7 /* Debug */ = {
 			isa = XCBuildConfiguration;
+<<<<<<< HEAD
+=======
+			baseConfigurationReference = 73429EE00934E89D63591579 /* Pods-PushwooshCore.debug.xcconfig */;
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -5900,11 +6161,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = EZ696X67SZ;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -5925,7 +6186,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5941,6 +6202,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -5951,6 +6213,10 @@
 		};
 		441806E42D7B285900DE71A7 /* Release */ = {
 			isa = XCBuildConfiguration;
+<<<<<<< HEAD
+=======
+			baseConfigurationReference = 430975CEEC48D46344C28622 /* Pods-PushwooshCore.release.xcconfig */;
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -5980,12 +6246,12 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = EZ696X67SZ;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -6001,7 +6267,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6016,6 +6282,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshCore;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				TARGETED_DEVICE_FAMILY = "1,2";
@@ -6027,6 +6294,10 @@
 		};
 		447CEF9B2D77883300CD410A /* Debug */ = {
 			isa = XCBuildConfiguration;
+<<<<<<< HEAD
+=======
+			baseConfigurationReference = A803A44361D4BB16790E5635 /* Pods-PushwooshBridge.debug.xcconfig */;
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -6057,11 +6328,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = EZ696X67SZ;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -6098,6 +6369,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshBridge;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -6112,6 +6384,10 @@
 		};
 		447CEF9C2D77883300CD410A /* Release */ = {
 			isa = XCBuildConfiguration;
+<<<<<<< HEAD
+=======
+			baseConfigurationReference = 2B9BE174EF535FB5EDC9F791 /* Pods-PushwooshBridge.release.xcconfig */;
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -6142,12 +6418,12 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = EZ696X67SZ;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -6178,6 +6454,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshBridge;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -6192,6 +6469,10 @@
 		};
 		447CEFBF2D77938A00CD410A /* Debug */ = {
 			isa = XCBuildConfiguration;
+<<<<<<< HEAD
+=======
+			baseConfigurationReference = 7E8A1C0EEA94BD33729D7AD1 /* Pods-PushwooshLiveActivities.debug.xcconfig */;
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -6222,11 +6503,11 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = EZ696X67SZ;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -6263,6 +6544,7 @@
 				ONLY_ACTIVE_ARCH = NO;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshLiveActivities;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -6277,6 +6559,10 @@
 		};
 		447CEFC02D77938A00CD410A /* Release */ = {
 			isa = XCBuildConfiguration;
+<<<<<<< HEAD
+=======
+			baseConfigurationReference = 8C397A0DEE1BDE8BACC8DEAC /* Pods-PushwooshLiveActivities.release.xcconfig */;
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -6307,12 +6593,12 @@
 				CLANG_WARN_SUSPICIOUS_MOVE = YES;
 				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
 				CLANG_WARN_UNREACHABLE_CODE = YES;
-				CODE_SIGN_STYLE = Automatic;
+				CODE_SIGN_STYLE = Manual;
 				COPY_PHASE_STRIP = NO;
 				CURRENT_PROJECT_VERSION = 1;
 				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
-				DEVELOPMENT_TEAM = EZ696X67SZ;
+				DEVELOPMENT_TEAM = "";
 				DYLIB_COMPATIBILITY_VERSION = 1;
 				DYLIB_CURRENT_VERSION = 1;
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
@@ -6343,6 +6629,7 @@
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshLiveActivities;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -6550,8 +6837,173 @@
 			};
 			name = Release;
 		};
+		44C0F34A2DCA323300BE6564 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					x86_64h,
+					x86_64,
+				);
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				KEEP_PRIVATE_EXTERNS = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshVoIP;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		44C0F34B2DCA323300BE6564 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					x86_64h,
+					x86_64,
+				);
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				KEEP_PRIVATE_EXTERNS = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshVoIP;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		467EB93C1DFEC23A00506823 /* Debug */ = {
 			isa = XCBuildConfiguration;
+<<<<<<< HEAD
+=======
+			baseConfigurationReference = 356FDFF284F9CB0779FAAD83 /* Pods-PushwooshiOS.debug.xcconfig */;
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -6635,6 +7087,10 @@
 		};
 		467EB93D1DFEC23A00506823 /* Release */ = {
 			isa = XCBuildConfiguration;
+<<<<<<< HEAD
+=======
+			baseConfigurationReference = 155DEF23BCFFEFAE4CBB5B3C /* Pods-PushwooshiOS.release.xcconfig */;
+>>>>>>> 814433d9308d3346adbafe6a92986fefd7bf21a9
 			buildSettings = {
 				ALWAYS_SEARCH_USER_PATHS = NO;
 				ARCHS = (
@@ -7383,6 +7839,15 @@
 			buildConfigurations = (
 				449CC19E2BAC1F39003E16DC /* Debug */,
 				449CC19F2BAC1F39003E16DC /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		44C0F34C2DCA323300BE6564 /* Build configuration list for PBXNativeTarget "PushwooshVoIP" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				44C0F34A2DCA323300BE6564 /* Debug */,
+				44C0F34B2DCA323300BE6564 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

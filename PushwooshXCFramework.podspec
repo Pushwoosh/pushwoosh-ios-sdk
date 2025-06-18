@@ -5,7 +5,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PushwooshXCFramework"
-  s.version      = "6.8.6"
+  s.version      = "6.9.0"
   s.summary      = "Push notifications library by Pushwoosh."
   s.platform     = :ios
 
@@ -55,6 +55,12 @@ Pod::Spec.new do |s|
     geozones.ios.vendored_frameworks  = 'XCFramework/PushwooshGeozones.xcframework'
     geozones.frameworks  = 'CoreLocation'
     geozones.dependency 'PushwooshXCFramework/Core'
+  end
+
+  # PushwooshVoIP subspec (optional)
+  s.subspec 'PushwooshVoIP' do |voip|
+    voip.dependency 'PushwooshXCFramework/PushwooshVoIP'
+    voip.vendored_frameworks = 'XCFramework/PushwooshVoIP.xcframework'
   end
 
 end

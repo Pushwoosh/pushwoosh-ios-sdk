@@ -25,6 +25,13 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, copy, readonly) NSString *appId;
 
 /**
+ key: Pushwoosh_VOIP_APPID
+ type: string
+ value: Sets the Pushwoosh application ID for production VoIP build
+ */
+@property (nonatomic, copy, readonly) NSString *voipAppId;
+
+/**
  key: PW_API_TOKEN
  type: string
  value: Sets the Pushwoosh API auth token

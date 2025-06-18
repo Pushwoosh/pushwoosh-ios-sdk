@@ -18,13 +18,17 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy) NSString *appCode;
 
+@property (copy) NSString *voipAppCode;
+
 @property (copy) NSString *appName;
 
-@property (copy, readonly) NSString *pushToken;
+@property (copy, nullable) NSString *pushToken;
+
+@property (copy, nullable) NSString *voipPushToken;
 
 @property (copy) NSString *userId;
 
-@property (copy, readonly) NSDate *lastRegTime;
+@property (copy, nullable) NSDate *lastRegTime;
 
 @property (nonatomic) NSInteger lastStatusMask;
 

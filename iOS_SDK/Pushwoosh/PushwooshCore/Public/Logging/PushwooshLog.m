@@ -56,9 +56,8 @@ void pushwoosh_Log(id object, PUSHWOOSH_LOG_LEVEL logLevel, NSString *format, ..
         default: logLevelTag = @"[UNKNOWN]"; break;
     }
     
-    NSString *separator = @"-------------------------------------------------";
     NSString *classNameStr = [NSString stringWithFormat:@"[%@]", NSStringFromClass([object class])];
-    NSString *resultString = [NSString stringWithFormat:@"%@\n%@ %@\n%@\n%@\n%@", separator, prefix, logLevelTag, classNameStr, separator, body];
+    NSString *resultString = [NSString stringWithFormat:@"%@ %@ %@\n%@", prefix, logLevelTag, classNameStr, body];
     
     NSLog(@"%@", resultString);
 }

@@ -18,9 +18,11 @@
 #endif
 
 static NSString *const KeyAppId = @"Pushwoosh_APPID";
+static NSString *const KeyVoipAppId = @"Pushwoosh_VOIP_APPID";
 static NSString *const KeyInfoPlistAppId = @"Pushwoosh_INFO_PLIST_APPID";
 static NSString *const KeyAppName = @"Pushwoosh_APPNAME";
 static NSString *const KeyPushToken = @"PWPushUserId";
+static NSString *const KeyVoipPushToken = @"PWVoipPushUserId";
 static NSString *const KeyApiToken = @"PWApiToken";
 static NSString *const KeyUserId = @"PWInAppUserId";
 static NSString *const KeyLastRegTime = @"PWLastRegTime";
@@ -46,8 +48,10 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 @implementation PWSettings
 
 @synthesize appCode = _appCode;
+@synthesize voipAppCode = _voipAppCode;
 @synthesize appName = _appName;
 @synthesize pushToken = _pushToken;
+@synthesize voipPushToken = _voipPushToken;
 @synthesize apiToken = _apiToken;
 @synthesize userId = _userId;
 @synthesize lastRegTime = _lastRegTime;
@@ -76,6 +80,7 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
         [self setAppCode:[PWSettings readAppId]];
         _appName = [PWSettings readAppName];
         _pushToken = [[NSUserDefaults standardUserDefaults] objectForKey:KeyPushToken];
+        _voipPushToken = [[NSUserDefaults standardUserDefaults] objectForKey:KeyVoipPushToken];
         
         if ([[PWCConfig config] appGroupsName]) {
             _defaults = [[NSUserDefaults alloc] initWithSuiteName:[[PWCConfig config] appGroupsName]];
@@ -221,6 +226,21 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 - (NSString *)pushToken {
     @synchronized(_lock) {
         return [_pushToken copy];
+    }
+}
+
+- (void)setVoipPushToken:(NSString *)voipPushToken {
+    @synchronized(_lock) {
+        _voipPushToken = [voipPushToken copy];
+    }
+
+    [[NSUserDefaults standardUserDefaults] setObject:voipPushToken forKey:KeyVoipPushToken];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)voipPushToken {
+    @synchronized(_lock) {
+        return [_voipPushToken copy];
     }
 }
 
@@ -558,6 +578,38 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 
 #pragma mark -
 
+#pragma mark - voip app code
+
+- (void)setVoipAppCode:(NSString *)voipAppCode {
+    @synchronized(_lock) {
+        _voipAppCode = [voipAppCode copy];
+        
+        if ([PWSettings checkAppCodeforChanges:voipAppCode]) {
+            //need reset application setting after update app code
+            [self resetApplicationSetting];
+        }
+    }
+    
+    [[NSUserDefaults standardUserDefaults] setObject:voipAppCode forKey:KeyVoipAppId];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)voipAppCode {
+    @synchronized(_lock) {
+        return [_voipAppCode copy];
+    }
+}
+
++ (BOOL)checkVoipAppCodeforChanges:(NSString *)voipAppCode {
+    NSString *appid = [[NSUserDefaults standardUserDefaults] objectForKey:KeyVoipAppId];
+    if (appid != nil && ![appid isEqualToString:voipAppCode]) {
+        return YES;
+    } else {
+        return NO;
+    }
+}
+
+#pragma mark -
 // property list objects: NSData, NSString, NSNumber, NSDate, NSArray, or NSDictionary. For NSArray and NSDictionary objects, their contents must be property list objects.
 + (BOOL)verifyObject:(id)object {
     if (!object) {

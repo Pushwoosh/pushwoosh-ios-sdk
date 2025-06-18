@@ -80,13 +80,7 @@ void _replacement_viewDidAppear(UIViewController * self, SEL _cmd, BOOL animated
                 } @catch (NSException *exception) {
                     [PushwooshLog pushwooshLog:PW_LL_ERROR
                                      className:self
-                                       message:@"----------------------------------------------------"];
-                    [PushwooshLog pushwooshLog:PW_LL_ERROR
-                                     className:self
                                        message:[NSString stringWithFormat:@"PW_ScreenOpen exception: %@", exception]];
-                    [PushwooshLog pushwooshLog:PW_LL_ERROR
-                                     className:self
-                                       message:@"----------------------------------------------------"];
                 }
                 
                 [PWScreenTrackingManager sharedManager].isWaitingToSendEvent = NO;

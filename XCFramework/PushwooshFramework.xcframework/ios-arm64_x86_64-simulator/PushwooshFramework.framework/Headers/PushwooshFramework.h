@@ -23,7 +23,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.8.6"
+#define PUSHWOOSH_VERSION @"6.9.0"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -209,6 +209,9 @@ Tells the delegate that the user has pressed on the push notification banner.
 
 #pragma mark - GDPR
 + (Class<PWGDPR>_Nonnull)GDPR NS_REFINED_FOR_SWIFT;
+
+#pragma mark - VoIP
++ (Class<PWVoIP>_Nonnull)VoIP NS_REFINED_FOR_SWIFT;
 
 #pragma mark - Configuration
 + (Class<PWConfiguration>_Nonnull)Configuration NS_REFINED_FOR_SWIFT;

@@ -3,10 +3,16 @@
 // swift-module-flags: -target arm64-apple-ios11.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PushwooshBridge
 import Foundation
 @_exported import PushwooshBridge
+import PushwooshCore
 import Swift
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+@objc public protocol PWVoIP {
+  @objc static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
+  @objc static func setVoIPToken(_ token: Foundation.Data)
+  @objc optional static var delegate: Swift.AnyObject? { get set }
+}
 @objc public protocol PWLiveActivities {
   @objc static func sendPushToStartLiveActivity(token: Swift.String)
   @objc static func sendPushToStartLiveActivity(token: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
@@ -16,6 +22,14 @@ import _SwiftConcurrencyShims
   @objc static func stopLiveActivity(completion: @escaping ((any Swift.Error)?) -> Swift.Void)
   @objc static func stopLiveActivity(activityId: Swift.String)
   @objc static func stopLiveActivity(activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+}
+@_inheritsConvenienceInitializers @objc public class PWVoIPStub : ObjectiveC.NSObject, PushwooshBridge.PWVoIP {
+  @objc public static var delegate: Swift.AnyObject?
+  @objc public static func voip() -> Swift.AnyClass
+  @objc public static func setVoIPToken(_ token: Foundation.Data)
+  @objc public static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
+  @objc override dynamic public init()
+  @objc deinit
 }
 @objc @_inheritsConvenienceInitializers public class PWStubLiveActivities : ObjectiveC.NSObject, PushwooshBridge.PWLiveActivities {
   @objc public static func liveActivities() -> Swift.AnyClass

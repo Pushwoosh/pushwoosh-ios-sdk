@@ -1,0 +1,92 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target x86_64-apple-ios13.1-macabi -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PushwooshVoIP
+import AVFoundation
+import CallKit
+import Foundation
+import PushKit
+import PushwooshBridge
+import PushwooshCore
+@_exported import PushwooshVoIP
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_inheritsConvenienceInitializers @available(iOS 14.0, *)
+@objc(PushwooshVoIPImplementation) public class PushwooshVoIPImplementation : ObjectiveC.NSObject, PushwooshBridge.PWVoIP, PushKit.PKPushRegistryDelegate, CallKit.CXProviderDelegate {
+  @objc(shared) public static let shared: PushwooshVoIP.PushwooshVoIPImplementation
+  @objc weak public static var delegate: Swift.AnyObject? {
+    @objc get
+    @objc set
+  }
+  @objc public static func voip() -> Swift.AnyClass
+  @objc public static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
+  @objc public static func setVoIPToken(_ token: Foundation.Data)
+  @objc public func pushRegistry(_ registry: PushKit.PKPushRegistry, didUpdate pushCredentials: PushKit.PKPushCredentials, for type: PushKit.PKPushType)
+  @objc public func pushRegistry(_ registry: PushKit.PKPushRegistry, didInvalidatePushTokenFor type: PushKit.PKPushType)
+  @objc public func pushRegistry(_ registry: PushKit.PKPushRegistry, didReceiveIncomingPushWith payload: PushKit.PKPushPayload, for type: PushKit.PKPushType, completion: @escaping () -> Swift.Void)
+  @objc public func provider(_ provider: CallKit.CXProvider, perform action: CallKit.CXStartCallAction)
+  @objc public func provider(_ provider: CallKit.CXProvider, perform action: CallKit.CXEndCallAction)
+  @objc public func provider(_ provider: CallKit.CXProvider, perform action: CallKit.CXAnswerCallAction)
+  @objc public func provider(_ provider: CallKit.CXProvider, perform action: CallKit.CXSetMutedCallAction)
+  @objc public func provider(_ provider: CallKit.CXProvider, perform action: CallKit.CXSetHeldCallAction)
+  @objc public func provider(_ provider: CallKit.CXProvider, perform action: CallKit.CXPlayDTMFCallAction)
+  @objc public func provider(_ provider: CallKit.CXProvider, didActivate audioSession: AVFAudio.AVAudioSession)
+  @objc public func provider(_ provider: CallKit.CXProvider, didDeactivate audioSession: AVFAudio.AVAudioSession)
+  @objc public func providerDidReset(_ provider: CallKit.CXProvider)
+  @objc public func providerDidBegin(_ provider: CallKit.CXProvider)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension PushwooshBridge.PWVoIP {
+  @available(iOS 14.0, *)
+  public static var delegate: Swift.AnyObject? {
+    get
+    set
+  }
+  @available(iOS 14.0, *)
+  public static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
+  @available(iOS 14.0, *)
+  public static func setVoIPToken(_ token: Foundation.Data)
+}
+@objc public protocol PWVoIPCallDelegate : ObjectiveC.NSObjectProtocol {
+  @objc func voipDidReceiveIncomingCall(payload: PushwooshVoIP.PWVoIPMessage)
+  @objc optional func voipDidReportIncomingCallSuccessfully(voipMessage: PushwooshVoIP.PWVoIPMessage)
+  @objc optional func voipDidFailToReportIncomingCall(error: any Swift.Error)
+  @objc optional func startCall(_ provider: CallKit.CXProvider, perform action: CallKit.CXStartCallAction)
+  @objc optional func endCall(_ provider: CallKit.CXProvider, perform action: CallKit.CXEndCallAction, voipMessage: PushwooshVoIP.PWVoIPMessage?)
+  @objc optional func answerCall(_ provider: CallKit.CXProvider, perform action: CallKit.CXAnswerCallAction, voipMessage: PushwooshVoIP.PWVoIPMessage?)
+  @objc optional func mutedCall(_ provider: CallKit.CXProvider, perform action: CallKit.CXSetMutedCallAction)
+  @objc optional func heldCall(_ provider: CallKit.CXProvider, perform action: CallKit.CXSetHeldCallAction)
+  @objc optional func playDTMF(_ provider: CallKit.CXProvider, perform action: CallKit.CXPlayDTMFCallAction)
+  @objc func pwProviderDidReset(_ provider: CallKit.CXProvider)
+  @objc func pwProviderDidBegin(_ provider: CallKit.CXProvider)
+  @objc optional func returnedCallController(_ controller: CallKit.CXCallController)
+  @objc optional func returnedProvider(_ provider: CallKit.CXProvider)
+  @objc optional func activatedAudioSession(_ provider: CallKit.CXProvider, didActivate audioSession: AVFAudio.AVAudioSession)
+  @objc optional func deactivatedAudioSession(_ provider: CallKit.CXProvider, didDeactivate audioSession: AVFAudio.AVAudioSession)
+}
+@objc public enum PWVoIPHandleType : Swift.Int {
+  case generic = 1
+  case phoneNumber = 2
+  case email = 3
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public class PWVoIPMessage : ObjectiveC.NSObject {
+  @objc public var uuid: Swift.String
+  @objc final public let handleType: PushwooshVoIP.PWVoIPHandleType
+  @objc final public let callerName: Swift.String
+  @objc public var hasVideo: Swift.Bool
+  @objc final public let supportsHolding: Swift.Bool
+  @objc final public let supportsDTMF: Swift.Bool
+  @objc final public let rawPayload: [Swift.AnyHashable : Any]
+  public init(rawPayload: [Swift.AnyHashable : Any])
+  @objc deinit
+}
+extension PushwooshVoIP.PWVoIPHandleType : Swift.Equatable {}
+extension PushwooshVoIP.PWVoIPHandleType : Swift.Hashable {}
+extension PushwooshVoIP.PWVoIPHandleType : Swift.RawRepresentable {}

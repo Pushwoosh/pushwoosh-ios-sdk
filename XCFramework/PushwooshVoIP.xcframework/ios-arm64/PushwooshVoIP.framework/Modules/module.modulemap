@@ -1,0 +1,11 @@
+framework module PushwooshVoIP {
+  umbrella header "PushwooshVoIP.h"
+  export *
+
+  module * { export * }
+}
+
+module PushwooshVoIP.Swift {
+  header "PushwooshVoIP-Swift.h"
+  requires objc
+}
