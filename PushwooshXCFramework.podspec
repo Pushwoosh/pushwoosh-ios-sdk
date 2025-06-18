@@ -50,17 +50,18 @@ Pod::Spec.new do |s|
     activities.vendored_frameworks = 'XCFramework/PushwooshLiveActivities.xcframework'
   end
 
+  # PushwooshVoIP subspec (optional)
+  s.subspec 'PushwooshVoIP' do |voip|
+    voip.dependency 'PushwooshXCFramework/PushwooshCore'
+    voip.dependency 'PushwooshXCFramework/PushwooshBridge'
+    voip.vendored_frameworks = 'XCFramework/PushwooshVoIP.xcframework'
+  end
+
   # Geozones Subspec
   s.subspec 'Geozones' do |geozones|
     geozones.ios.vendored_frameworks  = 'XCFramework/PushwooshGeozones.xcframework'
     geozones.frameworks  = 'CoreLocation'
     geozones.dependency 'PushwooshXCFramework/Core'
-  end
-
-  # PushwooshVoIP subspec (optional)
-  s.subspec 'PushwooshVoIP' do |voip|
-    voip.dependency 'PushwooshXCFramework/PushwooshVoIP'
-    voip.vendored_frameworks = 'XCFramework/PushwooshVoIP.xcframework'
   end
 
 end
