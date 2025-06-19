@@ -17,7 +17,10 @@ let package = Package(
             targets: ["PushwooshBridge"]),
         .library(
             name: "PushwooshLiveActivities",
-            targets: ["PushwooshLiveActivities"])
+            targets: ["PushwooshLiveActivities"]),
+        .library(
+            name: "PushwooshVoIP",
+            targets: ["PushwooshVoIP"])
     ],
     targets: [
         .binaryTarget(
