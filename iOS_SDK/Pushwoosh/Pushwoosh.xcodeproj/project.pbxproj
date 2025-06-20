@@ -1564,6 +1564,7 @@
 		E15185C72E018F6A00CE8936 /* PushwooshConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = E15185C42E018F6A00CE8936 /* PushwooshConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E15185C82E018F6A00CE8936 /* PushwooshConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E15185C52E018F6A00CE8936 /* PushwooshConfig.m */; };
 		E16237C82DD38AA70008EA2B /* PWVoIPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16237C72DD38AA70008EA2B /* PWVoIPMessage.swift */; };
+		E1FE18AD2E0559AB004A8639 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E1FE18AC2E0559AB004A8639 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -2103,6 +2104,7 @@
 		E15185C42E018F6A00CE8936 /* PushwooshConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushwooshConfig.h; sourceTree = "<group>"; };
 		E15185C52E018F6A00CE8936 /* PushwooshConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushwooshConfig.m; sourceTree = "<group>"; };
 		E16237C72DD38AA70008EA2B /* PWVoIPMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWVoIPMessage.swift; sourceTree = "<group>"; };
+		E1FE18AC2E0559AB004A8639 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2658,6 +2660,7 @@
 		44C0F3452DCA323300BE6564 /* PushwooshVoIP */ = {
 			isa = PBXGroup;
 			children = (
+				E1FE18AC2E0559AB004A8639 /* PrivacyInfo.xcprivacy */,
 				44C0F3462DCA323300BE6564 /* PushwooshVoIP.h */,
 				441CC94E2DCA627D00DBE44A /* API */,
 				441CC9522DCA62AE00DBE44A /* Requests */,
@@ -4879,6 +4882,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E1FE18AD2E0559AB004A8639 /* PrivacyInfo.xcprivacy in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
