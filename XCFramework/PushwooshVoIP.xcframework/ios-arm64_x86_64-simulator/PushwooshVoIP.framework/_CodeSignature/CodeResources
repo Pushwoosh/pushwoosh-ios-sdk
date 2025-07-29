@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/PushwooshVoIP-Swift.h</key>
 		<data>
-		2TuYKRFD+yEiklhcJpufeRVbX4U=
+		tPHJ7V/xyt+uu3ZS2WWpgkMp+54=
 		</data>
 		<key>Headers/PushwooshVoIP.h</key>
 		<data>
@@ -18,11 +18,11 @@
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		kenVrZeb3DrDDMIAK4Zl1XgMsJ0=
+		4GeK7l8bYb927TzjBLcYjAAIhI0=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		qX8a31lebHFMsIesIa6CO5fbQG8=
+		+Y+pItzdYV6zKroMcYD6Ij0k1LE=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -30,19 +30,19 @@
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		qX8a31lebHFMsIesIa6CO5fbQG8=
+		+Y+pItzdYV6zKroMcYD6Ij0k1LE=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		iL4x0cHdy/EzQKsUvAtbP1iK+IA=
+		8M5g5mSKRHMZ8NXydyS1tpOj/to=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		kenVrZeb3DrDDMIAK4Zl1XgMsJ0=
+		4GeK7l8bYb927TzjBLcYjAAIhI0=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		1q+DtQ/XXl3w+4vlIwIWG1N4HW8=
+		Eu0LmAQwkLjXZbjRgal+/31d4uo=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
@@ -50,11 +50,11 @@
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		1q+DtQ/XXl3w+4vlIwIWG1N4HW8=
+		Eu0LmAQwkLjXZbjRgal+/31d4uo=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		IbfuuT6haqLI9IBOEBrFo1pgIw8=
+		JWWOBZy+4lG/Qy3QPY2KcMNy4G0=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -71,7 +71,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			2PAO4QCEmwTJb2xr0wea4nveAg0Ig3mz/R0a56NJO+E=
+			d74dpb4Bwct+KLCsTi70fYqFa3ML5L9PeXauMRG9Wf4=
 			</data>
 		</dict>
 		<key>Headers/PushwooshVoIP.h</key>
@@ -85,14 +85,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fElMFNq4Ffx9TGQLHvtyrZ6A8D8x3NkuYcIUqcBMJDI=
+			wG46WCcpjLpiU5SnIErMjODLCqcH+M1XoxqUg7X0Svg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			aKMaAypU2eT3nm2sutGNUlC+2zRVKmQkFoFTFPaOKOY=
+			D6eVjtjtPzZW+nv7Lcjvds4rye1AoTwHBUABUPeBXgc=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
@@ -106,28 +106,28 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			aKMaAypU2eT3nm2sutGNUlC+2zRVKmQkFoFTFPaOKOY=
+			D6eVjtjtPzZW+nv7Lcjvds4rye1AoTwHBUABUPeBXgc=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			YI8UB5IbBTdIuGy/7G1YcfKlb5fWSb0IFB5fExnZsAA=
+			gCTbQbxFJor8NZruRAb175OE3BdbOWH7x5UrKS9TuvI=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			fElMFNq4Ffx9TGQLHvtyrZ6A8D8x3NkuYcIUqcBMJDI=
+			wG46WCcpjLpiU5SnIErMjODLCqcH+M1XoxqUg7X0Svg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			P3dlSuaLw7fx0ovluy0fuYRMRo6ECqgvW7oadYD8W2Y=
+			0CDmm3O5pUaTD2D+Uv/foHR7emBjQpjfSD9YeM4UuRI=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
@@ -141,14 +141,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			P3dlSuaLw7fx0ovluy0fuYRMRo6ECqgvW7oadYD8W2Y=
+			0CDmm3O5pUaTD2D+Uv/foHR7emBjQpjfSD9YeM4UuRI=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			o0FwusMBYsWq61I28CgL92lfljukfEjJQmcc53uMFHg=
+			VsovnemZfKju+J1rHmcDfffl2arLxQ8vmH5Ab6lzA30=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

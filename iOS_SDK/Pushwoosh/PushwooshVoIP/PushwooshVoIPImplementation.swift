@@ -70,6 +70,11 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         shared.handleVoIPToken(token)
     }
     
+    @objc
+    public static func setPushwooshVoIPAppId(_ voipAppId: String) {
+        shared.setPushwooshVoIPAppId(voipAppId)
+    }
+    
     // MARK: - PushKit Delegate
     public func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
         let newToken = hexString(from: pushCredentials.token)
@@ -240,6 +245,10 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         VoipNetworkManager.shared.sendInnerRequest(request: request) { error in
             self.handleVoIPTokenResult(error: error)
         }
+    }
+    
+    private func setPushwooshVoIPAppId(_ voipAppId: String) {
+        PWSettings.settingsInstance().voipAppCode = voipAppId
     }
     
     private func unregisterVoIPDeviceRequest() {

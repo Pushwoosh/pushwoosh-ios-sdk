@@ -73,9 +73,15 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 
         _lock = [NSObject new];
         
-        _hwid = [[NSUserDefaults standardUserDefaults] objectForKey:KeyDeviceId];
-        [self saveCurrentHWIDtoUserDefaults];
+        NSString *previosHWID = [[NSUserDefaults standardUserDefaults] objectForKey:KeyDeviceId];
+        _hwid = [PWCoreUtils uniqueGlobalDeviceIdentifier];
         
+        if (![PWCoreUtils isValidHwid:previosHWID] ) {
+            [self saveCurrentHWIDtoUserDefaults];
+        } else if (![_hwid isEqualToString:previosHWID]) { //check hwid changing
+            _previosHWID = previosHWID;
+        }
+                
         //if needed reset application setting after update app code
         [self setAppCode:[PWSettings readAppId]];
         _appName = [PWSettings readAppName];

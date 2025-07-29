@@ -11,6 +11,7 @@ import _SwiftConcurrencyShims
 @objc public protocol PWVoIP {
   @objc static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
   @objc static func setVoIPToken(_ token: Foundation.Data)
+  @objc static func setPushwooshVoIPAppId(_ voipAppId: Swift.String)
   @objc optional static var delegate: Swift.AnyObject? { get set }
 }
 @objc public protocol PWLiveActivities {
@@ -27,6 +28,7 @@ import _SwiftConcurrencyShims
   @objc public static var delegate: Swift.AnyObject?
   @objc public static func voip() -> Swift.AnyClass
   @objc public static func setVoIPToken(_ token: Foundation.Data)
+  @objc public static func setPushwooshVoIPAppId(_ voipAppId: Swift.String)
   @objc public static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
   @objc override dynamic public init()
   @objc deinit

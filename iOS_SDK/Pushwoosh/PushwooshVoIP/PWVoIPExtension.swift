@@ -32,6 +32,11 @@ public extension PWVoIP {
     static func setVoIPToken(_ token: Data) {
         PushwooshVoIPImplementation.setVoIPToken(token)
     }
+    
+    @available(iOS 14.0, *)
+    static func setPushwooshVoIPAppId(_ voipAppId: String) {
+        PushwooshVoIPImplementation.setPushwooshVoIPAppId(voipAppId)
+    }
 }
 
 @objc public protocol PWVoIPCallDelegate: NSObjectProtocol {

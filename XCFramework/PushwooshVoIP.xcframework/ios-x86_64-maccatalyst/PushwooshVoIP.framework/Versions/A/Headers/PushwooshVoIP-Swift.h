@@ -371,6 +371,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, weak) id _Nullable delegate;)
 + (Class _Nonnull)voip SWIFT_WARN_UNUSED_RESULT;
 + (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
 + (void)setVoIPToken:(NSData * _Nonnull)token;
++ (void)setPushwooshVoIPAppId:(NSString * _Nonnull)voipAppId;
 - (void)pushRegistry:(PKPushRegistry * _Nonnull)registry didUpdatePushCredentials:(PKPushCredentials * _Nonnull)pushCredentials forType:(PKPushType _Nonnull)type;
 - (void)pushRegistry:(PKPushRegistry * _Nonnull)registry didInvalidatePushTokenForType:(PKPushType _Nonnull)type;
 - (void)pushRegistry:(PKPushRegistry * _Nonnull)registry didReceiveIncomingPushWithPayload:(PKPushPayload * _Nonnull)payload forType:(PKPushType _Nonnull)type withCompletionHandler:(void (^ _Nonnull)(void))completion;
