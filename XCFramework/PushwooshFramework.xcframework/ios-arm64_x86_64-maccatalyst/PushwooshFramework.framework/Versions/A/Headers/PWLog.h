@@ -5,7 +5,7 @@
 //
 
 #import <Foundation/Foundation.h>
-
+#import <PushwooshCore/PWSettings.h>
 typedef NSString *PWLogLevel NS_EXTENSIBLE_STRING_ENUM;
 
 extern PWLogLevel const PWLogLevelNone;

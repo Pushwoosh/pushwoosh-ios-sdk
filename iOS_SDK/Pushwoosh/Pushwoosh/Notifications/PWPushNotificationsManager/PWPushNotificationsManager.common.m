@@ -84,7 +84,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         if (![@"1" isEqualToString:status[@"enabled"]])
             return;
         
-        NSString * pushToken = [PWPreferences preferences].pushToken;
+        NSString * pushToken = [PWSettings settings].pushToken;
         
         if(pushToken) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -159,18 +159,18 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 
 - (void)notificationStatusSyncCompleted:(NSNotification *)notification {
     NSInteger actualStatusMask = [PWUtils getStatusesMask];
-    [PWPreferences preferences].lastStatusMask = actualStatusMask;
+    [PWSettings settings].lastStatusMask = actualStatusMask;
 }
 
 - (void)sendDevTokenToServer:(NSString *)deviceID triggerCallbacks:(BOOL)triggerCallbacks {
     //only 1 request per kRegistrationUpdateInterval!
-    NSDate *lastReg = [PWPreferences preferences].lastRegTime;
-    NSInteger lastStatusMask = [PWPreferences preferences].lastStatusMask;
+    NSDate *lastReg = [PWSettings settings].lastRegTime;
+    NSInteger lastStatusMask = [PWSettings settings].lastStatusMask;
     
     if (lastReg) {
         NSTimeInterval secondsBetween = [[NSDate date] timeIntervalSinceDate:lastReg];
         
-        if ([[PWPreferences preferences].pushToken isEqualToString:deviceID] &&
+        if ([[PWSettings settings].pushToken isEqualToString:deviceID] &&
             secondsBetween < kRegistrationUpdateInterval &&
             lastStatusMask == [PWUtils getStatusesMask]) {
             
@@ -182,12 +182,12 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         }
     }
     
-    [PWPreferences preferences].lastStatusMask = [PWUtils getStatusesMask];
-    [PWPreferences preferences].lastRegTime = [NSDate date];
+    [PWSettings settings].lastStatusMask = [PWUtils getStatusesMask];
+    [PWSettings settings].lastRegTime = [NSDate date];
     
     [_requestManager sendRequest:[self requestParameters:deviceID platform:iOS] completion:^(NSError *error) {
         
-        [[PWPreferences preferences] setCustomTags:nil];
+        [[PWSettings settings] setCustomTags:nil];
         
         if (error == nil) {
             [PushwooshLog pushwooshLog:PW_LL_INFO
@@ -196,14 +196,14 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
                                         @"\nRegistered for push notifications\n"
                                         "Device ID: %@\n"
                                         "HWID: %@\n",
-                                        deviceID, [PWPreferences preferences].hwid]];
+                                        deviceID, [PWSettings settings].hwid]];
             //registered on server, save last registration time to prevent multiple register request
-            [PWPreferences preferences].lastRegTime = [NSDate date];
+            [PWSettings settings].lastRegTime = [NSDate date];
             
             [self sendTokenToDelegate:deviceID triggerCallbacks:triggerCallbacks];
         } else {
             //reset time
-            [PWPreferences preferences].lastRegTime = NSDate.distantPast;
+            [PWSettings settings].lastRegTime = NSDate.distantPast;
             
             [PushwooshLog pushwooshLog:PW_LL_ERROR
                              className:self
@@ -223,10 +223,10 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (void)unregisterDeviceWithCompletion:(void (^)(NSError *))completion  {
-    [PWPreferences preferences].lastRegTime = nil;
+    [PWSettings settings].lastRegTime = nil;
     [_requestManager sendRequest:[PWUnregisterDeviceRequest new] completion:^(NSError *error) {
         if (error == nil) {
-            [PWPreferences preferences].pushToken = nil;
+            [PWSettings settings].pushToken = nil;
             [PushwooshLog pushwooshLog:PW_LL_INFO
                              className:self
                                message:@"Unregistered for push notifications"];
@@ -247,7 +247,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (void)handlePushRegistrationString:(NSString *)deviceID {
-    [PWPreferences preferences].pushToken = deviceID;
+    [PWSettings settings].pushToken = deviceID;
     
     [self sendDevTokenToServer:deviceID];
 }
@@ -261,16 +261,16 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     }
     
     if ([self resetLastRegTimeIfNeeded:deviceID]) {
-        [PWPreferences preferences].pushToken = deviceID;
-        [PWPreferences preferences].registrationEverOccured = YES;
+        [PWSettings settings].pushToken = deviceID;
+        [PWSettings settings].registrationEverOccured = YES;
     }
     
     [self sendDevTokenToServer:deviceID];
 }
 
 - (BOOL)resetLastRegTimeIfNeeded:(NSString *)pushToken {
-    if (![[PWPreferences preferences].pushToken isEqualToString:pushToken]) {
-        [PWPreferences preferences].lastRegTime = NSDate.distantPast;
+    if (![[PWSettings settings].pushToken isEqualToString:pushToken]) {
+        [PWSettings settings].lastRegTime = NSDate.distantPast;
         return YES;
     } else {
         return NO;
@@ -291,7 +291,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     NSNumber *log = userInfo[@"log"];
     
     if ([log isKindOfClass:[NSNumber class]]) {
-        [PWPreferences preferences].logLevel = (LogLevel)log.integerValue;
+        [PWSettings settings].logLevel = (LogLevel)log.integerValue;
     }
     
     [self processActionUserInfo:userInfo];
@@ -488,7 +488,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 
 - (void)registerTestDevice {
     PWRegisterTestDeviceRequest *request = [[PWRegisterTestDeviceRequest alloc] init];
-    request.token = [PWPreferences preferences].pushToken;
+    request.token = [PWSettings settings].pushToken;
     request.name = [PWUtils deviceName];
     request.desc = @"Imported from the app";
     
@@ -514,7 +514,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 
 - (void)registerNumber:(NSString *)number forPlatform:(PWPlatform)platform {
     [_requestManager sendRequest:[self requestParameters:number platform:platform] completion:^(NSError *error) {
-        [[PWPreferences preferences] setCustomTags:nil];
+        [[PWSettings settings] setCustomTags:nil];
         
         if (error == nil) {
             [PushwooshLog pushwooshLog:PW_LL_INFO
@@ -532,7 +532,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     _request = [[PWRegisterDeviceRequest alloc] init];
     _request.platform = platform;
     _request.token = token;
-    _request.customTags = [[PWPreferences preferences] customTags];
+    _request.customTags = [[PWSettings settings] customTags];
     
     return _request;
 }

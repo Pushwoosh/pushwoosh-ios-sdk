@@ -8,7 +8,6 @@
 
 #import "Constants.h"
 #import "PushwooshFramework.h"
-#import "PWPreferences.h"
 #import "PWUtils.h"
 
 #if !__has_feature(objc_arc)
@@ -37,13 +36,13 @@
 - (NSMutableDictionary *)baseDictionary {
 	NSMutableDictionary *dict = [NSMutableDictionary new];
 
-	dict[@"userId"] = [PWPreferences preferences].userId;
-	dict[@"application"] = [PWPreferences preferences].appCode;
+	dict[@"userId"] = [PWSettings settings].userId;
+	dict[@"application"] = [PWSettings settings].appCode;
     
-    if (_usePreviousHWID && [PWUtils isValidHwid:[PWPreferences preferences].previosHWID]) {
-        dict[@"hwid"] = [PWPreferences preferences].previosHWID;
+    if (_usePreviousHWID && [PWUtils isValidHwid:[PWSettings settings].previosHWID]) {
+        dict[@"hwid"] = [PWSettings settings].previosHWID;
     } else {
-        dict[@"hwid"] = [PWPreferences preferences].hwid;
+        dict[@"hwid"] = [PWSettings settings].hwid;
     }
 	
 	dict[@"v"] = PUSHWOOSH_VERSION;

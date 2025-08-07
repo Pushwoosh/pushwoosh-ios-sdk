@@ -13,11 +13,11 @@
 @implementation PWInteractivePush
 
 + (void)savePushwooshCategories:(NSArray *)categories {
-	[PWPreferences preferences].categories = categories;
+	[PWSettings settings].categories = categories;
 }
 
 + (void)getCategoriesWithCompletion:(void (^)(NSSet*))completion {
-	NSArray *categories = [PWPreferences preferences].categories;
+	NSArray *categories = [PWSettings settings].categories;
 
 	PWNotificationCategoryBuilder *categoryBuilder = [[PWPlatformModule module] createCategoryBuilder];
 	

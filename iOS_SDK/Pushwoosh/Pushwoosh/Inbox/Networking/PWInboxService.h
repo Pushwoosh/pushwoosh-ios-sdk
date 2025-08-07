@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <PushwooshCore/PWSettings.h>
 
 @class PWInboxMessageInternal;
 @interface PWInboxService : NSObject

@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
+#import <PushwooshCore/PWSettings.h>
 
 FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 

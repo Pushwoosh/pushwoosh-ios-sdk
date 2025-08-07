@@ -147,7 +147,7 @@ NSString * const kPWRecoveryBusinessCase = @"push-unregister";
     
     PWBusinessCase *increasePushRateCase = [[PWBusinessCase alloc] initWithIdentifier:kPWIncreaseRateBusinessCase];
     increasePushRateCase.conditionBlock = ^BOOL {
-        return [Pushwoosh sharedInstance].getPushToken == nil && ![PWPreferences preferences].registrationEverOccured;
+        return [Pushwoosh sharedInstance].getPushToken == nil && ![PWSettings settings].registrationEverOccured;
     };
     increasePushRateCase.minimumPresentingInterval = cappingInSeconds;
     increasePushRateCase.maxTriggeredCount = 0; //infinitely
@@ -156,7 +156,7 @@ NSString * const kPWRecoveryBusinessCase = @"push-unregister";
     recoveryPushCase.conditionBlock = ^BOOL {
         NSDictionary *dict = [PushNotificationManager getRemoteNotificationStatus];
         BOOL alertsEnabled = [dict[@"pushAlert"] boolValue];
-        return !alertsEnabled && [PWPreferences preferences].registrationEverOccured;
+        return !alertsEnabled && [PWSettings settings].registrationEverOccured;
     };
     
     recoveryPushCase.minimumPresentingInterval = cappingInSeconds;
@@ -196,7 +196,7 @@ NSString * const kPWRecoveryBusinessCase = @"push-unregister";
     _loadingState = PWBusinessCasesLoadingStateUnknown;
     _activeCases = [NSMutableDictionary new];
     
-    [PWPreferences preferences].registrationEverOccured = NO;
+    [PWSettings settings].registrationEverOccured = NO;
     [PWVersionTracking reset];
     
     NSDictionary *defaultsDict = [[NSUserDefaults standardUserDefaults] dictionaryRepresentation];

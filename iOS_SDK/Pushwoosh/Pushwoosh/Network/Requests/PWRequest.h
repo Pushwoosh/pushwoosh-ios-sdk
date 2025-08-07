@@ -5,6 +5,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <PushwooshCore/PWSettings.h>
 #import "NSDictionary+PWDictUtils.h"
 
 #define kPrefixDelay @"PrefixDelay"

@@ -214,7 +214,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
         
-        WKUserScript *userIdInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._user_id = \"%@\";", [[PWPreferences preferences] userId]]
+        WKUserScript *userIdInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._user_id = \"%@\";", [[PWSettings settings] userId]]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
         

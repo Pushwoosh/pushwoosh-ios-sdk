@@ -5,6 +5,7 @@
 //
 
 #import "PWRequest.h"
+#import <PushwooshCore/PWSettings.h>
 
 @interface PWAppOpenRequest : PWRequest
 

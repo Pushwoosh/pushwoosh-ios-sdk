@@ -18,7 +18,7 @@ NSErrorDomain const PWCoreErrorDomain = @"pushwoosh";
 }
 
 + (NSString *)generateIdentifier {
-    return [[NSUUID new] UUIDString];
+    return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
 }
 
 + (BOOL)isValidHwid:(NSString*)hwid {

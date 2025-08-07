@@ -60,7 +60,7 @@
     }
 
     if ([PWConfig config].allowCollectingDeviceLocale == YES) {
-        dict[@"language"] = [PWPreferences preferences].language;
+        dict[@"language"] = [PWSettings settings].language;
     }
     
     NSDictionary *permissionsStatusDict = [PushNotificationManager getRemoteNotificationStatus];

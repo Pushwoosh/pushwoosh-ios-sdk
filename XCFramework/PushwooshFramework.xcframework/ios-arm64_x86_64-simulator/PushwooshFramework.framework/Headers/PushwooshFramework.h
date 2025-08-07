@@ -10,6 +10,7 @@
 #import <PushwooshCore/PushwooshLog.h>
 #import <PushwooshCore/PWCoreGDPRManager.h>
 #import <PushwooshCore/PushwooshConfig.h>
+#import <PushwooshCore/PWSettings.h>
 
 #if TARGET_OS_IOS || TARGET_OS_WATCH
 
@@ -23,7 +24,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.9.3"
+#define PUSHWOOSH_VERSION @"6.9.4"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;

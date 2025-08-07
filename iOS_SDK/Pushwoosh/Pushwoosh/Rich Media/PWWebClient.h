@@ -10,6 +10,7 @@
 #import <Foundation/Foundation.h>
 #import "PWRichMediaManager.h"
 #import <PushwooshCore/PushwooshLog.h>
+#import <PushwooshCore/PWSettings.h>
 
 #import <WebKit/WebKit.h>
 

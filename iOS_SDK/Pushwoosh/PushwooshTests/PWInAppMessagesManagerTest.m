@@ -7,7 +7,7 @@
 //
 
 #import "PWInAppMessagesManager.h"
-#import "PWPreferences.h"
+#import "PWSettings.h"
 #import "PWTriggerInAppActionRequest.h"
 
 #import <XCTest/XCTest.h>
@@ -40,18 +40,18 @@
     
     [manager setUserId:userId completion:^(NSError *error) {}];
     
-    XCTAssertEqual(userId, [PWPreferences preferences].userId);
+    XCTAssertEqual(userId, [PWSettings settings].userId);
 }
 
 - (void)testSetUserIdEqualNil {
     NSString *userId = nil;
     PWInAppMessagesManager *manager = [[PWInAppMessagesManager alloc] init];
-    id mockPWPreference = OCMPartialMock([PWPreferences preferences]);
+    id mockPWPreference = OCMPartialMock([PWSettings settings]);
     OCMStub([mockPWPreference userId]).andReturn(nil);
     
     [manager setUserId:userId completion:^(NSError *error) {}];
     
-    XCTAssertNil([PWPreferences preferences].userId);
+    XCTAssertNil([PWSettings settings].userId);
 }
 
 - (void)testRegisterEmailUserWithUserNotNil {
@@ -61,7 +61,7 @@
     
     [manager registerEmailUser:email userId:userId];
     
-    XCTAssertEqual(userId, [PWPreferences preferences].userId);
+    XCTAssertEqual(userId, [PWSettings settings].userId);
 }
 
 - (void)testRichMedia {

@@ -10,7 +10,7 @@
 #import <OCMock/OCMock.h>
 
 #import "PushwooshFramework.h"
-#import "PWPreferences.h"
+#import "PWSettings.h"
 #import "PWRequestsCacheManager.h"
 #import "PWInAppManager.h"
 #import "PWConfig.h"
@@ -50,7 +50,7 @@
     id result = [self.pushwoosh initWithApplicationCode:@"DC533-F5DA4"];
     
     XCTAssert(result);
-    XCTAssertEqual([PWPreferences preferences].appCode, @"DC533-F5DA4");
+    XCTAssertEqual([PWSettings settings].appCode, @"DC533-F5DA4");
     OCMVerify([mockPWRequestsCacheManager sharedInstance]);
     OCMVerify([mockPWInAppManager sharedManager]);
     OCMVerify([mockPWConfig config]);
@@ -65,13 +65,13 @@
     [[Pushwoosh sharedInstance] registerForPushNotificationsWith:customTags
                                                       completion:^(NSString * _Nullable token, NSError * _Nullable error) {}];
     
-    XCTAssertEqual(customTags, [[PWPreferences preferences] customTags]);
+    XCTAssertEqual(customTags, [[PWSettings settings] customTags]);
 }
 
 - (void)testCheckCustomTagsNullIfPassedNull {
     [[Pushwoosh sharedInstance] registerForPushNotificationsWith:nil];
     
-    XCTAssertNil([[PWPreferences preferences] customTags]);
+    XCTAssertNil([[PWSettings settings] customTags]);
 }
 
 @end

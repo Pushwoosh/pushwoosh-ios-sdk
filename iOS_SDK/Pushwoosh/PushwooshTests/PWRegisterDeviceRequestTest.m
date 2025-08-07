@@ -1,6 +1,6 @@
 
 #import "PWRegisterDeviceRequest.h"
-#import "PWPreferences.h"
+#import "PWSettings.h"
 #import "PWInteractivePush.h"
 #import "PWPlatformModule.h"
 #import "PWNotificationManagerCompat.h"
@@ -57,7 +57,7 @@
 	[PWPlatformModule module].NotificationCategoryBuilder = self.originalCategoryBuilder;
 	[PWPlatformModule module].notificationManagerCompat = self.originalNotificationManager;
 	
-	[PWPreferences preferences].categories = nil;
+	[PWSettings settings].categories = nil;
     [super tearDown];
 }
 
@@ -73,11 +73,11 @@
 	
 	PWRegisterDeviceRequest *request = [PWRegisterDeviceRequest new];
 	
-	[self assertNilOrEmptyArray:[PWPreferences preferences].categories];
+	[self assertNilOrEmptyArray:[PWSettings settings].categories];
 	
 	[request parseResponse:response];
 	
-	[self assertNilOrEmptyArray:[PWPreferences preferences].categories];
+	[self assertNilOrEmptyArray:[PWSettings settings].categories];
 }
 
 - (void)testNullCategories {
@@ -85,11 +85,11 @@
 	
 	PWRegisterDeviceRequest *request = [PWRegisterDeviceRequest new];
 	
-	[self assertNilOrEmptyArray:[PWPreferences preferences].categories];
+	[self assertNilOrEmptyArray:[PWSettings settings].categories];
 	
 	[request parseResponse:response];
 	
-	[self assertNilOrEmptyArray:[PWPreferences preferences].categories];
+	[self assertNilOrEmptyArray:[PWSettings settings].categories];
 }
 
 - (void)testBadCategoryType {
@@ -97,7 +97,7 @@
 	
 	PWRegisterDeviceRequest *request = [PWRegisterDeviceRequest new];
 	
-	[self assertNilOrEmptyArray:[PWPreferences preferences].categories];
+	[self assertNilOrEmptyArray:[PWSettings settings].categories];
 	
 	[request parseResponse:response];
 }
@@ -107,11 +107,11 @@
 
 	PWRegisterDeviceRequest *request = [PWRegisterDeviceRequest new];
 	
-	[self assertNilOrEmptyArray:[PWPreferences preferences].categories];
+	[self assertNilOrEmptyArray:[PWSettings settings].categories];
 	
 	[request parseResponse:response];
 	
-	[self assertNilOrEmptyArray:[PWPreferences preferences].categories];
+	[self assertNilOrEmptyArray:[PWSettings settings].categories];
 }
 
 - (void)assertNilOrEmptyArray:(NSArray*)array {

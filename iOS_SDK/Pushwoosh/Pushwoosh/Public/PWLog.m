@@ -31,7 +31,7 @@ void PWLogInternal(const char *function, LogLevel logLevel, NSString *format, ..
         return;
     }
     
-    LogLevel currentLevel = [PWPreferences preferences].logLevel;
+    LogLevel currentLevel = [PWSettings settings].logLevel;
     
     if (currentLevel < logLevel || currentLevel == kLogNone)
         return;

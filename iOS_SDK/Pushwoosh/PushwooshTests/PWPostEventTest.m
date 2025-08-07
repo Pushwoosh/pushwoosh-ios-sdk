@@ -18,7 +18,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
 #import "PWRegisterUserRequest.h"
-#import "PWPreferences.h"
+#import "PWSettings.h"
 #import "PWPostEventRequest.h"
 #import "PWInAppManager.h"
 #import "Pushwoosh+Internal.h"
@@ -138,12 +138,12 @@
         //Postconditions:
         NSDictionary *requestDictionary = postEventRequest.requestDictionary;
         NSLog(@"%@", requestDictionary);
-        XCTAssertEqualObjects(requestDictionary[@"application"], [PWPreferences preferences].appCode);
+        XCTAssertEqualObjects(requestDictionary[@"application"], [PWSettings settings].appCode);
         XCTAssertEqualObjects(requestDictionary[@"attributes"], attributesDict);
         XCTAssertEqualObjects(requestDictionary[@"device_type"], @(DEVICE_TYPE));
         XCTAssertEqualObjects(requestDictionary[@"event"], event);
-        XCTAssertEqualObjects(requestDictionary[@"hwid"], [PWPreferences preferences].hwid);
-        XCTAssertEqualObjects(requestDictionary[@"userId"], [PWPreferences preferences].userId);
+        XCTAssertEqualObjects(requestDictionary[@"hwid"], [PWSettings settings].hwid);
+        XCTAssertEqualObjects(requestDictionary[@"userId"], [PWSettings settings].userId);
         XCTAssertEqualObjects(requestDictionary[@"v"], PUSHWOOSH_VERSION);
     }];
     

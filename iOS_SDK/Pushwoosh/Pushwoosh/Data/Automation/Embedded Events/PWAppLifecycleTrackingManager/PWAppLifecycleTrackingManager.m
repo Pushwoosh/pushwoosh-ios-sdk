@@ -41,15 +41,15 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 }
 
 - (void)startTracking {
-    [[PWPreferences preferences] addObserver:self forKeyPath:@"appCode" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:nil];
+    [[PWSettings settings] addObserver:self forKeyPath:@"appCode" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:nil];
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
     if ([keyPath isEqualToString:@"appCode"]) {
-        NSString *appCode = [PWPreferences preferences].appCode;
+        NSString *appCode = [PWSettings settings].appCode;
         
-        if (appCode && ![appCode isEqualToString:@""] && ![[PWPreferences preferences].appCode isEqualToString:_trackingAppCode]) {
-            _trackingAppCode = [PWPreferences preferences].appCode;
+        if (appCode && ![appCode isEqualToString:@""] && ![[PWSettings settings].appCode isEqualToString:_trackingAppCode]) {
+            _trackingAppCode = [PWSettings settings].appCode;
             _initialDefaultOpenEventSent = NO;
             // without dispatch_async this method called too early from +pushManager method
             dispatch_async(dispatch_get_main_queue(), ^{

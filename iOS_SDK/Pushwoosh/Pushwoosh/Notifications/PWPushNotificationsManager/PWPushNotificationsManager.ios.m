@@ -62,7 +62,7 @@
 	}
 
 	//initialize in-app alert module
-	[[PWNotificationCenter defaultCenter] registerApplicationWithIdentifier:@"com.pushwoosh.app" name:[PWPreferences preferences].appName icon:appIcon defaultSettings:[PWNotificationAppSettings defaultSettings]];
+	[[PWNotificationCenter defaultCenter] registerApplicationWithIdentifier:@"com.pushwoosh.app" name:[PWSettings settings].appName icon:appIcon defaultSettings:[PWNotificationAppSettings defaultSettings]];
 
 
 	//set up alert type

@@ -77,7 +77,7 @@ void _replacement_didReceiveRemoteNotificationWithUserInfo(id self, SEL _cmd, UI
         ((void(*)(id, SEL, UIApplication *, NSDictionary *))pw_original_didReceiveRemoteNotificationWithUserInfo_Imp)(self, _cmd, application, userInfo);
     }
     
-    if ([[PWPreferences preferences] hasAppCode]) {
+    if ([[PWSettings settings] hasAppCode]) {
         [[PushNotificationManager pushManager] handlePushReceived:userInfo];
     }
 }
@@ -85,7 +85,7 @@ void _replacement_didReceiveRemoteNotificationWithUserInfo(id self, SEL _cmd, UI
 void _replacement_didReceiveRemoteNotification(id self, SEL _cmd, UIApplication * application, NSDictionary * userInfo, void (^completionHandler)(UIBackgroundFetchResult)) {
     ((void(*)(id, SEL, UIApplication *, NSDictionary *, void(^)(UIBackgroundFetchResult)))pw_original_didReceiveRemoteNotification_Imp)(self, _cmd, application, userInfo, completionHandler);
     
-    if ([[PWPreferences preferences] hasAppCode]) {
+    if ([[PWSettings settings] hasAppCode]) {
         [[PushNotificationManager pushManager] handlePushReceived:userInfo];
     }
 }
@@ -328,7 +328,7 @@ void _replacement_didRegisterForRemoteNotificationWithToken(id self, SEL _cmd, U
         ((void(*)(id, SEL, UIApplication*, NSData*))pw_original_didRegisterForRemoteNotificationWithDeviceToken_Imp)(self, _cmd, application, deviceToken);
     }
     
-    if ([[PWPreferences preferences] hasAppCode]) {
+    if ([[PWSettings settings] hasAppCode]) {
         [[PushNotificationManager pushManager] handlePushRegistration:deviceToken];
     }
 }
@@ -344,7 +344,7 @@ BOOL _replacement_didFinishLaunchingWithOptions(id self, SEL _cmd, UIApplication
         result = YES;
     }
     
-    if (![[PWPreferences preferences] hasAppCode]) {
+    if (![[PWSettings settings] hasAppCode]) {
         // pushwoosh has not been initialized yet
         return result;
     }
@@ -373,7 +373,7 @@ void _replacement_didFailToRegisterForRemoteNotificationsWithError(id self, SEL 
 
     [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Error registering for push notifications. Error: %@", error]];
 
-    if ([[PWPreferences preferences] hasAppCode]) {
+    if ([[PWSettings settings] hasAppCode]) {
         [[PushNotificationManager pushManager] handlePushRegistrationFailure:error];
     }
 }

@@ -15,7 +15,7 @@
 #import "PWPlatformModule.h"
 #import "PWNotificationManagerCompat.h"
 #import "PWSendPurchaseRequest.h"
-#import "PWPreferences.h"
+#import "PWSettings.h"
 #import "Pushwoosh+Internal.h"
 #import "PWPostEventRequest.h"
 
@@ -119,10 +119,10 @@
     NSDictionary *attributes = requestDictionary[@"attributes"];
     NSLog(@"%@", requestDictionary);
     NSLog(@"%@", attributes[@"transactionDate"]);
-    XCTAssertEqualObjects(requestDictionary[@"application"], [PWPreferences preferences].appCode);
+    XCTAssertEqualObjects(requestDictionary[@"application"], [PWSettings settings].appCode);
     XCTAssertEqualObjects(requestDictionary[@"device_type"], @(DEVICE_TYPE));
-    XCTAssertEqualObjects(requestDictionary[@"hwid"], [PWPreferences preferences].hwid);
-    XCTAssertEqualObjects(requestDictionary[@"userId"], [PWPreferences preferences].userId);
+    XCTAssertEqualObjects(requestDictionary[@"hwid"], [PWSettings settings].hwid);
+    XCTAssertEqualObjects(requestDictionary[@"userId"], [PWSettings settings].userId);
     XCTAssertEqualObjects(requestDictionary[@"v"], PUSHWOOSH_VERSION);
     XCTAssertEqualObjects(attributes[@"__currency"], currencyCode);
     XCTAssertEqualObjects([self convertToNSNumber:price.stringValue], @49.95);
@@ -221,10 +221,10 @@
     OCMVerifyAll(mockSKPayment);
     NSDictionary *requestDictionary = postEventRequest.requestDictionary;
     NSDictionary *attributes = requestDictionary[@"attributes"];
-    XCTAssertEqualObjects(requestDictionary[@"application"], [PWPreferences preferences].appCode);
+    XCTAssertEqualObjects(requestDictionary[@"application"], [PWSettings settings].appCode);
     XCTAssertEqualObjects(requestDictionary[@"device_type"], @(DEVICE_TYPE));
-    XCTAssertEqualObjects(requestDictionary[@"hwid"], [PWPreferences preferences].hwid);
-    XCTAssertEqualObjects(requestDictionary[@"userId"], [PWPreferences preferences].userId);
+    XCTAssertEqualObjects(requestDictionary[@"hwid"], [PWSettings settings].hwid);
+    XCTAssertEqualObjects(requestDictionary[@"userId"], [PWSettings settings].userId);
     XCTAssertEqualObjects(requestDictionary[@"v"], PUSHWOOSH_VERSION);
     XCTAssertEqualObjects(attributes[@"__currency"], @"USD");
     XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"123.21"], @123.21);

@@ -38,7 +38,7 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (nonatomic) BOOL isLoggerActive;
 
-@property (copy, readonly) NSDate *lastRegisterUserDate;
+@property (copy) NSDate *lastRegisterUserDate;
 
 @property (copy) NSString *apiToken;
 

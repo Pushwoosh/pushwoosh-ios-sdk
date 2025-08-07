@@ -12,7 +12,7 @@
 
 #import "PWRequest.h"
 #import "PWUtils.h"
-#import "PWPreferences.h"
+#import "PWSettings.h"
 
 @interface PWRequest (TEST)
 
@@ -40,8 +40,8 @@
 }
 
 - (void)testBaseDictionaryHasCorrectParameters {
-    id mockPWPreferences = OCMPartialMock([PWPreferences preferences]);
-    OCMStub([mockPWPreferences appCode]).andReturn(@"appCode");
+    id mockPWSettings = OCMPartialMock([PWSettings settings]);
+    OCMStub([mockPWSettings appCode]).andReturn(@"appCode");
     
     NSDictionary *parameters = [self.request baseDictionary];
     
@@ -50,23 +50,23 @@
     assertThat(parameters, hasKey(@"hwid"));
     assertThat(parameters, hasKey(@"v"));
     assertThat(parameters, hasKey(@"device_type"));
-    [mockPWPreferences stopMocking];
+    [mockPWSettings stopMocking];
 }
 
 - (void)testUsePreviousHwid {
     [self.request setUsePreviousHWID:YES];
     id mockPWUtils = OCMClassMock([PWUtils class]);
     OCMStub([mockPWUtils isValidHwid:OCMOCK_ANY]).andReturn(YES);
-    id mockPWPreferences = OCMPartialMock([PWPreferences preferences]);
-    OCMStub([mockPWPreferences previosHWID]).andReturn(@"previous");
+    id mockPWSettings = OCMPartialMock([PWSettings settings]);
+    OCMStub([mockPWSettings previosHWID]).andReturn(@"previous");
     
     NSDictionary *parameters = [self.request baseDictionary];
     
     XCTAssertNotNil(parameters);
-    OCMVerify([mockPWPreferences previosHWID]);
+    OCMVerify([mockPWSettings previosHWID]);
     XCTAssertEqual(parameters[@"hwid"], @"previous");
     [mockPWUtils stopMocking];
-    [mockPWPreferences stopMocking];
+    [mockPWSettings stopMocking];
 }
 
 @end

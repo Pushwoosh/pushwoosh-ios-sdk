@@ -76,11 +76,11 @@ static NSInteger minimalTimeinterval = 10;
 #pragma mark -
 
 - (BOOL)canReloadData {
-    if (_currentUserID && ![[PWPreferences preferences].userId isEqualToString:_currentUserID]) {
+    if (_currentUserID && ![[PWSettings settings].userId isEqualToString:_currentUserID]) {
         [PWInbox resetApplication];
     }
     
-    _currentUserID = [PWPreferences preferences].userId;
+    _currentUserID = [PWSettings settings].userId;
     
     if (_lastRequestTime && [[NSDate date] timeIntervalSinceDate:_lastRequestTime] < minimalTimeinterval) {
         return NO;

@@ -1,7 +1,7 @@
 
 #import "PWAppOpenRequest.h"
 #import "PWRequestManager.h"
-#import "PWPreferences.h"
+#import "PWSettings.h"
 #import "PWNetworkModule.h"
 #import "PWGDPRManager.h"
 #import "PWRequest.h"
@@ -88,7 +88,7 @@ static id _mockNSBundle;
 
 - (void)tearDown {
     [NSURLSession tearDown];
-	[PWPreferences preferences].baseUrl = [[PWPreferences preferences] defaultBaseUrl];
+	[PWSettings settings].baseUrl = [[PWSettings settings] defaultBaseUrl];
     [super tearDown];
 }
 
@@ -109,7 +109,7 @@ static id _mockNSBundle;
 }
 
 - (void)testUrlChange {
-	XCTAssertEqualObjects([PWPreferences preferences].baseUrl, [[PWPreferences preferences] defaultBaseUrl]);
+	XCTAssertEqualObjects([PWSettings settings].baseUrl, [[PWSettings settings] defaultBaseUrl]);
 	
 	NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
 	NSString *responseData = @"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null,\"base_url\":\"https://test.pushwoosh.com/json/4.2/\"}";
@@ -120,7 +120,7 @@ static id _mockNSBundle;
 	PWAppOpenRequest *request = [PWAppOpenRequest new];
 	[_requestManager sendRequest:request completion:^(NSError *error) {
         XCTAssertNil(error);
-        XCTAssertEqualObjects([PWPreferences preferences].baseUrl, @"https://test.pushwoosh.com/json/4.2/");
+        XCTAssertEqualObjects([PWSettings settings].baseUrl, @"https://test.pushwoosh.com/json/4.2/");
 		[appOpenExpectation fulfill];
 	}];
 	
@@ -133,7 +133,7 @@ static id _mockNSBundle;
 	[NSURLSession injectResponse:httpResponse data:[responseData dataUsingEncoding:NSUTF8StringEncoding] error:nil];
 	request = [PWAppOpenRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
-        XCTAssertEqualObjects([PWPreferences preferences].baseUrl, [[PWPreferences preferences] defaultBaseUrl]);
+        XCTAssertEqualObjects([PWSettings settings].baseUrl, [[PWSettings settings] defaultBaseUrl]);
 		[appOpenExpectation2 fulfill];
 	}];
 	

@@ -63,7 +63,7 @@ static dispatch_once_t pushManagerOncePredicate;
 }
 
 + (void)initializeWithAppCode:(NSString *)appCode appName:(NSString *)appName {
-    [[PWPreferences preferences] setAppCode:appCode];
+    [[PWSettings settings] setAppCode:appCode];
     [Pushwoosh sharedInstance];
 }
 
@@ -85,11 +85,11 @@ static dispatch_once_t pushManagerOncePredicate;
 #pragma mark - Language
 
 - (void)setLanguage:(NSString *)language {
-    [PWPreferences preferences].language = language;
+    [PWSettings settings].language = language;
 }
 
 - (NSString *)language {
-    return [PWPreferences preferences].language;
+    return [PWSettings settings].language;
 }
 
 #pragma push notifications
@@ -149,19 +149,19 @@ static dispatch_once_t pushManagerOncePredicate;
 #pragma mark - Getters
 
 - (NSString *)getHWID {
-	return [PWPreferences preferences].hwid;
+	return [PWSettings settings].hwid;
 }
 
 - (NSString *)appCode {
-	return [PWPreferences preferences].appCode;
+	return [PWSettings settings].appCode;
 }
 
 - (NSString *)appName {
-	return [PWPreferences preferences].appName;
+	return [PWSettings settings].appName;
 }
 
 - (NSString *)getPushToken {
-	return [PWPreferences preferences].pushToken;
+	return [PWSettings settings].pushToken;
 }
 
 + (NSString *)pushwooshVersion {

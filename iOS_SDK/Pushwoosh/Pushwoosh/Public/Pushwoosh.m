@@ -64,7 +64,7 @@ static dispatch_once_t pushwooshOncePredicate;
 
 + (instancetype)sharedInstance {
     dispatch_once(&pushwooshOncePredicate, ^{
-        NSString *appCode = [PWPreferences preferences].appCode;
+        NSString *appCode = [PWSettings settings].appCode;
         pushwooshInstance = [[Pushwoosh alloc] initWithApplicationCode:appCode];
     });
     
@@ -72,7 +72,7 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 
 + (void)initializeWithAppCode:(NSString *)appCode {
-    if ([PWPreferences checkAppCodeforChanges:appCode]) {
+    if ([PWSettings checkAppCodeforChanges:appCode]) {
         [Pushwoosh initializeWithNewAppCode:appCode];
     }
     
@@ -82,7 +82,7 @@ static dispatch_once_t pushwooshOncePredicate;
 + (void)initializeWithNewAppCode:(NSString *)appCode {
     [Pushwoosh destroy];
     
-    [[PWPreferences preferences] setAppCode:appCode];
+    [[PWSettings settings] setAppCode:appCode];
     [PWInAppManager updateInAppManagerInstance];
     [[Pushwoosh sharedInstance].dataManager sendAppOpenWithCompletion:nil];
     
@@ -92,12 +92,12 @@ static dispatch_once_t pushwooshOncePredicate;
     if (self = [super init]) {
         // Mandatory logs
         NSLog(@"[PW] BUNDLE ID: %@", [PWUtils bundleId]);
-        NSLog(@"[PW] APP CODE: %@", [PWPreferences preferences].appCode);
+        NSLog(@"[PW] APP CODE: %@", [PWSettings settings].appCode);
         NSLog(@"[PW] PUSHWOOSH SDK VERSION: %@", PUSHWOOSH_VERSION);
-        NSLog(@"[PW] HWID: %@", [PWPreferences preferences].hwid);
-        NSLog(@"[PW] PUSH TOKEN: %@", [PWPreferences preferences].pushToken);
+        NSLog(@"[PW] HWID: %@", [PWSettings settings].hwid);
+        NSLog(@"[PW] PUSH TOKEN: %@", [PWSettings settings].pushToken);
         
-        [PWPreferences preferences].appCode = appCode;
+        [PWSettings settings].appCode = appCode;
         
 #if TARGET_OS_IOS || TARGET_OS_OSX
         self.purchaseManager = [PWPurchaseManager new];
@@ -164,7 +164,7 @@ static dispatch_once_t pushwooshOncePredicate;
 #if TARGET_OS_IOS
     static BOOL isSubscriptionSegmentsCasePresented = NO;
     
-    [[PWPreferences preferences] setCustomTags:tags];
+    [[PWSettings settings] setCustomTags:tags];
     
     if (!isSubscriptionSegmentsCasePresented) {
         isSubscriptionSegmentsCasePresented = YES;
@@ -266,20 +266,20 @@ static dispatch_once_t pushwooshOncePredicate;
 #pragma mark - Data
 
 - (void)setShowPushnotificationAlert:(BOOL)showPushnotificationAlert {
-    [PWPreferences preferences].showForegroundNotifications = showPushnotificationAlert;
+    [PWSettings settings].showForegroundNotifications = showPushnotificationAlert;
 }
 
 - (BOOL)showPushnotificationAlert {
-    return [PWPreferences preferences].showForegroundNotifications;
+    return [PWSettings settings].showForegroundNotifications;
 }
 
 - (void)setLanguage:(NSString *)language {
-    [PWPreferences preferences].language = language;
+    [PWSettings settings].language = language;
     [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"Language has been set to: %@", language]];
 }
 
 - (NSString *)language {
-    return [PWPreferences preferences].language;
+    return [PWSettings settings].language;
 }
 
 #pragma mark - Info
@@ -289,19 +289,19 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 
 - (NSString *)getHWID {
-    return [PWPreferences preferences].hwid;
+    return [PWSettings settings].hwid;
 }
 
 - (NSString *)getUserId {
-    return [PWPreferences preferences].userId;
+    return [PWSettings settings].userId;
 }
 
 - (NSString *)applicationCode {
-    return [PWPreferences preferences].appCode;
+    return [PWSettings settings].appCode;
 }
 
 - (NSString *)getPushToken {
-    return [PWPreferences preferences].pushToken;
+    return [PWSettings settings].pushToken;
 }
 
 + (NSMutableDictionary *)getRemoteNotificationStatus {

@@ -8,6 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
+#import <PushwooshCore/PWSettings.h>
 #import "PushwooshFramework.h"
 #import "PWConfig.h"
 

@@ -6,6 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
+#import <PushwooshCore/PWSettings.h>
 
 @interface PWInteractivePush : NSObject
 

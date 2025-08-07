@@ -49,12 +49,12 @@
 }
 
 - (NSString *)baseUrl {
-	return [PWPreferences preferences].baseUrl;
+	return [PWSettings settings].baseUrl;
 }
 
 - (void)setReverseProxyUrl:(NSString *)url {
     [self setUsingReverseProxy:YES];
-    [PWPreferences preferences].baseUrl = url;
+    [PWSettings settings].baseUrl = url;
 }
 
 - (void)disableReverseProxy {
@@ -325,11 +325,11 @@
 		} else {
 			// honor base url switch
 			if (jsonResult[@"status_code"] == nil) {
-				[PWPreferences preferences].baseUrl = [PWPreferences preferences].defaultBaseUrl;
+				[PWSettings settings].baseUrl = [PWSettings settings].defaultBaseUrl;
 			}
 			NSString *newBaseUrl = jsonResult[@"base_url"];
             if ([newBaseUrl isKindOfClass:[NSString class]] && !self.usingReverseProxy) {
-				[PWPreferences preferences].baseUrl = newBaseUrl;
+				[PWSettings settings].baseUrl = newBaseUrl;
 			}
             
 			// check status

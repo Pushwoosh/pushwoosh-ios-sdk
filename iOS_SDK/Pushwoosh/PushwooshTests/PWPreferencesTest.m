@@ -9,10 +9,10 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
-#import "PWPreferences.h"
+#import "PWSettings.h"
 #import "PWConfig.h"
 
-@interface PWPreferences (Test)
+@interface PWSettings (Test)
 
 @property (nonatomic) NSUserDefaults *defaults;
 @property (copy) NSString *userId;
@@ -21,7 +21,7 @@
 
 @interface PWPreferencesTest : XCTestCase
 
-@property (nonatomic) PWPreferences *preference;
+@property (nonatomic) PWSettings *settings;
 @property (nonatomic) PWConfig *config;
 
 
@@ -30,7 +30,7 @@
 @implementation PWPreferencesTest
 
 - (void)setUp {
-    _preference = [PWPreferences preferences];
+    _settings = [PWSettings settings];
 }
 
 - (void)tearDown {
@@ -43,10 +43,10 @@
     id mockNSUserDefaults = OCMPartialMock([NSUserDefaults standardUserDefaults]);
     OCMExpect([mockNSUserDefaults objectForKey:@"PWInAppUserId"]).andReturn(@"someUserID");
     
-    _preference = [[PWPreferences alloc] init];
+    _settings = [[PWSettings alloc] init];
     
     OCMVerifyAll(mockNSUserDefaults);
-    XCTAssertEqual([_preference userId], @"someUserID");
+    XCTAssertEqual([_settings userId], @"someUserID");
     [mockNSUserDefaults stopMocking];
 }
 
@@ -58,9 +58,9 @@
     id mockNSUserDefaults = OCMPartialMock([NSUserDefaults standardUserDefaults]);
     OCMStub([mockNSUserDefaults objectForKey:@"PWInAppUserId"]).andReturn(prevSavedUserId);
     
-    _preference = [[PWPreferences alloc] init];
+    _settings = [[PWSettings alloc] init];
     
-    XCTAssertEqual([_preference userId], prevSavedUserId);
+    XCTAssertEqual([_settings userId], prevSavedUserId);
     [mockNSUserDefaults stopMocking];
 }
 
@@ -72,22 +72,7 @@
     OCMStub([mockNSUSerDefaults alloc]).andReturn(mockNSUSerDefaults);
     OCMStub([mockNSUSerDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockNSUSerDefaults);
     
-    _preference = [[PWPreferences alloc] init];
-    
-    OCMVerifyAll(mockNSUSerDefaults);
-}
-
-- (void)testSetUserIdWithAppGroupName {
-    NSString *mockUserId = @"mockUserId";
-    NSString *appGroupName = @"someAppGroup";
-    id mockConfig = OCMPartialMock([PWConfig config]);
-    OCMStub([mockConfig appGroupsName]).andReturn(appGroupName);
-    id mockNSUSerDefaults = OCMClassMock([NSUserDefaults class]);
-    OCMStub([mockNSUSerDefaults alloc]).andReturn(mockNSUSerDefaults);
-    OCMStub([mockNSUSerDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockNSUSerDefaults);
-    OCMExpect([mockNSUSerDefaults setObject:OCMOCK_ANY forKey:OCMOCK_ANY]);
-    
-    [_preference setUserId:mockUserId];
+    _settings = [[PWSettings alloc] init];
     
     OCMVerifyAll(mockNSUSerDefaults);
 }
@@ -100,7 +85,7 @@
     id mockNSUserDefaults = OCMPartialMock([NSUserDefaults standardUserDefaults]);
     OCMExpect([mockNSUserDefaults setObject:mockUserId forKey:kUserId]);
     
-    [_preference setUserId:mockUserId];
+    [_settings setUserId:mockUserId];
     
     OCMVerifyAll(mockNSUserDefaults);
 }

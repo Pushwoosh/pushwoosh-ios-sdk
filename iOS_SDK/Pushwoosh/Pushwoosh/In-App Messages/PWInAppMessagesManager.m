@@ -102,10 +102,10 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 - (void)setUserIdWithDelay:(double)delayInSeconds {
     dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
     dispatch_after(popTime, dispatch_get_main_queue(), ^(void){
-        if ([PWPreferences preferences].userId == nil) {
-            [self setUserId:[PWPreferences preferences].hwid completion:^(NSError *error) {}];
+        if ([PWSettings settings].userId == nil) {
+            [self setUserId:[PWSettings settings].hwid completion:^(NSError *error) {}];
         } else {
-            [self setUserId:[PWPreferences preferences].userId completion:^(NSError *error) {}];
+            [self setUserId:[PWSettings settings].userId completion:^(NSError *error) {}];
         }
     });
 }
@@ -153,7 +153,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 		return;
 	}
 
-	if ([[PWPreferences preferences].appCode isEqualToString:@""]) {
+	if ([[PWSettings settings].appCode isEqualToString:@""]) {
         [PushwooshLog pushwooshLog:PW_LL_WARN
                          className:self
                            message:@"Pushwoosh App code is missing. Initialize Pushwoosh manager in application:didFinishLaunchingWithOptions:"];
@@ -161,7 +161,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 		return;
 	}
 
-	if (![PWPreferences preferences].userId) {
+	if (![PWSettings settings].userId) {
         [PushwooshLog pushwooshLog:PW_LL_WARN
                          className:self
                            message:@"Pushwoosh: You need to setup UserId, [PushNotificationManager pushManager] setUserId:]"];
@@ -252,7 +252,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 #endif
 
 - (void)setUserId:(NSString *)userId completion:(void(^)(NSError * error))completion {
-	NSDate *lastRegDate = [PWPreferences preferences].lastRegisterUserDate;
+	NSDate *lastRegDate = [PWSettings settings].lastRegisterUserDate;
 	NSTimeInterval lastRegPeriod = kRegisterUserUpdateInterval + 1;
 	if (lastRegDate) {
 		lastRegPeriod = [[NSDate date] timeIntervalSinceDate:lastRegDate];
@@ -260,17 +260,17 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 	
 	if ([self isDeviceRestored]) {
         [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Device is restored from iCloud backup"];
-    } else if ([[PWPreferences preferences].userId isEqualToString:userId] && (lastRegPeriod < kRegisterUserUpdateInterval)) {
+    } else if ([[PWSettings settings].userId isEqualToString:userId] && (lastRegPeriod < kRegisterUserUpdateInterval)) {
         [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"/registerUser with same id already sent this day"];
         if (completion)
             completion(nil);
         
 		return;
 	}
-    NSString *previousUserId = [PWPreferences preferences].userId;
-	[PWPreferences preferences].userId = userId;
-    NSDate *previousRegisterUserDate = [PWPreferences preferences].lastRegisterUserDate;
-    [PWPreferences preferences].lastRegisterUserDate = [NSDate date];
+    NSString *previousUserId = [PWSettings settings].userId;
+	[PWSettings settings].userId = userId;
+    NSDate *previousRegisterUserDate = [PWSettings settings].lastRegisterUserDate;
+    [PWSettings settings].lastRegisterUserDate = [NSDate date];
     
     PWRegisterUserRequest *request = [PWRegisterUserRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
@@ -289,8 +289,8 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
             }];
         } else {
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Failed to update inbox for a new user. error: %@", error.localizedDescription]];
-            [PWPreferences preferences].userId = previousUserId;
-            [PWPreferences preferences].lastRegisterUserDate = previousRegisterUserDate;
+            [PWSettings settings].userId = previousUserId;
+            [PWSettings settings].lastRegisterUserDate = previousRegisterUserDate;
         }
         if (completion)
             completion(error);
@@ -298,7 +298,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 }
 
 - (BOOL)isDeviceRestored {
-    NSString *currentHWID = [PWPreferences preferences].hwid;
+    NSString *currentHWID = [PWSettings settings].hwid;
     NSString *previousHWID = [[NSUserDefaults standardUserDefaults] valueForKey:PW_DEVICE_RESTORED_KEY];
     if ([currentHWID isEqualToString:previousHWID]) {
         return NO;
@@ -392,12 +392,12 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 - (void)registerEmailUser:(NSString *)email userId:(NSString *)userId {
     if (userId != nil) {
-        [PWPreferences preferences].userId = userId;
+        [PWSettings settings].userId = userId;
     }
     PWRegisterEmailUser *request = [PWRegisterEmailUser new];
     request.email = email;
     if (userId == nil) {
-        request.userId = [PWPreferences preferences].userId;
+        request.userId = [PWSettings settings].userId;
     } else {
         request.userId = userId;
     }

@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/PWLog.h</key>
 		<data>
-		Fz2O5qQ65y+oQYLvXs3uXq+G6p4=
+		dTVxC4MEDB+CTFP411Jh3i5uokM=
 		</data>
 		<key>Headers/PWMessaging.h</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Headers/PushNotificationManager.h</key>
 		<data>
-		Q6FZ1ShY8okQefvsely2s2iCgKE=
+		nuPGoLWFO+RrqbiOGVKe+quJpQ4=
 		</data>
 		<key>Headers/PushwooshFramework-Swift.h</key>
 		<data>
@@ -58,7 +58,7 @@
 		</data>
 		<key>Headers/PushwooshFramework.h</key>
 		<data>
-		9DfFSgN+BgKicuKf6xpPhdl3t5E=
+		REgi5ST1Y3/cL1VauBomaYtJPmI=
 		</data>
 		<key>Info.plist</key>
 		<data>
@@ -154,7 +154,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			VY8AgDo4CPWh3c8O/Ku08AIhJn6A2hUly8hsZLfO2Nc=
+			tDmA8eKLSYh9FL19rnwTzKlFMn6zG/qjdTU8GlWJdqg=
 			</data>
 		</dict>
 		<key>Headers/PWMessaging.h</key>
@@ -196,7 +196,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1/8pVbXg9/en4nhI3JIqnEL0A8hhUuaW6nGAyVyNiuo=
+			vLI2vEEB2lrmsJQRXzsIxJ7AmMoZ9fDuT2Z4z1Q1Byo=
 			</data>
 		</dict>
 		<key>Headers/PushwooshFramework-Swift.h</key>
@@ -210,7 +210,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			K2AUJF5qgfCwgpgYup0mR4gs0LgtlAgJANJAkHMSC2M=
+			Ji2wE2uqcQ+KwRgDP79/0JJL+uQIp1f5sRgNXZhlN+k=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.abi.json</key>

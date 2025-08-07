@@ -216,13 +216,13 @@
             #endif
             
             if (!error) {
-                if ([PWPreferences preferences].previosHWID) {
+                if ([PWSettings settings].previosHWID) {
                     [self performDeviceMigrationWithCompletion:^(NSError *error) {
                         if (!error) {
-                            [[PWPreferences preferences] saveCurrentHWIDtoUserDefaults]; //forget previous HWID
+                            [[PWSettings settings] saveCurrentHWIDtoUserDefaults]; //forget previous HWID
                             
                             if ([PushNotificationManager pushManager].getPushToken) {
-                                [PWPreferences preferences].lastRegTime = nil;
+                                [PWSettings settings].lastRegTime = nil;
                                 [[PushNotificationManager pushManager] registerForPushNotifications];
                             }
                         }
