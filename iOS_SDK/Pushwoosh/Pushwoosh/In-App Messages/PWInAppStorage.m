@@ -114,21 +114,25 @@ static dispatch_once_t inAppStorageOncePred;
 }
 
 - (void)synchronize:(void(^)(NSError *error))completion {
-	if (self.isUpdating) {
-		return;
-	}
+    if (self.isUpdating) {
+        return;
+    }
 
-	self.isUpdating = YES;
+    self.isUpdating = YES;
 
-	PWGetResourcesRequest *request = [PWGetResourcesRequest new];
-	__weak typeof(self) wSelf = self;
-	[_requestManager sendRequest:request completion:^(NSError *error) {
-		if (error == nil) {
-			[wSelf updateLocalResources:request.resources];
-		} else {
-			[wSelf completionLoad];
-		}
-        completion(error);
+    PWGetResourcesRequest *request = [PWGetResourcesRequest new];
+    __weak typeof(self) wSelf = self;
+    [_requestManager sendRequest:request completion:^(NSError *error) {
+        if (error == nil) {
+            [wSelf updateLocalResources:request.resources completion:^{
+                if (completion)
+                    completion(nil);
+            }];
+        } else {
+            [wSelf completionLoad];
+            if (completion)
+                completion(error);
+        }
     }];
 }
 
@@ -150,55 +154,48 @@ static dispatch_once_t inAppStorageOncePred;
     }];
 }
 
-- (void)updateLocalResources:(NSDictionary *)resources {
-	NSMutableDictionary *currentResources = [_resources mutableCopy];
+- (void)updateLocalResources:(NSDictionary *)resources
+                  completion:(void(^)(void))completion {
+    NSMutableDictionary *currentResources = [_resources mutableCopy];
+    NSMutableSet *oldResources = [NSMutableSet new];
 
-	NSMutableSet *oldResources = [NSMutableSet new];
-
-	// find old resources
-	for (PWResource *resource in currentResources.allValues) {
-		PWResource *newResource = resources[resource.code];
-		if (newResource.updated != resource.updated && ![resource isRichMedia]) {
-			[oldResources addObject:resource];
-		}
-	}
-    
-	// remove old resources
-	for (PWResource *resource in oldResources.allObjects) {
-		if (!resource.locked) {
-			// do not touch inapp if it is currently showing
-			[resource deleteData];
-			[currentResources removeObjectForKey:resource.code];
-		}
-	}
-    
-	//sort for priority
-    NSMutableArray<PWResource *> *priorityResources = [NSMutableArray new];
-    [priorityResources addObjectsFromArray:resources.allValues];
-    [priorityResources sortUsingComparator:^NSComparisonResult(PWResource *obj1, PWResource *obj2) {
-        if (obj1.priority > obj2.priority) {
-            return NSOrderedAscending;
-        } else {
-            return NSOrderedDescending;
+    for (PWResource *resource in currentResources.allValues) {
+        PWResource *newResource = resources[resource.code];
+        if (newResource.updated != resource.updated && ![resource isRichMedia]) {
+            [oldResources addObject:resource];
         }
-    }];
-    
-    // find and update new resources
-	for (PWResource *resource in priorityResources) {
-		PWResource *existingResource = currentResources[resource.code];
-		if (existingResource.locked) {
-			// do not touch inapp if it is currently showing
-			continue;
-		}
-		
-		if (!resource.isDownloaded || existingResource.updated != resource.updated) {
-			[resource downloadDataWithCompletion:nil];
-		}
-		currentResources[resource.code] = resource;
-	}
+    }
 
-	_resources = currentResources;
-    
+    for (PWResource *resource in oldResources) {
+        if (!resource.locked) {
+            [resource deleteData];
+            [currentResources removeObjectForKey:resource.code];
+        }
+    }
+
+    NSMutableArray<PWResource *> *priorityResources = [NSMutableArray arrayWithArray:resources.allValues];
+    [priorityResources sortUsingComparator:^NSComparisonResult(PWResource *obj1, PWResource *obj2) {
+        return obj1.priority > obj2.priority ? NSOrderedAscending : NSOrderedDescending;
+    }];
+
+    dispatch_group_t group = dispatch_group_create();
+
+    for (PWResource *resource in priorityResources) {
+        PWResource *existingResource = currentResources[resource.code];
+        if (existingResource.locked) {
+            continue;
+        }
+        if (!resource.isDownloaded || existingResource.updated != resource.updated) {
+            dispatch_group_enter(group);
+            [resource downloadDataWithCompletion:^(NSError *error) {
+                dispatch_group_leave(group);
+            }];
+        }
+        currentResources[resource.code] = resource;
+    }
+
+    _resources = currentResources;
+
     if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
         NSError *error = nil;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_resources requiringSecureCoding:YES error:&error];
@@ -206,10 +203,13 @@ static dispatch_once_t inAppStorageOncePred;
     } else {
         [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:_resources] forKey:KeyInAppSavedResources];
     }
+    [[NSUserDefaults standardUserDefaults] synchronize];
 
-	[[NSUserDefaults standardUserDefaults] synchronize];
-
-	[self completionLoad];
+    dispatch_group_notify(group, dispatch_get_main_queue(), ^{
+        [self completionLoad];
+        if (completion)
+            completion();
+    });
 }
 
 + (void)destroy {

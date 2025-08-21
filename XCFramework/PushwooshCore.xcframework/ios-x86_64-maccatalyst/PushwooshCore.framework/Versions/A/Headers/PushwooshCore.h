@@ -18,7 +18,7 @@
 #import <PushwooshCore/PWCoreUtils.h>
 #import <PushwooshCore/PushwooshConfig.h>
 
-#define PUSHWOOSH_VERSION @"6.9.4"
+#define PUSHWOOSH_VERSION @"6.9.5"
 
 @interface PushwooshCoreManager : NSObject
 
