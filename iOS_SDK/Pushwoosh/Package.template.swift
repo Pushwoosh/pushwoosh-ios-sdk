@@ -20,7 +20,10 @@ let package = Package(
             targets: ["PushwooshLiveActivities"]),
         .library(
             name: "PushwooshVoIP",
-            targets: ["PushwooshVoIP"])
+            targets: ["PushwooshVoIP"]),
+        .library(
+            name: "PushwooshForegroundPush",
+            targets: ["PushwooshForegroundPush"])
     ],
     targets: [
         .binaryTarget(
@@ -47,6 +50,11 @@ let package = Package(
             name: "PushwooshVoIP",
             url: "__PushwooshVoIP_URL__",
             checksum: "__PushwooshVoIP_CHECKSUM__"
+        ),
+        .binaryTarget(
+            name: "PushwooshForegroundPush",
+            url: "__PushwooshForegroundPush_URL__",
+            checksum: "__PushwooshForegroundPush_CHECKSUM__"
         )
     ]
 )

@@ -1,0 +1,102 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target x86_64-apple-ios13.1-macabi -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PushwooshForegroundPush
+import Foundation
+import PushwooshBridge
+import PushwooshCore
+@_exported import PushwooshForegroundPush
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@available(iOS 13.0, *)
+extension PushwooshBridge.PWForegroundPush {
+  public static var delegate: any PushwooshForegroundPush.PWForegroundPushDelegate {
+    get
+    set
+  }
+  public static func foregroundNotificationWith(style: PushwooshBridge.PWForegroundPushStyle, duration: Swift.Int, vibration: PushwooshBridge.PWForegroundPushHapticFeedback, disappearedPushAnimation: PushwooshBridge.PWForegroundPushDisappearedAnimation)
+  public static func showForegroundPush(userInfo: [Swift.AnyHashable : Any])
+  public static var gradientColors: [UIKit.UIColor]? {
+    get
+    set
+  }
+  public static var backgroundColor: UIKit.UIColor? {
+    get
+    set
+  }
+  public static var usePushAnimation: Swift.Bool {
+    get
+    set
+  }
+  public static var titlePushColor: UIKit.UIColor? {
+    get
+    set
+  }
+  public static var messagePushColor: UIKit.UIColor? {
+    get
+    set
+  }
+  public static var titlePushFont: UIKit.UIFont? {
+    get
+    set
+  }
+  public static var messagePushFont: UIKit.UIFont? {
+    get
+    set
+  }
+  public static var useLiquidView: Swift.Bool {
+    get
+    set
+  }
+}
+@objc public protocol PWForegroundPushDelegate : ObjectiveC.NSObjectProtocol {
+  @objc optional func didTapForegroundPush(_ userInfo: [Swift.AnyHashable : Any])
+}
+@objc public class ForegroundPushConfiguration : ObjectiveC.NSObject {
+  @objc public init(style: PushwooshBridge.PWForegroundPushStyle, duration: Swift.Int, vibration: PushwooshBridge.PWForegroundPushHapticFeedback, disappearedAnimation: PushwooshBridge.PWForegroundPushDisappearedAnimation, gradientColors: [UIKit.UIColor]? = nil, backgroundColor: UIKit.UIColor? = nil, usePushAnimation: Swift.Bool = true, titlePushColor: UIKit.UIColor? = nil, messagePushColor: UIKit.UIColor? = nil, titlePushFont: UIKit.UIFont? = nil, messagePushFont: UIKit.UIFont? = nil, useLiquidView: Swift.Bool = false)
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @available(iOS 13.0, *)
+@objc(PushwooshForegroundPushImplementation) public class PushwooshForegroundPushImplementation : ObjectiveC.NSObject {
+  @objc(shared) public static let shared: PushwooshForegroundPush.PushwooshForegroundPushImplementation
+  @objc weak public static var delegate: Swift.AnyObject? {
+    @objc get
+    @objc set
+  }
+  @objc public static func foregroundPush() -> Swift.AnyClass
+  @objc public static var gradientColors: [UIKit.UIColor]? {
+    @objc get
+    @objc set
+  }
+  @objc public static var backgroundColor: UIKit.UIColor? {
+    @objc get
+    @objc set
+  }
+  @objc public static var usePushAnimation: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc public static var titlePushColor: UIKit.UIColor? {
+    @objc get
+    @objc set
+  }
+  @objc public static var messagePushColor: UIKit.UIColor? {
+    @objc get
+    @objc set
+  }
+  @objc public static var titlePushFont: UIKit.UIFont? {
+    @objc get
+    @objc set
+  }
+  @objc public static var messagePushFont: UIKit.UIFont? {
+    @objc get
+    @objc set
+  }
+  @objc public static var useLiquidView: Swift.Bool {
+    @objc get
+    @objc set
+  }
+  @objc deinit
+}

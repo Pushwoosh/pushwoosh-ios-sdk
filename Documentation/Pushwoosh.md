@@ -35,6 +35,9 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1a39e29a1bc60b9c392ba633c14e3f3261">+ (Class&lt;PWConfiguration&gt;_Nonnull)Configuration</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1a70c68e2a062d4ad57eebd6731f306476">+ (Class&lt;PWForegroundPush&gt;_Nonnull)ForegroundPush</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1a0949e0d478520ad209aa879486c44791">+ (void)initializeWithAppCode:(NSString *_Nonnull)appCode</a></td>
 	</tr>
 	<tr>
@@ -236,6 +239,12 @@ Proxy contains UNUserNotificationCenterDelegate objects.
   
 
 #### <a name="1a39e29a1bc60b9c392ba633c14e3f3261"></a>+ (Class&lt;PWConfiguration&gt;<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)Configuration  
+
+
+----------  
+  
+
+#### <a name="1a70c68e2a062d4ad57eebd6731f306476"></a>+ (Class&lt;PWForegroundPush&gt;<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)ForegroundPush  
 
 
 ----------  

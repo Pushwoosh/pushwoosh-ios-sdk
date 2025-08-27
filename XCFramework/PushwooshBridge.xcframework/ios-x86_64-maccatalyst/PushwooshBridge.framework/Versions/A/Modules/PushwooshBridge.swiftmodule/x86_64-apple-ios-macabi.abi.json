@@ -245,6 +245,1932 @@
       },
       {
         "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWForegroundPushStyle",
+        "printedName": "PWForegroundPushStyle",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "style1",
+            "printedName": "style1",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWForegroundPushStyle.Type) -> PushwooshBridge.PWForegroundPushStyle",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushStyle",
+                    "printedName": "PushwooshBridge.PWForegroundPushStyle",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushStyle"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWForegroundPushStyle.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPushStyle",
+                        "printedName": "PushwooshBridge.PWForegroundPushStyle",
+                        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushStyle"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWForegroundPushStyle@PWForegroundPushStyleStyle1",
+            "mangledName": "$s15PushwooshBridge21PWForegroundPushStyleO6style1yA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshBridge.PWForegroundPushStyle?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushStyle",
+                    "printedName": "PushwooshBridge.PWForegroundPushStyle",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushStyle"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:15PushwooshBridge21PWForegroundPushStyleO8rawValueACSgSi_tcfc",
+            "mangledName": "$s15PushwooshBridge21PWForegroundPushStyleO8rawValueACSgSi_tcfc",
+            "moduleName": "PushwooshBridge",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:15PushwooshBridge21PWForegroundPushStyleO8rawValueSivp",
+            "mangledName": "$s15PushwooshBridge21PWForegroundPushStyleO8rawValueSivp",
+            "moduleName": "PushwooshBridge",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge21PWForegroundPushStyleO8rawValueSivg",
+                "mangledName": "$s15PushwooshBridge21PWForegroundPushStyleO8rawValueSivg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushStyle",
+        "mangledName": "$s15PushwooshBridge21PWForegroundPushStyleO",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWForegroundPushHapticFeedback",
+        "printedName": "PWForegroundPushHapticFeedback",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "none",
+            "printedName": "none",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWForegroundPushHapticFeedback.Type) -> PushwooshBridge.PWForegroundPushHapticFeedback",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushHapticFeedback",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPushHapticFeedback",
+                        "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback@PWForegroundPushHapticFeedbackNone",
+            "mangledName": "$s15PushwooshBridge30PWForegroundPushHapticFeedbackO4noneyA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "light",
+            "printedName": "light",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWForegroundPushHapticFeedback.Type) -> PushwooshBridge.PWForegroundPushHapticFeedback",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushHapticFeedback",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPushHapticFeedback",
+                        "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback@PWForegroundPushHapticFeedbackLight",
+            "mangledName": "$s15PushwooshBridge30PWForegroundPushHapticFeedbackO5lightyA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Var",
+            "name": "medium",
+            "printedName": "medium",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWForegroundPushHapticFeedback.Type) -> PushwooshBridge.PWForegroundPushHapticFeedback",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushHapticFeedback",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPushHapticFeedback",
+                        "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback@PWForegroundPushHapticFeedbackMedium",
+            "mangledName": "$s15PushwooshBridge30PWForegroundPushHapticFeedbackO6mediumyA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 2
+          },
+          {
+            "kind": "Var",
+            "name": "heavy",
+            "printedName": "heavy",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWForegroundPushHapticFeedback.Type) -> PushwooshBridge.PWForegroundPushHapticFeedback",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushHapticFeedback",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPushHapticFeedback",
+                        "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback@PWForegroundPushHapticFeedbackHeavy",
+            "mangledName": "$s15PushwooshBridge30PWForegroundPushHapticFeedbackO5heavyyA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 3
+          },
+          {
+            "kind": "Var",
+            "name": "soft",
+            "printedName": "soft",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWForegroundPushHapticFeedback.Type) -> PushwooshBridge.PWForegroundPushHapticFeedback",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushHapticFeedback",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPushHapticFeedback",
+                        "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback@PWForegroundPushHapticFeedbackSoft",
+            "mangledName": "$s15PushwooshBridge30PWForegroundPushHapticFeedbackO4softyA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 4
+          },
+          {
+            "kind": "Var",
+            "name": "rigid",
+            "printedName": "rigid",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWForegroundPushHapticFeedback.Type) -> PushwooshBridge.PWForegroundPushHapticFeedback",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushHapticFeedback",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPushHapticFeedback",
+                        "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback@PWForegroundPushHapticFeedbackRigid",
+            "mangledName": "$s15PushwooshBridge30PWForegroundPushHapticFeedbackO5rigidyA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 5
+          },
+          {
+            "kind": "Var",
+            "name": "notification",
+            "printedName": "notification",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWForegroundPushHapticFeedback.Type) -> PushwooshBridge.PWForegroundPushHapticFeedback",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushHapticFeedback",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPushHapticFeedback",
+                        "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback@PWForegroundPushHapticFeedbackNotification",
+            "mangledName": "$s15PushwooshBridge30PWForegroundPushHapticFeedbackO12notificationyA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 6
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushHapticFeedback",
+                    "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:15PushwooshBridge30PWForegroundPushHapticFeedbackO8rawValueACSgSi_tcfc",
+            "mangledName": "$s15PushwooshBridge30PWForegroundPushHapticFeedbackO8rawValueACSgSi_tcfc",
+            "moduleName": "PushwooshBridge",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:15PushwooshBridge30PWForegroundPushHapticFeedbackO8rawValueSivp",
+            "mangledName": "$s15PushwooshBridge30PWForegroundPushHapticFeedbackO8rawValueSivp",
+            "moduleName": "PushwooshBridge",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge30PWForegroundPushHapticFeedbackO8rawValueSivg",
+                "mangledName": "$s15PushwooshBridge30PWForegroundPushHapticFeedbackO8rawValueSivg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback",
+        "mangledName": "$s15PushwooshBridge30PWForegroundPushHapticFeedbackO",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWForegroundPushDisappearedAnimation",
+        "printedName": "PWForegroundPushDisappearedAnimation",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "balls",
+            "printedName": "balls",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWForegroundPushDisappearedAnimation.Type) -> PushwooshBridge.PWForegroundPushDisappearedAnimation",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushDisappearedAnimation",
+                    "printedName": "PushwooshBridge.PWForegroundPushDisappearedAnimation",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushDisappearedAnimation"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWForegroundPushDisappearedAnimation.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPushDisappearedAnimation",
+                        "printedName": "PushwooshBridge.PWForegroundPushDisappearedAnimation",
+                        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushDisappearedAnimation"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWForegroundPushDisappearedAnimation@PWForegroundPushDisappearedAnimationBalls",
+            "mangledName": "$s15PushwooshBridge36PWForegroundPushDisappearedAnimationO5ballsyA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "regularPush",
+            "printedName": "regularPush",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWForegroundPushDisappearedAnimation.Type) -> PushwooshBridge.PWForegroundPushDisappearedAnimation",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushDisappearedAnimation",
+                    "printedName": "PushwooshBridge.PWForegroundPushDisappearedAnimation",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushDisappearedAnimation"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWForegroundPushDisappearedAnimation.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPushDisappearedAnimation",
+                        "printedName": "PushwooshBridge.PWForegroundPushDisappearedAnimation",
+                        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushDisappearedAnimation"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWForegroundPushDisappearedAnimation@PWForegroundPushDisappearedAnimationRegularPush",
+            "mangledName": "$s15PushwooshBridge36PWForegroundPushDisappearedAnimationO07regularD0yA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshBridge.PWForegroundPushDisappearedAnimation?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushDisappearedAnimation",
+                    "printedName": "PushwooshBridge.PWForegroundPushDisappearedAnimation",
+                    "usr": "c:@M@PushwooshBridge@E@PWForegroundPushDisappearedAnimation"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:15PushwooshBridge36PWForegroundPushDisappearedAnimationO8rawValueACSgSi_tcfc",
+            "mangledName": "$s15PushwooshBridge36PWForegroundPushDisappearedAnimationO8rawValueACSgSi_tcfc",
+            "moduleName": "PushwooshBridge",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:15PushwooshBridge36PWForegroundPushDisappearedAnimationO8rawValueSivp",
+            "mangledName": "$s15PushwooshBridge36PWForegroundPushDisappearedAnimationO8rawValueSivp",
+            "moduleName": "PushwooshBridge",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge36PWForegroundPushDisappearedAnimationO8rawValueSivg",
+                "mangledName": "$s15PushwooshBridge36PWForegroundPushDisappearedAnimationO8rawValueSivg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@PushwooshBridge@E@PWForegroundPushDisappearedAnimation",
+        "mangledName": "$s15PushwooshBridge36PWForegroundPushDisappearedAnimationO",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWForegroundPush",
+        "printedName": "PWForegroundPush",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "gradientColors",
+            "printedName": "gradientColors",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[UIKit.UIColor]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[UIKit.UIColor]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cpy)gradientColors",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP14gradientColorsSaySo7UIColorCGSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[UIKit.UIColor]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[UIKit.UIColor]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "UIColor",
+                            "printedName": "UIKit.UIColor",
+                            "usr": "c:objc(cs)UIColor"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)gradientColors",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP14gradientColorsSaySo7UIColorCGSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[UIKit.UIColor]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[UIKit.UIColor]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "UIColor",
+                            "printedName": "UIKit.UIColor",
+                            "usr": "c:objc(cs)UIColor"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)setGradientColors:",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP14gradientColorsSaySo7UIColorCGSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "backgroundColor",
+            "printedName": "backgroundColor",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIColor?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIColor",
+                    "printedName": "UIKit.UIColor",
+                    "usr": "c:objc(cs)UIColor"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cpy)backgroundColor",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP15backgroundColorSo7UIColorCSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIColor?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)backgroundColor",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP15backgroundColorSo7UIColorCSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIColor?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)setBackgroundColor:",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP15backgroundColorSo7UIColorCSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "usePushAnimation",
+            "printedName": "usePushAnimation",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cpy)usePushAnimation",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP03useD9AnimationSbvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)usePushAnimation",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP03useD9AnimationSbvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)setUsePushAnimation:",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP03useD9AnimationSbvsZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "titlePushColor",
+            "printedName": "titlePushColor",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIColor?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIColor",
+                    "printedName": "UIKit.UIColor",
+                    "usr": "c:objc(cs)UIColor"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cpy)titlePushColor",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP05titleD5ColorSo7UIColorCSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIColor?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)titlePushColor",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP05titleD5ColorSo7UIColorCSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIColor?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)setTitlePushColor:",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP05titleD5ColorSo7UIColorCSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "titlePushFont",
+            "printedName": "titlePushFont",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIFont?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIFont",
+                    "printedName": "UIKit.UIFont",
+                    "usr": "c:objc(cs)UIFont"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cpy)titlePushFont",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP05titleD4FontSo6UIFontCSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIFont?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIFont",
+                        "printedName": "UIKit.UIFont",
+                        "usr": "c:objc(cs)UIFont"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)titlePushFont",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP05titleD4FontSo6UIFontCSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIFont?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIFont",
+                        "printedName": "UIKit.UIFont",
+                        "usr": "c:objc(cs)UIFont"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)setTitlePushFont:",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP05titleD4FontSo6UIFontCSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "messagePushFont",
+            "printedName": "messagePushFont",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIFont?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIFont",
+                    "printedName": "UIKit.UIFont",
+                    "usr": "c:objc(cs)UIFont"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cpy)messagePushFont",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP07messageD4FontSo6UIFontCSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIFont?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIFont",
+                        "printedName": "UIKit.UIFont",
+                        "usr": "c:objc(cs)UIFont"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)messagePushFont",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP07messageD4FontSo6UIFontCSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIFont?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIFont",
+                        "printedName": "UIKit.UIFont",
+                        "usr": "c:objc(cs)UIFont"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)setMessagePushFont:",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP07messageD4FontSo6UIFontCSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "messagePushColor",
+            "printedName": "messagePushColor",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIColor?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIColor",
+                    "printedName": "UIKit.UIColor",
+                    "usr": "c:objc(cs)UIColor"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cpy)messagePushColor",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP07messageD5ColorSo7UIColorCSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIColor?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)messagePushColor",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP07messageD5ColorSo7UIColorCSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIColor?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)setMessagePushColor:",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP07messageD5ColorSo7UIColorCSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "useLiquidView",
+            "printedName": "useLiquidView",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cpy)useLiquidView",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP13useLiquidViewSbvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)useLiquidView",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP13useLiquidViewSbvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)setUseLiquidView:",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP13useLiquidViewSbvsZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "didTapForegroundPush",
+            "printedName": "didTapForegroundPush",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(([Swift.AnyHashable : Any]) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "([Swift.AnyHashable : Any]) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Dictionary",
+                        "printedName": "[Swift.AnyHashable : Any]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "AnyHashable",
+                            "printedName": "Swift.AnyHashable",
+                            "usr": "s:s11AnyHashableV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "ProtocolComposition",
+                            "printedName": "Any"
+                          }
+                        ],
+                        "usr": "s:SD"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cpy)didTapForegroundPush",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP016didTapForegroundD0ySDys11AnyHashableVypGcSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(([Swift.AnyHashable : Any]) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "([Swift.AnyHashable : Any]) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Dictionary",
+                            "printedName": "[Swift.AnyHashable : Any]",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "AnyHashable",
+                                "printedName": "Swift.AnyHashable",
+                                "usr": "s:s11AnyHashableV"
+                              },
+                              {
+                                "kind": "TypeNominal",
+                                "name": "ProtocolComposition",
+                                "printedName": "Any"
+                              }
+                            ],
+                            "usr": "s:SD"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)didTapForegroundPush",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP016didTapForegroundD0ySDys11AnyHashableVypGcSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(([Swift.AnyHashable : Any]) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "([Swift.AnyHashable : Any]) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Dictionary",
+                            "printedName": "[Swift.AnyHashable : Any]",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "AnyHashable",
+                                "printedName": "Swift.AnyHashable",
+                                "usr": "s:s11AnyHashableV"
+                              },
+                              {
+                                "kind": "TypeNominal",
+                                "name": "ProtocolComposition",
+                                "printedName": "Any"
+                              }
+                            ],
+                            "usr": "s:SD"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)setDidTapForegroundPush:",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP016didTapForegroundD0ySDys11AnyHashableVypGcSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "foregroundNotificationWith",
+            "printedName": "foregroundNotificationWith(style:duration:vibration:disappearedPushAnimation:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWForegroundPushStyle",
+                "printedName": "PushwooshBridge.PWForegroundPushStyle",
+                "usr": "c:@M@PushwooshBridge@E@PWForegroundPushStyle"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWForegroundPushHapticFeedback",
+                "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWForegroundPushDisappearedAnimation",
+                "printedName": "PushwooshBridge.PWForegroundPushDisappearedAnimation",
+                "usr": "c:@M@PushwooshBridge@E@PWForegroundPushDisappearedAnimation"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)foregroundNotificationWithStyle:duration:vibration:disappearedPushAnimation:",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP26foregroundNotificationWith5style8duration9vibration011disappearedD9AnimationyAA0cD5StyleO_SiAA0cD14HapticFeedbackOAA0cd11DisappearedL0OtFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+            "static": true,
+            "protocolReq": true,
+            "objc_name": "foregroundNotificationWithStyle:duration:vibration:disappearedPushAnimation:",
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "showForegroundPush",
+            "printedName": "showForegroundPush(userInfo:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.AnyHashable : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AnyHashable",
+                    "printedName": "Swift.AnyHashable",
+                    "usr": "s:s11AnyHashableV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush(cm)showForegroundPushWithUserInfo:",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP014showForegroundD08userInfoySDys11AnyHashableVypG_tFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
+            "static": true,
+            "protocolReq": true,
+            "objc_name": "showForegroundPushWithUserInfo:",
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush",
+        "mangledName": "$s15PushwooshBridge16PWForegroundPushP",
+        "moduleName": "PushwooshBridge",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -624,6 +2550,1469 @@
         "declAttributes": [
           "AccessControl",
           "ObjC"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWForegroundPushStub",
+        "printedName": "PWForegroundPushStub",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "gradientColors",
+            "printedName": "gradientColors",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "[UIKit.UIColor]?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Array",
+                    "printedName": "[UIKit.UIColor]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sa"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cpy)gradientColors",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC14gradientColorsSaySo7UIColorCGSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "gradientColors",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "ObjC",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[UIKit.UIColor]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[UIKit.UIColor]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "UIColor",
+                            "printedName": "UIKit.UIColor",
+                            "usr": "c:objc(cs)UIColor"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)gradientColors",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC14gradientColorsSaySo7UIColorCGSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "gradientColors",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "[UIKit.UIColor]?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Array",
+                        "printedName": "[UIKit.UIColor]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "UIColor",
+                            "printedName": "UIKit.UIColor",
+                            "usr": "c:objc(cs)UIColor"
+                          }
+                        ],
+                        "usr": "s:Sa"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)setGradientColors:",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC14gradientColorsSaySo7UIColorCGSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "setGradientColors:",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge20PWForegroundPushStubC14gradientColorsSaySo7UIColorCGSgvMZ",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC14gradientColorsSaySo7UIColorCGSgvMZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "backgroundColor",
+            "printedName": "backgroundColor",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIColor?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIColor",
+                    "printedName": "UIKit.UIColor",
+                    "usr": "c:objc(cs)UIColor"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cpy)backgroundColor",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC15backgroundColorSo7UIColorCSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "backgroundColor",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "ObjC",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIColor?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)backgroundColor",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC15backgroundColorSo7UIColorCSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "backgroundColor",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIColor?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)setBackgroundColor:",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC15backgroundColorSo7UIColorCSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "setBackgroundColor:",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge20PWForegroundPushStubC15backgroundColorSo7UIColorCSgvMZ",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC15backgroundColorSo7UIColorCSgvMZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "usePushAnimation",
+            "printedName": "usePushAnimation",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cpy)usePushAnimation",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC03useD9AnimationSbvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "usePushAnimation",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "ObjC",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)usePushAnimation",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC03useD9AnimationSbvgZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "usePushAnimation",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)setUsePushAnimation:",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC03useD9AnimationSbvsZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "setUsePushAnimation:",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge20PWForegroundPushStubC03useD9AnimationSbvMZ",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC03useD9AnimationSbvMZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "titlePushColor",
+            "printedName": "titlePushColor",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIColor?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIColor",
+                    "printedName": "UIKit.UIColor",
+                    "usr": "c:objc(cs)UIColor"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cpy)titlePushColor",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC05titleD5ColorSo7UIColorCSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "titlePushColor",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "ObjC",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIColor?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)titlePushColor",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC05titleD5ColorSo7UIColorCSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "titlePushColor",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIColor?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)setTitlePushColor:",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC05titleD5ColorSo7UIColorCSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "setTitlePushColor:",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge20PWForegroundPushStubC05titleD5ColorSo7UIColorCSgvMZ",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC05titleD5ColorSo7UIColorCSgvMZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "messagePushColor",
+            "printedName": "messagePushColor",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIColor?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIColor",
+                    "printedName": "UIKit.UIColor",
+                    "usr": "c:objc(cs)UIColor"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cpy)messagePushColor",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC07messageD5ColorSo7UIColorCSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "messagePushColor",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "ObjC",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIColor?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)messagePushColor",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC07messageD5ColorSo7UIColorCSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "messagePushColor",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIColor?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)setMessagePushColor:",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC07messageD5ColorSo7UIColorCSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "setMessagePushColor:",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge20PWForegroundPushStubC07messageD5ColorSo7UIColorCSgvMZ",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC07messageD5ColorSo7UIColorCSgvMZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "titlePushFont",
+            "printedName": "titlePushFont",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIFont?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIFont",
+                    "printedName": "UIKit.UIFont",
+                    "usr": "c:objc(cs)UIFont"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cpy)titlePushFont",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC05titleD4FontSo6UIFontCSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "titlePushFont",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "ObjC",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIFont?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIFont",
+                        "printedName": "UIKit.UIFont",
+                        "usr": "c:objc(cs)UIFont"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)titlePushFont",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC05titleD4FontSo6UIFontCSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "titlePushFont",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIFont?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIFont",
+                        "printedName": "UIKit.UIFont",
+                        "usr": "c:objc(cs)UIFont"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)setTitlePushFont:",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC05titleD4FontSo6UIFontCSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "setTitlePushFont:",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge20PWForegroundPushStubC05titleD4FontSo6UIFontCSgvMZ",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC05titleD4FontSo6UIFontCSgvMZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "messagePushFont",
+            "printedName": "messagePushFont",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIFont?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIFont",
+                    "printedName": "UIKit.UIFont",
+                    "usr": "c:objc(cs)UIFont"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cpy)messagePushFont",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC07messageD4FontSo6UIFontCSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "messagePushFont",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "ObjC",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIFont?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIFont",
+                        "printedName": "UIKit.UIFont",
+                        "usr": "c:objc(cs)UIFont"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)messagePushFont",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC07messageD4FontSo6UIFontCSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "messagePushFont",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "UIKit.UIFont?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIFont",
+                        "printedName": "UIKit.UIFont",
+                        "usr": "c:objc(cs)UIFont"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)setMessagePushFont:",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC07messageD4FontSo6UIFontCSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "setMessagePushFont:",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge20PWForegroundPushStubC07messageD4FontSo6UIFontCSgvMZ",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC07messageD4FontSo6UIFontCSgvMZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "useLiquidView",
+            "printedName": "useLiquidView",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cpy)useLiquidView",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC13useLiquidViewSbvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "useLiquidView",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "ObjC",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)useLiquidView",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC13useLiquidViewSbvgZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "useLiquidView",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)setUseLiquidView:",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC13useLiquidViewSbvsZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "setUseLiquidView:",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge20PWForegroundPushStubC13useLiquidViewSbvMZ",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC13useLiquidViewSbvMZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "didTapForegroundPush",
+            "printedName": "didTapForegroundPush",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(([Swift.AnyHashable : Any]) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "([Swift.AnyHashable : Any]) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Dictionary",
+                        "printedName": "[Swift.AnyHashable : Any]",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "AnyHashable",
+                            "printedName": "Swift.AnyHashable",
+                            "usr": "s:s11AnyHashableV"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "ProtocolComposition",
+                            "printedName": "Any"
+                          }
+                        ],
+                        "usr": "s:SD"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cpy)didTapForegroundPush",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC016didTapForegroundD0ySDys11AnyHashableVypGcSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "didTapForegroundPush",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "ObjC",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(([Swift.AnyHashable : Any]) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "([Swift.AnyHashable : Any]) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Dictionary",
+                            "printedName": "[Swift.AnyHashable : Any]",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "AnyHashable",
+                                "printedName": "Swift.AnyHashable",
+                                "usr": "s:s11AnyHashableV"
+                              },
+                              {
+                                "kind": "TypeNominal",
+                                "name": "ProtocolComposition",
+                                "printedName": "Any"
+                              }
+                            ],
+                            "usr": "s:SD"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)didTapForegroundPush",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC016didTapForegroundD0ySDys11AnyHashableVypGcSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "didTapForegroundPush",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(([Swift.AnyHashable : Any]) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "([Swift.AnyHashable : Any]) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Dictionary",
+                            "printedName": "[Swift.AnyHashable : Any]",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "AnyHashable",
+                                "printedName": "Swift.AnyHashable",
+                                "usr": "s:s11AnyHashableV"
+                              },
+                              {
+                                "kind": "TypeNominal",
+                                "name": "ProtocolComposition",
+                                "printedName": "Any"
+                              }
+                            ],
+                            "usr": "s:SD"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)setDidTapForegroundPush:",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC016didTapForegroundD0ySDys11AnyHashableVypGcSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "objc_name": "setDidTapForegroundPush:",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge20PWForegroundPushStubC016didTapForegroundD0ySDys11AnyHashableVypGcSgvMZ",
+                "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC016didTapForegroundD0ySDys11AnyHashableVypGcSgvMZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "showForegroundPush",
+            "printedName": "showForegroundPush(userInfo:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.AnyHashable : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AnyHashable",
+                    "printedName": "Swift.AnyHashable",
+                    "usr": "s:s11AnyHashableV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)showForegroundPushWithUserInfo:",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC014showForegroundD08userInfoySDys11AnyHashableVypG_tFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "showForegroundPushWithUserInfo:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "foregroundPush",
+            "printedName": "foregroundPush()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any AnyObject.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "AnyObject"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)foregroundPush",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC010foregroundD0yXlXpyFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "foregroundNotificationWith",
+            "printedName": "foregroundNotificationWith(style:duration:vibration:disappearedPushAnimation:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWForegroundPushStyle",
+                "printedName": "PushwooshBridge.PWForegroundPushStyle",
+                "usr": "c:@M@PushwooshBridge@E@PWForegroundPushStyle"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWForegroundPushHapticFeedback",
+                "printedName": "PushwooshBridge.PWForegroundPushHapticFeedback",
+                "usr": "c:@M@PushwooshBridge@E@PWForegroundPushHapticFeedback"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWForegroundPushDisappearedAnimation",
+                "printedName": "PushwooshBridge.PWForegroundPushDisappearedAnimation",
+                "usr": "c:@M@PushwooshBridge@E@PWForegroundPushDisappearedAnimation"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(cm)foregroundNotificationWithStyle:duration:vibration:disappearedPushAnimation:",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC26foregroundNotificationWith5style8duration9vibration011disappearedD9AnimationyAA0cD5StyleO_SiAA0cD14HapticFeedbackOAA0cd11DisappearedM0OtFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "foregroundNotificationWithStyle:duration:vibration:disappearedPushAnimation:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWForegroundPushStub",
+                "printedName": "PushwooshBridge.PWForegroundPushStub",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub(im)init",
+            "mangledName": "$s15PushwooshBridge20PWForegroundPushStubCACycfc",
+            "moduleName": "PushwooshBridge",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshBridge@objc(cs)PWForegroundPushStub",
+        "mangledName": "$s15PushwooshBridge20PWForegroundPushStubC",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "PWForegroundPush",
+            "printedName": "PWForegroundPush",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
         ]
       },
       {
@@ -1490,5 +4879,160 @@
     ],
     "json_format_version": 8
   },
-  "ConstValues": []
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 250,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 250,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 327,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 338,
+      "length": 5,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 353,
+      "length": 6,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 369,
+      "length": 5,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 384,
+      "length": 4,
+      "value": "4"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 398,
+      "length": 5,
+      "value": "5"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 413,
+      "length": 12,
+      "value": "6"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 327,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 338,
+      "length": 5,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 353,
+      "length": 6,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 369,
+      "length": 5,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 384,
+      "length": 4,
+      "value": "4"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 398,
+      "length": 5,
+      "value": "5"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 413,
+      "length": 12,
+      "value": "6"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 786,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 797,
+      "length": 11,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 786,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPush.swift",
+      "kind": "IntegerLiteral",
+      "offset": 797,
+      "length": 11,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPushStub.swift",
+      "kind": "BooleanLiteral",
+      "offset": 418,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWForegroundPushStub.swift",
+      "kind": "BooleanLiteral",
+      "offset": 685,
+      "length": 5,
+      "value": "false"
+    }
+  ]
 }

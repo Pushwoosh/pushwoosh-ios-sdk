@@ -24,7 +24,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.9.5"
+#define PUSHWOOSH_VERSION @"6.10.0"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -216,6 +216,9 @@ Tells the delegate that the user has pressed on the push notification banner.
 
 #pragma mark - Configuration
 + (Class<PWConfiguration>_Nonnull)Configuration NS_REFINED_FOR_SWIFT;
+
+#pragma mark - Custom Foreground Push Notifications
++ (Class<PWForegroundPush>_Nonnull)ForegroundPush NS_REFINED_FOR_SWIFT;
 
 /**
  Pushwoosh Application ID. Usually retrieved automatically from Info.plist parameter `Pushwoosh_APPID`

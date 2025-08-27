@@ -1564,6 +1564,16 @@
 		E15185C72E018F6A00CE8936 /* PushwooshConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = E15185C42E018F6A00CE8936 /* PushwooshConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E15185C82E018F6A00CE8936 /* PushwooshConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = E15185C52E018F6A00CE8936 /* PushwooshConfig.m */; };
 		E16237C82DD38AA70008EA2B /* PWVoIPMessage.swift in Sources */ = {isa = PBXBuildFile; fileRef = E16237C72DD38AA70008EA2B /* PWVoIPMessage.swift */; };
+		E192B7D52E5DF54A0027015B /* PushwooshForegroundPush.h in Headers */ = {isa = PBXBuildFile; fileRef = E192B7D42E5DF54A0027015B /* PushwooshForegroundPush.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E192B7DA2E5DF63A0027015B /* PWForegroundPush.swift in Sources */ = {isa = PBXBuildFile; fileRef = E192B7D92E5DF63A0027015B /* PWForegroundPush.swift */; };
+		E192B7DC2E5DF6640027015B /* PWForegroundPushStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = E192B7DB2E5DF6640027015B /* PWForegroundPushStub.swift */; };
+		E192B7DD2E5DF7030027015B /* PushwooshBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEF972D77883300CD410A /* PushwooshBridge.framework */; };
+		E192B7DE2E5DF7030027015B /* PushwooshBridge.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEF972D77883300CD410A /* PushwooshBridge.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E192B7E12E5DF7030027015B /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; };
+		E192B7E22E5DF7030027015B /* PushwooshCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E192B7E72E5DF7410027015B /* ForegroundPushShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E192B7E62E5DF7410027015B /* ForegroundPushShape.swift */; };
+		E192B7E92E5DF76B0027015B /* PushwooshForegroundPushImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E192B7E82E5DF76B0027015B /* PushwooshForegroundPushImplementation.swift */; };
+		E192B7EB2E5DF78E0027015B /* PWForegroundPushExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E192B7EA2E5DF78E0027015B /* PWForegroundPushExtension.swift */; };
 		E1FE18AD2E0559AB004A8639 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E1FE18AC2E0559AB004A8639 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
@@ -1652,6 +1662,20 @@
 			remoteGlobalIDString = 447CEF962D77883300CD410A;
 			remoteInfo = PushwooshBridge;
 		};
+		E192B7DF2E5DF7030027015B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 447CEF962D77883300CD410A;
+			remoteInfo = PushwooshBridge;
+		};
+		E192B7E32E5DF7030027015B /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 441806DE2D7B285900DE71A7;
+			remoteInfo = PushwooshCore;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1673,6 +1697,18 @@
 			dstSubfolderSpec = 16;
 			files = (
 			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E192B7E52E5DF7030027015B /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E192B7E22E5DF7030027015B /* PushwooshCore.framework in Embed Frameworks */,
+				E192B7DE2E5DF7030027015B /* PushwooshBridge.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXCopyFilesBuildPhase section */
@@ -2104,6 +2140,13 @@
 		E15185C42E018F6A00CE8936 /* PushwooshConfig.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = PushwooshConfig.h; sourceTree = "<group>"; };
 		E15185C52E018F6A00CE8936 /* PushwooshConfig.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushwooshConfig.m; sourceTree = "<group>"; };
 		E16237C72DD38AA70008EA2B /* PWVoIPMessage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWVoIPMessage.swift; sourceTree = "<group>"; };
+		E192B7D22E5DF54A0027015B /* PushwooshForegroundPush.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshForegroundPush.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E192B7D42E5DF54A0027015B /* PushwooshForegroundPush.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushwooshForegroundPush.h; sourceTree = "<group>"; };
+		E192B7D92E5DF63A0027015B /* PWForegroundPush.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWForegroundPush.swift; sourceTree = "<group>"; };
+		E192B7DB2E5DF6640027015B /* PWForegroundPushStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWForegroundPushStub.swift; sourceTree = "<group>"; };
+		E192B7E62E5DF7410027015B /* ForegroundPushShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundPushShape.swift; sourceTree = "<group>"; };
+		E192B7E82E5DF76B0027015B /* PushwooshForegroundPushImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushwooshForegroundPushImplementation.swift; sourceTree = "<group>"; };
+		E192B7EA2E5DF78E0027015B /* PWForegroundPushExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWForegroundPushExtension.swift; sourceTree = "<group>"; };
 		E1FE18AC2E0559AB004A8639 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2214,6 +2257,15 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E192B7CF2E5DF54A0027015B /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E192B7E12E5DF7030027015B /* PushwooshCore.framework in Frameworks */,
+				E192B7DD2E5DF7030027015B /* PushwooshBridge.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -2232,6 +2284,7 @@
 				447CEFBA2D77938A00CD410A /* PushwooshLiveActivities.framework */,
 				441806DF2D7B285900DE71A7 /* PushwooshCore.framework */,
 				44C0F3442DCA323300BE6564 /* PushwooshVoIP.framework */,
+				E192B7D22E5DF54A0027015B /* PushwooshForegroundPush.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2244,6 +2297,7 @@
 				447CEF982D77883300CD410A /* PushwooshBridge */,
 				447CEFBB2D77938A00CD410A /* PushwooshLiveActivities */,
 				44C0F3452DCA323300BE6564 /* PushwooshVoIP */,
+				E192B7D32E5DF54A0027015B /* PushwooshForegroundPush */,
 				5D21C42B23F6746100D161F1 /* Supporting_Files */,
 				46FA9E351C7DB1AA00741A11 /* PushwooshTests */,
 				034768DFFF38A50411DB9C8B /* Products */,
@@ -2421,8 +2475,10 @@
 				447CEF992D77883300CD410A /* PushwooshBridge.h */,
 				447CEF9E2D7788D900CD410A /* PWLiveActivities.swift */,
 				441CC9442DCA55FF00DBE44A /* PWVoIP.swift */,
+				E192B7D92E5DF63A0027015B /* PWForegroundPush.swift */,
 				44155FD32D77B30E00358B1C /* PWLiveActivitiesStub.swift */,
 				441CC9462DCA568500DBE44A /* PWVoIPStub.swift */,
+				E192B7DB2E5DF6640027015B /* PWForegroundPushStub.swift */,
 			);
 			path = PushwooshBridge;
 			sourceTree = "<group>";
@@ -3684,6 +3740,17 @@
 			path = "Message Struct";
 			sourceTree = "<group>";
 		};
+		E192B7D32E5DF54A0027015B /* PushwooshForegroundPush */ = {
+			isa = PBXGroup;
+			children = (
+				E192B7D42E5DF54A0027015B /* PushwooshForegroundPush.h */,
+				E192B7E62E5DF7410027015B /* ForegroundPushShape.swift */,
+				E192B7E82E5DF76B0027015B /* PushwooshForegroundPushImplementation.swift */,
+				E192B7EA2E5DF78E0027015B /* PWForegroundPushExtension.swift */,
+			);
+			path = PushwooshForegroundPush;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -4515,6 +4582,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E192B7CD2E5DF54A0027015B /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E192B7D52E5DF54A0027015B /* PushwooshForegroundPush.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXHeadersBuildPhase section */
 
 /* Begin PBXNativeTarget section */
@@ -4744,6 +4819,27 @@
 			productReference = D2AAC07E0554694100DB518D /* libPushwoosh.a */;
 			productType = "com.apple.product-type.library.static";
 		};
+		E192B7D12E5DF54A0027015B /* PushwooshForegroundPush */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E192B7D82E5DF54A0027015B /* Build configuration list for PBXNativeTarget "PushwooshForegroundPush" */;
+			buildPhases = (
+				E192B7CD2E5DF54A0027015B /* Headers */,
+				E192B7CE2E5DF54A0027015B /* Sources */,
+				E192B7CF2E5DF54A0027015B /* Frameworks */,
+				E192B7D02E5DF54A0027015B /* Resources */,
+				E192B7E52E5DF7030027015B /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E192B7E02E5DF7030027015B /* PBXTargetDependency */,
+				E192B7E42E5DF7030027015B /* PBXTargetDependency */,
+			);
+			name = PushwooshForegroundPush;
+			productName = PushwooshForegroundPush;
+			productReference = E192B7D22E5DF54A0027015B /* PushwooshForegroundPush.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -4811,6 +4907,10 @@
 					D2AAC07D0554694100DB518D = {
 						LastSwiftMigration = 1540;
 					};
+					E192B7D12E5DF54A0027015B = {
+						CreatedOnToolsVersion = 15.4;
+						LastSwiftMigration = 1540;
+					};
 				};
 			};
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "Pushwoosh" */;
@@ -4832,6 +4932,7 @@
 				447CEF962D77883300CD410A /* PushwooshBridge */,
 				447CEFB92D77938A00CD410A /* PushwooshLiveActivities */,
 				44C0F3432DCA323300BE6564 /* PushwooshVoIP */,
+				E192B7D12E5DF54A0027015B /* PushwooshForegroundPush */,
 				C42A20681D06CBB800CC3BCB /* Pushwoosh.mac */,
 				467F61F11EB87F3300548315 /* PushwooshMac */,
 				5DA6EBC622E18CAD00097C50 /* Pushwoosh.watchOS */,
@@ -4915,6 +5016,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E192B7D02E5DF54A0027015B /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -4930,7 +5038,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#available values: USE_LOCATION, USE_IBEACONS\nexport PW_PREPROCESSOR_DEFS=\"USE_LOCATION\"\nexport PW_SIMULATOR_ARCHS=\"x86_64\"\nexport PW_DEVICE_ARCHS=\"${ARCHS_STANDARD}\"\n\n. ../build/create_xcframework_voip_ios.sh && \\\n. ../build/create_xcframework_live_activities_ios.sh && \\\n. ../build/create_xcframework_bridge_ios.sh && \\\n. ../build/create_xcframework_core_ios.sh && \\\n. ../build/create_xcframework_ios.sh || exit 1\n";
+			shellScript = "#available values: USE_LOCATION, USE_IBEACONS\nexport PW_PREPROCESSOR_DEFS=\"USE_LOCATION\"\nexport PW_SIMULATOR_ARCHS=\"x86_64\"\nexport PW_DEVICE_ARCHS=\"${ARCHS_STANDARD}\"\n\n. ../build/create_xcframework_foreground_push_ios.sh && \\\n. ../build/create_xcframework_voip_ios.sh && \\\n. ../build/create_xcframework_live_activities_ios.sh && \\\n. ../build/create_xcframework_bridge_ios.sh && \\\n. ../build/create_xcframework_core_ios.sh && \\\n. ../build/create_xcframework_ios.sh || exit 1\n";
 		};
 		449CC1A12BAC2004003E16DC /* Create framework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -4993,7 +5101,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				441CC9452DCA55FF00DBE44A /* PWVoIP.swift in Sources */,
+				E192B7DA2E5DF63A0027015B /* PWForegroundPush.swift in Sources */,
 				447CEF9F2D7788D900CD410A /* PWLiveActivities.swift in Sources */,
+				E192B7DC2E5DF6640027015B /* PWForegroundPushStub.swift in Sources */,
 				441CC9472DCA568500DBE44A /* PWVoIPStub.swift in Sources */,
 				44155FD42D77B30E00358B1C /* PWLiveActivitiesStub.swift in Sources */,
 			);
@@ -5793,6 +5903,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E192B7CE2E5DF54A0027015B /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E192B7EB2E5DF78E0027015B /* PWForegroundPushExtension.swift in Sources */,
+				E192B7E72E5DF7410027015B /* ForegroundPushShape.swift in Sources */,
+				E192B7E92E5DF76B0027015B /* PushwooshForegroundPushImplementation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -5856,6 +5976,16 @@
 			isa = PBXTargetDependency;
 			target = 447CEF962D77883300CD410A /* PushwooshBridge */;
 			targetProxy = 44A3FFBA2E0300A7002316B0 /* PBXContainerItemProxy */;
+		};
+		E192B7E02E5DF7030027015B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 447CEF962D77883300CD410A /* PushwooshBridge */;
+			targetProxy = E192B7DF2E5DF7030027015B /* PBXContainerItemProxy */;
+		};
+		E192B7E42E5DF7030027015B /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 441806DE2D7B285900DE71A7 /* PushwooshCore */;
+			targetProxy = E192B7E32E5DF7030027015B /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -7659,6 +7789,171 @@
 			};
 			name = Release;
 		};
+		E192B7D62E5DF54A0027015B /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					x86_64h,
+					x86_64,
+				);
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				KEEP_PRIVATE_EXTERNS = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshForegroundPush;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E192B7D72E5DF54A0027015B /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ARCHS = (
+					"$(ARCHS_STANDARD)",
+					x86_64h,
+					x86_64,
+				);
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				KEEP_PRIVATE_EXTERNS = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshForegroundPush;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SKIP_INSTALL = YES;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_INSTALL_OBJC_HEADER = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -7802,6 +8097,15 @@
 			buildConfigurations = (
 				C4D612BD1D12C73000720130 /* Debug */,
 				C4D612BE1D12C73000720130 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E192B7D82E5DF54A0027015B /* Build configuration list for PBXNativeTarget "PushwooshForegroundPush" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E192B7D62E5DF54A0027015B /* Debug */,
+				E192B7D72E5DF54A0027015B /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

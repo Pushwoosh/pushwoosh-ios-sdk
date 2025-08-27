@@ -53,6 +53,15 @@
     }
 }
 
++ (Class<PWForegroundPush>)ForegroundPush {
+    let pushwooshForeground = NSClassFromString(@"PushwooshForegroundPushImplementation");
+    if (pushwooshForeground != nil) {
+        return [pushwooshForeground performSelector:@selector(foregroundPush)];
+    } else {
+        return [PWForegroundPushStub foregroundPush];
+    }
+}
+
 + (Class<PWConfiguration>)Configuration {
     return [PushwooshConfig Configuration];
 }

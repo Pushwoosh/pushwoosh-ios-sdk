@@ -277,6 +277,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import Foundation;
 @import ObjectiveC;
 #endif
 
@@ -298,6 +299,172 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 #if defined(__OBJC__)
+@class UIColor;
+@class UIFont;
+@class NSObject;
+enum PWForegroundPushStyle : NSInteger;
+enum PWForegroundPushHapticFeedback : NSInteger;
+enum PWForegroundPushDisappearedAnimation : NSInteger;
+
+/// Protocol for handling custom foreground pushes in Pushwoosh.
+/// Allows configuration of appearance, haptic feedback, and tap callbacks for foreground push notifications.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWForegroundPush_")
+@protocol PWForegroundPush
+/// Custom gradient colors for the push background.
+/// If set to nil, the default gradient is used.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSArray<UIColor *> * _Nullable gradientColors;)
++ (NSArray<UIColor *> * _Nullable)gradientColors SWIFT_WARN_UNUSED_RESULT;
++ (void)setGradientColors:(NSArray<UIColor *> * _Nullable)newValue;
+/// Background color for the push.
+/// If nil and <code>gradientColors</code> is not set, the default gradient is used.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable backgroundColor;)
++ (UIColor * _Nullable)backgroundColor SWIFT_WARN_UNUSED_RESULT;
++ (void)setBackgroundColor:(UIColor * _Nullable)newValue;
+/// Determines whether to use the default push animation when displaying a foreground push.
+/// If <code>true</code>, the push notification will animate in with a slide and wave effect.
+/// If <code>false</code>, the push will appear instantly without animation.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL usePushAnimation;)
++ (BOOL)usePushAnimation SWIFT_WARN_UNUSED_RESULT;
++ (void)setUsePushAnimation:(BOOL)newValue;
+/// Color for the push title text.
+/// Defaults to system white if nil.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable titlePushColor;)
++ (UIColor * _Nullable)titlePushColor SWIFT_WARN_UNUSED_RESULT;
++ (void)setTitlePushColor:(UIColor * _Nullable)newValue;
+/// The font used for the title text in a foreground push notification.
+/// Set this property to customize the appearance of the title.
+/// If <code>nil</code>, the default bold system font of size 18 will be used.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable titlePushFont;)
++ (UIFont * _Nullable)titlePushFont SWIFT_WARN_UNUSED_RESULT;
++ (void)setTitlePushFont:(UIFont * _Nullable)newValue;
+/// The font used for the message body text in a foreground push notification.
+/// Set this property to customize the appearance of the message text.
+/// If <code>nil</code>, the default system font will be used.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable messagePushFont;)
++ (UIFont * _Nullable)messagePushFont SWIFT_WARN_UNUSED_RESULT;
++ (void)setMessagePushFont:(UIFont * _Nullable)newValue;
+/// Color for the push message text.
+/// Defaults to system white if nil.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable messagePushColor;)
++ (UIColor * _Nullable)messagePushColor SWIFT_WARN_UNUSED_RESULT;
++ (void)setMessagePushColor:(UIColor * _Nullable)newValue;
+/// Enables or disables the Liquid Glass style for foreground push notifications.
+/// Set this property to <code>true</code> to use the animated Liquid Glass effect (iOS 26+),
+/// or <code>false</code> to use the standard push appearance.
+/// Note:
+/// <ul>
+///   <li>
+///     If this flag is enabled but the user’s system version is lower than iOS 26,
+///     a regular UIView-based push will be shown instead.
+///   </li>
+///   <li>
+///     If your project is compiled with a Swift version <em>lower than 5.13</em>, the Liquid Glass
+///     effect will not be available at all — even on iOS 26. In that case, a blurred
+///     <code>UIVisualEffectView</code> (with UIBlurEffect) will be used instead on all devices.
+///   </li>
+/// </ul>
+/// In summary:
+/// <ul>
+///   <li>
+///     Swift 5.13+ + iOS 26 → Liquid Glass
+///   </li>
+///   <li>
+///     Swift 5.13+ + iOS < 26 → Standard UIView
+///   </li>
+///   <li>
+///     Swift < 5.13 → Always blurred view (no Liquid Glass support)
+///   </li>
+/// </ul>
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL useLiquidView;)
++ (BOOL)useLiquidView SWIFT_WARN_UNUSED_RESULT;
++ (void)setUseLiquidView:(BOOL)newValue;
+/// Callback triggered when the user taps on the push notification.
+/// \param userInfo Dictionary containing push payload data.
+///
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable didTapForegroundPush)(NSDictionary * _Nonnull);)
++ (void (^ _Nullable)(NSDictionary * _Nonnull))didTapForegroundPush SWIFT_WARN_UNUSED_RESULT;
++ (void)setDidTapForegroundPush:(void (^ _Nullable)(NSDictionary * _Nonnull))newValue;
+/// Configure a foreground push with the specified style, duration, and haptic feedback.
+/// Call this method during application initialization to set up the foreground push behavior.
+/// \param style Display style of the push.
+///
+/// \param duration Duration (in seconds) to show the push.
+///
+/// \param vibration Haptic feedback type for the push.
+///
+/// \param disappearedPushAnimation The animation to use when the push disappears. Use <code>.balls</code> for a particle-like explosion effect, or <code>.regularPush</code> to mimic the standard upward push disappearance.
+///
++ (void)foregroundNotificationWithStyle:(enum PWForegroundPushStyle)style duration:(NSInteger)duration vibration:(enum PWForegroundPushHapticFeedback)vibration disappearedPushAnimation:(enum PWForegroundPushDisappearedAnimation)disappearedPushAnimation;
+/// Show a foreground push with the specified payload.
+/// \param userInfo Dictionary containing push payload data.
+///
++ (void)showForegroundPushWithUserInfo:(NSDictionary * _Nonnull)userInfo;
+@end
+
+/// Enum representing the disappearance animation of a foreground push notification.
+/// <ul>
+///   <li>
+///     <code>balls</code>: The push notification explodes into small balls when disappearing.
+///   </li>
+///   <li>
+///     <code>regularPush</code>: The push notification moves upward and disappears, mimicking the standard push behavior.
+///   </li>
+/// </ul>
+typedef SWIFT_ENUM(NSInteger, PWForegroundPushDisappearedAnimation, open) {
+  PWForegroundPushDisappearedAnimationBalls = 0,
+  PWForegroundPushDisappearedAnimationRegularPush = 1,
+};
+
+typedef SWIFT_ENUM(NSInteger, PWForegroundPushHapticFeedback, open) {
+  PWForegroundPushHapticFeedbackNone = 0,
+  PWForegroundPushHapticFeedbackLight = 1,
+  PWForegroundPushHapticFeedbackMedium = 2,
+  PWForegroundPushHapticFeedbackHeavy = 3,
+  PWForegroundPushHapticFeedbackSoft = 4,
+  PWForegroundPushHapticFeedbackRigid = 5,
+  PWForegroundPushHapticFeedbackNotification = 6,
+};
+
+
+SWIFT_CLASS("_TtC15PushwooshBridge20PWForegroundPushStub")
+@interface PWForegroundPushStub : NSObject <PWForegroundPush>
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSArray<UIColor *> * _Nullable gradientColors;)
++ (NSArray<UIColor *> * _Nullable)gradientColors SWIFT_WARN_UNUSED_RESULT;
++ (void)setGradientColors:(NSArray<UIColor *> * _Nullable)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable backgroundColor;)
++ (UIColor * _Nullable)backgroundColor SWIFT_WARN_UNUSED_RESULT;
++ (void)setBackgroundColor:(UIColor * _Nullable)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL usePushAnimation;)
++ (BOOL)usePushAnimation SWIFT_WARN_UNUSED_RESULT;
++ (void)setUsePushAnimation:(BOOL)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable titlePushColor;)
++ (UIColor * _Nullable)titlePushColor SWIFT_WARN_UNUSED_RESULT;
++ (void)setTitlePushColor:(UIColor * _Nullable)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable messagePushColor;)
++ (UIColor * _Nullable)messagePushColor SWIFT_WARN_UNUSED_RESULT;
++ (void)setMessagePushColor:(UIColor * _Nullable)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable titlePushFont;)
++ (UIFont * _Nullable)titlePushFont SWIFT_WARN_UNUSED_RESULT;
++ (void)setTitlePushFont:(UIFont * _Nullable)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable messagePushFont;)
++ (UIFont * _Nullable)messagePushFont SWIFT_WARN_UNUSED_RESULT;
++ (void)setMessagePushFont:(UIFont * _Nullable)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL useLiquidView;)
++ (BOOL)useLiquidView SWIFT_WARN_UNUSED_RESULT;
++ (void)setUseLiquidView:(BOOL)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable didTapForegroundPush)(NSDictionary * _Nonnull);)
++ (void (^ _Nullable)(NSDictionary * _Nonnull))didTapForegroundPush SWIFT_WARN_UNUSED_RESULT;
++ (void)setDidTapForegroundPush:(void (^ _Nullable)(NSDictionary * _Nonnull))value;
++ (void)showForegroundPushWithUserInfo:(NSDictionary * _Nonnull)userInfo;
++ (Class _Nonnull)foregroundPush SWIFT_WARN_UNUSED_RESULT;
++ (void)foregroundNotificationWithStyle:(enum PWForegroundPushStyle)style duration:(NSInteger)duration vibration:(enum PWForegroundPushHapticFeedback)vibration disappearedPushAnimation:(enum PWForegroundPushDisappearedAnimation)disappearedPushAnimation;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
+  PWForegroundPushStyleStyle1 = 0,
+};
+
 @class NSString;
 
 SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWLiveActivities_")
@@ -786,6 +953,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import Foundation;
 @import ObjectiveC;
 #endif
 
@@ -807,6 +975,172 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 #if defined(__OBJC__)
+@class UIColor;
+@class UIFont;
+@class NSObject;
+enum PWForegroundPushStyle : NSInteger;
+enum PWForegroundPushHapticFeedback : NSInteger;
+enum PWForegroundPushDisappearedAnimation : NSInteger;
+
+/// Protocol for handling custom foreground pushes in Pushwoosh.
+/// Allows configuration of appearance, haptic feedback, and tap callbacks for foreground push notifications.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWForegroundPush_")
+@protocol PWForegroundPush
+/// Custom gradient colors for the push background.
+/// If set to nil, the default gradient is used.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSArray<UIColor *> * _Nullable gradientColors;)
++ (NSArray<UIColor *> * _Nullable)gradientColors SWIFT_WARN_UNUSED_RESULT;
++ (void)setGradientColors:(NSArray<UIColor *> * _Nullable)newValue;
+/// Background color for the push.
+/// If nil and <code>gradientColors</code> is not set, the default gradient is used.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable backgroundColor;)
++ (UIColor * _Nullable)backgroundColor SWIFT_WARN_UNUSED_RESULT;
++ (void)setBackgroundColor:(UIColor * _Nullable)newValue;
+/// Determines whether to use the default push animation when displaying a foreground push.
+/// If <code>true</code>, the push notification will animate in with a slide and wave effect.
+/// If <code>false</code>, the push will appear instantly without animation.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL usePushAnimation;)
++ (BOOL)usePushAnimation SWIFT_WARN_UNUSED_RESULT;
++ (void)setUsePushAnimation:(BOOL)newValue;
+/// Color for the push title text.
+/// Defaults to system white if nil.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable titlePushColor;)
++ (UIColor * _Nullable)titlePushColor SWIFT_WARN_UNUSED_RESULT;
++ (void)setTitlePushColor:(UIColor * _Nullable)newValue;
+/// The font used for the title text in a foreground push notification.
+/// Set this property to customize the appearance of the title.
+/// If <code>nil</code>, the default bold system font of size 18 will be used.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable titlePushFont;)
++ (UIFont * _Nullable)titlePushFont SWIFT_WARN_UNUSED_RESULT;
++ (void)setTitlePushFont:(UIFont * _Nullable)newValue;
+/// The font used for the message body text in a foreground push notification.
+/// Set this property to customize the appearance of the message text.
+/// If <code>nil</code>, the default system font will be used.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable messagePushFont;)
++ (UIFont * _Nullable)messagePushFont SWIFT_WARN_UNUSED_RESULT;
++ (void)setMessagePushFont:(UIFont * _Nullable)newValue;
+/// Color for the push message text.
+/// Defaults to system white if nil.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable messagePushColor;)
++ (UIColor * _Nullable)messagePushColor SWIFT_WARN_UNUSED_RESULT;
++ (void)setMessagePushColor:(UIColor * _Nullable)newValue;
+/// Enables or disables the Liquid Glass style for foreground push notifications.
+/// Set this property to <code>true</code> to use the animated Liquid Glass effect (iOS 26+),
+/// or <code>false</code> to use the standard push appearance.
+/// Note:
+/// <ul>
+///   <li>
+///     If this flag is enabled but the user’s system version is lower than iOS 26,
+///     a regular UIView-based push will be shown instead.
+///   </li>
+///   <li>
+///     If your project is compiled with a Swift version <em>lower than 5.13</em>, the Liquid Glass
+///     effect will not be available at all — even on iOS 26. In that case, a blurred
+///     <code>UIVisualEffectView</code> (with UIBlurEffect) will be used instead on all devices.
+///   </li>
+/// </ul>
+/// In summary:
+/// <ul>
+///   <li>
+///     Swift 5.13+ + iOS 26 → Liquid Glass
+///   </li>
+///   <li>
+///     Swift 5.13+ + iOS < 26 → Standard UIView
+///   </li>
+///   <li>
+///     Swift < 5.13 → Always blurred view (no Liquid Glass support)
+///   </li>
+/// </ul>
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL useLiquidView;)
++ (BOOL)useLiquidView SWIFT_WARN_UNUSED_RESULT;
++ (void)setUseLiquidView:(BOOL)newValue;
+/// Callback triggered when the user taps on the push notification.
+/// \param userInfo Dictionary containing push payload data.
+///
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable didTapForegroundPush)(NSDictionary * _Nonnull);)
++ (void (^ _Nullable)(NSDictionary * _Nonnull))didTapForegroundPush SWIFT_WARN_UNUSED_RESULT;
++ (void)setDidTapForegroundPush:(void (^ _Nullable)(NSDictionary * _Nonnull))newValue;
+/// Configure a foreground push with the specified style, duration, and haptic feedback.
+/// Call this method during application initialization to set up the foreground push behavior.
+/// \param style Display style of the push.
+///
+/// \param duration Duration (in seconds) to show the push.
+///
+/// \param vibration Haptic feedback type for the push.
+///
+/// \param disappearedPushAnimation The animation to use when the push disappears. Use <code>.balls</code> for a particle-like explosion effect, or <code>.regularPush</code> to mimic the standard upward push disappearance.
+///
++ (void)foregroundNotificationWithStyle:(enum PWForegroundPushStyle)style duration:(NSInteger)duration vibration:(enum PWForegroundPushHapticFeedback)vibration disappearedPushAnimation:(enum PWForegroundPushDisappearedAnimation)disappearedPushAnimation;
+/// Show a foreground push with the specified payload.
+/// \param userInfo Dictionary containing push payload data.
+///
++ (void)showForegroundPushWithUserInfo:(NSDictionary * _Nonnull)userInfo;
+@end
+
+/// Enum representing the disappearance animation of a foreground push notification.
+/// <ul>
+///   <li>
+///     <code>balls</code>: The push notification explodes into small balls when disappearing.
+///   </li>
+///   <li>
+///     <code>regularPush</code>: The push notification moves upward and disappears, mimicking the standard push behavior.
+///   </li>
+/// </ul>
+typedef SWIFT_ENUM(NSInteger, PWForegroundPushDisappearedAnimation, open) {
+  PWForegroundPushDisappearedAnimationBalls = 0,
+  PWForegroundPushDisappearedAnimationRegularPush = 1,
+};
+
+typedef SWIFT_ENUM(NSInteger, PWForegroundPushHapticFeedback, open) {
+  PWForegroundPushHapticFeedbackNone = 0,
+  PWForegroundPushHapticFeedbackLight = 1,
+  PWForegroundPushHapticFeedbackMedium = 2,
+  PWForegroundPushHapticFeedbackHeavy = 3,
+  PWForegroundPushHapticFeedbackSoft = 4,
+  PWForegroundPushHapticFeedbackRigid = 5,
+  PWForegroundPushHapticFeedbackNotification = 6,
+};
+
+
+SWIFT_CLASS("_TtC15PushwooshBridge20PWForegroundPushStub")
+@interface PWForegroundPushStub : NSObject <PWForegroundPush>
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSArray<UIColor *> * _Nullable gradientColors;)
++ (NSArray<UIColor *> * _Nullable)gradientColors SWIFT_WARN_UNUSED_RESULT;
++ (void)setGradientColors:(NSArray<UIColor *> * _Nullable)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable backgroundColor;)
++ (UIColor * _Nullable)backgroundColor SWIFT_WARN_UNUSED_RESULT;
++ (void)setBackgroundColor:(UIColor * _Nullable)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL usePushAnimation;)
++ (BOOL)usePushAnimation SWIFT_WARN_UNUSED_RESULT;
++ (void)setUsePushAnimation:(BOOL)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable titlePushColor;)
++ (UIColor * _Nullable)titlePushColor SWIFT_WARN_UNUSED_RESULT;
++ (void)setTitlePushColor:(UIColor * _Nullable)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable messagePushColor;)
++ (UIColor * _Nullable)messagePushColor SWIFT_WARN_UNUSED_RESULT;
++ (void)setMessagePushColor:(UIColor * _Nullable)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable titlePushFont;)
++ (UIFont * _Nullable)titlePushFont SWIFT_WARN_UNUSED_RESULT;
++ (void)setTitlePushFont:(UIFont * _Nullable)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable messagePushFont;)
++ (UIFont * _Nullable)messagePushFont SWIFT_WARN_UNUSED_RESULT;
++ (void)setMessagePushFont:(UIFont * _Nullable)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL useLiquidView;)
++ (BOOL)useLiquidView SWIFT_WARN_UNUSED_RESULT;
++ (void)setUseLiquidView:(BOOL)value;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable didTapForegroundPush)(NSDictionary * _Nonnull);)
++ (void (^ _Nullable)(NSDictionary * _Nonnull))didTapForegroundPush SWIFT_WARN_UNUSED_RESULT;
++ (void)setDidTapForegroundPush:(void (^ _Nullable)(NSDictionary * _Nonnull))value;
++ (void)showForegroundPushWithUserInfo:(NSDictionary * _Nonnull)userInfo;
++ (Class _Nonnull)foregroundPush SWIFT_WARN_UNUSED_RESULT;
++ (void)foregroundNotificationWithStyle:(enum PWForegroundPushStyle)style duration:(NSInteger)duration vibration:(enum PWForegroundPushHapticFeedback)vibration disappearedPushAnimation:(enum PWForegroundPushDisappearedAnimation)disappearedPushAnimation;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
+  PWForegroundPushStyleStyle1 = 0,
+};
+
 @class NSString;
 
 SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWLiveActivities_")

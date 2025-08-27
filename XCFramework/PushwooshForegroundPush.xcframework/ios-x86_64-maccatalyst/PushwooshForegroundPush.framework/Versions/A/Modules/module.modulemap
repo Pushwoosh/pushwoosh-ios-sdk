@@ -1,0 +1,6 @@
+framework module PushwooshForegroundPush {
+  umbrella header "PushwooshForegroundPush.h"
+  export *
+
+  module * { export * }
+}

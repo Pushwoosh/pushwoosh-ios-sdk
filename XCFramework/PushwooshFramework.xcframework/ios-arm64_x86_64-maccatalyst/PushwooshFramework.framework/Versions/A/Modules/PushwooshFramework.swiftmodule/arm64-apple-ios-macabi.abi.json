@@ -218,6 +218,67 @@
           },
           {
             "kind": "Var",
+            "name": "ForegroundPush",
+            "printedName": "ForegroundPush",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any PushwooshBridge.PWForegroundPush.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPush",
+                    "printedName": "PushwooshBridge.PWForegroundPush",
+                    "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So9PushwooshC0A9FrameworkE14ForegroundPush0A6Bridge012PWForegroundD0_pXpvpZ",
+            "mangledName": "$sSo9PushwooshC0A9FrameworkE14ForegroundPush0A6Bridge012PWForegroundD0_pXpvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ExistentialMetatype",
+                    "printedName": "any PushwooshBridge.PWForegroundPush.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPush",
+                        "printedName": "PushwooshBridge.PWForegroundPush",
+                        "usr": "c:@M@PushwooshBridge@objc(pl)PWForegroundPush"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So9PushwooshC0A9FrameworkE14ForegroundPush0A6Bridge012PWForegroundD0_pXpvgZ",
+                "mangledName": "$sSo9PushwooshC0A9FrameworkE14ForegroundPush0A6Bridge012PWForegroundD0_pXpvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "Configuration",
             "printedName": "Configuration",
             "children": [
