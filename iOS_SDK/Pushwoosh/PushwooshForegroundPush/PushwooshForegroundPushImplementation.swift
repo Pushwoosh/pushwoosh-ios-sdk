@@ -364,7 +364,9 @@ public class PushwooshForegroundPushImplementation: NSObject {
             imageView.contentMode = .scaleAspectFit
             imageView.clipsToBounds = true
             imageView.layer.cornerRadius = 12
-
+            if let img = image {
+                imageView.image = img
+            }
             
             let vStack = UIStackView(arrangedSubviews: image != nil ? [hStack, imageView] : [hStack])
             vStack.axis = .vertical
