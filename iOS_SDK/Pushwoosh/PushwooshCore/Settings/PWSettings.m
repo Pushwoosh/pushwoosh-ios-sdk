@@ -84,6 +84,11 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
                 
         //if needed reset application setting after update app code
         [self setAppCode:[PWSettings readAppId]];
+        
+        _voipAppCode = [PWCConfig config].voipAppId
+            ? [PWCConfig config].voipAppId
+            : [[NSUserDefaults standardUserDefaults] objectForKey:KeyVoipAppId];
+        
         _appName = [PWSettings readAppName];
         _pushToken = [[NSUserDefaults standardUserDefaults] objectForKey:KeyPushToken];
         _voipPushToken = [[NSUserDefaults standardUserDefaults] objectForKey:KeyVoipPushToken];

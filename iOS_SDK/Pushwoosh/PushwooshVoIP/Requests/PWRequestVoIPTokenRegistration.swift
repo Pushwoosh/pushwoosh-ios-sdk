@@ -33,11 +33,13 @@ final class PWSetVoIPTokenRequest: PWCoreRequest, PWCoreSetVoIPTokenRequest {
     }
 
     override func requestDictionary() -> [AnyHashable: Any] {
-        var dict = baseDictionary()        
+        let dict = self.baseDictionary()
+        dict["application"] = PWSettings.settingsInstance().voipAppCode
         dict["push_token"] = parameters.token ?? ""
         dict["gateway"] = PWCoreUtils.getAPSProductionStatus(false) ? "production" : "sandbox"
         dict["device_type"] = 1
         dict["timezone"] = PWCoreUtils.timezone()
+        
         return dict as! [AnyHashable : Any]
     }
 }
