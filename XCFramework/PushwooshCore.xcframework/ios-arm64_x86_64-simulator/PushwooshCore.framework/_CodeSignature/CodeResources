@@ -16,10 +16,6 @@
 		<data>
 		T+r+iL0MeuXH+rAdhwi9namyBgU=
 		</data>
-		<key>Headers/PWCoreGDPRManager.h</key>
-		<data>
-		oz1O9b89jLw/q4/QrjnO++LPJfs=
-		</data>
 		<key>Headers/PWCoreRequest.h</key>
 		<data>
 		xdsFYuZeLG8AQTmmzeXXnn4VI/w=
@@ -34,7 +30,7 @@
 		</data>
 		<key>Headers/PWCoreUtils.h</key>
 		<data>
-		I3f/cdVyFXUbzS+FU+LXDYQM4VM=
+		XiN3o3OFxewXclohhH544cSsduI=
 		</data>
 		<key>Headers/PWSettings.h</key>
 		<data>
@@ -46,7 +42,7 @@
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		m3XwFIhO5FiFn76dJr+5nbroGXE=
+		tBUh5HuJN12QVaH8IzfCQ4PZFSU=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -88,13 +84,6 @@
 			bxJt3iJEj9FqmL4A3kuG5fvWDQ3ZruDzy3FY+jvmnoo=
 			</data>
 		</dict>
-		<key>Headers/PWCoreGDPRManager.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			DDG36zdTUetSWf0NAsjokvJewyAGUeGNlkb0VutTszk=
-			</data>
-		</dict>
 		<key>Headers/PWCoreRequest.h</key>
 		<dict>
 			<key>hash2</key>
@@ -120,7 +109,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			u0BkCmHcOKYs05M/FmQQfPshZ0WiT70ld3jqjLjSOZI=
+			t2RviVSULm3LZ4TOzkD3gcglWpfKpA+sqp4CewVem4c=
 			</data>
 		</dict>
 		<key>Headers/PWSettings.h</key>
@@ -141,7 +130,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			UpP9glQdBf77mYtdbf3NzUHzS2K2wo84kdBzkTeEFXk=
+			WmayzR5SXwpYa5SUXPOyitfCSgXEN/gck3iQjRITLZ8=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>

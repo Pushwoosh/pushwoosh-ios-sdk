@@ -10,7 +10,6 @@
 #import "PWCConfig.h"
 #import "PWCoreUtils.h"
 #import "PWCoreServerCommunicationManager.h"
-#import "PWCoreGDPRManager.h"
 
 @interface PWCoreRequestManager ()
 
@@ -54,11 +53,7 @@
 }
 
 - (void)sendRequest:(PWCoreRequest *)request completion:(void (^)(NSError *error))completion {
-    if (![PWCoreGDPRManager sharedManager].isDeviceDataRemoved) {
-        [self sendRequestInternal:request completion:completion];
-    } else if (completion) {
-        completion([PWCoreUtils pushwooshErrorWithCode:PWCoreErrorDeviceDataHasBeenRemoved description:@"Device data was removed from Pushwoosh and all interactions were stopped"]);
-    }
+    [self sendRequestInternal:request completion:completion];
 }
 
 - (void)sendRetryRequest:(PWCoreRequest *)request {

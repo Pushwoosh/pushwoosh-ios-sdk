@@ -111,18 +111,6 @@ openAppSettings: function() {\
     pushwooshImpl.closeInApp();\
 },\
 \
-isCommunicationEnabled: function() {\
-    return pushwooshImpl.isCommunicationEnabled();\
-},\
-\
-setCommunicationEnabled: function(enabled) {\
-    pushwooshImpl.setCommunicationEnabled(enabled);\
-},\
-\
-removeAllDeviceData: function() {\
-    pushwooshImpl.removeAllDeviceData();\
-},\
-\
 unregisterForPushNotifications: function(callback) {\
     pushwooshImpl.unregisterForPushNotifications(callback);\
 },\

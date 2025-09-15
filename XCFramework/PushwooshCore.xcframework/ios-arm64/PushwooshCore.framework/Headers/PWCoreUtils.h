@@ -16,8 +16,7 @@ NS_ERROR_ENUM(PWCoreErrorDomain)
 {
     PWCoreErrorUnknown = -1,
     PWCoreErrorCommunicationDisabled = -2,
-    PWCoreErrorDeviceDataHasBeenRemoved = -3,
-    PWCoreErrorGDPRNotAvailable = -4
+    PWCoreErrorDeviceDataHasBeenRemoved = -3
 };
 
 @interface PWCoreUtils : NSObject

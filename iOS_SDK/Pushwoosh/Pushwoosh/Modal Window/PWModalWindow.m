@@ -21,6 +21,7 @@
 @property (nonatomic) PWWebClient *webClient;
 @property (nonatomic) PWModalWindow *modalWindow;
 @property (nonatomic) PWModalWindowSettings *settings;
+@property (nonatomic, strong) PWResource *currentResource;
 
 @end
 
@@ -55,11 +56,52 @@ static NSTimeInterval timeInterval = 0;
     _settings = [PWModalWindowSettings sharedSettings];
 }
 
+#pragma mark - Configuration Priority Methods
+
+- (ModalWindowPosition)effectiveModalWindowPositionForResource:(PWResource *)resource {
+    [resource readConfig];
+    
+    if (resource.config && resource.position != PWModalWindowPositionDefault) {
+        return resource.position;
+    }
+    return _settings.modalWindowPosition;
+}
+
+- (PresentModalWindowAnimation)effectivePresentAnimationForResource:(PWResource *)resource {
+    [resource readConfig];
+    
+    if (resource.config && resource.presentAnimation != PWAnimationPresentNone) {
+        return resource.presentAnimation;
+    }
+    return _settings.presentAnimation;
+}
+
+- (DismissModalWindowAnimation)effectiveDismissAnimationForResource:(PWResource *)resource {
+    [resource readConfig];
+    
+    if (resource.config && resource.dismissAnimation != PWAnimationDismissDefault) {
+        return resource.dismissAnimation;
+    }
+    return _settings.dismissAnimation;
+}
+
+- (NSArray<NSNumber *> *)effectiveSwipeDirectionsForResource:(PWResource *)resource {
+    [resource readConfig];
+    
+    if (resource.config && resource.swipeToDismiss.count > 0) {
+        return resource.swipeToDismiss;
+    }
+    return _settings.dismissSwipeDirections;
+}
+
+#pragma mark - Modal Window Setup
+
 - (void)createModalWindowWith:(PWResource *)resource
                     richMedia:(PWRichMedia *)richMedia
                   modalWindow:(PWModalWindow *)modalWindow
                        window:(UIWindow *)window {
     _modalWindow = modalWindow;
+    _currentResource = resource;
     
     _modalWindow.translatesAutoresizingMaskIntoConstraints = NO;
     [window addSubview:_modalWindow];
@@ -73,12 +115,16 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (BOOL)shouldShowCloseButtonForResource:(PWResource *)resource {
+    ModalWindowPosition position = [self effectiveModalWindowPositionForResource:resource];
+    PresentModalWindowAnimation presentAnim = [self effectivePresentAnimationForResource:resource];
+    DismissModalWindowAnimation dismissAnim = [self effectiveDismissAnimationForResource:resource];
+    
     return resource.closeButton &&
-           (_settings.modalWindowPosition == PWModalWindowPositionCenter ||
-            _settings.modalWindowPosition == PWModalWindowPositionDefault) &&
-    _settings.presentAnimation == PWAnimationPresentFromBottom &&
-           (_settings.dismissAnimation == PWAnimationCurveEaseInOut ||
-            _settings.dismissAnimation == PWAnimationDismissDefault);
+           (position == PWModalWindowPositionCenter ||
+            position == PWModalWindowPositionDefault) &&
+           presentAnim == PWAnimationPresentFromBottom &&
+           (dismissAnim == PWAnimationCurveEaseInOut ||
+            dismissAnim == PWAnimationDismissDefault);
 }
 
 - (void)setupCloseButtonForModalWindow:(PWModalWindow *)modalWindow inWindow:(UIWindow *)window {
@@ -92,13 +138,14 @@ static NSTimeInterval timeInterval = 0;
 
 - (void)setupModalWindowConstraintsInWindow:(UIWindow *)window {
     UILayoutGuide *safe = window.safeAreaLayoutGuide;
+    ModalWindowPosition effectivePosition = [self effectiveModalWindowPositionForResource:_currentResource];
     
     [NSLayoutConstraint activateConstraints:@[
         [_modalWindow.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
         [_modalWindow.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor]
     ]];
     
-    switch (_settings.modalWindowPosition) {
+    switch (effectivePosition) {
         case PWModalWindowPositionTop:
             [NSLayoutConstraint activateConstraints:@[
                 [_modalWindow.topAnchor constraintEqualToAnchor:safe.topAnchor constant:15]
@@ -216,11 +263,14 @@ static NSTimeInterval timeInterval = 0;
                     
                     frame.origin.y = ([UIScreen mainScreen].bounds.size.height - weakSelf.richMediaView.frame.size.height) / 2;
 
+                    PresentModalWindowAnimation effectivePresent = [weakSelf effectivePresentAnimationForResource:weakSelf.currentResource];
+                    ModalWindowPosition effectivePosition = [weakSelf effectiveModalWindowPositionForResource:weakSelf.currentResource];
+
                     UIViewPropertyAnimator *animator = [[UIViewPropertyAnimator alloc] initWithDuration:0.9
                                                                                           dampingRatio:1.0
                                                                                             animations:^{
 
-                        switch (_settings.presentAnimation) {
+                        switch (effectivePresent) {
                             case PWAnimationPresentFromTop:
                                 frame.origin.y += yPositionInitialize;
                                 weakSelf.frame = frame;
@@ -234,8 +284,8 @@ static NSTimeInterval timeInterval = 0;
                                 break;
                             case PWAnimationPresentFromLeft:
                             case PWAnimationPresentFromRight:
-                                frame.origin.y = [self yPositionForModalWindow:_settings.modalWindowPosition safeAreaGap:safeAreaGap];
-                                frame.origin.x += (_settings.presentAnimation == PWAnimationPresentFromLeft) ? xPositionInitialize : -xPositionInitialize;
+                                frame.origin.y = [self yPositionForModalWindow:effectivePosition safeAreaGap:safeAreaGap];
+                                frame.origin.x += (effectivePresent == PWAnimationPresentFromLeft) ? xPositionInitialize : -xPositionInitialize;
                                 weakSelf.frame = frame;
                                 break;
                             default:
@@ -361,11 +411,12 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (void)addSwipeDismissDirection {
-    if (_settings.dismissSwipeDirections.count == 0 || [_settings.dismissSwipeDirections containsObject:@(PWSwipeDismissNone)]) {
+    NSArray<NSNumber *> *directions = [self effectiveSwipeDirectionsForResource:_currentResource];
+    if (directions.count == 0 || [directions containsObject:@(PWSwipeDismissNone)]) {
         return;
     }
 
-    for (NSNumber *swipeNumber in _settings.dismissSwipeDirections) {
+    for (NSNumber *swipeNumber in directions) {
         DismissModalWindowAnimation swipeDismissDirection = [swipeNumber integerValue];
         UISwipeGestureRecognizerDirection direction;
 
@@ -400,7 +451,8 @@ static NSTimeInterval timeInterval = 0;
     [self.richMediaView loadRichMedia:nil completion:nil];
     
     if ([self shouldDismissModalWindow]) {
-        [self animateDismissModalWindow:_settings.dismissAnimation completion:nil];
+        DismissModalWindowAnimation effectiveDismiss = [self effectiveDismissAnimationForResource:_currentResource];
+        [self animateDismissModalWindow:effectiveDismiss completion:nil];
         return;
     }
     
@@ -412,7 +464,8 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (BOOL)shouldDismissModalWindow {
-    return _settings.dismissSwipeDirections.count == 0 || [_settings.dismissSwipeDirections containsObject:@(PWSwipeDismissNone)];
+    NSArray<NSNumber *> *directions = [self effectiveSwipeDirectionsForResource:_currentResource];
+    return directions.count == 0 || [directions containsObject:@(PWSwipeDismissNone)];
 }
 
 - (DismissModalWindowAnimation)animationDirectionForSwipeDirection:(UISwipeGestureRecognizerDirection)direction {

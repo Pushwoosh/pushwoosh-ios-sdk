@@ -10,7 +10,6 @@
 #import "PWNetworkModule.h"
 #import "PWGetResourcesRequest.h"
 #import "PWBusinessCaseManager.h"
-#import "PWGDPRManager+Internal.h"
 #import "PWUtils.h"
 #import "PWUnarchiver.h"
 

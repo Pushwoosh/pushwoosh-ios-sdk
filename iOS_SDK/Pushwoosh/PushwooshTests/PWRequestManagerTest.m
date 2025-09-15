@@ -3,7 +3,6 @@
 #import "PWRequestManager.h"
 #import "PWSettings.h"
 #import "PWNetworkModule.h"
-#import "PWGDPRManager.h"
 #import "PWRequest.h"
 #import "PushwooshFramework.h"
 #import "PWGetConfigRequest.h"

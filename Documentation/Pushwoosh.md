@@ -26,9 +26,6 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1a3b8d6d8f049e7b087e52322a8dfdf0ca">+ (Class&lt;PWDebug&gt;_Nonnull)Debug</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1ac166c3b251cff437c67375ba8df36080">+ (Class&lt;PWGDPR&gt;_Nonnull)GDPR</a></td>
-	</tr>
-	<tr>
 		<td><a href="#1ae885c4ee2571630a0dd71761a275fcb2">+ (Class&lt;PWVoIP&gt;_Nonnull)VoIP</a></td>
 	</tr>
 	<tr>
@@ -221,12 +218,6 @@ Proxy contains UNUserNotificationCenterDelegate objects.
   
 
 #### <a name="1a3b8d6d8f049e7b087e52322a8dfdf0ca"></a>+ (Class&lt;PWDebug&gt;<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)Debug  
-
-
-----------  
-  
-
-#### <a name="1ac166c3b251cff437c67375ba8df36080"></a>+ (Class&lt;PWGDPR&gt;<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)GDPR  
 
 
 ----------  

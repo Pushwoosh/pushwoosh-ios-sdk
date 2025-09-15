@@ -9,7 +9,6 @@
 #import "PushNotificationManager.h"
 #import "Pushwoosh+Internal.h"
 #import "PWPushNotificationsManager.h"
-#import "PWGDPRManager.h"
 #import "PWUtils.h"
 #import "PWChannel.h"
 #import "PWInAppPurchaseHelper.h"
@@ -157,27 +156,6 @@
 	}error:^(NSError *error) {
 		[errorCallback executeWithParam:[error description]];
 	}];
-}
-
-- (NSString *)isCommunicationEnabled {
-    return [PWGDPRManager sharedManager].isCommunicationEnabled ? @"true" : @"false";
-}
-
-- (void)setCommunicationEnabled:(NSString *)flag {
-    BOOL properEnabled = [flag isEqualToString:@"true"];
-    [[PWGDPRManager sharedManager] setCommunicationEnabled:properEnabled completion:^(NSError *error) {
-        if (error) {
-            [PWUtils showAlertWithTitle:@"Error" message:error.localizedDescription];
-        }
-    }];
-}
-
-- (void)removeAllDeviceData {
-    [[PWGDPRManager sharedManager] removeAllDeviceDataWithCompletion:^(NSError *error) {
-        if (error) {
-            [PWUtils showAlertWithTitle:@"Error" message:error.localizedDescription];
-        }
-    }];
 }
 
 /**

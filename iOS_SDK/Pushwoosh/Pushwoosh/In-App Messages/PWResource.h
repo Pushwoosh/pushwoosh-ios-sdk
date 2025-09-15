@@ -11,11 +11,11 @@
 typedef void (^PWResourceDownloadCompleteBlock)(NSError *);
 
 typedef NS_ENUM(unsigned int, IAResourcePresentationStyle) {
-	IAResourcePresentationUndefined = 0,
-	IAResourcePresentationFullScreen,
-	IAResourcePresentationCenter,
-	IAResourcePresentationBottomBanner,
-	IAResourcePresentationTopBanner
+    IAResourcePresentationUndefined = 0,
+    IAResourcePresentationFullScreen,
+    IAResourcePresentationCenter,
+    IAResourcePresentationBottomBanner,
+    IAResourcePresentationTopBanner
 };
 
 @interface PWResource : NSObject <NSSecureCoding>
@@ -25,6 +25,10 @@ typedef NS_ENUM(unsigned int, IAResourcePresentationStyle) {
 @property (nonatomic, readonly) BOOL required;
 @property (nonatomic, readonly) double priority;
 @property (nonatomic, readonly) BOOL closeButton;
+@property (nonatomic, assign, readonly) ModalWindowPosition position;
+@property (nonatomic, assign, readonly) PresentModalWindowAnimation presentAnimation;
+@property (nonatomic, assign, readonly) DismissModalWindowAnimation dismissAnimation;
+@property (nonatomic, strong, readonly) NSArray<NSNumber *> *swipeToDismiss;
 @property (nonatomic, readonly) NSTimeInterval updated;
 @property (nonatomic, readonly) NSString *businessCase;
 
@@ -47,5 +51,6 @@ typedef NS_ENUM(unsigned int, IAResourcePresentationStyle) {
 - (NSString *)configUrl;
 - (BOOL)isRichMedia;
 - (NSString *)postProcessPageWithContent:(NSString *)pageContent;
+- (void)readConfig;
 
 @end

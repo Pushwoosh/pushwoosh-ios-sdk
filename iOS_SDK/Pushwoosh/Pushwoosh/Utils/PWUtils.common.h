@@ -15,8 +15,7 @@ NS_ERROR_ENUM(PWErrorDomain)
 {
     PWErrorUnknown = -1,
     PWErrorCommunicationDisabled = -2,
-    PWErrorDeviceDataHasBeenRemoved = -3,
-    PWErrorGDPRNotAvailable = -4
+    PWErrorDeviceDataHasBeenRemoved = -3
 };
 
 #define HEAVY_OPERATION() heavy_operation_impl(__FUNCTION__)

@@ -11,7 +11,6 @@
 #import "PWUtils.h"
 #import "PWPreferences.h"
 #import "Pushwoosh+Internal.h"
-#import "PWGDPRManager.h"
 
 @implementation PWPushNotificationsManager
 

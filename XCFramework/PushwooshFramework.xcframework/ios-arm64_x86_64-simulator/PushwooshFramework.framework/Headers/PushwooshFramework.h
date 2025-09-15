@@ -8,7 +8,6 @@
 #import <PushwooshBridge/PushwooshBridge.h>
 #import <PushwooshCore/PushwooshCore.h>
 #import <PushwooshCore/PushwooshLog.h>
-#import <PushwooshCore/PWCoreGDPRManager.h>
 #import <PushwooshCore/PushwooshConfig.h>
 #import <PushwooshCore/PWSettings.h>
 
@@ -24,7 +23,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.10.2"
+#define PUSHWOOSH_VERSION @"6.10.3"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -207,9 +206,6 @@ Tells the delegate that the user has pressed on the push notification banner.
 
 #pragma mark - Logging
 + (Class<PWDebug>_Nonnull)Debug NS_REFINED_FOR_SWIFT;
-
-#pragma mark - GDPR
-+ (Class<PWGDPR>_Nonnull)GDPR NS_REFINED_FOR_SWIFT;
 
 #pragma mark - VoIP
 + (Class<PWVoIP>_Nonnull)VoIP NS_REFINED_FOR_SWIFT;

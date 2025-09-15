@@ -13,7 +13,6 @@
 #import "PWPreferences.h"
 #import "PWUtils.h"
 #import "Pushwoosh+Internal.h"
-#import "PWGDPRManager.h"
 #import "PWCachedRequest.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
@@ -62,15 +61,11 @@
 }
 
 - (void)sendRequest:(PWRequest *)request completion:(void (^)(NSError *error))completion {
-    if (![PWGDPRManager sharedManager].isDeviceDataRemoved) {
-        if ([request isKindOfClass:[PWSetTagsRequest class]]) {
-            PWSetTagsRequest *setTagsRequest = (PWSetTagsRequest *)request;
-            [self sendTags:setTagsRequest completion:completion];
-        } else {
-            [self sendRequestInternal:request completion:completion];
-        }
-    } else if (completion) {
-        completion([PWUtils pushwooshErrorWithCode:PWErrorDeviceDataHasBeenRemoved description:@"Device data was removed from Pushwoosh and all interactions were stopped"]);
+    if ([request isKindOfClass:[PWSetTagsRequest class]]) {
+        PWSetTagsRequest *setTagsRequest = (PWSetTagsRequest *)request;
+        [self sendTags:setTagsRequest completion:completion];
+    } else {
+        [self sendRequestInternal:request completion:completion];
     }
 }
 

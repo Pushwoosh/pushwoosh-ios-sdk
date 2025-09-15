@@ -8,10 +8,8 @@
 #import "PushwooshFramework.h"
 #import "PWInAppManager.h"
 #import "PWLog.h"
-#import "PWGDPRManager.h"
 
 #if TARGET_OS_IOS
-    #import "PWAppDelegate.h"
     #import "PWNotificationExtensionManager.h"
     #import "PWRichMediaManager.h"
     #import "PWModalWindowConfiguration.h"

@@ -19,7 +19,6 @@
 #import "Pushwoosh+Internal.h"
 #import "PWInbox+Internal.h"
 #import "PWUserNotificationCenterDelegate.h"
-#import "PWGDPRManager.h"
 
 @interface PWPushNotificationsManager ()
 

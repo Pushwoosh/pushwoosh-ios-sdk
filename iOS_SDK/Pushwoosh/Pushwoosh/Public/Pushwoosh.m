@@ -40,10 +40,6 @@
     return [PushwooshLog Debug];
 }
 
-+ (Class<PWGDPR>)GDPR {
-    return [PWCoreGDPRManager GDPR];
-}
-
 + (Class<PWVoIP>)VoIP {
     let pushwooshVoIP = NSClassFromString(@"PushwooshVoIPImplementation");
     if (pushwooshVoIP != nil) {

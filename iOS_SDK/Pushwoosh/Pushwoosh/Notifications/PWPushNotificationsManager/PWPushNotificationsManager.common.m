@@ -17,7 +17,6 @@
 #import "Pushwoosh+Internal.h"
 #import "PWRegisterTestDeviceRequest.h"
 #import "PWPlatformModule.h"
-#import "PWGDPRManager.h"
 #import "PWNotificationManagerCompat.h"
 #import "PWMessage+Internal.h"
 
@@ -95,7 +94,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (void)registerForPushNotificationsWithCompletion:(PushwooshRegistrationHandler)registrationHandler {
-    if ([PWGDPRManager sharedManager].isCommunicationEnabled) {
+    if ([PWCoreServerCommunicationManager sharedInstance].isServerCommunicationAllowed) {
         _registrationHandler = registrationHandler;
         [self internalRegisterForPushNotifications];
     } else {
