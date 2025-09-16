@@ -151,11 +151,9 @@ public class PushwooshForegroundPushImplementation: NSObject {
                 let image = renderer.image { context in
                     let rect = CGRect(origin: .zero, size: size)
 
-                    // Фон
                     UIColor.systemGray5.setFill()
                     context.fill(rect)
 
-                    // Текст
                     let paragraphStyle = NSMutableParagraphStyle()
                     paragraphStyle.alignment = .center
 
@@ -307,11 +305,9 @@ public class PushwooshForegroundPushImplementation: NSObject {
                 let image = renderer.image { context in
                     let rect = CGRect(origin: .zero, size: size)
 
-                    // Фон
                     UIColor.systemGray5.setFill()
                     context.fill(rect)
 
-                    // Текст
                     let paragraphStyle = NSMutableParagraphStyle()
                     paragraphStyle.alignment = .center
 
@@ -461,11 +457,9 @@ public class PushwooshForegroundPushImplementation: NSObject {
                 let image = renderer.image { context in
                     let rect = CGRect(origin: .zero, size: size)
 
-                    // Фон
                     UIColor.systemGray5.setFill()
                     context.fill(rect)
 
-                    // Текст
                     let paragraphStyle = NSMutableParagraphStyle()
                     paragraphStyle.alignment = .center
 
@@ -549,7 +543,7 @@ public class PushwooshForegroundPushImplementation: NSObject {
                                            gradientColors: gradientColors,
                                            backgroundColor: backgroundColor,
                                            usePushAnimation: usePushAnimation,
-                                           useLiquidView: false) // <= стеклянного эффекта нет
+                                           useLiquidView: false) // No glass effect
             
             // --- Show animation ---
             containerView.transform = CGAffineTransform(translationX: 0, y: -100).rotated(by: -0.05)

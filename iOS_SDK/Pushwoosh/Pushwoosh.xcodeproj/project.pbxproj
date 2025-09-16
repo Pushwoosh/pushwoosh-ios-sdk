@@ -1545,6 +1545,9 @@
 		E192B7E72E5DF7410027015B /* ForegroundPushShape.swift in Sources */ = {isa = PBXBuildFile; fileRef = E192B7E62E5DF7410027015B /* ForegroundPushShape.swift */; };
 		E192B7E92E5DF76B0027015B /* PushwooshForegroundPushImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E192B7E82E5DF76B0027015B /* PushwooshForegroundPushImplementation.swift */; };
 		E192B7EB2E5DF78E0027015B /* PWForegroundPushExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = E192B7EA2E5DF78E0027015B /* PWForegroundPushExtension.swift */; };
+		E19B8F7A2E799A4200A0577E /* ForegroundNotificationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B8F792E799A4200A0577E /* ForegroundNotificationAnimator.swift */; };
+		E19B8F7C2E799A6900A0577E /* ForegroundNotificationViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B8F7B2E799A6900A0577E /* ForegroundNotificationViewBuilder.swift */; };
+		E19B8F7E2E799A9B00A0577E /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B8F7D2E799A9B00A0577E /* ImageLoader.swift */; };
 		E1FE18AD2E0559AB004A8639 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E1FE18AC2E0559AB004A8639 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
@@ -2110,6 +2113,9 @@
 		E192B7E62E5DF7410027015B /* ForegroundPushShape.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundPushShape.swift; sourceTree = "<group>"; };
 		E192B7E82E5DF76B0027015B /* PushwooshForegroundPushImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushwooshForegroundPushImplementation.swift; sourceTree = "<group>"; };
 		E192B7EA2E5DF78E0027015B /* PWForegroundPushExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWForegroundPushExtension.swift; sourceTree = "<group>"; };
+		E19B8F792E799A4200A0577E /* ForegroundNotificationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundNotificationAnimator.swift; sourceTree = "<group>"; };
+		E19B8F7B2E799A6900A0577E /* ForegroundNotificationViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundNotificationViewBuilder.swift; sourceTree = "<group>"; };
+		E19B8F7D2E799A9B00A0577E /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		E1FE18AC2E0559AB004A8639 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -3683,7 +3689,10 @@
 			isa = PBXGroup;
 			children = (
 				E192B7D42E5DF54A0027015B /* PushwooshForegroundPush.h */,
+				E19B8F792E799A4200A0577E /* ForegroundNotificationAnimator.swift */,
+				E19B8F7B2E799A6900A0577E /* ForegroundNotificationViewBuilder.swift */,
 				E192B7E62E5DF7410027015B /* ForegroundPushShape.swift */,
+				E19B8F7D2E799A9B00A0577E /* ImageLoader.swift */,
 				E192B7E82E5DF76B0027015B /* PushwooshForegroundPushImplementation.swift */,
 				E192B7EA2E5DF78E0027015B /* PWForegroundPushExtension.swift */,
 			);
@@ -5817,9 +5826,12 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E19B8F7A2E799A4200A0577E /* ForegroundNotificationAnimator.swift in Sources */,
 				E192B7EB2E5DF78E0027015B /* PWForegroundPushExtension.swift in Sources */,
+				E19B8F7E2E799A9B00A0577E /* ImageLoader.swift in Sources */,
 				E192B7E72E5DF7410027015B /* ForegroundPushShape.swift in Sources */,
 				E192B7E92E5DF76B0027015B /* PushwooshForegroundPushImplementation.swift in Sources */,
+				E19B8F7C2E799A6900A0577E /* ForegroundNotificationViewBuilder.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

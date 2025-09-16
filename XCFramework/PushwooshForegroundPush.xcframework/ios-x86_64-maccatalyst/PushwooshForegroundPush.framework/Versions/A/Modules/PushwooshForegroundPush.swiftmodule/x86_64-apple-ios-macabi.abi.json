@@ -16,6 +16,30 @@
       },
       {
         "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshForegroundPush"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshBridge",
+        "printedName": "PushwooshBridge",
+        "declKind": "Import",
+        "moduleName": "PushwooshForegroundPush"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshForegroundPush",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
         "name": "PushwooshCore",
         "printedName": "PushwooshCore",
         "declKind": "Import",
@@ -95,6 +119,23 @@
           "AccessControl",
           "ObjC"
         ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshForegroundPush",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshForegroundPush"
       },
       {
         "kind": "Import",
@@ -1649,6 +1690,23 @@
         ]
       },
       {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshForegroundPush",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshForegroundPush"
+      },
+      {
         "kind": "TypeDecl",
         "name": "PWForegroundPush",
         "printedName": "PWForegroundPush",
@@ -2817,7 +2875,7 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshForegroundPush\/PushwooshForegroundPushImplementation.swift",
       "kind": "IntegerLiteral",
-      "offset": 33698,
+      "offset": 33474,
       "length": 1,
       "value": "3"
     }
