@@ -39,7 +39,21 @@ public extension PWVoIP {
     }
 }
 
+/**
+ PWVoIPCallDelegate provides callbacks for VoIP functionality including token registration and call management.
+ 
+ */
 @objc public protocol PWVoIPCallDelegate: NSObjectProtocol {
+    // MARK: - VoIP Token Registration callbacks
+    /// Called when VoIP token is successfully registered with Pushwoosh servers
+    /// This callback is triggered after successful network registration of the device's VoIP push token
+    @objc optional func voipDidRegisterTokenSuccessfully()
+    
+    /// Called when VoIP token registration fails
+    /// This callback is triggered when there's an error during VoIP token registration with Pushwoosh servers
+    /// - Parameter error: The error that occurred during token registration
+    @objc optional func voipDidFailToRegisterToken(error: Error)
+    
     // MARK: - Report new incoming call callbacks
     @objc func voipDidReceiveIncomingCall(payload: PWVoIPMessage)
     @objc optional func voipDidReportIncomingCallSuccessfully(voipMessage: PWVoIPMessage)

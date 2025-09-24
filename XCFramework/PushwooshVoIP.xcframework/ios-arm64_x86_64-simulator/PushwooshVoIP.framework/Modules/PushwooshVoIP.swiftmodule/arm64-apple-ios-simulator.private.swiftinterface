@@ -53,6 +53,8 @@ extension PushwooshBridge.PWVoIP {
   public static func setPushwooshVoIPAppId(_ voipAppId: Swift.String)
 }
 @objc public protocol PWVoIPCallDelegate : ObjectiveC.NSObjectProtocol {
+  @objc optional func voipDidRegisterTokenSuccessfully()
+  @objc optional func voipDidFailToRegisterToken(error: any Swift.Error)
   @objc func voipDidReceiveIncomingCall(payload: PushwooshVoIP.PWVoIPMessage)
   @objc optional func voipDidReportIncomingCallSuccessfully(voipMessage: PushwooshVoIP.PWVoIPMessage)
   @objc optional func voipDidFailToReportIncomingCall(error: any Swift.Error)

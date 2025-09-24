@@ -991,6 +991,65 @@
         "children": [
           {
             "kind": "Function",
+            "name": "voipDidRegisterTokenSuccessfully",
+            "printedName": "voipDidRegisterTokenSuccessfully()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)voipDidRegisterTokenSuccessfully",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP32voipDidRegisterTokenSuccessfullyyyF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "voipDidFailToRegisterToken",
+            "printedName": "voipDidFailToRegisterToken(error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)voipDidFailToRegisterTokenWithError:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP26voipDidFailToRegisterToken5errorys5Error_p_tF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "objc_name": "voipDidFailToRegisterTokenWithError:",
+            "declAttributes": [
+              "Optional",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "voipDidReceiveIncomingCall",
             "printedName": "voipDidReceiveIncomingCall(payload:)",
             "children": [
@@ -1544,7 +1603,8 @@
         "sugared_genericSig": "<Self : ObjectiveC.NSObjectProtocol>",
         "declAttributes": [
           "AccessControl",
-          "ObjC"
+          "ObjC",
+          "RawDocComment"
         ]
       },
       {

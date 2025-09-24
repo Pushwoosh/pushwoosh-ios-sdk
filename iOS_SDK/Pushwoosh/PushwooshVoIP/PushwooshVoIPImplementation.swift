@@ -237,6 +237,18 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         PushwooshLog.pushwooshLog(logLevel, 
                                   className: self,
                                   message: message)
+        
+        if let delegate = PushwooshVoIPImplementation.delegate {
+            if let error = error {
+                if delegate.responds(to: #selector(PWVoIPCallDelegate.voipDidFailToRegisterToken(error:))) {
+                    delegate.voipDidFailToRegisterToken?(error: error)
+                }
+            } else {
+                if delegate.responds(to: #selector(PWVoIPCallDelegate.voipDidRegisterTokenSuccessfully)) {
+                    delegate.voipDidRegisterTokenSuccessfully?()
+                }
+            }
+        }
     }
     
     private func handleVoIPToken(_ token: Data) {

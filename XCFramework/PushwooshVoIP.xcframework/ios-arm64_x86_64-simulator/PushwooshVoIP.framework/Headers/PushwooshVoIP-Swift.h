@@ -313,8 +313,19 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class CXCallController;
 @class AVAudioSession;
 
+/// PWVoIPCallDelegate provides callbacks for VoIP functionality including token registration and call management.
 SWIFT_PROTOCOL("_TtP13PushwooshVoIP18PWVoIPCallDelegate_")
 @protocol PWVoIPCallDelegate <NSObject>
+@optional
+/// Called when VoIP token is successfully registered with Pushwoosh servers
+/// This callback is triggered after successful network registration of the device’s VoIP push token
+- (void)voipDidRegisterTokenSuccessfully;
+/// Called when VoIP token registration fails
+/// This callback is triggered when there’s an error during VoIP token registration with Pushwoosh servers
+/// \param error The error that occurred during token registration
+///
+- (void)voipDidFailToRegisterTokenWithError:(NSError * _Nonnull)error;
+@required
 - (void)voipDidReceiveIncomingCallWithPayload:(PWVoIPMessage * _Nonnull)payload;
 @optional
 - (void)voipDidReportIncomingCallSuccessfullyWithVoipMessage:(PWVoIPMessage * _Nonnull)voipMessage;
@@ -711,8 +722,19 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class CXCallController;
 @class AVAudioSession;
 
+/// PWVoIPCallDelegate provides callbacks for VoIP functionality including token registration and call management.
 SWIFT_PROTOCOL("_TtP13PushwooshVoIP18PWVoIPCallDelegate_")
 @protocol PWVoIPCallDelegate <NSObject>
+@optional
+/// Called when VoIP token is successfully registered with Pushwoosh servers
+/// This callback is triggered after successful network registration of the device’s VoIP push token
+- (void)voipDidRegisterTokenSuccessfully;
+/// Called when VoIP token registration fails
+/// This callback is triggered when there’s an error during VoIP token registration with Pushwoosh servers
+/// \param error The error that occurred during token registration
+///
+- (void)voipDidFailToRegisterTokenWithError:(NSError * _Nonnull)error;
+@required
 - (void)voipDidReceiveIncomingCallWithPayload:(PWVoIPMessage * _Nonnull)payload;
 @optional
 - (void)voipDidReportIncomingCallSuccessfullyWithVoipMessage:(PWVoIPMessage * _Nonnull)voipMessage;
