@@ -6,10 +6,12 @@
 //  Copyright © 2016 Apex Technology. All rights reserved.
 //
 
-@import WebKit;
+#if TARGET_OS_IOS
+#import <WebKit/WebKit.h>
 #import <PushwooshCore/PushwooshLog.h>
 
 @interface WKWebView (PWSynchronousEvaluateJavaScript)
 - (NSString *)pw_stringByEvaluatingJavaScriptFromString:(NSString *)script error:(NSError **)error;
 - (void)pw_executeJavaScriptFromString:(NSString *)script;
 @end
+#endif

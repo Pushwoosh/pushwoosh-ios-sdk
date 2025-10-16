@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2015
 //
 
+#if TARGET_OS_IOS || TARGET_OS_TV
 #import "PWUtils.h"
 #import "PWRichMediaConfig.h"
 #import "PWPreferences.h"
@@ -193,3 +194,4 @@
 }
 
 @end
+#endif

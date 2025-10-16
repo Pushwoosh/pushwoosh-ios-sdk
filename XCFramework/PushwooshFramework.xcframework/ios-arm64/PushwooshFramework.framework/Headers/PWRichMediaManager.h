@@ -89,7 +89,7 @@ typedef NS_ENUM(NSUInteger, PWRichMediaSource) {
  */
 @interface PWRichMediaManager : NSObject
 
-#if TARGET_OS_IPHONE
+#if TARGET_OS_IOS
 
 /**
  Style for Rich Media presenting.

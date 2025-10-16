@@ -6,6 +6,7 @@
 //  Copyright © 2018 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import "PWBusinessCaseManager.h"
 #import "PWBusinessCase.h"
 #import "PWVersionTracking.h"
@@ -208,3 +209,4 @@ NSString * const kPWRecoveryBusinessCase = @"push-unregister";
 }
 
 @end
+#endif

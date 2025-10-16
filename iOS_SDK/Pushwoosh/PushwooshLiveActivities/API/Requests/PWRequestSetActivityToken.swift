@@ -6,6 +6,7 @@
 //  Copyright © 2025 Pushwoosh. All rights reserved.
 //
 
+#if !targetEnvironment(macCatalyst) && os(iOS)
 import Foundation
 import PushwooshCore
 
@@ -41,3 +42,4 @@ class PWRequestSetActivityToken: PWCoreRequest, PWCoreSetLiveActivityTokenReques
     }
 }
 
+#endif

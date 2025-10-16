@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2015
 //
 
+#if TARGET_OS_IOS || TARGET_OS_TV
 #import "PWPushRuntime.h"
 #import "PWResource.h"
 #import "PWZipArchive.h"
@@ -13,7 +14,9 @@
 #import "PWUtils.h"
 #import "PWCache.h"
 #import "PWConfig.h"
+#if TARGET_OS_IOS
 #import <WebKit/WebKit.h>
+#endif
 
 @interface PWResource ()
 
@@ -69,14 +72,14 @@
         _closeButton = [closeButtonValue boolValue];
         _tags = [dictionary pw_dictionaryForKey:@"tags"];
         _businessCase = [dictionary pw_stringForKey:@"businessCase"];
-        
+
         if (!_code || !updatedValue || !_url) {
             [PushwooshLog pushwooshLog:PW_LL_ERROR
                              className:self
                                message:[NSString stringWithFormat:@"Invalid inapp: %@", dictionary]];
             return nil;
         }
-        
+
         _downloadListeners = [NSMutableArray new];
         _locked = NO;
     }
@@ -123,7 +126,8 @@
     NSFileManager *fileManager = [NSFileManager defaultManager];
     NSArray *urls = [fileManager URLsForDirectory:NSCachesDirectory inDomains:NSUserDomainMask];
     NSString *directory = [(NSURL *)urls[0] path];
-    
+
+#if TARGET_OS_IOS
     if ([WKWebView instancesRespondToSelector:@selector(loadFileURL:allowingReadAccessToURL:)]) { //>=iOS 9
         directory = [directory stringByAppendingPathComponent:@"InAppMessages"];
         [[NSFileManager defaultManager] createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:nil];
@@ -134,6 +138,11 @@
         [[NSFileManager defaultManager] createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:nil];
         return [directory stringByAppendingPathComponent:@"www"];
     }
+#elif TARGET_OS_TV
+    directory = [directory stringByAppendingPathComponent:@"InAppMessages"];
+    [[NSFileManager defaultManager] createDirectoryAtPath:directory withIntermediateDirectories:YES attributes:nil error:nil];
+    return [directory stringByAppendingPathComponent:_code];
+#endif
 }
 
 - (NSString *)configUrl {
@@ -422,3 +431,4 @@
 }
 
 @end
+#endif

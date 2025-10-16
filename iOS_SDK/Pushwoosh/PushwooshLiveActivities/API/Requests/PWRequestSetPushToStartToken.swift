@@ -6,6 +6,7 @@
 //  Copyright © 2025 Pushwoosh. All rights reserved.
 //
 
+#if !targetEnvironment(macCatalyst) && os(iOS)
 import Foundation
 import PushwooshCore
 
@@ -40,3 +41,4 @@ class PWRequestSetPushToStartToken: PWCoreRequest, PWCoreSetLiveActivityTokenReq
         return dict as? [AnyHashable : Any] ?? [:]
     }
 }
+#endif

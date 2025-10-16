@@ -7,13 +7,18 @@
 #import "PushwooshFramework.h"
 #import "PWDataManager.h"
 #import "PWPushNotificationsManager.h"
+#if TARGET_OS_IOS || TARGET_OS_TV
 #import "PWInAppManager.h"
+#endif
 
 #if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_IPHONE
 #import "PWBusinessCaseManager.h"
 #import "PWRichPushManager.h"
-#import "PWInAppMessagesManager.h"
 #import "PWPurchaseManager.h"
+#endif
+
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
+#import "PWInAppMessagesManager.h"
 #endif
 
 @interface Pushwoosh ()
@@ -22,9 +27,11 @@
 
 @property (nonatomic, strong) PWPushNotificationsManager *pushNotificationManager;
 
+#if TARGET_OS_IOS || TARGET_OS_TV
 @property (nonatomic, strong) PWInAppManager *inAppManager;
+#endif
 
-#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_IPHONE
+#if TARGET_OS_IOS || TARGET_OS_OSX
 
 @property (nonatomic, strong) PWPurchaseManager *purchaseManager;
 

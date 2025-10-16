@@ -1,0 +1,11 @@
+framework module PushwooshTVOS {
+  umbrella header "PushwooshTVOS.h"
+  export *
+
+  module * { export * }
+}
+
+module PushwooshTVOS.Swift {
+  header "PushwooshTVOS-Swift.h"
+  requires objc
+}

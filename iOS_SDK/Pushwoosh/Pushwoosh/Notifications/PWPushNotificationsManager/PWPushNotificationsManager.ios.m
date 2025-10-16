@@ -11,9 +11,11 @@
 #import "PWPushRuntime.h"
 #import "PWInteractivePush.h"
 #import "PWPreferences.h"
+#if TARGET_OS_IOS
 #import "PWNotification.h"
 #import "PWNotificationCenter.h"
 #import "PWNotificationAppSettings.h"
+#endif
 #import "PWConfig.h"
 #import "PWUtils.h"
 #import "Pushwoosh+Internal.h"
@@ -41,7 +43,9 @@
 
 - (void)didFinishLaunching:(NSNotification *)notification {
     [self willForeground:notification];
+#if TARGET_OS_IOS || TARGET_OS_WATCH
     [Pushwoosh sharedInstance].launchNotification = notification.userInfo[UIApplicationLaunchOptionsRemoteNotificationKey];
+#endif
 }
 
 - (void)willForeground:(NSNotification *)notifiaction {
@@ -53,6 +57,7 @@
 }
 
 - (void)setUpInAppAlerts {
+#if TARGET_OS_IOS
 	//get app icon for in-app alert module
     UIImage *appIcon = [UIImage imageNamed:[[[NSBundle mainBundle] infoDictionary][@"CFBundleIcons"][@"CFBundlePrimaryIcon"][@"CFBundleIconFiles"] firstObject]];
 
@@ -70,6 +75,7 @@
 
 	inappAlertSettings.soundEnabled = YES;
 	[[PWNotificationCenter defaultCenter] setSettings:inappAlertSettings enabled:YES forAppIdentifier:@"com.pushwoosh.app"];
+#endif
 }
 
 - (void)internalRegisterForPushNotifications {
@@ -110,14 +116,14 @@
 
 // Returns YES if foreground alert is shown
 - (BOOL)showForegroundAlert:(NSDictionary *)userInfo onStart:(BOOL)onStart {
-	BOOL needToShowAlert = [PushNotificationManager pushManager].showPushnotificationAlert;
+	BOOL needToShowAlert = [Pushwoosh sharedInstance].showPushnotificationAlert;
 	if ([self isAppInBackground]) {
 		needToShowAlert = NO;  //we cannot display alerts in background anyway
 	}
 
 	NSDictionary *pushDict = userInfo[@"aps"];
 	id alertMsg = pushDict[@"alert"];
-	
+
 	if ([alertMsg isKindOfClass:[NSDictionary class]]) {
 		alertMsg = alertMsg[@"body"];
 	}
@@ -128,6 +134,7 @@
 
 	//the app is running, display alert only
 	if (!onStart && needToShowAlert && msgIsString) {
+#if TARGET_OS_IOS
 		PWNotification *notification = [PWNotification notificationWithMessage:alertMsg];
 		notification.title = [PushNotificationManager pushManager].appName;
 		notification.soundName = pushDict[@"sound"];
@@ -137,6 +144,9 @@
 
 		[[PWNotificationCenter defaultCenter] presentNotification:notification forApplicationIdentifier:@"com.pushwoosh.app"];
 		return YES;
+#else
+		return NO;
+#endif
 	}
 
 	return NO;

@@ -11,7 +11,7 @@
 #import <PushwooshCore/PushwooshConfig.h>
 #import <PushwooshCore/PWSettings.h>
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
 
 #import <UserNotifications/UserNotifications.h>
 
@@ -23,7 +23,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.10.5"
+#define PUSHWOOSH_VERSION @"6.11.0"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
@@ -60,6 +60,7 @@ Tells the delegate that the user has pressed on the push notification banner.
 
 @end
 
+#if TARGET_OS_IOS
 /**
  `PWPurchaseDelegate` protocol defines the methods that can be implemented in the delegate of the `Pushwoosh` class' singleton object.
  These methods provide callbacks for events related to purchasing In-App products from rich medias, such as successful purchase event, failed payment, etc.
@@ -106,6 +107,7 @@ Tells the delegate that the user has pressed on the push notification banner.
 - (void)onPWInAppPurchaseHelperRestoreCompletedTransactionsFailed:(NSError * _Nullable)error;
 
 @end
+#endif
 
 
 /**
@@ -216,6 +218,9 @@ Tells the delegate that the user has pressed on the push notification banner.
 #pragma mark - Custom Foreground Push Notifications
 + (Class<PWForegroundPush>_Nonnull)ForegroundPush NS_REFINED_FOR_SWIFT;
 
+#pragma mark - tvOS Features
++ (Class<PWTVoS>_Nonnull)TVoS NS_REFINED_FOR_SWIFT;
+
 /**
  Pushwoosh Application ID. Usually retrieved automatically from Info.plist parameter `Pushwoosh_APPID`
  */
@@ -227,17 +232,23 @@ Tells the delegate that the user has pressed on the push notification banner.
  */
 @property (nonatomic, weak) NSObject<PWMessagingDelegate> * _Nullable delegate;
 
+#if TARGET_OS_IOS
 /**
  `PushPurchaseDelegate` protocol delegate that would receive the information about events related to purchasing InApp products from rich medias
  */
 @property (nonatomic, weak) NSObject<PWPurchaseDelegate> * _Nullable purchaseDelegate;
+#endif
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
 
 /**
  Show push notifications alert when push notification is received while the app is running, default is `YES`
  */
 @property (nonatomic, assign) BOOL showPushnotificationAlert;
+
+#endif
+
+#if TARGET_OS_IOS || TARGET_OS_WATCH
 
 /**
  Authorization options in addition to UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionCarPlay.
@@ -462,10 +473,40 @@ Unregisters from push notifications.
 + (void)clearNotificationCenter;
 
 /**
+ Register emails list associated to the current user.
+ If setEmails succeeds competion is called with nil argument. If setEmails fails completion is called with error.
+
+ @param emails user's emails array
+ */
+- (void)setEmails:(NSArray * _Nonnull)emails completion:(void(^ _Nullable)(NSError * _Nullable error))completion;
+
+/**
+ Register emails list associated to the current user.
+
+ @param emails user's emails array
+ */
+- (void)setEmails:(NSArray * _Nonnull)emails;
+
+/**
+ Register email associated to the current user. Email should be a string and could not be null or empty.
+ If setEmail succeeds competion is called with nil argument. If setEmail fails completion is called with error.
+
+ @param email user's email string
+ */
+- (void)setEmail:(NSString * _Nonnull)email completion:(void(^ _Nullable)(NSError * _Nullable error))completion;
+
+/**
+ Register email associated to the current user. Email should be a string and could not be null or empty.
+
+ @param email user's email string
+ */
+- (void)setEmail:(NSString * _Nonnull)email;
+
+/**
  Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
  This allows data and events to be matched across multiple user devices.
  If setUserId succeeds competion is called with nil argument. If setUserId fails completion is called with error.
- 
+
  @param userId user identifier
  */
 - (void)setUserId:(NSString * _Nonnull)userId completion:(void(^ _Nullable)(NSError * _Nullable error))completion;
@@ -473,7 +514,7 @@ Unregisters from push notifications.
 /**
  Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
  This allows data and events to be matched across multiple user devices.
- 
+
  @param userId user identifier
  */
 - (void)setUserId:(NSString * _Nonnull)userId;
@@ -482,7 +523,7 @@ Unregisters from push notifications.
  Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
  This allows data and events to be matched across multiple user devices.
  If setUser succeeds competion is called with nil argument. If setUser fails completion is called with error.
- 
+
  @param userId user identifier
  @param emails user's emails array
  */
@@ -492,7 +533,7 @@ Unregisters from push notifications.
 /**
  Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
  This allows data and events to be matched across multiple user devices.
- 
+
  @param userId user identifier
  @param emails user's emails array
  */
@@ -502,45 +543,15 @@ Unregisters from push notifications.
  Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
  This allows data and events to be matched across multiple user devices.
  If setUser succeeds competion is called with nil argument. If setUser fails completion is called with error.
- 
+
  @param userId user identifier
  @param email user's email string
  */
 - (void)setUser:(NSString * _Nonnull)userId email:(NSString * _Nonnull)email completion:(void(^ _Nullable)(NSError * _Nullable error))completion;
 
 /**
- Register emails list associated to the current user.
- If setEmails succeeds competion is called with nil argument. If setEmails fails completion is called with error.
- 
- @param emails user's emails array
- */
-- (void)setEmails:(NSArray * _Nonnull)emails completion:(void(^ _Nullable)(NSError * _Nullable error))completion;
-
-/**
- Register emails list associated to the current user.
- 
- @param emails user's emails array
- */
-- (void)setEmails:(NSArray * _Nonnull)emails;
-
-/**
- Register email associated to the current user. Email should be a string and could not be null or empty.
- If setEmail succeeds competion is called with nil argument. If setEmail fails completion is called with error.
- 
- @param email user's email string
- */
-- (void)setEmail:(NSString * _Nonnull)email completion:(void(^ _Nullable)(NSError * _Nullable error))completion;
-
-/**
- Register email associated to the current user. Email should be a string and could not be null or empty.
- 
- @param email user's email string
- */
-- (void)setEmail:(NSString * _Nonnull)email;
-
-/**
  Move all events from oldUserId to newUserId if doMerge is true. If doMerge is false all events for oldUserId are removed.
- 
+
  @param oldUserId source user
  @param newUserId destination user
  @param doMerge if false all events for oldUserId are removed, if true all events for oldUserId are moved to newUserId
@@ -671,25 +682,36 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
 */
 #if TARGET_OS_IOS || TARGET_OS_WATCH
 @interface PWNotificationCenterDelegateProxy : NSObject <UNUserNotificationCenterDelegate>
-#elif TARGET_OS_OSX
-@interface PWNotificationCenterDelegateProxy : NSObject <NSUserNotificationCenterDelegate>
-#endif
 /**
  Returns UNUserNotificationCenterDelegate that handles foreground push notifications on iOS10
 */
-#if TARGET_OS_IOS || TARGET_OS_WATCH
 @property (nonatomic, strong, readonly) id<UNUserNotificationCenterDelegate> _Nonnull defaultNotificationCenterDelegate;
-#elif TARGET_OS_OSX
-@property (nonatomic, strong, readonly) id<NSUserNotificationCenterDelegate> defaultNotificationCenterDelegate;
-#endif
 
 /**
  Adds extra UNUserNotificationCenterDelegate that handles foreground push notifications on iOS10.
 */
-#if TARGET_OS_IOS || TARGET_OS_WATCH
 - (void)addNotificationCenterDelegate:(id<UNUserNotificationCenterDelegate> _Nonnull)delegate;
-#endif
 @end
+#elif TARGET_OS_OSX
+@interface PWNotificationCenterDelegateProxy : NSObject <NSUserNotificationCenterDelegate>
+/**
+ Returns UNUserNotificationCenterDelegate that handles foreground push notifications on iOS10
+*/
+@property (nonatomic, strong, readonly) id<NSUserNotificationCenterDelegate> defaultNotificationCenterDelegate;
+@end
+#elif TARGET_OS_TV
+@interface PWNotificationCenterDelegateProxy : NSObject <UNUserNotificationCenterDelegate>
+/**
+ Returns UNUserNotificationCenterDelegate that handles foreground push notifications on tvOS
+*/
+@property (nonatomic, strong, readonly) id<UNUserNotificationCenterDelegate> _Nonnull defaultNotificationCenterDelegate;
+
+/**
+ Adds extra UNUserNotificationCenterDelegate that handles foreground push notifications on tvOS.
+*/
+- (void)addNotificationCenterDelegate:(id<UNUserNotificationCenterDelegate> _Nonnull)delegate;
+@end
+#endif
 
 
 /**

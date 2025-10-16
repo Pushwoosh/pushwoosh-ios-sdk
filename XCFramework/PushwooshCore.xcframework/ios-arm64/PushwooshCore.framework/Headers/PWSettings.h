@@ -26,6 +26,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy, nullable) NSString *voipPushToken;
 
+@property (copy, nullable) NSString *pushTvToken;
+
 @property (copy) NSString *userId;
 
 @property (copy, nullable) NSDate *lastRegTime;

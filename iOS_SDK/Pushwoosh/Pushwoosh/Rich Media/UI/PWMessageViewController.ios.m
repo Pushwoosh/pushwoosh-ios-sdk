@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2015
 //
 
+#if TARGET_OS_IOS
 #import "PWPushRuntime.h"
 #import "PWMessageViewController.h"
 #import "PWInteractionDisabledWindow.h"
@@ -317,3 +318,4 @@
 }
      
 @end
+#endif

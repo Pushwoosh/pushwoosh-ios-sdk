@@ -6,6 +6,7 @@
 //  Copyright © 2018 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
 #import <PushwooshCore/PWSettings.h>
@@ -51,3 +52,4 @@ typedef void(^PWBusinessCaseCompletionBlock)(PWBusinessCaseResult result);
 - (void)fullReset;
 
 @end
+#endif

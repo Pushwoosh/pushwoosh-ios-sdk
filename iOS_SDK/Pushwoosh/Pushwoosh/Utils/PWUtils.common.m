@@ -62,9 +62,9 @@ void heavy_operation_impl(const char *function) {
         return [@"" stringByPaddingToLength:length withString:@"*" startingAtIndex:0];
     }
     
-    NSString *firstFour = [inputString substringToIndex:4]; // Первые 4 символа.
-    NSString *lastFour = [inputString substringFromIndex:length - 4]; // Последние 4 символа.
-    NSString *maskedMiddle = [@"" stringByPaddingToLength:length - 8 withString:@"*" startingAtIndex:0]; // Маскировка остальных символов.
+    NSString *firstFour = [inputString substringToIndex:4];
+    NSString *lastFour = [inputString substringFromIndex:length - 4];
+    NSString *maskedMiddle = [@"" stringByPaddingToLength:length - 8 withString:@"*" startingAtIndex:0];
     
     return [NSString stringWithFormat:@"%@%@%@", firstFour, maskedMiddle, lastFour];
 }

@@ -8,7 +8,9 @@
 
 #import "PWInbox.h"
 #import "PWInboxStorage.h"
+#if TARGET_OS_IOS
 #import "PWInboxService.h"
+#endif
 #import "PWInbox+Internal.h"
 #import "PWInboxMessagesRequest.h"
 #import "PWInboxUpdateStatusRequest.h"
@@ -24,7 +26,9 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
 @interface PWInbox ()
 
 @property (nonatomic) PWInboxStorage *storage;
+#if TARGET_OS_IOS
 @property (nonatomic) PWInboxService *service;
+#endif
 @property (nonatomic) PWRequestManager *requestManager;
 
 @end
@@ -47,7 +51,7 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
         // At the moment of UIApplicationWillEnterForegroundNotification socket may not be ready yet and request may fail
         // So we use UIApplicationDidBecomeActiveNotification
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wentForeground) name:
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
          UIApplicationDidBecomeActiveNotification
 #elif TARGET_OS_OSX
          NSApplicationDidBecomeActiveNotification
@@ -60,7 +64,9 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
 - (void)dependencySetup {
     [[PWNetworkModule module] inject:self];
     _storage = [PWInboxStorage new];
+#if TARGET_OS_IOS
     _service = [PWInboxService new];
+#endif
 }
 
 - (void)wentForeground {
@@ -105,7 +111,11 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
 
 - (void)getMessagesWithCompletion:(PWMessageCompletion)completion {
     [self getMessagesWithReloadingCondition:^BOOL{
+#if TARGET_OS_IOS
         return [_service canReloadData];
+#else
+        return NO;
+#endif
     } completion:completion];
 }
 
@@ -113,7 +123,8 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
     if (!completion) {
         return;
     }
-    
+
+#if TARGET_OS_IOS
     if (conditionBlock()) {
         __weak typeof(self) wself = self;
         [_service getAllMessagesWithCompletion:^(NSDictionary<NSString *,PWInboxMessageInternal *> *serviceMessages, NSError *error) {
@@ -139,13 +150,19 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
         NSArray<PWInboxMessageInternal *> *messages = [_storage getAllMessages];
         completion(messages, nil);
     }
+#else
+    NSArray<PWInboxMessageInternal *> *messages = [_storage getAllMessages];
+    completion(messages, nil);
+#endif
 }
 
 #pragma mark - internal api
 
 + (void)resetApplication {
     [[PWInbox sharedInstance].storage reset];
+#if TARGET_OS_IOS
     [[PWInbox sharedInstance].service reset];
+#endif
 }
 
 + (BOOL)isInboxPushNotification:(NSDictionary *)userInfo {
@@ -160,18 +177,20 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
             [[PWInbox sharedInstance].storage addInboxMessageFromPushNotification:message];
             [self sendMessageFromPushNotification:@[message]];
         } else { //silent push
+#if TARGET_OS_IOS
             [[PWInbox sharedInstance].service reset]; //reset last update time
+#endif
             [PWInbox loadMessagesWithCompletion:^(NSArray<NSObject<PWInboxMessageProtocol> *> *messages, NSError *error) {
                 if (!error && messages.count) {
                     PWInboxMessageInternal *silentMessage = nil;
-                    
+
                     for (PWInboxMessageInternal *serviceMessage in messages) {
                         if ([message.code isEqualToString:serviceMessage.code]) {
                             silentMessage = serviceMessage;
                             break;
                         }
                     }
-                    
+
                     if (silentMessage) {
                         [self sendMessageFromPushNotification:@[silentMessage]];
                     }
@@ -185,7 +204,9 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
     PWInboxMessageInternal *message = [PWInboxMessageInternal messageWithPushNotification:userInfo];
     if (message.code) {
         NSArray<PWInboxMessageInternal *> *messages = [[PWInbox sharedInstance].storage updateStatus:PWInboxMessageStatusAction withInboxMessageCodes:@[message.code]];
+#if TARGET_OS_IOS
         [[PWInbox sharedInstance].service actionMessages:messages];
+#endif
         [self sendMessageFromPushNotification:@[message]];
     }
 }
@@ -248,24 +269,30 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
 
 + (void)readMessagesWithCodes:(NSArray<NSString *> *)codes {
     NSArray<PWInboxMessageInternal *> *messages = [[PWInbox sharedInstance].storage updateStatus:PWInboxMessageStatusRead withInboxMessageCodes:codes];
+#if TARGET_OS_IOS
     [[PWInbox sharedInstance].service readMessages:messages];
+#endif
     [PWInbox sendNotificationWithMessagesAdded:nil messagesDeleted:nil messagesUpdated:messages];
 }
 
 + (void)deleteMessagesWithCodes:(NSArray<NSString *> *)codes {
     NSArray<PWInboxMessageInternal *> *messages = [[PWInbox sharedInstance].storage updateStatus:PWInboxMessageStatusDeleted withInboxMessageCodes:codes];
+#if TARGET_OS_IOS
     [[PWInbox sharedInstance].service deleteMessages:messages];
+#endif
     [PWInbox sendNotificationWithMessagesAdded:nil messagesDeleted:messages messagesUpdated:nil];
 }
 
 + (void)performActionForMessageWithCode:(NSString *)code {
     NSArray<PWInboxMessageInternal *> *updateMessages = [[PWInbox sharedInstance].storage updateStatus:PWInboxMessageStatusAction withInboxMessageCodes:@[code]];
     PWInboxMessageInternal *message = [[PWInbox sharedInstance].storage messageForCode:code];
+#if TARGET_OS_IOS
     [[PWInbox sharedInstance].service actionMessages:@[message]];
+#endif
     [PWInbox sendStaticMessage:updateMessages];
-    
+
     [[Pushwoosh sharedInstance].pushNotificationManager processActionUserInfo:message.actionParams];
-    
+
     [PWInbox sendNotificationWithMessagesAdded:nil messagesDeleted:nil messagesUpdated:updateMessages];
 }
 

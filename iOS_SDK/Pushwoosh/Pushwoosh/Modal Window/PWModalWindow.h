@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWModalWindow.h
 //  Pushwoosh
@@ -28,3 +30,5 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+
+#endif

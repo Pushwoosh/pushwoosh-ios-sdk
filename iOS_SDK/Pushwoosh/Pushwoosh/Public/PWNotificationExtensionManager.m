@@ -61,13 +61,14 @@
 }
 
 - (void)handleNotificationRequest:(UNNotificationRequest *)request contentHandler:(void (^ _Nonnull)(UNNotificationContent * _Nonnull))contentHandler {
+#if TARGET_OS_IOS
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
-    
+
     if (![PWMessage isPushwooshMessage:bestAttemptContent.userInfo]) {
         contentHandler(bestAttemptContent);
         return;
     }
-    
+
     PWLogInfo(@"Service notification extension was called with payload: %@", bestAttemptContent.userInfo);
     
     NSString *appGroupsName = [[PWConfig config] appGroupsName];
@@ -88,22 +89,26 @@
     [self downloadAttachmentForRequest:request bestAttemptContent:bestAttemptContent completion:^(NSError *error) {
         dispatch_group_leave(requestsGroup);
     }];
-    
+
     dispatch_group_notify(requestsGroup, dispatch_get_main_queue(), ^{
         contentHandler(bestAttemptContent);
     });
+#else
+    // tvOS doesn't support userInfo property on UNNotificationContent
+    contentHandler(request.content);
+#endif
 }
 
 - (void)setUpBadgesWithGroupsName:(NSString *)appGroupsName
                     contentHadler:(UNMutableNotificationContent *)bestAttemptContent
                        completion:(dispatch_block_t)completion {
-    
+#if TARGET_OS_IOS
     NSString *key = @"badge_count";
 
     if (appGroupsName && ![appGroupsName isEqualToString:@""] && [appGroupsName isKindOfClass:[NSString class]]) {
         NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:appGroupsName];
         NSInteger savedBadges = [defaults integerForKey:key];
-        
+
         NSString *badges = [[[bestAttemptContent userInfo] pw_dictionaryForKey:@"aps"] pw_stringForKey:@"pw_badge"];
         NSString *sign = @"";
         
@@ -137,7 +142,10 @@
     } else {
         PWLogWarn(@"App Groups aren't installed");
     }
-    
+#else
+    // tvOS doesn't support userInfo property
+#endif
+
     if (completion) {
         completion();
     }
@@ -159,6 +167,7 @@
 }
 
 - (void)downloadAttachmentForRequest:(UNNotificationRequest *)request bestAttemptContent:(UNMutableNotificationContent *)bestAttemptContent completion:(void(^)(NSError *error))completion {
+#if TARGET_OS_IOS
     NSString *attachmentUrlString = [request.content.userInfo objectForKey:@"attachment"];
     
     if (![attachmentUrlString isKindOfClass:[NSString class]]) {
@@ -209,6 +218,12 @@
             completion(error);
         }
     }] resume];
+#else
+    // tvOS doesn't support userInfo and attachments
+    if (completion) {
+        completion(nil);
+    }
+#endif
 }
 
 - (BOOL)isBadgeHasSign:(NSString *)badges {

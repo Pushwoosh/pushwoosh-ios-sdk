@@ -6,6 +6,7 @@
 //  Copyright © 2025 Pushwoosh. All rights reserved.
 //
 
+#if !targetEnvironment(macCatalyst) && os(iOS)
 import Foundation
 import PushwooshCore
 
@@ -29,3 +30,4 @@ struct ActivityRequestParameters {
         self.pushToStartToken = pushToStartToken
     }
 }
+#endif

@@ -6,6 +6,7 @@
 //  Copyright © 2024 Pushwoosh. All rights reserved.
 //
 
+#if !targetEnvironment(macCatalyst) && os(iOS)
 import Foundation
 
 @frozen public struct AnyCodable: Codable {
@@ -301,3 +302,4 @@ extension AnyCodable: Hashable {
         }
     }
 }
+#endif

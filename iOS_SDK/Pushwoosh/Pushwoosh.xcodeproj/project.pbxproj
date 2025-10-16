@@ -77,6 +77,17 @@
 		4463DC542CAC488800E2BAAC /* PWModalWindowConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4463DC502CAC488800E2BAAC /* PWModalWindowConfiguration.m */; };
 		4463DC552CAC488800E2BAAC /* PWModalWindowConfiguration.m in Sources */ = {isa = PBXBuildFile; fileRef = 4463DC502CAC488800E2BAAC /* PWModalWindowConfiguration.m */; };
 		4463DC682CAD64FB00E2BAAC /* PWModalWindowSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 443117BB2C6FA091008F82C6 /* PWModalWindowSettings.h */; };
+		446595CD2E9FD39B00ED66B7 /* PWTVOSAPIClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446595B92E9FD39B00ED66B7 /* PWTVOSAPIClient.swift */; };
+		446595CE2E9FD39B00ED66B7 /* PWTVOSHTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446595BB2E9FD39B00ED66B7 /* PWTVOSHTMLParser.swift */; };
+		446595CF2E9FD39B00ED66B7 /* PushwooshTVOSImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446595B42E9FD39B00ED66B7 /* PushwooshTVOSImplementation.swift */; };
+		446595D02E9FD39B00ED66B7 /* PWTVOSUniversalHTMLParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446595BD2E9FD39B00ED66B7 /* PWTVOSUniversalHTMLParser.swift */; };
+		446595D22E9FD39B00ED66B7 /* PWTVOSButtonActionHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446595C22E9FD39B00ED66B7 /* PWTVOSButtonActionHandler.swift */; };
+		446595D32E9FD39B00ED66B7 /* PWTVOSJavaScriptParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446595C52E9FD39B00ED66B7 /* PWTVOSJavaScriptParser.swift */; };
+		446595D62E9FD39B00ED66B7 /* PWTVoSExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446595B52E9FD39B00ED66B7 /* PWTVoSExtension.swift */; };
+		446595D72E9FD39B00ED66B7 /* PWTVOSUniversalRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446595C02E9FD39B00ED66B7 /* PWTVOSUniversalRenderer.swift */; };
+		446595D92E9FD39B00ED66B7 /* PWTVOSRichMediaRenderer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446595C82E9FD39B00ED66B7 /* PWTVOSRichMediaRenderer.swift */; };
+		446595DA2E9FD39B00ED66B7 /* PWTVOSRegisterDeviceRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446595B72E9FD39B00ED66B7 /* PWTVOSRegisterDeviceRequest.swift */; };
+		446595DB2E9FD39B00ED66B7 /* PWTVOSRichMediaManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 446595CB2E9FD39B00ED66B7 /* PWTVOSRichMediaManager.swift */; };
 		446894C32C51286A0060AE0D /* PWDataManagerCommonTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 446894C22C51286A0060AE0D /* PWDataManagerCommonTest.m */; };
 		446C0DF42CFF1BEB006F8B12 /* PushwooshFramework.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 467EB9371DFEC23A00506823 /* PushwooshFramework.framework */; };
 		446C0DF52CFF1BEB006F8B12 /* PushwooshFramework.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 467EB9371DFEC23A00506823 /* PushwooshFramework.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -137,7 +148,7 @@
 		447CEFA82D778F1D00CD410A /* PushwooshSwiftInterface.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CEFA32D7789A100CD410A /* PushwooshSwiftInterface.swift */; };
 		447CEFBD2D77938A00CD410A /* PushwooshLiveActivities.h in Headers */ = {isa = PBXBuildFile; fileRef = 447CEFBC2D77938A00CD410A /* PushwooshLiveActivities.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		447CEFC22D7793A100CD410A /* PWLiveActivitiesExtension.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CEFC12D7793A100CD410A /* PWLiveActivitiesExtension.swift */; };
-		447CEFC52D7793F400CD410A /* PushwooshLiveActivities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEFBA2D77938A00CD410A /* PushwooshLiveActivities.framework */; platformFilter = ios; };
+		447CEFC52D7793F400CD410A /* PushwooshLiveActivities.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEFBA2D77938A00CD410A /* PushwooshLiveActivities.framework */; };
 		447CEFCF2D779E0000CD410A /* AnyCodable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CEFCC2D779E0000CD410A /* AnyCodable.swift */; };
 		447CEFD02D779E0000CD410A /* PushwooshLiveActivitiesImplementationSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CEFCD2D779E0000CD410A /* PushwooshLiveActivitiesImplementationSetup.swift */; };
 		447CEFD12D779E0000CD410A /* PushwooshLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CEFCE2D779E0000CD410A /* PushwooshLiveActivityAttributes.swift */; };
@@ -395,7 +406,23 @@
 		44A29BCA2D810A6D00FBF3D3 /* PWCoreRequestManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 44A29BC82D810A6D00FBF3D3 /* PWCoreRequestManager.m */; };
 		44A29BCD2D81DB2200FBF3D3 /* PWRequestSetActivityToken.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A29BCC2D81DB2200FBF3D3 /* PWRequestSetActivityToken.swift */; };
 		44A829AB2D81E1A200058555 /* PWLiveActivityRequestProtocol.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44A829AA2D81E1A200058555 /* PWLiveActivityRequestProtocol.swift */; };
+		44BE58632E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE58612E968F5A000CD90E /* PWNotificationManagerCompattvOS.m */; };
+		44BE58642E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 44BE58602E968F5A000CD90E /* PWNotificationManagerCompattvOS.h */; };
+		44BE58652E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE58612E968F5A000CD90E /* PWNotificationManagerCompattvOS.m */; };
+		44BE58662E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 44BE58602E968F5A000CD90E /* PWNotificationManagerCompattvOS.h */; };
+		44BE58672E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 44BE58602E968F5A000CD90E /* PWNotificationManagerCompattvOS.h */; };
+		44BE58682E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE58612E968F5A000CD90E /* PWNotificationManagerCompattvOS.m */; };
+		44BE58692E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE58612E968F5A000CD90E /* PWNotificationManagerCompattvOS.m */; };
+		44BE586A2E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 44BE58602E968F5A000CD90E /* PWNotificationManagerCompattvOS.h */; };
+		44BE586B2E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE58612E968F5A000CD90E /* PWNotificationManagerCompattvOS.m */; };
+		44BE586C2E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 44BE58602E968F5A000CD90E /* PWNotificationManagerCompattvOS.h */; };
+		44BE586D2E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE58612E968F5A000CD90E /* PWNotificationManagerCompattvOS.m */; };
+		44BE586E2E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 44BE58602E968F5A000CD90E /* PWNotificationManagerCompattvOS.h */; };
+		44BE586F2E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */ = {isa = PBXBuildFile; fileRef = 44BE58602E968F5A000CD90E /* PWNotificationManagerCompattvOS.h */; };
+		44BE58702E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 44BE58612E968F5A000CD90E /* PWNotificationManagerCompattvOS.m */; };
 		44C0F3492DCA323300BE6564 /* PushwooshVoIP.h in Headers */ = {isa = PBXBuildFile; fileRef = 44C0F3462DCA323300BE6564 /* PushwooshVoIP.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		44CA94AA2E8FF50600143656 /* PWTVoS.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CA94A92E8FF50600143656 /* PWTVoS.swift */; };
+		44CA94AC2E8FF51000143656 /* PWTVoSStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 44CA94AB2E8FF51000143656 /* PWTVoSStub.swift */; };
 		44FE0D392CAD6CDD001C34FD /* PWModalWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AF30846F2996A1F500E19F10 /* PWModalWindow.m */; };
 		44FE0D3A2CAD6CF0001C34FD /* PWModalWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = AF30846E2996A1F500E19F10 /* PWModalWindow.h */; };
 		44FE0D3B2CAD6CF4001C34FD /* PWModalWindowSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 443117BC2C6FA091008F82C6 /* PWModalWindowSettings.m */; };
@@ -1548,6 +1575,12 @@
 		E19B8F7A2E799A4200A0577E /* ForegroundNotificationAnimator.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B8F792E799A4200A0577E /* ForegroundNotificationAnimator.swift */; };
 		E19B8F7C2E799A6900A0577E /* ForegroundNotificationViewBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B8F7B2E799A6900A0577E /* ForegroundNotificationViewBuilder.swift */; };
 		E19B8F7E2E799A9B00A0577E /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = E19B8F7D2E799A9B00A0577E /* ImageLoader.swift */; };
+		E19B8F872E8FE99F00A0577E /* PushwooshTVOS.h in Headers */ = {isa = PBXBuildFile; fileRef = E19B8F862E8FE99F00A0577E /* PushwooshTVOS.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E19B8F8B2E8FE9C600A0577E /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; };
+		E19B8F8C2E8FE9C600A0577E /* PushwooshCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		E19B8F902E8FE9CC00A0577E /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; };
+		E19B8F932E8FE9D000A0577E /* PushwooshBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEF972D77883300CD410A /* PushwooshBridge.framework */; };
+		E19B8F942E8FE9D100A0577E /* PushwooshBridge.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEF972D77883300CD410A /* PushwooshBridge.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1FE18AD2E0559AB004A8639 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E1FE18AC2E0559AB004A8639 /* PrivacyInfo.xcprivacy */; };
 /* End PBXBuildFile section */
 
@@ -1650,6 +1683,20 @@
 			remoteGlobalIDString = 441806DE2D7B285900DE71A7;
 			remoteInfo = PushwooshCore;
 		};
+		E19B8F8D2E8FE9C600A0577E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 441806DE2D7B285900DE71A7;
+			remoteInfo = PushwooshCore;
+		};
+		E19B8F952E8FE9D100A0577E /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 447CEF962D77883300CD410A;
+			remoteInfo = PushwooshBridge;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1685,6 +1732,18 @@
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E19B8F8F2E8FE9C600A0577E /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				E19B8F942E8FE9D100A0577E /* PushwooshBridge.framework in Embed Frameworks */,
+				E19B8F8C2E8FE9C600A0577E /* PushwooshCore.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
@@ -1712,6 +1771,23 @@
 		445C15122D847060007554D9 /* PWRequestStopLiveActivity.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWRequestStopLiveActivity.swift; sourceTree = "<group>"; };
 		4463DC4F2CAC488800E2BAAC /* PWModalWindowConfiguration.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWModalWindowConfiguration.h; sourceTree = "<group>"; };
 		4463DC502CAC488800E2BAAC /* PWModalWindowConfiguration.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWModalWindowConfiguration.m; sourceTree = "<group>"; };
+		446595B22E9FD39B00ED66B7 /* PWTVOSButtonActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSButtonActionHandler.swift; sourceTree = "<group>"; };
+		446595B42E9FD39B00ED66B7 /* PushwooshTVOSImplementation.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PushwooshTVOSImplementation.swift; sourceTree = "<group>"; };
+		446595B52E9FD39B00ED66B7 /* PWTVoSExtension.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVoSExtension.swift; sourceTree = "<group>"; };
+		446595B72E9FD39B00ED66B7 /* PWTVOSRegisterDeviceRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSRegisterDeviceRequest.swift; sourceTree = "<group>"; };
+		446595B92E9FD39B00ED66B7 /* PWTVOSAPIClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSAPIClient.swift; sourceTree = "<group>"; };
+		446595BB2E9FD39B00ED66B7 /* PWTVOSHTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSHTMLParser.swift; sourceTree = "<group>"; };
+		446595BC2E9FD39B00ED66B7 /* PWTVOSJavaScriptParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSJavaScriptParser.swift; sourceTree = "<group>"; };
+		446595BD2E9FD39B00ED66B7 /* PWTVOSUniversalHTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSUniversalHTMLParser.swift; sourceTree = "<group>"; };
+		446595BF2E9FD39B00ED66B7 /* PWTVOSRichMediaRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSRichMediaRenderer.swift; sourceTree = "<group>"; };
+		446595C02E9FD39B00ED66B7 /* PWTVOSUniversalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSUniversalRenderer.swift; sourceTree = "<group>"; };
+		446595C22E9FD39B00ED66B7 /* PWTVOSButtonActionHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSButtonActionHandler.swift; sourceTree = "<group>"; };
+		446595C42E9FD39B00ED66B7 /* PWTVOSHTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSHTMLParser.swift; sourceTree = "<group>"; };
+		446595C52E9FD39B00ED66B7 /* PWTVOSJavaScriptParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSJavaScriptParser.swift; sourceTree = "<group>"; };
+		446595C62E9FD39B00ED66B7 /* PWTVOSUniversalHTMLParser.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSUniversalHTMLParser.swift; sourceTree = "<group>"; };
+		446595C82E9FD39B00ED66B7 /* PWTVOSRichMediaRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSRichMediaRenderer.swift; sourceTree = "<group>"; };
+		446595C92E9FD39B00ED66B7 /* PWTVOSUniversalRenderer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSUniversalRenderer.swift; sourceTree = "<group>"; };
+		446595CB2E9FD39B00ED66B7 /* PWTVOSRichMediaManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVOSRichMediaManager.swift; sourceTree = "<group>"; };
 		446894C22C51286A0060AE0D /* PWDataManagerCommonTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWDataManagerCommonTest.m; sourceTree = "<group>"; };
 		447214552CD663D500D23645 /* PWHashDecoder.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWHashDecoder.h; sourceTree = "<group>"; };
 		447214562CD663D500D23645 /* PWHashDecoder.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWHashDecoder.m; sourceTree = "<group>"; };
@@ -1777,8 +1853,12 @@
 		44A29BC82D810A6D00FBF3D3 /* PWCoreRequestManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWCoreRequestManager.m; sourceTree = "<group>"; };
 		44A29BCC2D81DB2200FBF3D3 /* PWRequestSetActivityToken.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWRequestSetActivityToken.swift; sourceTree = "<group>"; };
 		44A829AA2D81E1A200058555 /* PWLiveActivityRequestProtocol.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWLiveActivityRequestProtocol.swift; sourceTree = "<group>"; };
+		44BE58602E968F5A000CD90E /* PWNotificationManagerCompattvOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PWNotificationManagerCompattvOS.h; sourceTree = "<group>"; };
+		44BE58612E968F5A000CD90E /* PWNotificationManagerCompattvOS.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWNotificationManagerCompattvOS.m; sourceTree = "<group>"; };
 		44C0F3442DCA323300BE6564 /* PushwooshVoIP.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshVoIP.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		44C0F3462DCA323300BE6564 /* PushwooshVoIP.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushwooshVoIP.h; sourceTree = "<group>"; };
+		44CA94A92E8FF50600143656 /* PWTVoS.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVoS.swift; sourceTree = "<group>"; };
+		44CA94AB2E8FF51000143656 /* PWTVoSStub.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWTVoSStub.swift; sourceTree = "<group>"; };
 		4649F4B61ED5517A00D3D90C /* PushNotificationManager+Mock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "PushNotificationManager+Mock.h"; path = "PushwooshTests/Mock/PushNotificationManager+Mock.h"; sourceTree = SOURCE_ROOT; };
 		4649F4B71ED5517A00D3D90C /* PushNotificationManager+Mock.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "PushNotificationManager+Mock.m"; path = "PushwooshTests/Mock/PushNotificationManager+Mock.m"; sourceTree = SOURCE_ROOT; };
 		4649F4B81ED5517A00D3D90C /* PWPushNotificationDelegateMock.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PWPushNotificationDelegateMock.h; path = PushwooshTests/Mock/PWPushNotificationDelegateMock.h; sourceTree = SOURCE_ROOT; };
@@ -2116,6 +2196,8 @@
 		E19B8F792E799A4200A0577E /* ForegroundNotificationAnimator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundNotificationAnimator.swift; sourceTree = "<group>"; };
 		E19B8F7B2E799A6900A0577E /* ForegroundNotificationViewBuilder.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForegroundNotificationViewBuilder.swift; sourceTree = "<group>"; };
 		E19B8F7D2E799A9B00A0577E /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		E19B8F842E8FE99F00A0577E /* PushwooshTVOS.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshTVOS.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		E19B8F862E8FE99F00A0577E /* PushwooshTVOS.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PushwooshTVOS.h; sourceTree = "<group>"; };
 		E1FE18AC2E0559AB004A8639 /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -2235,6 +2317,16 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E19B8F812E8FE99F00A0577E /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E19B8F932E8FE9D000A0577E /* PushwooshBridge.framework in Frameworks */,
+				E19B8F902E8FE9CC00A0577E /* PushwooshCore.framework in Frameworks */,
+				E19B8F8B2E8FE9C600A0577E /* PushwooshCore.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -2254,6 +2346,7 @@
 				441806DF2D7B285900DE71A7 /* PushwooshCore.framework */,
 				44C0F3442DCA323300BE6564 /* PushwooshVoIP.framework */,
 				E192B7D22E5DF54A0027015B /* PushwooshForegroundPush.framework */,
+				E19B8F842E8FE99F00A0577E /* PushwooshTVOS.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -2267,6 +2360,7 @@
 				447CEFBB2D77938A00CD410A /* PushwooshLiveActivities */,
 				44C0F3452DCA323300BE6564 /* PushwooshVoIP */,
 				E192B7D32E5DF54A0027015B /* PushwooshForegroundPush */,
+				E19B8F852E8FE99F00A0577E /* PushwooshTVOS */,
 				5D21C42B23F6746100D161F1 /* Supporting_Files */,
 				46FA9E351C7DB1AA00741A11 /* PushwooshTests */,
 				034768DFFF38A50411DB9C8B /* Products */,
@@ -2400,6 +2494,97 @@
 			path = "Modal Window";
 			sourceTree = "<group>";
 		};
+		446595B32E9FD39B00ED66B7 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				446595B22E9FD39B00ED66B7 /* PWTVOSButtonActionHandler.swift */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
+		446595B62E9FD39B00ED66B7 /* Core */ = {
+			isa = PBXGroup;
+			children = (
+				446595B42E9FD39B00ED66B7 /* PushwooshTVOSImplementation.swift */,
+				446595B52E9FD39B00ED66B7 /* PWTVoSExtension.swift */,
+			);
+			path = Core;
+			sourceTree = "<group>";
+		};
+		446595B82E9FD39B00ED66B7 /* Requests */ = {
+			isa = PBXGroup;
+			children = (
+				446595B72E9FD39B00ED66B7 /* PWTVOSRegisterDeviceRequest.swift */,
+			);
+			path = Requests;
+			sourceTree = "<group>";
+		};
+		446595BA2E9FD39B00ED66B7 /* Network */ = {
+			isa = PBXGroup;
+			children = (
+				446595B82E9FD39B00ED66B7 /* Requests */,
+				446595B92E9FD39B00ED66B7 /* PWTVOSAPIClient.swift */,
+			);
+			path = Network;
+			sourceTree = "<group>";
+		};
+		446595BE2E9FD39B00ED66B7 /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				446595BB2E9FD39B00ED66B7 /* PWTVOSHTMLParser.swift */,
+				446595BC2E9FD39B00ED66B7 /* PWTVOSJavaScriptParser.swift */,
+				446595BD2E9FD39B00ED66B7 /* PWTVOSUniversalHTMLParser.swift */,
+			);
+			path = Parsers;
+			sourceTree = "<group>";
+		};
+		446595C12E9FD39B00ED66B7 /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				446595BF2E9FD39B00ED66B7 /* PWTVOSRichMediaRenderer.swift */,
+				446595C02E9FD39B00ED66B7 /* PWTVOSUniversalRenderer.swift */,
+			);
+			path = Renderers;
+			sourceTree = "<group>";
+		};
+		446595C32E9FD39B00ED66B7 /* Actions */ = {
+			isa = PBXGroup;
+			children = (
+				446595C22E9FD39B00ED66B7 /* PWTVOSButtonActionHandler.swift */,
+			);
+			path = Actions;
+			sourceTree = "<group>";
+		};
+		446595C72E9FD39B00ED66B7 /* Parsers */ = {
+			isa = PBXGroup;
+			children = (
+				446595C42E9FD39B00ED66B7 /* PWTVOSHTMLParser.swift */,
+				446595C52E9FD39B00ED66B7 /* PWTVOSJavaScriptParser.swift */,
+				446595C62E9FD39B00ED66B7 /* PWTVOSUniversalHTMLParser.swift */,
+			);
+			path = Parsers;
+			sourceTree = "<group>";
+		};
+		446595CA2E9FD39B00ED66B7 /* Renderers */ = {
+			isa = PBXGroup;
+			children = (
+				446595C82E9FD39B00ED66B7 /* PWTVOSRichMediaRenderer.swift */,
+				446595C92E9FD39B00ED66B7 /* PWTVOSUniversalRenderer.swift */,
+			);
+			path = Renderers;
+			sourceTree = "<group>";
+		};
+		446595CC2E9FD39B00ED66B7 /* Rich Media */ = {
+			isa = PBXGroup;
+			children = (
+				446595C32E9FD39B00ED66B7 /* Actions */,
+				446595C72E9FD39B00ED66B7 /* Parsers */,
+				446595CA2E9FD39B00ED66B7 /* Renderers */,
+				446595CB2E9FD39B00ED66B7 /* PWTVOSRichMediaManager.swift */,
+			);
+			path = "Rich Media";
+			sourceTree = "<group>";
+		};
 		446894C12C5128290060AE0D /* Data */ = {
 			isa = PBXGroup;
 			children = (
@@ -2436,9 +2621,11 @@
 				447CEF9E2D7788D900CD410A /* PWLiveActivities.swift */,
 				441CC9442DCA55FF00DBE44A /* PWVoIP.swift */,
 				E192B7D92E5DF63A0027015B /* PWForegroundPush.swift */,
+				44CA94A92E8FF50600143656 /* PWTVoS.swift */,
 				44155FD32D77B30E00358B1C /* PWLiveActivitiesStub.swift */,
 				441CC9462DCA568500DBE44A /* PWVoIPStub.swift */,
 				E192B7DB2E5DF6640027015B /* PWForegroundPushStub.swift */,
+				44CA94AB2E8FF51000143656 /* PWTVoSStub.swift */,
 			);
 			path = PushwooshBridge;
 			sourceTree = "<group>";
@@ -2661,6 +2848,15 @@
 				44A29BC82D810A6D00FBF3D3 /* PWCoreRequestManager.m */,
 			);
 			path = "Request Manager";
+			sourceTree = "<group>";
+		};
+		44BE58622E968F5A000CD90E /* tvOS */ = {
+			isa = PBXGroup;
+			children = (
+				44BE58602E968F5A000CD90E /* PWNotificationManagerCompattvOS.h */,
+				44BE58612E968F5A000CD90E /* PWNotificationManagerCompattvOS.m */,
+			);
+			path = tvOS;
 			sourceTree = "<group>";
 		};
 		44C0F3452DCA323300BE6564 /* PushwooshVoIP */ = {
@@ -3269,6 +3465,7 @@
 			children = (
 				5DB6E7B823F56E4200421AA4 /* Interactive Push */,
 				5DB6E71623F5684900421AA4 /* iOS */,
+				44BE58622E968F5A000CD90E /* tvOS */,
 				5DB6E71823F5685300421AA4 /* watchOS */,
 				5DB6E71723F5684E00421AA4 /* macOS */,
 				5DB6E68423F565DA00421AA4 /* PWNotificationCategoryBuilder.h */,
@@ -3699,6 +3896,20 @@
 			path = PushwooshForegroundPush;
 			sourceTree = "<group>";
 		};
+		E19B8F852E8FE99F00A0577E /* PushwooshTVOS */ = {
+			isa = PBXGroup;
+			children = (
+				E19B8F862E8FE99F00A0577E /* PushwooshTVOS.h */,
+				446595B32E9FD39B00ED66B7 /* Actions */,
+				446595B62E9FD39B00ED66B7 /* Core */,
+				446595BA2E9FD39B00ED66B7 /* Network */,
+				446595BE2E9FD39B00ED66B7 /* Parsers */,
+				446595C12E9FD39B00ED66B7 /* Renderers */,
+				446595CC2E9FD39B00ED66B7 /* Rich Media */,
+			);
+			path = PushwooshTVOS;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -3791,6 +4002,7 @@
 				449CC1442BA9F7FB003E16DC /* PWNotificationCategoryBuilderiOS10.h in Headers */,
 				449CC0932BA9D96F003E16DC /* PWPushStatRequest.h in Headers */,
 				449CC0D02BA9DF5F003E16DC /* PWInteractivePush.h in Headers */,
+				44BE58672E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */,
 				449CC08F2BA9D942003E16DC /* PWCachedRequest.h in Headers */,
 				449CC0792BA9D833003E16DC /* PWRegisterEmail.h in Headers */,
 				449CC0D62BA9DFAB003E16DC /* PWInboxService.h in Headers */,
@@ -3905,6 +4117,7 @@
 				5D12C22623F54429009A655A /* PWInlineInAppView.h in Headers */,
 				5DB6E7D623F572B200421AA4 /* PWPushRuntime.ios.h in Headers */,
 				5DB6E7DC23F572B200421AA4 /* PWPushRuntime.h in Headers */,
+				44BE586E2E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */,
 				5DB6E43423F55BDA00421AA4 /* PWBasePushTrackingRequest.h in Headers */,
 				5DB6E4CB23F55D2900421AA4 /* PWGetTagsRequest.h in Headers */,
 				5DB6E76723F569F400421AA4 /* PWNotificationManagerCompatiOS10.h in Headers */,
@@ -4049,6 +4262,7 @@
 				5DB6E62723F562F500421AA4 /* PWResource.h in Headers */,
 				5DB6E92923F579C200421AA4 /* NSDate+PWDateUtils.h in Headers */,
 				5D12C2BC23F54D25009A655A /* PWUtils.common.h in Headers */,
+				44BE58642E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */,
 				5DB6E4CD23F55D2900421AA4 /* PWGetTagsRequest.h in Headers */,
 				5DB6E79323F56B2400421AA4 /* PWHtmlWebViewController.mac.h in Headers */,
 				97937A732628396300E57C64 /* PWInbox.h in Headers */,
@@ -4168,6 +4382,7 @@
 				5DB6E4E523F55D2E00421AA4 /* PWMergeUserRequest.h in Headers */,
 				5DAEE796246413A900219D92 /* PWUtilsMobile.h in Headers */,
 				5DB6E2BA23F5565100421AA4 /* PWVersionTracking.h in Headers */,
+				44BE586C2E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */,
 				5DB6E50E23F55E9800421AA4 /* PWCombinedSetTagsRequest.h in Headers */,
 				5DB6E4F123F55D2E00421AA4 /* PWRegisterUserRequest.h in Headers */,
 				5DB6E6B423F565DA00421AA4 /* PWPlatformModule.h in Headers */,
@@ -4239,6 +4454,7 @@
 				5DAEE795246413A900219D92 /* PWUtilsMobile.h in Headers */,
 				5DB6E54723F55EF400421AA4 /* PWNetworkModule.h in Headers */,
 				5DB6E4E423F55D2E00421AA4 /* PWMergeUserRequest.h in Headers */,
+				44BE58662E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */,
 				5D12C24423F54491009A655A /* PushNotificationManager.h in Headers */,
 				5DB6E30523F558A500421AA4 /* PWSupportedOrientations.h in Headers */,
 				5D12C28923F54C28009A655A /* Pushwoosh+Internal.h in Headers */,
@@ -4340,6 +4556,7 @@
 				5DB6E92823F579C200421AA4 /* NSDate+PWDateUtils.h in Headers */,
 				5DB6E8FD23F5783400421AA4 /* ioapi.h in Headers */,
 				5DB6E2EF23F5574F00421AA4 /* PWConfig.h in Headers */,
+				44BE586F2E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */,
 				5DB6E7AA23F56CA600421AA4 /* PWPurchaseManager.h in Headers */,
 				5DB6E79223F56B2400421AA4 /* PWHtmlWebViewController.mac.h in Headers */,
 				5DB6E60723F5624000421AA4 /* PWPushManagerJSBridge.h in Headers */,
@@ -4412,6 +4629,7 @@
 				5DB6E92023F579C200421AA4 /* NSDictionary+PWDictUtils.h in Headers */,
 				5D12C22523F54429009A655A /* PWInlineInAppView.h in Headers */,
 				5DB6E7D523F572B200421AA4 /* PWPushRuntime.ios.h in Headers */,
+				44BE586A2E968F5A000CD90E /* PWNotificationManagerCompattvOS.h in Headers */,
 				5DB6E7DB23F572B200421AA4 /* PWPushRuntime.h in Headers */,
 				5DB6E43323F55BDA00421AA4 /* PWBasePushTrackingRequest.h in Headers */,
 				5DB6E4CA23F55D2900421AA4 /* PWGetTagsRequest.h in Headers */,
@@ -4518,6 +4736,14 @@
 			buildActionMask = 2147483647;
 			files = (
 				E192B7D52E5DF54A0027015B /* PushwooshForegroundPush.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E19B8F7F2E8FE99F00A0577E /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E19B8F872E8FE99F00A0577E /* PushwooshTVOS.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4771,6 +4997,27 @@
 			productReference = E192B7D22E5DF54A0027015B /* PushwooshForegroundPush.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		E19B8F832E8FE99F00A0577E /* PushwooshTVOS */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E19B8F882E8FE9A000A0577E /* Build configuration list for PBXNativeTarget "PushwooshTVOS" */;
+			buildPhases = (
+				E19B8F7F2E8FE99F00A0577E /* Headers */,
+				E19B8F802E8FE99F00A0577E /* Sources */,
+				E19B8F812E8FE99F00A0577E /* Frameworks */,
+				E19B8F822E8FE99F00A0577E /* Resources */,
+				E19B8F8F2E8FE9C600A0577E /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				E19B8F8E2E8FE9C600A0577E /* PBXTargetDependency */,
+				E19B8F962E8FE9D100A0577E /* PBXTargetDependency */,
+			);
+			name = PushwooshTVOS;
+			productName = PushwooshTVOS;
+			productReference = E19B8F842E8FE99F00A0577E /* PushwooshTVOS.framework */;
+			productType = "com.apple.product-type.framework";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -4842,6 +5089,9 @@
 						CreatedOnToolsVersion = 15.4;
 						LastSwiftMigration = 1540;
 					};
+					E19B8F832E8FE99F00A0577E = {
+						CreatedOnToolsVersion = 15.4;
+					};
 				};
 			};
 			buildConfigurationList = 1DEB922208733DC00010E9CD /* Build configuration list for PBXProject "Pushwoosh" */;
@@ -4864,6 +5114,7 @@
 				447CEFB92D77938A00CD410A /* PushwooshLiveActivities */,
 				44C0F3432DCA323300BE6564 /* PushwooshVoIP */,
 				E192B7D12E5DF54A0027015B /* PushwooshForegroundPush */,
+				E19B8F832E8FE99F00A0577E /* PushwooshTVOS */,
 				C42A20681D06CBB800CC3BCB /* Pushwoosh.mac */,
 				467F61F11EB87F3300548315 /* PushwooshMac */,
 				5DA6EBC622E18CAD00097C50 /* Pushwoosh.watchOS */,
@@ -4954,6 +5205,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		E19B8F822E8FE99F00A0577E /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -4969,7 +5227,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "#available values: USE_LOCATION, USE_IBEACONS\nexport PW_PREPROCESSOR_DEFS=\"USE_LOCATION\"\nexport PW_SIMULATOR_ARCHS=\"x86_64\"\nexport PW_DEVICE_ARCHS=\"${ARCHS_STANDARD}\"\n\n. ../build/create_xcframework_foreground_push_ios.sh && \\\n. ../build/create_xcframework_voip_ios.sh && \\\n. ../build/create_xcframework_live_activities_ios.sh && \\\n. ../build/create_xcframework_bridge_ios.sh && \\\n. ../build/create_xcframework_core_ios.sh && \\\n. ../build/create_xcframework_ios.sh || exit 1\n";
+			shellScript = "#available values: USE_LOCATION, USE_IBEACONS\nexport PW_PREPROCESSOR_DEFS=\"USE_LOCATION\"\nexport PW_SIMULATOR_ARCHS=\"x86_64\"\nexport PW_DEVICE_ARCHS=\"${ARCHS_STANDARD}\"\n\n. ../build/create_xcframework_foreground_push_ios.sh && \\\n. ../build/create_xcframework_voip_ios.sh && \\\n. ../build/create_xcframework_tvos_ios.sh && \\\n. ../build/create_xcframework_live_activities_ios.sh && \\\n. ../build/create_xcframework_bridge_ios.sh && \\\n. ../build/create_xcframework_core_ios.sh && \\\n. ../build/create_xcframework_ios.sh || exit 1\n";
 		};
 		449CC1A12BAC2004003E16DC /* Create framework */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -5030,9 +5288,11 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				44CA94AA2E8FF50600143656 /* PWTVoS.swift in Sources */,
 				441CC9452DCA55FF00DBE44A /* PWVoIP.swift in Sources */,
 				E192B7DA2E5DF63A0027015B /* PWForegroundPush.swift in Sources */,
 				447CEF9F2D7788D900CD410A /* PWLiveActivities.swift in Sources */,
+				44CA94AC2E8FF51000143656 /* PWTVoSStub.swift in Sources */,
 				E192B7DC2E5DF6640027015B /* PWForegroundPushStub.swift in Sources */,
 				441CC9472DCA568500DBE44A /* PWVoIPStub.swift in Sources */,
 				44155FD42D77B30E00358B1C /* PWLiveActivitiesStub.swift in Sources */,
@@ -5111,6 +5371,7 @@
 				449CC0462BA9CE3E003E16DC /* PushNotificationManager.m in Sources */,
 				449CC0D52BA9DF99003E16DC /* PWInboxMessageInternal.m in Sources */,
 				449CC0672BA9D6AB003E16DC /* PWDataManager.ios.m in Sources */,
+				44BE58682E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */,
 				449CC0822BA9D88D003E16DC /* PWPostEventRequest.m in Sources */,
 				449CC0E22BA9E05D003E16DC /* PWNotificationCenter.m in Sources */,
 				449CC0C32BA9DDA1003E16DC /* PWInboxStorage.m in Sources */,
@@ -5299,6 +5560,7 @@
 				5DB6E83923F5762000421AA4 /* PWInboxService.m in Sources */,
 				5DB6E7C023F56E5700421AA4 /* PWInteractivePush.m in Sources */,
 				5DB6E3D323F55AAD00421AA4 /* PWDataManager.ios.m in Sources */,
+				44BE586D2E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */,
 				5DB6E51A23F55EB300421AA4 /* PWCachedRequest.m in Sources */,
 				5DB6E66D23F5655600421AA4 /* PWGetResourcesRequest.m in Sources */,
 				5DB6E5B123F5615200421AA4 /* PWInteractionDisabledWindow.m in Sources */,
@@ -5377,6 +5639,7 @@
 				5DB6E58323F5615200421AA4 /* PWLoadingView.m in Sources */,
 				5DB6E3B123F55A3000421AA4 /* PWRegisterTestDeviceRequest.m in Sources */,
 				5DB6E7AF23F56CA600421AA4 /* PWPurchaseManager.m in Sources */,
+				44BE58632E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */,
 				5DB6E7CC23F572B200421AA4 /* PWPushRuntime.mac.m in Sources */,
 				5DB6E46023F55C0400421AA4 /* PWPushStatRequest.m in Sources */,
 				5DB6E91D23F579C200421AA4 /* NSDictionary+PWDictUtils.m in Sources */,
@@ -5527,6 +5790,7 @@
 				5DB6E66223F5653500421AA4 /* PWPostEventRequest.m in Sources */,
 				5DB6E52423F55EB300421AA4 /* PWRequest.m in Sources */,
 				5DB6E54E23F55EF400421AA4 /* PWNetworkModule.m in Sources */,
+				44BE586B2E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */,
 				5DB6E3BF23F55A3000421AA4 /* PWUnregisterDeviceRequest.m in Sources */,
 				97F7D0512771C95F0006692B /* PWUnarchiver.m in Sources */,
 			);
@@ -5587,6 +5851,7 @@
 				5DB6E66123F5653500421AA4 /* PWPostEventRequest.m in Sources */,
 				5DB6E52323F55EB300421AA4 /* PWRequest.m in Sources */,
 				5DB6E54D23F55EF400421AA4 /* PWNetworkModule.m in Sources */,
+				44BE58652E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */,
 				5DB6E3BE23F55A3000421AA4 /* PWUnregisterDeviceRequest.m in Sources */,
 				97F7D0502771C95F0006692B /* PWUnarchiver.m in Sources */,
 			);
@@ -5673,6 +5938,7 @@
 				5DB6E4F423F55D2E00421AA4 /* PWRegisterUserRequest.m in Sources */,
 				5DB6E2C323F5565100421AA4 /* PWRequestsCacheManager.m in Sources */,
 				5DB6E2BD23F5565100421AA4 /* PWVersionTracking.m in Sources */,
+				44BE58702E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */,
 				5DB6E59223F5615200421AA4 /* PWMessageViewController.mac.m in Sources */,
 				5DB6E90523F5783400421AA4 /* PWZipArchive.mm in Sources */,
 				5DB6E39223F55A1B00421AA4 /* PWPushNotificationsManager.mac.m in Sources */,
@@ -5811,6 +6077,7 @@
 				5DB6E83823F5762000421AA4 /* PWInboxService.m in Sources */,
 				5DB6E7BF23F56E5700421AA4 /* PWInteractivePush.m in Sources */,
 				5DB6E3D223F55AAD00421AA4 /* PWDataManager.ios.m in Sources */,
+				44BE58692E968F5A000CD90E /* PWNotificationManagerCompattvOS.m in Sources */,
 				5DB6E51923F55EB300421AA4 /* PWCachedRequest.m in Sources */,
 				5DB6E66C23F5655600421AA4 /* PWGetResourcesRequest.m in Sources */,
 				5DB6E5B023F5615200421AA4 /* PWInteractionDisabledWindow.m in Sources */,
@@ -5832,6 +6099,24 @@
 				E192B7E72E5DF7410027015B /* ForegroundPushShape.swift in Sources */,
 				E192B7E92E5DF76B0027015B /* PushwooshForegroundPushImplementation.swift in Sources */,
 				E19B8F7C2E799A6900A0577E /* ForegroundNotificationViewBuilder.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		E19B8F802E8FE99F00A0577E /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				446595CD2E9FD39B00ED66B7 /* PWTVOSAPIClient.swift in Sources */,
+				446595CE2E9FD39B00ED66B7 /* PWTVOSHTMLParser.swift in Sources */,
+				446595CF2E9FD39B00ED66B7 /* PushwooshTVOSImplementation.swift in Sources */,
+				446595D02E9FD39B00ED66B7 /* PWTVOSUniversalHTMLParser.swift in Sources */,
+				446595D22E9FD39B00ED66B7 /* PWTVOSButtonActionHandler.swift in Sources */,
+				446595D32E9FD39B00ED66B7 /* PWTVOSJavaScriptParser.swift in Sources */,
+				446595D62E9FD39B00ED66B7 /* PWTVoSExtension.swift in Sources */,
+				446595D72E9FD39B00ED66B7 /* PWTVOSUniversalRenderer.swift in Sources */,
+				446595D92E9FD39B00ED66B7 /* PWTVOSRichMediaRenderer.swift in Sources */,
+				446595DA2E9FD39B00ED66B7 /* PWTVOSRegisterDeviceRequest.swift in Sources */,
+				446595DB2E9FD39B00ED66B7 /* PWTVOSRichMediaManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5870,7 +6155,6 @@
 		};
 		447CEFC42D7793EF00CD410A /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
-			platformFilter = ios;
 			target = 447CEFB92D77938A00CD410A /* PushwooshLiveActivities */;
 			targetProxy = 447CEFC32D7793EF00CD410A /* PBXContainerItemProxy */;
 		};
@@ -5908,6 +6192,16 @@
 			isa = PBXTargetDependency;
 			target = 441806DE2D7B285900DE71A7 /* PushwooshCore */;
 			targetProxy = E192B7E32E5DF7030027015B /* PBXContainerItemProxy */;
+		};
+		E19B8F8E2E8FE9C600A0577E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 441806DE2D7B285900DE71A7 /* PushwooshCore */;
+			targetProxy = E19B8F8D2E8FE9C600A0577E /* PBXContainerItemProxy */;
+		};
+		E19B8F962E8FE9D100A0577E /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 447CEF962D77883300CD410A /* PushwooshBridge */;
+			targetProxy = E19B8F952E8FE9D100A0577E /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -6175,8 +6469,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -6251,8 +6547,10 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -6334,12 +6632,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -6415,11 +6715,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -6501,12 +6803,14 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -6582,11 +6886,13 @@
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				PROVISIONING_PROFILE_SPECIFIER = "";
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_INSTALL_OBJC_HEADER = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -7023,10 +7329,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
 				PRODUCT_NAME = PushwooshFramework;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -7101,10 +7409,12 @@
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshiOS;
 				PRODUCT_NAME = PushwooshFramework;
 				SKIP_INSTALL = YES;
+				SUPPORTED_PLATFORMS = "appletvos appletvsimulator iphoneos iphonesimulator";
+				SUPPORTS_MACCATALYST = YES;
 				SWIFT_COMPILATION_MODE = wholemodule;
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
-				TARGETED_DEVICE_FAMILY = "1,2";
+				TARGETED_DEVICE_FAMILY = "1,2,3";
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -7876,6 +8186,160 @@
 			};
 			name = Release;
 		};
+		E19B8F892E8FE9A000A0577E /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				KEEP_PRIVATE_EXTERNS = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = NO;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshTVOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
+		};
+		E19B8F8A2E8FE9A000A0577E /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_IDENTITY = "Apple Development";
+				CODE_SIGN_STYLE = Manual;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				DEFINES_MODULE = YES;
+				DEVELOPMENT_TEAM = "";
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				ENABLE_MODULE_VERIFIER = YES;
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				KEEP_PRIVATE_EXTERNS = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 1.0;
+				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
+				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshTVOS;
+				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
+				PROVISIONING_PROFILE_SPECIFIER = "";
+				SDKROOT = appletvos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = 3;
+				TVOS_DEPLOYMENT_TARGET = 12.0;
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -8028,6 +8492,15 @@
 			buildConfigurations = (
 				E192B7D62E5DF54A0027015B /* Debug */,
 				E192B7D72E5DF54A0027015B /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E19B8F882E8FE9A000A0577E /* Build configuration list for PBXNativeTarget "PushwooshTVOS" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				E19B8F892E8FE9A000A0577E /* Debug */,
+				E19B8F8A2E8FE9A000A0577E /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

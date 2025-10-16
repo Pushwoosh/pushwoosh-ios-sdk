@@ -6,6 +6,7 @@
 //  Copyright © 2016 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import <Cocoa/Cocoa.h>
 
 @class PWHtmlWebViewController;
@@ -22,3 +23,4 @@
 - (instancetype)initWithURLString:(NSString *)url;
 
 @end
+#endif

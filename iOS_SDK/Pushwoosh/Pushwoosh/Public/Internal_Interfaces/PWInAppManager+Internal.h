@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS || TARGET_OS_TV
+
 //
 //  PWInAppManager+Internal.h
 //  Pushwoosh SDK
@@ -14,3 +16,5 @@
 + (void)destroy;
 
 @end
+
+#endif

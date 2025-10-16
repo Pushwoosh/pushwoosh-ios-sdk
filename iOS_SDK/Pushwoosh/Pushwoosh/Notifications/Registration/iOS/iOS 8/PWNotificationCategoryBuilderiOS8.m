@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWNotificationCategoryBuilderiOS8.m
 //  Pushwoosh
@@ -111,3 +113,5 @@
 }
 
 @end
+
+#endif

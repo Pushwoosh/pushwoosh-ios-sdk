@@ -1,4 +1,5 @@
 
+#if TARGET_OS_IOS
 #import "PWPushManagerJSBridge.h"
 #import "PushNotificationManager.h"
 #import "PWInAppManager.h"
@@ -197,3 +198,4 @@
 }
 
 @end
+#endif

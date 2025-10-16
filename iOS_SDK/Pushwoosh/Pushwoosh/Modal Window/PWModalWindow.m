@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWModalWindow.m
 //  Pushwoosh
@@ -572,3 +574,5 @@ static NSTimeInterval timeInterval = 0;
 }
 
 @end
+
+#endif

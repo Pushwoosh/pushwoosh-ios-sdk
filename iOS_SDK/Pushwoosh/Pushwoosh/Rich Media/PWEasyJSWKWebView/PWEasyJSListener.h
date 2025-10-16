@@ -10,8 +10,9 @@
 //  zayin@apextechnology.co.za
 //
 
+#if TARGET_OS_IOS
 #import <Foundation/Foundation.h>
-@import WebKit;
+#import <WebKit/WebKit.h>
 
 @interface PWEasyJSListener : NSObject <WKUIDelegate>
 
@@ -19,3 +20,4 @@
 @property (nonatomic) NSMutableDictionary *updatedJavascriptInterfaces;
 
 @end
+#endif

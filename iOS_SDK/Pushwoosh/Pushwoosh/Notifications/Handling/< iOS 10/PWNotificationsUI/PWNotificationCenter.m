@@ -6,6 +6,8 @@
 //  Copyright (c) 2014 Leo Natan. All rights reserved.
 //
 
+#if TARGET_OS_IOS
+
 #import "PWNotificationCenter.h"
 #import "PWNotification.h"
 #import "PWNotificationAppSettings_Private.h"
@@ -379,3 +381,5 @@ static NSString *const _PWSettingsKey = @"PWNotificationSettingsKey";
 }
 
 @end
+
+#endif

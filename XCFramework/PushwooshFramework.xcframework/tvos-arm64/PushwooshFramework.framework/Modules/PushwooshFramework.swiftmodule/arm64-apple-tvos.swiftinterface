@@ -1,0 +1,31 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target arm64-apple-tvos17.5 -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PushwooshFramework
+import Foundation
+import PushwooshBridge
+import PushwooshCore
+@_exported import PushwooshFramework
+import Swift
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+extension PushwooshFramework.Pushwoosh {
+  public static var LiveActivities: any PushwooshBridge.PWLiveActivities.Type {
+    get
+  }
+  public static var Debug: any PushwooshCore.PWDebug.Type {
+    get
+  }
+  public static var VoIP: any PushwooshBridge.PWVoIP.Type {
+    get
+  }
+  public static var TVoS: any PushwooshBridge.PWTVoS.Type {
+    get
+  }
+  public static var ForegroundPush: any PushwooshBridge.PWForegroundPush.Type {
+    get
+  }
+  public static var Configuration: any PushwooshCore.PWConfiguration.Type {
+    get
+  }
+}

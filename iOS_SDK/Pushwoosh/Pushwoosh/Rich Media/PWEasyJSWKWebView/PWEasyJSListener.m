@@ -10,6 +10,7 @@
 //  zayin@apextechnology.co.za
 //
 
+#if TARGET_OS_IOS
 #import "PWEasyJSListener.h"
 #import "PWEasyJSWKDataFunction.h"
 #import <objc/runtime.h>
@@ -88,3 +89,4 @@
 }
 
 @end
+#endif

@@ -6,6 +6,7 @@
 //  Copyright © 2018 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import "PWBusinessCase.h"
 #import "PWInAppStorage.h"
 #import "PWInAppManager.h"
@@ -163,3 +164,4 @@
 }
 
 @end
+#endif

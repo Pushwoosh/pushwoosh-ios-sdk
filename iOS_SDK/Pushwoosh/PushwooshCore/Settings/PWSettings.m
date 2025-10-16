@@ -23,6 +23,7 @@ static NSString *const KeyInfoPlistAppId = @"Pushwoosh_INFO_PLIST_APPID";
 static NSString *const KeyAppName = @"Pushwoosh_APPNAME";
 static NSString *const KeyPushToken = @"PWPushUserId";
 static NSString *const KeyVoipPushToken = @"PWVoipPushUserId";
+static NSString *const KeyPushTvToken = @"PWPushTvUserId";
 static NSString *const KeyApiToken = @"PWApiToken";
 static NSString *const KeyUserId = @"PWInAppUserId";
 static NSString *const KeyLastRegTime = @"PWLastRegTime";
@@ -52,6 +53,7 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 @synthesize appName = _appName;
 @synthesize pushToken = _pushToken;
 @synthesize voipPushToken = _voipPushToken;
+@synthesize pushTvToken = _pushTvToken;
 @synthesize apiToken = _apiToken;
 @synthesize userId = _userId;
 @synthesize lastRegTime = _lastRegTime;
@@ -92,6 +94,7 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
         _appName = [PWSettings readAppName];
         _pushToken = [[NSUserDefaults standardUserDefaults] objectForKey:KeyPushToken];
         _voipPushToken = [[NSUserDefaults standardUserDefaults] objectForKey:KeyVoipPushToken];
+        _pushTvToken = [[NSUserDefaults standardUserDefaults] objectForKey:KeyPushTvToken];
         
         if ([[PWCConfig config] appGroupsName]) {
             _defaults = [[NSUserDefaults alloc] initWithSuiteName:[[PWCConfig config] appGroupsName]];
@@ -252,6 +255,21 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 - (NSString *)voipPushToken {
     @synchronized(_lock) {
         return [_voipPushToken copy];
+    }
+}
+
+- (void)setPushTvToken:(NSString *)pushTvToken {
+    @synchronized(_lock) {
+        _pushTvToken = [pushTvToken copy];
+    }
+
+    [[NSUserDefaults standardUserDefaults] setObject:pushTvToken forKey:KeyPushTvToken];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSString *)pushTvToken {
+    @synchronized(_lock) {
+        return [_pushTvToken copy];
     }
 }
 

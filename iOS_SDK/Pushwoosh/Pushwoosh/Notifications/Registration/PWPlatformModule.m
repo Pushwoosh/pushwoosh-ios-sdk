@@ -14,6 +14,8 @@
 #import "PWNotificationCategoryBuilderiOS8.h"
 #import "PWNotificationCategoryBuilderiOS9.h"
 #import "PWNotificationCategoryBuilderiOS10.h"
+#elif TARGET_OS_TV
+#import "PWNotificationManagerCompattvOS.h"
 #elif TARGET_OS_OSX
 #import "PWNotificationManagerCompatmacOS.h"
 #elif TARGET_OS_WATCH
@@ -28,7 +30,7 @@
 - (instancetype)init {
 	self = [super init];
 	if (self) {
-        
+
 #if TARGET_OS_IOS
 		if ([UNUserNotificationCenter class]) {
 			_notificationManagerCompat = [PWNotificationManagerCompatiOS10 new];
@@ -39,6 +41,8 @@
 		else {
 			_notificationManagerCompat = [PWNotificationManagerCompat new];
 		}
+#elif TARGET_OS_TV
+		_notificationManagerCompat = [PWNotificationManagerCompattvOS new];
 #elif TARGET_OS_OSX
 		_notificationManagerCompat = [PWNotificationManagerCompatmacOS new];
 #elif TARGET_OS_WATCH

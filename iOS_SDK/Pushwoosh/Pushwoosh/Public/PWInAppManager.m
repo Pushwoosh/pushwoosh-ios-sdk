@@ -43,6 +43,8 @@
 @end
 #endif
 
+#if TARGET_OS_IOS || TARGET_OS_TV
+
 @implementation PWInAppManager
 
 static PWInAppManager *inAppManagerInstance;
@@ -72,7 +74,9 @@ static dispatch_once_t inAppManagerOnceToken;
 }
 
 - (void)resetBusinessCasesFrequencyCapping {
+#if TARGET_OS_IOS
     [self.inAppMessagesManager resetBusinessCasesFrequencyCapping];
+#endif
 }
 
 - (void)setUserId:(NSString *)userId {
@@ -110,7 +114,9 @@ static dispatch_once_t inAppManagerOnceToken;
 #endif
 
 - (void)reloadInAppsWithCompletion: (void (^)(NSError *error))completion {
+#if TARGET_OS_IOS
     [self.inAppMessagesManager reloadInAppsWithCompletion: completion];
+#endif
 }
 
 + (void)destroy {
@@ -119,3 +125,5 @@ static dispatch_once_t inAppManagerOnceToken;
 }
 
 @end
+
+#endif

@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2017
 //
 
+#if TARGET_OS_IOS
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
 
@@ -14,3 +15,4 @@
 - (id)initWithClient:(PWWebClient *)webClient;
 
 @end
+#endif

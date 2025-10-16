@@ -1,0 +1,6 @@
+framework module PushwooshCore {
+  umbrella header "PushwooshCore.h"
+  export *
+
+  module * { export * }
+}

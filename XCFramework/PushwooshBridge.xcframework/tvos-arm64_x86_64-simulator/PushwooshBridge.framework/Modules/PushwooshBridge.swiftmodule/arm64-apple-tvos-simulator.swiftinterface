@@ -1,0 +1,190 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target arm64-apple-tvos17.5-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PushwooshBridge
+import Foundation
+@_exported import PushwooshBridge
+import PushwooshCore
+import Swift
+import UIKit
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@objc public enum PWTVOSRichMediaPresentAnimation : Swift.Int {
+  case none = 0
+  case fromTop
+  case fromBottom
+  case fromLeft
+  case fromRight
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum PWTVOSRichMediaDismissAnimation : Swift.Int {
+  case none = 0
+  case toTop
+  case toBottom
+  case toLeft
+  case toRight
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum PWTVOSRichMediaPosition : Swift.Int {
+  case center = 0
+  case left
+  case right
+  case top
+  case bottom
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol PWTVoS {
+  @objc static func setAppCode(_ appCode: Swift.String)
+  @objc static func registerForTvPushNotifications()
+  @objc static func registerForTvPushNotifications(withToken token: Foundation.Data, completion: (((any Swift.Error)?) -> Swift.Void)?)
+  @objc static func unregisterForTvPushNotifications(completion: (((any Swift.Error)?) -> Swift.Void)?)
+  @objc static func handleTvPushToken(_ deviceToken: Foundation.Data)
+  @objc static func handleTvPushRegistrationFailure(_ error: any Swift.Error)
+  @objc static func handleTvPushReceived(userInfo: [Swift.AnyHashable : Any], completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
+  @objc static func handleTVOSPush(userInfo: [Swift.AnyHashable : Any]) -> Swift.Bool
+  @objc static func configureRichMediaWith(position: PushwooshBridge.PWTVOSRichMediaPosition, presentAnimation: PushwooshBridge.PWTVOSRichMediaPresentAnimation, dismissAnimation: PushwooshBridge.PWTVOSRichMediaDismissAnimation)
+  @objc static func configureCloseButton(_ show: Swift.Bool)
+}
+@objc public protocol PWVoIP {
+  @objc static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
+  @objc static func setVoIPToken(_ token: Foundation.Data)
+  @objc static func setPushwooshVoIPAppId(_ voipAppId: Swift.String)
+  @objc optional static var delegate: Swift.AnyObject? { get set }
+}
+@objc public enum PWForegroundPushStyle : Swift.Int {
+  case style1 = 0
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum PWForegroundPushHapticFeedback : Swift.Int {
+  case none = 0
+  case light
+  case medium
+  case heavy
+  case soft
+  case rigid
+  case notification
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum PWForegroundPushDisappearedAnimation : Swift.Int {
+  case balls = 0
+  case regularPush
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol PWForegroundPush {
+  @objc static var gradientColors: [UIKit.UIColor]? { get set }
+  @objc static var backgroundColor: UIKit.UIColor? { get set }
+  @objc static var usePushAnimation: Swift.Bool { get set }
+  @objc static var titlePushColor: UIKit.UIColor? { get set }
+  @objc static var titlePushFont: UIKit.UIFont? { get set }
+  @objc static var messagePushFont: UIKit.UIFont? { get set }
+  @objc static var messagePushColor: UIKit.UIColor? { get set }
+  @objc static var useLiquidView: Swift.Bool { get set }
+  @objc static var didTapForegroundPush: (([Swift.AnyHashable : Any]) -> Swift.Void)? { get set }
+  @objc static func foregroundNotificationWith(style: PushwooshBridge.PWForegroundPushStyle, duration: Swift.Int, vibration: PushwooshBridge.PWForegroundPushHapticFeedback, disappearedPushAnimation: PushwooshBridge.PWForegroundPushDisappearedAnimation)
+  @objc static func showForegroundPush(userInfo: [Swift.AnyHashable : Any])
+}
+@objc public protocol PWLiveActivities {
+  @objc static func sendPushToStartLiveActivity(token: Swift.String)
+  @objc static func sendPushToStartLiveActivity(token: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc static func startLiveActivity(token: Swift.String, activityId: Swift.String)
+  @objc static func startLiveActivity(token: Swift.String, activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc static func stopLiveActivity()
+  @objc static func stopLiveActivity(completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc static func stopLiveActivity(activityId: Swift.String)
+  @objc static func stopLiveActivity(activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+}
+@_inheritsConvenienceInitializers @objc public class PWTVoSStub : ObjectiveC.NSObject, PushwooshBridge.PWTVoS {
+  @objc public static func setAppCode(_ appCode: Swift.String)
+  @objc public static func registerForTvPushNotifications()
+  @objc public static func registerForTvPushNotifications(withToken token: Foundation.Data, completion: (((any Swift.Error)?) -> Swift.Void)?)
+  @objc public static func unregisterForTvPushNotifications(completion: (((any Swift.Error)?) -> Swift.Void)?)
+  @objc public static func handleTvPushToken(_ deviceToken: Foundation.Data)
+  @objc public static func handleTvPushRegistrationFailure(_ error: any Swift.Error)
+  @objc public static func handleTvPushReceived(userInfo: [Swift.AnyHashable : Any], completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
+  @objc public static func handleTVOSPush(userInfo: [Swift.AnyHashable : Any]) -> Swift.Bool
+  @objc public static func configureRichMediaWith(position: PushwooshBridge.PWTVOSRichMediaPosition, presentAnimation: PushwooshBridge.PWTVOSRichMediaPresentAnimation, dismissAnimation: PushwooshBridge.PWTVOSRichMediaDismissAnimation = .none)
+  @objc public static func configureCloseButton(_ show: Swift.Bool)
+  @objc public static func tvos() -> Swift.AnyClass
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class PWForegroundPushStub : ObjectiveC.NSObject, PushwooshBridge.PWForegroundPush {
+  @objc public static var gradientColors: [UIKit.UIColor]?
+  @objc public static var backgroundColor: UIKit.UIColor?
+  @objc public static var usePushAnimation: Swift.Bool
+  @objc public static var titlePushColor: UIKit.UIColor?
+  @objc public static var messagePushColor: UIKit.UIColor?
+  @objc public static var titlePushFont: UIKit.UIFont?
+  @objc public static var messagePushFont: UIKit.UIFont?
+  @objc public static var useLiquidView: Swift.Bool
+  @objc public static var didTapForegroundPush: (([Swift.AnyHashable : Any]) -> Swift.Void)?
+  @objc public static func showForegroundPush(userInfo: [Swift.AnyHashable : Any])
+  @objc public static func foregroundPush() -> Swift.AnyClass
+  @objc public static func foregroundNotificationWith(style: PushwooshBridge.PWForegroundPushStyle, duration: Swift.Int, vibration: PushwooshBridge.PWForegroundPushHapticFeedback, disappearedPushAnimation: PushwooshBridge.PWForegroundPushDisappearedAnimation)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @objc public class PWVoIPStub : ObjectiveC.NSObject, PushwooshBridge.PWVoIP {
+  @objc public static var delegate: Swift.AnyObject?
+  @objc public static func voip() -> Swift.AnyClass
+  @objc public static func setVoIPToken(_ token: Foundation.Data)
+  @objc public static func setPushwooshVoIPAppId(_ voipAppId: Swift.String)
+  @objc public static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
+  @objc override dynamic public init()
+  @objc deinit
+}
+@objc @_inheritsConvenienceInitializers public class PWStubLiveActivities : ObjectiveC.NSObject, PushwooshBridge.PWLiveActivities {
+  @objc public static func liveActivities() -> Swift.AnyClass
+  @objc public static func sendPushToStartLiveActivity(token: Swift.String)
+  @objc public static func sendPushToStartLiveActivity(token: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc public static func startLiveActivity(token: Swift.String, activityId: Swift.String)
+  @objc public static func startLiveActivity(token: Swift.String, activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc public static func stopLiveActivity()
+  @objc public static func stopLiveActivity(completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc public static func stopLiveActivity(activityId: Swift.String)
+  @objc public static func stopLiveActivity(activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}
+extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Equatable {}
+extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Hashable {}
+extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.RawRepresentable {}
+extension PushwooshBridge.PWTVOSRichMediaDismissAnimation : Swift.Equatable {}
+extension PushwooshBridge.PWTVOSRichMediaDismissAnimation : Swift.Hashable {}
+extension PushwooshBridge.PWTVOSRichMediaDismissAnimation : Swift.RawRepresentable {}
+extension PushwooshBridge.PWTVOSRichMediaPosition : Swift.Equatable {}
+extension PushwooshBridge.PWTVOSRichMediaPosition : Swift.Hashable {}
+extension PushwooshBridge.PWTVOSRichMediaPosition : Swift.RawRepresentable {}
+extension PushwooshBridge.PWForegroundPushStyle : Swift.Equatable {}
+extension PushwooshBridge.PWForegroundPushStyle : Swift.Hashable {}
+extension PushwooshBridge.PWForegroundPushStyle : Swift.RawRepresentable {}
+extension PushwooshBridge.PWForegroundPushHapticFeedback : Swift.Equatable {}
+extension PushwooshBridge.PWForegroundPushHapticFeedback : Swift.Hashable {}
+extension PushwooshBridge.PWForegroundPushHapticFeedback : Swift.RawRepresentable {}
+extension PushwooshBridge.PWForegroundPushDisappearedAnimation : Swift.Equatable {}
+extension PushwooshBridge.PWForegroundPushDisappearedAnimation : Swift.Hashable {}
+extension PushwooshBridge.PWForegroundPushDisappearedAnimation : Swift.RawRepresentable {}

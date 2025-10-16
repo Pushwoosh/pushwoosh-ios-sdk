@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
 #import <UIKit/UIKit.h>
 #endif
 
@@ -20,7 +20,7 @@ FOUNDATION_EXPORT NSTimeInterval const PWRichMediaStyleDefaultAnimationDuration;
 /**
  This method can be used to animate Rich Media presenting view.
  */
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
 - (void)runPresentingAnimationWithContentView:(UIView *)contentView parentView:(UIView *)parentView completion:(dispatch_block_t)completion;
 
 /**
@@ -56,7 +56,7 @@ FOUNDATION_EXPORT NSTimeInterval const PWRichMediaStyleDefaultAnimationDuration;
 /**
  Custom Rich Media loading view. It is shown while Rich Media is loading.
  */
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
 @interface PWLoadingView : UIView
 
 @property (nonatomic) IBOutlet UIActivityIndicatorView *activityIndicatorView;
@@ -74,7 +74,7 @@ typedef PWLoadingView *(^PWRichMediaLoadingViewBlock)(void);
 /**
  Background color of Rich Media pages.
  */
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
 @property (nonatomic) UIColor *backgroundColor;
 #elif TARGET_OS_OSX
 @property (nonatomic) NSColor *backgroundColor;

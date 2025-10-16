@@ -33,9 +33,9 @@ NSString *const kPWCoreServerCommunicationStarted = @"kPWServerCommunicationStar
     if (self.serverCommunicationAllowed) {
         return;
     }
-    
+
     [[PWSettings settings] setIsServerCommunicationEnabled:YES];
-    
+
     [[NSNotificationCenter defaultCenter] postNotificationName:kPWCoreServerCommunicationStarted object:nil];
 }
 

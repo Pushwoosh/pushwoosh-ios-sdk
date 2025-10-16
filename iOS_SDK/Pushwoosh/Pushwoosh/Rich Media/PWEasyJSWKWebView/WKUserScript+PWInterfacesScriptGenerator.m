@@ -6,6 +6,7 @@
 //  Copyright © 2016 Apex Technology. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import "WKUserScript+PWInterfacesScriptGenerator.h"
 #import <objc/runtime.h>
 #import "PWEasyJSWKWebView.h"
@@ -124,3 +125,4 @@
     return script;
 }
 @end
+#endif

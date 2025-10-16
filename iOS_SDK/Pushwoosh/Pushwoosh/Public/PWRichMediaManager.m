@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2018
 //
 
+#if TARGET_OS_IOS
 #import "PWRichMediaManager.h"
 #import "PWRichMedia+Internal.h"
 #import "PWMessageViewController.h"
@@ -76,3 +77,4 @@
 }
 
 @end
+#endif

@@ -32,6 +32,8 @@
     [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
 }
 
+#if TARGET_OS_IOS
+
 + (UIButton *)webViewCloseButton {
 	CGSize buttonSize = CGSizeMake(35, 35);
 	UIGraphicsBeginImageContextWithOptions(buttonSize, NO, 0);
@@ -68,6 +70,8 @@
 	return closeButton;
 }
 
+#endif
+
 + (BOOL)isIphoneX {
     if ([[UIDevice currentDevice]userInterfaceIdiom] == UIUserInterfaceIdiomPhone) {
         if ([[UIScreen mainScreen] bounds].size.height > 736) {
@@ -88,10 +92,13 @@
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
         [rootController presentViewController:alertController animated:YES completion:nil];
-    } else {
+    }
+#if TARGET_OS_IOS
+    else {
         UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
         [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
     }
+#endif
 }
 
 + (UIViewController*)findRootViewController {

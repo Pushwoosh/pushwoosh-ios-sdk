@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2016
 //
 
+#if TARGET_OS_IOS || TARGET_OS_TV
 #import "PWInAppStorage.h"
 #import "PWResource.h"
 #import "PWRequestManager.h"
@@ -38,9 +39,9 @@ static NSString *const KeyInAppSavedResources = @"InAppSavedResources";
         _listeners = [NSMutableArray new];
 
 		if (data) {
-            if (TARGET_OS_IOS) {
+            if (TARGET_OS_IOS || TARGET_OS_TV) {
                 NSSet *set = [NSSet setWithObjects:[PWResource class], [NSString class], [NSDictionary class], nil];
-                
+
                 PWUnarchiver *unarchiver = [[PWUnarchiver alloc] init];
                 _resources = [unarchiver unarchivedObjectOfClasses:set data:data];
             }
@@ -93,14 +94,14 @@ static dispatch_once_t inAppStorageOncePred;
 	newResources[resource.code] = resource;
 	_resources = newResources;
 
-    if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
+    if ((TARGET_OS_IOS || TARGET_OS_TV) && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
         NSError *error = nil;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_resources requiringSecureCoding:YES error:&error];
         [[NSUserDefaults standardUserDefaults] setObject:data forKey:KeyInAppSavedResources];
     } else {
         [[NSUserDefaults standardUserDefaults] setObject:[NSKeyedArchiver archivedDataWithRootObject:_resources] forKey:KeyInAppSavedResources];
     }
-    
+
 	[[NSUserDefaults standardUserDefaults] synchronize];
 
 	if (resource.isDownloaded && oldResource.updated == resource.updated) {
@@ -148,8 +149,10 @@ static dispatch_once_t inAppStorageOncePred;
             block();
         }
         [_listeners removeAllObjects];
-        
+
+#if TARGET_OS_IOS
         [[PWBusinessCaseManager sharedManager] handleBusinessCaseResources:_resources];
+#endif
     }];
 }
 
@@ -195,7 +198,7 @@ static dispatch_once_t inAppStorageOncePred;
 
     _resources = currentResources;
 
-    if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
+    if ((TARGET_OS_IOS || TARGET_OS_TV) && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
         NSError *error = nil;
         NSData *data = [NSKeyedArchiver archivedDataWithRootObject:_resources requiringSecureCoding:YES error:&error];
         [[NSUserDefaults standardUserDefaults] setObject:data forKey:KeyInAppSavedResources];
@@ -217,3 +220,4 @@ static dispatch_once_t inAppStorageOncePred;
 }
 
 @end
+#endif

@@ -12,7 +12,6 @@
 #import "PWUtils.h"
 
 NSString * const defaultScreenOpenEvent = @"PW_ScreenOpen";
-static NSString * const kScreenOpenedEvent = @"_ScreenOpened";
 static NSTimeInterval const kScreenOpenedEventDelay = 0.1f;
 
 static IMP pw_original_viewDidAppear_Imp;
@@ -74,7 +73,7 @@ void _replacement_viewDidAppear(UIViewController * self, SEL _cmd, BOOL animated
                             @"screen_name": screenName,
                             @"application_version": [PWUtils appVersion],
                         };
-                        
+
                         [[PWInAppManager sharedManager] postEvent:defaultScreenOpenEvent withAttributes:attrs];
                     }
                 } @catch (NSException *exception) {

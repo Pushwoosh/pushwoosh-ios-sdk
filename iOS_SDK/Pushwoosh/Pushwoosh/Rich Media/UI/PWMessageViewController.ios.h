@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2015
 //
 
+#if TARGET_OS_IOS
 #import "PWBaseLoadingViewController.h"
 #import "PWResource.h"
 #import "PWWebClient.h"
@@ -19,3 +20,4 @@
 - (instancetype)initWithRichMedia:(PWRichMedia *)richMedia window:(UIWindow *)window richMediaStyle:(PWRichMediaStyle *)style completion:(void(^)(BOOL success))completion;
 
 @end
+#endif

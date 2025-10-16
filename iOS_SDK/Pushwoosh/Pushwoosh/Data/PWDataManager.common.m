@@ -26,8 +26,9 @@
 #import "PWGetConfigRequest.h"
 #endif
 
-#if TARGET_OS_IOS
 #import "PWAppLifecycleTrackingManager.h"
+
+#if TARGET_OS_IOS || TARGET_OS_TV
 #import "PWScreenTrackingManager.h"
 #endif
 

@@ -5,8 +5,7 @@
 //  Created by André Kis on 04.03.25.
 //  Copyright © 2025 Pushwoosh. All rights reserved.
 //
-#if targetEnvironment(macCatalyst)
-#else
+#if !targetEnvironment(macCatalyst) && os(iOS)
 
 import Foundation
 import PushwooshCore

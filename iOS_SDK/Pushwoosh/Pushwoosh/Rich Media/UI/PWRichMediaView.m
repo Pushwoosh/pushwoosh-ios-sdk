@@ -6,6 +6,7 @@
 //  Copyright © 2018 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import "PWRichMediaView.h"
 #import "PWUtils.h"
 #import "PWInAppMessagesManager.h"
@@ -137,3 +138,4 @@
 }
 
 @end
+#endif

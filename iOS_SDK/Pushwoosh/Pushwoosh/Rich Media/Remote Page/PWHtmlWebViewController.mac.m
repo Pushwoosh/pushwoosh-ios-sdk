@@ -6,6 +6,7 @@
 //  Copyright © 2016 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import "PWHtmlWebViewController.mac.h"
 #import <WebKit/WebKit.h>
 
@@ -85,3 +86,4 @@
 }
 
 @end
+#endif

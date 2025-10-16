@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2015
 //
 
+#if TARGET_OS_IOS || TARGET_OS_TV
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
 #import <PushwooshCore/PWSettings.h>
@@ -33,3 +34,4 @@ NS_ASSUME_NONNULL_BEGIN
 @end
 
 NS_ASSUME_NONNULL_END
+#endif

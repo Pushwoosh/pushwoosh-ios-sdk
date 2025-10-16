@@ -6,6 +6,7 @@
 //  Copyright © 2016 Apex Technology. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import <WebKit/WebKit.h>
 
 @interface WKUserScript (PWInterfacesScriptGenerator)
@@ -13,3 +14,4 @@
 + (instancetype)pw_generateScriptForInterfaces:(NSDictionary *)interfaces;
 + (instancetype)pw_generateMainScript;
 @end
+#endif

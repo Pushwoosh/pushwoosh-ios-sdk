@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS || TARGET_OS_TV
+
 //
 //  PushRuntime.m
 //  Pushwoosh SDK
@@ -39,7 +41,10 @@ static IMP pw_original_didFinishLaunchingWithOptions;
 - (NSObject<PushNotificationDelegate> *)getPushwooshDelegate;
 - (BOOL)pushwooshUseRuntimeMagic;  //use runtime to handle default push notifications callbacks (used in plugins)
 - (BOOL)application:(UIApplication *)application pw_didFinishLaunchingWithOptionsAutoTest:(NSDictionary *)launchOptions;
+
+#if TARGET_OS_IOS
 - (BOOL)application:(UIApplication *)application pw_didRegisterUserNotificationSettings:(UIUserNotificationSettings *)settings;
+#endif
 
 - (void)scene:(id)scene pw_openURLContexts:(NSSet<id> *)URLContexts;
 
@@ -47,9 +52,8 @@ static IMP pw_original_didFinishLaunchingWithOptions;
 
 @implementation UIApplication (Pushwoosh)
 
-//auto test that simulates push notification on start
+#if TARGET_OS_IOS
 BOOL dynamicDidFinishLaunchingAutoTest(id self, SEL _cmd, id application, id launchOptions) {
-    //create test push payload if we are self testing
     if ([PWPushRuntime isSelfTestEnabled]) {
         NSMutableDictionary *launchOpts = [NSMutableDictionary new];
         NSMutableDictionary *apsDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Alert!", @"alert", @"sound", @"default", nil];
@@ -61,6 +65,7 @@ BOOL dynamicDidFinishLaunchingAutoTest(id self, SEL _cmd, id application, id lau
 
     return [self application:application pw_didFinishLaunchingWithOptionsAutoTest:launchOptions];
 }
+#endif
 
 BOOL _replacement_didFinishLaunchingWithOptionsExtensionRequest(id self, SEL _cmd, UIApplication *application, NSDictionary *launchOptions) {
     ((BOOL(*)(id, SEL, UIApplication *, NSDictionary *))pw_original_didFinishLaunchingWithOptionsExtension)(self, _cmd, application, launchOptions);
@@ -247,7 +252,7 @@ static BOOL openURLSwizzled = NO;
         
     //override runtime functions only if requested (used in plugins or by user decision)
     if (![[UIApplication sharedApplication] respondsToSelector:@selector(pushwooshUseRuntimeMagic)] && !useRuntime) {
-        //auto test check
+#if TARGET_OS_IOS
         if ([PWPushRuntime isSelfTestEnabled]) {
             [PWUtils swizzle:[delegate class]
                   fromSelector:@selector(application:didFinishLaunchingWithOptions:)
@@ -255,6 +260,7 @@ static BOOL openURLSwizzled = NO;
                 implementation:(IMP)dynamicDidFinishLaunchingAutoTest
                   typeEncoding:"v@:::"];
         }
+#endif
 
         [self pw_swizzleOpenURLMethods:[delegate class]];
 
@@ -281,8 +287,8 @@ static BOOL openURLSwizzled = NO;
     [self swizzle_didReceiveRemoteNotificationWithFetchBlock:delegateClass];
     
     [self pw_swizzleOpenURLMethods:delegateClass];
-    
-    //auto test check
+
+#if TARGET_OS_IOS
     if ([PWPushRuntime isSelfTestEnabled]) {
         [PWUtils swizzle:delegateClass
             fromSelector:@selector(application:didFinishLaunchingWithOptions:)
@@ -290,7 +296,8 @@ static BOOL openURLSwizzled = NO;
           implementation:(IMP)dynamicDidFinishLaunchingAutoTest
             typeEncoding:"v@:::"];
     }
-    
+#endif
+
     [self pw_setDelegate:proxy ? : delegate];
 }
 
@@ -443,6 +450,7 @@ void _replacement_registerForRemoteNotifications(UIApplication * self, SEL _cmd)
 
 @implementation PWPushRuntime
 
+#if TARGET_OS_IOS
 BOOL dynamicDidRegisterUserNotificationSettings(id self, SEL _cmd, id application, id notificationSettings) {
     [[[PWPlatformModule module] notificationManagerCompat] didRegisterUserNotificationSettings:notificationSettings];
 
@@ -458,11 +466,10 @@ BOOL dynamicDidRegisterUserNotificationSettings(id self, SEL _cmd, id applicatio
         return;
     }
 
-    //do not swizzle the same class twice
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         Class appDelegateClass = [[UIApplication sharedApplication].delegate class];
-        
+
         [PWUtils swizzle:appDelegateClass
             fromSelector:@selector(application:didRegisterUserNotificationSettings:)
               toSelector:@selector(application:pw_didRegisterUserNotificationSettings:)
@@ -470,9 +477,12 @@ BOOL dynamicDidRegisterUserNotificationSettings(id self, SEL _cmd, id applicatio
             typeEncoding:"v@:::"];
     });
 }
+#endif
 
 + (BOOL)isSelfTestEnabled {
     return [PWConfig config].selfTestEnabled && [PWUtils isSimulator];
 }
 
 @end
+
+#endif

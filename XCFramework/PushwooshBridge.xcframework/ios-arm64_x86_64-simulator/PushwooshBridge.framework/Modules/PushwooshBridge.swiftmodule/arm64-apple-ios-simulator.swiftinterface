@@ -9,6 +9,54 @@ import UIKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
+@objc public enum PWTVOSRichMediaPresentAnimation : Swift.Int {
+  case none = 0
+  case fromTop
+  case fromBottom
+  case fromLeft
+  case fromRight
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum PWTVOSRichMediaDismissAnimation : Swift.Int {
+  case none = 0
+  case toTop
+  case toBottom
+  case toLeft
+  case toRight
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public enum PWTVOSRichMediaPosition : Swift.Int {
+  case center = 0
+  case left
+  case right
+  case top
+  case bottom
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol PWTVoS {
+  @objc static func setAppCode(_ appCode: Swift.String)
+  @objc static func registerForTvPushNotifications()
+  @objc static func registerForTvPushNotifications(withToken token: Foundation.Data, completion: (((any Swift.Error)?) -> Swift.Void)?)
+  @objc static func unregisterForTvPushNotifications(completion: (((any Swift.Error)?) -> Swift.Void)?)
+  @objc static func handleTvPushToken(_ deviceToken: Foundation.Data)
+  @objc static func handleTvPushRegistrationFailure(_ error: any Swift.Error)
+  @objc static func handleTvPushReceived(userInfo: [Swift.AnyHashable : Any], completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
+  @objc static func handleTVOSPush(userInfo: [Swift.AnyHashable : Any]) -> Swift.Bool
+  @objc static func configureRichMediaWith(position: PushwooshBridge.PWTVOSRichMediaPosition, presentAnimation: PushwooshBridge.PWTVOSRichMediaPresentAnimation, dismissAnimation: PushwooshBridge.PWTVOSRichMediaDismissAnimation)
+  @objc static func configureCloseButton(_ show: Swift.Bool)
+}
 @objc public protocol PWVoIP {
   @objc static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
   @objc static func setVoIPToken(_ token: Foundation.Data)
@@ -69,6 +117,21 @@ import _SwiftConcurrencyShims
   @objc static func stopLiveActivity(activityId: Swift.String)
   @objc static func stopLiveActivity(activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
 }
+@_inheritsConvenienceInitializers @objc public class PWTVoSStub : ObjectiveC.NSObject, PushwooshBridge.PWTVoS {
+  @objc public static func setAppCode(_ appCode: Swift.String)
+  @objc public static func registerForTvPushNotifications()
+  @objc public static func registerForTvPushNotifications(withToken token: Foundation.Data, completion: (((any Swift.Error)?) -> Swift.Void)?)
+  @objc public static func unregisterForTvPushNotifications(completion: (((any Swift.Error)?) -> Swift.Void)?)
+  @objc public static func handleTvPushToken(_ deviceToken: Foundation.Data)
+  @objc public static func handleTvPushRegistrationFailure(_ error: any Swift.Error)
+  @objc public static func handleTvPushReceived(userInfo: [Swift.AnyHashable : Any], completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
+  @objc public static func handleTVOSPush(userInfo: [Swift.AnyHashable : Any]) -> Swift.Bool
+  @objc public static func configureRichMediaWith(position: PushwooshBridge.PWTVOSRichMediaPosition, presentAnimation: PushwooshBridge.PWTVOSRichMediaPresentAnimation, dismissAnimation: PushwooshBridge.PWTVOSRichMediaDismissAnimation = .none)
+  @objc public static func configureCloseButton(_ show: Swift.Bool)
+  @objc public static func tvos() -> Swift.AnyClass
+  @objc override dynamic public init()
+  @objc deinit
+}
 @_inheritsConvenienceInitializers @objc public class PWForegroundPushStub : ObjectiveC.NSObject, PushwooshBridge.PWForegroundPush {
   @objc public static var gradientColors: [UIKit.UIColor]?
   @objc public static var backgroundColor: UIKit.UIColor?
@@ -107,6 +170,15 @@ import _SwiftConcurrencyShims
   @objc override dynamic public init()
   @objc deinit
 }
+extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Equatable {}
+extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Hashable {}
+extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.RawRepresentable {}
+extension PushwooshBridge.PWTVOSRichMediaDismissAnimation : Swift.Equatable {}
+extension PushwooshBridge.PWTVOSRichMediaDismissAnimation : Swift.Hashable {}
+extension PushwooshBridge.PWTVOSRichMediaDismissAnimation : Swift.RawRepresentable {}
+extension PushwooshBridge.PWTVOSRichMediaPosition : Swift.Equatable {}
+extension PushwooshBridge.PWTVOSRichMediaPosition : Swift.Hashable {}
+extension PushwooshBridge.PWTVOSRichMediaPosition : Swift.RawRepresentable {}
 extension PushwooshBridge.PWForegroundPushStyle : Swift.Equatable {}
 extension PushwooshBridge.PWForegroundPushStyle : Swift.Hashable {}
 extension PushwooshBridge.PWForegroundPushStyle : Swift.RawRepresentable {}

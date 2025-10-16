@@ -9,6 +9,7 @@
 #import "PushwooshFramework.h"
 #import "PWInAppManager.h"
 
+#if TARGET_OS_IOS
 #import <Foundation/Foundation.h>
 #import <StoreKit/StoreKit.h>
 
@@ -122,3 +123,4 @@
 }
 
 @end
+#endif

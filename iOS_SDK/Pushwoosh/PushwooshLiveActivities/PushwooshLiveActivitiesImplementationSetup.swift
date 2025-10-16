@@ -6,7 +6,7 @@
 //  Copyright © 2024 Pushwoosh. All rights reserved.
 //
 
-#if !targetEnvironment(macCatalyst)
+#if !targetEnvironment(macCatalyst) && os(iOS)
 import Foundation
 import ActivityKit
 import PushwooshCore

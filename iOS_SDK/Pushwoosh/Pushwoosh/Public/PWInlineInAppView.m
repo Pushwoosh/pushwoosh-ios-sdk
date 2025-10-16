@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWInlineInAppView.m
 //  Pushwoosh
@@ -137,3 +139,5 @@
 }
 
 @end
+
+#endif

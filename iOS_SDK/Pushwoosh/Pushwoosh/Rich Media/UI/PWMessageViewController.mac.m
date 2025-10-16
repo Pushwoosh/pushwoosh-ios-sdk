@@ -6,6 +6,7 @@
 //  Copyright © 2016 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import "PWMessageViewController.h"
 #import "PWPushManagerJSBridge.h"
 #import "PWUtils.h"
@@ -133,3 +134,4 @@ static PWMessageViewController *PWMessageViewController_instance = nil;
 }
 
 @end
+#endif

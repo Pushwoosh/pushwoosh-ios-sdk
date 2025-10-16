@@ -5,9 +5,6 @@
 
 <table>
 	<tr>
-		<td><a href="#1ad9f33c59136b94047ad25de198e32448">@property PWRichMediaStyle *richMediaStyle</a></td>
-	</tr>
-	<tr>
 		<td><a href="#1a65042870d8e1dfe3379e0388f4445de5">@property id&lt;PWRichMediaPresentingDelegate&gt; delegate</a></td>
 	</tr>
 	<tr>
@@ -18,12 +15,6 @@
 	</tr>
 </table>
 
-
-----------  
-  
-
-#### <a name="1ad9f33c59136b94047ad25de198e32448"></a>@property <a href="PWRichMediaStyle.md">PWRichMediaStyle</a> \*richMediaStyle  
-Style for Rich Media presenting. 
 
 ----------  
   

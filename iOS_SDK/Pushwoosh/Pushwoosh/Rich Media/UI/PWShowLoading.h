@@ -6,6 +6,7 @@
 //  Copyright © 2017 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import <Foundation/Foundation.h>
 
 @interface PWShowLoading : NSObject
@@ -15,3 +16,4 @@
 + (void)showLoadingWithCancelBlock:(dispatch_block_t)cancelBlock;
 
 @end
+#endif

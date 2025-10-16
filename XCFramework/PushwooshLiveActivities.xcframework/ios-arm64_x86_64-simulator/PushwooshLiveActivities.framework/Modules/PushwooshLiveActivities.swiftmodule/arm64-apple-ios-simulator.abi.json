@@ -9,10 +9,7 @@
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
-        "moduleName": "PushwooshLiveActivities",
-        "declAttributes": [
-          "RawDocComment"
-        ]
+        "moduleName": "PushwooshLiveActivities"
       },
       {
         "kind": "Import",
@@ -26,10 +23,7 @@
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
-        "moduleName": "PushwooshLiveActivities",
-        "declAttributes": [
-          "RawDocComment"
-        ]
+        "moduleName": "PushwooshLiveActivities"
       },
       {
         "kind": "Import",
@@ -50,10 +44,7 @@
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
-        "moduleName": "PushwooshLiveActivities",
-        "declAttributes": [
-          "RawDocComment"
-        ]
+        "moduleName": "PushwooshLiveActivities"
       },
       {
         "kind": "Import",
@@ -67,10 +58,7 @@
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
-        "moduleName": "PushwooshLiveActivities",
-        "declAttributes": [
-          "RawDocComment"
-        ]
+        "moduleName": "PushwooshLiveActivities"
       },
       {
         "kind": "Import",
@@ -813,10 +801,7 @@
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
-        "moduleName": "PushwooshLiveActivities",
-        "declAttributes": [
-          "RawDocComment"
-        ]
+        "moduleName": "PushwooshLiveActivities"
       },
       {
         "kind": "Import",
@@ -2293,10 +2278,7 @@
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
-        "moduleName": "PushwooshLiveActivities",
-        "declAttributes": [
-          "RawDocComment"
-        ]
+        "moduleName": "PushwooshLiveActivities"
       },
       {
         "kind": "TypeDecl",
@@ -3815,21 +3797,21 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/API\/Requests\/PWRequestSetActivityToken.swift",
       "kind": "StringLiteral",
-      "offset": 213,
+      "offset": 260,
       "length": 25,
       "value": "\"PushwooshLiveActivities.PWRequestSetActivityToken\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/API\/Requests\/PWRequestSetPushToStartToken.swift",
       "kind": "StringLiteral",
-      "offset": 216,
+      "offset": 263,
       "length": 28,
       "value": "\"PushwooshLiveActivities.PWRequestSetPushToStartToken\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/API\/Requests\/PWRequestStopLiveActivity.swift",
       "kind": "StringLiteral",
-      "offset": 213,
+      "offset": 260,
       "length": 25,
       "value": "\"PushwooshLiveActivities.PWRequestStopLiveActivity\""
     }

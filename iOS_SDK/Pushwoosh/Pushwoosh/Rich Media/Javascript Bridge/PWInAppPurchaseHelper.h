@@ -6,6 +6,7 @@
 //  Copyright © 2022 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
 
@@ -18,3 +19,4 @@
 - (void)payWithIdentifier:(NSString *)identifier;
 
 @end
+#endif

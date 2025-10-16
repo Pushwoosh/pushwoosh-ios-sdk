@@ -98,7 +98,9 @@
 }
 
 - (void)parseResponse:(NSDictionary *)response {
+#if TARGET_OS_IOS || TARGET_OS_OSX
     _businessCasesDict = response[@"required_inapps"];
+#endif
 }
 
 @end

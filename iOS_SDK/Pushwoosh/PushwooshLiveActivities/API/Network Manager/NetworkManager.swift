@@ -6,6 +6,7 @@
 //  Copyright © 2025 Pushwoosh. All rights reserved.
 //
 
+#if !targetEnvironment(macCatalyst) && os(iOS)
 import Foundation
 import PushwooshCore
 import UIKit
@@ -30,3 +31,4 @@ class NetworkManager {
 }
 
 
+#endif

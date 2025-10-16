@@ -14,7 +14,7 @@
 
 #import "PWUtils.mac.h"
 
-#elif TARGET_OS_IOS
+#elif TARGET_OS_IOS || TARGET_OS_TV
 
 #import "PWUtils.ios.h"
 

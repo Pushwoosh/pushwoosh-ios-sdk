@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWNotificationBannerView.m
 //  PWNotificationsUI
@@ -321,3 +323,5 @@ static const CGFloat PWNotificationRelativeLabelCollapse = 5.0 * 60.0;
 }
 
 @end
+
+#endif

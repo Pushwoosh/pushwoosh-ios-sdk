@@ -6,6 +6,8 @@
 //  Copyright © 2018 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
+
 #import "PWEasyJSWKWebView.h"
 #import "PWWebClient.h"
 
@@ -13,11 +15,7 @@
 
 @class PWRichMedia;
 
-#if TARGET_OS_IOS
 @interface PWRichMediaView : UIView<PWWebClientDelegate>
-#else
-@interface PWRichMediaView : NSView<PWWebClientDelegate>
-#endif
 
 @property (nonatomic, readonly) PWRichMedia *richMedia;
 @property (nonatomic, strong) PWWebClient *webClient;
@@ -32,3 +30,5 @@
 - (void)loadRichMedia:(PWRichMedia *)richMedia completion:(void (^)(NSError *error))completion;
 
 @end
+
+#endif

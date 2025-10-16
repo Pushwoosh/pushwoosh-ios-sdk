@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2016
 //
 
+#if TARGET_OS_IOS || TARGET_OS_TV
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
 #import <PushwooshCore/PWSettings.h>
@@ -12,7 +13,9 @@ FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 
 @interface PWInAppMessagesManager : NSObject
 
+#if TARGET_OS_IOS || TARGET_OS_OSX
 - (void)resetBusinessCasesFrequencyCapping;
+#endif
 
 - (void)setUserId:(NSString*)userId completion:(void (^)(NSError* error))completion;
 
@@ -30,8 +33,12 @@ FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 - (void)presentRichMediaFromPush:(NSDictionary*)userInfo;
+#endif
 
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 - (void)trackInAppWithCode:(NSString *)inAppCode action:(NSString *)action messageHash:(NSString *)messageHash;
+
+- (void)richMediaAction:(NSString *)inAppCode richMediaCode:(NSString *)richMediaCode actionType:(NSNumber *)actionType actionAttributes:(NSString *)actionAttributes messageHash:(NSString *)messageHash completion:(void (^)(NSError *error))completion;
 #endif
 
 #if TARGET_OS_IOS
@@ -39,3 +46,4 @@ FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 #endif
 
 @end
+#endif

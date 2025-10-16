@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWNotification.m
 //  PWNotificationsUI
@@ -109,3 +111,5 @@
 }
 
 @end
+
+#endif

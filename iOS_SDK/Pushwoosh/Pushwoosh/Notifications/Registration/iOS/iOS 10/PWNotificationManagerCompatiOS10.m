@@ -6,6 +6,8 @@
 //  Copyright © 2019 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
+
 #import "PWNotificationManagerCompatiOS10.h"
 #import <UserNotifications/UserNotifications.h>
 #import "PushwooshFramework.h"
@@ -125,3 +127,5 @@
 }
 
 @end
+
+#endif

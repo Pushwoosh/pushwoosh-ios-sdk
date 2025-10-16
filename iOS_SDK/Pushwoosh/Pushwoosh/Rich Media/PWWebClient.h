@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2017
 //
 
+#if TARGET_OS_IOS
 
 #import "PWResource.h"
 #import "PWEasyJSWKWebView.h"
@@ -11,7 +12,6 @@
 #import "PWRichMediaManager.h"
 #import <PushwooshCore/PushwooshLog.h>
 #import <PushwooshCore/PWSettings.h>
-
 #import <WebKit/WebKit.h>
 
 #define kJavaScriptUpdated @"keyJavaScriptUpdate"
@@ -51,3 +51,4 @@
 - (void)close;
 
 @end
+#endif

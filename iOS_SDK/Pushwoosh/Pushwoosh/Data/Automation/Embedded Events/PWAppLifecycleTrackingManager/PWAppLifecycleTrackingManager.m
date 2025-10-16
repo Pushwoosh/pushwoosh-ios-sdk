@@ -7,12 +7,25 @@
 //
 
 #import "PWAppLifecycleTrackingManager.h"
-#import <UIKit/UIKit.h>
 #import "PWInAppManager.h"
 #import "Pushwoosh+Internal.h"
 #import <objc/runtime.h>
 #import "PWPreferences.h"
 #import "PWUtils.h"
+
+#if TARGET_OS_IOS || TARGET_OS_TV
+#import <UIKit/UIKit.h>
+#define PW_APPLICATION_CLASS UIApplication
+#define PW_APPLICATION_STATE_BACKGROUND UIApplicationStateBackground
+#define PW_NOTIFICATION_DID_BECOME_ACTIVE UIApplicationDidBecomeActiveNotification
+#define PW_NOTIFICATION_DID_ENTER_BACKGROUND UIApplicationDidEnterBackgroundNotification
+#elif TARGET_OS_OSX
+#import <AppKit/AppKit.h>
+#define PW_APPLICATION_CLASS NSApplication
+#define PW_APPLICATION_STATE_BACKGROUND NSApplicationStateInactive
+#define PW_NOTIFICATION_DID_BECOME_ACTIVE NSApplicationDidBecomeActiveNotification
+#define PW_NOTIFICATION_DID_ENTER_BACKGROUND NSApplicationDidResignActiveNotification
+#endif
 
 NSString * const defaultApplicationOpenedEvent = @"PW_ApplicationOpen";
 NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
@@ -60,26 +73,20 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 }
 
 - (void)startSendingEvents {
-    if (UIApplication.sharedApplication.applicationState != UIApplicationStateBackground) {
+    if ([PW_APPLICATION_CLASS sharedApplication].applicationState != PW_APPLICATION_STATE_BACKGROUND) {
         dispatch_async(dispatch_get_main_queue(), ^{
             [[Pushwoosh sharedInstance].dataManager sendAppOpenWithCompletion:nil];
         });
-        
+
         _appInForeground = YES;
-        
+
         if (_defaultAppOpenAllowed == YES) {
             _initialDefaultOpenEventSent = YES;
         }
     }
-    
-    // In iOS 11.4 and iOS 12 there's been changes in the way socket resource reclaim is applied.
-    // Socket resource reclaim is now run whenever the app is suspended.
-    // At the moment of UIApplicationWillEnterForegroundNotification socket may not be ready yet and request may fail
-    // https://github.com/AFNetworking/AFNetworking/issues/4279
-    // So we use UIApplicationDidBecomeActiveNotification
-    
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationOpen) name:UIApplicationDidBecomeActiveNotification object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationClosed) name:UIApplicationDidEnterBackgroundNotification object:nil];
+
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationOpen) name:PW_NOTIFICATION_DID_BECOME_ACTIVE object:nil];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationClosed) name:PW_NOTIFICATION_DID_ENTER_BACKGROUND object:nil];
     
     // wait until server communication is allowed before sending appOpen
     if (![[PWCoreServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
@@ -141,9 +148,9 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 
 - (void)setDefaultAppOpenAllowed:(BOOL)defaultAppOpenAllowed {
     _defaultAppOpenAllowed = defaultAppOpenAllowed;
-    
+
     if (defaultAppOpenAllowed && !_initialDefaultOpenEventSent) {
-         if (UIApplication.sharedApplication.applicationState != UIApplicationStateBackground) {
+         if ([PW_APPLICATION_CLASS sharedApplication].applicationState != PW_APPLICATION_STATE_BACKGROUND) {
              [self sendDefaultEvent: defaultApplicationOpenedEvent];
              _initialDefaultOpenEventSent = YES;
          }

@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2016
 //
 
+#if TARGET_OS_IOS || TARGET_OS_TV
 #import <Foundation/Foundation.h>
 
 @class PWResource;
@@ -23,3 +24,4 @@
 + (void)destroy;
 
 @end
+#endif

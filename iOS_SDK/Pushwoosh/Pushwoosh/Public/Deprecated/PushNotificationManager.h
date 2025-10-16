@@ -283,6 +283,10 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
  */
 @property (nonatomic, strong, readonly) id<UNUserNotificationCenterDelegate> notificationCenterDelegate;
 
+#elif TARGET_OS_TV
+
+@property (nonatomic, strong, readonly) id notificationCenterDelegate;
+
 #elif TARGET_OS_OSX
 
 @property (nonatomic, strong, readonly) id<NSUserNotificationCenterDelegate> notificationCenterDelegate;

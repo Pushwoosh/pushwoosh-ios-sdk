@@ -10,7 +10,8 @@
 //  zayin@apextechnology.co.za
 //
 
-@import WebKit;
+#if TARGET_OS_IOS
+#import <WebKit/WebKit.h>
 
 @interface PWEasyJSWKWebView : WKWebView
 
@@ -20,3 +21,4 @@
                   userScripts:(NSArray<WKUserScript *> *)scripts;
 
 @end
+#endif

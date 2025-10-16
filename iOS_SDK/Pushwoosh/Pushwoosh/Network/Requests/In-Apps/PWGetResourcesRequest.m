@@ -5,6 +5,8 @@
 //  (c) Pushwoosh 2015
 //
 
+#if TARGET_OS_IOS || TARGET_OS_TV
+
 #import "PWGetResourcesRequest.h"
 #import "PWResource.h"
 
@@ -42,3 +44,5 @@
 }
 
 @end
+
+#endif

@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWNotificationBannerWindow.m
 //  PWNotificationsUI
@@ -319,3 +321,5 @@ static const CGFloat PWNotificationViewHeight = 68.0;
 }
 
 @end
+
+#endif

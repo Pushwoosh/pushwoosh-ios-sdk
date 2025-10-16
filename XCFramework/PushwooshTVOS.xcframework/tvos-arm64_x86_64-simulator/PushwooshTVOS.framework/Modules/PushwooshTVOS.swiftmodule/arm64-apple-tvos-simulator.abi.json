@@ -1,0 +1,1873 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "TopLevel",
+    "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "UserNotifications",
+        "printedName": "UserNotifications",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshBridge",
+        "printedName": "PushwooshBridge",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshTVOSImplementation",
+        "printedName": "PushwooshTVOSImplementation",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "shared",
+            "printedName": "shared",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshTVOSImplementation",
+                "printedName": "PushwooshTVOS.PushwooshTVOSImplementation",
+                "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cpy)shared",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC6sharedACvpZ",
+            "moduleName": "PushwooshTVOS",
+            "static": true,
+            "objc_name": "shared",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshTVOSImplementation",
+                    "printedName": "PushwooshTVOS.PushwooshTVOSImplementation",
+                    "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cm)shared",
+                "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC6sharedACvgZ",
+                "moduleName": "PushwooshTVOS",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "richMediaManager",
+            "printedName": "richMediaManager",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaManager",
+                "printedName": "PushwooshTVOS.PWTVOSRichMediaManager",
+                "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(py)richMediaManager",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC16richMediaManagerAA010PWTVOSRicheF0Cvp",
+            "moduleName": "PushwooshTVOS",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWTVOSRichMediaManager",
+                    "printedName": "PushwooshTVOS.PWTVOSRichMediaManager",
+                    "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(im)richMediaManager",
+                "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC16richMediaManagerAA010PWTVOSRicheF0Cvg",
+                "moduleName": "PushwooshTVOS",
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "setAppCode",
+            "printedName": "setAppCode(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cm)setAppCode:",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC10setAppCodeyySSFZ",
+            "moduleName": "PushwooshTVOS",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "registerForPushNotifications",
+            "printedName": "registerForPushNotifications(withToken:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Data",
+                "printedName": "Foundation.Data",
+                "usr": "s:10Foundation4DataV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(((any Swift.Error)?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "((any Swift.Error)?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "(any Swift.Error)?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Error",
+                            "printedName": "any Swift.Error",
+                            "usr": "s:s5ErrorP"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(im)registerForPushNotificationsWithToken:completion:",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC28registerForPushNotifications9withToken10completiony10Foundation4DataV_ys5Error_pSgcSgtF",
+            "moduleName": "PushwooshTVOS",
+            "objc_name": "registerForPushNotificationsWithToken:completion:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "registerForTvPushNotifications",
+            "printedName": "registerForTvPushNotifications()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cm)registerForTvPushNotifications",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC30registerForTvPushNotificationsyyFZ",
+            "moduleName": "PushwooshTVOS",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "unregisterForPushNotifications",
+            "printedName": "unregisterForPushNotifications(completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(((any Swift.Error)?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "((any Swift.Error)?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "(any Swift.Error)?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Error",
+                            "printedName": "any Swift.Error",
+                            "usr": "s:s5ErrorP"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(im)unregisterForPushNotificationsWithCompletion:",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC30unregisterForPushNotifications10completionyys5Error_pSgcSg_tF",
+            "moduleName": "PushwooshTVOS",
+            "objc_name": "unregisterForPushNotificationsWithCompletion:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "unregisterForTvPushNotifications",
+            "printedName": "unregisterForTvPushNotifications(completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(((any Swift.Error)?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "((any Swift.Error)?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "(any Swift.Error)?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Error",
+                            "printedName": "any Swift.Error",
+                            "usr": "s:s5ErrorP"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cm)unregisterForTvPushNotificationsWithCompletion:",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC32unregisterForTvPushNotifications10completionyys5Error_pSgcSg_tFZ",
+            "moduleName": "PushwooshTVOS",
+            "static": true,
+            "objc_name": "unregisterForTvPushNotificationsWithCompletion:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "handleTvPushToken",
+            "printedName": "handleTvPushToken(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Data",
+                "printedName": "Foundation.Data",
+                "usr": "s:10Foundation4DataV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cm)handleTvPushToken:",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC17handleTvPushTokenyy10Foundation4DataVFZ",
+            "moduleName": "PushwooshTVOS",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "handleTvPushRegistrationFailure",
+            "printedName": "handleTvPushRegistrationFailure(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Error",
+                "printedName": "any Swift.Error",
+                "usr": "s:s5ErrorP"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cm)handleTvPushRegistrationFailure:",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC31handleTvPushRegistrationFailureyys5Error_pFZ",
+            "moduleName": "PushwooshTVOS",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "handleTvPushReceived",
+            "printedName": "handleTvPushReceived(userInfo:completionHandler:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.AnyHashable : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AnyHashable",
+                    "printedName": "Swift.AnyHashable",
+                    "usr": "s:s11AnyHashableV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(UIKit.UIBackgroundFetchResult) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIBackgroundFetchResult",
+                    "printedName": "UIKit.UIBackgroundFetchResult",
+                    "usr": "c:@E@UIBackgroundFetchResult"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cm)handleTvPushReceivedWithUserInfo:completionHandler:",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC20handleTvPushReceived8userInfo17completionHandlerySDys11AnyHashableVypG_ySo23UIBackgroundFetchResultVctFZ",
+            "moduleName": "PushwooshTVOS",
+            "static": true,
+            "objc_name": "handleTvPushReceivedWithUserInfo:completionHandler:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "handleTVOSPush",
+            "printedName": "handleTVOSPush(userInfo:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.AnyHashable : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AnyHashable",
+                    "printedName": "Swift.AnyHashable",
+                    "usr": "s:s11AnyHashableV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cm)handleTVOSPushWithUserInfo:",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC14handleTVOSPush8userInfoSbSDys11AnyHashableVypG_tFZ",
+            "moduleName": "PushwooshTVOS",
+            "static": true,
+            "objc_name": "handleTVOSPushWithUserInfo:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "configureRichMediaWith",
+            "printedName": "configureRichMediaWith(position:presentAnimation:dismissAnimation:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaPosition",
+                "printedName": "PushwooshBridge.PWTVOSRichMediaPosition",
+                "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaPosition"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaPresentAnimation",
+                "printedName": "PushwooshBridge.PWTVOSRichMediaPresentAnimation",
+                "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaPresentAnimation"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaDismissAnimation",
+                "printedName": "PushwooshBridge.PWTVOSRichMediaDismissAnimation",
+                "hasDefaultArg": true,
+                "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaDismissAnimation"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cm)configureRichMediaWithPosition:presentAnimation:dismissAnimation:",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC22configureRichMediaWith8position16presentAnimation07dismissJ0y0A6Bridge010PWTVOSRichF8PositionO_AH0mf7PresentJ0OAH0mf7DismissJ0OtFZ",
+            "moduleName": "PushwooshTVOS",
+            "static": true,
+            "objc_name": "configureRichMediaWithPosition:presentAnimation:dismissAnimation:",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "configureCloseButton",
+            "printedName": "configureCloseButton(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cm)configureCloseButton:",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC20configureCloseButtonyySbFZ",
+            "moduleName": "PushwooshTVOS",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "tvos",
+            "printedName": "tvos()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any AnyObject.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "AnyObject"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cm)tvos",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC4tvosyXlXpyFZ",
+            "moduleName": "PushwooshTVOS",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation",
+        "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC",
+        "moduleName": "PushwooshTVOS",
+        "intro_tvOS": "11.0",
+        "objc_name": "PushwooshTVOSImplementation",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "Available"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "hasMissingDesignatedInitializers": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshBridge",
+        "printedName": "PushwooshBridge",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshBridge",
+        "printedName": "PushwooshBridge",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWTVOSRichMediaManager",
+        "printedName": "PWTVOSRichMediaManager",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "position",
+            "printedName": "position",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaPosition",
+                "printedName": "PushwooshBridge.PWTVOSRichMediaPosition",
+                "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaPosition"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(py)position",
+            "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC8position0A6Bridge0cD8PositionOvp",
+            "moduleName": "PushwooshTVOS",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWTVOSRichMediaPosition",
+                    "printedName": "PushwooshBridge.PWTVOSRichMediaPosition",
+                    "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaPosition"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(im)position",
+                "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC8position0A6Bridge0cD8PositionOvg",
+                "moduleName": "PushwooshTVOS",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWTVOSRichMediaPosition",
+                    "printedName": "PushwooshBridge.PWTVOSRichMediaPosition",
+                    "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaPosition"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(im)setPosition:",
+                "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC8position0A6Bridge0cD8PositionOvs",
+                "moduleName": "PushwooshTVOS",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:13PushwooshTVOS22PWTVOSRichMediaManagerC8position0A6Bridge0cD8PositionOvM",
+                "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC8position0A6Bridge0cD8PositionOvM",
+                "moduleName": "PushwooshTVOS",
+                "implicit": true,
+                "intro_tvOS": "11.0",
+                "declAttributes": [
+                  "Available"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "animationType",
+            "printedName": "animationType",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaPresentAnimation",
+                "printedName": "PushwooshBridge.PWTVOSRichMediaPresentAnimation",
+                "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaPresentAnimation"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(py)animationType",
+            "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC13animationType0A6Bridge0cD16PresentAnimationOvp",
+            "moduleName": "PushwooshTVOS",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWTVOSRichMediaPresentAnimation",
+                    "printedName": "PushwooshBridge.PWTVOSRichMediaPresentAnimation",
+                    "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaPresentAnimation"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(im)animationType",
+                "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC13animationType0A6Bridge0cD16PresentAnimationOvg",
+                "moduleName": "PushwooshTVOS",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWTVOSRichMediaPresentAnimation",
+                    "printedName": "PushwooshBridge.PWTVOSRichMediaPresentAnimation",
+                    "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaPresentAnimation"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(im)setAnimationType:",
+                "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC13animationType0A6Bridge0cD16PresentAnimationOvs",
+                "moduleName": "PushwooshTVOS",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:13PushwooshTVOS22PWTVOSRichMediaManagerC13animationType0A6Bridge0cD16PresentAnimationOvM",
+                "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC13animationType0A6Bridge0cD16PresentAnimationOvM",
+                "moduleName": "PushwooshTVOS",
+                "implicit": true,
+                "intro_tvOS": "11.0",
+                "declAttributes": [
+                  "Available"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "dismissAnimationType",
+            "printedName": "dismissAnimationType",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaDismissAnimation",
+                "printedName": "PushwooshBridge.PWTVOSRichMediaDismissAnimation",
+                "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaDismissAnimation"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(py)dismissAnimationType",
+            "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC20dismissAnimationType0A6Bridge0cd7DismissG0Ovp",
+            "moduleName": "PushwooshTVOS",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWTVOSRichMediaDismissAnimation",
+                    "printedName": "PushwooshBridge.PWTVOSRichMediaDismissAnimation",
+                    "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaDismissAnimation"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(im)dismissAnimationType",
+                "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC20dismissAnimationType0A6Bridge0cd7DismissG0Ovg",
+                "moduleName": "PushwooshTVOS",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWTVOSRichMediaDismissAnimation",
+                    "printedName": "PushwooshBridge.PWTVOSRichMediaDismissAnimation",
+                    "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaDismissAnimation"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(im)setDismissAnimationType:",
+                "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC20dismissAnimationType0A6Bridge0cd7DismissG0Ovs",
+                "moduleName": "PushwooshTVOS",
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:13PushwooshTVOS22PWTVOSRichMediaManagerC20dismissAnimationType0A6Bridge0cd7DismissG0OvM",
+                "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC20dismissAnimationType0A6Bridge0cd7DismissG0OvM",
+                "moduleName": "PushwooshTVOS",
+                "implicit": true,
+                "intro_tvOS": "11.0",
+                "declAttributes": [
+                  "Available"
+                ],
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "configureRichMediaWith",
+            "printedName": "configureRichMediaWith(position:presentAnimation:dismissAnimation:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaPosition",
+                "printedName": "PushwooshBridge.PWTVOSRichMediaPosition",
+                "hasDefaultArg": true,
+                "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaPosition"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaPresentAnimation",
+                "printedName": "PushwooshBridge.PWTVOSRichMediaPresentAnimation",
+                "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaPresentAnimation"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaDismissAnimation",
+                "printedName": "PushwooshBridge.PWTVOSRichMediaDismissAnimation",
+                "hasDefaultArg": true,
+                "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaDismissAnimation"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(im)configureRichMediaWithPosition:presentAnimation:dismissAnimation:",
+            "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC013configureRichD4With8position16presentAnimation07dismissK0y0A6Bridge0cD8PositionO_AH0cd7PresentK0OAH0cd7DismissK0OtF",
+            "moduleName": "PushwooshTVOS",
+            "objc_name": "configureRichMediaWithPosition:presentAnimation:dismissAnimation:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "configureCloseButton",
+            "printedName": "configureCloseButton(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(im)configureCloseButton:",
+            "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC20configureCloseButtonyySbF",
+            "moduleName": "PushwooshTVOS",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "handleInAppResource",
+            "printedName": "handleInAppResource(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "ProtocolComposition",
+                "printedName": "AnyObject"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(im)handleInAppResource:",
+            "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC19handleInAppResourceySbyXlF",
+            "moduleName": "PushwooshTVOS",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "dismiss",
+            "printedName": "dismiss(animated:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(im)dismissWithAnimated:",
+            "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC7dismiss8animatedySb_tF",
+            "moduleName": "PushwooshTVOS",
+            "objc_name": "dismissWithAnimated:",
+            "declAttributes": [
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaManager",
+                "printedName": "PushwooshTVOS.PWTVOSRichMediaManager",
+                "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager(im)init",
+            "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerCACycfc",
+            "moduleName": "PushwooshTVOS",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshTVOS@objc(cs)PWTVOSRichMediaManager",
+        "mangledName": "$s13PushwooshTVOS22PWTVOSRichMediaManagerC",
+        "moduleName": "PushwooshTVOS",
+        "intro_tvOS": "11.0",
+        "objc_name": "PWTVOSRichMediaManager",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "Available"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWTVoS",
+        "printedName": "PWTVoS",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "setAppCode",
+            "printedName": "setAppCode(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge6PWTVoSP0A4TVOSE10setAppCodeyySSFZ",
+            "mangledName": "$s15PushwooshBridge6PWTVoSP0A4TVOSE10setAppCodeyySSFZ",
+            "moduleName": "PushwooshTVOS",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWTVoS>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWTVoS>",
+            "static": true,
+            "intro_tvOS": "11.0",
+            "declAttributes": [
+              "Available"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "registerForTvPushNotifications",
+            "printedName": "registerForTvPushNotifications(withToken:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Data",
+                "printedName": "Foundation.Data",
+                "usr": "s:10Foundation4DataV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(((any Swift.Error)?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "((any Swift.Error)?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "(any Swift.Error)?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Error",
+                            "printedName": "any Swift.Error",
+                            "usr": "s:s5ErrorP"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge6PWTVoSP0A4TVOSE30registerForTvPushNotifications9withToken10completiony10Foundation4DataV_ys5Error_pSgcSgtFZ",
+            "mangledName": "$s15PushwooshBridge6PWTVoSP0A4TVOSE30registerForTvPushNotifications9withToken10completiony10Foundation4DataV_ys5Error_pSgcSgtFZ",
+            "moduleName": "PushwooshTVOS",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWTVoS>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWTVoS>",
+            "static": true,
+            "intro_tvOS": "11.0",
+            "declAttributes": [
+              "Available"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "unregisterForTvPushNotifications",
+            "printedName": "unregisterForTvPushNotifications(completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(((any Swift.Error)?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "((any Swift.Error)?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "(any Swift.Error)?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Error",
+                            "printedName": "any Swift.Error",
+                            "usr": "s:s5ErrorP"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge6PWTVoSP0A4TVOSE32unregisterForTvPushNotifications10completionyys5Error_pSgcSg_tFZ",
+            "mangledName": "$s15PushwooshBridge6PWTVoSP0A4TVOSE32unregisterForTvPushNotifications10completionyys5Error_pSgcSg_tFZ",
+            "moduleName": "PushwooshTVOS",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWTVoS>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWTVoS>",
+            "static": true,
+            "intro_tvOS": "11.0",
+            "declAttributes": [
+              "Available"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "handleTVOSPush",
+            "printedName": "handleTVOSPush(userInfo:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.AnyHashable : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AnyHashable",
+                    "printedName": "Swift.AnyHashable",
+                    "usr": "s:s11AnyHashableV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge6PWTVoSP0A4TVOSE14handleTVOSPush8userInfoSbSDys11AnyHashableVypG_tFZ",
+            "mangledName": "$s15PushwooshBridge6PWTVoSP0A4TVOSE14handleTVOSPush8userInfoSbSDys11AnyHashableVypG_tFZ",
+            "moduleName": "PushwooshTVOS",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWTVoS>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWTVoS>",
+            "static": true,
+            "intro_tvOS": "11.0",
+            "declAttributes": [
+              "Available"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "configureRichMediaWith",
+            "printedName": "configureRichMediaWith(position:presentAnimation:dismissAnimation:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaPosition",
+                "printedName": "PushwooshBridge.PWTVOSRichMediaPosition",
+                "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaPosition"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaPresentAnimation",
+                "printedName": "PushwooshBridge.PWTVOSRichMediaPresentAnimation",
+                "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaPresentAnimation"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVOSRichMediaDismissAnimation",
+                "printedName": "PushwooshBridge.PWTVOSRichMediaDismissAnimation",
+                "hasDefaultArg": true,
+                "usr": "c:@M@PushwooshBridge@E@PWTVOSRichMediaDismissAnimation"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge6PWTVoSP0A4TVOSE22configureRichMediaWith8position16presentAnimation07dismissK0yAA010PWTVOSRichG8PositionO_AA0mg7PresentK0OAA0mg7DismissK0OtFZ",
+            "mangledName": "$s15PushwooshBridge6PWTVoSP0A4TVOSE22configureRichMediaWith8position16presentAnimation07dismissK0yAA010PWTVOSRichG8PositionO_AA0mg7PresentK0OAA0mg7DismissK0OtFZ",
+            "moduleName": "PushwooshTVOS",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWTVoS>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWTVoS>",
+            "static": true,
+            "intro_tvOS": "11.0",
+            "declAttributes": [
+              "Available"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "configureCloseButton",
+            "printedName": "configureCloseButton(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge6PWTVoSP0A4TVOSE20configureCloseButtonyySbFZ",
+            "mangledName": "$s15PushwooshBridge6PWTVoSP0A4TVOSE20configureCloseButtonyySbFZ",
+            "moduleName": "PushwooshTVOS",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWTVoS>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWTVoS>",
+            "static": true,
+            "intro_tvOS": "11.0",
+            "declAttributes": [
+              "Available"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@PushwooshBridge@objc(pl)PWTVoS",
+        "mangledName": "$s15PushwooshBridge6PWTVoSP",
+        "moduleName": "PushwooshBridge",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "ObjC"
+        ],
+        "isExternal": true
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Network\/PWTVOSAPIClient.swift",
+      "kind": "StringLiteral",
+      "offset": 849,
+      "length": 21,
+      "value": "\"PushwooshTVOS.PWTVOSRegisterRequest\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSHTMLParser.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1162,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSHTMLParser.swift",
+      "kind": "Array",
+      "offset": 1244,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSHTMLParser.swift",
+      "kind": "Dictionary",
+      "offset": 1663,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSHTMLParser.swift",
+      "kind": "Array",
+      "offset": 1701,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSUniversalHTMLParser.swift",
+      "kind": "IntegerLiteral",
+      "offset": 830,
+      "length": 2,
+      "value": "20"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSUniversalHTMLParser.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1032,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSUniversalHTMLParser.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1070,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSUniversalHTMLParser.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1276,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Renderers\/PWTVOSUniversalRenderer.swift",
+      "kind": "Array",
+      "offset": 343,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Renderers\/PWTVOSUniversalRenderer.swift",
+      "kind": "BooleanLiteral",
+      "offset": 386,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Renderers\/PWTVOSUniversalRenderer.swift",
+      "kind": "StringLiteral",
+      "offset": 19333,
+      "length": 11,
+      "value": "\"eventName\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Renderers\/PWTVOSUniversalRenderer.swift",
+      "kind": "StringLiteral",
+      "offset": 19378,
+      "length": 17,
+      "value": "\"eventAttributes\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/Renderers\/PWTVOSRichMediaRenderer.swift",
+      "kind": "Array",
+      "offset": 343,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/Renderers\/PWTVOSRichMediaRenderer.swift",
+      "kind": "StringLiteral",
+      "offset": 16541,
+      "length": 11,
+      "value": "\"eventName\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/Renderers\/PWTVOSRichMediaRenderer.swift",
+      "kind": "StringLiteral",
+      "offset": 16586,
+      "length": 17,
+      "value": "\"eventAttributes\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/Renderers\/PWTVOSRichMediaRenderer.swift",
+      "kind": "BooleanLiteral",
+      "offset": 16801,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Network\/Requests\/PWTVOSRegisterDeviceRequest.swift",
+      "kind": "StringLiteral",
+      "offset": 249,
+      "length": 27,
+      "value": "\"PushwooshTVOS.PWTVOSRegisterDeviceRequest\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/PWTVOSRichMediaManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 578,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/PWTVOSRichMediaManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 4645,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/PWTVOSRichMediaManager.swift",
+      "kind": "BooleanLiteral",
+      "offset": 5237,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/PWTVOSRichMediaManager.swift",
+      "kind": "StringLiteral",
+      "offset": 3950,
+      "length": 29,
+      "value": "\"PushwooshTVOS.PWTVOSRichMediaViewController\""
+    }
+  ]
+}

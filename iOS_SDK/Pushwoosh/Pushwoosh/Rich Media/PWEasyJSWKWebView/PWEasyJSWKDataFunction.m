@@ -10,6 +10,7 @@
 //  zayin@apextechnology.co.za
 //
 
+#if TARGET_OS_IOS
 #import "PWEasyJSWKDataFunction.h"
 #import "WKWebView+PWSynchronousEvaluateJavaScript.h"
 
@@ -60,3 +61,4 @@
 }
 
 @end
+#endif

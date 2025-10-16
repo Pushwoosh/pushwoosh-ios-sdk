@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2012
 //
 
+#if TARGET_OS_IOS
 #import "PWRichPushManager.h"
 #import "PWSupportedOrientations.h"
 
@@ -24,3 +25,4 @@
 @property (nonatomic) PWSupportedOrientations supportedOrientations;
 
 @end
+#endif

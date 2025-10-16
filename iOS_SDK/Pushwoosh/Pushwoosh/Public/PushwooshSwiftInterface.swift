@@ -24,6 +24,10 @@ public extension Pushwoosh {
         return __voIP()
     }
     
+    static var TVoS: PWTVoS.Type {
+        return __tVoS();
+    }
+    
     static var ForegroundPush: PWForegroundPush.Type {
         return __foregroundPush()
     }

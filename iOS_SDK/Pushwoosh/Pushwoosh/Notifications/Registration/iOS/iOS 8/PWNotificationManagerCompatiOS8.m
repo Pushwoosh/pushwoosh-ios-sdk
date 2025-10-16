@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWNotificationManagerCompatiOS8.m
 //  Pushwoosh
@@ -129,3 +131,5 @@
 }
 
 @end
+
+#endif

@@ -6,6 +6,7 @@
 //  Copyright © 2018 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import <Foundation/Foundation.h>
 #import "PWBusinessCaseManager.h"
 
@@ -34,3 +35,4 @@ typedef BOOL(^PWBusinessCaseConditionBlock)();
 - (void)resetCapping;
 
 @end
+#endif

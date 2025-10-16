@@ -1,0 +1,59 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target x86_64-apple-tvos12.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PushwooshTVOS
+import Foundation
+import PushwooshBridge
+import PushwooshCore
+@_exported import PushwooshTVOS
+import Swift
+import UIKit
+import UserNotifications
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @available(tvOS 11.0, *)
+@objc(PushwooshTVOSImplementation) public class PushwooshTVOSImplementation : ObjectiveC.NSObject {
+  @objc(shared) public static let shared: PushwooshTVOS.PushwooshTVOSImplementation
+  @objc public var richMediaManager: PushwooshTVOS.PWTVOSRichMediaManager {
+    @objc get
+  }
+  @objc public static func setAppCode(_ appCode: Swift.String)
+  @objc public func registerForPushNotifications(withToken token: Foundation.Data, completion: (((any Swift.Error)?) -> Swift.Void)? = nil)
+  @objc public static func registerForTvPushNotifications()
+  @objc public func unregisterForPushNotifications(completion: (((any Swift.Error)?) -> Swift.Void)? = nil)
+  @objc public static func unregisterForTvPushNotifications(completion: (((any Swift.Error)?) -> Swift.Void)? = nil)
+  @objc public static func handleTvPushToken(_ deviceToken: Foundation.Data)
+  @objc public static func handleTvPushRegistrationFailure(_ error: any Swift.Error)
+  @objc public static func handleTvPushReceived(userInfo: [Swift.AnyHashable : Any], completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
+  @objc public static func handleTVOSPush(userInfo: [Swift.AnyHashable : Any]) -> Swift.Bool
+  @objc public static func configureRichMediaWith(position: PushwooshBridge.PWTVOSRichMediaPosition, presentAnimation: PushwooshBridge.PWTVOSRichMediaPresentAnimation, dismissAnimation: PushwooshBridge.PWTVOSRichMediaDismissAnimation = .none)
+  @objc public static func configureCloseButton(_ show: Swift.Bool)
+  @objc public static func tvos() -> Swift.AnyClass
+  @objc deinit
+}
+extension PushwooshBridge.PWTVoS {
+  @available(tvOS 11.0, *)
+  public static func setAppCode(_ appCode: Swift.String)
+  @available(tvOS 11.0, *)
+  public static func registerForTvPushNotifications(withToken token: Foundation.Data, completion: (((any Swift.Error)?) -> Swift.Void)? = nil)
+  @available(tvOS 11.0, *)
+  public static func unregisterForTvPushNotifications(completion: (((any Swift.Error)?) -> Swift.Void)? = nil)
+  @available(tvOS 11.0, *)
+  public static func handleTVOSPush(userInfo: [Swift.AnyHashable : Any]) -> Swift.Bool
+  @available(tvOS 11.0, *)
+  public static func configureRichMediaWith(position: PushwooshBridge.PWTVOSRichMediaPosition, presentAnimation: PushwooshBridge.PWTVOSRichMediaPresentAnimation, dismissAnimation: PushwooshBridge.PWTVOSRichMediaDismissAnimation = .none)
+  @available(tvOS 11.0, *)
+  public static func configureCloseButton(_ show: Swift.Bool)
+}
+@_inheritsConvenienceInitializers @available(tvOS 11.0, *)
+@objc(PWTVOSRichMediaManager) public class PWTVOSRichMediaManager : ObjectiveC.NSObject {
+  @objc public var position: PushwooshBridge.PWTVOSRichMediaPosition
+  @objc public var animationType: PushwooshBridge.PWTVOSRichMediaPresentAnimation
+  @objc public var dismissAnimationType: PushwooshBridge.PWTVOSRichMediaDismissAnimation
+  @objc public func configureRichMediaWith(position: PushwooshBridge.PWTVOSRichMediaPosition = .center, presentAnimation: PushwooshBridge.PWTVOSRichMediaPresentAnimation, dismissAnimation: PushwooshBridge.PWTVOSRichMediaDismissAnimation = .none)
+  @objc public func configureCloseButton(_ show: Swift.Bool)
+  @objc public func handleInAppResource(_ resource: Swift.AnyObject) -> Swift.Bool
+  @objc public func dismiss(animated: Swift.Bool)
+  @objc override dynamic public init()
+  @objc deinit
+}

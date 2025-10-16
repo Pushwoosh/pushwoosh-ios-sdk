@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2015
 //
 
+#if TARGET_OS_IOS || TARGET_OS_TV
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
 #import "PWRichMediaConfig.h"
@@ -54,3 +55,4 @@ typedef NS_ENUM(unsigned int, IAResourcePresentationStyle) {
 - (void)readConfig;
 
 @end
+#endif

@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2017
 //
 
+#if TARGET_OS_IOS
 #import "PWWebClient.h"
 #import "PWPushManagerJSBridge.h"
 #import "PWPushwooshJSBridge.h"
@@ -121,6 +122,10 @@ isRegisteredForPushNotifications: function(callback) {\
 \
 getCustomData: function() {\
     return this._customData;\
+},\
+\
+setEmail: function(email) {\
+    pushwooshImpl.setEmail(email);\
 }\
 };\
 ";
@@ -430,3 +435,4 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 }
 
 @end
+#endif

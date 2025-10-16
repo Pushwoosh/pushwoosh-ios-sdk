@@ -19,6 +19,9 @@ extension PushwooshFramework.Pushwoosh {
   public static var VoIP: any PushwooshBridge.PWVoIP.Type {
     get
   }
+  public static var TVoS: any PushwooshBridge.PWTVoS.Type {
+    get
+  }
   public static var ForegroundPush: any PushwooshBridge.PWForegroundPush.Type {
     get
   }

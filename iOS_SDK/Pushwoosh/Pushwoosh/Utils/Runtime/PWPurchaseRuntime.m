@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWPurchaseRuntime.m
 //  Pushwoosh
@@ -73,3 +75,5 @@ void _replacement_addTransactionObserver(SKPaymentQueue * self, SEL _cmd, id <SK
 }
 
 @end
+
+#endif

@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWInboxService.m
 //  Pushwoosh
@@ -225,3 +227,5 @@ static NSInteger minimalTimeinterval = 10;
 }
 
 @end
+
+#endif

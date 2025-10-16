@@ -218,6 +218,67 @@
           },
           {
             "kind": "Var",
+            "name": "TVoS",
+            "printedName": "TVoS",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any PushwooshBridge.PWTVoS.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWTVoS",
+                    "printedName": "PushwooshBridge.PWTVoS",
+                    "usr": "c:@M@PushwooshBridge@objc(pl)PWTVoS"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So9PushwooshC0A9FrameworkE4TVoS0A6Bridge6PWTVoS_pXpvpZ",
+            "mangledName": "$sSo9PushwooshC0A9FrameworkE4TVoS0A6Bridge6PWTVoS_pXpvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ExistentialMetatype",
+                    "printedName": "any PushwooshBridge.PWTVoS.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWTVoS",
+                        "printedName": "PushwooshBridge.PWTVoS",
+                        "usr": "c:@M@PushwooshBridge@objc(pl)PWTVoS"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So9PushwooshC0A9FrameworkE4TVoS0A6Bridge6PWTVoS_pXpvgZ",
+                "mangledName": "$sSo9PushwooshC0A9FrameworkE4TVoS0A6Bridge6PWTVoS_pXpvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "ForegroundPush",
             "printedName": "ForegroundPush",
             "children": [

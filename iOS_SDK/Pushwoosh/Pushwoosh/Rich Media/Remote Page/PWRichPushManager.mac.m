@@ -3,6 +3,7 @@
 //	Pushwoosh SDK
 //
 
+#if TARGET_OS_IOS
 #import "PWRichPushManager.h"
 #import "PWHtmlWebViewController.mac.h"
 #import "PWRequestManager.h"
@@ -59,3 +60,4 @@
 #pragma mark -
 
 @end
+#endif

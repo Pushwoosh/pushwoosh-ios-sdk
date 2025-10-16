@@ -10,6 +10,7 @@
 //  zayin@apextechnology.co.za
 //
 
+#if TARGET_OS_IOS
 #import <Foundation/Foundation.h>
 #import "PWEasyJSWKWebView.h"
 
@@ -25,3 +26,4 @@
 - (NSString *)executeWithParams:(NSArray*) params;
 
 @end
+#endif

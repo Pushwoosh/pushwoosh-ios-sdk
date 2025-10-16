@@ -11,9 +11,6 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1ae9429c76f749caa36e1f798ef3e06c6c">@property NSObject&lt;PWMessagingDelegate&gt; *_Nullable</a></td>
 	</tr>
 	<tr>
-		<td><a href="#1ad4f33662a2c344c8a590d03b859cf935">@property NSObject&lt;PWPurchaseDelegate&gt; *_Nullable</a></td>
-	</tr>
-	<tr>
 		<td><a href="#1abe8dbad57ad73ac86a51cc0b4dfc64e5">@property NSDictionary *_Nullable</a></td>
 	</tr>
 	<tr>
@@ -33,6 +30,9 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 	</tr>
 	<tr>
 		<td><a href="#1a70c68e2a062d4ad57eebd6731f306476">+ (Class&lt;PWForegroundPush&gt;_Nonnull)ForegroundPush</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1af62f679a475e60dd70d589d19a056869">+ (Class&lt;PWTVoS&gt;_Nonnull)TVoS</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a0949e0d478520ad209aa879486c44791">+ (void)initializeWithAppCode:(NSString *_Nonnull)appCode</a></td>
@@ -116,6 +116,18 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 		<td><a href="#1ad7d1b0957e50d70e5ae445a295744350">- (NSString *_Nonnull)getUserId</a></td>
 	</tr>
 	<tr>
+		<td><a href="#1a4a0147fe93493d6d9ee2254af6f0096b">- (void)setEmails:(NSArray *_Nonnull)emails completion:(void(^)(NSError *_Nullable error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a9c09efeafad961d34260a81545ae1dcc">- (void)setEmails:(NSArray *_Nonnull)emails</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1a511fb62dcc9802dea7057ca0f7107dad">- (void)setEmail:(NSString *_Nonnull)email completion:(void(^)(NSError *_Nullable error))completion</a></td>
+	</tr>
+	<tr>
+		<td><a href="#1abe5a49398ecd6c86951d9d5b15bb4e9e">- (void)setEmail:(NSString *_Nonnull)email</a></td>
+	</tr>
+	<tr>
 		<td><a href="#1ab614f1fcd98bce58db800a09baf22f6d">- (void)setUserId:(NSString *_Nonnull)userId completion:(void(^)(NSError *_Nullable error))completion</a></td>
 	</tr>
 	<tr>
@@ -129,18 +141,6 @@ Pushwoosh class offers access to the singleton-instance of the push manager resp
 	</tr>
 	<tr>
 		<td><a href="#1a15251b2a767457a1c79de01bda831b45">- (void)setUser:(NSString *_Nonnull)userId email:(NSString *_Nonnull)email completion:(void(^)(NSError *_Nullable error))completion</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1a4a0147fe93493d6d9ee2254af6f0096b">- (void)setEmails:(NSArray *_Nonnull)emails completion:(void(^)(NSError *_Nullable error))completion</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1a9c09efeafad961d34260a81545ae1dcc">- (void)setEmails:(NSArray *_Nonnull)emails</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1a511fb62dcc9802dea7057ca0f7107dad">- (void)setEmail:(NSString *_Nonnull)email completion:(void(^)(NSError *_Nullable error))completion</a></td>
-	</tr>
-	<tr>
-		<td><a href="#1abe5a49398ecd6c86951d9d5b15bb4e9e">- (void)setEmail:(NSString *_Nonnull)email</a></td>
 	</tr>
 	<tr>
 		<td><a href="#1a53627e1cbbb3507fec2b916a4dc958d0">- (void)mergeUserId:(NSString *_Nonnull)oldUserId to:(NSString *_Nonnull)newUserId doMerge:(BOOL)doMerge completion:(void(^)(NSError *_Nullable error))completion</a></td>
@@ -193,12 +193,6 @@ PushNotificationDelegate protocol delegate that would receive the information ab
 ----------  
   
 
-#### <a name="1ad4f33662a2c344c8a590d03b859cf935"></a>@property NSObject&lt;<a href="PWPurchaseDelegate-p.md">PWPurchaseDelegate</a>&gt; \*_Nullable  
-PushPurchaseDelegate protocol delegate that would receive the information about events related to purchasing InApp products from rich medias 
-
-----------  
-  
-
 #### <a name="1abe8dbad57ad73ac86a51cc0b4dfc64e5"></a>@property NSDictionary \*_Nullable  
 Returns push notification payload if the app was started in response to push notification or null otherwise 
 
@@ -236,6 +230,12 @@ Proxy contains UNUserNotificationCenterDelegate objects.
   
 
 #### <a name="1a70c68e2a062d4ad57eebd6731f306476"></a>+ (Class&lt;PWForegroundPush&gt;<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)ForegroundPush  
+
+
+----------  
+  
+
+#### <a name="1af62f679a475e60dd70d589d19a056869"></a>+ (Class&lt;PWTVoS&gt;<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)TVoS  
 
 
 ----------  
@@ -472,6 +472,58 @@ Gets UserId.<br/><br/><br/><strong>Returns</strong> userId. If the userId hasn't
 ----------  
   
 
+#### <a name="1a4a0147fe93493d6d9ee2254af6f0096b"></a>- (void)setEmails:(NSArray \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)emails completion:(void(^)(NSError \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a> error))completion  
+Register emails list associated to the current user. If setEmails succeeds competion is called with nil argument. If setEmails fails completion is called with error.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>emails</strong></td>
+		<td>user's emails array </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1a9c09efeafad961d34260a81545ae1dcc"></a>- (void)setEmails:(NSArray \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)emails  
+Register emails list associated to the current user.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>emails</strong></td>
+		<td>user's emails array </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1a511fb62dcc9802dea7057ca0f7107dad"></a>- (void)setEmail:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)email completion:(void(^)(NSError \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a> error))completion  
+Register email associated to the current user. Email should be a string and could not be null or empty. If setEmail succeeds competion is called with nil argument. If setEmail fails completion is called with error.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>email</strong></td>
+		<td>user's email string </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
+#### <a name="1abe5a49398ecd6c86951d9d5b15bb4e9e"></a>- (void)setEmail:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)email  
+Register email associated to the current user. Email should be a string and could not be null or empty.<br/><br/><br/><strong>Parameters</strong><br/>
+<table>
+	<tr>
+		<td><strong>email</strong></td>
+		<td>user's email string </td>
+	</tr>
+</table>
+
+
+----------  
+  
+
 #### <a name="1ab614f1fcd98bce58db800a09baf22f6d"></a>- (void)setUserId:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)userId completion:(void(^)(NSError \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a> error))completion  
 Set User indentifier. This could be Facebook ID, username or email, or any other user ID. This allows data and events to be matched across multiple user devices. If setUserId succeeds competion is called with nil argument. If setUserId fails completion is called with error.<br/><br/><br/><strong>Parameters</strong><br/>
 <table>
@@ -539,58 +591,6 @@ Set User indentifier. This could be Facebook ID, username or email, or any other
 		<td><strong>userId</strong></td>
 		<td>user identifier </td>
 	</tr>
-	<tr>
-		<td><strong>email</strong></td>
-		<td>user's email string </td>
-	</tr>
-</table>
-
-
-----------  
-  
-
-#### <a name="1a4a0147fe93493d6d9ee2254af6f0096b"></a>- (void)setEmails:(NSArray \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)emails completion:(void(^)(NSError \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a> error))completion  
-Register emails list associated to the current user. If setEmails succeeds competion is called with nil argument. If setEmails fails completion is called with error.<br/><br/><br/><strong>Parameters</strong><br/>
-<table>
-	<tr>
-		<td><strong>emails</strong></td>
-		<td>user's emails array </td>
-	</tr>
-</table>
-
-
-----------  
-  
-
-#### <a name="1a9c09efeafad961d34260a81545ae1dcc"></a>- (void)setEmails:(NSArray \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)emails  
-Register emails list associated to the current user.<br/><br/><br/><strong>Parameters</strong><br/>
-<table>
-	<tr>
-		<td><strong>emails</strong></td>
-		<td>user's emails array </td>
-	</tr>
-</table>
-
-
-----------  
-  
-
-#### <a name="1a511fb62dcc9802dea7057ca0f7107dad"></a>- (void)setEmail:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)email completion:(void(^)(NSError \*<a href="Pushwoosh.md#1ae9429c76f749caa36e1f798ef3e06c6c">_Nullable</a> error))completion  
-Register email associated to the current user. Email should be a string and could not be null or empty. If setEmail succeeds competion is called with nil argument. If setEmail fails completion is called with error.<br/><br/><br/><strong>Parameters</strong><br/>
-<table>
-	<tr>
-		<td><strong>email</strong></td>
-		<td>user's email string </td>
-	</tr>
-</table>
-
-
-----------  
-  
-
-#### <a name="1abe5a49398ecd6c86951d9d5b15bb4e9e"></a>- (void)setEmail:(NSString \*<a href="Pushwoosh.md#1aa7caab3e4111d4f4756a1e8d56d01c26">_Nonnull</a>)email  
-Register email associated to the current user. Email should be a string and could not be null or empty.<br/><br/><br/><strong>Parameters</strong><br/>
-<table>
 	<tr>
 		<td><strong>email</strong></td>
 		<td>user's email string </td>

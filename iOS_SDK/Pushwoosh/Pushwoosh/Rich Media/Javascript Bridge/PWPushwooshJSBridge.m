@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2017
 //
 
+#if TARGET_OS_IOS
 #import "PWPushwooshJSBridge.h"
 #import "PWInAppManager.h"
 #import "PushNotificationManager.h"
@@ -211,6 +212,16 @@
 
 
 /**
+ * JavaScript proxy for [pushManager setEmail:] method
+ *
+ * js example:
+ *    pushwoosh.setEmail("user@example.com");
+ */
+- (void)setEmail:(NSString *)email {
+    [[Pushwoosh sharedInstance] setEmail:email];
+}
+
+/**
  * Close current In-App
  */
 - (void)closeInApp {
@@ -226,3 +237,4 @@
 }
 
 @end
+#endif

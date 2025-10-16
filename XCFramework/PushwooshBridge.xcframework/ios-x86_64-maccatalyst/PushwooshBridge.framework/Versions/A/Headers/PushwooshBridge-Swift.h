@@ -279,6 +279,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 @import Foundation;
 @import ObjectiveC;
+@import UIKit;
 #endif
 
 #endif
@@ -574,7 +575,255 @@ SWIFT_CLASS("_TtC15PushwooshBridge20PWStubLiveActivities")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+/// Animation types for dismissing rich media content on tvOS.
+typedef SWIFT_ENUM(NSInteger, PWTVOSRichMediaDismissAnimation, open) {
+/// No animation, content disappears immediately (default)
+  PWTVOSRichMediaDismissAnimationNone = 0,
+/// Content slides out to the top of the screen
+  PWTVOSRichMediaDismissAnimationToTop = 1,
+/// Content slides out to the bottom of the screen
+  PWTVOSRichMediaDismissAnimationToBottom = 2,
+/// Content slides out to the left side of the screen
+  PWTVOSRichMediaDismissAnimationToLeft = 3,
+/// Content slides out to the right side of the screen
+  PWTVOSRichMediaDismissAnimationToRight = 4,
+};
+
+/// Position options for displaying rich media content on tvOS.
+typedef SWIFT_ENUM(NSInteger, PWTVOSRichMediaPosition, open) {
+/// Content positioned at the center of the screen (default)
+  PWTVOSRichMediaPositionCenter = 0,
+/// Content positioned at the left side of the screen
+  PWTVOSRichMediaPositionLeft = 1,
+/// Content positioned at the right side of the screen
+  PWTVOSRichMediaPositionRight = 2,
+/// Content positioned at the top of the screen
+  PWTVOSRichMediaPositionTop = 3,
+/// Content positioned at the bottom of the screen
+  PWTVOSRichMediaPositionBottom = 4,
+};
+
+/// Animation types for presenting rich media content on tvOS.
+typedef SWIFT_ENUM(NSInteger, PWTVOSRichMediaPresentAnimation, open) {
+/// No animation, content appears immediately (default)
+  PWTVOSRichMediaPresentAnimationNone = 0,
+/// Content slides in from the top of the screen
+  PWTVOSRichMediaPresentAnimationFromTop = 1,
+/// Content slides in from the bottom of the screen
+  PWTVOSRichMediaPresentAnimationFromBottom = 2,
+/// Content slides in from the left side of the screen
+  PWTVOSRichMediaPresentAnimationFromLeft = 3,
+/// Content slides in from the right side of the screen
+  PWTVOSRichMediaPresentAnimationFromRight = 4,
+};
+
 @class NSData;
+
+/// Protocol for handling tvOS-specific features in Pushwoosh.
+/// This protocol provides an interface for tvOS-specific functionality that can be
+/// optionally included in the project. If the PushwooshTVOS module is not linked,
+/// a stub implementation will be used instead.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWTVoS_")
+@protocol PWTVoS
+/// Sets the Pushwoosh application code for tvOS.
+/// This method must be called before registering for push notifications.
+/// The app code can be found in your Pushwoosh Control Panel.
+/// Example:
+/// \code
+/// Pushwoosh.TVoS.setAppCode("XXXXX-XXXXX")
+///
+/// \endcode\param appCode The Pushwoosh application identifier.
+///
++ (void)setAppCode:(NSString * _Nonnull)appCode;
+/// Registers for tvOS push notifications.
+/// This method requests push notification authorization and registers the device
+/// for remote notifications on tvOS.
++ (void)registerForTvPushNotifications;
+/// Registers the tvOS device for push notifications with the Pushwoosh server.
+/// Call this method after receiving a device token from Apple Push Notification service.
+/// This method sends the device token to Pushwoosh servers to enable push notifications.
+/// Example:
+/// \code
+/// func application(_ application: UIApplication, didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+///     Pushwoosh.TVoS.registerForTvPushNotifications(withToken: deviceToken) { error in
+///         if let error = error {
+///             print("Failed to register: \(error)")
+///         } else {
+///             print("Successfully registered for push notifications")
+///         }
+///     }
+/// }
+///
+/// \endcode\param token The device token received from APNs in <code>application(_:didRegisterForRemoteNotificationsWithDeviceToken:)</code>.
+///
+/// \param completion Optional completion handler called when registration completes. The handler receives an error parameter if registration fails, or nil on success.
+///
++ (void)registerForTvPushNotificationsWithToken:(NSData * _Nonnull)token completion:(void (^ _Nullable)(NSError * _Nullable))completion;
+/// Unregisters the tvOS device from receiving push notifications.
+/// This method removes the device registration from Pushwoosh servers.
+/// The device will no longer receive push notifications until it registers again.
+/// Example:
+/// \code
+/// Pushwoosh.TVoS.unregisterForTvPushNotifications { error in
+///     if let error = error {
+///         print("Failed to unregister: \(error)")
+///     } else {
+///         print("Successfully unregistered from push notifications")
+///     }
+/// }
+///
+/// \endcode\param completion Optional completion handler called when unregistration completes. The handler receives an error parameter if unregistration fails, or nil on success.
+///
++ (void)unregisterForTvPushNotificationsWithCompletion:(void (^ _Nullable)(NSError * _Nullable))completion;
+/// Handles the device token received from tvOS push registration.
+/// \param deviceToken The device token data received from APNs.
+///
++ (void)handleTvPushToken:(NSData * _Nonnull)deviceToken;
+/// Handles push registration failure on tvOS.
+/// Call this method from application:didFailToRegisterForRemoteNotificationsWithError:
+/// to log and handle registration errors.
+/// \param error The error that occurred during registration.
+///
++ (void)handleTvPushRegistrationFailure:(NSError * _Nonnull)error;
+/// Handles incoming push notification on tvOS.
+/// Call this method from application:didReceiveRemoteNotification:fetchCompletionHandler:
+/// to process incoming push notifications.
+/// \param userInfo Dictionary containing push payload data.
+///
+/// \param completionHandler Completion handler to call when processing is complete.
+///
++ (void)handleTvPushReceivedWithUserInfo:(NSDictionary * _Nonnull)userInfo completionHandler:(void (^ _Nonnull)(UIBackgroundFetchResult))completionHandler;
+/// Handles incoming push notifications with rich media content for tvOS.
+/// Call this method to process push notifications that may contain rich media content.
+/// If the notification contains rich media, it will be displayed automatically.
+/// Example:
+/// \code
+/// func application(_ application: UIApplication,
+///                  didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+///                  fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+///     if Pushwoosh.TVoS.handleTVOSPush(userInfo: userInfo) {
+///         completionHandler(.newData)
+///     } else {
+///         completionHandler(.noData)
+///     }
+/// }
+///
+/// \endcode\param userInfo The push notification payload received from APNs.
+///
+///
+/// returns:
+/// <code>true</code> if the notification contains rich media and was handled, <code>false</code> otherwise.
++ (BOOL)handleTVOSPushWithUserInfo:(NSDictionary * _Nonnull)userInfo SWIFT_WARN_UNUSED_RESULT;
+/// Configures rich media presentation, positioning, and dismissal animations for tvOS.
+/// This method allows you to customize how rich media content appears, where it’s positioned,
+/// and how it disappears on screen. You can choose from different animation directions,
+/// screen positions, or disable animation entirely.
+/// Example:
+/// \code
+/// // Configure rich media to appear on the left, slide in from bottom and slide out to left
+/// Pushwoosh.TVoS.configureRichMediaWith(position: .left, presentAnimation: .fromBottom, dismissAnimation: .toLeft)
+///
+/// // Only configure position and present animation (dismiss will use .none)
+/// Pushwoosh.TVoS.configureRichMediaWith(position: .right, presentAnimation: .fromTop, dismissAnimation: .none)
+///
+/// \endcodeNote: This configuration applies to all subsequent rich media presentations until changed.
+/// \param position The screen position where rich media content will be displayed.
+/// Available options:
+/// <ul>
+///   <li>
+///     <code>.center</code> - Content positioned at the center of the screen (default)
+///   </li>
+///   <li>
+///     <code>.left</code> - Content positioned at the left side of the screen
+///   </li>
+///   <li>
+///     <code>.right</code> - Content positioned at the right side of the screen
+///   </li>
+///   <li>
+///     <code>.top</code> - Content positioned at the top of the screen
+///   </li>
+///   <li>
+///     <code>.bottom</code> - Content positioned at the bottom of the screen
+///   </li>
+/// </ul>
+///
+/// \param presentAnimation The animation type to use when presenting rich media.
+/// Available options:
+/// <ul>
+///   <li>
+///     <code>.none</code> - No animation, content appears immediately (default)
+///   </li>
+///   <li>
+///     <code>.fromTop</code> - Content slides in from the top of the screen
+///   </li>
+///   <li>
+///     <code>.fromBottom</code> - Content slides in from the bottom of the screen
+///   </li>
+///   <li>
+///     <code>.fromLeft</code> - Content slides in from the left side of the screen
+///   </li>
+///   <li>
+///     <code>.fromRight</code> - Content slides in from the right side of the screen
+///   </li>
+/// </ul>
+///
+/// \param dismissAnimation The animation type to use when dismissing rich media.
+/// Available options:
+/// <ul>
+///   <li>
+///     <code>.none</code> - No animation, content disappears immediately (default)
+///   </li>
+///   <li>
+///     <code>.toTop</code> - Content slides out to the top of the screen
+///   </li>
+///   <li>
+///     <code>.toBottom</code> - Content slides out to the bottom of the screen
+///   </li>
+///   <li>
+///     <code>.toLeft</code> - Content slides out to the left side of the screen
+///   </li>
+///   <li>
+///     <code>.toRight</code> - Content slides out to the right side of the screen
+///   </li>
+/// </ul>
+///
++ (void)configureRichMediaWithPosition:(enum PWTVOSRichMediaPosition)position presentAnimation:(enum PWTVOSRichMediaPresentAnimation)presentAnimation dismissAnimation:(enum PWTVOSRichMediaDismissAnimation)dismissAnimation;
+/// Controls whether the Close button is displayed on rich media content.
+/// By default, a Close button is shown at the bottom of rich media presentations,
+/// allowing users to dismiss the content. You can hide this button if you want
+/// rich media to only be dismissible through button actions within the content itself.
+/// Example:
+/// \code
+/// // Hide the system Close button
+/// Pushwoosh.TVoS.configureCloseButton(false)
+///
+/// \endcodeNote: If you hide the Close button, ensure your rich media content includes
+/// a button with the <code>closeInApp</code> action to allow users to dismiss it.
+/// \param show <code>true</code> to show the Close button (default), <code>false</code> to hide it.
+///
++ (void)configureCloseButton:(BOOL)show;
+@end
+
+
+/// Stub implementation of PWTVoS protocol.
+/// This class is used when the PushwooshTVOS module is not linked to the project.
+/// All methods provide no-op implementations and print warning messages.
+SWIFT_CLASS("_TtC15PushwooshBridge10PWTVoSStub")
+@interface PWTVoSStub : NSObject <PWTVoS>
++ (void)setAppCode:(NSString * _Nonnull)appCode;
++ (void)registerForTvPushNotifications;
++ (void)registerForTvPushNotificationsWithToken:(NSData * _Nonnull)token completion:(void (^ _Nullable)(NSError * _Nullable))completion;
++ (void)unregisterForTvPushNotificationsWithCompletion:(void (^ _Nullable)(NSError * _Nullable))completion;
++ (void)handleTvPushToken:(NSData * _Nonnull)deviceToken;
++ (void)handleTvPushRegistrationFailure:(NSError * _Nonnull)error;
++ (void)handleTvPushReceivedWithUserInfo:(NSDictionary * _Nonnull)userInfo completionHandler:(void (^ _Nonnull)(UIBackgroundFetchResult))completionHandler;
++ (BOOL)handleTVOSPushWithUserInfo:(NSDictionary * _Nonnull)userInfo SWIFT_WARN_UNUSED_RESULT;
++ (void)configureRichMediaWithPosition:(enum PWTVOSRichMediaPosition)position presentAnimation:(enum PWTVOSRichMediaPresentAnimation)presentAnimation dismissAnimation:(enum PWTVOSRichMediaDismissAnimation)dismissAnimation;
++ (void)configureCloseButton:(BOOL)show;
++ (Class _Nonnull)tvos SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWVoIP_")
 @protocol PWVoIP

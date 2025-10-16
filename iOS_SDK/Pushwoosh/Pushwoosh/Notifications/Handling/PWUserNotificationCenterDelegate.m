@@ -30,7 +30,6 @@
 
 #if TARGET_OS_IOS || TARGET_OS_WATCH
 
-
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
     if ([self isRemoteNotification:notification] && [PWMessage isPushwooshMessage:notification.request.content.userInfo]) {
         UNMutableNotificationContent *content = notification.request.content.mutableCopy;
@@ -85,18 +84,18 @@
     } else if ([response.notification.request.content.userInfo objectForKey:@"pw_push"]) {
         handlePushAcceptanceBlock();
     }
-    
+
     completionHandler();
 }
 
 - (BOOL)isRemoteNotification:(UNNotification *)notification {
     return [notification.request.trigger isKindOfClass:[UNPushNotificationTrigger class]];
 }
-    
+
 - (NSDictionary *)pushPayloadFromContent:(UNNotificationContent *)content {
     return [[content.userInfo objectForKey:@"pw_push"] isKindOfClass:[NSDictionary class]] ? [content.userInfo objectForKey:@"pw_push"] : content.userInfo;
 }
-    
+
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center openSettingsForNotification:(UNNotification *)notification {
     if ([[PushNotificationManager pushManager].delegate respondsToSelector:@selector(pushManager:openSettingsForNotification:)]) {
         #pragma clang diagnostic push
@@ -105,6 +104,9 @@
         #pragma clang diagnostic pop
     }
 }
+
+#elif TARGET_OS_TV
+// tvOS doesn't support notification interaction
 
 #else
 
@@ -118,13 +120,12 @@
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
     NSLog(@"userNotificationCenter:didActivateNotification: %@", notification.userInfo);
-    
+
     if (notification.remote) {
         [_notificationManager handlePushAccepted:notification.userInfo onStart:_notificationManager.isAppInBackground];
     }
 }
 
 #endif
-
 
 @end

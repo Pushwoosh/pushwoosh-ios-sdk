@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2015
 //
 
+#if TARGET_OS_IOS || TARGET_OS_TV
 #import "PWInAppMessagesManager.h"
 
 #import "PWPostEventRequest.h"
@@ -26,14 +27,23 @@
 #if TARGET_OS_IOS || TARGET_OS_OSX
 #import "PWBusinessCaseManager.h"
 #import "PWTriggerInAppActionRequest.h"
+#import "PWRichMediaActionRequest.h"
 #import "PWRichMedia+Internal.h"
-#import "PWInAppStorage.h"
 #import "PWMessageViewController.h"
 #import "PWPushManagerJSBridge.h"
 #import "PWShowLoading.h"
 #import "PWResource.h"
 #import "PWTriggerInAppActionRequest.h"
+#endif
+
+#if TARGET_OS_TV
 #import "PWResource.h"
+#import "PWTriggerInAppActionRequest.h"
+#import "PWRichMediaActionRequest.h"
+#endif
+
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
+#import "PWInAppStorage.h"
 #endif
 
 #if TARGET_OS_IOS
@@ -48,14 +58,21 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 @interface PWInAppMessagesManager()
 
-// @Inject
 @property (nonatomic, strong) PWRequestManager *requestManager;
+
+#if TARGET_OS_IOS || TARGET_OS_OSX
 @property (nonatomic) PWRichMediaView *richMediaView;
 @property (nonatomic) PWModalWindow *modalWindow;
-
 @property (nonatomic) NSString *richMediaCode;
 @property (nonatomic) NSString *inAppCode;
 @property (nonatomic) NSString *postEventInAppCode;
+#endif
+
+#if TARGET_OS_TV
+@property (nonatomic) NSString *richMediaCode;
+@property (nonatomic) NSString *inAppCode;
+@property (nonatomic) NSString *postEventInAppCode;
+#endif
 
 @end
 
@@ -82,8 +99,10 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 - (void)sendInitRequests {
     // resend userId (previous request may be failed)
     [self setUserIdWithDelay:1.0];
-#if TARGET_OS_IOS || TARGET_OS_OSX
-    [[PWInAppStorage storage] synchronize:^(NSError *error) {}];
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
+    if ([[PWCoreServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
+        [[PWInAppStorage storage] synchronize:^(NSError *error) {}];
+    }
 #endif
 }
 
@@ -124,7 +143,31 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 - (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void (^)(NSError *error))completion {
     [self postEventInternal:event withAttributes:attributes isInlineInApp:NO completion:^(id resource, NSError *error) {
-#if TARGET_OS_IOS || TARGET_OS_OSX
+#if TARGET_OS_TV
+        if (!error && resource) {
+            dispatch_async(dispatch_get_main_queue(), ^{
+                Class tvosImplClass = NSClassFromString(@"PushwooshTVOSImplementation");
+                if (tvosImplClass) {
+                    SEL sharedSelector = NSSelectorFromString(@"shared");
+                    if ([tvosImplClass respondsToSelector:sharedSelector]) {
+                        #pragma clang diagnostic push
+                        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+                        id sharedInstance = [tvosImplClass performSelector:sharedSelector];
+
+                        SEL richMediaManagerSelector = NSSelectorFromString(@"richMediaManager");
+                        if ([sharedInstance respondsToSelector:richMediaManagerSelector]) {
+                            id tvosManager = [sharedInstance performSelector:richMediaManagerSelector];
+                            SEL handleSelector = NSSelectorFromString(@"handleInAppResource:");
+                            if ([tvosManager respondsToSelector:handleSelector]) {
+                                [tvosManager performSelector:handleSelector withObject:resource];
+                            }
+                        }
+                        #pragma clang diagnostic pop
+                    }
+                }
+            });
+        }
+#elif TARGET_OS_IOS || TARGET_OS_OSX
         if (!error && resource)
             dispatch_async(dispatch_get_main_queue(), ^{
                 PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourceInApp resource:resource];
@@ -137,11 +180,17 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 }
 
 - (void)reloadInAppsWithCompletion:(void (^)(NSError *error)) completion {
+#if TARGET_OS_IOS || TARGET_OS_OSX
     [[PWInAppStorage storage] synchronize:^(NSError *error) {
         if (completion) {
             completion(error);
         }
     }];
+#else
+    if (completion) {
+        completion(nil);
+    }
+#endif
 }
 
 - (void)postEventInternal:(NSString *)event withAttributes:(NSDictionary *)attributes isInlineInApp:(BOOL)isInlineInApp completion:(void (^)(id resource, NSError *error))completion {
@@ -176,14 +225,16 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     if ([Pushwoosh sharedInstance].dataManager.lastHash) {
         attributesDictionary[@"msgHash"] = [Pushwoosh sharedInstance].dataManager.lastHash;
     }
-    
+
+#if TARGET_OS_IOS || TARGET_OS_OSX
     if ([Pushwoosh sharedInstance].dataManager.richMediaCode) {
         attributesDictionary[@"richMediaCode"] = [Pushwoosh sharedInstance].dataManager.richMediaCode;
     }
-    
+
     if (self.postEventInAppCode) {
         attributesDictionary[@"inAppCode"] = self.postEventInAppCode;
     }
+#endif
     
     if (attributes) {
         [attributesDictionary addEntriesFromDictionary:attributes];
@@ -197,22 +248,21 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
             completion(nil, error);
             return;
         }
-        if ([request.resultCode length] != 0) {
-            
 #if TARGET_OS_IOS || TARGET_OS_OSX
+        if ([request.resultCode length] != 0) {
             [self setPostEventInAppCode:request.resultCode];
-            
+
             PWResource *resource = [[PWInAppStorage storage] resourceForCode:request.resultCode];
-            
+
             void (^loadResource)(void) = ^{
                 RichMediaStyleType style = [[PWConfig config] richMediaStyle];
-                
+
                 if (style != PWRichMediaStyleTypeModal && !isInlineInApp) {
                     [PWShowLoading showLoadingWithCancelBlock:^{
                         [[PWInAppStorage storage] resetBlocks];
                     }];
                 }
-                
+
                 [[PWInAppStorage storage] resourcesForCode:request.resultCode
                                            completionBlock:^(PWResource *resource) {
                     if (style != PWRichMediaStyleTypeModal) {
@@ -221,11 +271,44 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
                     [wself processingResource:resource withRequest:request completion:completion];
                 }];
             };
-            
+
             if (resource == nil) {
                 [[PWInAppStorage storage] synchronize:^(NSError *error) {
                     if (!error) {
                         loadResource();
+                    }
+                }];
+            } else if (request.required && resource == nil) {
+                loadResource();
+            } else {
+                [wself processingResource:resource withRequest:request completion:completion];
+            }
+        } else if (request.richMedia) {
+            PWResource *resource = [[PWInAppStorage storage] resourceForDictionary:request.richMedia];
+            [resource getHTMLDataWithCompletion:^(NSString *htmlData, NSError *error){
+                [wself processingResource:resource withRequest:request completion:completion];
+            }];
+        } else {
+            completion(nil, nil);
+        }
+#elif TARGET_OS_TV
+        if ([request.resultCode length] != 0) {
+            [self setPostEventInAppCode:request.resultCode];
+            PWResource *resource = [[PWInAppStorage storage] resourceForCode:request.resultCode];
+
+            void (^loadResource)(void) = ^{
+                [[PWInAppStorage storage] resourcesForCode:request.resultCode
+                                           completionBlock:^(PWResource *resource) {
+                    [wself processingResource:resource withRequest:request completion:completion];
+                }];
+            };
+
+            if (resource == nil) {
+                [[PWInAppStorage storage] synchronize:^(NSError *error) {
+                    if (!error) {
+                        loadResource();
+                    } else {
+                        completion(nil, error);
                     }
                 }];
             } else if (request.required && resource == nil) {
@@ -248,7 +331,6 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 }
 
 
-#if TARGET_OS_IOS || TARGET_OS_OSX
 - (void)processingResource:(PWResource *)resource withRequest:(PWPostEventRequest *)request completion:(void (^)(PWResource *resource, NSError *error))completion {
     if (!resource) {
         NSString *message = [NSString stringWithFormat:@"Pushwoosh In-App Resource with code %@ is not found", request.resultCode];
@@ -256,7 +338,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         completion(nil, [PWUtils pushwooshError:message]);
         return;
     }
-    
+
     if (!resource.isDownloaded && !resource.required) {
         NSString *message = [NSString stringWithFormat:@"Pushwoosh In-App: Resource with code %@ is not downloaded yet", request.resultCode];
         [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:message];
@@ -265,7 +347,6 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     }
     completion(resource, nil);
 }
-#endif
 
 - (void)setUserId:(NSString *)userId completion:(void(^)(NSError * error))completion {
     NSDate *lastRegDate = [PWSettings settings].lastRegisterUserDate;
@@ -426,12 +507,12 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     }];
 }
 
-#if TARGET_OS_IOS || TARGET_OS_OSX
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 - (void)trackInAppWithCode:(NSString *)inAppCode action:(NSString *)action messageHash:(NSString *)messageHash {
     PWTriggerInAppActionRequest *request = [PWTriggerInAppActionRequest new];
     request.inAppCode = [inAppCode hasPrefix:@"r-"] ? @"" : inAppCode;
     request.messageHash = messageHash;
-    
+
     if ([inAppCode hasPrefix:@"r-"]) {
         request.richMediaCode = [inAppCode substringFromIndex:2];
         [self setRichMediaCode:[inAppCode substringFromIndex:2]];
@@ -440,9 +521,27 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         [self setInAppCode:inAppCode];
         [self setRichMediaCode:nil];
     }
-    
+
     [self.requestManager sendRequest:request completion:nil];
 }
+
+- (void)richMediaAction:(NSString *)inAppCode richMediaCode:(NSString *)richMediaCode actionType:(NSNumber *)actionType actionAttributes:(NSString *)actionAttributes messageHash:(NSString *)messageHash completion:(void (^)(NSError *error))completion {
+    PWRichMediaActionRequest *request = [[PWRichMediaActionRequest alloc] init];
+    request.richMediaCode = richMediaCode;
+    request.inAppCode = inAppCode;
+    request.actionType = actionType;
+    request.messageHash = messageHash;
+    request.actionAttributes = actionAttributes;
+
+    [self.requestManager sendRequest:request completion:^(NSError *error) {
+        if (completion) {
+            completion(error);
+        }
+    }];
+}
+#endif
+
+#if TARGET_OS_IOS || TARGET_OS_OSX
 
 - (void)presentRichMediaFromPush:(NSDictionary *)userInfo {
     NSDictionary *richMedia = userInfo[@"rm"];
@@ -560,3 +659,4 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 }
 
 @end
+#endif

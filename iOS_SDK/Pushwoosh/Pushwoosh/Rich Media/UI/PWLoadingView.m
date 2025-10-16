@@ -5,7 +5,7 @@
 //  Created by Fectum on 11/10/2018.
 //  Copyright © 2018 Pushwoosh. All rights reserved.
 //
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 
 #import "PWRichMediaStyle.h"
 #import "PWUtils.h"

@@ -12,7 +12,7 @@
 #import "PWUtils.h"
 #import "PWUnarchiver.h"
 
-#if TARGET_OS_IOS || TARGET_OS_OSX
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 #import "PWReachability.h"
 #endif
 
@@ -24,7 +24,9 @@
 @property (nonatomic) NSOperationQueue *saveDataQueue;
 @property (nonatomic) BOOL sending;
 
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 @property (nonatomic) PWReachability *reachability;
+#endif
 
 @end
 

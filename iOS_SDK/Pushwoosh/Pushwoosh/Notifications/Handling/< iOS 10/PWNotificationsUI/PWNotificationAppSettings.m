@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWNotificationAppSettings.m
 //  PWNotificationsUI
@@ -30,3 +32,5 @@ NSString *const PWAppIconNameKey = @"PWNotificationCenterAppIconKey";
 }
 				  
 @end
+
+#endif

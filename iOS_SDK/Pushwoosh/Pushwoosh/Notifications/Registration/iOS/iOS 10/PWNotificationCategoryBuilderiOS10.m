@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWNotificationCategoryBuilderiOS10.m
 //  Pushwoosh
@@ -172,3 +174,5 @@
 
 @end
 
+
+#endif

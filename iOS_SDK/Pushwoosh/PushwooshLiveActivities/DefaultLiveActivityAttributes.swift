@@ -6,8 +6,7 @@
 //  Copyright © 2024 Pushwoosh. All rights reserved.
 //
 
-#if targetEnvironment(macCatalyst)
-#else
+#if !targetEnvironment(macCatalyst) && os(iOS)
 
 /**
  A default structure conforming to `PushwooshLiveActivityAttributes` that is registered with Pushwoosh as a Live Activity

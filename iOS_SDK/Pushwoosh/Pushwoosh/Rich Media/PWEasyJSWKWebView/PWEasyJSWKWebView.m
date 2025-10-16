@@ -10,6 +10,7 @@
 //  zayin@apextechnology.co.za
 //
 
+#if TARGET_OS_IOS
 #import "PWEasyJSWKWebView.h"
 #import "PWEasyJSListener.h"
 #import "PWWebClient.h"
@@ -68,3 +69,4 @@
 }
 
 @end
+#endif

@@ -3,6 +3,7 @@
 //	Pushwoosh SDK
 //
 
+#if TARGET_OS_IOS
 #import <Foundation/Foundation.h>
 
 @interface PWRichPushManager : NSObject
@@ -12,3 +13,4 @@
 - (void)showCustomPushPageWithURLString:(NSString *)URLString;
 
 @end
+#endif

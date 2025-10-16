@@ -6,6 +6,7 @@
 //  Copyright © 2016 Apex Technology. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import "WKWebView+PWSynchronousEvaluateJavaScript.h"
 #import "PWUtils.h"
 
@@ -88,3 +89,4 @@
     }
 }
 @end
+#endif

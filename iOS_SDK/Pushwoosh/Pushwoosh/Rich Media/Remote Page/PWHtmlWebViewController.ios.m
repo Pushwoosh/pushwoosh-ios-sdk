@@ -4,6 +4,7 @@
 //  (c) Pushwoosh 2012
 //
 
+#if TARGET_OS_IOS
 #import "PWHtmlWebViewController.ios.h"
 #import "PWUtils.h"
 #import <QuartzCore/QuartzCore.h>
@@ -124,3 +125,4 @@
 
 
 @end
+#endif

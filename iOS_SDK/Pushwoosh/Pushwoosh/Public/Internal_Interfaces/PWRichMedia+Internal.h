@@ -1,3 +1,5 @@
+#if TARGET_OS_IOS
+
 //
 //  PWInAppManager.h
 //  Pushwoosh SDK
@@ -15,3 +17,5 @@
 - (instancetype)initWithSource:(PWRichMediaSource)source resource:(PWResource *)resource pushPayload:(NSDictionary *)pushPayload;
 
 @end
+
+#endif

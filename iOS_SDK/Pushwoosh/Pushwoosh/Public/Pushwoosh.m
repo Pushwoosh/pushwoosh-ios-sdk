@@ -13,6 +13,7 @@
 #import "PWInAppStorage.h"
 #import "PushNotificationManager.h"
 #import "PWHashDecoder.h"
+#import "NSDictionary+PWDictUtils.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 #import "PWVersionTracking.h"
@@ -58,6 +59,15 @@
     }
 }
 
++ (Class<PWTVoS>)TVoS {
+    let pushwooshTVOS = NSClassFromString(@"PushwooshTVOSImplementation");
+    if (pushwooshTVOS != nil) {
+        return [pushwooshTVOS performSelector:@selector(tvos)];
+    } else {
+        return [PWTVoSStub tvos];
+    }
+}
+
 + (Class<PWConfiguration>)Configuration {
     return [PushwooshConfig Configuration];
 }
@@ -86,11 +96,11 @@ static dispatch_once_t pushwooshOncePredicate;
 
 + (void)initializeWithNewAppCode:(NSString *)appCode {
     [Pushwoosh destroy];
-    
+
     [[PWSettings settings] setAppCode:appCode];
     [PWInAppManager updateInAppManagerInstance];
     [[Pushwoosh sharedInstance].dataManager sendAppOpenWithCompletion:nil];
-    
+
 }
 
 - (instancetype)initWithApplicationCode:(NSString *)appCode {
@@ -100,7 +110,11 @@ static dispatch_once_t pushwooshOncePredicate;
         NSLog(@"[PW] APP CODE: %@", [PWSettings settings].appCode);
         NSLog(@"[PW] PUSHWOOSH SDK VERSION: %@", PUSHWOOSH_VERSION);
         NSLog(@"[PW] HWID: %@", [PWSettings settings].hwid);
+#if TARGET_OS_TV
+        NSLog(@"[PW] PUSH TV TOKEN: %@", [PWSettings settings].pushTvToken);
+#else
         NSLog(@"[PW] PUSH TOKEN: %@", [PWSettings settings].pushToken);
+#endif
         
         [PWSettings settings].appCode = appCode;
         
@@ -122,9 +136,11 @@ static dispatch_once_t pushwooshOncePredicate;
 #if TARGET_OS_IOS || TARGET_OS_WATCH
         [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Will show foreground notifications: %d", self.showPushnotificationAlert]];
 #endif
-        
+
+#if TARGET_OS_IOS || TARGET_OS_TV
         self.inAppManager = [PWInAppManager sharedManager];
-        
+#endif
+
         self.pushNotificationManager = [[PWPushNotificationsManager alloc] initWithConfig:[PWConfig config]];
         
         self.dataManager = [PWDataManager new];
@@ -385,6 +401,28 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 #endif
 
+- (void)setEmails:(NSArray *)emails completion:(void(^)(NSError * error))completion {
+    [self.inAppManager setEmails:emails completion:completion];
+}
+
+- (void)setEmails:(NSArray *)emails {
+    [self setEmails:emails completion:nil];
+}
+
+- (void)setEmail:(NSString *)email completion:(void(^)(NSError * error))completion {
+    NSMutableArray *emails = [[NSMutableArray alloc] init];
+    [emails addObject:email];
+
+    [self.inAppManager setEmails:emails completion:completion];
+}
+
+- (void)setEmail:(NSString *)email {
+    NSMutableArray *emails = [[NSMutableArray alloc] init];
+    [emails addObject:email];
+
+    [self.inAppManager setEmails:emails completion:nil];
+}
+
 - (void)setUser:(NSString *)userId emails:(NSArray *)emails completion:(void(^)(NSError * error))completion {
     [self.inAppManager setUser:userId emails:emails completion:completion];
 }
@@ -392,34 +430,12 @@ static dispatch_once_t pushwooshOncePredicate;
 - (void)setUser:(NSString *)userId email:(NSString *)email completion:(void(^)(NSError * error))completion {
     NSMutableArray *emails = [[NSMutableArray alloc] init];
     [emails addObject:email];
-    
+
     [self.inAppManager setUser:userId emails:emails completion:completion];
 }
 
 - (void)setUser:(NSString *)userId emails:(NSArray *)emails {
     [self.inAppManager setUser:userId emails:emails completion:nil];
-}
-
-- (void)setEmails:(NSArray *)emails completion:(void(^)(NSError * error))completion {
-    [self.inAppManager setEmails:emails completion:completion];
-}
-
-- (void)setEmails:(NSArray *)emails {
-    [self.inAppManager setEmails:emails completion:nil];
-}
-
-- (void)setEmail:(NSString *)email  completion:(void(^)(NSError * error))completion{
-    NSMutableArray *emails = [[NSMutableArray alloc] init];
-    [emails addObject:email];
-    
-    [self.inAppManager setEmails:emails completion:completion];
-}
-
-- (void)setEmail:(NSString *)email {
-    NSMutableArray *emails = [[NSMutableArray alloc] init];
-    [emails addObject:email];
-    
-    [self.inAppManager setEmails:emails completion:nil];
 }
 
 - (void)startServerCommunication {

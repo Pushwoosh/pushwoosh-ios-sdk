@@ -6,6 +6,7 @@
 //  Copyright © 2017 Pushwoosh. All rights reserved.
 //
 
+#if TARGET_OS_IOS
 #import "PWShowLoading.h"
 #if TARGET_OS_IOS
 #import "PWLoadingViewController.h"
@@ -77,3 +78,4 @@
 }
 
 @end
+#endif
