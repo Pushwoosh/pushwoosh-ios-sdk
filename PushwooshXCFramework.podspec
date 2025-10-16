@@ -5,9 +5,8 @@
 Pod::Spec.new do |s|
 
   s.name         = "PushwooshXCFramework"
-  s.version      = "6.11.0"
+  s.version      = "6.11.1"
   s.summary      = "Push notifications library by Pushwoosh."
-  s.platform     = :ios
 
   s.description  = "Push notifications iOS library by Pushwoosh - cross platform push notifications service. " \
                    "http://www.pushwoosh.com "
@@ -22,10 +21,12 @@ Pod::Spec.new do |s|
   s.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
   s.default_subspec = 'Core'
   s.ios.deployment_target = "11.0"
+  s.tvos.deployment_target = "12.0"
 
-  # Core Subspec 
+  # Core Subspec
   s.subspec 'Core' do |core|
     core.ios.vendored_frameworks  = 'XCFramework/PushwooshFramework.xcframework'
+    core.tvos.vendored_frameworks  = 'XCFramework/PushwooshFramework.xcframework'
     core.library  = 'c++', 'z'
     core.frameworks  = 'Security', 'StoreKit'
     core.dependency 'PushwooshXCFramework/PushwooshCore'
@@ -34,20 +35,23 @@ Pod::Spec.new do |s|
   end
 
   s.subspec 'PushwooshCore' do |corep|
-    corep.vendored_frameworks = 'XCFramework/PushwooshCore.xcframework'
+    corep.ios.vendored_frameworks = 'XCFramework/PushwooshCore.xcframework'
+    corep.tvos.vendored_frameworks = 'XCFramework/PushwooshCore.xcframework'
   end
 
   # PushwooshBridge Subspec
   s.subspec 'PushwooshBridge' do |bridge|
     bridge.dependency 'PushwooshXCFramework/PushwooshCore'
-    bridge.vendored_frameworks = 'XCFramework/PushwooshBridge.xcframework'
+    bridge.ios.vendored_frameworks = 'XCFramework/PushwooshBridge.xcframework'
+    bridge.tvos.vendored_frameworks = 'XCFramework/PushwooshBridge.xcframework'
   end
 
-  # PushwooshLiveActivities 
+  # PushwooshLiveActivities
   s.subspec 'PushwooshLiveActivities' do |activities|
     activities.dependency 'PushwooshXCFramework/PushwooshCore'
     activities.dependency 'PushwooshXCFramework/PushwooshBridge'
-    activities.vendored_frameworks = 'XCFramework/PushwooshLiveActivities.xcframework'
+    activities.ios.vendored_frameworks = 'XCFramework/PushwooshLiveActivities.xcframework'
+    activities.tvos.vendored_frameworks = 'XCFramework/PushwooshLiveActivities.xcframework'
   end
 
   # PushwooshVoIP subspec (optional)
@@ -61,7 +65,8 @@ Pod::Spec.new do |s|
   s.subspec 'PushwooshTVOS' do |tvos|
     tvos.dependency 'PushwooshXCFramework/PushwooshCore'
     tvos.dependency 'PushwooshXCFramework/PushwooshBridge'
-    tvos.vendored_frameworks = 'XCFramework/PushwooshTVOS.xcframework'
+    tvos.tvos.vendored_frameworks = 'XCFramework/PushwooshTVOS.xcframework'
+    tvos.tvos.deployment_target = "12.0"
   end
 
   # PushwooshForegroundPush subspec (optional)
