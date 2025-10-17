@@ -21,9 +21,15 @@ class PWTVOSUniversalHTMLParser {
         case container(children: [RichMediaElement], styles: ElementStyles)
     }
 
+    struct GradientInfo {
+        var colors: [UIColor]
+        var angle: CGFloat
+    }
+
     struct ElementStyles {
         var color: UIColor?
         var backgroundColor: UIColor?
+        var backgroundGradient: GradientInfo?
         var fontSize: CGFloat = 20
         var textAlign: NSTextAlignment = .left
         var padding: UIEdgeInsets = .zero
@@ -407,7 +413,9 @@ class PWTVOSUniversalHTMLParser {
         if let bgColor = extractStyleValue(from: styleAttr, property: "background-color") {
             styles.backgroundColor = parseColor(bgColor)
         } else if let background = extractStyleValue(from: styleAttr, property: "background") {
-            if let color = extractColorFromBackground(background) {
+            if background.contains("linear-gradient") {
+                styles.backgroundGradient = parseLinearGradient(background)
+            } else if let color = extractColorFromBackground(background) {
                 styles.backgroundColor = parseColor(color)
             }
         }
@@ -433,12 +441,18 @@ class PWTVOSUniversalHTMLParser {
         }
 
         if let border = extractStyleValue(from: styleAttr, property: "border") {
-            let parts = border.components(separatedBy: " ")
-            if parts.count >= 1 {
-                styles.borderWidth = parseDimension(parts[0])
+            let widthPattern = "^(\\d+(?:\\.\\d+)?(?:px|pt)?)"
+            if let regex = try? NSRegularExpression(pattern: widthPattern),
+               let match = regex.firstMatch(in: border, range: NSRange(border.startIndex..., in: border)),
+               let range = Range(match.range(at: 1), in: border) {
+                styles.borderWidth = parseDimension(String(border[range]))
             }
-            if parts.count >= 3, let color = parseColor(parts[2]) {
-                styles.borderColor = color
+
+            let colorPattern = "#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}|rgba?\\([^)]+\\)"
+            if let regex = try? NSRegularExpression(pattern: colorPattern),
+               let match = regex.firstMatch(in: border, range: NSRange(border.startIndex..., in: border)),
+               let range = Range(match.range, in: border) {
+                styles.borderColor = parseColor(String(border[range]))
             }
         }
 
@@ -582,17 +596,38 @@ class PWTVOSUniversalHTMLParser {
         }
     }
 
-    private func extractColorFromBackground(_ background: String) -> String? {
-        if background.contains("linear-gradient") {
-            let pattern = "#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}|rgba?\\([^)]+\\)"
-            guard let regex = try? NSRegularExpression(pattern: pattern),
-                  let match = regex.firstMatch(in: background, range: NSRange(background.startIndex..., in: background)),
-                  let range = Range(match.range, in: background) else {
-                return nil
+    private func parseLinearGradient(_ gradientString: String) -> GradientInfo? {
+        var angle: CGFloat = 180
+        var colors: [UIColor] = []
+
+        let anglePattern = "linear-gradient\\((\\d+)deg"
+        if let regex = try? NSRegularExpression(pattern: anglePattern),
+           let match = regex.firstMatch(in: gradientString, range: NSRange(gradientString.startIndex..., in: gradientString)),
+           let range = Range(match.range(at: 1), in: gradientString) {
+            if let parsedAngle = Double(String(gradientString[range])) {
+                angle = CGFloat(parsedAngle)
             }
-            return String(background[range])
         }
 
+        let colorPattern = "#[0-9a-fA-F]{6}|#[0-9a-fA-F]{3}|rgba?\\([^)]+\\)"
+        if let regex = try? NSRegularExpression(pattern: colorPattern) {
+            let matches = regex.matches(in: gradientString, range: NSRange(gradientString.startIndex..., in: gradientString))
+            for match in matches {
+                if let range = Range(match.range, in: gradientString) {
+                    let colorString = String(gradientString[range])
+                    if let color = parseColor(colorString) {
+                        colors.append(color)
+                    }
+                }
+            }
+        }
+
+        guard colors.count >= 2 else { return nil }
+
+        return GradientInfo(colors: colors, angle: angle)
+    }
+
+    private func extractColorFromBackground(_ background: String) -> String? {
         if background.hasPrefix("#") || background.hasPrefix("rgb") {
             return background
         }

@@ -103,7 +103,7 @@ class PWTVOSUniversalRenderer {
         imageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
 
-        return imageView
+        return applyMargin(to: imageView, margin: styles.margin)
     }
 
     private func createTextLabel(text: String, styles: PWTVOSUniversalHTMLParser.ElementStyles, isBold: Bool) -> UIView {
@@ -118,6 +118,16 @@ class PWTVOSUniversalRenderer {
 
         if let bgColor = styles.backgroundColor {
             label.backgroundColor = bgColor
+        }
+
+        if styles.borderRadius > 0 {
+            label.layer.cornerRadius = styles.borderRadius
+            label.layer.masksToBounds = true
+        }
+
+        if let borderColor = styles.borderColor {
+            label.layer.borderColor = borderColor.cgColor
+            label.layer.borderWidth = styles.borderWidth
         }
 
         label.setContentHuggingPriority(.required, for: .vertical)
@@ -191,7 +201,7 @@ class PWTVOSUniversalRenderer {
 
         focusableViews.append(button)
 
-        return button
+        return applyMargin(to: button, margin: styles.margin)
     }
 
     private func configureButtonAction(button: UIButton, action: PWTVOSUniversalHTMLParser.ButtonAction) {
@@ -251,8 +261,20 @@ class PWTVOSUniversalRenderer {
         let containerView = UIView()
         containerView.translatesAutoresizingMaskIntoConstraints = false
 
-        if let bgColor = styles.backgroundColor {
+        if let gradient = styles.backgroundGradient {
+            applyGradient(to: containerView, gradient: gradient)
+        } else if let bgColor = styles.backgroundColor {
             containerView.backgroundColor = bgColor
+        }
+
+        if styles.borderRadius > 0 {
+            containerView.layer.cornerRadius = styles.borderRadius
+            containerView.layer.masksToBounds = true
+        }
+
+        if let borderColor = styles.borderColor {
+            containerView.layer.borderColor = borderColor.cgColor
+            containerView.layer.borderWidth = styles.borderWidth
         }
 
         if let width = styles.width {
@@ -269,7 +291,7 @@ class PWTVOSUniversalRenderer {
             layoutChildrenVertically(children: children, in: containerView, styles: styles, containerWidth: containerWidth)
         }
 
-        return containerView
+        return applyMargin(to: containerView, margin: styles.margin)
     }
 
     private func layoutChildrenHorizontally(children: [PWTVOSUniversalHTMLParser.RichMediaElement], in containerView: UIView, styles: PWTVOSUniversalHTMLParser.ElementStyles, containerWidth: CGFloat) {
@@ -337,6 +359,32 @@ class PWTVOSUniversalRenderer {
 
         if let lastView = previousView {
             lastView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor, constant: -styles.padding.bottom).isActive = true
+        }
+    }
+
+    private func applyGradient(to view: UIView, gradient: PWTVOSUniversalHTMLParser.GradientInfo) {
+        let gradientLayer = CAGradientLayer()
+        gradientLayer.colors = gradient.colors.map { $0.cgColor }
+
+        let angleInRadians = (gradient.angle - 90) * .pi / 180
+        let startPoint = CGPoint(
+            x: 0.5 + cos(angleInRadians) * 0.5,
+            y: 0.5 + sin(angleInRadians) * 0.5
+        )
+        let endPoint = CGPoint(
+            x: 0.5 - cos(angleInRadians) * 0.5,
+            y: 0.5 - sin(angleInRadians) * 0.5
+        )
+
+        gradientLayer.startPoint = startPoint
+        gradientLayer.endPoint = endPoint
+        gradientLayer.frame = view.bounds
+
+        view.layer.insertSublayer(gradientLayer, at: 0)
+
+        view.layoutIfNeeded()
+        DispatchQueue.main.async {
+            gradientLayer.frame = view.bounds
         }
     }
 

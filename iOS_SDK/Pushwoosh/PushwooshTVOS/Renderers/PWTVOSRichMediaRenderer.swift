@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PushwooshCore
 
 @available(tvOS 11.0, *)
 class PWTVOSRichMediaRenderer {
@@ -92,6 +93,11 @@ class PWTVOSRichMediaRenderer {
 
         if let bgColor = layout.backgroundColor {
             containerView.backgroundColor = bgColor
+        }
+
+        if layout.cornerRadius > 0 {
+            containerView.layer.cornerRadius = layout.cornerRadius
+            containerView.layer.masksToBounds = true
         }
 
         let stackView = UIStackView()

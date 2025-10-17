@@ -8,6 +8,7 @@
 
 import Foundation
 import UIKit
+import PushwooshCore
 
 @available(tvOS 11.0, *)
 class PWTVOSHTMLParser {
@@ -28,6 +29,7 @@ class PWTVOSHTMLParser {
         var padding: UIEdgeInsets = .zero
         var flexChildren: [CGFloat] = []
         var backgroundColor: UIColor? = nil
+        var cornerRadius: CGFloat = 0
     }
 
     enum LayoutDirection {
@@ -95,9 +97,11 @@ class PWTVOSHTMLParser {
 
                 if !leftElements.isEmpty || !rightElements.isEmpty {
                     let bgColor = extractBackgroundColor(from: html)
+                    let cornerRadius = extractCornerRadius(from: html)
 
                     var layout = ContainerLayout(direction: .horizontal, distribution: .fillEqually, spacing: 20)
                     layout.backgroundColor = bgColor
+                    layout.cornerRadius = cornerRadius
 
                     return [.container(children: [
                         .container(children: leftElements, layout: ContainerLayout(direction: .vertical, spacing: 10)),
@@ -108,7 +112,12 @@ class PWTVOSHTMLParser {
         }
         let children = parseNodeChildren(DOMNode(tagName: "div"), html: html)
         if !children.isEmpty {
-            return [.container(children: children, layout: ContainerLayout())]
+            let bgColor = extractBackgroundColor(from: html)
+            let cornerRadius = extractCornerRadius(from: html)
+            var layout = ContainerLayout()
+            layout.backgroundColor = bgColor
+            layout.cornerRadius = cornerRadius
+            return [.container(children: children, layout: layout)]
         }
 
         return parseUnlayerFormat(html)
@@ -501,6 +510,30 @@ class PWTVOSHTMLParser {
         }
 
         return nil
+    }
+
+    private func extractCornerRadius(from html: String) -> CGFloat {
+        let patterns = [
+            "id=\"u_body\"[^>]*>",
+            "id=\"u_column_1\"[^>]*>"
+        ]
+
+        for pattern in patterns {
+            if let regex = try? NSRegularExpression(pattern: pattern),
+               let match = regex.firstMatch(in: html, range: NSRange(html.startIndex..., in: html)),
+               let range = Range(match.range, in: html) {
+                let tagStr = String(html[range])
+
+                if let radiusStr = extractStyleValue(from: tagStr, property: "border-radius") {
+                    let numericString = radiusStr.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+                    if let radius = Double(numericString) {
+                        return CGFloat(radius)
+                    }
+                }
+            }
+        }
+
+        return 0
     }
 
     private func extractBodyBackgroundImage(from html: String) -> String? {

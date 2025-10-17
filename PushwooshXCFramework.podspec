@@ -5,7 +5,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PushwooshXCFramework"
-  s.version      = "6.11.1"
+  s.version      = "6.11.2"
   s.summary      = "Push notifications library by Pushwoosh."
 
   s.description  = "Push notifications iOS library by Pushwoosh - cross platform push notifications service. " \
