@@ -309,6 +309,7 @@ SWIFT_CLASS_NAMED("PWTVOSRichMediaManager") SWIFT_AVAILABILITY(tvos,introduced=1
 @property (nonatomic) enum PWTVOSRichMediaDismissAnimation dismissAnimationType;
 - (void)configureRichMediaWithPosition:(enum PWTVOSRichMediaPosition)position presentAnimation:(enum PWTVOSRichMediaPresentAnimation)presentAnimation dismissAnimation:(enum PWTVOSRichMediaDismissAnimation)dismissAnimation;
 - (void)configureCloseButton:(BOOL)show;
+- (void)setGetTagsHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 - (BOOL)handleInAppResource:(id _Nonnull)resource SWIFT_WARN_UNUSED_RESULT;
 - (void)dismissWithAnimated:(BOOL)animated;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -335,6 +336,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) PushwooshTVO
 + (BOOL)handleTVOSPushWithUserInfo:(NSDictionary * _Nonnull)userInfo SWIFT_WARN_UNUSED_RESULT;
 + (void)configureRichMediaWithPosition:(enum PWTVOSRichMediaPosition)position presentAnimation:(enum PWTVOSRichMediaPresentAnimation)presentAnimation dismissAnimation:(enum PWTVOSRichMediaDismissAnimation)dismissAnimation;
 + (void)configureCloseButton:(BOOL)show;
++ (void)setRichMediaGetTagsHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 + (Class _Nonnull)tvos SWIFT_WARN_UNUSED_RESULT;
 @end
 

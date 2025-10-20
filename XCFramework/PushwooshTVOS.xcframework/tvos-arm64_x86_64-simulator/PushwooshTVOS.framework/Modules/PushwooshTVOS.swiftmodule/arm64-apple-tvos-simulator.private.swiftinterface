@@ -28,6 +28,7 @@ import _SwiftConcurrencyShims
   @objc public static func handleTVOSPush(userInfo: [Swift.AnyHashable : Any]) -> Swift.Bool
   @objc public static func configureRichMediaWith(position: PushwooshBridge.PWTVOSRichMediaPosition, presentAnimation: PushwooshBridge.PWTVOSRichMediaPresentAnimation, dismissAnimation: PushwooshBridge.PWTVOSRichMediaDismissAnimation = .none)
   @objc public static func configureCloseButton(_ show: Swift.Bool)
+  @objc public static func setRichMediaGetTagsHandler(_ handler: @escaping ([Swift.AnyHashable : Any]) -> Swift.Void)
   @objc public static func tvos() -> Swift.AnyClass
   @objc deinit
 }
@@ -52,6 +53,7 @@ extension PushwooshBridge.PWTVoS {
   @objc public var dismissAnimationType: PushwooshBridge.PWTVOSRichMediaDismissAnimation
   @objc public func configureRichMediaWith(position: PushwooshBridge.PWTVOSRichMediaPosition = .center, presentAnimation: PushwooshBridge.PWTVOSRichMediaPresentAnimation, dismissAnimation: PushwooshBridge.PWTVOSRichMediaDismissAnimation = .none)
   @objc public func configureCloseButton(_ show: Swift.Bool)
+  @objc public func setGetTagsHandler(_ handler: @escaping ([Swift.AnyHashable : Any]) -> Swift.Void)
   @objc public func handleInAppResource(_ resource: Swift.AnyObject) -> Swift.Bool
   @objc public func dismiss(animated: Swift.Bool)
   @objc override dynamic public init()

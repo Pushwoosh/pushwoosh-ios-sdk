@@ -269,4 +269,25 @@ public protocol PWTVoS {
      */
     @objc
     static func configureCloseButton(_ show: Bool)
+
+    /**
+     Sets a handler to receive tags when requested from rich media content.
+
+     When a user interacts with a getTags button in rich media HTML content,
+     this handler will be called with the tags retrieved from Pushwoosh.
+     This allows you to handle tag data in your application as needed.
+
+     - Parameter handler: A closure that receives tags as a dictionary when getTags is triggered.
+       The dictionary contains tag keys and their values.
+
+     Example:
+     ```swift
+     Pushwoosh.TVoS.setRichMediaGetTagsHandler { tags in
+         print("Received tags from rich media: \(tags)")
+         // Handle tags in your application
+     }
+     ```
+     */
+    @objc
+    static func setRichMediaGetTagsHandler(_ handler: @escaping ([AnyHashable: Any]) -> Void)
 }

@@ -74,6 +74,11 @@ import UIKit
     }
 
     @objc
+    public static func setRichMediaGetTagsHandler(_ handler: @escaping ([AnyHashable: Any]) -> Void) {
+        print("[Pushwoosh] PushwooshTVOS module not found. To set rich media get tags handler, add the PushwooshTVOS module to your project.")
+    }
+
+    @objc
     public static func tvos() -> AnyClass {
         return PWTVoSStub.self
     }

@@ -633,7 +633,7 @@ class PWTVOSHTMLParser {
         let isSendTags = content.contains("sendTags")
         let isGetTags = content.contains("getTags")
 
-        let textPattern = "<a[^>]*>\\s*([\\s\\S]*?)\\s*</a>"
+        let textPattern = "<(?:a|button)[^>]*>\\s*([\\s\\S]*?)\\s*</(?:a|button)>"
         guard let textRegex = try? NSRegularExpression(pattern: textPattern),
               let textMatch = textRegex.firstMatch(in: content, range: NSRange(content.startIndex..., in: content)),
               let textRange = Range(textMatch.range(at: 1), in: content) else {

@@ -158,9 +158,19 @@ class PWTVOSButtonActionHandler {
             let method = pushwoosh.method(for: getTagsSelector)
             typealias GetTagsFunction = @convention(c) (AnyObject, Selector, @escaping ([String: Any]?) -> Void, @escaping (Error?) -> Void) -> Void
             let getTagsFunc = unsafeBitCast(method, to: GetTagsFunction.self)
-            getTagsFunc(pushwoosh, getTagsSelector, { tags in
+            getTagsFunc(pushwoosh, getTagsSelector, { [weak self] tags in
+                if let handler = self?.richMediaManager?.getTagsHandler() {
+                    DispatchQueue.main.async {
+                        handler(tags ?? [:])
+                    }
+                }
                 completion(tags)
-            }, { error in
+            }, { [weak self] error in
+                if let handler = self?.richMediaManager?.getTagsHandler() {
+                    DispatchQueue.main.async {
+                        handler([:])
+                    }
+                }
                 completion(nil)
             })
         } else {

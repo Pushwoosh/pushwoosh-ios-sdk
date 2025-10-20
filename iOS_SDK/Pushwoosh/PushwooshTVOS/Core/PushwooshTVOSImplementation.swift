@@ -140,6 +140,11 @@ public class PushwooshTVOSImplementation: NSObject {
         shared._richMediaManager.configureCloseButton(show)
     }
 
+    @objc
+    public static func setRichMediaGetTagsHandler(_ handler: @escaping ([AnyHashable: Any]) -> Void) {
+        shared._richMediaManager.setGetTagsHandler(handler)
+    }
+
     private func processPushNotification(userInfo: [AnyHashable: Any], completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
         guard isPushwooshMessage(userInfo) else {
             completionHandler(.noData)

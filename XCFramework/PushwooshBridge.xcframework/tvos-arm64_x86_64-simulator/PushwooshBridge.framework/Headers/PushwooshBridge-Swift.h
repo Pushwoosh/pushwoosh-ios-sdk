@@ -802,6 +802,21 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWTVoS_")
 /// \param show <code>true</code> to show the Close button (default), <code>false</code> to hide it.
 ///
 + (void)configureCloseButton:(BOOL)show;
+/// Sets a handler to receive tags when requested from rich media content.
+/// When a user interacts with a getTags button in rich media HTML content,
+/// this handler will be called with the tags retrieved from Pushwoosh.
+/// This allows you to handle tag data in your application as needed.
+/// Example:
+/// \code
+/// Pushwoosh.TVoS.setRichMediaGetTagsHandler { tags in
+///     print("Received tags from rich media: \(tags)")
+///     // Handle tags in your application
+/// }
+///
+/// \endcode\param handler A closure that receives tags as a dictionary when getTags is triggered.
+/// The dictionary contains tag keys and their values.
+///
++ (void)setRichMediaGetTagsHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 @end
 
 
@@ -820,6 +835,7 @@ SWIFT_CLASS("_TtC15PushwooshBridge10PWTVoSStub")
 + (BOOL)handleTVOSPushWithUserInfo:(NSDictionary * _Nonnull)userInfo SWIFT_WARN_UNUSED_RESULT;
 + (void)configureRichMediaWithPosition:(enum PWTVOSRichMediaPosition)position presentAnimation:(enum PWTVOSRichMediaPresentAnimation)presentAnimation dismissAnimation:(enum PWTVOSRichMediaDismissAnimation)dismissAnimation;
 + (void)configureCloseButton:(BOOL)show;
++ (void)setRichMediaGetTagsHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 + (Class _Nonnull)tvos SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -1727,6 +1743,21 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWTVoS_")
 /// \param show <code>true</code> to show the Close button (default), <code>false</code> to hide it.
 ///
 + (void)configureCloseButton:(BOOL)show;
+/// Sets a handler to receive tags when requested from rich media content.
+/// When a user interacts with a getTags button in rich media HTML content,
+/// this handler will be called with the tags retrieved from Pushwoosh.
+/// This allows you to handle tag data in your application as needed.
+/// Example:
+/// \code
+/// Pushwoosh.TVoS.setRichMediaGetTagsHandler { tags in
+///     print("Received tags from rich media: \(tags)")
+///     // Handle tags in your application
+/// }
+///
+/// \endcode\param handler A closure that receives tags as a dictionary when getTags is triggered.
+/// The dictionary contains tag keys and their values.
+///
++ (void)setRichMediaGetTagsHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 @end
 
 
@@ -1745,6 +1776,7 @@ SWIFT_CLASS("_TtC15PushwooshBridge10PWTVoSStub")
 + (BOOL)handleTVOSPushWithUserInfo:(NSDictionary * _Nonnull)userInfo SWIFT_WARN_UNUSED_RESULT;
 + (void)configureRichMediaWithPosition:(enum PWTVOSRichMediaPosition)position presentAnimation:(enum PWTVOSRichMediaPresentAnimation)presentAnimation dismissAnimation:(enum PWTVOSRichMediaDismissAnimation)dismissAnimation;
 + (void)configureCloseButton:(BOOL)show;
++ (void)setRichMediaGetTagsHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 + (Class _Nonnull)tvos SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end

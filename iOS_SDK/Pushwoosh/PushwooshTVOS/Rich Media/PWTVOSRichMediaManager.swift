@@ -18,6 +18,7 @@ public class PWTVOSRichMediaManager: NSObject {
     @objc public var animationType: PWTVOSRichMediaPresentAnimation = .none
     @objc public var dismissAnimationType: PWTVOSRichMediaDismissAnimation = .none
     private var _showCloseButton: Bool = true
+    private var _getTagsHandler: (([AnyHashable: Any]) -> Void)?
 
     @objc
     public func configureRichMediaWith(position: PWTVOSRichMediaPosition = .center, presentAnimation: PWTVOSRichMediaPresentAnimation, dismissAnimation: PWTVOSRichMediaDismissAnimation = .none) {
@@ -29,6 +30,15 @@ public class PWTVOSRichMediaManager: NSObject {
     @objc
     public func configureCloseButton(_ show: Bool) {
         self._showCloseButton = show
+    }
+
+    @objc
+    public func setGetTagsHandler(_ handler: @escaping ([AnyHashable: Any]) -> Void) {
+        self._getTagsHandler = handler
+    }
+
+    func getTagsHandler() -> (([AnyHashable: Any]) -> Void)? {
+        return _getTagsHandler
     }
 
     @objc
@@ -96,7 +106,8 @@ public class PWTVOSRichMediaManager: NSObject {
             position: self.position,
             animationType: self.animationType,
             dismissAnimationType: self.dismissAnimationType,
-            showCloseButton: self._showCloseButton
+            showCloseButton: self._showCloseButton,
+            richMediaManager: self
         )
 
         if let presentedVC = rootVC.presentedViewController {
@@ -144,6 +155,7 @@ class PWTVOSRichMediaViewController: UIViewController {
     private var activeRenderer: Any?
     private var focusGuideView: UIView!
     private var shouldAllowButtonFocus: Bool = false
+    weak var richMediaManager: PWTVOSRichMediaManager?
 
     var position: PWTVOSRichMediaPosition
     var animationType: PWTVOSRichMediaPresentAnimation
@@ -162,13 +174,14 @@ class PWTVOSRichMediaViewController: UIViewController {
         return code
     }
 
-    init(url: String, code: String, position: PWTVOSRichMediaPosition = .center, animationType: PWTVOSRichMediaPresentAnimation = .none, dismissAnimationType: PWTVOSRichMediaDismissAnimation = .none, showCloseButton: Bool = true) {
+    init(url: String, code: String, position: PWTVOSRichMediaPosition = .center, animationType: PWTVOSRichMediaPresentAnimation = .none, dismissAnimationType: PWTVOSRichMediaDismissAnimation = .none, showCloseButton: Bool = true, richMediaManager: PWTVOSRichMediaManager?) {
         self.url = url
         self.code = code
         self.position = position
         self.animationType = animationType
         self.dismissAnimationType = dismissAnimationType
         self.showCloseButton = showCloseButton
+        self.richMediaManager = richMediaManager
         super.init(nibName: nil, bundle: nil)
         self.modalPresentationStyle = .overFullScreen
     }
@@ -208,9 +221,7 @@ class PWTVOSRichMediaViewController: UIViewController {
             self.closeButton = closeBtn
         }
 
-        let manager = self.navigationController?.presentingViewController as? PWTVOSRichMediaManager ??
-                      findRichMediaManager()
-        buttonActionHandler = PWTVOSButtonActionHandler(viewController: self, richMediaManager: manager)
+        buttonActionHandler = PWTVOSButtonActionHandler(viewController: self, richMediaManager: richMediaManager)
 
         pushwooshParser = PWTVOSHTMLParser()
         universalParser = PWTVOSUniversalHTMLParser()
@@ -386,10 +397,6 @@ class PWTVOSRichMediaViewController: UIViewController {
             self.scrollView.transform = .identity
             self.scrollView.alpha = 1
         })
-    }
-
-    private func findRichMediaManager() -> PWTVOSRichMediaManager? {
-        return nil
     }
 
     private func loadLocalizationData() {
