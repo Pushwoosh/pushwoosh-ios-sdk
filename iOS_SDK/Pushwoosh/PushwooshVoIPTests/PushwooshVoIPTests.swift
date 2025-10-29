@@ -124,4 +124,22 @@ final class PushwooshVoIPTests: XCTestCase {
         PushwooshVoIPImplementation.setPushwooshVoIPAppId("APP-3")
         XCTAssertEqual(PWPreferences.preferencesInstance().voipAppCode, "APP-3")
     }
+
+    func testRawPayloadFiltersNSNull() throws {
+        let payload: [AnyHashable: Any] = [
+            "callerName": "John Doe",
+            "video": NSNull(),
+            "handleType": 1,
+            "customData": NSNull(),
+            "validKey": "validValue"
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertNotNil(message.rawPayload["callerName"])
+        XCTAssertNotNil(message.rawPayload["handleType"])
+        XCTAssertNotNil(message.rawPayload["validKey"])
+        XCTAssertNil(message.rawPayload["video"])
+        XCTAssertNil(message.rawPayload["customData"])
+    }
 }

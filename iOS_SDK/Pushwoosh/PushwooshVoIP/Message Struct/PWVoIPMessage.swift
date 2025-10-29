@@ -39,7 +39,7 @@ public class PWVoIPMessage: NSObject {
 
     /// Creates a VoIP message from push notification payload.
     public init(rawPayload: [AnyHashable: Any]) {
-        self.rawPayload = rawPayload
+        self.rawPayload = rawPayload.compactMapValues { $0 is NSNull ? nil : $0 }
         
         if let handleTypeRaw = rawPayload["handleType"] as? Int,
            let handleType = PWVoIPHandleType(rawValue: handleTypeRaw) {
