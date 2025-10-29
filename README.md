@@ -6,8 +6,7 @@ Pushwoosh iOS SDK
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
 [![Guide](https://img.shields.io/badge/guide-latest-brightgreen.svg?style=flat-square)](https://docs.pushwoosh.com/platform-docs/pushwoosh-sdk/ios-push-notifications)
-[![VoIP Documentation](https://img.shields.io/badge/docs-VoIP-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshVoIP/documentatio
-  n/pushwooshvoip/)
+[![VoIP Documentation](https://img.shields.io/badge/docs-VoIP-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshVoIP/documentation/pushwooshvoip/)
   
 The guide for SDK integration is available on Pushwoosh website:  
 https://www.pushwoosh.com/platform-docs/pushwoosh-sdk/ios-push-notifications/setting-up-pushwoosh-ios-sdk
