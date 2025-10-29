@@ -9,7 +9,7 @@
 import Foundation
 import PushwooshCore
 
-final class PWSetVoIPTokenRequest: PWCoreRequest, PWCoreSetVoIPTokenRequest {
+final class PWSetVoIPTokenRequest: PWRequest, PWCoreSetVoIPTokenRequest {
     let parameters: VoIPRequestParameters
 
     init(parameters: VoIPRequestParameters) {
@@ -33,13 +33,15 @@ final class PWSetVoIPTokenRequest: PWCoreRequest, PWCoreSetVoIPTokenRequest {
     }
 
     override func requestDictionary() -> [AnyHashable: Any] {
-        let dict = self.baseDictionary()
-        dict["application"] = PWSettings.settingsInstance().voipAppCode
+        guard let dict = self.baseDictionary() else {
+            return [:]
+        }
+        dict["application"] = PWPreferences.preferencesInstance().voipAppCode
         dict["push_token"] = parameters.token ?? ""
         dict["gateway"] = PWCoreUtils.getAPSProductionStatus(false) ? "production" : "sandbox"
         dict["device_type"] = 1
         dict["timezone"] = PWCoreUtils.timezone()
-        
+
         return dict as! [AnyHashable : Any]
     }
 }

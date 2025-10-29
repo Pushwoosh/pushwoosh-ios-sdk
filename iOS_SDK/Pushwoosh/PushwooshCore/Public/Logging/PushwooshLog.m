@@ -12,7 +12,7 @@
 
 static PUSHWOOSH_LOG_LEVEL _llPushwooshLogLevel = PW_LL_INFO;
 
-+ (Class<PWDebug>)Debug {
++ (Class<PWDebug>)debug {
     return self;
 }
 
@@ -21,17 +21,17 @@ static PUSHWOOSH_LOG_LEVEL _llPushwooshLogLevel = PW_LL_INFO;
 }
 
 void pushwoosh_Log(id object, PUSHWOOSH_LOG_LEVEL logLevel, NSString *format, ...) {
-    if (logLevel > PW_LL_VERBOSE || logLevel < PW_LL_ERROR) {
+    if (logLevel > PW_LL_VERBOSE || logLevel < PW_LL_NONE) {
         return;
     }
-    
-    PUSHWOOSH_LOG_LEVEL currentLevel = [PWSettings settings].logLevel;
-    
+
+    PUSHWOOSH_LOG_LEVEL currentLevel = [PWPreferences preferences].logLevel;
+
     if (_llPushwooshLogLevel != PW_LL_INFO) {
         currentLevel = _llPushwooshLogLevel;
     }
-    
-    if (currentLevel < logLevel || currentLevel == kLogNone)
+
+    if (currentLevel < logLevel || currentLevel == PW_LL_NONE)
         return;
     
     va_list ap;

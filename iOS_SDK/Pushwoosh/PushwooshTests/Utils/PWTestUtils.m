@@ -10,7 +10,7 @@
 #import "Pushwoosh+Internal.h"
 #import "PWInAppStorage.h"
 #import "PWCache.h"
-#import "PWSettings.h"
+#import "PWPreferences.h"
 #import "PWInAppManager.h"
 #import "PWInAppManager+Internal.h"
 #import "PWUtils.h"
@@ -37,13 +37,13 @@ static NSString * cacheFile() {
 	
 	[PWInAppStorage destroy];
 	[[PWCache cache] clear];
-	[PWSettings settings].appCode = nil;
-	[PWSettings settings].appName = nil;
-	[PWSettings settings].pushToken = nil;
-	[PWSettings settings].userId = [PWSettings settings].hwid;
-	[PWSettings settings].lastRegTime = nil;
-	[PWSettings settings].categories = nil;
-	[PWSettings settings].baseUrl = [[PWSettings settings] defaultBaseUrl];
+	[PWPreferences preferences].appCode = nil;
+	[PWPreferences preferences].appName = nil;
+	[PWPreferences preferences].pushToken = nil;
+	[PWPreferences preferences].userId = [PWPreferences preferences].hwid;
+	[PWPreferences preferences].lastRegTime = nil;
+	[PWPreferences preferences].categories = nil;
+	[PWPreferences preferences].baseUrl = [[PWPreferences preferences] defaultBaseUrl];
 }
 
 + (void)writeCacheTags:(id)tags {

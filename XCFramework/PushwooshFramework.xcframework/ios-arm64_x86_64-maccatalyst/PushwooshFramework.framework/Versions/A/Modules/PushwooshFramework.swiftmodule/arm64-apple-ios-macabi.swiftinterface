@@ -13,7 +13,7 @@ extension PushwooshFramework.Pushwoosh {
   public static var LiveActivities: any PushwooshBridge.PWLiveActivities.Type {
     get
   }
-  public static var Debug: any PushwooshCore.PWDebug.Type {
+  public static var debug: any PushwooshCore.PWDebug.Type {
     get
   }
   public static var VoIP: any PushwooshBridge.PWVoIP.Type {
@@ -25,7 +25,17 @@ extension PushwooshFramework.Pushwoosh {
   public static var ForegroundPush: any PushwooshBridge.PWForegroundPush.Type {
     get
   }
-  public static var Configuration: any PushwooshCore.PWConfiguration.Type {
+  public static var configure: PushwooshCore.PushwooshConfig.Type {
     get
+  }
+}
+extension PushwooshCore.PushwooshConfig {
+  public static var delegate: (any PushwooshFramework.PWMessagingDelegate)? {
+    get
+    set
+  }
+  public static var purchaseDelegate: (any PushwooshFramework.PWPurchaseDelegate)? {
+    get
+    set
   }
 }

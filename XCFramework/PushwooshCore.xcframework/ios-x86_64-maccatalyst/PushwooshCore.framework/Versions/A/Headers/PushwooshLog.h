@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import <PushwooshCore/PWSettings.h>
+#import <PushwooshCore/PWPreferences.h>
 
 /**
  Enumeration for the available log levels in the Pushwoosh SDK.
@@ -25,9 +25,9 @@
  Use this enum to set the appropriate log level for the Pushwoosh SDK based on your debugging needs.
 
  Example:
- 
+
  ```
- Pushwoosh.Debug.setLogLevel(.PW_LL_DEBUG)
+ Pushwoosh.debug.setLogLevel(.PW_LL_DEBUG)
  ```
  @see PWDebug
  */
@@ -61,12 +61,12 @@ typedef NS_ENUM(NSUInteger, PUSHWOOSH_LOG_LEVEL) {
  @param logLevel The log level to set for the Pushwoosh SDK. The available levels are defined in the `PUSHWOOSH_LOG_LEVEL` enum. This allows you to control the amount of information that is logged by the SDK.
 
  Example:
- 
+
  This would set the log level to `DEBUG`, showing informational logs, warnings, and errors.
  @see PUSHWOOSH_LOG_LEVEL
- 
+
  ```
- Pushwoosh.Debug.setLogLevel(.PW_LL_DEBUG)
+ Pushwoosh.debug.setLogLevel(.PW_LL_DEBUG)
  ```
  */
 + (void)setLogLevel:(PUSHWOOSH_LOG_LEVEL)logLevel;
@@ -74,7 +74,7 @@ typedef NS_ENUM(NSUInteger, PUSHWOOSH_LOG_LEVEL) {
 
 @interface PushwooshLog : NSObject<PWDebug>
 
-+ (Class<PWDebug>_Nonnull)Debug;
++ (Class<PWDebug>_Nonnull)debug;
 + (void)pushwooshLog:(PUSHWOOSH_LOG_LEVEL)logLevel className:(id _Nonnull)object message:(NSString * _Nonnull)message;
 
 @end

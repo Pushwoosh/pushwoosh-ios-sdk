@@ -46,10 +46,10 @@ class PWTVOSJavaScriptParser {
             return .closeInApp
         } else if trimmed.contains("openAppSettings") {
             return .openAppSettings
-        } else if trimmed.contains("registerForPushNotifications") {
-            return .registerForPushNotifications
         } else if trimmed.contains("unregisterForPushNotifications") {
             return .unregisterForPushNotifications
+        } else if trimmed.contains("registerForPushNotifications") {
+            return .registerForPushNotifications
         } else if trimmed.contains("getHwid") {
             return .getHwid
         } else if trimmed.contains("getVersion") {

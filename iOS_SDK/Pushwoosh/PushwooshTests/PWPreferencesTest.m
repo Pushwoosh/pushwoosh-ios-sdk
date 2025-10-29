@@ -9,10 +9,10 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
-#import "PWSettings.h"
+#import "PWPreferences.h"
 #import "PWConfig.h"
 
-@interface PWSettings (Test)
+@interface PWPreferences (Test)
 
 @property (nonatomic) NSUserDefaults *defaults;
 @property (copy) NSString *userId;
@@ -21,7 +21,7 @@
 
 @interface PWPreferencesTest : XCTestCase
 
-@property (nonatomic) PWSettings *settings;
+@property (nonatomic) PWPreferences *settings;
 @property (nonatomic) PWConfig *config;
 
 
@@ -30,7 +30,7 @@
 @implementation PWPreferencesTest
 
 - (void)setUp {
-    _settings = [PWSettings settings];
+    _settings = [PWPreferences preferences];
 }
 
 - (void)tearDown {
@@ -42,9 +42,9 @@
     OCMStub([mockConfig appGroupsName]).andReturn(nil);
     id mockNSUserDefaults = OCMPartialMock([NSUserDefaults standardUserDefaults]);
     OCMExpect([mockNSUserDefaults objectForKey:@"PWInAppUserId"]).andReturn(@"someUserID");
-    
-    _settings = [[PWSettings alloc] init];
-    
+
+    _settings = [[PWPreferences alloc] init];
+
     OCMVerifyAll(mockNSUserDefaults);
     XCTAssertEqual([_settings userId], @"someUserID");
     [mockNSUserDefaults stopMocking];
@@ -57,9 +57,9 @@
     OCMStub([mockConfig appGroupsName]).andReturn(appGroupName);
     id mockNSUserDefaults = OCMPartialMock([NSUserDefaults standardUserDefaults]);
     OCMStub([mockNSUserDefaults objectForKey:@"PWInAppUserId"]).andReturn(prevSavedUserId);
-    
-    _settings = [[PWSettings alloc] init];
-    
+
+    _settings = [[PWPreferences alloc] init];
+
     XCTAssertEqual([_settings userId], prevSavedUserId);
     [mockNSUserDefaults stopMocking];
 }
@@ -71,9 +71,9 @@
     id mockNSUSerDefaults = OCMClassMock([NSUserDefaults class]);
     OCMStub([mockNSUSerDefaults alloc]).andReturn(mockNSUSerDefaults);
     OCMStub([mockNSUSerDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockNSUSerDefaults);
-    
-    _settings = [[PWSettings alloc] init];
-    
+
+    _settings = [[PWPreferences alloc] init];
+
     OCMVerifyAll(mockNSUSerDefaults);
 }
 

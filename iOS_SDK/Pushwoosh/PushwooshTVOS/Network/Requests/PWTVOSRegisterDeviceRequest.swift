@@ -11,7 +11,7 @@ import PushwooshCore
 import UIKit
 
 @available(tvOS 11.0, *)
-final class PWTVOSRegisterDeviceRequest: PWCoreRequest {
+final class PWTVOSRegisterDeviceRequest: PWRequest {
 
     private let appCode: String
     private let token: String
@@ -29,7 +29,9 @@ final class PWTVOSRegisterDeviceRequest: PWCoreRequest {
     }
 
     override func requestDictionary() -> [AnyHashable: Any] {
-        let dict = baseDictionary()
+        guard let dict = baseDictionary() else {
+            return [:]
+        }
 
         dict["application"] = appCode
         dict["push_token"] = token

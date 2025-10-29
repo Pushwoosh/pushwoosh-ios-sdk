@@ -83,9 +83,18 @@ class PWTVOSUniversalRenderer {
     private func createImageView(url: String, styles: PWTVOSUniversalHTMLParser.ElementStyles) -> UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
-        imageView.contentMode = .scaleAspectFit
+        imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
-        imageView.layer.cornerRadius = styles.borderRadius
+
+        if styles.borderRadius > 0 {
+            imageView.layer.cornerRadius = styles.borderRadius
+            imageView.layer.masksToBounds = true
+        }
+
+        if let borderColor = styles.borderColor {
+            imageView.layer.borderColor = borderColor.cgColor
+            imageView.layer.borderWidth = max(styles.borderWidth, 1)
+        }
 
         if let bgColor = styles.backgroundColor {
             imageView.backgroundColor = bgColor
@@ -110,7 +119,7 @@ class PWTVOSUniversalRenderer {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.text = text
-        label.font = isBold ? .systemFont(ofSize: styles.fontSize, weight: .bold) : .systemFont(ofSize: styles.fontSize)
+        label.font = .systemFont(ofSize: styles.fontSize, weight: styles.fontWeight)
         label.textColor = styles.color ?? .black
         label.textAlignment = styles.textAlign
         label.numberOfLines = 0
@@ -174,11 +183,24 @@ class PWTVOSUniversalRenderer {
         let button = PWTVOSFocusButton(type: .custom)
         button.translatesAutoresizingMaskIntoConstraints = false
         button.setTitle(text, for: .normal)
-        button.titleLabel?.font = .systemFont(ofSize: max(14, styles.fontSize), weight: .medium)
+        button.titleLabel?.font = .systemFont(ofSize: max(14, styles.fontSize), weight: styles.fontWeight)
         button.setTitleColor(styles.color ?? .white, for: .normal)
 
+        if let gradient = styles.backgroundGradient {
+            let gradientLayer = CAGradientLayer()
+            gradientLayer.colors = gradient.colors.map { $0.cgColor }
+
+            let angleInRadians = gradient.angle * .pi / 180
+            let startPoint = CGPoint(x: 0.5 - cos(angleInRadians) / 2, y: 0.5 - sin(angleInRadians) / 2)
+            let endPoint = CGPoint(x: 0.5 + cos(angleInRadians) / 2, y: 0.5 + sin(angleInRadians) / 2)
+            gradientLayer.startPoint = startPoint
+            gradientLayer.endPoint = endPoint
+
+            button.gradientLayer = gradientLayer
+        }
+
         let bgColor = styles.backgroundColor ?? UIColor(red: 0.50, green: 0.29, blue: 1.0, alpha: 1.0)
-        button.backgroundColor = bgColor
+        button.backgroundColor = styles.backgroundGradient == nil ? bgColor : .clear
         button.layer.cornerRadius = styles.borderRadius
         button.layer.masksToBounds = true
         button.adjustsImageWhenHighlighted = false
@@ -193,8 +215,14 @@ class PWTVOSUniversalRenderer {
 
         configureButtonAction(button: button, action: action)
 
-        let height: CGFloat = 56
-        button.heightAnchor.constraint(equalToConstant: height).isActive = true
+        if styles.height != nil {
+            button.heightAnchor.constraint(equalToConstant: styles.height!).isActive = true
+        } else {
+            let contentHeight = styles.fontSize * 1.2
+            let verticalPadding = styles.padding.top + styles.padding.bottom
+            let calculatedHeight = contentHeight + verticalPadding
+            button.heightAnchor.constraint(equalToConstant: max(56, calculatedHeight)).isActive = true
+        }
 
         button.setContentHuggingPriority(.defaultHigh, for: .vertical)
         button.setContentCompressionResistancePriority(.defaultHigh, for: .vertical)

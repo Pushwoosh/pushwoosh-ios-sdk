@@ -37,7 +37,15 @@ public class PushwooshTVOSImplementation: NSObject {
     @objc
     public static func setAppCode(_ appCode: String) {
         shared.appCode = appCode
-        PWSettings.settingsInstance().appCode = appCode
+        PWPreferences.preferencesInstance().appCode = appCode
+
+        let pushwooshClass = NSClassFromString("Pushwoosh") as? NSObject.Type
+        if let pushwooshClass = pushwooshClass {
+            let initSelector = NSSelectorFromString("initializeWithAppCode:")
+            if pushwooshClass.responds(to: initSelector) {
+                _ = pushwooshClass.perform(initSelector, with: appCode)
+            }
+        }
     }
 
     @objc
@@ -52,19 +60,19 @@ public class PushwooshTVOSImplementation: NSObject {
             return
         }
 
-        let savedToken = PWSettings.settingsInstance().pushTvToken
+        let savedToken = PWPreferences.preferencesInstance().pushTvToken
         if savedToken == tokenString {
             completion?(nil)
             return
         }
 
-        let hwid = PWSettings.settingsInstance().hwid
+        let hwid = PWPreferences.preferencesInstance().hwid
         apiClient.registerDevice(appCode: appCode, token: tokenString, hwid: hwid) { error in
             if let error = error {
                 PushwooshLog.pushwooshLog(.PW_LL_ERROR, className: type(of: self), message: "Failed to register device: \(error.localizedDescription)")
             } else {
                 PushwooshLog.pushwooshLog(.PW_LL_INFO, className: type(of: self), message: "Device successfully registered for push notifications")
-                PWSettings.settingsInstance().pushTvToken = tokenString
+                PWPreferences.preferencesInstance().pushTvToken = tokenString
             }
             completion?(error)
         }
@@ -77,13 +85,13 @@ public class PushwooshTVOSImplementation: NSObject {
 
     @objc
     public func unregisterForPushNotifications(completion: ((Error?) -> Void)? = nil) {
-        PWSettings.settingsInstance().lastRegTime = nil
+        PWPreferences.preferencesInstance().lastRegTime = nil
 
         apiClient.unregisterDevice { error in
             if let error = error {
                 PushwooshLog.pushwooshLog(.PW_LL_ERROR, className: type(of: self), message: "Unregistering for push notifications failed")
             } else {
-                PWSettings.settingsInstance().pushTvToken = nil
+                PWPreferences.preferencesInstance().pushTvToken = nil
                 PushwooshLog.pushwooshLog(.PW_LL_INFO, className: type(of: self), message: "Unregistered for push notifications")
             }
             completion?(error)

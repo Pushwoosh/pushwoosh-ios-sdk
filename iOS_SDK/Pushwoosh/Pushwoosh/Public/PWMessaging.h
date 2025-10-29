@@ -6,14 +6,13 @@
 
 #import "PushNotificationManager.h"
 #import "PushwooshFramework.h"
-#import "PWInAppManager.h"
-#import "PWLog.h"
+#import <PushwooshCore/PWInAppManager.h>
 
 #if TARGET_OS_IOS
     #import "PWNotificationExtensionManager.h"
-    #import "PWRichMediaManager.h"
-    #import "PWModalWindowConfiguration.h"
-    #import "PWRichMediaStyle.h"
+    #import <PushwooshCore/PWRichMediaManager.h>
+    #import <PushwooshCore/PWModalWindowConfiguration.h>
+    #import <PushwooshCore/PWRichMediaStyle.h>
     #import "PWInbox.h"
-    #import "PWInlineInAppView.h"
+    #import <PushwooshCore/PWInlineInAppView.h>
 #endif

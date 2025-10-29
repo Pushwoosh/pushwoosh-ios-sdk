@@ -31,7 +31,7 @@ class PWTVOSAPIClient {
 }
 
 @available(tvOS 11.0, *)
-private final class PWTVOSRegisterRequest: PWCoreRequest {
+private final class PWTVOSRegisterRequest: PWRequest {
 
     private let appCode: String
     private let token: String
@@ -49,7 +49,9 @@ private final class PWTVOSRegisterRequest: PWCoreRequest {
     }
 
     override func requestDictionary() -> [AnyHashable: Any] {
-        let dict = baseDictionary()
+        guard let dict = baseDictionary() else {
+            return [:]
+        }
 
         dict["application"] = appCode
         dict["push_token"] = token
@@ -79,7 +81,7 @@ private final class PWTVOSRegisterRequest: PWCoreRequest {
 }
 
 @available(tvOS 11.0, *)
-private final class PWTVOSUnregisterRequest: PWCoreRequest {
+private final class PWTVOSUnregisterRequest: PWRequest {
 
     override func methodName() -> String {
         return "unregisterDevice"

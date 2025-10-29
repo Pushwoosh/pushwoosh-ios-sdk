@@ -5,19 +5,24 @@
 //
 
 #import "Pushwoosh+Internal.h"
-#import "PWUtils.h"
-#import "PWPreferences.h"
-#import "PWUserNotificationCenterDelegate.h"
+#import "PushwooshFramework.h"
+#import <PushwooshCore/PWUtils.h>
+#import <PushwooshCore/PWPreferences.h>
+#import <PushwooshCore/PWUserNotificationCenterDelegate.h>
 #import "PWNotificationCenterDelegateProxy+Internal.h"
-#import "PWPreferences.h"
-#import "PWInAppStorage.h"
+#import <PushwooshCore/PWInAppStorage.h>
 #import "PushNotificationManager.h"
-#import "PWHashDecoder.h"
-#import "NSDictionary+PWDictUtils.h"
+#import "PWInAppManager+Internal.h"
+#import <PushwooshCore/PWHashDecoder.h>
+#import <PushwooshCore/NSDictionary+PWDictUtils.h>
+#import <PushwooshCore/PWManagerBridge.h>
+#import <PushwooshCore/PushwooshConfig.h>
+#import <PushwooshCore/PWConfig.h>
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
-#import "PWVersionTracking.h"
-#import "PWRequestsCacheManager.h"
+#import <PushwooshCore/PWVersionTracking.h>
+#import <PushwooshCore/PWRequestsCacheManager.h>
+#import <PushwooshCore/PWRichMediaManager.h>
 #endif
 
 #if defined(__cplusplus)
@@ -29,6 +34,7 @@
 @implementation Pushwoosh
 
 + (Class<PWLiveActivities>)LiveActivities {
+    [self ensureInitialized];
     let pushwooshLiveActivities = NSClassFromString(@"PushwooshLiveActivitiesImplementationSetup");
     if (pushwooshLiveActivities != nil) {
         return [pushwooshLiveActivities performSelector:@selector(liveActivities)];
@@ -37,11 +43,12 @@
     }
 }
 
-+ (Class<PWDebug>)Debug {
-    return [PushwooshLog Debug];
++ (Class<PWDebug>)debug {
+    return [PushwooshLog debug];
 }
 
 + (Class<PWVoIP>)VoIP {
+    [self ensureInitialized];
     let pushwooshVoIP = NSClassFromString(@"PushwooshVoIPImplementation");
     if (pushwooshVoIP != nil) {
         return [pushwooshVoIP performSelector:@selector(voip)];
@@ -51,6 +58,7 @@
 }
 
 + (Class<PWForegroundPush>)ForegroundPush {
+    [self ensureInitialized];
     let pushwooshForeground = NSClassFromString(@"PushwooshForegroundPushImplementation");
     if (pushwooshForeground != nil) {
         return [pushwooshForeground performSelector:@selector(foregroundPush)];
@@ -60,6 +68,7 @@
 }
 
 + (Class<PWTVoS>)TVoS {
+    [self ensureInitialized];
     let pushwooshTVOS = NSClassFromString(@"PushwooshTVOSImplementation");
     if (pushwooshTVOS != nil) {
         return [pushwooshTVOS performSelector:@selector(tvos)];
@@ -68,36 +77,55 @@
     }
 }
 
-+ (Class<PWConfiguration>)Configuration {
-    return [PushwooshConfig Configuration];
++ (Class)configure {
+    [self ensureInitialized];
+    [self sharedInstance];
+    return [PushwooshConfig configure];
 }
 
 static Pushwoosh *pushwooshInstance = nil;
 static dispatch_once_t pushwooshOncePredicate;
+static dispatch_once_t ensureInitializedOncePredicate;
 
 #pragma mark - Setup
 
++ (void)ensureInitialized {
+    dispatch_once(&ensureInitializedOncePredicate, ^{
+        NSString *appCode = [PushwooshConfig getAppCode];
+
+        if (!appCode || appCode.length == 0) {
+            appCode = [[PWConfig config] appId];
+        }
+
+        if (appCode && appCode.length > 0) {
+            [[PWPreferences preferences] setAppCode:appCode];
+        }
+    });
+}
+
 + (instancetype)sharedInstance {
+    [self ensureInitialized];
+
     dispatch_once(&pushwooshOncePredicate, ^{
-        NSString *appCode = [PWSettings settings].appCode;
+        NSString *appCode = [PWPreferences preferences].appCode;
         pushwooshInstance = [[Pushwoosh alloc] initWithApplicationCode:appCode];
     });
-    
+
     return pushwooshInstance;
 }
 
 + (void)initializeWithAppCode:(NSString *)appCode {
-    if ([PWSettings checkAppCodeforChanges:appCode]) {
+    if ([PWPreferences checkAppCodeforChanges:appCode]) {
         [Pushwoosh initializeWithNewAppCode:appCode];
     }
-    
+
     [Pushwoosh sharedInstance];
 }
 
 + (void)initializeWithNewAppCode:(NSString *)appCode {
     [Pushwoosh destroy];
 
-    [[PWSettings settings] setAppCode:appCode];
+    [[PWPreferences preferences] setAppCode:appCode];
     [PWInAppManager updateInAppManagerInstance];
     [[Pushwoosh sharedInstance].dataManager sendAppOpenWithCompletion:nil];
 
@@ -107,16 +135,16 @@ static dispatch_once_t pushwooshOncePredicate;
     if (self = [super init]) {
         // Mandatory logs
         NSLog(@"[PW] BUNDLE ID: %@", [PWUtils bundleId]);
-        NSLog(@"[PW] APP CODE: %@", [PWSettings settings].appCode);
+        NSLog(@"[PW] APP CODE: %@", [PWPreferences preferences].appCode);
         NSLog(@"[PW] PUSHWOOSH SDK VERSION: %@", PUSHWOOSH_VERSION);
-        NSLog(@"[PW] HWID: %@", [PWSettings settings].hwid);
+        NSLog(@"[PW] HWID: %@", [PWPreferences preferences].hwid);
 #if TARGET_OS_TV
-        NSLog(@"[PW] PUSH TV TOKEN: %@", [PWSettings settings].pushTvToken);
+        NSLog(@"[PW] PUSH TV TOKEN: %@", [PWPreferences preferences].pushTvToken);
 #else
-        NSLog(@"[PW] PUSH TOKEN: %@", [PWSettings settings].pushToken);
+        NSLog(@"[PW] PUSH TOKEN: %@", [PWPreferences preferences].pushToken);
 #endif
         
-        [PWSettings settings].appCode = appCode;
+        [PWPreferences preferences].appCode = appCode;
         
 #if TARGET_OS_IOS || TARGET_OS_OSX
         self.purchaseManager = [PWPurchaseManager new];
@@ -142,9 +170,22 @@ static dispatch_once_t pushwooshOncePredicate;
 #endif
 
         self.pushNotificationManager = [[PWPushNotificationsManager alloc] initWithConfig:[PWConfig config]];
-        
+
         self.dataManager = [PWDataManager new];
-        
+
+        [PWManagerBridge shared].dataManager = self.dataManager;
+        [PWManagerBridge shared].pushNotificationManager = self.pushNotificationManager;
+        [PWManagerBridge shared].showPushnotificationAlert = self.showPushnotificationAlert;
+#if TARGET_OS_IOS || TARGET_OS_TV
+        [PWManagerBridge shared].inAppManager = self.inAppManager;
+        [PWManagerBridge shared].inAppMessagesManager = self.inAppManager.inAppMessagesManager;
+#endif
+#if TARGET_OS_IOS || TARGET_OS_OSX
+        [PWManagerBridge shared].purchaseManager = self.purchaseManager;
+        [PWManagerBridge shared].richPushManager = self.richPushManager;
+        [PWManagerBridge shared].richMediaManager = [PWRichMediaManager sharedManager];
+#endif
+
         if (![PWConfig config].isUsingPluginForPushHandling) {
             _notificationCenterDelegateProxy = [[PWNotificationCenterDelegateProxy alloc] initWithNotificationManager:self.pushNotificationManager];
         }
@@ -173,7 +214,7 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 
 - (void)internalRegisterForPushNotificationWith:(NSDictionary *)tags completion:(PushwooshRegistrationHandler)completion {
-    if (![[PWCoreServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
+    if (![[PWManagerBridge shared] isServerCommunicationAllowed]) {
         NSString *error = @"Communication with Pushwoosh is disabled. You have to enable the server communication to register for push notifications. To enable the server communication use startServerCommunication method.";
         if (completion) {
             completion(nil, [PWUtils pushwooshErrorWithCode:PWErrorCommunicationDisabled description:error]);
@@ -185,7 +226,7 @@ static dispatch_once_t pushwooshOncePredicate;
 #if TARGET_OS_IOS
     static BOOL isSubscriptionSegmentsCasePresented = NO;
     
-    [[PWSettings settings] setCustomTags:tags];
+    [[PWPreferences preferences] setCustomTags:tags];
     
     if (!isSubscriptionSegmentsCasePresented) {
         isSubscriptionSegmentsCasePresented = YES;
@@ -205,7 +246,7 @@ static dispatch_once_t pushwooshOncePredicate;
         [self.pushNotificationManager registerForPushNotificationsWithCompletion:completion];
     }
 #else
-    [_pushNotificationManager registerForPushNotificationsWithCompletion:completion];
+    [self.pushNotificationManager registerForPushNotificationsWithCompletion:completion];
 #endif
 }
 
@@ -222,7 +263,7 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 
 - (void)unregisterForPushNotificationsWithCompletion:(void (^)(NSError *error))completion {
-    if (![[PWCoreServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
+    if (![[PWManagerBridge shared] isServerCommunicationAllowed]) {
         NSString *error = @"Communication with Pushwoosh is disabled. You have to enable the server communication to unregister from push notifications. To enable the server communication use startServerCommunication method.";
         if (completion) {
             completion([PWUtils pushwooshErrorWithCode:PWErrorCommunicationDisabled description:error]);
@@ -252,6 +293,25 @@ static dispatch_once_t pushwooshOncePredicate;
 
 - (void)disableReverseProxy {
     [self.pushNotificationManager disableReverseProxy];
+}
+
+#pragma mark - Delegates
+
+#if TARGET_OS_IOS
+- (void)setPurchaseDelegate:(NSObject<PWPurchaseDelegate> *)purchaseDelegate {
+    _purchaseDelegate = purchaseDelegate;
+    [PWManagerBridge shared].purchaseDelegate = purchaseDelegate;
+}
+#endif
+
+- (void)setDataManager:(PWDataManager *)dataManager {
+    _dataManager = dataManager;
+    [PWManagerBridge shared].dataManager = dataManager;
+}
+
+- (void)setDelegate:(NSObject<PWMessagingDelegate> *)delegate {
+    _delegate = delegate;
+    [PWManagerBridge shared].delegate = delegate;
 }
 
 #pragma mark - Receive Push
@@ -287,20 +347,21 @@ static dispatch_once_t pushwooshOncePredicate;
 #pragma mark - Data
 
 - (void)setShowPushnotificationAlert:(BOOL)showPushnotificationAlert {
-    [PWSettings settings].showForegroundNotifications = showPushnotificationAlert;
+    [PWPreferences preferences].showForegroundNotifications = showPushnotificationAlert;
+    [PWManagerBridge shared].showPushnotificationAlert = showPushnotificationAlert;
 }
 
 - (BOOL)showPushnotificationAlert {
-    return [PWSettings settings].showForegroundNotifications;
+    return [PWPreferences preferences].showForegroundNotifications;
 }
 
 - (void)setLanguage:(NSString *)language {
-    [PWSettings settings].language = language;
+    [PWPreferences preferences].language = language;
     [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"Language has been set to: %@", language]];
 }
 
 - (NSString *)language {
-    return [PWSettings settings].language;
+    return [PWPreferences preferences].language;
 }
 
 #pragma mark - Info
@@ -310,19 +371,19 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 
 - (NSString *)getHWID {
-    return [PWSettings settings].hwid;
+    return [PWPreferences preferences].hwid;
 }
 
 - (NSString *)getUserId {
-    return [PWSettings settings].userId;
+    return [PWPreferences preferences].userId;
 }
 
 - (NSString *)applicationCode {
-    return [PWSettings settings].appCode;
+    return [PWPreferences preferences].appCode;
 }
 
 - (NSString *)getPushToken {
-    return [PWSettings settings].pushToken;
+    return [PWPreferences preferences].pushToken;
 }
 
 + (NSMutableDictionary *)getRemoteNotificationStatus {
@@ -410,17 +471,11 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 
 - (void)setEmail:(NSString *)email completion:(void(^)(NSError * error))completion {
-    NSMutableArray *emails = [[NSMutableArray alloc] init];
-    [emails addObject:email];
-
-    [self.inAppManager setEmails:emails completion:completion];
+    [self.inAppManager setEmails:@[email] completion:completion];
 }
 
 - (void)setEmail:(NSString *)email {
-    NSMutableArray *emails = [[NSMutableArray alloc] init];
-    [emails addObject:email];
-
-    [self.inAppManager setEmails:emails completion:nil];
+    [self.inAppManager setEmails:@[email] completion:nil];
 }
 
 - (void)setUser:(NSString *)userId emails:(NSArray *)emails completion:(void(^)(NSError * error))completion {
@@ -428,10 +483,7 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 
 - (void)setUser:(NSString *)userId email:(NSString *)email completion:(void(^)(NSError * error))completion {
-    NSMutableArray *emails = [[NSMutableArray alloc] init];
-    [emails addObject:email];
-
-    [self.inAppManager setUser:userId emails:emails completion:completion];
+    [self.inAppManager setUser:userId emails:@[email] completion:completion];
 }
 
 - (void)setUser:(NSString *)userId emails:(NSArray *)emails {
@@ -439,11 +491,11 @@ static dispatch_once_t pushwooshOncePredicate;
 }
 
 - (void)startServerCommunication {
-    [[PWCoreServerCommunicationManager sharedInstance] startServerCommunication];
+    [[PWManagerBridge shared] startServerCommunication];
 }
 
 - (void)stopServerCommunication {
-    [[PWCoreServerCommunicationManager sharedInstance] stopServerCommunication];
+    [[PWManagerBridge shared] stopServerCommunication];
 }
 
 #pragma mark - Teardown
@@ -455,73 +507,6 @@ static dispatch_once_t pushwooshOncePredicate;
 
 @end
 
-@implementation PWMessage
-
-- (instancetype)initWithPayload:(NSDictionary *)payload foreground:(BOOL)foreground {
-    if (self = [super init]) {
-        NSDictionary *apsDict = [payload pw_dictionaryForKey:@"aps"];
-        NSString *alertString = [apsDict pw_stringForKey:@"alert"];
-        NSString *hash = [payload pw_stringForKey:@"p"];
-        
-        [[PWHashDecoder sharedInstance] parseMessageHash:hash];
-
-        _messageCode = [PWHashDecoder sharedInstance].messageCode;
-        _messageId = [PWHashDecoder sharedInstance].messageId;
-        _campaignId = [PWHashDecoder sharedInstance].campaignId;
-
-        if (alertString) {
-            _message = alertString;
-        } else {
-            NSDictionary *alertDict = [apsDict pw_dictionaryForKey:@"alert"];
-            
-            if (alertDict) {
-                _message = [alertDict pw_stringForKey:@"body"];
-                _title = [alertDict pw_stringForKey:@"title"];
-                _subTitle = [alertDict pw_stringForKey:@"subtitle"];
-            }
-        }
-        
-        _link = [payload pw_stringForKey:@"l"];
-        _badge = [[apsDict pw_numberForKey:@"badge"] unsignedIntValue];
-        NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:[[PWConfig config] appGroupsName]];
-        _badgeExtension = [defaults integerForKey:@"badge_count"];
-        
-        NSString *customDataString = [payload pw_stringForKey:@"u"];
-        
-        if (customDataString) {
-            NSDictionary *customData = [NSJSONSerialization JSONObjectWithData:[customDataString dataUsingEncoding:NSUTF8StringEncoding]
-                                                                       options:0
-                                                                         error:nil];
-            
-            if ([customData isKindOfClass:[NSDictionary class]]) {
-                _customData = customData;
-            }
-        }
-        
-        _payload = payload;
-        _actionIdentifier = [payload pw_stringForKey:@"actionIdentifier"];
-        _contentAvailable = apsDict[@"content-available"] != nil;
-        _foregroundMessage = foreground;
-        _inboxMessage = apsDict[@"pw_inbox"] != nil;
-    }
-    
-    return self;
-}
-
-- (NSString *)description {
-    return _payload.description;
-}
-
-+ (BOOL)isContentAvailablePush:(NSDictionary *)userInfo {
-    NSDictionary *apsDict = [userInfo pw_dictionaryForKey:@"aps"];
-    return apsDict[@"content-available"] != nil;
-}
-
-+ (BOOL)isPushwooshMessage:(NSDictionary *)userInfo {
-    return userInfo[@"pw_msg"] != nil;
-}
-
-@end
 
 @implementation PWTagsBuilder
 

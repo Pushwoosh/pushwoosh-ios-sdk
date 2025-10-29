@@ -6,7 +6,7 @@
 
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
-#import <PushwooshCore/PWSettings.h>
+#import <PushwooshCore/PWPreferences.h>
 
 #if TARGET_OS_IOS
 

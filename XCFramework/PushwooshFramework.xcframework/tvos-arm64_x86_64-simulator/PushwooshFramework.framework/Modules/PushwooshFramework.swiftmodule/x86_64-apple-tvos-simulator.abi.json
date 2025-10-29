@@ -96,8 +96,8 @@
           },
           {
             "kind": "Var",
-            "name": "Debug",
-            "printedName": "Debug",
+            "name": "debug",
+            "printedName": "debug",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -114,8 +114,8 @@
               }
             ],
             "declKind": "Var",
-            "usr": "s:So9PushwooshC0A9FrameworkE5DebugSo7PWDebug_pXpvpZ",
-            "mangledName": "$sSo9PushwooshC0A9FrameworkE5DebugSo7PWDebug_pXpvpZ",
+            "usr": "s:So9PushwooshC0A9FrameworkE5debugSo7PWDebug_pXpvpZ",
+            "mangledName": "$sSo9PushwooshC0A9FrameworkE5debugSo7PWDebug_pXpvpZ",
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
@@ -143,8 +143,8 @@
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:So9PushwooshC0A9FrameworkE5DebugSo7PWDebug_pXpvgZ",
-                "mangledName": "$sSo9PushwooshC0A9FrameworkE5DebugSo7PWDebug_pXpvgZ",
+                "usr": "s:So9PushwooshC0A9FrameworkE5debugSo7PWDebug_pXpvgZ",
+                "mangledName": "$sSo9PushwooshC0A9FrameworkE5debugSo7PWDebug_pXpvgZ",
                 "moduleName": "PushwooshFramework",
                 "static": true,
                 "declAttributes": [
@@ -340,26 +340,26 @@
           },
           {
             "kind": "Var",
-            "name": "Configuration",
-            "printedName": "Configuration",
+            "name": "configure",
+            "printedName": "configure",
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "ExistentialMetatype",
-                "printedName": "any PushwooshCore.PWConfiguration.Type",
+                "name": "Metatype",
+                "printedName": "PushwooshCore.PushwooshConfig.Type",
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "PWConfiguration",
-                    "printedName": "PushwooshCore.PWConfiguration",
-                    "usr": "c:objc(pl)PWConfiguration"
+                    "name": "PushwooshConfig",
+                    "printedName": "PushwooshCore.PushwooshConfig",
+                    "usr": "c:objc(cs)PushwooshConfig"
                   }
                 ]
               }
             ],
             "declKind": "Var",
-            "usr": "s:So9PushwooshC0A9FrameworkE13ConfigurationSo15PWConfiguration_pXpvpZ",
-            "mangledName": "$sSo9PushwooshC0A9FrameworkE13ConfigurationSo15PWConfiguration_pXpvpZ",
+            "usr": "s:So9PushwooshC0A9FrameworkE9configureSo0A6ConfigCmvpZ",
+            "mangledName": "$sSo9PushwooshC0A9FrameworkE9configureSo0A6ConfigCmvpZ",
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
@@ -374,21 +374,21 @@
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "ExistentialMetatype",
-                    "printedName": "any PushwooshCore.PWConfiguration.Type",
+                    "name": "Metatype",
+                    "printedName": "PushwooshCore.PushwooshConfig.Type",
                     "children": [
                       {
                         "kind": "TypeNominal",
-                        "name": "PWConfiguration",
-                        "printedName": "PushwooshCore.PWConfiguration",
-                        "usr": "c:objc(pl)PWConfiguration"
+                        "name": "PushwooshConfig",
+                        "printedName": "PushwooshCore.PushwooshConfig",
+                        "usr": "c:objc(cs)PushwooshConfig"
                       }
                     ]
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:So9PushwooshC0A9FrameworkE13ConfigurationSo15PWConfiguration_pXpvgZ",
-                "mangledName": "$sSo9PushwooshC0A9FrameworkE13ConfigurationSo15PWConfiguration_pXpvgZ",
+                "usr": "s:So9PushwooshC0A9FrameworkE9configureSo0A6ConfigCmvgZ",
+                "mangledName": "$sSo9PushwooshC0A9FrameworkE9configureSo0A6ConfigCmvgZ",
                 "moduleName": "PushwooshFramework",
                 "static": true,
                 "declAttributes": [
@@ -405,6 +405,201 @@
         "moduleName": "PushwooshFramework",
         "isOpen": true,
         "objc_name": "Pushwoosh",
+        "declAttributes": [
+          "ObjC",
+          "Dynamic"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshConfig",
+        "printedName": "PushwooshConfig",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "delegate",
+            "printedName": "delegate",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any PushwooshFramework.PWMessagingDelegate)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWMessagingDelegate",
+                    "printedName": "any PushwooshFramework.PWMessagingDelegate",
+                    "usr": "c:objc(pl)PWMessagingDelegate"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So15PushwooshConfigC0A9FrameworkE8delegateSo19PWMessagingDelegate_pSgvpZ",
+            "mangledName": "$sSo15PushwooshConfigC0A9FrameworkE8delegateSo19PWMessagingDelegate_pSgvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any PushwooshFramework.PWMessagingDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWMessagingDelegate",
+                        "printedName": "any PushwooshFramework.PWMessagingDelegate",
+                        "usr": "c:objc(pl)PWMessagingDelegate"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So15PushwooshConfigC0A9FrameworkE8delegateSo19PWMessagingDelegate_pSgvgZ",
+                "mangledName": "$sSo15PushwooshConfigC0A9FrameworkE8delegateSo19PWMessagingDelegate_pSgvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any PushwooshFramework.PWMessagingDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWMessagingDelegate",
+                        "printedName": "any PushwooshFramework.PWMessagingDelegate",
+                        "usr": "c:objc(pl)PWMessagingDelegate"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So15PushwooshConfigC0A9FrameworkE8delegateSo19PWMessagingDelegate_pSgvsZ",
+                "mangledName": "$sSo15PushwooshConfigC0A9FrameworkE8delegateSo19PWMessagingDelegate_pSgvsZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So15PushwooshConfigC0A9FrameworkE8delegateSo19PWMessagingDelegate_pSgvMZ",
+                "mangledName": "$sSo15PushwooshConfigC0A9FrameworkE8delegateSo19PWMessagingDelegate_pSgvMZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:objc(cs)PushwooshConfig",
+        "moduleName": "PushwooshCore",
+        "isOpen": true,
+        "objc_name": "PushwooshConfig",
         "declAttributes": [
           "ObjC",
           "Dynamic"

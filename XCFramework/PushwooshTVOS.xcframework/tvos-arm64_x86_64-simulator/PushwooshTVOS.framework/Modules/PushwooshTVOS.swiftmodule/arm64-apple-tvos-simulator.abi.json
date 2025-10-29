@@ -1845,35 +1845,35 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSHTMLParser.swift",
       "kind": "IntegerLiteral",
-      "offset": 1183,
+      "offset": 1206,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSHTMLParser.swift",
       "kind": "Array",
-      "offset": 1265,
+      "offset": 1288,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSHTMLParser.swift",
       "kind": "IntegerLiteral",
-      "offset": 1348,
+      "offset": 1371,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSHTMLParser.swift",
       "kind": "Dictionary",
-      "offset": 1722,
+      "offset": 1745,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSHTMLParser.swift",
       "kind": "Array",
-      "offset": 1760,
+      "offset": 1783,
       "length": 2,
       "value": "[]"
     },
@@ -1887,21 +1887,21 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSUniversalHTMLParser.swift",
       "kind": "IntegerLiteral",
-      "offset": 1168,
+      "offset": 1217,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSUniversalHTMLParser.swift",
       "kind": "IntegerLiteral",
-      "offset": 1206,
+      "offset": 1255,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Parsers\/PWTVOSUniversalHTMLParser.swift",
       "kind": "IntegerLiteral",
-      "offset": 1412,
+      "offset": 1461,
       "length": 1,
       "value": "0"
     },
@@ -1922,14 +1922,14 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Renderers\/PWTVOSUniversalRenderer.swift",
       "kind": "StringLiteral",
-      "offset": 21136,
+      "offset": 22389,
       "length": 11,
       "value": "\"eventName\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Renderers\/PWTVOSUniversalRenderer.swift",
       "kind": "StringLiteral",
-      "offset": 21181,
+      "offset": 22434,
       "length": 17,
       "value": "\"eventAttributes\""
     },
@@ -1943,21 +1943,21 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/Renderers\/PWTVOSRichMediaRenderer.swift",
       "kind": "StringLiteral",
-      "offset": 16730,
+      "offset": 16944,
       "length": 11,
       "value": "\"eventName\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/Renderers\/PWTVOSRichMediaRenderer.swift",
       "kind": "StringLiteral",
-      "offset": 16775,
+      "offset": 16989,
       "length": 17,
       "value": "\"eventAttributes\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/Renderers\/PWTVOSRichMediaRenderer.swift",
       "kind": "BooleanLiteral",
-      "offset": 16990,
+      "offset": 17244,
       "length": 5,
       "value": "false"
     },

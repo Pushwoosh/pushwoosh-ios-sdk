@@ -1,11 +1,12 @@
 
 #import "PushNotificationManager+Mock.h"
+#import <PushwooshFramework/PushwooshFramework.h>
 
 #import <objc/runtime.h>
 
-static BOOL gMock = NO;
+BOOL gMock = NO;
 
-static id gProxy = nil;
+id gProxy = nil;
 
 @interface PushNotificationManager (MockProtected)
 
@@ -46,10 +47,11 @@ static id gProxy = nil;
 		[invocation setSelector:@selector(postEvent:withAttributes:completion:)];
 		[invocation retainArguments];
 		[invocation invokeWithTarget:gProxy];
+		return;
 	}
-	
+
 	// Real method
-	return [self mock_postEvent:event withAttributes:attributes completion:completion];
+	[self mock_postEvent:event withAttributes:attributes completion:completion];
 }
 
 - (void) mock_setTags: (NSDictionary *) tags withCompletion: (PushwooshErrorHandler) completion {
@@ -57,10 +59,11 @@ static id gProxy = nil;
 		// Stub
 		NSLog(@"PushNotificationManager mock_setTags:withCompletion:");
 		[gProxy performSelector:@selector(setTags:withCompletion:) withObject:tags withObject:completion];
+		return;
 	}
-	
+
 	// Real method
-	return [self mock_setTags:tags withCompletion:completion];
+	[self mock_setTags:tags withCompletion:completion];
 }
 
 - (void) mock_setTags: (NSDictionary *) tags {
@@ -68,15 +71,16 @@ static id gProxy = nil;
         // Stub
         NSLog(@"PushNotificationManager mock_setTags");
         [gProxy performSelector:@selector(setTags:) withObject:tags];
+        return;
     }
-    
+
     // Real method
-    return [self mock_setTags:tags];
+    [self mock_setTags:tags];
 }
 
 + (void) load {
 	NSLog(@"initializing PushNotificationManager (Mock)");
-	
+
 	method_exchangeImplementations(class_getInstanceMethod(self, @selector(mock_initWithApplicationCode: appName:)), class_getInstanceMethod(self, @selector(initPrivateWithApplicationCode: appName:)));
 	method_exchangeImplementations(class_getInstanceMethod(self, @selector(mock_setTags:withCompletion:)), class_getInstanceMethod(self, @selector(setTags:withCompletion:)));
     method_exchangeImplementations(class_getInstanceMethod(self, @selector(mock_setTags:)), class_getInstanceMethod(self, @selector(setTags:)));

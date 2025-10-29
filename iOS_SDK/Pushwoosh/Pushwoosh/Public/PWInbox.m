@@ -7,15 +7,15 @@
 //
 
 #import "PWInbox.h"
-#import "PWInboxStorage.h"
+#import <PushwooshCore/PWInboxStorage.h>
 #if TARGET_OS_IOS
-#import "PWInboxService.h"
+#import <PushwooshCore/PWInboxService.h>
 #endif
 #import "PWInbox+Internal.h"
-#import "PWInboxMessagesRequest.h"
-#import "PWInboxUpdateStatusRequest.h"
-#import "PWNetworkModule.h"
-#import "PWInboxMessageInternal+Status.h"
+#import <PushwooshCore/PWInboxMessagesRequest.h>
+#import <PushwooshCore/PWInboxUpdateStatusRequest.h>
+#import <PushwooshCore/PWNetworkModule.h>
+#import <PushwooshCore/PWInboxMessageInternal+Status.h>
 #import "Pushwoosh+Internal.h"
 
 NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpdateNotification.com.pushwoosh.inbox";

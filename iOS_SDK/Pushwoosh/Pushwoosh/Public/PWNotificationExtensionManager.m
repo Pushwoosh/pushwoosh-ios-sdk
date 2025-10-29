@@ -7,11 +7,12 @@
 //
 
 #import "PWNotificationExtensionManager.h"
-#import "PWMessageDeliveryRequest.h"
-#import "PWMessage+Internal.h"
-#import "PWNetworkModule.h"
-#import "NSDictionary+PWDictUtils.h"
-#import "PWConfig.h"
+#import <PushwooshCore/PWMessageDeliveryRequest.h>
+#import <PushwooshCore/PWMessage+Internal.h>
+#import <PushwooshCore/PWNetworkModule.h>
+#import <PushwooshCore/NSDictionary+PWDictUtils.h>
+#import <PushwooshCore/PWConfig.h>
+#import <PushwooshCore/PushwooshLog.h>
 
 @interface PWNotificationExtensionManager ()
 
@@ -69,7 +70,7 @@
         return;
     }
 
-    PWLogInfo(@"Service notification extension was called with payload: %@", bestAttemptContent.userInfo);
+    [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"Service notification extension was called with payload: %@", bestAttemptContent.userInfo]];
     
     NSString *appGroupsName = [[PWConfig config] appGroupsName];
         
@@ -140,7 +141,7 @@
             }
         }
     } else {
-        PWLogWarn(@"App Groups aren't installed");
+        [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:@"App Groups aren't installed"];
     }
 #else
     // tvOS doesn't support userInfo property
@@ -157,7 +158,7 @@
 
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error) {
-            PWLogError(@"messageDeliveryEvent failed");
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"messageDeliveryEvent failed"];
         }
 
         if (completion) {
@@ -201,17 +202,17 @@
             
             if ([[NSFileManager defaultManager] moveItemAtPath:location.path toPath:tempFilePath error:&error]) {
                 UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:attachmentID URL:[NSURL fileURLWithPath:tempFilePath] options:nil error:&error];
-                
+
                 if (!attachment) {
-                    PWLogError(@"Create attachment error: %@", error);
+                    [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Create attachment error: %@", error]];
                 } else {
                     bestAttemptContent.attachments = [bestAttemptContent.attachments arrayByAddingObject:attachment];
                 }
             } else {
-                PWLogError(@"Move file error: %@", error);
+                [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Move file error: %@", error]];
             }
         } else {
-            PWLogError(@"Download file error: %@", error);
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Download file error: %@", error]];
         }
         
         if (completion) {

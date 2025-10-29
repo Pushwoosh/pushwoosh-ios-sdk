@@ -31,6 +31,7 @@ class PWTVOSUniversalHTMLParser {
         var backgroundColor: UIColor?
         var backgroundGradient: GradientInfo?
         var fontSize: CGFloat = 20
+        var fontWeight: UIFont.Weight = .regular
         var textAlign: NSTextAlignment = .left
         var padding: UIEdgeInsets = .zero
         var margin: UIEdgeInsets = .zero
@@ -424,6 +425,10 @@ class PWTVOSUniversalHTMLParser {
             styles.fontSize = parseFontSize(fontSize)
         }
 
+        if let fontWeight = extractStyleValue(from: styleAttr, property: "font-weight") {
+            styles.fontWeight = parseFontWeight(fontWeight)
+        }
+
         if let textAlign = extractStyleValue(from: styleAttr, property: "text-align") {
             styles.textAlign = parseTextAlignment(textAlign)
         }
@@ -583,6 +588,33 @@ class PWTVOSUniversalHTMLParser {
         return parseDimension(value) * 1.2
     }
 
+    private func parseFontWeight(_ value: String) -> UIFont.Weight {
+        let trimmed = value.trimmingCharacters(in: .whitespaces).lowercased()
+
+        if let numericValue = Int(trimmed) {
+            switch numericValue {
+            case 100: return .ultraLight
+            case 200: return .thin
+            case 300: return .light
+            case 400: return .regular
+            case 500: return .medium
+            case 600: return .semibold
+            case 700: return .bold
+            case 800: return .heavy
+            case 900: return .black
+            default: return .regular
+            }
+        }
+
+        switch trimmed {
+        case "normal": return .regular
+        case "bold": return .bold
+        case "bolder": return .heavy
+        case "lighter": return .light
+        default: return .regular
+        }
+    }
+
     private func parseTextAlignment(_ value: String) -> NSTextAlignment {
         switch value.lowercased().trimmingCharacters(in: .whitespaces) {
         case "center":
@@ -641,7 +673,12 @@ class PWTVOSUniversalHTMLParser {
         let cleanColor = colorString.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if cleanColor.hasPrefix("#") {
-            let hex = String(cleanColor.dropFirst())
+            var hex = String(cleanColor.dropFirst())
+
+            if hex.count == 3 {
+                hex = hex.map { "\($0)\($0)" }.joined()
+            }
+
             var rgbValue: UInt64 = 0
             Scanner(string: hex).scanHexInt64(&rgbValue)
 

@@ -17,8 +17,7 @@
     #import <AppKit/AppKit.h>
 #endif
 
-    #import "Constants.h"
-	#import "PWLog+Internal.h"
+    #import <PushwooshCore/Constants.h>
 #endif
 
 

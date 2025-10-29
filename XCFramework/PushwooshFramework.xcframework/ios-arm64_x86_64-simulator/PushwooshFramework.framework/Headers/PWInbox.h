@@ -6,9 +6,10 @@
 
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
+#import <PushwooshCore/PWInboxTypes.h>
 
 /**
- The notification arriving on the Inbox messages renewal 
+ The notification arriving on the Inbox messages renewal
  */
 FOUNDATION_EXPORT NSString * const PWInboxMessagesDidUpdateNotification;
 
@@ -16,39 +17,6 @@ FOUNDATION_EXPORT NSString * const PWInboxMessagesDidUpdateNotification;
  The notification arriving when a push message is added to Inbox
  */
 FOUNDATION_EXPORT NSString * const PWInboxMessagesDidReceiveInPushNotification;
-
-/**
- The Inbox message type. Plain = without any action, Richmedia = contains a Rich media page, URL = contains remote URL, Deeplink = contains Deeplink
- */
-typedef NS_ENUM(NSInteger, PWInboxMessageType) {
-    PWInboxMessageTypePlain = 0,
-    PWInboxMessageTypeRichmedia = 1,
-    PWInboxMessageTypeURL = 2,
-    PWInboxMessageTypeDeeplink = 3
-};
-
-
-/**
- `PWInboxMessageProtocol` The protocol describing the Inbox message.
- */
-@protocol PWInboxMessageProtocol <NSObject>
-
-@required
-
-@property (readonly, nonatomic) NSString *code;
-@property (readonly, nonatomic) NSString *title;
-@property (readonly, nonatomic) NSString *imageUrl;
-@property (readonly, nonatomic) NSString *message;
-@property (readonly, nonatomic) NSDate *sendDate;
-@property (readonly, nonatomic) PWInboxMessageType type;
-//! Inbox Message which is read, see + (void)readMessagesWithCodes:(NSArray<NSString *> *)codes
-@property (readonly, nonatomic) BOOL isRead;
-//! Action of the Inbox Message is performed (if true, an action was performed in the Inbox see + (void)performActionForMessageWithCode:(NSString *)code or an action was performed on the push tap )
-@property (readonly, nonatomic) BOOL isActionPerformed;
-@property (readonly, nonatomic) NSDictionary *actionParams;
-@property (readonly, nonatomic) NSString *attachmentUrl;
-
-@end
 
 @interface PWInbox : NSObject
 

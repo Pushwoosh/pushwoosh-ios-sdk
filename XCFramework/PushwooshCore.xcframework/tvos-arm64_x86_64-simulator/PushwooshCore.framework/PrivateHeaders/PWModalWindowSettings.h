@@ -1,0 +1,32 @@
+#if TARGET_OS_IOS
+
+//
+//  PWModalWindowSettings.h
+//  Pushwoosh
+//
+//  Created by André Kis on 16.08.24.
+//  Copyright © 2024 Pushwoosh. All rights reserved.
+//
+
+#import <Foundation/Foundation.h>
+#import <PushwooshCore/PWModalWindowConfiguration.h>
+
+NS_ASSUME_NONNULL_BEGIN
+
+@interface PWModalWindowSettings : NSObject
+
+@property (nonatomic) ModalWindowPosition modalWindowPosition;
+@property (nonatomic) NSArray<NSNumber *> *dismissSwipeDirections;
+@property (nonatomic) HapticFeedbackType hapticFeedbackType;
+@property (nonatomic) PresentModalWindowAnimation presentAnimation;
+@property (nonatomic) DismissModalWindowAnimation dismissAnimation;
+@property (nonatomic) CornerType cornerType;
+@property (nonatomic) CGFloat cornerRadius;
+
++ (instancetype)sharedSettings;
+
+@end
+
+NS_ASSUME_NONNULL_END
+
+#endif

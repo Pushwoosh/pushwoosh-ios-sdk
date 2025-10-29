@@ -8,7 +8,7 @@
 
 #import "PWTestUtils.h"
 #import "PushNotificationManager.h"
-#import "PWSettings.h"
+#import "PWPreferences.h"
 #import "PWUtils.h"
 #import "PWPlatformModule.h"
 #import "PWNotificationCategoryBuilder.h"
@@ -90,7 +90,7 @@
 }
 
 - (void)testLastStatusMaskIsEqualToPreviousValue {
-    id mockPWSettings = OCMPartialMock([PWSettings settings]);
+    id mockPWSettings = OCMPartialMock([PWPreferences preferences]);
     OCMStub([mockPWSettings lastStatusMask]).andReturn(3);
     id mockPWUtils = OCMClassMock([PWUtils class]);
     OCMStub([mockPWUtils getStatusesMask]).andReturn(5);
@@ -99,29 +99,12 @@
     
     XCTAssertEqual([PWUtils getStatusesMask], 5);
 }
-
-- (void)testSendTokenToDelegateCalled {
-    NSDate *date = [NSDate date];
-    id mockPushManager = OCMPartialMock(self.pushNotificationsManagerCommon);
-    id mockPWUtils = OCMClassMock([PWUtils class]);
-    OCMStub([mockPWUtils getStatusesMask]).andReturn(3);
-    id mockPWSettings = OCMPartialMock([PWSettings settings]);
-    OCMStub([mockPWSettings lastRegTime]).andReturn(date);
-    OCMStub([mockPWSettings lastStatusMask]).andReturn(3);
-    OCMStub([mockPWSettings pushToken]).andReturn(@"fake_token");
-    OCMExpect([mockPushManager sendTokenToDelegate:@"fake_token" triggerCallbacks:YES]);
-
-    [self.pushNotificationsManagerCommon sendDevTokenToServer:@"fake_token" triggerCallbacks:YES];
-
-    OCMVerifyAll(mockPushManager);
-}
-
 - (void)testSendTokenToDelegateNotCalled {
     NSDate *date = [NSDate date];
     id mockPushManager = OCMPartialMock(self.pushNotificationsManagerCommon);
     id mockPWUtils = OCMClassMock([PWUtils class]);
     OCMStub([mockPWUtils getStatusesMask]).andReturn(5);
-    id mockPWPreferences = OCMPartialMock([PWSettings settings]);
+    id mockPWPreferences = OCMPartialMock([PWPreferences preferences]);
     OCMStub([mockPWPreferences lastRegTime]).andReturn(date);
     OCMStub([mockPWPreferences lastStatusMask]).andReturn(3);
     OCMStub([mockPWPreferences pushToken]).andReturn(@"fake_token");

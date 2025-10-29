@@ -9,7 +9,7 @@
 #import <PushwooshCore/PushwooshCore.h>
 #import <PushwooshCore/PushwooshLog.h>
 #import <PushwooshCore/PushwooshConfig.h>
-#import <PushwooshCore/PWSettings.h>
+#import <PushwooshCore/PWPreferences.h>
 
 #if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
 
@@ -23,10 +23,10 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"6.11.3"
+#define PUSHWOOSH_VERSION @"6.12.0"
 
 
-@class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy;
+@class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy, PushwooshConfig;
 
 
 typedef void (^PushwooshRegistrationHandler)(NSString * _Nullable token, NSError * _Nullable error);
@@ -110,92 +110,6 @@ Tells the delegate that the user has pressed on the push notification banner.
 #endif
 
 
-/**
- Message from Pushwoosh.
-*/
-@interface PWMessage : NSObject
-
-/**
- Title of the push message.
-*/
-@property (nonatomic, readonly) NSString * _Nullable title;
-
-/**
- Subtitle of the push message.
-*/
-@property (nonatomic, readonly) NSString * _Nullable subTitle;
-
-/**
- Body of the push message.
-*/
-@property (nonatomic, readonly) NSString * _Nullable message;
-
-/**
- Badge number of the push message.
-*/
-@property (nonatomic, readonly) NSUInteger badge;
-
-/**
- Message code of the push message.
- */
-@property (nonatomic, readonly) NSString *_Nullable messageCode;
-
-/**
- Unique identifier of the message.
- */
-@property (nonatomic, readonly) uint64_t messageId;
-
-/**
- Unique identifier of the campaign.
- */
-@property (nonatomic, readonly) uint64_t campaignId;
-
-/**
- Extension badge number of the push message.
-*/
-@property (nonatomic, readonly) NSUInteger badgeExtension;
-
-/**
- Remote URL or deeplink from the push message.
-*/
-@property (nonatomic, readonly) NSString * _Nullable link;
-
-/**
- Returns YES if this message received/opened then the app is in foreground state.
-*/
-@property (nonatomic, readonly, getter=isForegroundMessage) BOOL foregroundMessage;
-
-/**
- Returns YES if this message contains 'content-available' key (silent or newsstand push).
-*/
-@property (nonatomic, readonly, getter=isContentAvailable) BOOL contentAvailable;
-
-/**
- Returns YES if this is inbox message.
-*/
-@property (nonatomic, readonly, getter=isInboxMessage) BOOL inboxMessage;
-
-/**
- Gets custom JSON data from push notifications dictionary as specified in Pushwoosh Control Panel.
-*/
-@property (nonatomic, readonly) NSDictionary * _Nullable customData;
-
-/**
- Original payload of the message.
-*/
-@property (nonatomic, readonly) NSDictionary * _Nullable payload;
-
-/**
- Returns actionIdentifier of the button pressed
- */
-@property (nonatomic, readonly) NSString * _Nullable actionIdentifier;
-
-/**
- Returns YES if this message is recieved from Pushwoosh.
-*/
-+ (BOOL)isPushwooshMessage:(NSDictionary *_Nonnull)userInfo;
-
-@end
 
 
 /**
@@ -207,13 +121,13 @@ Tells the delegate that the user has pressed on the push notification banner.
 + (Class<PWLiveActivities>_Nonnull)LiveActivities NS_REFINED_FOR_SWIFT;
 
 #pragma mark - Logging
-+ (Class<PWDebug>_Nonnull)Debug NS_REFINED_FOR_SWIFT;
++ (Class<PWDebug>_Nonnull)debug NS_REFINED_FOR_SWIFT;
 
 #pragma mark - VoIP
 + (Class<PWVoIP>_Nonnull)VoIP NS_REFINED_FOR_SWIFT;
 
 #pragma mark - Configuration
-+ (Class<PWConfiguration>_Nonnull)Configuration NS_REFINED_FOR_SWIFT;
++ (Class _Nonnull)configure NS_REFINED_FOR_SWIFT;
 
 #pragma mark - Custom Foreground Push Notifications
 + (Class<PWForegroundPush>_Nonnull)ForegroundPush NS_REFINED_FOR_SWIFT;

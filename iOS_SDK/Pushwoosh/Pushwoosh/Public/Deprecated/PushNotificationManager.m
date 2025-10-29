@@ -6,8 +6,9 @@
 
 #import "PushNotificationManager.h"
 #import "Pushwoosh+Internal.h"
-#import "PWPreferences.h"
+#import <PushwooshCore/PWPreferences.h>
 #import "PWUtils.h"
+#import <PushwooshCore/PWManagerBridge.h>
 
 #import "PWUserNotificationCenterDelegate.h"
 
@@ -63,7 +64,7 @@ static dispatch_once_t pushManagerOncePredicate;
 }
 
 + (void)initializeWithAppCode:(NSString *)appCode appName:(NSString *)appName {
-    [[PWSettings settings] setAppCode:appCode];
+    [[PWPreferences preferences] setAppCode:appCode];
     [Pushwoosh sharedInstance];
 }
 
@@ -82,14 +83,22 @@ static dispatch_once_t pushManagerOncePredicate;
 
 #endif
 
+#pragma mark - Delegate
+
+- (void)setDelegate:(NSObject<PushNotificationDelegate> *)delegate {
+    _delegate = delegate;
+    [PWManagerBridge shared].delegate = delegate;
+    [PWManagerBridge shared].delegateSender = self;
+}
+
 #pragma mark - Language
 
 - (void)setLanguage:(NSString *)language {
-    [PWSettings settings].language = language;
+    [PWPreferences preferences].language = language;
 }
 
 - (NSString *)language {
-    return [PWSettings settings].language;
+    return [PWPreferences preferences].language;
 }
 
 #pragma push notifications
@@ -149,19 +158,19 @@ static dispatch_once_t pushManagerOncePredicate;
 #pragma mark - Getters
 
 - (NSString *)getHWID {
-	return [PWSettings settings].hwid;
+	return [PWPreferences preferences].hwid;
 }
 
 - (NSString *)appCode {
-	return [PWSettings settings].appCode;
+	return [PWPreferences preferences].appCode;
 }
 
 - (NSString *)appName {
-	return [PWSettings settings].appName;
+	return [PWPreferences preferences].appName;
 }
 
 - (NSString *)getPushToken {
-	return [PWSettings settings].pushToken;
+	return [PWPreferences preferences].pushToken;
 }
 
 + (NSString *)pushwooshVersion {

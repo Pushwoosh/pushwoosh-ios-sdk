@@ -6,7 +6,9 @@
 //  Copyright © 2020 Pushwoosh. All rights reserved.
 //
 
-#import <PushwooshFramework/PushwooshFramework.h>
+#import <Foundation/Foundation.h>
+
+@class PWMessage;
 
 @interface PWMessage ()
 

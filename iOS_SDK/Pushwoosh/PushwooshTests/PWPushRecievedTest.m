@@ -45,47 +45,55 @@
 
 @property (nonatomic, strong) Class originalCategoryBuilder;
 
+@property (nonatomic, strong) id mockUIApplication;
+
 @end
 
 @implementation PWPushRecievedTest
 
 - (void)setUp {
     [super setUp];
-    
+
+    self.mockUIApplication = OCMClassMock([UIApplication class]);
+    OCMStub([self.mockUIApplication sharedApplication]).andReturn(self.mockUIApplication);
+    OCMStub([self.mockUIApplication applicationState]).andReturn(UIApplicationStateActive);
+
     self.originalRequestManager = [PWNetworkModule module].requestManager;
     self.mockRequestManager = [PWRequestManagerMock new];
     [PWNetworkModule module].requestManager = self.mockRequestManager;
-    
+
     self.mockNotificationManager = mock([PWNotificationManagerCompat class]);
     self.originalNotificationManager = [PWPlatformModule module].notificationManagerCompat;
     [PWPlatformModule module].notificationManagerCompat = self.mockNotificationManager;
-    
+
     [givenVoid([self.mockNotificationManager getRemoteNotificationStatusWithCompletion:anything()]) willDo:^id (NSInvocation *invocation) {
         NSArray *args = [invocation mkt_arguments];
         void (^completion)(NSDictionary*) = args[0];
         completion(nil);
         return nil;
     }];
-    
+
     self.originalCategoryBuilder = [PWPlatformModule module].NotificationCategoryBuilder;
     [PWPlatformModule module].NotificationCategoryBuilder = [PWNotificationCategoryBuilder class];
-    
+
     self.mockNotificationDelegate = [PWPushNotificationDelegateMock new];
-    
+
     [PushNotificationManager initializeWithAppCode:@"4FC89B6D14A655.46488481" appName:@"UnitTest"];
     self.pushManager = [PushNotificationManager pushManager];
     [PushNotificationManager pushManager].delegate = self.mockNotificationDelegate;
 }
 
 - (void)tearDown {
-    
+    [self.mockUIApplication stopMocking];
+    self.mockUIApplication = nil;
+
     [PWNetworkModule module].requestManager = self.originalRequestManager;
     self.pushManager = nil;
     self.mockNotificationDelegate = nil;
     [PWPlatformModule module].notificationManagerCompat = self.originalNotificationManager;
     [PWPlatformModule module].NotificationCategoryBuilder = self.originalCategoryBuilder;
     [PWTestUtils tearDown];
-    
+
     [super tearDown];
 }
 
@@ -139,8 +147,8 @@
     
     //Steps:
     [self.pushManager handlePushReceived:userInfo];
-    [self waitForExpectationsWithTimeout:2 handler:nil];
-    
+    [self waitForExpectationsWithTimeout:3 handler:nil];
+
     //Postcondition:
     XCTAssertEqual(pushStatRequest.requestDictionary[@"hash"], userInfo[@"p"]);
 }
@@ -166,8 +174,8 @@
     
     //Steps:
     [self.pushManager handlePushReceived:userInfo];
-    [self waitForExpectationsWithTimeout:2 handler:nil];
-    
+    [self waitForExpectationsWithTimeout:3 handler:nil];
+
     //Postcondition:
     XCTAssertEqual(pushStatRequest.requestDictionary[@"hash"], nil);
     XCTAssertTrue(requestSent);

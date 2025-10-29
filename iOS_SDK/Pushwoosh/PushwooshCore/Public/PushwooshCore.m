@@ -7,14 +7,15 @@
 //
 
 #import "PushwooshCore.h"
+#import "PWRequestManager.h"
 
 @implementation PushwooshCoreManager
 
-static id<IPWCoreRequestManager> _sharedManager;
+static PWRequestManager *_sharedManager;
 
-+ (nonnull id<IPWCoreRequestManager>)sharedManager {
++ (nonnull PWRequestManager *)sharedManager {
     if (!_sharedManager) {
-        return PWCoreRequestManager.sharedManager;
+        _sharedManager = [[PWRequestManager alloc] init];
     }
     return _sharedManager;
 }

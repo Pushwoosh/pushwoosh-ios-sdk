@@ -13,34 +13,39 @@ import PushKit
 import CallKit
 import AVFoundation
 
+/// Orchestrates VoIP push notifications and CallKit integration for iOS applications.
 @available(iOS 14.0, *)
 @objc(PushwooshVoIPImplementation)
 public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelegate, CXProviderDelegate {
-    
+
+    /// Shared singleton instance.
     @objc(shared)
     public static let shared = PushwooshVoIPImplementation()
-    
+
+    /// The delegate that receives VoIP call events.
     @objc
     public static weak var delegate: AnyObject? {
         get { shared._delegate }
         set { shared._delegate = newValue as? (NSObjectProtocol & PWVoIPCallDelegate) }
     }
-    
+
     private weak var _delegate: PWVoIPCallDelegate?
-    
+
     var voipRegistry: PKPushRegistry!
     var callKitProvider: CXProvider!
     var callController: CXCallController!
-    
+
     var voipPushMessage: PWVoIPMessage?
     var pushMessageDict: [String: PWVoIPMessage] = [:]
 
+    /// Returns the VoIP implementation class.
     @objc
     public static func voip() -> AnyClass {
         return PushwooshVoIPImplementation.self
     }
-    
+
     // MARK: - Initialization (VoIP, CallKit)
+    /// Initializes the VoIP module with CallKit configuration.
     @objc
     public static func initializeVoIP(_ supportVideo: Bool,
                                       ringtoneSound: String,
@@ -64,12 +69,14 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         PushwooshVoIPImplementation.delegate?.returnedCallController(shared.callController)
         PushwooshVoIPImplementation.delegate?.returnedProvider(shared.callKitProvider)
     }
-    
+
+    /// Sets the VoIP push token manually.
     @objc
     public static func setVoIPToken(_ token: Data) {
         shared.handleVoIPToken(token)
     }
-    
+
+    /// Sets the Pushwoosh VoIP Application Code.
     @objc
     public static func setPushwooshVoIPAppId(_ voipAppId: String) {
         shared.setPushwooshVoIPAppId(voipAppId)
@@ -78,7 +85,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     // MARK: - PushKit Delegate
     public func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
         let newToken = hexString(from: pushCredentials.token)
-        let settings = PWSettings.settingsInstance()
+        let settings = PWPreferences.preferencesInstance()
 
         guard newToken != settings.voipPushToken else {
             return
@@ -260,7 +267,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     }
     
     private func setPushwooshVoIPAppId(_ voipAppId: String) {
-        PWSettings.settingsInstance().voipAppCode = voipAppId
+        PWPreferences.preferencesInstance().voipAppCode = voipAppId
     }
     
     private func unregisterVoIPDeviceRequest() {
@@ -277,7 +284,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
                                       className: self,
                                       message: "Failed device unregistered. Error: \(error.localizedDescription)")
         } else {
-            PWSettings.settingsInstance().pushToken = nil
+            PWPreferences.preferencesInstance().pushToken = nil
             PushwooshLog.pushwooshLog(.PW_LL_INFO, 
                                       className: self,
                                       message: "VoIP device successfully unregistered.")

@@ -55,8 +55,8 @@ class PWTVOSRichMediaRenderer {
 
     private func createView(for element: PWTVOSHTMLParser.RichMediaElement, containerWidth: CGFloat) -> UIView {
         switch element {
-        case .image(let url):
-            return createImageView(url: url, containerWidth: containerWidth)
+        case .image(let url, let cornerRadius):
+            return createImageView(url: url, cornerRadius: cornerRadius, containerWidth: containerWidth)
 
         case .heading(let text, let fontSize, let color, let textAlignment):
             return createHeadingView(text: text, fontSize: fontSize, color: color, textAlignment: textAlignment)
@@ -134,12 +134,16 @@ class PWTVOSRichMediaRenderer {
     }
 
 
-    private func createImageView(url: String, containerWidth: CGFloat) -> UIView {
+    private func createImageView(url: String, cornerRadius: CGFloat, containerWidth: CGFloat) -> UIView {
         let imageView = UIImageView()
         imageView.translatesAutoresizingMaskIntoConstraints = false
         imageView.contentMode = .scaleAspectFill
         imageView.clipsToBounds = true
         imageView.backgroundColor = .clear
+        if cornerRadius > 0 {
+            imageView.layer.cornerRadius = cornerRadius
+            imageView.layer.masksToBounds = true
+        }
 
         downloadImage(from: url) { [weak imageView] image in
             guard let imageView = imageView, let image = image else { return }
@@ -416,6 +420,7 @@ private struct AssociatedKeys {
 class PWTVOSFocusButton: UIButton {
     var normalBackgroundColor: UIColor = .clear
     var focusedBackgroundColor: UIColor = .white
+    var gradientLayer: CAGradientLayer?
     private var allowFocus: Bool = false
 
     override var canBecomeFocused: Bool {
@@ -429,6 +434,13 @@ class PWTVOSFocusButton: UIButton {
     override func layoutSubviews() {
         super.layoutSubviews()
         layer.cornerRadius = 8
+
+        if let gradient = gradientLayer {
+            gradient.frame = bounds
+            if gradient.superlayer == nil {
+                layer.insertSublayer(gradient, at: 0)
+            }
+        }
     }
 
     override func didUpdateFocus(in context: UIFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {

@@ -313,55 +313,78 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class CXCallController;
 @class AVAudioSession;
 
-/// PWVoIPCallDelegate provides callbacks for VoIP functionality including token registration and call management.
+/// Delegate protocol for receiving VoIP call events and CallKit callbacks.
 SWIFT_PROTOCOL("_TtP13PushwooshVoIP18PWVoIPCallDelegate_")
 @protocol PWVoIPCallDelegate <NSObject>
 @optional
-/// Called when VoIP token is successfully registered with Pushwoosh servers
-/// This callback is triggered after successful network registration of the device’s VoIP push token
+/// Called when VoIP token is successfully registered with Pushwoosh servers.
 - (void)voipDidRegisterTokenSuccessfully;
-/// Called when VoIP token registration fails
-/// This callback is triggered when there’s an error during VoIP token registration with Pushwoosh servers
-/// \param error The error that occurred during token registration
-///
+/// Called when VoIP token registration fails.
 - (void)voipDidFailToRegisterTokenWithError:(NSError * _Nonnull)error;
 @required
+/// Called when a VoIP push notification arrives.
 - (void)voipDidReceiveIncomingCallWithPayload:(PWVoIPMessage * _Nonnull)payload;
 @optional
+/// Called when incoming call is successfully reported to CallKit.
 - (void)voipDidReportIncomingCallSuccessfullyWithVoipMessage:(PWVoIPMessage * _Nonnull)voipMessage;
+/// Called when reporting incoming call to CallKit fails.
 - (void)voipDidFailToReportIncomingCallWithError:(NSError * _Nonnull)error;
+/// Called when user initiates an outgoing call.
 - (void)startCall:(CXProvider * _Nonnull)provider perform:(CXStartCallAction * _Nonnull)action;
+/// Called when user ends a call.
 - (void)endCall:(CXProvider * _Nonnull)provider perform:(CXEndCallAction * _Nonnull)action voipMessage:(PWVoIPMessage * _Nullable)voipMessage;
+/// Called when user answers an incoming call.
 - (void)answerCall:(CXProvider * _Nonnull)provider perform:(CXAnswerCallAction * _Nonnull)action voipMessage:(PWVoIPMessage * _Nullable)voipMessage;
+/// Called when user mutes or unmutes the call.
 - (void)mutedCall:(CXProvider * _Nonnull)provider perform:(CXSetMutedCallAction * _Nonnull)action;
+/// Called when user puts the call on hold or resumes it.
 - (void)heldCall:(CXProvider * _Nonnull)provider perform:(CXSetHeldCallAction * _Nonnull)action;
+/// Called when user plays DTMF tone during the call.
 - (void)playDTMF:(CXProvider * _Nonnull)provider perform:(CXPlayDTMFCallAction * _Nonnull)action;
 @required
+/// Called when the CallKit provider resets.
 - (void)pwProviderDidReset:(CXProvider * _Nonnull)provider;
+/// Called when the CallKit provider is ready to handle calls.
 - (void)pwProviderDidBegin:(CXProvider * _Nonnull)provider;
 @optional
+/// Called to provide the call controller instance.
 - (void)returnedCallController:(CXCallController * _Nonnull)controller;
+/// Called to provide the CallKit provider instance.
 - (void)returnedProvider:(CXProvider * _Nonnull)provider;
+/// Called when audio session is activated.
 - (void)activatedAudioSession:(CXProvider * _Nonnull)provider didActivate:(AVAudioSession * _Nonnull)audioSession;
+/// Called when audio session is deactivated.
 - (void)deactivatedAudioSession:(CXProvider * _Nonnull)provider didDeactivate:(AVAudioSession * _Nonnull)audioSession;
 @end
 
+/// Display format for caller information in CallKit UI.
 typedef SWIFT_ENUM(NSInteger, PWVoIPHandleType, open) {
+/// Generic identifier like username or custom ID.
   PWVoIPHandleTypeGeneric = 1,
+/// Phone number with automatic formatting.
   PWVoIPHandleTypePhoneNumber = 2,
+/// Email address format.
   PWVoIPHandleTypeEmail = 3,
 };
 
 @class NSString;
 
+/// An encapsulation of VoIP push notification payload data.
 SWIFT_CLASS("_TtC13PushwooshVoIP13PWVoIPMessage")
 @interface PWVoIPMessage : NSObject
+/// The unique identifier for the call.
 @property (nonatomic, copy) NSString * _Nonnull uuid;
+/// The display format for caller information.
 @property (nonatomic, readonly) enum PWVoIPHandleType handleType;
+/// The caller’s display name or identifier.
 @property (nonatomic, readonly, copy) NSString * _Nonnull callerName;
+/// A Boolean value that indicates whether the call supports video.
 @property (nonatomic) BOOL hasVideo;
+/// A Boolean value that indicates whether the call supports hold functionality.
 @property (nonatomic, readonly) BOOL supportsHolding;
+/// A Boolean value that indicates whether the call supports DTMF tones.
 @property (nonatomic, readonly) BOOL supportsDTMF;
+/// The raw push notification payload.
 @property (nonatomic, readonly, copy) NSDictionary * _Nonnull rawPayload;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -372,16 +395,23 @@ SWIFT_CLASS("_TtC13PushwooshVoIP13PWVoIPMessage")
 @class PKPushCredentials;
 @class PKPushPayload;
 
+/// Orchestrates VoIP push notifications and CallKit integration for iOS applications.
 SWIFT_CLASS_NAMED("PushwooshVoIPImplementation") SWIFT_AVAILABILITY(ios,introduced=14.0)
 @interface PushwooshVoIPImplementation : NSObject <CXProviderDelegate, PKPushRegistryDelegate, PWVoIP>
+/// Shared singleton instance.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) PushwooshVoIPImplementation * _Nonnull shared;)
 + (PushwooshVoIPImplementation * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+/// The delegate that receives VoIP call events.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, weak) id _Nullable delegate;)
 + (id _Nullable)delegate SWIFT_WARN_UNUSED_RESULT;
 + (void)setDelegate:(id _Nullable)newValue;
+/// Returns the VoIP implementation class.
 + (Class _Nonnull)voip SWIFT_WARN_UNUSED_RESULT;
+/// Initializes the VoIP module with CallKit configuration.
 + (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
+/// Sets the VoIP push token manually.
 + (void)setVoIPToken:(NSData * _Nonnull)token;
+/// Sets the Pushwoosh VoIP Application Code.
 + (void)setPushwooshVoIPAppId:(NSString * _Nonnull)voipAppId;
 - (void)pushRegistry:(PKPushRegistry * _Nonnull)registry didUpdatePushCredentials:(PKPushCredentials * _Nonnull)pushCredentials forType:(PKPushType _Nonnull)type;
 - (void)pushRegistry:(PKPushRegistry * _Nonnull)registry didInvalidatePushTokenForType:(PKPushType _Nonnull)type;
@@ -722,55 +752,78 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class CXCallController;
 @class AVAudioSession;
 
-/// PWVoIPCallDelegate provides callbacks for VoIP functionality including token registration and call management.
+/// Delegate protocol for receiving VoIP call events and CallKit callbacks.
 SWIFT_PROTOCOL("_TtP13PushwooshVoIP18PWVoIPCallDelegate_")
 @protocol PWVoIPCallDelegate <NSObject>
 @optional
-/// Called when VoIP token is successfully registered with Pushwoosh servers
-/// This callback is triggered after successful network registration of the device’s VoIP push token
+/// Called when VoIP token is successfully registered with Pushwoosh servers.
 - (void)voipDidRegisterTokenSuccessfully;
-/// Called when VoIP token registration fails
-/// This callback is triggered when there’s an error during VoIP token registration with Pushwoosh servers
-/// \param error The error that occurred during token registration
-///
+/// Called when VoIP token registration fails.
 - (void)voipDidFailToRegisterTokenWithError:(NSError * _Nonnull)error;
 @required
+/// Called when a VoIP push notification arrives.
 - (void)voipDidReceiveIncomingCallWithPayload:(PWVoIPMessage * _Nonnull)payload;
 @optional
+/// Called when incoming call is successfully reported to CallKit.
 - (void)voipDidReportIncomingCallSuccessfullyWithVoipMessage:(PWVoIPMessage * _Nonnull)voipMessage;
+/// Called when reporting incoming call to CallKit fails.
 - (void)voipDidFailToReportIncomingCallWithError:(NSError * _Nonnull)error;
+/// Called when user initiates an outgoing call.
 - (void)startCall:(CXProvider * _Nonnull)provider perform:(CXStartCallAction * _Nonnull)action;
+/// Called when user ends a call.
 - (void)endCall:(CXProvider * _Nonnull)provider perform:(CXEndCallAction * _Nonnull)action voipMessage:(PWVoIPMessage * _Nullable)voipMessage;
+/// Called when user answers an incoming call.
 - (void)answerCall:(CXProvider * _Nonnull)provider perform:(CXAnswerCallAction * _Nonnull)action voipMessage:(PWVoIPMessage * _Nullable)voipMessage;
+/// Called when user mutes or unmutes the call.
 - (void)mutedCall:(CXProvider * _Nonnull)provider perform:(CXSetMutedCallAction * _Nonnull)action;
+/// Called when user puts the call on hold or resumes it.
 - (void)heldCall:(CXProvider * _Nonnull)provider perform:(CXSetHeldCallAction * _Nonnull)action;
+/// Called when user plays DTMF tone during the call.
 - (void)playDTMF:(CXProvider * _Nonnull)provider perform:(CXPlayDTMFCallAction * _Nonnull)action;
 @required
+/// Called when the CallKit provider resets.
 - (void)pwProviderDidReset:(CXProvider * _Nonnull)provider;
+/// Called when the CallKit provider is ready to handle calls.
 - (void)pwProviderDidBegin:(CXProvider * _Nonnull)provider;
 @optional
+/// Called to provide the call controller instance.
 - (void)returnedCallController:(CXCallController * _Nonnull)controller;
+/// Called to provide the CallKit provider instance.
 - (void)returnedProvider:(CXProvider * _Nonnull)provider;
+/// Called when audio session is activated.
 - (void)activatedAudioSession:(CXProvider * _Nonnull)provider didActivate:(AVAudioSession * _Nonnull)audioSession;
+/// Called when audio session is deactivated.
 - (void)deactivatedAudioSession:(CXProvider * _Nonnull)provider didDeactivate:(AVAudioSession * _Nonnull)audioSession;
 @end
 
+/// Display format for caller information in CallKit UI.
 typedef SWIFT_ENUM(NSInteger, PWVoIPHandleType, open) {
+/// Generic identifier like username or custom ID.
   PWVoIPHandleTypeGeneric = 1,
+/// Phone number with automatic formatting.
   PWVoIPHandleTypePhoneNumber = 2,
+/// Email address format.
   PWVoIPHandleTypeEmail = 3,
 };
 
 @class NSString;
 
+/// An encapsulation of VoIP push notification payload data.
 SWIFT_CLASS("_TtC13PushwooshVoIP13PWVoIPMessage")
 @interface PWVoIPMessage : NSObject
+/// The unique identifier for the call.
 @property (nonatomic, copy) NSString * _Nonnull uuid;
+/// The display format for caller information.
 @property (nonatomic, readonly) enum PWVoIPHandleType handleType;
+/// The caller’s display name or identifier.
 @property (nonatomic, readonly, copy) NSString * _Nonnull callerName;
+/// A Boolean value that indicates whether the call supports video.
 @property (nonatomic) BOOL hasVideo;
+/// A Boolean value that indicates whether the call supports hold functionality.
 @property (nonatomic, readonly) BOOL supportsHolding;
+/// A Boolean value that indicates whether the call supports DTMF tones.
 @property (nonatomic, readonly) BOOL supportsDTMF;
+/// The raw push notification payload.
 @property (nonatomic, readonly, copy) NSDictionary * _Nonnull rawPayload;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -781,16 +834,23 @@ SWIFT_CLASS("_TtC13PushwooshVoIP13PWVoIPMessage")
 @class PKPushCredentials;
 @class PKPushPayload;
 
+/// Orchestrates VoIP push notifications and CallKit integration for iOS applications.
 SWIFT_CLASS_NAMED("PushwooshVoIPImplementation") SWIFT_AVAILABILITY(ios,introduced=14.0)
 @interface PushwooshVoIPImplementation : NSObject <CXProviderDelegate, PKPushRegistryDelegate, PWVoIP>
+/// Shared singleton instance.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) PushwooshVoIPImplementation * _Nonnull shared;)
 + (PushwooshVoIPImplementation * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+/// The delegate that receives VoIP call events.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, weak) id _Nullable delegate;)
 + (id _Nullable)delegate SWIFT_WARN_UNUSED_RESULT;
 + (void)setDelegate:(id _Nullable)newValue;
+/// Returns the VoIP implementation class.
 + (Class _Nonnull)voip SWIFT_WARN_UNUSED_RESULT;
+/// Initializes the VoIP module with CallKit configuration.
 + (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
+/// Sets the VoIP push token manually.
 + (void)setVoIPToken:(NSData * _Nonnull)token;
+/// Sets the Pushwoosh VoIP Application Code.
 + (void)setPushwooshVoIPAppId:(NSString * _Nonnull)voipAppId;
 - (void)pushRegistry:(PKPushRegistry * _Nonnull)registry didUpdatePushCredentials:(PKPushCredentials * _Nonnull)pushCredentials forType:(PKPushType _Nonnull)type;
 - (void)pushRegistry:(PKPushRegistry * _Nonnull)registry didInvalidatePushTokenForType:(PKPushType _Nonnull)type;

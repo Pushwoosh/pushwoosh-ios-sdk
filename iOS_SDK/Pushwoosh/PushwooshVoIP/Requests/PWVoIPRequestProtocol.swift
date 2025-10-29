@@ -9,7 +9,7 @@
 import Foundation
 import PushwooshCore
 
-protocol PWCoreSetVoIPTokenRequest: PWCoreRequest {
+protocol PWCoreSetVoIPTokenRequest: PWRequest {
     var parameters: VoIPRequestParameters { get }
     func prepareForExecution() -> Bool
 }

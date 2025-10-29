@@ -10,7 +10,7 @@
 import Foundation
 import PushwooshCore
 
-protocol PWCoreSetLiveActivityTokenRequest: PWCoreRequest {
+protocol PWCoreSetLiveActivityTokenRequest: PWRequest {
     var parameters: ActivityRequestParameters { get }
     
     func prepareForExecution() -> Bool

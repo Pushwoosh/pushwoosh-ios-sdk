@@ -14,7 +14,7 @@ import PushwooshCore
 class PWTVOSHTMLParser {
 
     enum RichMediaElement {
-        case image(url: String)
+        case image(url: String, cornerRadius: CGFloat)
         case heading(text: String, fontSize: CGFloat, color: UIColor?, textAlignment: NSTextAlignment)
         case text(text: String, fontSize: CGFloat, color: UIColor?, textAlignment: NSTextAlignment)
         case textField(placeholder: String, fieldName: String, fontSize: CGFloat, textColor: UIColor?, bgColor: UIColor?, borderColor: UIColor?, textAlignment: NSTextAlignment)
@@ -58,15 +58,20 @@ class PWTVOSHTMLParser {
     }
 
     func parseHTML(_ html: String, localization: [String: Any]?) -> [RichMediaElement] {
+        print("[TVOS] parseHTML called")
         let processedHTML = processPlaceholders(in: html, localization: localization)
         return parseWithDOMTree(processedHTML)
     }
 
     private func parseWithDOMTree(_ html: String) -> [RichMediaElement] {
+        print("[TVOS] parseWithDOMTree called")
         let u_column_1Content = extractU_Column1Content(from: html)
+        print("[TVOS] u_column_1Content isEmpty: \(u_column_1Content.isEmpty)")
         guard !u_column_1Content.isEmpty else {
+            print("[TVOS] Using parseUnlayerFormat")
             return parseUnlayerFormat(html)
         }
+        print("[TVOS] Using DOM tree parsing")
 
         let hasFlexRow = u_column_1Content.range(of: "flex-direction:\\s*row", options: .regularExpression) != nil
 
@@ -246,7 +251,8 @@ class PWTVOSHTMLParser {
         var elements: [RichMediaElement] = []
 
         if let bgImageURL = extractBodyBackgroundImage(from: html) {
-            elements.append(.image(url: bgImageURL))
+            let cornerRadius = extractCornerRadius(from: html)
+            elements.append(.image(url: bgImageURL, cornerRadius: cornerRadius))
         }
 
         let contentPattern = "id=\"(u_content_[^\"]+)\""
@@ -261,6 +267,8 @@ class PWTVOSHTMLParser {
             guard let range = Range(match.range(at: 1), in: html) else { continue }
             let contentId = String(html[range])
 
+            print("[TVOS] Found contentId: \(contentId)")
+
             if processedIds.contains(contentId) {
                 continue
             }
@@ -271,12 +279,14 @@ class PWTVOSHTMLParser {
             } else if contentId.contains("_image_") {
                 if let content = extractContentForId(html, contentId: contentId),
                    let imageURL = extractImageURL(from: content) {
-                    elements.append(.image(url: imageURL))
+                    let cornerRadius = extractImageBorderRadius(from: content)
+                    elements.append(.image(url: imageURL, cornerRadius: cornerRadius))
                 }
             } else if contentId.contains("_html_") {
                 if let content = extractContentForId(html, contentId: contentId) {
                     if let imageURL = extractImageURL(from: content) {
-                        elements.append(.image(url: imageURL))
+                        let cornerRadius = extractImageBorderRadius(from: content)
+                        elements.append(.image(url: imageURL, cornerRadius: cornerRadius))
                         if let nestedMatch = contentRegex.firstMatch(in: content, range: NSRange(content.startIndex..., in: content)),
                            let nestedRange = Range(nestedMatch.range(at: 1), in: content) {
                             let nestedId = String(content[nestedRange])
@@ -295,6 +305,7 @@ class PWTVOSHTMLParser {
                         let colorStr = extractStyleValue(from: styles, property: "color")
                         let color = parseColor(colorStr)
                         let alignment = parseTextAlignment(from: styles)
+                        print("[TVOS] Heading '\(text)' - styles: '\(styles)' - colorStr: '\(colorStr ?? "nil")' - color: \(color != nil ? "parsed" : "nil")")
                         elements.append(.heading(text: text, fontSize: fontSize, color: color, textAlignment: alignment))
                     }
                 }
@@ -386,7 +397,8 @@ class PWTVOSHTMLParser {
         var elements: [RichMediaElement] = []
 
         if let bgImageURL = extractBodyBackgroundImage(from: html) {
-            elements.append(.image(url: bgImageURL))
+            let cornerRadius = extractCornerRadius(from: html)
+            elements.append(.image(url: bgImageURL, cornerRadius: cornerRadius))
         }
 
         let contentPattern = "id=\"(u_content_[^\"]+)\""
@@ -401,6 +413,8 @@ class PWTVOSHTMLParser {
             guard let range = Range(match.range(at: 1), in: html) else { continue }
             let contentId = String(html[range])
 
+            print("[TVOS] Found contentId: \(contentId)")
+
             if processedIds.contains(contentId) {
                 continue
             }
@@ -411,12 +425,14 @@ class PWTVOSHTMLParser {
             } else if contentId.contains("_image_") {
                 if let content = extractContentForId(html, contentId: contentId),
                    let imageURL = extractImageURL(from: content) {
-                    elements.append(.image(url: imageURL))
+                    let cornerRadius = extractImageBorderRadius(from: content)
+                    elements.append(.image(url: imageURL, cornerRadius: cornerRadius))
                 }
             } else if contentId.contains("_html_") {
                 if let content = extractContentForId(html, contentId: contentId) {
                     if let imageURL = extractImageURL(from: content) {
-                        elements.append(.image(url: imageURL))
+                        let cornerRadius = extractImageBorderRadius(from: content)
+                        elements.append(.image(url: imageURL, cornerRadius: cornerRadius))
                         if let nestedMatch = contentRegex.firstMatch(in: content, range: NSRange(content.startIndex..., in: content)),
                            let nestedRange = Range(nestedMatch.range(at: 1), in: content) {
                             let nestedId = String(content[nestedRange])
@@ -435,6 +451,7 @@ class PWTVOSHTMLParser {
                         let colorStr = extractStyleValue(from: styles, property: "color")
                         let color = parseColor(colorStr)
                         let alignment = parseTextAlignment(from: styles)
+                        print("[TVOS] Heading '\(text)' - styles: '\(styles)' - colorStr: '\(colorStr ?? "nil")' - color: \(color != nil ? "parsed" : "nil")")
                         elements.append(.heading(text: text, fontSize: fontSize, color: color, textAlignment: alignment))
                     }
                 }
@@ -506,10 +523,28 @@ class PWTVOSHTMLParser {
                 if let bgColor = extractStyleValue(from: tagStr, property: "background-color") {
                     return parseColor(bgColor)
                 }
+
+                if let background = extractStyleValue(from: tagStr, property: "background") {
+                    if let gradientColor = parseGradientColor(background) {
+                        return gradientColor
+                    }
+                    return parseColor(background)
+                }
             }
         }
 
         return nil
+    }
+
+    private func parseGradientColor(_ gradient: String) -> UIColor? {
+        let colorPattern = "#[0-9A-Fa-f]{6}|rgb\\([^)]+\\)|rgba\\([^)]+\\)"
+        guard let regex = try? NSRegularExpression(pattern: colorPattern),
+              let match = regex.firstMatch(in: gradient, range: NSRange(gradient.startIndex..., in: gradient)),
+              let range = Range(match.range, in: gradient) else {
+            return nil
+        }
+        let firstColor = String(gradient[range])
+        return parseColor(firstColor)
     }
 
     private func extractCornerRadius(from html: String) -> CGFloat {
@@ -573,6 +608,22 @@ class PWTVOSHTMLParser {
         return nil
     }
 
+    private func extractImageBorderRadius(from content: String) -> CGFloat {
+        let imgPattern = "<img[^>]*style=\"([^\"]+)\""
+        if let regex = try? NSRegularExpression(pattern: imgPattern),
+           let match = regex.firstMatch(in: content, range: NSRange(content.startIndex..., in: content)),
+           let range = Range(match.range(at: 1), in: content) {
+            let styleStr = String(content[range])
+            if let radiusStr = extractStyleValue(from: styleStr, property: "border-radius") {
+                let numericString = radiusStr.components(separatedBy: CharacterSet.decimalDigits.inverted).joined()
+                if let radius = Double(numericString) {
+                    return CGFloat(radius)
+                }
+            }
+        }
+        return 0
+    }
+
 
     private func extractTextContent(_ html: String, contentId: String) -> String? {
         let pattern = "id=\"\(contentId)\"[^>]*>([\\s\\S]*?)</div>"
@@ -633,7 +684,7 @@ class PWTVOSHTMLParser {
         let isSendTags = content.contains("sendTags")
         let isGetTags = content.contains("getTags")
 
-        let textPattern = "<a[^>]*>\\s*([\\s\\S]*?)\\s*</a>"
+        let textPattern = "<(?:a|button)[^>]*>\\s*([\\s\\S]*?)\\s*</(?:a|button)>"
         guard let textRegex = try? NSRegularExpression(pattern: textPattern),
               let textMatch = textRegex.firstMatch(in: content, range: NSRange(content.startIndex..., in: content)),
               let textRange = Range(textMatch.range(at: 1), in: content) else {
@@ -680,12 +731,26 @@ class PWTVOSHTMLParser {
         }
 
         let pattern = "style=\"([^\"]+)\""
-        guard let regex = try? NSRegularExpression(pattern: pattern),
-              let match = regex.firstMatch(in: content, range: NSRange(content.startIndex..., in: content)),
-              let range = Range(match.range(at: 1), in: content) else {
+        guard let regex = try? NSRegularExpression(pattern: pattern) else {
             return ""
         }
-        return String(content[range])
+
+        let matches = regex.matches(in: content, range: NSRange(content.startIndex..., in: content))
+
+        for match in matches {
+            if let range = Range(match.range(at: 1), in: content) {
+                let styleStr = String(content[range])
+                if styleStr.contains("color:") || styleStr.contains("font-size:") || styleStr.contains("font-weight:") {
+                    return styleStr
+                }
+            }
+        }
+
+        if let match = matches.first, let range = Range(match.range(at: 1), in: content) {
+            return String(content[range])
+        }
+
+        return ""
     }
 
     private func extractStyleValue(from content: String, property: String) -> String? {
@@ -736,7 +801,12 @@ class PWTVOSHTMLParser {
         let cleanColor = colorString.trimmingCharacters(in: .whitespacesAndNewlines)
 
         if cleanColor.hasPrefix("#") {
-            let hex = String(cleanColor.dropFirst())
+            var hex = String(cleanColor.dropFirst())
+
+            if hex.count == 3 {
+                hex = hex.map { "\($0)\($0)" }.joined()
+            }
+
             var rgbValue: UInt64 = 0
             Scanner(string: hex).scanHexInt64(&rgbValue)
 

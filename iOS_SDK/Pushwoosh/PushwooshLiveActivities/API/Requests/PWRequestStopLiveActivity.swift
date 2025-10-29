@@ -10,7 +10,7 @@
 import Foundation
 import PushwooshCore
 
-class PWRequestStopLiveActivity: PWCoreRequest, PWCoreSetLiveActivityTokenRequest {
+class PWRequestStopLiveActivity: PWRequest, PWCoreSetLiveActivityTokenRequest {
     var parameters: ActivityRequestParameters
     
     init(parameters: ActivityRequestParameters) {
@@ -30,7 +30,9 @@ class PWRequestStopLiveActivity: PWCoreRequest, PWCoreSetLiveActivityTokenReques
     }
 
     override func requestDictionary() -> [AnyHashable: Any] {
-        let dict = self.baseDictionary()
+        guard let dict = self.baseDictionary() else {
+            return [:]
+        }
         dict["activity_token"] = nil
         dict["activity_id"] = parameters.activityId ?? ""
 

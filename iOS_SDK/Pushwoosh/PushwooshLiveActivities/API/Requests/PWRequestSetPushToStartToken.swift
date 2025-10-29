@@ -10,7 +10,7 @@
 import Foundation
 import PushwooshCore
 
-class PWRequestSetPushToStartToken: PWCoreRequest, PWCoreSetLiveActivityTokenRequest, PWCoreSetPushToStartTokenRequest {
+class PWRequestSetPushToStartToken: PWRequest, PWCoreSetLiveActivityTokenRequest, PWCoreSetPushToStartTokenRequest {
     
     var parameters: ActivityRequestParameters
     
@@ -36,7 +36,9 @@ class PWRequestSetPushToStartToken: PWCoreRequest, PWCoreSetLiveActivityTokenReq
     }
 
     override func requestDictionary() -> [AnyHashable: Any] {
-        let dict = self.baseDictionary()
+        guard let dict = self.baseDictionary() else {
+            return [:]
+        }
         dict["activity_push_to_start_token"] = parameters.pushToStartToken
         return dict as? [AnyHashable : Any] ?? [:]
     }

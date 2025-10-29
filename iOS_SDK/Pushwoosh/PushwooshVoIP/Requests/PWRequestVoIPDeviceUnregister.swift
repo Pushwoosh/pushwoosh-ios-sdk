@@ -9,7 +9,7 @@
 import Foundation
 import PushwooshCore
 
-final class PWUnregisterVoIPDeviceRequest: PWCoreRequest, PWCoreUnregisterVoIPDeviceRequest {
+final class PWUnregisterVoIPDeviceRequest: PWRequest, PWCoreUnregisterVoIPDeviceRequest {
     let parameters: VoIPRequestParameters
 
     init(parameters: VoIPRequestParameters) {

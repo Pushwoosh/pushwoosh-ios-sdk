@@ -8,7 +8,7 @@
 
 #import "PWConfig.h"
 #import "PWNotificationAppSettings.h"
-#import "PWLog.h"
+#import <PushwooshCore/PushwooshLog.h>
 
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
@@ -76,7 +76,7 @@
     XCTAssertTrue(_config.acceptedDeepLinkForSilentPush);
     XCTAssertTrue(_config.allowServerCommunication);
     XCTAssertTrue(_config.allowCollectingDeviceData);
-    XCTAssertEqual(_config.logLevel, kLogInfo);
+    XCTAssertEqual(_config.logLevel, PW_LL_INFO);
     [mockNSBundle stopMocking];
 }
 
@@ -146,7 +146,7 @@
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
     
-    XCTAssertEqual(kLogNone, _config.logLevel);
+    XCTAssertEqual(PW_LL_NONE, _config.logLevel);
     [mockNSBundle stopMocking];
 }
 
@@ -157,7 +157,7 @@
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
     
-    XCTAssertEqual(kLogError, _config.logLevel);
+    XCTAssertEqual(PW_LL_ERROR, _config.logLevel);
     [mockNSBundle stopMocking];
 }
 
@@ -168,7 +168,7 @@
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
     
-    XCTAssertEqual(kLogWarning, _config.logLevel);
+    XCTAssertEqual(PW_LL_WARN, _config.logLevel);
     [mockNSBundle stopMocking];
 }
 
@@ -179,7 +179,7 @@
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
     
-    XCTAssertEqual(kLogInfo, _config.logLevel);
+    XCTAssertEqual(PW_LL_INFO, _config.logLevel);
     [mockNSBundle stopMocking];
 }
 
@@ -190,7 +190,7 @@
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
     
-    XCTAssertEqual(kLogDebug, _config.logLevel);
+    XCTAssertEqual(PW_LL_DEBUG, _config.logLevel);
     [mockNSBundle stopMocking];
 }
 
@@ -201,7 +201,7 @@
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
     
-    XCTAssertEqual(kLogVerbose, _config.logLevel);
+    XCTAssertEqual(PW_LL_VERBOSE, _config.logLevel);
     [mockNSBundle stopMocking];
 }
 

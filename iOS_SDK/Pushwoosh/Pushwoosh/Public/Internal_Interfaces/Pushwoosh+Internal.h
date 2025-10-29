@@ -5,20 +5,20 @@
 //
 
 #import "PushwooshFramework.h"
-#import "PWDataManager.h"
-#import "PWPushNotificationsManager.h"
+#import <PushwooshCore/PWDataManager.h>
+#import <PushwooshCore/PWPushNotificationsManager.h>
 #if TARGET_OS_IOS || TARGET_OS_TV
 #import "PWInAppManager.h"
 #endif
 
 #if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_IPHONE
-#import "PWBusinessCaseManager.h"
-#import "PWRichPushManager.h"
-#import "PWPurchaseManager.h"
+#import <PushwooshCore/PWBusinessCaseManager.h>
+#import <PushwooshCore/PWRichPushManager.h>
+#import <PushwooshCore/PWPurchaseManager.h>
 #endif
 
 #if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
-#import "PWInAppMessagesManager.h"
+#import <PushwooshCore/PWInAppMessagesManager.h>
 #endif
 
 @interface Pushwoosh ()

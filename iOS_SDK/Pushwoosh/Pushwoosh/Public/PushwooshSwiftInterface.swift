@@ -16,7 +16,7 @@ public extension Pushwoosh {
         return __liveActivities()
     }
     
-    static var Debug: PWDebug.Type {
+    static var debug: PWDebug.Type {
         return __debug()
     }
     
@@ -32,7 +32,29 @@ public extension Pushwoosh {
         return __foregroundPush()
     }
     
-    static var Configuration: PWConfiguration.Type {
-        return __configuration()
+    static var configure: PushwooshConfig.Type {
+        return __configure() as! PushwooshConfig.Type
     }
+}
+
+public extension PushwooshConfig {
+    static var delegate: PWMessagingDelegate? {
+        get {
+            return self.getDelegate()
+        }
+        set {
+            self.setDelegate(newValue)
+        }
+    }
+
+    #if os(iOS)
+    static var purchaseDelegate: PWPurchaseDelegate? {
+        get {
+            return self.getPurchaseDelegate()
+        }
+        set {
+            self.setPurchaseDelegate(newValue)
+        }
+    }
+    #endif
 }

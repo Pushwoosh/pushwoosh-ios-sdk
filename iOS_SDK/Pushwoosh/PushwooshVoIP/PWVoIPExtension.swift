@@ -39,44 +39,57 @@ public extension PWVoIP {
     }
 }
 
-/**
- PWVoIPCallDelegate provides callbacks for VoIP functionality including token registration and call management.
- 
- */
+/// Delegate protocol for receiving VoIP call events and CallKit callbacks.
 @objc public protocol PWVoIPCallDelegate: NSObjectProtocol {
-    // MARK: - VoIP Token Registration callbacks
-    /// Called when VoIP token is successfully registered with Pushwoosh servers
-    /// This callback is triggered after successful network registration of the device's VoIP push token
+
+    /// Called when VoIP token is successfully registered with Pushwoosh servers.
     @objc optional func voipDidRegisterTokenSuccessfully()
-    
-    /// Called when VoIP token registration fails
-    /// This callback is triggered when there's an error during VoIP token registration with Pushwoosh servers
-    /// - Parameter error: The error that occurred during token registration
+
+    /// Called when VoIP token registration fails.
     @objc optional func voipDidFailToRegisterToken(error: Error)
-    
-    // MARK: - Report new incoming call callbacks
+
+    /// Called when a VoIP push notification arrives.
     @objc func voipDidReceiveIncomingCall(payload: PWVoIPMessage)
+
+    /// Called when incoming call is successfully reported to CallKit.
     @objc optional func voipDidReportIncomingCallSuccessfully(voipMessage: PWVoIPMessage)
+
+    /// Called when reporting incoming call to CallKit fails.
     @objc optional func voipDidFailToReportIncomingCall(error: Error)
-    
-    // MARK: - Call kit perform action
-    // MARK: - `startCall` for outcome calls
+
+    /// Called when user initiates an outgoing call.
     @objc optional func startCall(_ provider: CXProvider, perform action: CXStartCallAction)
+
+    /// Called when user ends a call.
     @objc optional func endCall(_ provider: CXProvider, perform action: CXEndCallAction, voipMessage: PWVoIPMessage?)
+
+    /// Called when user answers an incoming call.
     @objc optional func answerCall(_ provider: CXProvider, perform action: CXAnswerCallAction, voipMessage: PWVoIPMessage?)
+
+    /// Called when user mutes or unmutes the call.
     @objc optional func mutedCall(_ provider: CXProvider, perform action: CXSetMutedCallAction)
+
+    /// Called when user puts the call on hold or resumes it.
     @objc optional func heldCall(_ provider: CXProvider, perform action: CXSetHeldCallAction)
+
+    /// Called when user plays DTMF tone during the call.
     @objc optional func playDTMF(_ provider: CXProvider, perform action: CXPlayDTMFCallAction)
-    
-    // MARK: - Provider call kit
+
+    /// Called when the CallKit provider resets.
     @objc func pwProviderDidReset(_ provider: CXProvider)
+
+    /// Called when the CallKit provider is ready to handle calls.
     @objc func pwProviderDidBegin(_ provider: CXProvider)
-    
-    // MARK: - Objects
+
+    /// Called to provide the call controller instance.
     @objc optional func returnedCallController(_ controller: CXCallController)
+
+    /// Called to provide the CallKit provider instance.
     @objc optional func returnedProvider(_ provider: CXProvider)
-    
-    // MARK: - Audio Session
+
+    /// Called when audio session is activated.
     @objc optional func activatedAudioSession(_ provider: CXProvider, didActivate audioSession: AVAudioSession)
+
+    /// Called when audio session is deactivated.
     @objc optional func deactivatedAudioSession(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession)
 }
