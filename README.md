@@ -14,4 +14,4 @@ The sample project is available here:
 https://github.com/Pushwoosh/pushwoosh-ios-sample
 
 Pushwoosh team
-[http://www.pushwoosh.com](https://www.pushwoosh.com)
+https://www.pushwoosh.com
