@@ -13,8 +13,5 @@ https://www.pushwoosh.com/platform-docs/pushwoosh-sdk/ios-push-notifications/set
 The sample project is available here:  
 https://github.com/Pushwoosh/pushwoosh-ios-sample
 
-Documentation:
-https://github.com/Pushwoosh/pushwoosh-ios-sdk/tree/master/Documentation
-
 Pushwoosh team
-http://www.pushwoosh.com
+[http://www.pushwoosh.com](https://www.pushwoosh.com)
