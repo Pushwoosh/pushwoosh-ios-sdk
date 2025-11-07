@@ -82,7 +82,7 @@
   func application(_ application: UIApplication, 
                   didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-      Pushwoosh.sharedInstance().registerForPushNotifications()
+      Pushwoosh.configure.registerForPushNotifications()
 
       return true
   }
@@ -91,7 +91,7 @@
 ```
   func application(_ application: UIApplication, 
                   didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-      Pushwoosh.sharedInstance().handlePushRegistration(deviceToken)
+      Pushwoosh.configure.handlePushRegistration(deviceToken)
   }
 ```
   3. Process Notifications
@@ -100,7 +100,7 @@
                   didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                   fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
-      Pushwoosh.sharedInstance().handlePushReceived(userInfo)
+      Pushwoosh.configure.handlePushReceived(userInfo)
       completionHandler(.newData)
   }
 ```
