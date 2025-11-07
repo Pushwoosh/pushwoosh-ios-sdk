@@ -5,9 +5,6 @@ Pushwoosh iOS SDK
 [![CocoaPods compatible](https://img.shields.io/cocoapods/v/Pushwoosh.svg)](https://cocoapods.org/?q=pushwoosh)
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 
-[![Guide](https://img.shields.io/badge/guide-latest-brightgreen.svg?style=flat-square)](https://docs.pushwoosh.com/platform-docs/pushwoosh-sdk/ios-push-notifications)
-[![Documentation](https://img.shields.io/badge/docs-latest-brightgreen.svg?style=flat-square)](https://github.com/Pushwoosh/pushwoosh-ios-sdk/tree/master/Documentation)
-
 [![PushwooshiOS Documentation](https://img.shields.io/badge/docs-PushwooshiOS-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshiOS/documentation/pushwooshios/)
 [![PushwooshVoIP Documentation](https://img.shields.io/badge/docs-PushwooshVoIP-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshVoIP/documentation/pushwooshvoip/)
 [![PushwooshLiveActivities Documentation](https://img.shields.io/badge/docs-PushwooshLiveActivities-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshLiveActivities/documentation/pushwooshliveactivities/)
