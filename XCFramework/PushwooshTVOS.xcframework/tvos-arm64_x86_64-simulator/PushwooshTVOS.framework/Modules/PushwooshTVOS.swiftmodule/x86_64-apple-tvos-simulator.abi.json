@@ -118,7 +118,8 @@
               "Final",
               "HasStorage",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "isLet": true,
             "hasStorage": true,
@@ -167,7 +168,8 @@
             "moduleName": "PushwooshTVOS",
             "declAttributes": [
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "accessors": [
               {
@@ -218,7 +220,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -281,7 +284,8 @@
             "objc_name": "registerForPushNotificationsWithToken:completion:",
             "declAttributes": [
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -304,7 +308,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -361,7 +366,8 @@
             "objc_name": "unregisterForPushNotificationsWithCompletion:",
             "declAttributes": [
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -420,7 +426,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -449,7 +456,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -478,7 +486,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -539,7 +548,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -583,7 +593,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -626,7 +637,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -655,7 +667,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -709,7 +722,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -753,7 +767,8 @@
         "declAttributes": [
           "AccessControl",
           "ObjC",
-          "Available"
+          "Available",
+          "RawDocComment"
         ],
         "superclassUsr": "c:objc(cs)NSObject",
         "hasMissingDesignatedInitializers": true,
@@ -995,7 +1010,8 @@
               "HasInitialValue",
               "HasStorage",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "hasStorage": true,
             "accessors": [
@@ -1092,7 +1108,8 @@
               "HasInitialValue",
               "HasStorage",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "hasStorage": true,
             "accessors": [
@@ -1189,7 +1206,8 @@
               "HasInitialValue",
               "HasStorage",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "hasStorage": true,
             "accessors": [
@@ -1304,7 +1322,8 @@
             "objc_name": "configureRichMediaWithPosition:presentAnimation:dismissAnimation:",
             "declAttributes": [
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1331,7 +1350,8 @@
             "moduleName": "PushwooshTVOS",
             "declAttributes": [
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1383,7 +1403,8 @@
             "moduleName": "PushwooshTVOS",
             "declAttributes": [
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1410,7 +1431,8 @@
             "moduleName": "PushwooshTVOS",
             "declAttributes": [
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1438,7 +1460,8 @@
             "objc_name": "dismissWithAnimated:",
             "declAttributes": [
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1478,7 +1501,8 @@
         "declAttributes": [
           "AccessControl",
           "ObjC",
-          "Available"
+          "Available",
+          "RawDocComment"
         ],
         "superclassUsr": "c:objc(cs)NSObject",
         "inheritsConvenienceInitializers": true,
@@ -1971,28 +1995,28 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/PWTVOSRichMediaManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 578,
+      "offset": 1551,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/PWTVOSRichMediaManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 4990,
+      "offset": 6932,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/PWTVOSRichMediaManager.swift",
       "kind": "BooleanLiteral",
-      "offset": 5637,
+      "offset": 7579,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshTVOS\/Rich Media\/PWTVOSRichMediaManager.swift",
       "kind": "StringLiteral",
-      "offset": 4295,
+      "offset": 6237,
       "length": 29,
       "value": "\"PushwooshTVOS.PWTVOSRichMediaViewController\""
     }

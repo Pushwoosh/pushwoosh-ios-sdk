@@ -34,6 +34,9 @@ final class PWSetVoIPTokenRequest: PWRequest, PWCoreSetVoIPTokenRequest {
 
     override func requestDictionary() -> [AnyHashable: Any] {
         guard let dict = self.baseDictionary() else {
+            PushwooshLog.pushwooshLog(.PW_LL_ERROR,
+                                      className: self,
+                                      message: "Failed to create base dictionary")
             return [:]
         }
         dict["application"] = PWPreferences.preferencesInstance().voipAppCode
@@ -42,6 +45,6 @@ final class PWSetVoIPTokenRequest: PWRequest, PWCoreSetVoIPTokenRequest {
         dict["device_type"] = 1
         dict["timezone"] = PWCoreUtils.timezone()
 
-        return dict as! [AnyHashable : Any]
+        return dict as! [AnyHashable: Any]
     }
 }

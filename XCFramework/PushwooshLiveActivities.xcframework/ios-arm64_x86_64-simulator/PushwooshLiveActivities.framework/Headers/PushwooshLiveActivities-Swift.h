@@ -302,18 +302,61 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if defined(__OBJC__)
 @class NSString;
 
+/// Orchestrates iOS Live Activities integration with Pushwoosh push notifications.
 SWIFT_CLASS_NAMED("PushwooshLiveActivitiesImplementationSetup")
 @interface PushwooshLiveActivitiesImplementationSetup : NSObject <PWLiveActivities>
+/// Sends push-to-start token to enable remote activity initiation.
+/// \param token The push-to-start token from ActivityKit.
+///
 + (void)sendPushToStartLiveActivityWithToken:(NSString * _Nonnull)token;
+/// Sends push-to-start token to enable remote activity initiation with completion handler.
+/// \param token The push-to-start token from ActivityKit.
+///
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)sendPushToStartLiveActivityWithToken:(NSString * _Nonnull)token completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+/// Registers an active Live Activity with the server.
+/// \param token The activity push token from ActivityKit.
+///
+/// \param activityId Unique identifier for this activity instance.
+///
 + (void)startLiveActivityWithToken:(NSString * _Nonnull)token activityId:(NSString * _Nonnull)activityId;
+/// Registers an active Live Activity with the server with completion handler.
+/// \param token The activity push token from ActivityKit.
+///
+/// \param activityId Unique identifier for this activity instance.
+///
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)startLiveActivityWithToken:(NSString * _Nonnull)token activityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+/// Notifies the server that all Live Activities have ended.
 + (void)stopLiveActivity;
+/// Notifies the server that all Live Activities have ended with completion handler.
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)stopLiveActivityWithCompletion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+/// Notifies the server that a specific Live Activity has ended.
+/// \param activityId The unique identifier of the activity that ended.
+///
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId;
+/// Notifies the server that a specific Live Activity has ended with completion handler.
+/// \param activityId The unique identifier of the activity that ended.
+///
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 + (Class _Nonnull)liveActivities SWIFT_WARN_UNUSED_RESULT;
+/// Configures Live Activities with default attributes managed by Pushwoosh.
+/// This method sets up automatic lifecycle management using <code>DefaultLiveActivityAttributes</code>.
+/// Use this when you want the SDK to handle all activity management without defining custom types.
 + (void)defaultSetup SWIFT_AVAILABILITY(ios,introduced=16.1);
+/// Starts a Live Activity using default attributes.
+/// \param activityId Unique identifier for this activity instance.
+///
+/// \param attributes Static attributes dictionary.
+///
+/// \param content Initial content state dictionary.
+///
 + (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content SWIFT_AVAILABILITY(ios,introduced=16.1);
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -630,18 +673,61 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if defined(__OBJC__)
 @class NSString;
 
+/// Orchestrates iOS Live Activities integration with Pushwoosh push notifications.
 SWIFT_CLASS_NAMED("PushwooshLiveActivitiesImplementationSetup")
 @interface PushwooshLiveActivitiesImplementationSetup : NSObject <PWLiveActivities>
+/// Sends push-to-start token to enable remote activity initiation.
+/// \param token The push-to-start token from ActivityKit.
+///
 + (void)sendPushToStartLiveActivityWithToken:(NSString * _Nonnull)token;
+/// Sends push-to-start token to enable remote activity initiation with completion handler.
+/// \param token The push-to-start token from ActivityKit.
+///
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)sendPushToStartLiveActivityWithToken:(NSString * _Nonnull)token completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+/// Registers an active Live Activity with the server.
+/// \param token The activity push token from ActivityKit.
+///
+/// \param activityId Unique identifier for this activity instance.
+///
 + (void)startLiveActivityWithToken:(NSString * _Nonnull)token activityId:(NSString * _Nonnull)activityId;
+/// Registers an active Live Activity with the server with completion handler.
+/// \param token The activity push token from ActivityKit.
+///
+/// \param activityId Unique identifier for this activity instance.
+///
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)startLiveActivityWithToken:(NSString * _Nonnull)token activityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+/// Notifies the server that all Live Activities have ended.
 + (void)stopLiveActivity;
+/// Notifies the server that all Live Activities have ended with completion handler.
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)stopLiveActivityWithCompletion:(void (^ _Nonnull)(NSError * _Nullable))completion;
+/// Notifies the server that a specific Live Activity has ended.
+/// \param activityId The unique identifier of the activity that ended.
+///
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId;
+/// Notifies the server that a specific Live Activity has ended with completion handler.
+/// \param activityId The unique identifier of the activity that ended.
+///
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 + (Class _Nonnull)liveActivities SWIFT_WARN_UNUSED_RESULT;
+/// Configures Live Activities with default attributes managed by Pushwoosh.
+/// This method sets up automatic lifecycle management using <code>DefaultLiveActivityAttributes</code>.
+/// Use this when you want the SDK to handle all activity management without defining custom types.
 + (void)defaultSetup SWIFT_AVAILABILITY(ios,introduced=16.1);
+/// Starts a Live Activity using default attributes.
+/// \param activityId Unique identifier for this activity instance.
+///
+/// \param attributes Static attributes dictionary.
+///
+/// \param content Initial content state dictionary.
+///
 + (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content SWIFT_AVAILABILITY(ios,introduced=16.1);
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end

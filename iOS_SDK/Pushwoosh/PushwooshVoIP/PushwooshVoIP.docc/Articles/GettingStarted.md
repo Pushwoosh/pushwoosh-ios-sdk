@@ -6,12 +6,10 @@ Set up VoIP push notifications with CallKit in your iOS app.
 
 @TabNavigator {
     @Tab("Swift Package Manager") {
-        Add PushwooshVoIP as a dependency to your Package.swift:
+        In Xcode, use the following URL to add the Pushwoosh dependency:
 
-        ```swift
-        dependencies: [
-            .package(url: "https://github.com/Pushwoosh/Pushwoosh-XCFramework", from: "6.10.0")
-        ]
+        ```
+        https://github.com/Pushwoosh/Pushwoosh-XCFramework
         ```
 
         Select the required modules in your target:

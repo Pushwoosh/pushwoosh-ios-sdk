@@ -11,21 +11,35 @@ import UIKit
 import PushwooshCore
 import PushwooshBridge
 
+/// Configuration object containing all visual and behavioral settings for foreground pushes.
 @objc
 public class ForegroundPushConfiguration: NSObject {
+    /// Visual style template for the foreground push notification.
     let style: PWForegroundPushStyle
+    /// Display duration in seconds.
     let duration: Int
+    /// Haptic feedback type to play when notification appears.
     let vibration: PWForegroundPushHapticFeedback
+    /// Animation style when push notification disappears.
     let disappearedAnimation: PWForegroundPushDisappearedAnimation
+    /// Custom gradient colors for the push notification background.
     var gradientColors: [UIColor]?
+    /// Solid background color for the push notification.
     var backgroundColor: UIColor?
+    /// A Boolean value that indicates whether to use slide and wave animation when push appears.
     var usePushAnimation: Bool
+    /// Text color for the notification title.
     var titlePushColor: UIColor?
+    /// Text color for the notification message body.
     var messagePushColor: UIColor?
+    /// Custom font for the notification title.
     var titlePushFont: UIFont?
+    /// Custom font for the notification message body.
     var messagePushFont: UIFont?
+    /// A Boolean value that indicates whether to enable modern Liquid Glass effect on iOS 26+ devices.
     var useLiquidView: Bool
-    
+
+    /// Creates a foreground push configuration with the specified settings.
     @objc
     public init(
         style: PWForegroundPushStyle,
@@ -56,17 +70,20 @@ public class ForegroundPushConfiguration: NSObject {
     }
 }
 
+/// Main implementation class that manages foreground push notifications display and configuration.
 @available(iOS 13.0, *)
 @objc(PushwooshForegroundPushImplementation)
 public class PushwooshForegroundPushImplementation: NSObject {
+    /// The shared singleton instance.
     @objc(shared)
     public static let shared = PushwooshForegroundPushImplementation()
-    
+
     private override init() {}
-    
+
     private static var configuration: ForegroundPushConfiguration!
     private static var disappearedPushAnimation: PWForegroundPushDisappearedAnimation!
-    
+
+    /// Displays a foreground push notification with the specified payload.
     @objc
     static func showForegroundPush(userInfo: [AnyHashable: Any]) {
         guard let config = PushwooshForegroundPushImplementation.configuration else {
@@ -88,12 +105,13 @@ public class PushwooshForegroundPushImplementation: NSObject {
                  userInfo: userInfo)
     }
     
+    /// Delegate for receiving foreground push events.
     @objc
     public static weak var delegate: AnyObject? {
         get { shared._delegate }
         set { shared._delegate = newValue as? (NSObjectProtocol & PWForegroundPushDelegate) }
     }
-    
+
     private weak var _delegate: PWForegroundPushDelegate?
     
     @available(iOS 13.0, *)
@@ -706,11 +724,13 @@ public class PushwooshForegroundPushImplementation: NSObject {
         }
     }
     
+    /// Returns the foreground push implementation class.
     @objc
     public static func foregroundPush() -> AnyClass {
         return PushwooshForegroundPushImplementation.self
     }
-    
+
+    /// Configures the foreground push notification display settings.
     @objc
     static func foregroundNotificationWith(style: PWForegroundPushStyle,
                                            duration: Int = 3,
@@ -721,49 +741,57 @@ public class PushwooshForegroundPushImplementation: NSObject {
                                                     vibration: vibration,
                                                     disappearedAnimation: disappearedPushAnimation)
     }
-    
+
+    /// Custom gradient colors for the push notification background.
     @objc
     public static var gradientColors: [UIColor]? {
         get { configuration?.gradientColors }
         set { configuration?.gradientColors = newValue }
     }
-    
+
+    /// Solid background color for the push notification.
     @objc
     public static var backgroundColor: UIColor? {
         get { configuration?.backgroundColor }
         set { configuration?.backgroundColor = newValue }
     }
-    
+
+    /// A Boolean value that indicates whether to use slide and wave animation when push appears.
     @objc
     public static var usePushAnimation: Bool {
         get { configuration.usePushAnimation }
         set { configuration.usePushAnimation = newValue }
     }
-    
+
+    /// Text color for the notification title.
     @objc
     public static var titlePushColor: UIColor? {
         get { configuration?.titlePushColor }
         set { configuration?.titlePushColor = newValue }
     }
-    
+
+    /// Text color for the notification message body.
     @objc
     public static var messagePushColor: UIColor? {
         get { configuration?.messagePushColor }
         set { configuration?.messagePushColor = newValue }
     }
-    
+
+    /// Custom font for the notification title.
     @objc
     public static var titlePushFont: UIFont? {
         get { configuration?.titlePushFont }
         set { configuration?.titlePushFont = newValue }
     }
-    
+
+    /// Custom font for the notification message body.
     @objc
     public static var messagePushFont: UIFont? {
         get { configuration?.messagePushFont }
         set { configuration?.messagePushFont = newValue }
     }
-    
+
+    /// A Boolean value that indicates whether to enable modern Liquid Glass effect on iOS 26+ devices.
     @objc
     public static var useLiquidView: Bool {
         get { configuration.useLiquidView }

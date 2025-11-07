@@ -26,17 +26,34 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     @objc
     public static weak var delegate: AnyObject? {
         get { shared._delegate }
-        set { shared._delegate = newValue as? (NSObjectProtocol & PWVoIPCallDelegate) }
+        set {
+            if let delegate = newValue as? (NSObjectProtocol & PWVoIPCallDelegate) {
+                shared._delegate = delegate
+            } else if newValue != nil {
+                PushwooshLog.pushwooshLog(.PW_LL_ERROR,
+                                          className: self,
+                                          message: "Invalid delegate type. Must conform to PWVoIPCallDelegate")
+                shared._delegate = nil
+            } else {
+                shared._delegate = nil
+            }
+        }
     }
 
     private weak var _delegate: PWVoIPCallDelegate?
 
-    var voipRegistry: PKPushRegistry!
-    var callKitProvider: CXProvider!
-    var callController: CXCallController!
+    private var voipRegistry: PKPushRegistry?
+    private var callKitProvider: CXProvider?
+    private var callController: CXCallController?
 
-    var voipPushMessage: PWVoIPMessage?
-    var pushMessageDict: [String: PWVoIPMessage] = [:]
+    private var voipPushMessage: PWVoIPMessage?
+    private var pushMessageDict: [String: PWVoIPMessage] = [:]
+
+    private var incomingCallTimeout: TimeInterval = 30.0
+    private var callTimeoutWorkItems: [String: DispatchWorkItem] = [:]
+
+    /// Serial queue for thread-safe access to shared state
+    private let syncQueue = DispatchQueue(label: "com.pushwoosh.voip.sync", qos: .userInitiated)
 
     /// Returns the VoIP implementation class.
     @objc
@@ -56,18 +73,21 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         config.maximumCallsPerCallGroup = 1
         config.ringtoneSound = ringtoneSound
         config.supportedHandleTypes = handleTypes.toCXSetHandleType
-        
-        shared.callKitProvider = CXProvider(configuration: config)
-        shared.callKitProvider.setDelegate(shared, queue: nil)
-        
-        shared.callController = CXCallController()
-        
-        shared.voipRegistry = PKPushRegistry(queue: DispatchQueue.main)
-        shared.voipRegistry.delegate = shared
-        shared.voipRegistry.desiredPushTypes = [.voIP]
-        
-        PushwooshVoIPImplementation.delegate?.returnedCallController(shared.callController)
-        PushwooshVoIPImplementation.delegate?.returnedProvider(shared.callKitProvider)
+
+        let provider = CXProvider(configuration: config)
+        provider.setDelegate(shared, queue: nil)
+        shared.callKitProvider = provider
+
+        let controller = CXCallController()
+        shared.callController = controller
+
+        let registry = PKPushRegistry(queue: DispatchQueue.main)
+        registry.delegate = shared
+        registry.desiredPushTypes = [.voIP]
+        shared.voipRegistry = registry
+
+        PushwooshVoIPImplementation.delegate?.returnedCallController(controller)
+        PushwooshVoIPImplementation.delegate?.returnedProvider(provider)
     }
 
     /// Sets the VoIP push token manually.
@@ -81,7 +101,17 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     public static func setPushwooshVoIPAppId(_ voipAppId: String) {
         shared.setPushwooshVoIPAppId(voipAppId)
     }
-    
+
+    @objc
+    public static func setIncomingCallTimeout(_ timeout: TimeInterval) {
+        shared.syncQueue.async {
+            shared.incomingCallTimeout = timeout
+        }
+        PushwooshLog.pushwooshLog(.PW_LL_DEBUG,
+                                  className: self,
+                                  message: "Incoming call timeout set to \(timeout) seconds")
+    }
+
     // MARK: - PushKit Delegate
     public func pushRegistry(_ registry: PKPushRegistry, didUpdate pushCredentials: PKPushCredentials, for type: PKPushType) {
         let newToken = hexString(from: pushCredentials.token)
@@ -100,128 +130,123 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     }
     
     public func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
-        voipPushMessage = nil
-        
         let voipMessage = PWVoIPMessage(rawPayload: payload.dictionaryPayload)
-        
         let uuid = UUID()
+        let uuidString = uuid.uuidString
+
         let update = CXCallUpdate()
         update.remoteHandle = CXHandle(type: voipMessage.handleType.toCXHandleType, value: voipMessage.callerName)
         update.hasVideo = voipMessage.hasVideo
         update.supportsHolding = voipMessage.supportsHolding
         update.supportsDTMF = voipMessage.supportsDTMF
-        
-        voipPushMessage = voipMessage
-        voipPushMessage?.uuid = uuid.uuidString
-        
-        pushMessageDict[uuid.uuidString] = voipPushMessage
-                
-        if let voipMessage = voipPushMessage {
-            PushwooshVoIPImplementation.delegate?.voipDidReceiveIncomingCall(payload: voipMessage)
+
+        var voipWithUUID = voipMessage
+        voipWithUUID.uuid = uuidString
+
+        // Thread-safe write to shared state
+        syncQueue.async {
+            self.voipPushMessage = voipWithUUID
+            self.pushMessageDict[uuidString] = voipWithUUID
         }
-        
-        callKitProvider.reportNewIncomingCall(with: uuid, update: update) { error in
-            if let delegate = PushwooshVoIPImplementation.delegate {
-                if let error = error {
-                    if delegate.responds(to: #selector(PWVoIPCallDelegate.voipDidFailToReportIncomingCall(error:))) {
-                        delegate.voipDidFailToReportIncomingCall?(error: error)
-                    }
-                } else {
-                    if delegate.responds(to: #selector(PWVoIPCallDelegate.voipDidReportIncomingCallSuccessfully(voipMessage:))) {
-                        delegate.voipDidReportIncomingCallSuccessfully?(voipMessage: voipMessage)
-                    }
-                }
+
+        PushwooshVoIPImplementation.delegate?.voipDidReceiveIncomingCall(payload: voipWithUUID)
+
+        guard let provider = callKitProvider else {
+            PushwooshLog.pushwooshLog(.PW_LL_ERROR,
+                                      className: self,
+                                      message: "CallKit provider not initialized. Call initializeVoIP() first.")
+            completion()
+            return
+        }
+
+        provider.reportNewIncomingCall(with: uuid, update: update) { [weak self] error in
+            guard let self = self else {
+                completion()
+                return
             }
-            
+
+            if let error = error {
+                PushwooshVoIPImplementation.delegate?.voipDidFailToReportIncomingCall?(error: error)
+            } else {
+                self.startTimeoutTimer(for: uuidString)
+                PushwooshVoIPImplementation.delegate?.voipDidReportIncomingCallSuccessfully?(voipMessage: voipWithUUID)
+            }
+
             completion()
         }
     }
     
     // MARK: - CallKit Delegate
-    // MARK: -
-    // MARK: - Start Call Outcomming
+
+    // MARK: - Start Outgoing Call
     public func provider(_ provider: CXProvider, perform action: CXStartCallAction) {
-        if let delegate = PushwooshVoIPImplementation.delegate {
-            if delegate.responds(to: #selector(PWVoIPCallDelegate.startCall(_:perform:))) {
-                delegate.startCall?(provider, perform: action)
-            }
-        }
+        PushwooshVoIPImplementation.delegate?.startCall?(provider, perform: action)
+        action.fulfill()
     }
     
     // MARK: - End Call
-    // MARK: -
     public func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
         let uuidString = action.callUUID.uuidString
 
-        if let voipMessage = pushMessageDict[uuidString] {
-            if let delegate = PushwooshVoIPImplementation.delegate,
-               delegate.responds(to: #selector(PWVoIPCallDelegate.endCall(_:perform:voipMessage:))) {
-                delegate.endCall?(provider, perform: action, voipMessage: voipMessage)
-            }
+        cancelTimeoutTimer(for: uuidString)
 
-            pushMessageDict.removeValue(forKey: uuidString)
-        } else {
-            PushwooshLog.pushwooshLog(.PW_LL_ERROR, 
-                                      className: self,
-                                      message: "No VoIP message found for UUID: \(uuidString)")
+        syncQueue.async {
+            if let voipMessage = self.pushMessageDict[uuidString] {
+                PushwooshVoIPImplementation.delegate?.endCall?(provider, perform: action, voipMessage: voipMessage)
+                self.pushMessageDict.removeValue(forKey: uuidString)
+                action.fulfill()
+            } else {
+                PushwooshLog.pushwooshLog(.PW_LL_ERROR,
+                                          className: self,
+                                          message: "No VoIP message found for UUID: \(uuidString)")
+                action.fail()
+            }
         }
     }
     
     // MARK: - Answer Call
-    // MARK: -
     public func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
         let uuidString = action.callUUID.uuidString
 
-        if let voipMessage = pushMessageDict[uuidString] {
-            if let delegate = PushwooshVoIPImplementation.delegate,
-               delegate.responds(to: #selector(PWVoIPCallDelegate.answerCall(_:perform:voipMessage:))) {
-                delegate.answerCall?(provider, perform: action, voipMessage: voipMessage)
+        cancelTimeoutTimer(for: uuidString)
+
+        syncQueue.async {
+            if let voipMessage = self.pushMessageDict[uuidString] {
+                PushwooshVoIPImplementation.delegate?.answerCall?(provider, perform: action, voipMessage: voipMessage)
+                action.fulfill()
+            } else {
+                PushwooshLog.pushwooshLog(.PW_LL_ERROR,
+                                          className: self,
+                                          message: "No VoIP message found for UUID: \(uuidString)")
+                action.fail()
             }
-        } else {
-            PushwooshLog.pushwooshLog(.PW_LL_ERROR, 
-                                      className: self,
-                                      message: "No VoIP message found for UUID: \(uuidString)")
         }
     }
     
     // MARK: - Muted Call
-    // MARK: -
     public func provider(_ provider: CXProvider, perform action: CXSetMutedCallAction) {
-        if let delegate = PushwooshVoIPImplementation.delegate {
-            if delegate.responds(to: #selector(PWVoIPCallDelegate.mutedCall(_:perform:))) {
-                delegate.mutedCall?(provider, perform: action)
-            }
-        }
+        PushwooshVoIPImplementation.delegate?.mutedCall?(provider, perform: action)
+        action.fulfill()
     }
-    
+
     // MARK: - Held Call
-    // MARK: -
     public func provider(_ provider: CXProvider, perform action: CXSetHeldCallAction) {
-        if let delegate = PushwooshVoIPImplementation.delegate {
-            if delegate.responds(to: #selector(PWVoIPCallDelegate.heldCall(_:perform:))) {
-                delegate.heldCall?(provider, perform: action)
-            }
-        }
+        PushwooshVoIPImplementation.delegate?.heldCall?(provider, perform: action)
+        action.fulfill()
     }
-    
+
     // MARK: - DTMF Tone
-    // MARK: -
     public func provider(_ provider: CXProvider, perform action: CXPlayDTMFCallAction) {
-        if let delegate = PushwooshVoIPImplementation.delegate {
-            if delegate.responds(to: #selector(PWVoIPCallDelegate.playDTMF(_:perform:))) {
-                delegate.playDTMF?(provider, perform: action)
-            }
-        }
+        PushwooshVoIPImplementation.delegate?.playDTMF?(provider, perform: action)
+        action.fulfill()
     }
     
     // MARK: - Activate Audio Session
-    // MARK: -
     public func provider(_ provider: CXProvider, didActivate audioSession: AVAudioSession) {
         PushwooshVoIPImplementation.delegate?.activatedAudioSession(provider, didActivate: audioSession)
     }
-    
+
     // MARK: - Deactivate Audio Session
-    // MARK: -
     public func provider(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession) {
         PushwooshVoIPImplementation.delegate?.deactivatedAudioSession(provider, didDeactivate: audioSession)
     }
@@ -293,6 +318,64 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     
     private func hexString(from deviceToken: Data) -> String {
         return deviceToken.map { String(format: "%02hhx", $0) }.joined()
+    }
+
+    private func startTimeoutTimer(for callUUID: String) {
+        // Validate UUID before creating workItem to prevent memory leak
+        guard UUID(uuidString: callUUID) != nil else {
+            PushwooshLog.pushwooshLog(.PW_LL_ERROR,
+                                      className: self,
+                                      message: "Invalid UUID string: \(callUUID)")
+            return
+        }
+
+        cancelTimeoutTimer(for: callUUID)
+
+        let workItem = DispatchWorkItem { [weak self] in
+            guard let self = self else { return }
+            guard let uuid = UUID(uuidString: callUUID) else { return }
+
+            PushwooshLog.pushwooshLog(.PW_LL_INFO,
+                                      className: self,
+                                      message: "Call timeout reached for UUID: \(callUUID). Reporting as unanswered.")
+
+            self.callKitProvider?.reportCall(with: uuid,
+                                             endedAt: Date(),
+                                             reason: .unanswered)
+
+            // Thread-safe cleanup
+            self.syncQueue.async {
+                self.pushMessageDict.removeValue(forKey: callUUID)
+                self.callTimeoutWorkItems.removeValue(forKey: callUUID)
+            }
+        }
+
+        // Thread-safe write
+        syncQueue.async {
+            self.callTimeoutWorkItems[callUUID] = workItem
+        }
+
+        // Get timeout value thread-safely
+        let timeout = syncQueue.sync { self.incomingCallTimeout }
+
+        DispatchQueue.main.asyncAfter(deadline: .now() + timeout, execute: workItem)
+
+        PushwooshLog.pushwooshLog(.PW_LL_DEBUG,
+                                  className: self,
+                                  message: "Started \(timeout)s timeout timer for call UUID: \(callUUID)")
+    }
+
+    private func cancelTimeoutTimer(for callUUID: String) {
+        syncQueue.async {
+            if let workItem = self.callTimeoutWorkItems[callUUID] {
+                workItem.cancel()
+                self.callTimeoutWorkItems.removeValue(forKey: callUUID)
+
+                PushwooshLog.pushwooshLog(.PW_LL_DEBUG,
+                                          className: self,
+                                          message: "Cancelled timeout timer for call UUID: \(callUUID)")
+            }
+        }
     }
 }
 

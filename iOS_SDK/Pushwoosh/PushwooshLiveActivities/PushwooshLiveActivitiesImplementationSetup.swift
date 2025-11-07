@@ -16,67 +16,92 @@ enum LiveActivityError: Error {
     case incorrectTypeLA(String)
 }
 
+/// Orchestrates iOS Live Activities integration with Pushwoosh push notifications.
 @objc(PushwooshLiveActivitiesImplementationSetup)
 public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivities {
-    
+
+    /// Sends push-to-start token to enable remote activity initiation.
+    ///
+    /// - Parameter token: The push-to-start token from ActivityKit.
     public static func sendPushToStartLiveActivity(token: String) {
         sendPushToStartLiveActivity(token: token, completion: { _ in })
     }
-    
+
+    /// Sends push-to-start token to enable remote activity initiation with completion handler.
+    ///
+    /// - Parameters:
+    ///   - token: The push-to-start token from ActivityKit.
+    ///   - completion: Completion handler called when the request finishes.
     public static func sendPushToStartLiveActivity(token: String, completion: @escaping (((any Error)?) -> Void)) {
         let requestParameters = ActivityRequestParameters(pushToStartToken: token)
         let requst = PWRequestSetPushToStartToken(parameters: requestParameters)
         NetworkManager.shared.sendInnerRequest(request: requst, completion: completion)
     }
-    
+
+    /// Registers an active Live Activity with the server.
+    ///
+    /// - Parameters:
+    ///   - token: The activity push token from ActivityKit.
+    ///   - activityId: Unique identifier for this activity instance.
     public static func startLiveActivity(token: String, activityId: String) {
         startLiveActivity(token: token, activityId: activityId, completion: { _ in })
     }
-    
+
+    /// Registers an active Live Activity with the server with completion handler.
+    ///
+    /// - Parameters:
+    ///   - token: The activity push token from ActivityKit.
+    ///   - activityId: Unique identifier for this activity instance.
+    ///   - completion: Completion handler called when the request finishes.
     public static func startLiveActivity(token: String, activityId: String, completion: @escaping ((any Error)?) -> Void) {
         let requestParameters = ActivityRequestParameters(activityId: activityId, token: token)
         let request = PWRequestSetActivityToken(parameters: requestParameters)
         NetworkManager.shared.sendInnerRequest(request: request, completion: completion)
     }
-    
+
+    /// Notifies the server that all Live Activities have ended.
     public static func stopLiveActivity() {
         stopLiveActivity(completion: { _ in })
     }
-    
+
+    /// Notifies the server that all Live Activities have ended with completion handler.
+    ///
+    /// - Parameter completion: Completion handler called when the request finishes.
     public static func stopLiveActivity(completion: @escaping ((any Error)?) -> Void) {
         let request = PWRequestStopLiveActivity(parameters: ActivityRequestParameters())
         NetworkManager.shared.sendInnerRequest(request: request, completion: completion)
     }
-    
+
+    /// Notifies the server that a specific Live Activity has ended.
+    ///
+    /// - Parameter activityId: The unique identifier of the activity that ended.
     public static func stopLiveActivity(activityId: String) {
         stopLiveActivity(activityId: activityId, completion: { _ in })
     }
-    
+
+    /// Notifies the server that a specific Live Activity has ended with completion handler.
+    ///
+    /// - Parameters:
+    ///   - activityId: The unique identifier of the activity that ended.
+    ///   - completion: Completion handler called when the request finishes.
     public static func stopLiveActivity(activityId: String, completion: @escaping ((any Error)?) -> Void) {
         let requestParameters = ActivityRequestParameters(activityId: activityId)
         let request = PWRequestStopLiveActivity(parameters: requestParameters)
         NetworkManager.shared.sendInnerRequest(request: request, completion: completion)
     }
-    
+
     @objc
     public static func liveActivities() -> AnyClass {
         return PushwooshLiveActivitiesImplementationSetup.self
     }
-    
-    /**
-     Configures the live activity for the specified attributes.
-     
-     This method sets up the live activity using the provided `Attributes` type, which
-     must conform to the `PushwooshLiveActivityAttributes` protocol. It observes
-     push notifications for starting the live activity and general activity updates.
-     The method is only available for iOS versions 16.1 and above.
-     
-     - Parameter activityType: The type of the activity attributes to be configured. This
-     should be a type that conforms to the `PushwooshLiveActivityAttributes` protocol.
-     
-     - Note: If the app is running on iOS 17.2 or later, it will additionally observe
-     push notifications specifically for starting the live activity.
-     */
+
+    /// Configures Live Activities with custom attributes.
+    ///
+    /// This method sets up automatic token registration and activity lifecycle management
+    /// for your custom ``PushwooshLiveActivityAttributes`` type. Call this during app initialization,
+    /// typically in `application(_:didFinishLaunchingWithOptions:)`.
+    ///
+    /// - Parameter activityType: Your custom attributes type conforming to ``PushwooshLiveActivityAttributes``.
     @available(iOS 16.1, *)
     public static func configureLiveActivity<Attributes: PushwooshLiveActivityAttributes>(_ activityType: Attributes.Type) {
         if #available(iOS 17.2, *) {
@@ -84,13 +109,23 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
         }
         observeActivity(activityType)
     }
-    
+
+    /// Configures Live Activities with default attributes managed by Pushwoosh.
+    ///
+    /// This method sets up automatic lifecycle management using ``DefaultLiveActivityAttributes``.
+    /// Use this when you want the SDK to handle all activity management without defining custom types.
     @objc
     @available(iOS 16.1, *)
     public static func defaultSetup() {
         configureLiveActivity(DefaultLiveActivityAttributes.self)
     }
-    
+
+    /// Starts a Live Activity using default attributes.
+    ///
+    /// - Parameters:
+    ///   - activityId: Unique identifier for this activity instance.
+    ///   - attributes: Static attributes dictionary.
+    ///   - content: Initial content state dictionary.
     @objc
     @available(iOS 16.1, *)
     public static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any]) {

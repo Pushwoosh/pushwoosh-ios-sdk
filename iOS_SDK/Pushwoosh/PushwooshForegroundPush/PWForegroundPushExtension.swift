@@ -71,6 +71,8 @@ public extension PWForegroundPush {
     }
 }
 
+/// Delegate protocol for receiving foreground push events.
 @objc public protocol PWForegroundPushDelegate: NSObjectProtocol {
+    /// Called when user taps on the foreground push notification.
     @objc optional func didTapForegroundPush(_ userInfo: [AnyHashable: Any])
 }

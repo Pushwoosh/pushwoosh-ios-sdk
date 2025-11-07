@@ -76,6 +76,20 @@
       },
       {
         "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshLiveActivities"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshLiveActivities"
+      },
+      {
+        "kind": "Import",
         "name": "ActivityKit",
         "printedName": "ActivityKit",
         "declKind": "Import",
@@ -103,6 +117,9 @@
             "mangledName": "$s23PushwooshLiveActivities0aB18ActivityAttributesP9pushwooshAA0abD13AttributeDataVvp",
             "moduleName": "PushwooshLiveActivities",
             "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "accessors": [
               {
                 "kind": "Accessor",
@@ -191,7 +208,8 @@
         "intro_iOS": "16.1",
         "declAttributes": [
           "AccessControl",
-          "Available"
+          "Available",
+          "RawDocComment"
         ],
         "conformances": [
           {
@@ -240,7 +258,8 @@
             "moduleName": "PushwooshLiveActivities",
             "declAttributes": [
               "HasStorage",
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "hasStorage": true,
             "accessors": [
@@ -330,7 +349,8 @@
             "mangledName": "$s23PushwooshLiveActivities0aB21ActivityAttributeDataV10activityIdACSS_tcfc",
             "moduleName": "PushwooshLiveActivities",
             "declAttributes": [
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "init_kind": "Designated"
           },
@@ -358,7 +378,8 @@
             "moduleName": "PushwooshLiveActivities",
             "static": true,
             "declAttributes": [
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -419,7 +440,8 @@
         "mangledName": "$s23PushwooshLiveActivities0aB21ActivityAttributeDataV",
         "moduleName": "PushwooshLiveActivities",
         "declAttributes": [
-          "AccessControl"
+          "AccessControl",
+          "RawDocComment"
         ],
         "conformances": [
           {
@@ -468,6 +490,9 @@
             "mangledName": "$s23PushwooshLiveActivities0aB20ActivityContentStateP9pushwooshAA0abdeF4DataVSgvp",
             "moduleName": "PushwooshLiveActivities",
             "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "accessors": [
               {
                 "kind": "Accessor",
@@ -572,7 +597,8 @@
         "intro_iOS": "16.1",
         "declAttributes": [
           "AccessControl",
-          "Available"
+          "Available",
+          "RawDocComment"
         ],
         "conformances": [
           {
@@ -763,7 +789,8 @@
         "mangledName": "$s23PushwooshLiveActivities0aB24ActivityContentStateDataV",
         "moduleName": "PushwooshLiveActivities",
         "declAttributes": [
-          "AccessControl"
+          "AccessControl",
+          "RawDocComment"
         ],
         "conformances": [
           {
@@ -795,20 +822,6 @@
             "mangledName": "$sSQ"
           }
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "PushwooshLiveActivities"
-      },
-      {
-        "kind": "Import",
-        "name": "PushwooshCore",
-        "printedName": "PushwooshCore",
-        "declKind": "Import",
-        "moduleName": "PushwooshLiveActivities"
       },
       {
         "kind": "Import",
@@ -868,7 +881,8 @@
             "moduleName": "PushwooshLiveActivities",
             "declAttributes": [
               "HasStorage",
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "hasStorage": true,
             "accessors": [
@@ -981,7 +995,8 @@
             "moduleName": "PushwooshLiveActivities",
             "declAttributes": [
               "HasStorage",
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "hasStorage": true,
             "accessors": [
@@ -1085,7 +1100,8 @@
                 "moduleName": "PushwooshLiveActivities",
                 "declAttributes": [
                   "HasStorage",
-                  "AccessControl"
+                  "AccessControl",
+                  "RawDocComment"
                 ],
                 "hasStorage": true,
                 "accessors": [
@@ -1207,7 +1223,8 @@
                 "declAttributes": [
                   "HasInitialValue",
                   "HasStorage",
-                  "AccessControl"
+                  "AccessControl",
+                  "RawDocComment"
                 ],
                 "hasStorage": true,
                 "accessors": [
@@ -1443,7 +1460,8 @@
             "mangledName": "$s23PushwooshLiveActivities07DefaultB18ActivityAttributesV12ContentStateV",
             "moduleName": "PushwooshLiveActivities",
             "declAttributes": [
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "conformances": [
               {
@@ -1648,7 +1666,8 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1704,7 +1723,8 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1740,7 +1760,8 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1802,7 +1823,8 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1826,7 +1848,8 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1876,7 +1899,8 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1906,7 +1930,8 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1962,7 +1987,8 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl"
+              "AccessControl",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -2056,7 +2082,8 @@
               "Final",
               "AccessControl",
               "Available",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -2125,7 +2152,8 @@
               "Final",
               "AccessControl",
               "Available",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -2207,7 +2235,8 @@
         "objc_name": "PushwooshLiveActivitiesImplementationSetup",
         "declAttributes": [
           "AccessControl",
-          "ObjC"
+          "ObjC",
+          "RawDocComment"
         ],
         "superclassUsr": "c:objc(cs)NSObject",
         "inheritsConvenienceInitializers": true,
@@ -3348,6 +3377,9 @@
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
             "static": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
           },
@@ -3401,6 +3433,9 @@
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
             "static": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
           },
@@ -3434,6 +3469,9 @@
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
             "static": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
           },
@@ -3493,6 +3531,9 @@
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
             "static": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
           },
@@ -3514,6 +3555,9 @@
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
             "static": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
           },
@@ -3561,6 +3605,9 @@
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
             "static": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
           },
@@ -3588,6 +3635,9 @@
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
             "static": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
           },
@@ -3641,6 +3691,9 @@
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
             "static": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
           },

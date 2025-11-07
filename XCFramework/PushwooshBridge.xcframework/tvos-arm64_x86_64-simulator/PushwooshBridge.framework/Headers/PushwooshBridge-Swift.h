@@ -308,121 +308,73 @@ enum PWForegroundPushHapticFeedback : NSInteger;
 enum PWForegroundPushDisappearedAnimation : NSInteger;
 
 /// Protocol for handling custom foreground pushes in Pushwoosh.
-/// Allows configuration of appearance, haptic feedback, and tap callbacks for foreground push notifications.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWForegroundPush_")
 @protocol PWForegroundPush
-/// Custom gradient colors for the push background.
-/// If set to nil, the default gradient is used.
+/// Custom gradient colors for the push notification background.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSArray<UIColor *> * _Nullable gradientColors;)
 + (NSArray<UIColor *> * _Nullable)gradientColors SWIFT_WARN_UNUSED_RESULT;
 + (void)setGradientColors:(NSArray<UIColor *> * _Nullable)newValue;
-/// Background color for the push.
-/// If nil and <code>gradientColors</code> is not set, the default gradient is used.
+/// Solid background color for the push notification.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable backgroundColor;)
 + (UIColor * _Nullable)backgroundColor SWIFT_WARN_UNUSED_RESULT;
 + (void)setBackgroundColor:(UIColor * _Nullable)newValue;
-/// Determines whether to use the default push animation when displaying a foreground push.
-/// If <code>true</code>, the push notification will animate in with a slide and wave effect.
-/// If <code>false</code>, the push will appear instantly without animation.
+/// A Boolean value that indicates whether to use slide and wave animation when push appears.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL usePushAnimation;)
 + (BOOL)usePushAnimation SWIFT_WARN_UNUSED_RESULT;
 + (void)setUsePushAnimation:(BOOL)newValue;
-/// Color for the push title text.
-/// Defaults to system white if nil.
+/// Text color for the notification title.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable titlePushColor;)
 + (UIColor * _Nullable)titlePushColor SWIFT_WARN_UNUSED_RESULT;
 + (void)setTitlePushColor:(UIColor * _Nullable)newValue;
-/// The font used for the title text in a foreground push notification.
-/// Set this property to customize the appearance of the title.
-/// If <code>nil</code>, the default bold system font of size 18 will be used.
+/// Custom font for the notification title.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable titlePushFont;)
 + (UIFont * _Nullable)titlePushFont SWIFT_WARN_UNUSED_RESULT;
 + (void)setTitlePushFont:(UIFont * _Nullable)newValue;
-/// The font used for the message body text in a foreground push notification.
-/// Set this property to customize the appearance of the message text.
-/// If <code>nil</code>, the default system font will be used.
+/// Custom font for the notification message body.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable messagePushFont;)
 + (UIFont * _Nullable)messagePushFont SWIFT_WARN_UNUSED_RESULT;
 + (void)setMessagePushFont:(UIFont * _Nullable)newValue;
-/// Color for the push message text.
-/// Defaults to system white if nil.
+/// Text color for the notification message body.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable messagePushColor;)
 + (UIColor * _Nullable)messagePushColor SWIFT_WARN_UNUSED_RESULT;
 + (void)setMessagePushColor:(UIColor * _Nullable)newValue;
-/// Enables or disables the Liquid Glass style for foreground push notifications.
-/// Set this property to <code>true</code> to use the animated Liquid Glass effect (iOS 26+),
-/// or <code>false</code> to use the standard push appearance.
-/// Note:
-/// <ul>
-///   <li>
-///     If this flag is enabled but the user’s system version is lower than iOS 26,
-///     a regular UIView-based push will be shown instead.
-///   </li>
-///   <li>
-///     If your project is compiled with a Swift version <em>lower than 5.13</em>, the Liquid Glass
-///     effect will not be available at all — even on iOS 26. In that case, a blurred
-///     <code>UIVisualEffectView</code> (with UIBlurEffect) will be used instead on all devices.
-///   </li>
-/// </ul>
-/// In summary:
-/// <ul>
-///   <li>
-///     Swift 5.13+ + iOS 26 → Liquid Glass
-///   </li>
-///   <li>
-///     Swift 5.13+ + iOS < 26 → Standard UIView
-///   </li>
-///   <li>
-///     Swift < 5.13 → Always blurred view (no Liquid Glass support)
-///   </li>
-/// </ul>
+/// A Boolean value that indicates whether to enable modern Liquid Glass effect on iOS 26+ devices.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL useLiquidView;)
 + (BOOL)useLiquidView SWIFT_WARN_UNUSED_RESULT;
 + (void)setUseLiquidView:(BOOL)newValue;
-/// Callback triggered when the user taps on the push notification.
-/// \param userInfo Dictionary containing push payload data.
-///
+/// Callback triggered when user taps on the foreground push notification.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable didTapForegroundPush)(NSDictionary * _Nonnull);)
 + (void (^ _Nullable)(NSDictionary * _Nonnull))didTapForegroundPush SWIFT_WARN_UNUSED_RESULT;
 + (void)setDidTapForegroundPush:(void (^ _Nullable)(NSDictionary * _Nonnull))newValue;
-/// Configure a foreground push with the specified style, duration, and haptic feedback.
-/// Call this method during application initialization to set up the foreground push behavior.
-/// \param style Display style of the push.
-///
-/// \param duration Duration (in seconds) to show the push.
-///
-/// \param vibration Haptic feedback type for the push.
-///
-/// \param disappearedPushAnimation The animation to use when the push disappears. Use <code>.balls</code> for a particle-like explosion effect, or <code>.regularPush</code> to mimic the standard upward push disappearance.
-///
+/// Configures the foreground push notification display settings.
 + (void)foregroundNotificationWithStyle:(enum PWForegroundPushStyle)style duration:(NSInteger)duration vibration:(enum PWForegroundPushHapticFeedback)vibration disappearedPushAnimation:(enum PWForegroundPushDisappearedAnimation)disappearedPushAnimation;
-/// Show a foreground push with the specified payload.
-/// \param userInfo Dictionary containing push payload data.
-///
+/// Displays a foreground push notification with the specified payload.
 + (void)showForegroundPushWithUserInfo:(NSDictionary * _Nonnull)userInfo;
 @end
 
-/// Enum representing the disappearance animation of a foreground push notification.
-/// <ul>
-///   <li>
-///     <code>balls</code>: The push notification explodes into small balls when disappearing.
-///   </li>
-///   <li>
-///     <code>regularPush</code>: The push notification moves upward and disappears, mimicking the standard push behavior.
-///   </li>
-/// </ul>
+/// Animation style when push notification disappears.
 typedef SWIFT_ENUM(NSInteger, PWForegroundPushDisappearedAnimation, open) {
+/// Push explodes into small particles when disappearing.
   PWForegroundPushDisappearedAnimationBalls = 0,
+/// Push slides upward and fades out like standard notifications.
   PWForegroundPushDisappearedAnimationRegularPush = 1,
 };
 
+/// Haptic feedback type to play when notification appears.
 typedef SWIFT_ENUM(NSInteger, PWForegroundPushHapticFeedback, open) {
+/// No haptic feedback.
   PWForegroundPushHapticFeedbackNone = 0,
+/// Light impact haptic feedback.
   PWForegroundPushHapticFeedbackLight = 1,
+/// Medium impact haptic feedback.
   PWForegroundPushHapticFeedbackMedium = 2,
+/// Heavy impact haptic feedback.
   PWForegroundPushHapticFeedbackHeavy = 3,
+/// Soft impact haptic feedback.
   PWForegroundPushHapticFeedbackSoft = 4,
+/// Rigid impact haptic feedback.
   PWForegroundPushHapticFeedbackRigid = 5,
+/// System notification haptic feedback.
   PWForegroundPushHapticFeedbackNotification = 6,
 };
 
@@ -462,101 +414,123 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable didTap
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+/// Visual style template for the foreground push notification.
 typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
+/// Standard push notification style with icon, title, and message.
   PWForegroundPushStyleStyle1 = 0,
 };
 
 @class NSString;
 
+/// Protocol for managing iOS Live Activities with Pushwoosh push notifications.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWLiveActivities_")
 @protocol PWLiveActivities
-/// Sends push to start live activity token to the server.
-/// Call this method when you want to initiate live activity via push notification
-/// This method should be called when you want to send the push token to the server in order to initiate a live activity via a push notification. Once the token is sent to the server, it allows you to remotely trigger and manage the live activity through push notifications.
-/// Example:
+/// Sends push-to-start token to enable remote activity initiation.
+/// Call this method when you want to register a push-to-start token with Pushwoosh server.
+/// Once the token is sent, it allows remote triggering of Live Activities through push notifications.
+/// <h2>Example</h2>
 /// \code
 /// if #available(iOS 17.2, *) {
-///         Task {
-///             for await data in Activity<LiveActivityAttributes>.pushToStartTokenUpdates {
-///                 let token = data.map { String(format: "%02x", $0) }.joined()
-///                 do {
-///                     try await Pushwoosh.LiveActivities.sendPush(toStartLiveActivityToken: "token")
-///                 } catch {
-///                     print("Error sending push to start live activity: \(error)")
-///                 }
-///            }
-///        }
-///  }
+///     Task {
+///         for await data in Activity<LiveActivityAttributes>.pushToStartTokenUpdates {
+///             let token = data.map { String(format: "%02x", $0) }.joined()
+///             Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: token)
+///         }
+///     }
+/// }
 ///
-/// \endcode
+/// \endcode<blockquote>
+/// Important: Available on iOS 17.2+. Use <code>setup()</code> method for automatic token management.
+///
+/// </blockquote>
+/// \param token The push-to-start token from ActivityKit.
+///
 + (void)sendPushToStartLiveActivityWithToken:(NSString * _Nonnull)token;
+/// Sends push-to-start token to enable remote activity initiation with completion handler.
+/// \param token The push-to-start token from ActivityKit.
+///
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)sendPushToStartLiveActivityWithToken:(NSString * _Nonnull)token completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-/// Sends live activity token to the server.
-/// Call this method when you create a live activity.
-/// This method sends the activity token and activity ID to the server when a live activity is started on the user’s device. It handles the asynchronous request to notify the server about the new activity. Ensure that both the token and activity ID are valid before calling this method to avoid potential issues.
-/// Example:
+/// Registers an active Live Activity with the server.
+/// Call this method when you create a Live Activity to register its push token with Pushwoosh server.
+/// This allows the server to send push notification updates to this specific activity instance.
+/// <h2>Example</h2>
 /// \code
 /// do {
-///     let activity = try Activity<PushwooshAppAttributes>.request(
+///     let activity = try Activity<FoodDeliveryAttributes>.request(
 ///         attributes: attributes,
 ///         contentState: contentState,
-///         pushType: .token)
-///     
+///         pushType: .token
+///     )
+///
 ///     for await data in activity.pushTokenUpdates {
-///         guard let token = data.map { String(format: "%02x", $0) }.joined(separator: "") else {
-///             continue
-///         }
-///         
-///         do {
-///             try await Pushwoosh.LiveActivities.startLiveActivity(token: "token", activityId: "activityId")
-///             return token
-///         } catch {
-///             print("Failed to start live activity with token \(token): \(error.localizedDescription)")
-///             return nil
-///         }
+///         let token = data.map { String(format: "%02x", $0) }.joined()
+///         Pushwoosh.LiveActivities.startLiveActivity(token: token, activityId: "order_123")
 ///     }
-///     return nil
 /// } catch {
-///     print("Error requesting activity: \(error.localizedDescription)")
-///     return nil
+///     print("Error starting activity: \(error)")
 /// }
 ///
-/// \endcode@param token Activity token
-/// @param activityId Activity ID for updating Live Activities by segments
+/// \endcode<blockquote>
+/// Important: Use <code>setup()</code> method for automatic token management.
+///
+/// </blockquote>
+/// \param token The activity push token from ActivityKit.
+///
+/// \param activityId Unique identifier for this activity instance used for targeting updates.
+///
 + (void)startLiveActivityWithToken:(NSString * _Nonnull)token activityId:(NSString * _Nonnull)activityId;
+/// Registers an active Live Activity with the server with completion handler.
+/// \param token The activity push token from ActivityKit.
+///
+/// \param activityId Unique identifier for this activity instance.
+///
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)startLiveActivityWithToken:(NSString * _Nonnull)token activityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-/// Call this method when you finish working with the live activity and want to notify the server that the activity has ended.
-/// This does <em>not</em> stop or remove the activity from the device itself; it simply informs the server that the activity has been completed.
-/// This method should be called when you finish working with the live activity. It sends a request to the server to notify that the live activity has been completed. Typically, this is called when the user has completed the task or interaction that was being tracked by the live activity.
-/// The server can then process this information and take appropriate actions based on the completion status of the live activity.
-/// Example:
+/// Notifies the server that all Live Activities have ended.
+/// Call this method after ending a Live Activity on the device to inform Pushwoosh server.
+/// This prevents the server from sending updates to activities that no longer exist.
+/// <h2>Example</h2>
 /// \code
-/// func end(activity: Activity<PushwooshAppAttributes>) {
-///     Task {
-///         await activity.end(dismissalPolicy: .immediate)
-///         try await Pushwoosh.LiveActivities.stopLiveActivity()
-///     }
+/// func endActivity(activity: Activity<FoodDeliveryAttributes>) async {
+///     await activity.end(dismissalPolicy: .immediate)
+///     Pushwoosh.LiveActivities.stopLiveActivity()
 /// }
 ///
-/// \endcode
+/// \endcode<blockquote>
+/// Important: This does not end the activity on the device. Call <code>activity.end()</code> first, then notify the server.
+///
+/// </blockquote>
 + (void)stopLiveActivity;
+/// Notifies the server that all Live Activities have ended with completion handler.
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)stopLiveActivityWithCompletion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-/// Call this method when you finish working with the live activity and want to notify the server that the activity has ended.
-/// This does <em>not</em> stop or remove the activity from the device itself; it simply informs the server that the activity has been completed.
-/// This method should be called when you finish working with the live activity. It sends a request to the server to notify that the live activity has been completed. Typically, this is called when the user has completed the task or interaction that was being tracked by the live activity.
-/// The server can then process this information and take appropriate actions based on the completion status of the live activity.
-/// The <code>activityId</code> is a unique identifier for the live activity instance. It is used to reference the specific activity that is being completed. This ID should be passed to the server so it can associate the completion notification with the correct live activity.
-/// Example:
+/// Notifies the server that a specific Live Activity has ended.
+/// Call this method after ending a Live Activity on the device to inform Pushwoosh server.
+/// Use this variant when managing multiple activities to stop only a specific one.
+/// <h2>Example</h2>
 /// \code
-/// func end(activity: Activity<PushwooshAppAttributes>) {
-///     Task {
-///         await activity.end(dismissalPolicy: .immediate)
-///         try await Pushwoosh.LiveActivities.stopLiveActivity(activityId: "activityId")
-///     }
+/// func endActivity(activity: Activity<FoodDeliveryAttributes>) async {
+///     let activityId = activity.attributes.pushwoosh.activityId
+///     await activity.end(dismissalPolicy: .immediate)
+///     Pushwoosh.LiveActivities.stopLiveActivity(activityId: activityId)
 /// }
 ///
-/// \endcode
+/// \endcode<blockquote>
+/// Important: This does not end the activity on the device. Call <code>activity.end()</code> first, then notify the server.
+///
+/// </blockquote>
+/// \param activityId The unique identifier of the activity that ended.
+///
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId;
+/// Notifies the server that a specific Live Activity has ended with completion handler.
+/// \param activityId The unique identifier of the activity that ended.
+///
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
@@ -887,6 +861,14 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWVoIP_")
 /// \param voipAppId A Pushwoosh App ID (format: XXXXX-XXXXX) configured for VoIP push notifications.
 ///
 + (void)setPushwooshVoIPAppId:(NSString * _Nonnull)voipAppId;
+/// Sets the timeout duration for incoming VoIP calls.
+/// When an incoming call is not answered within this timeout period, it will be automatically
+/// ended and reported to the system as an unanswered (missed) call.
+/// note:
+/// This method should be called before receiving any VoIP calls, typically during app initialization.
+/// \param timeout The timeout duration in seconds. Default value is 30.0 seconds.
+///
++ (void)setIncomingCallTimeout:(NSTimeInterval)timeout;
 @optional
 /// A delegate object that conforms to the <code>PWVoIPCallDelegate</code> protocol.
 /// Use this property to set an object that handles VoIP call events such as answering,
@@ -928,6 +910,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;
 + (void)setVoIPToken:(NSData * _Nonnull)token;
 + (void)setPushwooshVoIPAppId:(NSString * _Nonnull)voipAppId;
 + (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
++ (void)setIncomingCallTimeout:(NSTimeInterval)timeout;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
@@ -1249,121 +1232,73 @@ enum PWForegroundPushHapticFeedback : NSInteger;
 enum PWForegroundPushDisappearedAnimation : NSInteger;
 
 /// Protocol for handling custom foreground pushes in Pushwoosh.
-/// Allows configuration of appearance, haptic feedback, and tap callbacks for foreground push notifications.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWForegroundPush_")
 @protocol PWForegroundPush
-/// Custom gradient colors for the push background.
-/// If set to nil, the default gradient is used.
+/// Custom gradient colors for the push notification background.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSArray<UIColor *> * _Nullable gradientColors;)
 + (NSArray<UIColor *> * _Nullable)gradientColors SWIFT_WARN_UNUSED_RESULT;
 + (void)setGradientColors:(NSArray<UIColor *> * _Nullable)newValue;
-/// Background color for the push.
-/// If nil and <code>gradientColors</code> is not set, the default gradient is used.
+/// Solid background color for the push notification.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable backgroundColor;)
 + (UIColor * _Nullable)backgroundColor SWIFT_WARN_UNUSED_RESULT;
 + (void)setBackgroundColor:(UIColor * _Nullable)newValue;
-/// Determines whether to use the default push animation when displaying a foreground push.
-/// If <code>true</code>, the push notification will animate in with a slide and wave effect.
-/// If <code>false</code>, the push will appear instantly without animation.
+/// A Boolean value that indicates whether to use slide and wave animation when push appears.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL usePushAnimation;)
 + (BOOL)usePushAnimation SWIFT_WARN_UNUSED_RESULT;
 + (void)setUsePushAnimation:(BOOL)newValue;
-/// Color for the push title text.
-/// Defaults to system white if nil.
+/// Text color for the notification title.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable titlePushColor;)
 + (UIColor * _Nullable)titlePushColor SWIFT_WARN_UNUSED_RESULT;
 + (void)setTitlePushColor:(UIColor * _Nullable)newValue;
-/// The font used for the title text in a foreground push notification.
-/// Set this property to customize the appearance of the title.
-/// If <code>nil</code>, the default bold system font of size 18 will be used.
+/// Custom font for the notification title.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable titlePushFont;)
 + (UIFont * _Nullable)titlePushFont SWIFT_WARN_UNUSED_RESULT;
 + (void)setTitlePushFont:(UIFont * _Nullable)newValue;
-/// The font used for the message body text in a foreground push notification.
-/// Set this property to customize the appearance of the message text.
-/// If <code>nil</code>, the default system font will be used.
+/// Custom font for the notification message body.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable messagePushFont;)
 + (UIFont * _Nullable)messagePushFont SWIFT_WARN_UNUSED_RESULT;
 + (void)setMessagePushFont:(UIFont * _Nullable)newValue;
-/// Color for the push message text.
-/// Defaults to system white if nil.
+/// Text color for the notification message body.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable messagePushColor;)
 + (UIColor * _Nullable)messagePushColor SWIFT_WARN_UNUSED_RESULT;
 + (void)setMessagePushColor:(UIColor * _Nullable)newValue;
-/// Enables or disables the Liquid Glass style for foreground push notifications.
-/// Set this property to <code>true</code> to use the animated Liquid Glass effect (iOS 26+),
-/// or <code>false</code> to use the standard push appearance.
-/// Note:
-/// <ul>
-///   <li>
-///     If this flag is enabled but the user’s system version is lower than iOS 26,
-///     a regular UIView-based push will be shown instead.
-///   </li>
-///   <li>
-///     If your project is compiled with a Swift version <em>lower than 5.13</em>, the Liquid Glass
-///     effect will not be available at all — even on iOS 26. In that case, a blurred
-///     <code>UIVisualEffectView</code> (with UIBlurEffect) will be used instead on all devices.
-///   </li>
-/// </ul>
-/// In summary:
-/// <ul>
-///   <li>
-///     Swift 5.13+ + iOS 26 → Liquid Glass
-///   </li>
-///   <li>
-///     Swift 5.13+ + iOS < 26 → Standard UIView
-///   </li>
-///   <li>
-///     Swift < 5.13 → Always blurred view (no Liquid Glass support)
-///   </li>
-/// </ul>
+/// A Boolean value that indicates whether to enable modern Liquid Glass effect on iOS 26+ devices.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL useLiquidView;)
 + (BOOL)useLiquidView SWIFT_WARN_UNUSED_RESULT;
 + (void)setUseLiquidView:(BOOL)newValue;
-/// Callback triggered when the user taps on the push notification.
-/// \param userInfo Dictionary containing push payload data.
-///
+/// Callback triggered when user taps on the foreground push notification.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable didTapForegroundPush)(NSDictionary * _Nonnull);)
 + (void (^ _Nullable)(NSDictionary * _Nonnull))didTapForegroundPush SWIFT_WARN_UNUSED_RESULT;
 + (void)setDidTapForegroundPush:(void (^ _Nullable)(NSDictionary * _Nonnull))newValue;
-/// Configure a foreground push with the specified style, duration, and haptic feedback.
-/// Call this method during application initialization to set up the foreground push behavior.
-/// \param style Display style of the push.
-///
-/// \param duration Duration (in seconds) to show the push.
-///
-/// \param vibration Haptic feedback type for the push.
-///
-/// \param disappearedPushAnimation The animation to use when the push disappears. Use <code>.balls</code> for a particle-like explosion effect, or <code>.regularPush</code> to mimic the standard upward push disappearance.
-///
+/// Configures the foreground push notification display settings.
 + (void)foregroundNotificationWithStyle:(enum PWForegroundPushStyle)style duration:(NSInteger)duration vibration:(enum PWForegroundPushHapticFeedback)vibration disappearedPushAnimation:(enum PWForegroundPushDisappearedAnimation)disappearedPushAnimation;
-/// Show a foreground push with the specified payload.
-/// \param userInfo Dictionary containing push payload data.
-///
+/// Displays a foreground push notification with the specified payload.
 + (void)showForegroundPushWithUserInfo:(NSDictionary * _Nonnull)userInfo;
 @end
 
-/// Enum representing the disappearance animation of a foreground push notification.
-/// <ul>
-///   <li>
-///     <code>balls</code>: The push notification explodes into small balls when disappearing.
-///   </li>
-///   <li>
-///     <code>regularPush</code>: The push notification moves upward and disappears, mimicking the standard push behavior.
-///   </li>
-/// </ul>
+/// Animation style when push notification disappears.
 typedef SWIFT_ENUM(NSInteger, PWForegroundPushDisappearedAnimation, open) {
+/// Push explodes into small particles when disappearing.
   PWForegroundPushDisappearedAnimationBalls = 0,
+/// Push slides upward and fades out like standard notifications.
   PWForegroundPushDisappearedAnimationRegularPush = 1,
 };
 
+/// Haptic feedback type to play when notification appears.
 typedef SWIFT_ENUM(NSInteger, PWForegroundPushHapticFeedback, open) {
+/// No haptic feedback.
   PWForegroundPushHapticFeedbackNone = 0,
+/// Light impact haptic feedback.
   PWForegroundPushHapticFeedbackLight = 1,
+/// Medium impact haptic feedback.
   PWForegroundPushHapticFeedbackMedium = 2,
+/// Heavy impact haptic feedback.
   PWForegroundPushHapticFeedbackHeavy = 3,
+/// Soft impact haptic feedback.
   PWForegroundPushHapticFeedbackSoft = 4,
+/// Rigid impact haptic feedback.
   PWForegroundPushHapticFeedbackRigid = 5,
+/// System notification haptic feedback.
   PWForegroundPushHapticFeedbackNotification = 6,
 };
 
@@ -1403,101 +1338,123 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable didTap
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+/// Visual style template for the foreground push notification.
 typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
+/// Standard push notification style with icon, title, and message.
   PWForegroundPushStyleStyle1 = 0,
 };
 
 @class NSString;
 
+/// Protocol for managing iOS Live Activities with Pushwoosh push notifications.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWLiveActivities_")
 @protocol PWLiveActivities
-/// Sends push to start live activity token to the server.
-/// Call this method when you want to initiate live activity via push notification
-/// This method should be called when you want to send the push token to the server in order to initiate a live activity via a push notification. Once the token is sent to the server, it allows you to remotely trigger and manage the live activity through push notifications.
-/// Example:
+/// Sends push-to-start token to enable remote activity initiation.
+/// Call this method when you want to register a push-to-start token with Pushwoosh server.
+/// Once the token is sent, it allows remote triggering of Live Activities through push notifications.
+/// <h2>Example</h2>
 /// \code
 /// if #available(iOS 17.2, *) {
-///         Task {
-///             for await data in Activity<LiveActivityAttributes>.pushToStartTokenUpdates {
-///                 let token = data.map { String(format: "%02x", $0) }.joined()
-///                 do {
-///                     try await Pushwoosh.LiveActivities.sendPush(toStartLiveActivityToken: "token")
-///                 } catch {
-///                     print("Error sending push to start live activity: \(error)")
-///                 }
-///            }
-///        }
-///  }
+///     Task {
+///         for await data in Activity<LiveActivityAttributes>.pushToStartTokenUpdates {
+///             let token = data.map { String(format: "%02x", $0) }.joined()
+///             Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: token)
+///         }
+///     }
+/// }
 ///
-/// \endcode
+/// \endcode<blockquote>
+/// Important: Available on iOS 17.2+. Use <code>setup()</code> method for automatic token management.
+///
+/// </blockquote>
+/// \param token The push-to-start token from ActivityKit.
+///
 + (void)sendPushToStartLiveActivityWithToken:(NSString * _Nonnull)token;
+/// Sends push-to-start token to enable remote activity initiation with completion handler.
+/// \param token The push-to-start token from ActivityKit.
+///
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)sendPushToStartLiveActivityWithToken:(NSString * _Nonnull)token completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-/// Sends live activity token to the server.
-/// Call this method when you create a live activity.
-/// This method sends the activity token and activity ID to the server when a live activity is started on the user’s device. It handles the asynchronous request to notify the server about the new activity. Ensure that both the token and activity ID are valid before calling this method to avoid potential issues.
-/// Example:
+/// Registers an active Live Activity with the server.
+/// Call this method when you create a Live Activity to register its push token with Pushwoosh server.
+/// This allows the server to send push notification updates to this specific activity instance.
+/// <h2>Example</h2>
 /// \code
 /// do {
-///     let activity = try Activity<PushwooshAppAttributes>.request(
+///     let activity = try Activity<FoodDeliveryAttributes>.request(
 ///         attributes: attributes,
 ///         contentState: contentState,
-///         pushType: .token)
-///     
+///         pushType: .token
+///     )
+///
 ///     for await data in activity.pushTokenUpdates {
-///         guard let token = data.map { String(format: "%02x", $0) }.joined(separator: "") else {
-///             continue
-///         }
-///         
-///         do {
-///             try await Pushwoosh.LiveActivities.startLiveActivity(token: "token", activityId: "activityId")
-///             return token
-///         } catch {
-///             print("Failed to start live activity with token \(token): \(error.localizedDescription)")
-///             return nil
-///         }
+///         let token = data.map { String(format: "%02x", $0) }.joined()
+///         Pushwoosh.LiveActivities.startLiveActivity(token: token, activityId: "order_123")
 ///     }
-///     return nil
 /// } catch {
-///     print("Error requesting activity: \(error.localizedDescription)")
-///     return nil
+///     print("Error starting activity: \(error)")
 /// }
 ///
-/// \endcode@param token Activity token
-/// @param activityId Activity ID for updating Live Activities by segments
+/// \endcode<blockquote>
+/// Important: Use <code>setup()</code> method for automatic token management.
+///
+/// </blockquote>
+/// \param token The activity push token from ActivityKit.
+///
+/// \param activityId Unique identifier for this activity instance used for targeting updates.
+///
 + (void)startLiveActivityWithToken:(NSString * _Nonnull)token activityId:(NSString * _Nonnull)activityId;
+/// Registers an active Live Activity with the server with completion handler.
+/// \param token The activity push token from ActivityKit.
+///
+/// \param activityId Unique identifier for this activity instance.
+///
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)startLiveActivityWithToken:(NSString * _Nonnull)token activityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-/// Call this method when you finish working with the live activity and want to notify the server that the activity has ended.
-/// This does <em>not</em> stop or remove the activity from the device itself; it simply informs the server that the activity has been completed.
-/// This method should be called when you finish working with the live activity. It sends a request to the server to notify that the live activity has been completed. Typically, this is called when the user has completed the task or interaction that was being tracked by the live activity.
-/// The server can then process this information and take appropriate actions based on the completion status of the live activity.
-/// Example:
+/// Notifies the server that all Live Activities have ended.
+/// Call this method after ending a Live Activity on the device to inform Pushwoosh server.
+/// This prevents the server from sending updates to activities that no longer exist.
+/// <h2>Example</h2>
 /// \code
-/// func end(activity: Activity<PushwooshAppAttributes>) {
-///     Task {
-///         await activity.end(dismissalPolicy: .immediate)
-///         try await Pushwoosh.LiveActivities.stopLiveActivity()
-///     }
+/// func endActivity(activity: Activity<FoodDeliveryAttributes>) async {
+///     await activity.end(dismissalPolicy: .immediate)
+///     Pushwoosh.LiveActivities.stopLiveActivity()
 /// }
 ///
-/// \endcode
+/// \endcode<blockquote>
+/// Important: This does not end the activity on the device. Call <code>activity.end()</code> first, then notify the server.
+///
+/// </blockquote>
 + (void)stopLiveActivity;
+/// Notifies the server that all Live Activities have ended with completion handler.
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)stopLiveActivityWithCompletion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-/// Call this method when you finish working with the live activity and want to notify the server that the activity has ended.
-/// This does <em>not</em> stop or remove the activity from the device itself; it simply informs the server that the activity has been completed.
-/// This method should be called when you finish working with the live activity. It sends a request to the server to notify that the live activity has been completed. Typically, this is called when the user has completed the task or interaction that was being tracked by the live activity.
-/// The server can then process this information and take appropriate actions based on the completion status of the live activity.
-/// The <code>activityId</code> is a unique identifier for the live activity instance. It is used to reference the specific activity that is being completed. This ID should be passed to the server so it can associate the completion notification with the correct live activity.
-/// Example:
+/// Notifies the server that a specific Live Activity has ended.
+/// Call this method after ending a Live Activity on the device to inform Pushwoosh server.
+/// Use this variant when managing multiple activities to stop only a specific one.
+/// <h2>Example</h2>
 /// \code
-/// func end(activity: Activity<PushwooshAppAttributes>) {
-///     Task {
-///         await activity.end(dismissalPolicy: .immediate)
-///         try await Pushwoosh.LiveActivities.stopLiveActivity(activityId: "activityId")
-///     }
+/// func endActivity(activity: Activity<FoodDeliveryAttributes>) async {
+///     let activityId = activity.attributes.pushwoosh.activityId
+///     await activity.end(dismissalPolicy: .immediate)
+///     Pushwoosh.LiveActivities.stopLiveActivity(activityId: activityId)
 /// }
 ///
-/// \endcode
+/// \endcode<blockquote>
+/// Important: This does not end the activity on the device. Call <code>activity.end()</code> first, then notify the server.
+///
+/// </blockquote>
+/// \param activityId The unique identifier of the activity that ended.
+///
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId;
+/// Notifies the server that a specific Live Activity has ended with completion handler.
+/// \param activityId The unique identifier of the activity that ended.
+///
+/// \param completion Completion handler called when the request finishes.
+///
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 @end
 
@@ -1828,6 +1785,14 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWVoIP_")
 /// \param voipAppId A Pushwoosh App ID (format: XXXXX-XXXXX) configured for VoIP push notifications.
 ///
 + (void)setPushwooshVoIPAppId:(NSString * _Nonnull)voipAppId;
+/// Sets the timeout duration for incoming VoIP calls.
+/// When an incoming call is not answered within this timeout period, it will be automatically
+/// ended and reported to the system as an unanswered (missed) call.
+/// note:
+/// This method should be called before receiving any VoIP calls, typically during app initialization.
+/// \param timeout The timeout duration in seconds. Default value is 30.0 seconds.
+///
++ (void)setIncomingCallTimeout:(NSTimeInterval)timeout;
 @optional
 /// A delegate object that conforms to the <code>PWVoIPCallDelegate</code> protocol.
 /// Use this property to set an object that handles VoIP call events such as answering,
@@ -1869,6 +1834,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;
 + (void)setVoIPToken:(NSData * _Nonnull)token;
 + (void)setPushwooshVoIPAppId:(NSString * _Nonnull)voipAppId;
 + (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
++ (void)setIncomingCallTimeout:(NSTimeInterval)timeout;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

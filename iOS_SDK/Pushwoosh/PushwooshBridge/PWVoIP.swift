@@ -56,7 +56,19 @@ public protocol PWVoIP {
      */
     @objc
     static func setPushwooshVoIPAppId(_ voipAppId: String)
-    
+
+    /**
+     Sets the timeout duration for incoming VoIP calls.
+
+     When an incoming call is not answered within this timeout period, it will be automatically
+     ended and reported to the system as an unanswered (missed) call.
+
+     - Parameter timeout: The timeout duration in seconds. Default value is 30.0 seconds.
+     - Note: This method should be called before receiving any VoIP calls, typically during app initialization.
+     */
+    @objc
+    static func setIncomingCallTimeout(_ timeout: TimeInterval)
+
     /** 
     A delegate object that conforms to the `PWVoIPCallDelegate` protocol.
     

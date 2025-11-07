@@ -28,7 +28,12 @@ final class PWUnregisterVoIPDeviceRequest: PWRequest, PWCoreUnregisterVoIPDevice
     }
 
     override func requestDictionary() -> [AnyHashable: Any] {
-        let dict = self.baseDictionary()
-        return dict as! [AnyHashable : Any]
+        guard let dict = self.baseDictionary() else {
+            PushwooshLog.pushwooshLog(.PW_LL_ERROR,
+                                      className: self,
+                                      message: "Failed to create base dictionary")
+            return [:]
+        }
+        return dict as! [AnyHashable: Any]
     }
 }

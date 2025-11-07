@@ -62,6 +62,7 @@ import _SwiftConcurrencyShims
   @objc static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
   @objc static func setVoIPToken(_ token: Foundation.Data)
   @objc static func setPushwooshVoIPAppId(_ voipAppId: Swift.String)
+  @objc static func setIncomingCallTimeout(_ timeout: Foundation.TimeInterval)
   @objc optional static var delegate: Swift.AnyObject? { get set }
 }
 @objc public enum PWForegroundPushStyle : Swift.Int {
@@ -156,6 +157,7 @@ import _SwiftConcurrencyShims
   @objc public static func setVoIPToken(_ token: Foundation.Data)
   @objc public static func setPushwooshVoIPAppId(_ voipAppId: Swift.String)
   @objc public static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
+  @objc public static func setIncomingCallTimeout(_ timeout: Foundation.TimeInterval)
   @objc override dynamic public init()
   @objc deinit
 }

@@ -302,15 +302,72 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 #if defined(__OBJC__)
 
+/// Manager for displaying Rich Media content on tvOS.
+/// This class handles the parsing, rendering, and display of HTML-based Rich Media
+/// content with full support for tvOS Focus Engine and Apple TV remote navigation.
+/// <h2>Overview</h2>
+/// The Rich Media manager automatically:
+/// <ul>
+///   <li>
+///     Parses HTML content with inline styles
+///   </li>
+///   <li>
+///     Renders native UIKit components
+///   </li>
+///   <li>
+///     Configures focus navigation for tvOS remote
+///   </li>
+///   <li>
+///     Handles button actions (events, tags, close)
+///   </li>
+///   <li>
+///     Manages presentation and dismissal animations
+///   </li>
+/// </ul>
+/// <h2>Usage</h2>
+/// Configure Rich Media behavior during app initialization:
+/// \code
+/// Pushwoosh.TVoS.configureRichMediaWith(
+///     position: .center,
+///     presentAnimation: .fromBottom,
+///     dismissAnimation: .toBottom
+/// )
+///
+/// \endcode
 SWIFT_CLASS_NAMED("PWTVOSRichMediaManager") SWIFT_AVAILABILITY(tvos,introduced=11.0)
 @interface PWTVOSRichMediaManager : NSObject
+/// The screen position where Rich Media will be displayed.
 @property (nonatomic) enum PWTVOSRichMediaPosition position;
+/// The animation type used when presenting Rich Media.
 @property (nonatomic) enum PWTVOSRichMediaPresentAnimation animationType;
+/// The animation type used when dismissing Rich Media.
 @property (nonatomic) enum PWTVOSRichMediaDismissAnimation dismissAnimationType;
+/// Configures Rich Media presentation settings.
+/// \param position Screen position for Rich Media display. Defaults to <code>.center</code>.
+///
+/// \param presentAnimation Animation when Rich Media appears.
+///
+/// \param dismissAnimation Animation when Rich Media disappears. Defaults to <code>.none</code>.
+///
 - (void)configureRichMediaWithPosition:(enum PWTVOSRichMediaPosition)position presentAnimation:(enum PWTVOSRichMediaPresentAnimation)presentAnimation dismissAnimation:(enum PWTVOSRichMediaDismissAnimation)dismissAnimation;
+/// Controls visibility of the Close button on Rich Media.
+/// \param show <code>true</code> to show Close button, <code>false</code> to hide it.
+///
 - (void)configureCloseButton:(BOOL)show;
+/// Sets a handler for getTags button actions in Rich Media.
+/// \param handler Closure called when getTags button is clicked, receiving tags dictionary.
+///
 - (void)setGetTagsHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
+/// Handles in-app resource for Rich Media display.
+/// \param resource Resource object containing pageUrl and code.
+///
+///
+/// returns:
+/// <code>true</code> if resource was handled successfully.
 - (BOOL)handleInAppResource:(id _Nonnull)resource SWIFT_WARN_UNUSED_RESULT;
+/// Dismisses currently displayed Rich Media.
+/// \param animated Whether to animate the dismissal.
+///
 - (void)dismissWithAnimated:(BOOL)animated;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -318,24 +375,249 @@ SWIFT_CLASS_NAMED("PWTVOSRichMediaManager") SWIFT_AVAILABILITY(tvos,introduced=1
 @class NSString;
 @class NSData;
 
+/// Main implementation class for tvOS push notifications and Rich Media.
+/// This class provides the core functionality for integrating Pushwoosh push notifications
+/// and Rich Media content into tvOS applications. It handles device registration, push
+/// notification processing, and Rich Media display with tvOS-specific optimizations.
+/// <h2>Usage</h2>
+/// Initialize and configure during app launch:
+/// \code
+/// Pushwoosh.TVoS.setAppCode("YOUR-APP-CODE")
+/// Pushwoosh.TVoS.registerForTvPushNotifications()
+///
+/// \endcode<h2>Topics</h2>
+/// <h3>Configuration</h3>
+/// <ul>
+///   <li>
+///     <code>setAppCode(_:)</code>
+///   </li>
+///   <li>
+///     <code>registerForTvPushNotifications()</code>
+///   </li>
+///   <li>
+///     <code>registerForPushNotifications(withToken:completion:)</code>
+///   </li>
+/// </ul>
+/// <h3>Push Handling</h3>
+/// <ul>
+///   <li>
+///     <code>handleTvPushToken(_:)</code>
+///   </li>
+///   <li>
+///     <code>handleTvPushRegistrationFailure(_:)</code>
+///   </li>
+///   <li>
+///     <code>handleTvPushReceived(userInfo:completionHandler:)</code>
+///   </li>
+///   <li>
+///     <code>handleTVOSPush(userInfo:)</code>
+///   </li>
+/// </ul>
+/// <h3>Rich Media</h3>
+/// <ul>
+///   <li>
+///     <code>richMediaManager</code>
+///   </li>
+///   <li>
+///     <code>configureRichMediaWith(position:presentAnimation:dismissAnimation:)</code>
+///   </li>
+///   <li>
+///     <code>configureCloseButton(_:)</code>
+///   </li>
+///   <li>
+///     <code>setRichMediaGetTagsHandler(_:)</code>
+///   </li>
+/// </ul>
 SWIFT_CLASS_NAMED("PushwooshTVOSImplementation") SWIFT_AVAILABILITY(tvos,introduced=11.0)
 @interface PushwooshTVOSImplementation : NSObject
+/// Shared singleton instance of the tvOS implementation.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) PushwooshTVOSImplementation * _Nonnull shared;)
 + (PushwooshTVOSImplementation * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+/// Rich Media manager instance for displaying HTML content.
+/// Provides access to the Rich Media manager for advanced configuration
+/// and programmatic control of Rich Media display.
 @property (nonatomic, readonly, strong) PWTVOSRichMediaManager * _Nonnull richMediaManager;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
+/// Sets the Pushwoosh application code for tvOS.
+/// This method must be called before registering for push notifications.
+/// The app code can be found in your Pushwoosh Control Panel.
+/// <h2>Example</h2>
+/// \code
+/// Pushwoosh.TVoS.setAppCode("12345-67890")
+///
+/// \endcode\param appCode The Pushwoosh application identifier (format: XXXXX-XXXXX).
+///
 + (void)setAppCode:(NSString * _Nonnull)appCode;
+/// Registers the tvOS device for push notifications with the Pushwoosh server.
+/// Call this method after receiving a device token from Apple Push Notification service.
+/// This method sends the device token to Pushwoosh servers to enable push notifications.
+/// <h2>Example</h2>
+/// \code
+/// func application(_ application: UIApplication,
+///                  didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+///     Pushwoosh.TVoS.registerForPushNotifications(withToken: deviceToken) { error in
+///         if let error = error {
+///             print("Failed to register: \(error)")
+///         } else {
+///             print("Successfully registered")
+///         }
+///     }
+/// }
+///
+/// \endcode\param token The device token received from APNs in <code>application(_:didRegisterForRemoteNotificationsWithDeviceToken:)</code>.
+///
+/// \param completion Optional completion handler called when registration completes. The handler receives an error parameter if registration fails, or nil on success.
+///
 - (void)registerForPushNotificationsWithToken:(NSData * _Nonnull)token completion:(void (^ _Nullable)(NSError * _Nullable))completion;
+/// Registers for tvOS push notifications.
+/// This method requests push notification authorization and registers the device
+/// for remote notifications on tvOS. Call this during app initialization.
+/// <h2>Example</h2>
+/// \code
+/// func application(_ application: UIApplication,
+///                  didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+///     Pushwoosh.TVoS.setAppCode("XXXXX-XXXXX")
+///     Pushwoosh.TVoS.registerForTvPushNotifications()
+///     return true
+/// }
+///
+/// \endcode
 + (void)registerForTvPushNotifications;
+/// Unregisters the tvOS device from receiving push notifications.
+/// This method removes the device registration from Pushwoosh servers.
+/// The device will no longer receive push notifications until it registers again.
+/// <h2>Example</h2>
+/// \code
+/// Pushwoosh.TVoS.unregisterForTvPushNotifications { error in
+///     if let error = error {
+///         print("Failed to unregister: \(error)")
+///     } else {
+///         print("Successfully unregistered")
+///     }
+/// }
+///
+/// \endcode\param completion Optional completion handler called when unregistration completes. The handler receives an error parameter if unregistration fails, or nil on success.
+///
 - (void)unregisterForPushNotificationsWithCompletion:(void (^ _Nullable)(NSError * _Nullable))completion;
+/// Unregisters the tvOS device from receiving push notifications.
+/// This is a convenience method that calls the instance method on the shared instance.
+/// \param completion Optional completion handler called when unregistration completes.
+///
 + (void)unregisterForTvPushNotificationsWithCompletion:(void (^ _Nullable)(NSError * _Nullable))completion;
+/// Handles the device token received from tvOS push registration.
+/// Call this method from <code>application(_:didRegisterForRemoteNotificationsWithDeviceToken:)</code>
+/// to process the device token and register it with Pushwoosh.
+/// <h2>Example</h2>
+/// \code
+/// func application(_ application: UIApplication,
+///                  didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+///     Pushwoosh.TVoS.handleTvPushToken(deviceToken)
+/// }
+///
+/// \endcode\param deviceToken The device token data received from APNs.
+///
 + (void)handleTvPushToken:(NSData * _Nonnull)deviceToken;
+/// Handles push registration failure on tvOS.
+/// Call this method from <code>application(_:didFailToRegisterForRemoteNotificationsWithError:)</code>
+/// to log and handle registration errors.
+/// <h2>Example</h2>
+/// \code
+/// func application(_ application: UIApplication,
+///                  didFailToRegisterForRemoteNotificationsWithError error: Error) {
+///     Pushwoosh.TVoS.handleTvPushRegistrationFailure(error)
+/// }
+///
+/// \endcode\param error The error that occurred during registration.
+///
 + (void)handleTvPushRegistrationFailure:(NSError * _Nonnull)error;
+/// Handles incoming push notification on tvOS.
+/// Call this method from <code>application(_:didReceiveRemoteNotification:fetchCompletionHandler:)</code>
+/// to process incoming push notifications. The method automatically detects and displays
+/// Rich Media if present in the notification payload.
+/// <h2>Example</h2>
+/// \code
+/// func application(_ application: UIApplication,
+///                  didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+///                  fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+///     Pushwoosh.TVoS.handleTvPushReceived(userInfo: userInfo, completionHandler: completionHandler)
+/// }
+///
+/// \endcode\param userInfo Dictionary containing push payload data.
+///
+/// \param completionHandler Completion handler to call when processing is complete.
+///
 + (void)handleTvPushReceivedWithUserInfo:(NSDictionary * _Nonnull)userInfo completionHandler:(void (^ _Nonnull)(UIBackgroundFetchResult))completionHandler;
+/// Handles incoming push notifications with rich media content for tvOS.
+/// Call this method to process push notifications that may contain rich media content.
+/// If the notification contains rich media, it will be displayed automatically.
+/// <h2>Example</h2>
+/// \code
+/// func application(_ application: UIApplication,
+///                  didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+///                  fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+///     if Pushwoosh.TVoS.handleTVOSPush(userInfo: userInfo) {
+///         completionHandler(.newData)
+///     } else {
+///         completionHandler(.noData)
+///     }
+/// }
+///
+/// \endcode\param userInfo The push notification payload received from APNs.
+///
+///
+/// returns:
+/// <code>true</code> if the notification contains rich media and was handled, <code>false</code> otherwise.
 + (BOOL)handleTVOSPushWithUserInfo:(NSDictionary * _Nonnull)userInfo SWIFT_WARN_UNUSED_RESULT;
+/// Configures rich media presentation, positioning, and dismissal animations for tvOS.
+/// This method allows you to customize how rich media content appears, where it’s positioned,
+/// and how it disappears on screen. You can choose from different animation directions,
+/// screen positions, or disable animation entirely.
+/// <h2>Example</h2>
+/// \code
+/// // Configure rich media to appear on the left, slide in from bottom and slide out to left
+/// Pushwoosh.TVoS.configureRichMediaWith(
+///     position: .left,
+///     presentAnimation: .fromBottom,
+///     dismissAnimation: .toLeft
+/// )
+///
+/// \endcodenote:
+/// This configuration applies to all subsequent rich media presentations until changed.
+/// \param position The screen position where rich media content will be displayed. See <code>PWTVOSRichMediaPosition</code> for available options.
+///
+/// \param presentAnimation The animation type to use when presenting rich media. See <code>PWTVOSRichMediaPresentAnimation</code> for available options.
+///
+/// \param dismissAnimation The animation type to use when dismissing rich media. Defaults to <code>.none</code>. See <code>PWTVOSRichMediaDismissAnimation</code> for available options.
+///
 + (void)configureRichMediaWithPosition:(enum PWTVOSRichMediaPosition)position presentAnimation:(enum PWTVOSRichMediaPresentAnimation)presentAnimation dismissAnimation:(enum PWTVOSRichMediaDismissAnimation)dismissAnimation;
+/// Controls whether the Close button is displayed on rich media content.
+/// By default, a Close button is shown at the bottom of rich media presentations,
+/// allowing users to dismiss the content. You can hide this button if you want
+/// rich media to only be dismissible through button actions within the content itself.
+/// <h2>Example</h2>
+/// \code
+/// // Hide the system Close button
+/// Pushwoosh.TVoS.configureCloseButton(false)
+///
+/// \endcodenote:
+/// If you hide the Close button, ensure your rich media content includes a button with the <code>closeInApp()</code> action to allow users to dismiss it.
+/// \param show <code>true</code> to show the Close button (default), <code>false</code> to hide it.
+///
 + (void)configureCloseButton:(BOOL)show;
+/// Sets a handler to receive tags when requested from rich media content.
+/// When a user interacts with a getTags button in rich media HTML content,
+/// this handler will be called with the tags retrieved from Pushwoosh.
+/// This allows you to handle tag data in your application as needed.
+/// <h2>Example</h2>
+/// \code
+/// Pushwoosh.TVoS.setRichMediaGetTagsHandler { tags in
+///     print("Received tags from rich media: \(tags)")
+///     // Handle tags in your application
+/// }
+///
+/// \endcode\param handler A closure that receives tags as a dictionary when getTags is triggered. The dictionary contains tag keys and their values.
+///
 + (void)setRichMediaGetTagsHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 + (Class _Nonnull)tvos SWIFT_WARN_UNUSED_RESULT;
 @end

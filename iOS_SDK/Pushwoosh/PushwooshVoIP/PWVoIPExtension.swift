@@ -37,6 +37,11 @@ public extension PWVoIP {
     static func setPushwooshVoIPAppId(_ voipAppId: String) {
         PushwooshVoIPImplementation.setPushwooshVoIPAppId(voipAppId)
     }
+
+    @available(iOS 14.0, *)
+    static func setIncomingCallTimeout(_ timeout: TimeInterval) {
+        PushwooshVoIPImplementation.setIncomingCallTimeout(timeout)
+    }
 }
 
 /// Delegate protocol for receiving VoIP call events and CallKit callbacks.

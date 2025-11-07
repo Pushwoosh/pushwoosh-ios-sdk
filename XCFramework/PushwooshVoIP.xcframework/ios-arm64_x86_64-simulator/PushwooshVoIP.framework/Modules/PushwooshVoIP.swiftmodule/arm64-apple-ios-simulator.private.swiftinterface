@@ -23,6 +23,7 @@ import _SwiftConcurrencyShims
   @objc public static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
   @objc public static func setVoIPToken(_ token: Foundation.Data)
   @objc public static func setPushwooshVoIPAppId(_ voipAppId: Swift.String)
+  @objc public static func setIncomingCallTimeout(_ timeout: Foundation.TimeInterval)
   @objc public func pushRegistry(_ registry: PushKit.PKPushRegistry, didUpdate pushCredentials: PushKit.PKPushCredentials, for type: PushKit.PKPushType)
   @objc public func pushRegistry(_ registry: PushKit.PKPushRegistry, didInvalidatePushTokenFor type: PushKit.PKPushType)
   @objc public func pushRegistry(_ registry: PushKit.PKPushRegistry, didReceiveIncomingPushWith payload: PushKit.PKPushPayload, for type: PushKit.PKPushType, completion: @escaping () -> Swift.Void)
@@ -51,6 +52,8 @@ extension PushwooshBridge.PWVoIP {
   public static func setVoIPToken(_ token: Foundation.Data)
   @available(iOS 14.0, *)
   public static func setPushwooshVoIPAppId(_ voipAppId: Swift.String)
+  @available(iOS 14.0, *)
+  public static func setIncomingCallTimeout(_ timeout: Foundation.TimeInterval)
 }
 @objc public protocol PWVoIPCallDelegate : ObjectiveC.NSObjectProtocol {
   @objc optional func voipDidRegisterTokenSuccessfully()

@@ -10,16 +10,52 @@ import Foundation
 import UIKit
 import PushwooshBridge
 
+/// Manager for displaying Rich Media content on tvOS.
+///
+/// This class handles the parsing, rendering, and display of HTML-based Rich Media
+/// content with full support for tvOS Focus Engine and Apple TV remote navigation.
+///
+/// ## Overview
+///
+/// The Rich Media manager automatically:
+/// - Parses HTML content with inline styles
+/// - Renders native UIKit components
+/// - Configures focus navigation for tvOS remote
+/// - Handles button actions (events, tags, close)
+/// - Manages presentation and dismissal animations
+///
+/// ## Usage
+///
+/// Configure Rich Media behavior during app initialization:
+///
+/// ```swift
+/// Pushwoosh.TVoS.configureRichMediaWith(
+///     position: .center,
+///     presentAnimation: .fromBottom,
+///     dismissAnimation: .toBottom
+/// )
+/// ```
 @available(tvOS 11.0, *)
 @objc(PWTVOSRichMediaManager)
 public class PWTVOSRichMediaManager: NSObject {
 
+    /// The screen position where Rich Media will be displayed.
     @objc public var position: PWTVOSRichMediaPosition = .center
+
+    /// The animation type used when presenting Rich Media.
     @objc public var animationType: PWTVOSRichMediaPresentAnimation = .none
+
+    /// The animation type used when dismissing Rich Media.
     @objc public var dismissAnimationType: PWTVOSRichMediaDismissAnimation = .none
     private var _showCloseButton: Bool = true
     private var _getTagsHandler: (([AnyHashable: Any]) -> Void)?
 
+    /// Configures Rich Media presentation settings.
+    ///
+    /// - Parameters:
+    ///   - position: Screen position for Rich Media display. Defaults to `.center`.
+    ///   - presentAnimation: Animation when Rich Media appears.
+    ///   - dismissAnimation: Animation when Rich Media disappears. Defaults to `.none`.
     @objc
     public func configureRichMediaWith(position: PWTVOSRichMediaPosition = .center, presentAnimation: PWTVOSRichMediaPresentAnimation, dismissAnimation: PWTVOSRichMediaDismissAnimation = .none) {
         self.position = position
@@ -27,11 +63,17 @@ public class PWTVOSRichMediaManager: NSObject {
         self.dismissAnimationType = dismissAnimation
     }
 
+    /// Controls visibility of the Close button on Rich Media.
+    ///
+    /// - Parameter show: `true` to show Close button, `false` to hide it.
     @objc
     public func configureCloseButton(_ show: Bool) {
         self._showCloseButton = show
     }
 
+    /// Sets a handler for getTags button actions in Rich Media.
+    ///
+    /// - Parameter handler: Closure called when getTags button is clicked, receiving tags dictionary.
     @objc
     public func setGetTagsHandler(_ handler: @escaping ([AnyHashable: Any]) -> Void) {
         self._getTagsHandler = handler
@@ -41,6 +83,10 @@ public class PWTVOSRichMediaManager: NSObject {
         return _getTagsHandler
     }
 
+    /// Handles in-app resource for Rich Media display.
+    ///
+    /// - Parameter resource: Resource object containing pageUrl and code.
+    /// - Returns: `true` if resource was handled successfully.
     @objc
     public func handleInAppResource(_ resource: AnyObject) -> Bool {
         guard let pageUrl = resource.value(forKey: "pageUrl") as? String else {
@@ -117,6 +163,9 @@ public class PWTVOSRichMediaManager: NSObject {
         }
     }
 
+    /// Dismisses currently displayed Rich Media.
+    ///
+    /// - Parameter animated: Whether to animate the dismissal.
     @objc public func dismiss(animated: Bool) {
         if #available(tvOS 13.0, *) {
             guard let windowScene = UIApplication.shared.connectedScenes.first as? UIWindowScene,

@@ -383,6 +383,36 @@
           },
           {
             "kind": "Function",
+            "name": "setIncomingCallTimeout",
+            "printedName": "setIncomingCallTimeout(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cm)setIncomingCallTimeout:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC22setIncomingCallTimeoutyySdFZ",
+            "moduleName": "PushwooshVoIP",
+            "static": true,
+            "objc_name": "setIncomingCallTimeout:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "pushRegistry",
             "printedName": "pushRegistry(_:didUpdate:for:)",
             "children": [
@@ -2779,6 +2809,37 @@
             ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setIncomingCallTimeout",
+            "printedName": "setIncomingCallTimeout(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge6PWVoIPP0a2VoD0E22setIncomingCallTimeoutyySdFZ",
+            "mangledName": "$s15PushwooshBridge6PWVoIPP0a2VoD0E22setIncomingCallTimeoutyySdFZ",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
+            "static": true,
+            "intro_iOS": "14.0",
+            "declAttributes": [
+              "Available"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
           }
         ],
         "declKind": "Protocol",
@@ -2806,9 +2867,30 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "Dictionary",
-      "offset": 1137,
+      "offset": 1622,
       "length": 3,
       "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
+      "kind": "FloatLiteral",
+      "offset": 1679,
+      "length": 4,
+      "value": "30.0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
+      "kind": "Dictionary",
+      "offset": 1751,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
+      "kind": "StringLiteral",
+      "offset": 1865,
+      "length": 25,
+      "value": "\"com.pushwoosh.voip.sync\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",

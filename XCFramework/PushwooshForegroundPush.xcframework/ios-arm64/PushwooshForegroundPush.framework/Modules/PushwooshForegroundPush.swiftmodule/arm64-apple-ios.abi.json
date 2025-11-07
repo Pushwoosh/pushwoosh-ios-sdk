@@ -103,7 +103,8 @@
             "protocolReq": true,
             "declAttributes": [
               "Optional",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "reqNewWitnessTableEntry": true,
             "funcSelfKind": "NonMutating"
@@ -117,7 +118,8 @@
         "sugared_genericSig": "<Self : ObjectiveC.NSObjectProtocol>",
         "declAttributes": [
           "AccessControl",
-          "ObjC"
+          "ObjC",
+          "RawDocComment"
         ]
       },
       {
@@ -352,7 +354,8 @@
             "objc_name": "initWithStyle:duration:vibration:disappearedAnimation:gradientColors:backgroundColor:usePushAnimation:titlePushColor:messagePushColor:titlePushFont:messagePushFont:useLiquidView:",
             "declAttributes": [
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "init_kind": "Designated"
           },
@@ -389,7 +392,8 @@
         "moduleName": "PushwooshForegroundPush",
         "declAttributes": [
           "AccessControl",
-          "ObjC"
+          "ObjC",
+          "RawDocComment"
         ],
         "superclassUsr": "c:objc(cs)NSObject",
         "superclassNames": [
@@ -475,7 +479,8 @@
               "Final",
               "HasStorage",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "isLet": true,
             "hasStorage": true,
@@ -526,7 +531,8 @@
               "Final",
               "ReferenceOwnership",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "ownership": 1,
             "accessors": [
@@ -647,7 +653,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -687,7 +694,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "accessors": [
               {
@@ -827,7 +835,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "accessors": [
               {
@@ -943,7 +952,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "accessors": [
               {
@@ -1051,7 +1061,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "accessors": [
               {
@@ -1175,7 +1186,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "accessors": [
               {
@@ -1299,7 +1311,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "accessors": [
               {
@@ -1423,7 +1436,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "accessors": [
               {
@@ -1539,7 +1553,8 @@
             "declAttributes": [
               "Final",
               "AccessControl",
-              "ObjC"
+              "ObjC",
+              "RawDocComment"
             ],
             "accessors": [
               {
@@ -1629,7 +1644,8 @@
         "declAttributes": [
           "AccessControl",
           "ObjC",
-          "Available"
+          "Available",
+          "RawDocComment"
         ],
         "superclassUsr": "c:objc(cs)NSObject",
         "hasMissingDesignatedInitializers": true,
@@ -2854,28 +2870,28 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshForegroundPush\/PushwooshForegroundPushImplementation.swift",
       "kind": "BooleanLiteral",
-      "offset": 1078,
+      "offset": 2006,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshForegroundPush\/PushwooshForegroundPushImplementation.swift",
       "kind": "BooleanLiteral",
-      "offset": 1274,
+      "offset": 2202,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshForegroundPush\/PushwooshForegroundPushImplementation.swift",
       "kind": "StringLiteral",
-      "offset": 274,
+      "offset": 368,
       "length": 27,
       "value": "\"PushwooshForegroundPush.ForegroundPushConfiguration\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshForegroundPush\/PushwooshForegroundPushImplementation.swift",
       "kind": "IntegerLiteral",
-      "offset": 33474,
+      "offset": 34780,
       "length": 1,
       "value": "3"
     }
