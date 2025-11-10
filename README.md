@@ -1,151 +1,152 @@
 # Pushwoosh iOS SDK
 
-  [![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20iPadOS%20%7C%20tvOS%20%7C%20Mac%20Catalyst-lightgrey.svg?style=flat-square)](https://www.apple.com/ios/)
-  [![Swift](https://img.shields.io/badge/Swift-5.0+-orange.svg?style=flat-square)](https://swift.org)
-  [![Objective-C](https://img.shields.io/badge/Objective--C-compatible-orange.svg?style=flat-square)](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)
-  [![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+[![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20iPadOS%20%7C%20tvOS%20%7C%20Mac%20Catalyst-lightgrey.svg?style=flat-square)](https://www.apple.com/ios/)
+[![Swift](https://img.shields.io/badge/Swift-5.0+-orange.svg?style=flat-square)](https://swift.org)
+[![Objective-C](https://img.shields.io/badge/Objective--C-compatible-orange.svg?style=flat-square)](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
 
-  Push notifications, In-App Messaging, and more for iOS, tvOS, and watchOS applications.
+Push notifications, In-App Messaging, and more for iOS, tvOS, and watchOS applications.
 
-  ## 📚 Documentation
+## 📚 Documentation
 
-  [![Pushwoosh Documentation](https://img.shields.io/badge/docs-Pushwoosh-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshiOS/documentation/pushwooshframework/)
-  
-  [![PushwooshVoIP Documentation](https://img.shields.io/badge/docs-PushwooshVoIP-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshVoIP/documentation/pushwooshvoip/)
-  
-  [![PushwooshLiveActivities Documentation](https://img.shields.io/badge/docs-PushwooshLiveActivities-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshLiveActivities/documentation/pushwooshliveactivities/)
-  
-  [![PushwooshTVOS Documentation](https://img.shields.io/badge/docs-PushwooshTVOS-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshTVOS/documentation/pushwooshtvos/)
-  
-  [![PushwooshForegroundPush Documentation](https://img.shields.io/badge/docs-PushwooshForegroundPush-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshForegroundPush/documentation/pushwooshforegroundpush/)
+[![Pushwoosh Documentation](https://img.shields.io/badge/docs-Pushwoosh-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshiOS/documentation/pushwooshframework/)
+[![PushwooshVoIP Documentation](https://img.shields.io/badge/docs-PushwooshVoIP-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshVoIP/documentation/pushwooshvoip/)
+[![PushwooshLiveActivities Documentation](https://img.shields.io/badge/docs-PushwooshLiveActivities-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshLiveActivities/documentation/pushwooshliveactivities/)
+[![PushwooshTVOS Documentation](https://img.shields.io/badge/docs-PushwooshTVOS-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshTVOS/documentation/pushwooshtvos/)
+[![PushwooshForegroundPush Documentation](https://img.shields.io/badge/docs-PushwooshForegroundPush-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshForegroundPush/documentation/pushwooshforegroundpush/)
 
-  ## 🚀 Features
+## 🚀 Features
 
-  ### Core SDK
-  - **Push Notifications** - Standard push notifications with rich media support
-  - **In-App Messages** - Customizable in-app messaging
-  - **Tags & Segmentation** - User targeting and segmentation
-  - **Inbox** - Built-in message inbox functionality
-  - **Analytics** - Delivery and conversion tracking
+### Core SDK
+- **Push Notifications** - Standard push notifications with rich media support
+- **In-App Messages** - Customizable in-app messaging
+- **Tags & Segmentation** - User targeting and segmentation
+- **Inbox** - Built-in message inbox functionality
+- **Analytics** - Delivery and conversion tracking
 
-  ### Advanced Modules
-  - **VoIP Push Notifications** - CallKit integration for VoIP apps
-  - **Live Activities** - iOS 16.1+ Live Activities with push updates
-  - **tvOS Support** - Push notifications and Rich Media for Apple TV
-  - **Foreground Push** - Custom foreground notifications with animations and effects
+### Advanced Modules
+- **VoIP Push Notifications** - CallKit integration for VoIP apps
+- **Live Activities** - iOS 16.1+ Live Activities with push updates
+- **tvOS Support** - Push notifications and Rich Media for Apple TV
+- **Foreground Push** - Custom foreground notifications with animations and effects
 
-  ## 📦 Installation
+## 📦 Installation
 
-  ### Swift Package Manager (Recommended)
+### Swift Package Manager (Recommended)
 
-  In Xcode, go to **File → Add Package Dependencies** and enter:
+In Xcode, go to **File → Add Package Dependencies** and enter:
 
-  https://github.com/Pushwoosh/Pushwoosh-XCFramework
-
-  Select the modules you need in your target's **Frameworks, Libraries, and Embedded Content** section.
-
-  **Available modules:**
-  - `PushwooshFramework` - Core SDK **(required)**
-  - `PushwooshCore` - Core functionality **(required)**
-  - `PushwooshBridge` - Bridge module **(required)**
-  - `PushwooshLiveActivities` - Live Activities support **(required)**
-  - `PushwooshVoIP` - VoIP push notifications *(optional)*
-  - `PushwooshTVOS` - tvOS support *(optional)*
-  - `PushwooshForegroundPush` - Custom foreground notifications *(optional)*
-
-  ---
-
-  ### CocoaPods
-
-  Add to your `Podfile`:
-
-  ```ruby
-  # Core SDK
-  pod 'PushwooshXCFramework'
-
-  # Optional modules
-  pod 'PushwooshXCFramework/PushwooshVoIP'
-  pod 'PushwooshXCFramework/PushwooshTVOS'
-  pod 'PushwooshXCFramework/PushwooshForegroundPush'
-  pod 'PushwooshInboxUIXCFramework'
-
-  Then run:
-  pod install
+```
+https://github.com/Pushwoosh/Pushwoosh-XCFramework
 ```
 
-  🔧 Quick Start
+Select the modules you need in your target's **Frameworks, Libraries, and Embedded Content** section.
 
-  1. Initialize SDK
+**Available modules:**
+- `PushwooshFramework` - Core SDK **(required)**
+- `PushwooshCore` - Core functionality **(required)**
+- `PushwooshBridge` - Bridge module **(required)**
+- `PushwooshLiveActivities` - Live Activities support **(required)**
+- `PushwooshVoIP` - VoIP push notifications *(optional)*
+- `PushwooshTVOS` - tvOS support *(optional)*
+- `PushwooshForegroundPush` - Custom foreground notifications *(optional)*
+
+---
+
+### CocoaPods
+
+Add to your `Podfile`:
+
+```ruby
+# Core SDK
+pod 'PushwooshXCFramework'
+
+# Optional modules
+pod 'PushwooshXCFramework/PushwooshVoIP'
+pod 'PushwooshXCFramework/PushwooshTVOS'
+pod 'PushwooshXCFramework/PushwooshForegroundPush'
+pod 'PushwooshInboxUIXCFramework'
 ```
-  import PushwooshFramework
 
-  func application(_ application: UIApplication, 
-                  didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-      Pushwoosh.configure.registerForPushNotifications()
-
-      return true
-  }
+Then run:
+```bash
+pod install
 ```
-  2. Handle Device Token
+
+## 🔧 Quick Start
+
+### 1. Initialize SDK
+
+```swift
+import PushwooshFramework
+
+func application(_ application: UIApplication,
+                didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    Pushwoosh.sharedInstance().registerForPushNotifications()
+
+    return true
+}
 ```
-  func application(_ application: UIApplication, 
-                  didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-      Pushwoosh.configure.handlePushRegistration(deviceToken)
-  }
+
+### 2. Handle Device Token
+
+```swift
+func application(_ application: UIApplication,
+                didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    Pushwoosh.sharedInstance().handlePushRegistration(deviceToken)
+}
 ```
-  3. Process Notifications
+
+### 3. Process Notifications
+
+```swift
+func application(_ application: UIApplication,
+                didReceiveRemoteNotification userInfo: [AnyHashable: Any],
+                fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
+
+    Pushwoosh.sharedInstance().handlePushReceived(userInfo)
+    completionHandler(.newData)
+}
 ```
-  func application(_ application: UIApplication, 
-                  didReceiveRemoteNotification userInfo: [AnyHashable: Any],
-                  fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
-      Pushwoosh.configure.handlePushReceived(userInfo)
-      completionHandler(.newData)
-  }
-```
-  📱 Modules
+## 📱 Modules
 
-  https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshiOS/documentation/pushwooshframework/
+### [Pushwoosh](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshiOS/documentation/pushwooshframework/)
+Core SDK for push notifications, in-app messages, and analytics.
 
-  Core SDK for push notifications, in-app messages, and analytics.
+**Requirements:** iOS 11.0+ | Swift 5.0+
 
-  Requirements: iOS 11.0+ | Swift 5.0+
+### [PushwooshVoIP](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshVoIP/documentation/pushwooshvoip/)
+VoIP push notifications with CallKit integration.
 
-  https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshVoIP/documentation/pushwooshvoip/
+**Requirements:** iOS 14.0+ | CallKit
 
-  VoIP push notifications with CallKit integration.
+### [PushwooshLiveActivities](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshLiveActivities/documentation/pushwooshliveactivities/)
+Live Activities support with push-to-start (iOS 17.2+) and real-time updates.
 
-  Requirements: iOS 14.0+ | CallKit
+**Requirements:** iOS 16.1+ | WidgetKit | ActivityKit
 
-  https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshLiveActivities/documentation/pushwooshliveactivities/
+### [PushwooshTVOS](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshTVOS/documentation/pushwooshtvos/)
+Push notifications and Rich Media HTML for Apple TV.
 
-  Live Activities support with push-to-start (iOS 17.2+) and real-time updates.
+**Requirements:** tvOS 11.0+
 
-  Requirements: iOS 16.1+ | WidgetKit | ActivityKit
+### [PushwooshForegroundPush](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshForegroundPush/documentation/pushwooshforegroundpush/)
+Custom foreground notifications with animations, haptic feedback, and visual effects.
 
-  https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshTVOS/documentation/pushwooshtvos/
+**Requirements:** iOS 13.0+ | Supports Liquid Glass effect on iOS 26+
 
-  Push notifications and Rich Media HTML for Apple TV.
+## 🆘 Support
 
-  Requirements: tvOS 11.0+
+- 📖 [Documentation](https://docs.pushwoosh.com/)
+- 💬 [Support Portal](https://support.pushwoosh.com/)
+- 🐛 [Report Issues](https://github.com/Pushwoosh/pushwoosh-ios-sdk/issues)
 
-  https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshForegroundPush/documentation/pushwooshforegroundpush/
+## 📄 License
 
-  Custom foreground notifications with animations, haptic feedback, and visual effects.
+Pushwoosh iOS SDK is available under the MIT license. See [LICENSE](LICENSE) for details.
 
-  Requirements: iOS 13.0+ | Supports Liquid Glass effect on iOS 26+
+---
 
-  🆘 Support
-
-  - 📖 https://docs.pushwoosh.com/
-  - 💬 https://support.pushwoosh.com/
-  - 🐛 https://github.com/Pushwoosh/pushwoosh-ios-sdk/issues
-
-  📄 License
-
-  Pushwoosh iOS SDK is available under the MIT license. See LICENSE for details.
-
-  ---
-  Made with ❤️ by https://www.pushwoosh.com/
-  ```
+Made with ❤️ by [Pushwoosh](https://www.pushwoosh.com/)

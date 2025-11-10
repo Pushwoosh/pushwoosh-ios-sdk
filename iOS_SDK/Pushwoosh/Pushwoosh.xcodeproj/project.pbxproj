@@ -175,6 +175,8 @@
 		447CEFD12D779E0000CD410A /* PushwooshLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CEFCE2D779E0000CD410A /* PushwooshLiveActivityAttributes.swift */; };
 		447CEFD22D779E0000CD410A /* DefaultLiveActivityAttributes.swift in Sources */ = {isa = PBXBuildFile; fileRef = 447CEFCB2D779E0000CD410A /* DefaultLiveActivityAttributes.swift */; };
 		44812A212C36C91200D5326E /* PWLiveActivityRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 44812A202C36C91200D5326E /* PWLiveActivityRequestTest.m */; };
+		448DA6FE2EB39369008EA000 /* Pushwoosh.docc in Sources */ = {isa = PBXBuildFile; fileRef = 448DA6FD2EB39369008EA000 /* Pushwoosh.docc */; };
+		448DA6FF2EB39369008EA000 /* Pushwoosh.docc in Sources */ = {isa = PBXBuildFile; fileRef = 448DA6FD2EB39369008EA000 /* Pushwoosh.docc */; };
 		449CA9FC2877253B00B4EEEF /* PWRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CA9FB2877253B00B4EEEF /* PWRequestTest.m */; };
 		449CAA04287725BD00B4EEEF /* PWRegisterEmailTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA02287725BD00B4EEEF /* PWRegisterEmailTest.m */; };
 		449CAA05287725BD00B4EEEF /* PWRegisterEmailUserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA03287725BD00B4EEEF /* PWRegisterEmailUserTest.m */; };
@@ -3269,9 +3271,9 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 467EB93E1DFEC23A00506823 /* Build configuration list for PBXNativeTarget "PushwooshiOS" */;
 			buildPhases = (
+				467EB9341DFEC23A00506823 /* Headers */,
 				467EB9321DFEC23A00506823 /* Sources */,
 				467EB9331DFEC23A00506823 /* Frameworks */,
-				467EB9341DFEC23A00506823 /* Headers */,
 				467EB9351DFEC23A00506823 /* Resources */,
 			);
 			buildRules = (
@@ -3915,6 +3917,7 @@
 				449CC0A02BA9DA51003E16DC /* PWNotificationCenterDelegateProxy.m in Sources */,
 				449CC0B32BA9DBE3003E16DC /* PWInbox.m in Sources */,
 				449CC0462BA9CE3E003E16DC /* PushNotificationManager.m in Sources */,
+				448DA6FF2EB39369008EA000 /* Pushwoosh.docc in Sources */,
 				449CC1642BAA0A53003E16DC /* PWNotificationExtensionManager.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -3940,6 +3943,7 @@
 			files = (
 				5D46160823FBAD7500001E0E /* Pushwoosh.m in Sources */,
 				5D2AD9072409286A00588516 /* PWNotificationCenterDelegateProxy.m in Sources */,
+				448DA6FE2EB39369008EA000 /* Pushwoosh.docc in Sources */,
 				5D12C22E23F54429009A655A /* PushNotificationManager.m in Sources */,
 				447CEFA42D7789A100CD410A /* PushwooshSwiftInterface.swift in Sources */,
 				5D12C26123F545B6009A655A /* PWInbox.m in Sources */,
