@@ -1184,6 +1184,86 @@
           },
           {
             "kind": "Function",
+            "name": "voipDidCancelCall",
+            "printedName": "voipDidCancelCall(voipMessage:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWVoIPMessage",
+                "printedName": "PushwooshVoIP.PWVoIPMessage",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)voipDidCancelCallWithVoipMessage:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP17voipDidCancelCall0G7MessageyAA0D9IPMessageC_tF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "objc_name": "voipDidCancelCallWithVoipMessage:",
+            "declAttributes": [
+              "Optional",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "voipDidFailToCancelCall",
+            "printedName": "voipDidFailToCancelCall(callId:reason:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(pl)PWVoIPCallDelegate(im)voipDidFailToCancelCallWithCallId:reason:",
+            "mangledName": "$s13PushwooshVoIP18PWVoIPCallDelegateP23voipDidFailToCancelCall6callId6reasonySSSg_SStF",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshVoIP.PWVoIPCallDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshVoIP.PWVoIPCallDelegate>",
+            "protocolReq": true,
+            "objc_name": "voipDidFailToCancelCallWithCallId:reason:",
+            "declAttributes": [
+              "Optional",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "startCall",
             "printedName": "startCall(_:perform:)",
             "children": [
@@ -2057,6 +2137,124 @@
           },
           {
             "kind": "Var",
+            "name": "callId",
+            "printedName": "callId",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(py)callId",
+            "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC6callIdSSSgvp",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(im)callId",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC6callIdSSSgvg",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "cancelCall",
+            "printedName": "cancelCall",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(py)cancelCall",
+            "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC10cancelCallSbvp",
+            "moduleName": "PushwooshVoIP",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshVoIP@objc(cs)PWVoIPMessage(im)cancelCall",
+                "mangledName": "$s13PushwooshVoIP13PWVoIPMessageC10cancelCallSbvg",
+                "moduleName": "PushwooshVoIP",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "handleType",
             "printedName": "handleType",
             "children": [
@@ -2610,7 +2808,8 @@
             "static": true,
             "intro_iOS": "14.0",
             "declAttributes": [
-              "Available"
+              "Available",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -2743,7 +2942,8 @@
             "static": true,
             "intro_iOS": "14.0",
             "declAttributes": [
-              "Available"
+              "Available",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
@@ -2774,7 +2974,8 @@
             "static": true,
             "intro_iOS": "14.0",
             "declAttributes": [
-              "Available"
+              "Available",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
@@ -2805,7 +3006,8 @@
             "static": true,
             "intro_iOS": "14.0",
             "declAttributes": [
-              "Available"
+              "Available",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
@@ -2836,7 +3038,8 @@
             "static": true,
             "intro_iOS": "14.0",
             "declAttributes": [
-              "Available"
+              "Available",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
@@ -2873,71 +3076,78 @@
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
+      "kind": "Dictionary",
+      "offset": 1676,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "FloatLiteral",
-      "offset": 1679,
+      "offset": 1733,
       "length": 4,
       "value": "30.0"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "Dictionary",
-      "offset": 1751,
+      "offset": 1805,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "StringLiteral",
-      "offset": 1865,
+      "offset": 1919,
       "length": 25,
       "value": "\"com.pushwoosh.voip.sync\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 356,
+      "offset": 874,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 429,
+      "offset": 1246,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 478,
+      "offset": 1579,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 356,
+      "offset": 874,
       "length": 1,
       "value": "1"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 429,
+      "offset": 1246,
       "length": 1,
       "value": "2"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
       "kind": "IntegerLiteral",
-      "offset": 478,
+      "offset": 1579,
       "length": 1,
       "value": "3"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",
       "kind": "StringLiteral",
-      "offset": 563,
+      "offset": 1909,
       "length": 13,
       "value": "\"PushwooshVoIP.PWVoIPMessage\""
     },

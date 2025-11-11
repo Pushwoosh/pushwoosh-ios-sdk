@@ -303,6 +303,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 #if defined(__OBJC__)
 @class PWVoIPMessage;
+@class NSString;
 @class CXProvider;
 @class CXStartCallAction;
 @class CXEndCallAction;
@@ -314,77 +315,319 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class AVAudioSession;
 
 /// Delegate protocol for receiving VoIP call events and CallKit callbacks.
+/// Implement this protocol to handle VoIP push notifications, CallKit interactions, and call lifecycle events.
+/// Set your delegate implementation via <code>PWVoIP.delegate</code> to receive these callbacks.
 SWIFT_PROTOCOL("_TtP13PushwooshVoIP18PWVoIPCallDelegate_")
 @protocol PWVoIPCallDelegate <NSObject>
 @optional
 /// Called when VoIP token is successfully registered with Pushwoosh servers.
+/// This method is invoked after the VoIP push token has been successfully sent to Pushwoosh backend
+/// and the device is ready to receive VoIP push notifications.
+/// note:
+/// This is an optional delegate method. Use it to update your UI or log successful registration.
 - (void)voipDidRegisterTokenSuccessfully;
 /// Called when VoIP token registration fails.
+/// This method is invoked when the SDK fails to register the VoIP push token with Pushwoosh servers.
+/// Common causes include network errors, invalid app configuration, or server issues.
+/// note:
+/// This is an optional delegate method. Implement it to handle registration failures and inform the user.
+/// \param error The error that occurred during registration. Check <code>error.localizedDescription</code> for details.
+///
 - (void)voipDidFailToRegisterTokenWithError:(NSError * _Nonnull)error;
 @required
 /// Called when a VoIP push notification arrives.
+/// This is the main entry point for handling incoming VoIP calls. The method is invoked when a VoIP push
+/// is received from Pushwoosh servers. Use the payload information to display caller details and handle
+/// call setup in your application.
+/// important:
+/// This is a required delegate method. You must implement it to handle incoming VoIP calls.
+/// \param payload The VoIP message containing call information such as caller name, handle type, and video support.
+///
 - (void)voipDidReceiveIncomingCallWithPayload:(PWVoIPMessage * _Nonnull)payload;
 @optional
 /// Called when incoming call is successfully reported to CallKit.
+/// This method is invoked after the SDK successfully reports the incoming call to CallKit framework,
+/// and the system incoming call UI is displayed to the user.
+/// note:
+/// This is an optional delegate method. Use it to track successful CallKit integration or update your analytics.
+/// \param voipMessage The VoIP message that was successfully reported to CallKit.
+///
 - (void)voipDidReportIncomingCallSuccessfullyWithVoipMessage:(PWVoIPMessage * _Nonnull)voipMessage;
 /// Called when reporting incoming call to CallKit fails.
+/// This method is invoked when the SDK fails to report the incoming call to CallKit framework.
+/// Common causes include CallKit permission issues, invalid call parameters, or system restrictions.
+/// note:
+/// This is an optional delegate method. Implement it to handle CallKit reporting failures.
+/// \param error The error that occurred while reporting to CallKit. Check <code>error.localizedDescription</code> for details.
+///
 - (void)voipDidFailToReportIncomingCallWithError:(NSError * _Nonnull)error;
+/// Called when a call is remotely cancelled via VoIP push before the user answers.
+/// This method is invoked when the remote party cancels their outgoing call before the local user has a chance to answer.
+/// The SDK automatically dismisses the CallKit incoming call UI when this occurs.
+/// To enable call cancellation, include these fields in your VoIP push payload:
+/// <ul>
+///   <li>
+///     <code>callId</code> - A unique server-provided identifier for the call
+///   </li>
+///   <li>
+///     <code>cancelCall</code> - Set to <code>true</code> for cancellation requests
+///   </li>
+/// </ul>
+/// The SDK matches cancellation requests to active calls using the <code>callId</code> field. When a cancellation push is received,
+/// CallKit UI is automatically dismissed with <code>CXCallEndedReason.remoteEnded</code>.
+/// note:
+/// This is an optional delegate method. If not implemented, the SDK will still automatically dismiss the CallKit UI.
+/// important:
+/// Cancellation only works for calls that haven’t been answered yet. Once answered, cancellation requests are ignored.
+/// \param voipMessage The VoIP message containing call information. Use <code>voipMessage.callId</code> to identify which call was cancelled.
+///
+- (void)voipDidCancelCallWithVoipMessage:(PWVoIPMessage * _Nonnull)voipMessage;
+/// Called when a call cancellation attempt fails.
+/// This method is invoked when the SDK receives a cancellation request but cannot cancel the call.
+/// Common failure reasons include:
+/// note:
+/// This is an optional delegate method. Implement it to track cancellation failures for debugging or analytics.
+/// <ul>
+///   <li>
+///     No active call found with the provided <code>callId</code>
+///   </li>
+///   <li>
+///     The call has already been answered by the user
+///   </li>
+///   <li>
+///     The call has already ended
+///   </li>
+///   <li>
+///     Missing <code>callId</code> in the cancellation payload
+///   </li>
+/// </ul>
+/// \param callId The call identifier from the cancellation request, or nil if not provided.
+///
+/// \param reason A human-readable description of why the cancellation failed.
+///
+- (void)voipDidFailToCancelCallWithCallId:(NSString * _Nullable)callId reason:(NSString * _Nonnull)reason;
 /// Called when user initiates an outgoing call.
+/// This method is invoked when the user starts an outgoing call through CallKit. Implement this method
+/// to set up your call session and establish the connection with the remote party.
+/// note:
+/// This is an optional delegate method. Implement it if your app supports outgoing calls.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param action The action containing call details. Call <code>action.fulfill()</code> when setup completes successfully,
+/// or <code>action.fail()</code> if setup fails.
+///
 - (void)startCall:(CXProvider * _Nonnull)provider perform:(CXStartCallAction * _Nonnull)action;
 /// Called when user ends a call.
+/// This method is invoked when the user terminates an active call through CallKit UI (by tapping the end call button).
+/// Use this callback to tear down your call session, release resources, and notify the remote party.
+/// note:
+/// This is an optional delegate method. The SDK automatically handles cleanup, but implement this to perform custom teardown logic.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param action The action containing call details. Call <code>action.fulfill()</code> when teardown completes.
+///
+/// \param voipMessage The original VoIP message associated with this call, if available.
+///
 - (void)endCall:(CXProvider * _Nonnull)provider perform:(CXEndCallAction * _Nonnull)action voipMessage:(PWVoIPMessage * _Nullable)voipMessage;
 /// Called when user answers an incoming call.
+/// This method is invoked when the user accepts an incoming call through CallKit UI (by swiping to answer or tapping accept).
+/// Use this callback to establish the call connection, configure audio session, and start media streaming.
+/// note:
+/// This is an optional delegate method. Implement it to handle call answer logic and establish the communication channel.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param action The action containing call details. Call <code>action.fulfill()</code> when connection is established.
+///
+/// \param voipMessage The original VoIP message containing caller information and call parameters.
+///
 - (void)answerCall:(CXProvider * _Nonnull)provider perform:(CXAnswerCallAction * _Nonnull)action voipMessage:(PWVoIPMessage * _Nullable)voipMessage;
 /// Called when user mutes or unmutes the call.
+/// This method is invoked when the user toggles the mute button in CallKit UI. Implement this method
+/// to mute or unmute the local audio stream accordingly.
+/// note:
+/// This is an optional delegate method. Implement it to control microphone muting during the call.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param action The action containing mute state. Use <code>action.isMuted</code> to determine the new mute state.
+/// Call <code>action.fulfill()</code> after updating the audio state.
+///
 - (void)mutedCall:(CXProvider * _Nonnull)provider perform:(CXSetMutedCallAction * _Nonnull)action;
 /// Called when user puts the call on hold or resumes it.
+/// This method is invoked when the user toggles the hold button in CallKit UI. Implement this method
+/// to pause or resume media streaming and notify the remote party of the hold state.
+/// note:
+/// This is an optional delegate method. Implement it if your app supports call hold functionality.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param action The action containing hold state. Use <code>action.isOnHold</code> to determine the new hold state.
+/// Call <code>action.fulfill()</code> after updating the call state.
+///
 - (void)heldCall:(CXProvider * _Nonnull)provider perform:(CXSetHeldCallAction * _Nonnull)action;
 /// Called when user plays DTMF tone during the call.
+/// This method is invoked when the user presses a keypad digit in CallKit UI during an active call.
+/// Implement this method to send DTMF tones to the remote party for interactive voice response systems.
+/// note:
+/// This is an optional delegate method. Implement it if your app supports DTMF tone generation.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param action The action containing the digit. Use <code>action.digits</code> to get the pressed digit.
+/// Call <code>action.fulfill()</code> after playing the tone.
+///
 - (void)playDTMF:(CXProvider * _Nonnull)provider perform:(CXPlayDTMFCallAction * _Nonnull)action;
 @required
 /// Called when the CallKit provider resets.
+/// This method is invoked when CallKit provider encounters a critical error or system reset.
+/// When this occurs, all active calls are terminated and you should clean up any call-related resources.
+/// important:
+/// This is a required delegate method. Always implement it to handle provider resets and perform cleanup.
+/// \param provider The CallKit provider that was reset.
+///
 - (void)pwProviderDidReset:(CXProvider * _Nonnull)provider;
 /// Called when the CallKit provider is ready to handle calls.
+/// This method is invoked when the CallKit provider has been initialized and is ready to manage calls.
+/// Use this callback to perform any initialization that depends on CallKit being available.
+/// important:
+/// This is a required delegate method. Implement it to track CallKit provider lifecycle.
+/// \param provider The CallKit provider that is now active.
+///
 - (void)pwProviderDidBegin:(CXProvider * _Nonnull)provider;
 @optional
 /// Called to provide the call controller instance.
+/// This method is invoked to give your app access to the CXCallController instance managed by the SDK.
+/// Use the controller to request call actions programmatically, such as ending calls or updating call state.
+/// note:
+/// This is an optional delegate method. Implement it if you need direct access to the call controller.
+/// \param controller The CXCallController instance for managing call actions.
+///
 - (void)returnedCallController:(CXCallController * _Nonnull)controller;
 /// Called to provide the CallKit provider instance.
+/// This method is invoked to give your app access to the CXProvider instance managed by the SDK.
+/// Use the provider to configure CallKit settings or handle provider-level operations.
+/// note:
+/// This is an optional delegate method. Implement it if you need direct access to the CallKit provider.
+/// \param provider The CXProvider instance for managing CallKit integration.
+///
 - (void)returnedProvider:(CXProvider * _Nonnull)provider;
 /// Called when audio session is activated.
+/// This method is invoked when CallKit activates the audio session for a call. Use this callback to configure
+/// audio routing, start audio processing, or begin media playback.
+/// note:
+/// This is an optional delegate method. Implement it to manage audio session activation and configure audio routing.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param audioSession The activated AVAudioSession instance. Configure audio settings as needed.
+///
 - (void)activatedAudioSession:(CXProvider * _Nonnull)provider didActivate:(AVAudioSession * _Nonnull)audioSession;
 /// Called when audio session is deactivated.
+/// This method is invoked when CallKit deactivates the audio session after a call ends. Use this callback to
+/// stop audio processing and release audio resources.
+/// note:
+/// This is an optional delegate method. Implement it to handle audio session deactivation and cleanup audio resources.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param audioSession The deactivated AVAudioSession instance.
+///
 - (void)deactivatedAudioSession:(CXProvider * _Nonnull)provider didDeactivate:(AVAudioSession * _Nonnull)audioSession;
 @end
 
 /// Display format for caller information in CallKit UI.
+/// Specifies how the caller’s identifier should be displayed in the system incoming call interface.
+/// The handle type determines the formatting and presentation of the <code>callerName</code> field in CallKit.
 typedef SWIFT_ENUM(NSInteger, PWVoIPHandleType, open) {
 /// Generic identifier like username or custom ID.
+/// Use this type for non-standard identifiers such as usernames, display names, or custom user IDs.
+/// CallKit will display the value exactly as provided without any special formatting.
+/// note:
+/// This is the default type if <code>handleType</code> is not specified in the VoIP push payload.
   PWVoIPHandleTypeGeneric = 1,
 /// Phone number with automatic formatting.
+/// Use this type when the caller identifier is a phone number. CallKit will automatically format
+/// the number according to the user’s locale and system preferences.
+/// note:
+/// The phone number should be provided in E.164 format (e.g., +1234567890) for best results.
   PWVoIPHandleTypePhoneNumber = 2,
 /// Email address format.
+/// Use this type when the caller identifier is an email address. CallKit will display the email
+/// with appropriate email formatting in the incoming call UI.
+/// note:
+/// Ensure the email address is valid and properly formatted (e.g., user@example.com).
   PWVoIPHandleTypeEmail = 3,
 };
 
-@class NSString;
 
 /// An encapsulation of VoIP push notification payload data.
+/// This class represents a VoIP push notification received from Pushwoosh servers. It contains all the information
+/// needed to display an incoming call UI via CallKit, including caller details, call capabilities, and cancellation status.
 SWIFT_CLASS("_TtC13PushwooshVoIP13PWVoIPMessage")
 @interface PWVoIPMessage : NSObject
 /// The unique identifier for the call.
+/// This UUID is used by CallKit to track the call throughout its lifecycle. The SDK automatically generates
+/// this identifier when a VoIP push is received, or uses the value from the payload if provided.
+/// note:
+/// This property is mutable to allow updating the UUID if needed during call setup.
 @property (nonatomic, copy) NSString * _Nonnull uuid;
+/// Server-provided call identifier for matching cancellation requests.
+/// This optional identifier is provided by your server to enable remote call cancellation. When a caller
+/// cancels their outgoing call, send a second VoIP push with the same <code>callId</code> and <code>cancelCall: true</code>.
+/// The SDK will automatically dismiss the CallKit UI on the recipient’s device.
+/// note:
+/// If <code>nil</code>, call cancellation functionality is not available for this call.
+@property (nonatomic, readonly, copy) NSString * _Nullable callId;
+/// Indicates whether this push is a call cancellation request.
+/// When <code>true</code>, this VoIP push represents a cancellation of a previously sent incoming call.
+/// The SDK uses the <code>callId</code> field to match this cancellation with the active call and automatically
+/// dismisses the CallKit UI with <code>CXCallEndedReason.remoteEnded</code>.
+/// note:
+/// For regular incoming calls, this value is <code>false</code>. Only cancellation pushes should set this to <code>true</code>.
+@property (nonatomic, readonly) BOOL cancelCall;
 /// The display format for caller information.
+/// Determines how the caller’s identifier is displayed in CallKit UI. Choose the appropriate format
+/// based on your caller information type.
+/// Available values:
+/// note:
+/// The format affects how CallKit displays the caller information in the system UI.
+/// <ul>
+///   <li>
+///     <code>.generic</code> - Generic identifier like username or custom ID (default if not specified)
+///   </li>
+///   <li>
+///     <code>.phoneNumber</code> - Phone number with automatic system formatting
+///   </li>
+///   <li>
+///     <code>.email</code> - Email address format
+///   </li>
+/// </ul>
 @property (nonatomic, readonly) enum PWVoIPHandleType handleType;
 /// The caller’s display name or identifier.
+/// This string is displayed in the CallKit incoming call UI to identify who is calling.
+/// The format should match the <code>handleType</code> (e.g., phone number, email, or username).
+/// note:
+/// This value is shown prominently in the CallKit UI, so ensure it’s user-friendly and recognizable.
 @property (nonatomic, readonly, copy) NSString * _Nonnull callerName;
 /// A Boolean value that indicates whether the call supports video.
+/// When <code>true</code>, the call is presented as a video call in CallKit UI with appropriate video call icons.
+/// When <code>false</code>, the call is presented as an audio-only call.
+/// note:
+/// This property is mutable to allow updating video capability during call setup if needed.
 @property (nonatomic) BOOL hasVideo;
 /// A Boolean value that indicates whether the call supports hold functionality.
+/// When <code>true</code>, CallKit UI will display a hold button allowing the user to put the call on hold.
+/// Your app should implement the <code>heldCall</code> delegate method to handle hold state changes.
+/// note:
+/// If <code>false</code>, the hold button will not appear in CallKit UI.
 @property (nonatomic, readonly) BOOL supportsHolding;
 /// A Boolean value that indicates whether the call supports DTMF tones.
+/// When <code>true</code>, CallKit UI will display a keypad allowing the user to send DTMF tones during the call.
+/// Your app should implement the <code>playDTMF</code> delegate method to handle DTMF tone generation.
+/// note:
+/// If <code>false</code>, the keypad will not be available in CallKit UI.
 @property (nonatomic, readonly) BOOL supportsDTMF;
 /// The raw push notification payload.
+/// Contains the complete original payload received from the VoIP push notification, with <code>NSNull</code> values
+/// removed. Use this to access any custom fields you included in your VoIP push that are not part of
+/// the standard PWVoIPMessage properties.
+/// note:
+/// All standard properties (callerName, hasVideo, etc.) are parsed from this payload during initialization.
 @property (nonatomic, readonly, copy) NSDictionary * _Nonnull rawPayload;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
@@ -743,6 +986,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 #if defined(__OBJC__)
 @class PWVoIPMessage;
+@class NSString;
 @class CXProvider;
 @class CXStartCallAction;
 @class CXEndCallAction;
@@ -754,77 +998,319 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 @class AVAudioSession;
 
 /// Delegate protocol for receiving VoIP call events and CallKit callbacks.
+/// Implement this protocol to handle VoIP push notifications, CallKit interactions, and call lifecycle events.
+/// Set your delegate implementation via <code>PWVoIP.delegate</code> to receive these callbacks.
 SWIFT_PROTOCOL("_TtP13PushwooshVoIP18PWVoIPCallDelegate_")
 @protocol PWVoIPCallDelegate <NSObject>
 @optional
 /// Called when VoIP token is successfully registered with Pushwoosh servers.
+/// This method is invoked after the VoIP push token has been successfully sent to Pushwoosh backend
+/// and the device is ready to receive VoIP push notifications.
+/// note:
+/// This is an optional delegate method. Use it to update your UI or log successful registration.
 - (void)voipDidRegisterTokenSuccessfully;
 /// Called when VoIP token registration fails.
+/// This method is invoked when the SDK fails to register the VoIP push token with Pushwoosh servers.
+/// Common causes include network errors, invalid app configuration, or server issues.
+/// note:
+/// This is an optional delegate method. Implement it to handle registration failures and inform the user.
+/// \param error The error that occurred during registration. Check <code>error.localizedDescription</code> for details.
+///
 - (void)voipDidFailToRegisterTokenWithError:(NSError * _Nonnull)error;
 @required
 /// Called when a VoIP push notification arrives.
+/// This is the main entry point for handling incoming VoIP calls. The method is invoked when a VoIP push
+/// is received from Pushwoosh servers. Use the payload information to display caller details and handle
+/// call setup in your application.
+/// important:
+/// This is a required delegate method. You must implement it to handle incoming VoIP calls.
+/// \param payload The VoIP message containing call information such as caller name, handle type, and video support.
+///
 - (void)voipDidReceiveIncomingCallWithPayload:(PWVoIPMessage * _Nonnull)payload;
 @optional
 /// Called when incoming call is successfully reported to CallKit.
+/// This method is invoked after the SDK successfully reports the incoming call to CallKit framework,
+/// and the system incoming call UI is displayed to the user.
+/// note:
+/// This is an optional delegate method. Use it to track successful CallKit integration or update your analytics.
+/// \param voipMessage The VoIP message that was successfully reported to CallKit.
+///
 - (void)voipDidReportIncomingCallSuccessfullyWithVoipMessage:(PWVoIPMessage * _Nonnull)voipMessage;
 /// Called when reporting incoming call to CallKit fails.
+/// This method is invoked when the SDK fails to report the incoming call to CallKit framework.
+/// Common causes include CallKit permission issues, invalid call parameters, or system restrictions.
+/// note:
+/// This is an optional delegate method. Implement it to handle CallKit reporting failures.
+/// \param error The error that occurred while reporting to CallKit. Check <code>error.localizedDescription</code> for details.
+///
 - (void)voipDidFailToReportIncomingCallWithError:(NSError * _Nonnull)error;
+/// Called when a call is remotely cancelled via VoIP push before the user answers.
+/// This method is invoked when the remote party cancels their outgoing call before the local user has a chance to answer.
+/// The SDK automatically dismisses the CallKit incoming call UI when this occurs.
+/// To enable call cancellation, include these fields in your VoIP push payload:
+/// <ul>
+///   <li>
+///     <code>callId</code> - A unique server-provided identifier for the call
+///   </li>
+///   <li>
+///     <code>cancelCall</code> - Set to <code>true</code> for cancellation requests
+///   </li>
+/// </ul>
+/// The SDK matches cancellation requests to active calls using the <code>callId</code> field. When a cancellation push is received,
+/// CallKit UI is automatically dismissed with <code>CXCallEndedReason.remoteEnded</code>.
+/// note:
+/// This is an optional delegate method. If not implemented, the SDK will still automatically dismiss the CallKit UI.
+/// important:
+/// Cancellation only works for calls that haven’t been answered yet. Once answered, cancellation requests are ignored.
+/// \param voipMessage The VoIP message containing call information. Use <code>voipMessage.callId</code> to identify which call was cancelled.
+///
+- (void)voipDidCancelCallWithVoipMessage:(PWVoIPMessage * _Nonnull)voipMessage;
+/// Called when a call cancellation attempt fails.
+/// This method is invoked when the SDK receives a cancellation request but cannot cancel the call.
+/// Common failure reasons include:
+/// note:
+/// This is an optional delegate method. Implement it to track cancellation failures for debugging or analytics.
+/// <ul>
+///   <li>
+///     No active call found with the provided <code>callId</code>
+///   </li>
+///   <li>
+///     The call has already been answered by the user
+///   </li>
+///   <li>
+///     The call has already ended
+///   </li>
+///   <li>
+///     Missing <code>callId</code> in the cancellation payload
+///   </li>
+/// </ul>
+/// \param callId The call identifier from the cancellation request, or nil if not provided.
+///
+/// \param reason A human-readable description of why the cancellation failed.
+///
+- (void)voipDidFailToCancelCallWithCallId:(NSString * _Nullable)callId reason:(NSString * _Nonnull)reason;
 /// Called when user initiates an outgoing call.
+/// This method is invoked when the user starts an outgoing call through CallKit. Implement this method
+/// to set up your call session and establish the connection with the remote party.
+/// note:
+/// This is an optional delegate method. Implement it if your app supports outgoing calls.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param action The action containing call details. Call <code>action.fulfill()</code> when setup completes successfully,
+/// or <code>action.fail()</code> if setup fails.
+///
 - (void)startCall:(CXProvider * _Nonnull)provider perform:(CXStartCallAction * _Nonnull)action;
 /// Called when user ends a call.
+/// This method is invoked when the user terminates an active call through CallKit UI (by tapping the end call button).
+/// Use this callback to tear down your call session, release resources, and notify the remote party.
+/// note:
+/// This is an optional delegate method. The SDK automatically handles cleanup, but implement this to perform custom teardown logic.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param action The action containing call details. Call <code>action.fulfill()</code> when teardown completes.
+///
+/// \param voipMessage The original VoIP message associated with this call, if available.
+///
 - (void)endCall:(CXProvider * _Nonnull)provider perform:(CXEndCallAction * _Nonnull)action voipMessage:(PWVoIPMessage * _Nullable)voipMessage;
 /// Called when user answers an incoming call.
+/// This method is invoked when the user accepts an incoming call through CallKit UI (by swiping to answer or tapping accept).
+/// Use this callback to establish the call connection, configure audio session, and start media streaming.
+/// note:
+/// This is an optional delegate method. Implement it to handle call answer logic and establish the communication channel.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param action The action containing call details. Call <code>action.fulfill()</code> when connection is established.
+///
+/// \param voipMessage The original VoIP message containing caller information and call parameters.
+///
 - (void)answerCall:(CXProvider * _Nonnull)provider perform:(CXAnswerCallAction * _Nonnull)action voipMessage:(PWVoIPMessage * _Nullable)voipMessage;
 /// Called when user mutes or unmutes the call.
+/// This method is invoked when the user toggles the mute button in CallKit UI. Implement this method
+/// to mute or unmute the local audio stream accordingly.
+/// note:
+/// This is an optional delegate method. Implement it to control microphone muting during the call.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param action The action containing mute state. Use <code>action.isMuted</code> to determine the new mute state.
+/// Call <code>action.fulfill()</code> after updating the audio state.
+///
 - (void)mutedCall:(CXProvider * _Nonnull)provider perform:(CXSetMutedCallAction * _Nonnull)action;
 /// Called when user puts the call on hold or resumes it.
+/// This method is invoked when the user toggles the hold button in CallKit UI. Implement this method
+/// to pause or resume media streaming and notify the remote party of the hold state.
+/// note:
+/// This is an optional delegate method. Implement it if your app supports call hold functionality.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param action The action containing hold state. Use <code>action.isOnHold</code> to determine the new hold state.
+/// Call <code>action.fulfill()</code> after updating the call state.
+///
 - (void)heldCall:(CXProvider * _Nonnull)provider perform:(CXSetHeldCallAction * _Nonnull)action;
 /// Called when user plays DTMF tone during the call.
+/// This method is invoked when the user presses a keypad digit in CallKit UI during an active call.
+/// Implement this method to send DTMF tones to the remote party for interactive voice response systems.
+/// note:
+/// This is an optional delegate method. Implement it if your app supports DTMF tone generation.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param action The action containing the digit. Use <code>action.digits</code> to get the pressed digit.
+/// Call <code>action.fulfill()</code> after playing the tone.
+///
 - (void)playDTMF:(CXProvider * _Nonnull)provider perform:(CXPlayDTMFCallAction * _Nonnull)action;
 @required
 /// Called when the CallKit provider resets.
+/// This method is invoked when CallKit provider encounters a critical error or system reset.
+/// When this occurs, all active calls are terminated and you should clean up any call-related resources.
+/// important:
+/// This is a required delegate method. Always implement it to handle provider resets and perform cleanup.
+/// \param provider The CallKit provider that was reset.
+///
 - (void)pwProviderDidReset:(CXProvider * _Nonnull)provider;
 /// Called when the CallKit provider is ready to handle calls.
+/// This method is invoked when the CallKit provider has been initialized and is ready to manage calls.
+/// Use this callback to perform any initialization that depends on CallKit being available.
+/// important:
+/// This is a required delegate method. Implement it to track CallKit provider lifecycle.
+/// \param provider The CallKit provider that is now active.
+///
 - (void)pwProviderDidBegin:(CXProvider * _Nonnull)provider;
 @optional
 /// Called to provide the call controller instance.
+/// This method is invoked to give your app access to the CXCallController instance managed by the SDK.
+/// Use the controller to request call actions programmatically, such as ending calls or updating call state.
+/// note:
+/// This is an optional delegate method. Implement it if you need direct access to the call controller.
+/// \param controller The CXCallController instance for managing call actions.
+///
 - (void)returnedCallController:(CXCallController * _Nonnull)controller;
 /// Called to provide the CallKit provider instance.
+/// This method is invoked to give your app access to the CXProvider instance managed by the SDK.
+/// Use the provider to configure CallKit settings or handle provider-level operations.
+/// note:
+/// This is an optional delegate method. Implement it if you need direct access to the CallKit provider.
+/// \param provider The CXProvider instance for managing CallKit integration.
+///
 - (void)returnedProvider:(CXProvider * _Nonnull)provider;
 /// Called when audio session is activated.
+/// This method is invoked when CallKit activates the audio session for a call. Use this callback to configure
+/// audio routing, start audio processing, or begin media playback.
+/// note:
+/// This is an optional delegate method. Implement it to manage audio session activation and configure audio routing.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param audioSession The activated AVAudioSession instance. Configure audio settings as needed.
+///
 - (void)activatedAudioSession:(CXProvider * _Nonnull)provider didActivate:(AVAudioSession * _Nonnull)audioSession;
 /// Called when audio session is deactivated.
+/// This method is invoked when CallKit deactivates the audio session after a call ends. Use this callback to
+/// stop audio processing and release audio resources.
+/// note:
+/// This is an optional delegate method. Implement it to handle audio session deactivation and cleanup audio resources.
+/// \param provider The CallKit provider managing the call.
+///
+/// \param audioSession The deactivated AVAudioSession instance.
+///
 - (void)deactivatedAudioSession:(CXProvider * _Nonnull)provider didDeactivate:(AVAudioSession * _Nonnull)audioSession;
 @end
 
 /// Display format for caller information in CallKit UI.
+/// Specifies how the caller’s identifier should be displayed in the system incoming call interface.
+/// The handle type determines the formatting and presentation of the <code>callerName</code> field in CallKit.
 typedef SWIFT_ENUM(NSInteger, PWVoIPHandleType, open) {
 /// Generic identifier like username or custom ID.
+/// Use this type for non-standard identifiers such as usernames, display names, or custom user IDs.
+/// CallKit will display the value exactly as provided without any special formatting.
+/// note:
+/// This is the default type if <code>handleType</code> is not specified in the VoIP push payload.
   PWVoIPHandleTypeGeneric = 1,
 /// Phone number with automatic formatting.
+/// Use this type when the caller identifier is a phone number. CallKit will automatically format
+/// the number according to the user’s locale and system preferences.
+/// note:
+/// The phone number should be provided in E.164 format (e.g., +1234567890) for best results.
   PWVoIPHandleTypePhoneNumber = 2,
 /// Email address format.
+/// Use this type when the caller identifier is an email address. CallKit will display the email
+/// with appropriate email formatting in the incoming call UI.
+/// note:
+/// Ensure the email address is valid and properly formatted (e.g., user@example.com).
   PWVoIPHandleTypeEmail = 3,
 };
 
-@class NSString;
 
 /// An encapsulation of VoIP push notification payload data.
+/// This class represents a VoIP push notification received from Pushwoosh servers. It contains all the information
+/// needed to display an incoming call UI via CallKit, including caller details, call capabilities, and cancellation status.
 SWIFT_CLASS("_TtC13PushwooshVoIP13PWVoIPMessage")
 @interface PWVoIPMessage : NSObject
 /// The unique identifier for the call.
+/// This UUID is used by CallKit to track the call throughout its lifecycle. The SDK automatically generates
+/// this identifier when a VoIP push is received, or uses the value from the payload if provided.
+/// note:
+/// This property is mutable to allow updating the UUID if needed during call setup.
 @property (nonatomic, copy) NSString * _Nonnull uuid;
+/// Server-provided call identifier for matching cancellation requests.
+/// This optional identifier is provided by your server to enable remote call cancellation. When a caller
+/// cancels their outgoing call, send a second VoIP push with the same <code>callId</code> and <code>cancelCall: true</code>.
+/// The SDK will automatically dismiss the CallKit UI on the recipient’s device.
+/// note:
+/// If <code>nil</code>, call cancellation functionality is not available for this call.
+@property (nonatomic, readonly, copy) NSString * _Nullable callId;
+/// Indicates whether this push is a call cancellation request.
+/// When <code>true</code>, this VoIP push represents a cancellation of a previously sent incoming call.
+/// The SDK uses the <code>callId</code> field to match this cancellation with the active call and automatically
+/// dismisses the CallKit UI with <code>CXCallEndedReason.remoteEnded</code>.
+/// note:
+/// For regular incoming calls, this value is <code>false</code>. Only cancellation pushes should set this to <code>true</code>.
+@property (nonatomic, readonly) BOOL cancelCall;
 /// The display format for caller information.
+/// Determines how the caller’s identifier is displayed in CallKit UI. Choose the appropriate format
+/// based on your caller information type.
+/// Available values:
+/// note:
+/// The format affects how CallKit displays the caller information in the system UI.
+/// <ul>
+///   <li>
+///     <code>.generic</code> - Generic identifier like username or custom ID (default if not specified)
+///   </li>
+///   <li>
+///     <code>.phoneNumber</code> - Phone number with automatic system formatting
+///   </li>
+///   <li>
+///     <code>.email</code> - Email address format
+///   </li>
+/// </ul>
 @property (nonatomic, readonly) enum PWVoIPHandleType handleType;
 /// The caller’s display name or identifier.
+/// This string is displayed in the CallKit incoming call UI to identify who is calling.
+/// The format should match the <code>handleType</code> (e.g., phone number, email, or username).
+/// note:
+/// This value is shown prominently in the CallKit UI, so ensure it’s user-friendly and recognizable.
 @property (nonatomic, readonly, copy) NSString * _Nonnull callerName;
 /// A Boolean value that indicates whether the call supports video.
+/// When <code>true</code>, the call is presented as a video call in CallKit UI with appropriate video call icons.
+/// When <code>false</code>, the call is presented as an audio-only call.
+/// note:
+/// This property is mutable to allow updating video capability during call setup if needed.
 @property (nonatomic) BOOL hasVideo;
 /// A Boolean value that indicates whether the call supports hold functionality.
+/// When <code>true</code>, CallKit UI will display a hold button allowing the user to put the call on hold.
+/// Your app should implement the <code>heldCall</code> delegate method to handle hold state changes.
+/// note:
+/// If <code>false</code>, the hold button will not appear in CallKit UI.
 @property (nonatomic, readonly) BOOL supportsHolding;
 /// A Boolean value that indicates whether the call supports DTMF tones.
+/// When <code>true</code>, CallKit UI will display a keypad allowing the user to send DTMF tones during the call.
+/// Your app should implement the <code>playDTMF</code> delegate method to handle DTMF tone generation.
+/// note:
+/// If <code>false</code>, the keypad will not be available in CallKit UI.
 @property (nonatomic, readonly) BOOL supportsDTMF;
 /// The raw push notification payload.
+/// Contains the complete original payload received from the VoIP push notification, with <code>NSNull</code> values
+/// removed. Use this to access any custom fields you included in your VoIP push that are not part of
+/// the standard PWVoIPMessage properties.
+/// note:
+/// All standard properties (callerName, hasVideo, etc.) are parsed from this payload during initialization.
 @property (nonatomic, readonly, copy) NSDictionary * _Nonnull rawPayload;
 - (nonnull instancetype)init SWIFT_UNAVAILABLE;
 + (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");

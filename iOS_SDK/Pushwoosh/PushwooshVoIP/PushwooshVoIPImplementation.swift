@@ -48,6 +48,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
 
     private var voipPushMessage: PWVoIPMessage?
     private var pushMessageDict: [String: PWVoIPMessage] = [:]
+    private var callIdToUUIDMap: [String: UUID] = [:]
 
     private var incomingCallTimeout: TimeInterval = 30.0
     private var callTimeoutWorkItems: [String: DispatchWorkItem] = [:]
@@ -131,6 +132,13 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     
     public func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
         let voipMessage = PWVoIPMessage(rawPayload: payload.dictionaryPayload)
+
+        if voipMessage.cancelCall {
+            handleCallCancellation(voipMessage: voipMessage)
+            completion()
+            return
+        }
+
         let uuid = UUID()
         let uuidString = uuid.uuidString
 
@@ -169,6 +177,17 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
                 PushwooshVoIPImplementation.delegate?.voipDidFailToReportIncomingCall?(error: error)
             } else {
                 self.startTimeoutTimer(for: uuidString)
+
+                if let callId = voipMessage.callId {
+                    self.syncQueue.async {
+                        self.callIdToUUIDMap[callId] = uuid
+
+                        PushwooshLog.pushwooshLog(.PW_LL_INFO,
+                                                  className: self,
+                                                  message: "Stored callId mapping: \(callId) → \(uuid.uuidString)")
+                    }
+                }
+
                 PushwooshVoIPImplementation.delegate?.voipDidReportIncomingCallSuccessfully?(voipMessage: voipWithUUID)
             }
 
@@ -193,6 +212,15 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         syncQueue.async {
             if let voipMessage = self.pushMessageDict[uuidString] {
                 PushwooshVoIPImplementation.delegate?.endCall?(provider, perform: action, voipMessage: voipMessage)
+
+                if let callId = voipMessage.callId {
+                    self.callIdToUUIDMap.removeValue(forKey: callId)
+
+                    PushwooshLog.pushwooshLog(.PW_LL_INFO,
+                                              className: self,
+                                              message: "Removed callId mapping on call end: \(callId)")
+                }
+
                 self.pushMessageDict.removeValue(forKey: uuidString)
                 action.fulfill()
             } else {
@@ -213,6 +241,15 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         syncQueue.async {
             if let voipMessage = self.pushMessageDict[uuidString] {
                 PushwooshVoIPImplementation.delegate?.answerCall?(provider, perform: action, voipMessage: voipMessage)
+
+                if let callId = voipMessage.callId {
+                    self.callIdToUUIDMap.removeValue(forKey: callId)
+
+                    PushwooshLog.pushwooshLog(.PW_LL_INFO,
+                                              className: self,
+                                              message: "Removed callId mapping on call answer: \(callId)")
+                }
+
                 action.fulfill()
             } else {
                 PushwooshLog.pushwooshLog(.PW_LL_ERROR,
@@ -258,7 +295,60 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     public func providerDidBegin(_ provider: CXProvider) {
         PushwooshVoIPImplementation.delegate?.pwProviderDidBegin(provider)
     }
-    
+
+    // MARK: - Call Cancellation
+
+    private func handleCallCancellation(voipMessage: PWVoIPMessage) {
+        guard let callId = voipMessage.callId else {
+            let reason = "Received cancel request without callId. Cannot cancel call."
+            PushwooshLog.pushwooshLog(.PW_LL_WARN,
+                                      className: self,
+                                      message: reason)
+
+            if let delegate = PushwooshVoIPImplementation.delegate,
+               delegate.responds(to: #selector(PWVoIPCallDelegate.voipDidFailToCancelCall(callId:reason:))) {
+                delegate.voipDidFailToCancelCall?(callId: nil, reason: reason)
+            }
+            return
+        }
+
+        syncQueue.async {
+            guard let uuid = self.callIdToUUIDMap[callId] else {
+                let reason = "No active call found for callId: \(callId). Call may have already ended or been answered."
+                PushwooshLog.pushwooshLog(.PW_LL_WARN,
+                                          className: self,
+                                          message: reason)
+
+                if let delegate = PushwooshVoIPImplementation.delegate,
+                   delegate.responds(to: #selector(PWVoIPCallDelegate.voipDidFailToCancelCall(callId:reason:))) {
+                    delegate.voipDidFailToCancelCall?(callId: callId, reason: reason)
+                }
+                return
+            }
+
+            PushwooshLog.pushwooshLog(.PW_LL_INFO,
+                                      className: self,
+                                      message: "Cancelling call with callId: \(callId), UUID: \(uuid.uuidString)")
+
+            let uuidString = uuid.uuidString
+            let cancelledVoipMessage = self.pushMessageDict[uuidString]
+
+            self.callKitProvider?.reportCall(with: uuid,
+                                             endedAt: Date(),
+                                             reason: .remoteEnded)
+
+            self.pushMessageDict.removeValue(forKey: uuidString)
+            self.callIdToUUIDMap.removeValue(forKey: callId)
+            self.cancelTimeoutTimer(for: uuidString)
+
+            if let voipMessage = cancelledVoipMessage,
+               let delegate = PushwooshVoIPImplementation.delegate,
+               delegate.responds(to: #selector(PWVoIPCallDelegate.voipDidCancelCall(voipMessage:))) {
+                delegate.voipDidCancelCall?(voipMessage: voipMessage)
+            }
+        }
+    }
+
     // MARK: - Private Helpers
     private func handleVoIPTokenResult(error: Error?) {
         let logLevel: PUSHWOOSH_LOG_LEVEL = error == nil ? .PW_LL_INFO : .PW_LL_ERROR

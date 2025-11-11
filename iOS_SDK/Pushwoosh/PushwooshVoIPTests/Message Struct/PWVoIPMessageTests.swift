@@ -182,4 +182,113 @@ final class PWVoIPMessageTests: XCTestCase {
 
         XCTAssertEqual(cxHandleType, .emailAddress)
     }
+
+    // MARK: - Call Cancellation Tests
+
+    func testMessageCallIdParsing() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": "call-12345",
+            "callerName": "John Doe"
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "call-12345")
+        XCTAssertFalse(message.cancelCall)
+    }
+
+    func testMessageCallIdNil() throws {
+        let payload: [AnyHashable: Any] = [
+            "callerName": "John Doe"
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertNil(message.callId)
+        XCTAssertFalse(message.cancelCall)
+    }
+
+    func testMessageCancelCallTrue() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": "call-12345",
+            "cancelCall": true
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "call-12345")
+        XCTAssertTrue(message.cancelCall)
+    }
+
+    func testMessageCancelCallFalse() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": "call-12345",
+            "cancelCall": false
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "call-12345")
+        XCTAssertFalse(message.cancelCall)
+    }
+
+    func testMessageCancelCallDefaultsToFalse() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": "call-12345"
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertFalse(message.cancelCall)
+    }
+
+    func testIncomingCallPayload() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": "call-12345",
+            "callerName": "John Doe",
+            "handleType": 2,
+            "video": false,
+            "cancelCall": false
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "call-12345")
+        XCTAssertEqual(message.callerName, "John Doe")
+        XCTAssertEqual(message.handleType, .phoneNumber)
+        XCTAssertFalse(message.hasVideo)
+        XCTAssertFalse(message.cancelCall)
+    }
+
+    func testCancellationPayload() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": "call-12345",
+            "cancelCall": true
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "call-12345")
+        XCTAssertTrue(message.cancelCall)
+    }
+
+    func testCallIdWithSpecialCharacters() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": "call-abc-123-xyz-789"
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "call-abc-123-xyz-789")
+    }
+
+    func testCallIdWithEmptyString() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": ""
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "")
+    }
 }

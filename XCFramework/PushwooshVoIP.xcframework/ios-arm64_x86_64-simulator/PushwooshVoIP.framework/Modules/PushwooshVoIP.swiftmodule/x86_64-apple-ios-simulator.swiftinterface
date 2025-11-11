@@ -61,6 +61,8 @@ extension PushwooshBridge.PWVoIP {
   @objc func voipDidReceiveIncomingCall(payload: PushwooshVoIP.PWVoIPMessage)
   @objc optional func voipDidReportIncomingCallSuccessfully(voipMessage: PushwooshVoIP.PWVoIPMessage)
   @objc optional func voipDidFailToReportIncomingCall(error: any Swift.Error)
+  @objc optional func voipDidCancelCall(voipMessage: PushwooshVoIP.PWVoIPMessage)
+  @objc optional func voipDidFailToCancelCall(callId: Swift.String?, reason: Swift.String)
   @objc optional func startCall(_ provider: CallKit.CXProvider, perform action: CallKit.CXStartCallAction)
   @objc optional func endCall(_ provider: CallKit.CXProvider, perform action: CallKit.CXEndCallAction, voipMessage: PushwooshVoIP.PWVoIPMessage?)
   @objc optional func answerCall(_ provider: CallKit.CXProvider, perform action: CallKit.CXAnswerCallAction, voipMessage: PushwooshVoIP.PWVoIPMessage?)
@@ -86,6 +88,8 @@ extension PushwooshBridge.PWVoIP {
 }
 @objc public class PWVoIPMessage : ObjectiveC.NSObject {
   @objc public var uuid: Swift.String
+  @objc final public let callId: Swift.String?
+  @objc final public let cancelCall: Swift.Bool
   @objc final public let handleType: PushwooshVoIP.PWVoIPHandleType
   @objc final public let callerName: Swift.String
   @objc public var hasVideo: Swift.Bool
