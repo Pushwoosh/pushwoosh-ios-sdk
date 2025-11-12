@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PushwooshInboxUIXCFramework"
-  s.version      = "7.0.1"
+  s.version      = "7.0.2"
   s.summary      = "Pushwoosh Inbox UI library by Pushwoosh."
   s.platform     = :ios
   s.ios.deployment_target  = '9.0'
@@ -16,7 +16,7 @@ Pod::Spec.new do |s|
 
   s.source       = { :git => "https://github.com/Pushwoosh/pushwoosh-ios-sdk.git", :tag => s.version }
 
-  s.dependency 'PushwooshXCFramework', '~> 6.0'
+  s.dependency 'PushwooshXCFramework', '>= 6.0'
   s.ios.vendored_frameworks  = 'XCFramework/PushwooshInboxUI.xcframework'
   s.resources = 'XCFramework/PushwooshInboxBundle.bundle'
 
