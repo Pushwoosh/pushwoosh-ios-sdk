@@ -42,15 +42,12 @@
     results[@"pushSound"] = @"0";
     results[@"enabled"] = @"0";
 
-    if ([[UIApplication sharedApplication] isRegisteredForRemoteNotifications]) {
-        results[@"enabled"] = @"1";
-    }
-
     [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *settings) {
         if (settings != nil) {
             // On tvOS, individual settings (alertSetting, soundSetting, badgeSetting) are API_UNAVAILABLE
             // We only check authorizationStatus
             if (settings.authorizationStatus == UNAuthorizationStatusAuthorized) {
+                results[@"enabled"] = @"1";
                 results[@"pushBadge"] = @"1";
                 results[@"pushAlert"] = @"1";
                 results[@"pushSound"] = @"1";

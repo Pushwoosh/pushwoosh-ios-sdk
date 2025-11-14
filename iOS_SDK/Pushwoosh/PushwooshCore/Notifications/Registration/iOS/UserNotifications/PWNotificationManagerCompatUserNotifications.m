@@ -80,20 +80,22 @@
 
 - (void)getRemoteNotificationStatusWithCompletion:(void (^)(NSDictionary*))completion {
     NSMutableDictionary *results = [NSMutableDictionary dictionary];
-    
+
     results[@"pushBadge"] = @"0";
     results[@"pushAlert"] = @"0";
     results[@"pushSound"] = @"0";
     results[@"time_sensitive_notifications"] = @"0";
     results[@"scheduled_summary"] = @"0";
     results[@"enabled"] = @"0";
-    
-    if ([[UIApplication sharedApplication] isRegisteredForRemoteNotifications]) {
-        results[@"enabled"] = @"1";
-    }
-    
+
     [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *settings) {
         if (settings != nil) {
+            // Check enabled status based on authorization status, not just device token registration
+            if (settings.authorizationStatus == UNAuthorizationStatusAuthorized ||
+                settings.authorizationStatus == UNAuthorizationStatusProvisional) {
+                results[@"enabled"] = @"1";
+            }
+
             if (settings.badgeSetting == UNNotificationSettingEnabled) {
                 results[@"pushBadge"] = @"1";
             }
@@ -114,7 +116,7 @@
                 }
             }
         }
-        
+
         completion(results);
     }];
 }

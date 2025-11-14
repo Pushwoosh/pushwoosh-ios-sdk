@@ -51,8 +51,9 @@ NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpda
 }
 
 + (NSDictionary *)getRemoteNotificationStatus {
-    if ([PWManagerBridge shared].getRemoteNotificationStatusBlock) {
-        return [PWManagerBridge shared].getRemoteNotificationStatusBlock();
+    Class pushNotificationsManagerClass = NSClassFromString(@"PWPushNotificationsManager");
+    if (pushNotificationsManagerClass && [pushNotificationsManagerClass respondsToSelector:@selector(getRemoteNotificationStatus)]) {
+        return [pushNotificationsManagerClass performSelector:@selector(getRemoteNotificationStatus)];
     }
     return nil;
 }
