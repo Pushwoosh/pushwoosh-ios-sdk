@@ -291,4 +291,202 @@ final class PWVoIPMessageTests: XCTestCase {
 
         XCTAssertEqual(message.callId, "")
     }
+
+    func testCallIdAsInteger() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": 12345
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "12345")
+    }
+
+    func testCallIdAsInt64() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": Int64(9876543210)
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "9876543210")
+    }
+
+    func testCallIdAsDouble() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": 123.0
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "123")
+    }
+
+    func testCallIdAsDoubleWithDecimal() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": 123.456
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "123.456")
+    }
+
+    func testCallIdAsFloat() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": Float(456.0)
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "456")
+    }
+
+    func testCallIdAsFloatWithDecimal() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": Float(456.789)
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "456.789")
+    }
+
+    func testCallIdAsNegativeInteger() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": -999
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "-999")
+    }
+
+    func testCallIdAsZero() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": 0
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "0")
+    }
+
+    func testCallIdMixedPayloadWithIntegerCallId() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": 98765,
+            "callerName": "Jane Smith",
+            "video": true,
+            "cancelCall": false
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "98765")
+        XCTAssertEqual(message.callerName, "Jane Smith")
+        XCTAssertTrue(message.hasVideo)
+        XCTAssertFalse(message.cancelCall)
+    }
+
+    func testCallIdAsBoolean() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": true
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertNotNil(message.callId)
+        XCTAssertEqual(message.callId, "true")
+    }
+
+    func testCallIdAsArray() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": [1, 2, 3]
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertNotNil(message.callId)
+    }
+
+    func testCallIdAsDictionary() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": ["key": "value"]
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertNotNil(message.callId)
+    }
+
+    func testCallIdAsNSNull() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": NSNull()
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertNil(message.callId)
+    }
+
+    func testCallIdAsLargeInteger() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": Int.max
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, String(Int.max))
+    }
+
+    func testCallIdAsVerySmallDouble() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": 0.0000001
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertNotNil(message.callId)
+    }
+
+    func testCallIdTypeStabilityString() throws {
+        let payload1: [AnyHashable: Any] = ["callId": "test"]
+        let payload2: [AnyHashable: Any] = ["callId": "test"]
+
+        let message1 = PWVoIPMessage(rawPayload: payload1)
+        let message2 = PWVoIPMessage(rawPayload: payload2)
+
+        XCTAssertEqual(message1.callId, message2.callId)
+    }
+
+    func testCallIdTypeStabilityInteger() throws {
+        let payload1: [AnyHashable: Any] = ["callId": 999]
+        let payload2: [AnyHashable: Any] = ["callId": 999]
+
+        let message1 = PWVoIPMessage(rawPayload: payload1)
+        let message2 = PWVoIPMessage(rawPayload: payload2)
+
+        XCTAssertEqual(message1.callId, message2.callId)
+    }
+
+    func testCallIdIntegerZeroDoesNotConvertToEmptyString() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": 0
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertNotEqual(message.callId, "")
+        XCTAssertEqual(message.callId, "0")
+    }
+
+    func testCallIdDoubleZeroConvertsToZeroString() throws {
+        let payload: [AnyHashable: Any] = [
+            "callId": 0.0
+        ]
+
+        let message = PWVoIPMessage(rawPayload: payload)
+
+        XCTAssertEqual(message.callId, "0")
+    }
 }

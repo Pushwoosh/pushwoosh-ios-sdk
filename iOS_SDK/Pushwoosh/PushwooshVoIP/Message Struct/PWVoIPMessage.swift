@@ -147,7 +147,7 @@ public class PWVoIPMessage: NSObject {
     public init(rawPayload: [AnyHashable: Any]) {
         self.rawPayload = rawPayload.compactMapValues { $0 is NSNull ? nil : $0 }
 
-        self.callId = rawPayload["callId"] as? String
+        self.callId = PWVoIPMessage.getStringFromPayload(rawPayload, key: "callId")
         self.cancelCall = rawPayload["cancelCall"] as? Bool ?? false
 
         if let handleTypeRaw = rawPayload["handleType"] as? Int,
@@ -162,6 +162,35 @@ public class PWVoIPMessage: NSObject {
         self.hasVideo = rawPayload["video"] as? Bool ?? false
         self.supportsHolding = rawPayload["supportsHolding"] as? Bool ?? false
         self.supportsDTMF = rawPayload["supportsDTMF"] as? Bool ?? false
+    }
+
+    private static func getStringFromPayload(_ payload: [AnyHashable: Any], key: String) -> String? {
+        guard let value = payload[key] else {
+            return nil
+        }
+
+        switch value {
+        case is NSNull:
+            return nil
+        case let stringValue as String:
+            return stringValue
+        case let intValue as Int:
+            return String(intValue)
+        case let int64Value as Int64:
+            return String(int64Value)
+        case let doubleValue as Double:
+            if doubleValue.truncatingRemainder(dividingBy: 1.0) == 0 {
+                return String(Int64(doubleValue))
+            }
+            return String(doubleValue)
+        case let floatValue as Float:
+            if floatValue.truncatingRemainder(dividingBy: 1.0) == 0 {
+                return String(Int64(floatValue))
+            }
+            return String(floatValue)
+        default:
+            return String(describing: value)
+        }
     }
 }
 
