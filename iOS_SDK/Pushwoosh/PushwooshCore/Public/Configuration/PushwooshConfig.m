@@ -8,6 +8,7 @@
 
 #import "PushwooshConfig.h"
 #import <PushwooshCore/PWManagerBridge.h>
+#import <PushwooshCore/PWInAppManager.h>
 
 @implementation PushwooshConfig
 
@@ -20,6 +21,10 @@
 }
 
 + (NSString *)getAppCode {
+    return [[PWPreferences preferences] appCode];
+}
+
++ (NSString *)getApplicationCode {
     return [[PWPreferences preferences] appCode];
 }
 
@@ -71,8 +76,37 @@
     [[PWManagerBridge shared] setEmail:email];
 }
 
++ (void)setUserId:(NSString *)userId {
+    [[PWManagerBridge shared].inAppManager setUserId:userId];
+}
+
++ (NSString *)getUserId {
+    return [[PWPreferences preferences] userId];
+}
+
++ (void)setLanguage:(NSString *)language {
+    [[PWPreferences preferences] setLanguage:language];
+}
+
++ (NSString *)getLanguage {
+    return [[PWPreferences preferences] language];
+}
+
++ (void)setShowPushnotificationAlert:(BOOL)show {
+    [[PWPreferences preferences] setShowForegroundNotifications:show];
+    [[PWManagerBridge shared] setShowPushnotificationAlert:show];
+}
+
++ (BOOL)getShowPushnotificationAlert {
+    return [[PWPreferences preferences] showForegroundNotifications];
+}
+
 + (void)handlePushRegistration:(NSData *)deviceToken {
     [[PWManagerBridge shared] handlePushRegistration:deviceToken];
+}
+
++ (void)handlePushRegistrationFailure:(NSError *)error {
+    [[PWManagerBridge shared] handlePushRegistrationFailure:error];
 }
 
 + (BOOL)handlePushReceived:(NSDictionary *)userInfo {

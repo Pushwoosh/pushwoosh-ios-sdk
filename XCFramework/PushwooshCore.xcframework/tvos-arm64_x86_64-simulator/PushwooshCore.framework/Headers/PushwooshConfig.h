@@ -46,6 +46,25 @@
 + (NSString *_Nullable)getAppCode;
 
 /**
+ Retrieves the current Pushwoosh Application Code.
+
+ Alias for getAppCode. Returns the Application Code that was previously set via `setAppCode:` or configured in Info.plist.
+
+ @return The Pushwoosh Application Code, or nil if not configured
+
+ Example usage:
+
+ @code
+ let appCode = Pushwoosh.configure.getApplicationCode()
+ print("App Code: \(appCode ?? "Not set")")
+ @endcode
+
+ @see getAppCode
+ @see setAppCode: to configure the Application Code
+ */
++ (NSString *_Nullable)getApplicationCode;
+
+/**
  Sets the Pushwoosh API Token for server-to-server communication.
 
  The API Token is used for secure communication between your server and Pushwoosh API.
@@ -323,6 +342,112 @@
 + (void)setEmail:(NSString *_Nonnull)email;
 
 /**
+ Sets a custom user identifier for the current device.
+
+ Associates a unique user ID with the device to track users across multiple devices and sessions.
+ This enables user-based targeting and analytics in Pushwoosh.
+
+ @param userId The custom user identifier
+
+ Example usage:
+
+ @code
+ Pushwoosh.configure.setUserId("user_12345")
+ @endcode
+
+ @note The user ID is sent to Pushwoosh servers during the next network sync.
+ @note Setting nil or empty string will reset to using HWID as the user ID.
+
+ @see getUserId to retrieve the current user ID
+ */
++ (void)setUserId:(NSString *_Nonnull)userId;
+
+/**
+ Retrieves the current user identifier.
+
+ Returns the user ID that was previously set via setUserId:, or the HWID if no custom user ID has been set.
+
+ @return The current user identifier
+
+ Example usage:
+
+ @code
+ let userId = Pushwoosh.configure.getUserId()
+ print("User ID: \(userId)")
+ @endcode
+
+ @note The user ID defaults to the HWID until explicitly set with setUserId:.
+
+ @see setUserId: for setting a custom user identifier
+ @see getHWID for the device's Hardware ID
+ */
++ (NSString *_Nonnull)getUserId;
+
+/**
+ Sets custom application language.
+
+ Must be a lowercase two-letter code according to ISO-639-1 standard ("en", "de", "fr", etc.).
+ Device language used by default. Set to nil if you want to use device language again.
+
+ @param language The language code or nil to reset to device language
+
+ Example usage:
+
+ @code
+ Pushwoosh.configure.setLanguage("en")
+ @endcode
+
+ @see getLanguage to retrieve the current language
+ */
++ (void)setLanguage:(NSString *_Nullable)language;
+
+/**
+ Retrieves the current application language setting.
+
+ @return The current language code, or device language if not set
+
+ Example usage:
+
+ @code
+ let lang = Pushwoosh.configure.getLanguage()
+ print("Language: \(lang)")
+ @endcode
+
+ @see setLanguage: to set a custom language
+ */
++ (NSString *_Nonnull)getLanguage;
+
+/**
+ Sets whether to show alert for push notifications when app is in foreground.
+
+ @param show YES to show alerts, NO to hide them
+
+ Example usage:
+
+ @code
+ Pushwoosh.configure.setShowPushnotificationAlert(true)
+ @endcode
+
+ @see getShowPushnotificationAlert to retrieve the current setting
+ */
++ (void)setShowPushnotificationAlert:(BOOL)show;
+
+/**
+ Retrieves the current setting for showing push notification alerts.
+
+ @return YES if alerts are shown, NO otherwise
+
+ Example usage:
+
+ @code
+ let showAlert = Pushwoosh.configure.getShowPushnotificationAlert()
+ @endcode
+
+ @see setShowPushnotificationAlert: to change the setting
+ */
++ (BOOL)getShowPushnotificationAlert;
+
+/**
  Manually handles the device push token registration.
 
  Call this method from your AppDelegate's application:didRegisterForRemoteNotificationsWithDeviceToken:
@@ -345,6 +470,27 @@
  @see registerForPushNotifications for automatic registration
  */
 + (void)handlePushRegistration:(NSData *_Nonnull)deviceToken;
+
+/**
+ Handles push notification registration failure.
+
+ Call this method from your AppDelegate's application:didFailToRegisterForRemoteNotificationsWithError:
+ to notify Pushwoosh about registration failures.
+
+ @param error The error received from APNs registration failure
+
+ Example usage:
+
+ @code
+ func application(_ application: UIApplication,
+                 didFailToRegisterForRemoteNotificationsWithError error: Error) {
+     Pushwoosh.configure.handlePushRegistrationFailure(error as NSError)
+ }
+ @endcode
+
+ @see handlePushRegistration: for successful registration
+ */
++ (void)handlePushRegistrationFailure:(NSError *_Nonnull)error;
 
 /**
  Handles a received push notification.
