@@ -6,28 +6,52 @@
 
 Unregisters the device from push notifications with a completion handler.
 
-## Discussion
+## Overview
 
-Similar to `unregisterForPushNotifications()` but provides a callback when the operation completes. Use this when you need to know whether unregistration succeeded.
+Same as ``unregisterForPushNotifications()`` but provides a completion callback to confirm the operation finished.
 
-This method removes the device from receiving push notifications and notifies Pushwoosh servers to stop sending notifications to this device token. The completion handler is called after the operation finishes.
-
-## Parameters
-
-- completion: Block called when unregistration completes. Receives nil on success or an NSError on failure.
+Use this variant when you need to:
+- Confirm unregistration before proceeding
+- Show user feedback about the operation
+- Handle errors during unregistration
 
 ## Example
 
+Unregister on logout with confirmation:
+
 ```swift
-Pushwoosh.sharedInstance().unregisterForPushNotifications { error in
-    if let error = error {
-        print("Unregistration failed: \(error.localizedDescription)")
-    } else {
-        print("Successfully unregistered from push notifications")
+func handleLogout(completion: @escaping (Bool) -> Void) {
+    Pushwoosh.configure.setUserId("")
+
+    Pushwoosh.configure.unregisterForPushNotifications { error in
+        if let error = error {
+            Analytics.log("unregister_failed", error: error)
+            completion(false)
+        } else {
+            self.clearLocalUserData()
+            completion(true)
+        }
     }
 }
 ```
 
-## Note
+Toggle push notifications in settings:
 
-Unregistration is permanent until `registerForPushNotifications()` is called again.
+```swift
+func togglePushNotifications(enabled: Bool, completion: @escaping (Bool) -> Void) {
+    if enabled {
+        Pushwoosh.configure.registerForPushNotifications { _, error in
+            completion(error == nil)
+        }
+    } else {
+        Pushwoosh.configure.unregisterForPushNotifications { error in
+            completion(error == nil)
+        }
+    }
+}
+```
+
+## See Also
+
+- ``Pushwoosh/unregisterForPushNotifications()``
+- ``Pushwoosh/registerForPushNotifications(completion:)``

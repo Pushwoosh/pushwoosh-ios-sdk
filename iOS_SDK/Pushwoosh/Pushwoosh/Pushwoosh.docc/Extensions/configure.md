@@ -6,13 +6,54 @@
 
 Provides access to SDK configuration methods.
 
-## Discussion
+## Overview
 
-Use this property to access SDK configuration APIs. The configure interface provides methods for initializing and setting up the Pushwoosh SDK.
+The primary entry point for all Pushwoosh SDK operations. Use this property to:
+- Register for push notifications
+- Set user data and tags
+- Configure delegates
+- Manage SDK settings
 
-Access configuration methods through this property:
+## Usage
+
+All SDK methods are accessed through this property:
 
 ```swift
+// Registration
 Pushwoosh.configure.registerForPushNotifications()
+
+// User identification
+Pushwoosh.configure.setUserId("user_123")
+Pushwoosh.configure.setEmail("user@example.com")
+
+// Tags
+Pushwoosh.configure.setTags(["isPremium": true])
+
+// Delegates
+Pushwoosh.configure.delegate = self
 ```
 
+## Example
+
+Complete app setup:
+
+```swift
+func application(_ application: UIApplication,
+                didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    Pushwoosh.configure.delegate = self
+    Pushwoosh.configure.showPushnotificationAlert = true
+
+    if userDefaults.bool(forKey: "onboardingComplete") {
+        Pushwoosh.configure.registerForPushNotifications()
+    }
+
+    return true
+}
+```
+
+## See Also
+
+- ``Pushwoosh/sharedInstance()``
+- ``Pushwoosh/registerForPushNotifications()``
+- ``Pushwoosh/delegate``

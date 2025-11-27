@@ -6,8 +6,47 @@
 
 Starts communication with Pushwoosh server.
 
-## Discussion
+## Overview
 
-Enables network communication with Pushwoosh servers to send and receive data. The SDK automatically manages server communication, but this method allows manual control if needed.
+Enables network communication with Pushwoosh servers. Use this method to resume SDK operations after calling ``stopServerCommunication()``.
 
-Use this to resume communication after calling `stopServerCommunication()`.
+When communication is enabled, the SDK will:
+- Send pending device registration
+- Sync queued tags
+- Report pending analytics events
+- Resume all server interactions
+
+## Default State
+
+Server communication is **enabled by default**. You only need to call this method after explicitly stopping communication.
+
+## Example
+
+Resume communication after user accepts privacy policy:
+
+```swift
+func handlePrivacyPolicyAccepted() {
+    userDefaults.set(true, forKey: "privacyAccepted")
+
+    Pushwoosh.configure.startServerCommunication()
+    Pushwoosh.configure.registerForPushNotifications()
+}
+```
+
+Toggle communication based on user preference:
+
+```swift
+func updateDataSharingPreference(enabled: Bool) {
+    if enabled {
+        Pushwoosh.configure.startServerCommunication()
+    } else {
+        Pushwoosh.configure.stopServerCommunication()
+    }
+
+    userDefaults.set(enabled, forKey: "dataSharing")
+}
+```
+
+## See Also
+
+- ``Pushwoosh/stopServerCommunication()``

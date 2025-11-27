@@ -23,7 +23,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"7.0.6"
+#define PUSHWOOSH_VERSION @"7.0.7"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy, PushwooshConfig;
@@ -51,24 +51,26 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  ## Usage
 
- Set your delegate on the shared Pushwoosh instance:
+ Set your delegate:
 
- @code
- Pushwoosh.sharedInstance().delegate = self
- @endcode
+ ```swift
+ Pushwoosh.configure.delegate = self
+ ```
 
  Then implement the desired delegate methods to handle notifications:
 
- @code
+ ```swift
  func pushwoosh(_ pushwoosh: Pushwoosh, onMessageReceived message: PWMessage) {
-     print("Notification received: \(message.payload)")
+     updateBadgeCount()
+     prefetchContent(for: message)
  }
 
  func pushwoosh(_ pushwoosh: Pushwoosh, onMessageOpened message: PWMessage) {
-     print("User opened notification: \(message.payload)")
-     // Navigate to relevant screen based on message content
+     if let deepLink = message.customData?["screen"] as? String {
+         router.navigate(to: deepLink)
+     }
  }
- @endcode
+ ```
 
  @note Both methods are optional. Implement only the events you need to handle.
  @see PWMessage for details on accessing notification content
@@ -202,33 +204,32 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  ## Registration
 
- Register for push notifications to enable your app to receive them:
+ Register for push notifications in your AppDelegate:
 
- @code
- Pushwoosh.sharedInstance().registerForPushNotifications()
- @endcode
+ ```swift
+ func application(_ application: UIApplication,
+                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+     Pushwoosh.configure.registerForPushNotifications()
+     return true
+ }
 
- Handle the device token in your AppDelegate:
-
- @code
  func application(_ application: UIApplication,
                  didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-     Pushwoosh.sharedInstance().handlePushRegistration(deviceToken)
+     Pushwoosh.configure.handlePushRegistration(deviceToken)
  }
- @endcode
+ ```
 
  ## User Segmentation
 
  Use tags to segment users for targeted messaging:
 
- @code
- let tags: [AnyHashable: Any] = [
-     "username": "john_doe",
-     "premium": true,
-     "age": 25
- ]
- Pushwoosh.sharedInstance().setTags(tags)
- @endcode
+ ```swift
+ Pushwoosh.configure.setTags([
+     "subscription_plan": user.plan.rawValue,
+     "last_purchase_date": user.lastPurchase,
+     "items_in_cart": cart.items.count
+ ])
+ ```
 
  ## Topics
 
@@ -350,16 +351,11 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- // Set delegate
- Pushwoosh.sharedInstance().delegate = self
-
- // Register for notifications
- Pushwoosh.sharedInstance().registerForPushNotifications()
-
- // Set user tags
- Pushwoosh.sharedInstance().setTags(["user_type": "premium"])
- @endcode
+ ```swift
+ Pushwoosh.configure.delegate = self
+ Pushwoosh.configure.registerForPushNotifications()
+ Pushwoosh.configure.setTags(["user_type": "premium"])
+ ```
 
  @note The SDK must be initialized with initializeWithAppCode: or via Info.plist before accessing the shared instance.
  @see initializeWithAppCode: for SDK initialization
@@ -382,9 +378,9 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example usage:
 
- @code
- Pushwoosh.sharedInstance().registerForPushNotifications()
- @endcode
+ ```swift
+ Pushwoosh.configure.registerForPushNotifications()
+ ```
 
  @note The permission dialog will only be shown once. If the user denies permission, subsequent calls
  will not show the dialog again. Users must manually enable notifications in Settings.
@@ -411,15 +407,14 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- let initialTags: [AnyHashable: Any] = [
+ ```swift
+ Pushwoosh.configure.registerForPushNotifications()
+ Pushwoosh.configure.setTags([
      "user_type": "premium",
      "signup_date": Date(),
      "platform": "iOS"
- ]
-
- Pushwoosh.sharedInstance().registerForPushNotifications(with: initialTags)
- @endcode
+ ])
+ ```
 
  @note This is equivalent to calling registerForPushNotifications() followed by setTags:, but more efficient as it combines both operations.
  @see registerForPushNotifications() for simple registration without tags
@@ -439,21 +434,13 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- let initialTags: [AnyHashable: Any] = [
-     "user_type": "premium",
-     "signup_date": Date()
- ]
-
- Pushwoosh.sharedInstance().registerForPushNotifications(with: initialTags) { token, error in
-     if let token = token {
-         print("Registered with token: \(token)")
-         print("Tags set successfully")
-     } else if let error = error {
-         print("Registration failed: \(error.localizedDescription)")
-     }
- }
- @endcode
+ ```swift
+ Pushwoosh.configure.registerForPushNotifications()
+ Pushwoosh.configure.setTags([
+     "user_type": user.isPremium ? "premium" : "free",
+     "signup_date": user.createdAt
+ ])
+ ```
 
  @note The tags are only set if registration succeeds. If registration fails, the tags will not be applied.
  @see registerForPushNotificationsWith: for version without completion handler
@@ -476,9 +463,11 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- Pushwoosh.sharedInstance().unregisterForPushNotifications()
- @endcode
+ ```swift
+ func handleLogout() {
+     Pushwoosh.configure.unregisterForPushNotifications()
+ }
+ ```
 
  @note Unregistration is permanent until registerForPushNotifications() is called again.
  @see unregisterForPushNotificationsWithCompletion: for a version with completion handler
@@ -495,15 +484,19 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- Pushwoosh.sharedInstance().unregisterForPushNotifications { error in
-     if let error = error {
-         print("Unregistration failed: \(error)")
-     } else {
-         print("Successfully unregistered from push notifications")
+ ```swift
+ func handleLogout(completion: @escaping (Bool) -> Void) {
+     Pushwoosh.configure.unregisterForPushNotifications { error in
+         if let error = error {
+             self.showAlert("Failed to unregister: \(error.localizedDescription)")
+             completion(false)
+         } else {
+             self.clearUserSession()
+             completion(true)
+         }
      }
  }
- @endcode
+ ```
 
  @see unregisterForPushNotifications() for a version without completion handler
  */
@@ -520,12 +513,12 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
+ ```swift
  func application(_ application: UIApplication,
                  didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-     Pushwoosh.sharedInstance().handlePushRegistration(deviceToken)
+     Pushwoosh.configure.handlePushRegistration(deviceToken)
  }
- @endcode
+ ```
 
  @note The SDK handles token registration automatically after calling registerForPushNotifications().
  @see registerForPushNotifications() for automatic registration
@@ -543,12 +536,12 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
+ ```swift
  func application(_ application: UIApplication,
                  didFailToRegisterForRemoteNotificationsWithError error: Error) {
-     Pushwoosh.sharedInstance().handlePushRegistrationFailure(error as NSError)
+     Pushwoosh.configure.handlePushRegistrationFailure(error as NSError)
  }
- @endcode
+ ```
 
  @see handlePushRegistration: for successful registration handling
  */
@@ -588,30 +581,31 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- // Set various tag types
- let tags: [AnyHashable: Any] = [
-     "username": "john_doe",           // String tag
-     "age": 25,                        // Integer tag
-     "isPremium": true,                // Boolean tag
-     "interests": ["sports", "tech"],  // List tag
-     "city": "San Francisco"           // String tag
- ]
-
- Pushwoosh.sharedInstance().setTags(tags)
- @endcode
+ ```swift
+ func updateUserProfile(_ user: User) {
+     let tags: [AnyHashable: Any] = [
+         "username": user.name,
+         "age": user.age,
+         "isPremium": user.hasSubscription,
+         "interests": user.interests,
+         "city": user.city
+     ]
+     Pushwoosh.configure.setTags(tags)
+ }
+ ```
 
  ## Incremental Tags
 
  Use PWTagsBuilder.incrementalTag(withInteger:) to increment or decrement numeric tags:
 
- @code
- let tags: [AnyHashable: Any] = [
-     "score": PWTagsBuilder.incrementalTag(withInteger: 10)  // Adds 10 to current score
- ]
-
- Pushwoosh.sharedInstance().setTags(tags)
- @endcode
+ ```swift
+ func addPointsToUser(points: Int) {
+     let tags: [AnyHashable: Any] = [
+         "score": PWTagsBuilder.incrementalTag(withInteger: points)
+     ]
+     Pushwoosh.configure.setTags(tags)
+ }
+ ```
 
  @note Tag names must be created in the Pushwoosh Control Panel before use. Tags are set asynchronously and do not block the calling thread.
  @see setTags:completion: to receive notification when tags are successfully set
@@ -631,17 +625,21 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- let tags = ["subscription_tier": "gold", "signup_date": Date()]
-
- Pushwoosh.sharedInstance().setTags(tags) { error in
-     if let error = error {
-         print("Failed to set tags: \(error.localizedDescription)")
-     } else {
-         print("Tags successfully updated")
+ ```swift
+ func updateSubscription(tier: String) {
+     let tags: [AnyHashable: Any] = [
+         "subscription_tier": tier,
+         "subscription_updated": Date()
+     ]
+     Pushwoosh.configure.setTags(tags) { error in
+         if let error = error {
+             Analytics.log("tags_update_failed", error: error)
+         } else {
+             Analytics.log("subscription_updated", tier: tier)
+         }
      }
  }
- @endcode
+ ```
 
  @see setTags: for setting tags without a completion handler
  */
@@ -675,16 +673,18 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- Pushwoosh.sharedInstance().getTags({ tags in
-     if let tags = tags {
-         print("Current tags: \(tags)")
-         // Example output: ["Country": "ru", "Language": "en", "isPremium": true]
-     }
- }, onFailure: { error in
-     print("Failed to get tags: \(error?.localizedDescription ?? "Unknown error")")
- })
- @endcode
+ ```swift
+ func syncUserProfile() {
+     Pushwoosh.configure.getTags({ tags in
+         if let tags = tags {
+             self.userProfile.isPremium = tags["isPremium"] as? Bool ?? false
+             self.userProfile.country = tags["Country"] as? String
+         }
+     }, onFailure: { error in
+         Analytics.log("tags_sync_failed", error: error)
+     })
+ }
+ ```
 
  @note The operation is performed asynchronously and does not block the calling thread.
  @see setTags: for setting device tags
@@ -703,10 +703,12 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- UIApplication.shared.applicationIconBadgeNumber = 5
- Pushwoosh.sharedInstance().sendBadges(5)
- @endcode
+ ```swift
+ func updateBadgeForUnreadMessages(count: Int) {
+     UIApplication.shared.applicationIconBadgeNumber = count
+     Pushwoosh.configure.sendBadges(count)
+ }
+ ```
 
  @note The SDK automatically intercepts `UIApplication.applicationIconBadgeNumber` changes, so manual calls are rarely needed.
  @see setBadgeNumber: for a convenience method to set and sync the badge in one call
@@ -723,11 +725,12 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  Sends in-app purchases to Pushwoosh. Use in paymentQueue:updatedTransactions: payment queue method (see example).
  
  Example:
- @code
- - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
-     [[PushNotificationManager pushManager] sendSKPaymentTransactions:transactions];
+
+ ```swift
+ func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+     Pushwoosh.configure.sendSKPaymentTransactions(transactions)
  }
- @endcode
+ ```
  
  @param transactions Array of SKPaymentTransaction items as received in the payment queue.
  */
@@ -754,13 +757,14 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- if let token = Pushwoosh.sharedInstance().getPushToken() {
-     print("Device push token: \(token)")
- } else {
-     print("Push token not yet available")
+ ```swift
+ func sendTokenToBackend() {
+     guard let token = Pushwoosh.configure.getPushToken() else {
+         return
+     }
+     apiClient.registerDevice(pushToken: token)
  }
- @endcode
+ ```
 
  @note The push token becomes available after successful registration with registerForPushNotifications().
  @see getHWID() for the Pushwoosh Hardware ID
@@ -778,10 +782,10 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- let hwid = Pushwoosh.sharedInstance().getHWID()
- print("Pushwoosh HWID: \(hwid)")
- @endcode
+ ```swift
+ let hwid = Pushwoosh.configure.getHWID()
+ sendToBackend(["hwid": hwid, "userId": currentUserId])
+ ```
 
  @note The HWID is generated on first SDK initialization and persists across app launches. Use this identifier to reference the device in Pushwoosh API calls.
  @see getPushToken() for the APNs device token
@@ -798,10 +802,12 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- let userId = Pushwoosh.sharedInstance().getUserId()
- print("Current user ID: \(userId)")
- @endcode
+ ```swift
+ func syncWithAnalytics() {
+     let userId = Pushwoosh.configure.getUserId()
+     Analytics.setUserId(userId)
+ }
+ ```
 
  @note The user ID defaults to the HWID until explicitly set with setUserId:.
  @see setUserId: for setting a custom user identifier
@@ -813,7 +819,8 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  Returns dictionary with enabled remove notificaton types.
  
  Example enabled push:
- @code
+
+ ```
  {
     enabled = 1;
     pushAlert = 1;
@@ -821,11 +828,13 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
     pushSound = 1;
     type = 7;
  }
- @endcode
+ ```
+
  where "type" field is UIUserNotificationType
- 
+
  Disabled push:
- @code
+
+ ```
  {
     enabled = 1;
     pushAlert = 0;
@@ -833,7 +842,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
     pushSound = 0;
     type = 0;
  }
- @endcode
+ ```
  
  Note: In the latter example "enabled" field means that device can receive push notification but could not display alerts (ex: silent push)
  */
@@ -877,9 +886,11 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- Pushwoosh.sharedInstance().setEmail("user@example.com")
- @endcode
+ ```swift
+ func handleUserEmailUpdate(_ email: String) {
+     Pushwoosh.configure.setEmail(email)
+ }
+ ```
 
  @note The email is sent to Pushwoosh servers during the next network sync.
  @see setUserId: for setting a unique user identifier
@@ -898,15 +909,15 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- Pushwoosh.sharedInstance().setUserId("user_12345") { error in
-     if let error = error {
-         print("Failed to set user ID: \(error)")
-     } else {
-         print("User ID set successfully")
+ ```swift
+ func handleLogin(userId: String) {
+     Pushwoosh.configure.setUserId(userId) { error in
+         if let error = error {
+             Analytics.log("pushwoosh_user_id_failed", error: error)
+         }
      }
  }
- @endcode
+ ```
 
  @note The user ID is synchronized with Pushwoosh servers asynchronously.
  @see setEmail: for setting a user email address
@@ -924,9 +935,11 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Example:
 
- @code
- Pushwoosh.sharedInstance().setUserId("user_12345")
- @endcode
+ ```swift
+ func handleLogin(userId: String) {
+     Pushwoosh.configure.setUserId(userId)
+ }
+ ```
 
  @note The user ID is synchronized with Pushwoosh servers asynchronously. For completion notification, use setUserId:completion:.
  @see setEmail: for setting a user email address
@@ -998,22 +1011,17 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  Call this method when you want to initiate live activity via push notification
  
  Example:
- @code
- 
+
+ ```swift
  if #available(iOS 17.2, *) {
-         Task {
-             for await data in Activity<LiveActivityAttributes>.pushToStartTokenUpdates {
-                 let token = data.map { String(format: "%02x", $0) }.joined()
-                 do {
-                     try await Pushwoosh.sharedInstance().sendPush(toStartLiveActivityToken: token)
-                 } catch {
-                     print("Error sending push to start live activity: \(error)")
-                 }
-            }
-        }
-  }
- 
- @endcode
+     Task {
+         for await data in Activity<LiveActivityAttributes>.pushToStartTokenUpdates {
+             let token = data.map { String(format: "%02x", $0) }.joined()
+             try? await Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: token)
+         }
+     }
+ }
+ ```
  */
 
 - (void)sendPushToStartLiveActivityToken:(NSString *_Nullable)token
@@ -1026,32 +1034,22 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
  Call this method when you create a live activity.
  
  Example:
- @code
- do {
-     let activity = try Activity<PushwooshAppAttributes>.request(
+
+ ```swift
+ func startDeliveryActivity(attributes: DeliveryAttributes, state: DeliveryState) async throws -> String? {
+     let activity = try Activity<DeliveryAttributes>.request(
          attributes: attributes,
-         contentState: contentState,
+         contentState: state,
          pushType: .token)
-     
+
      for await data in activity.pushTokenUpdates {
-         guard let token = data.map { String(format: "%02x", $0) }.joined(separator: "") else {
-             continue
-         }
-         
-         do {
-             try await Pushwoosh.sharedInstance().startLiveActivity(withToken: token)
-             return token
-         } catch {
-             print("Failed to start live activity with token \(token): \(error.localizedDescription)")
-             return nil
-         }
+         let token = data.map { String(format: "%02x", $0) }.joined()
+         try await Pushwoosh.LiveActivities.startLiveActivity(token: token, activityId: "delivery_\(attributes.orderId)")
+         return token
      }
      return nil
- } catch {
-     print("Error requesting activity: \(error.localizedDescription)")
-     return nil
  }
- @endcode
+ ```
  
  @param token Activity token
  @param activityId Activity ID for updating Live Activities by segments
@@ -1070,14 +1068,15 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
  Call this method when you finish working with the live activity.
  
  Example:
- @code
- func end(activity: Activity<PushwooshAppAttributes>) {
+
+ ```swift
+ func endDeliveryActivity(_ activity: Activity<DeliveryAttributes>) {
      Task {
          await activity.end(dismissalPolicy: .immediate)
-         try await Pushwoosh.sharedInstance().stopLiveActivity()
+         try? await Pushwoosh.LiveActivities.stopLiveActivity()
      }
  }
- @endcode
+ ```
  */
 - (void)stopLiveActivity
 __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed in a future release. Use Pushwoosh.LiveActivities.stopLiveActivity() instead.")));
@@ -1137,16 +1136,16 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
  Creates a dictionary for incrementing/decrementing a numeric tag on the server.
  
  Example:
- @code
- NSDictionary *tags = @{
-     @"Alias" : aliasField.text,
-     @"FavNumber" : @([favNumField.text intValue]),
-     @"price": [PWTags incrementalTagWithInteger:5],
- };
- 
- [[PushNotificationManager pushManager] setTags:tags];
- @endcode
- 
+
+ ```swift
+ func addPointsToScore(_ points: Int) {
+     let tags: [AnyHashable: Any] = [
+         "score": PWTagsBuilder.incrementalTag(withInteger: points)
+     ]
+     Pushwoosh.configure.setTags(tags)
+ }
+ ```
+
  @param delta Difference that needs to be applied to the tag's counter.
  
  @return Dictionary, that needs to be sent as the value for the tag
@@ -1157,17 +1156,16 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
  Creates a dictionary for extending Tag’s values list with additional values
  
  Example:
- 
- @code
- NSDictionary *tags = @{
-     @"Alias" : aliasField.text,
-     @"FavNumber" : @([favNumField.text intValue]),
-     @"List" : [PWTags appendValuesToListTag:@[ @"Item1" ]]
- };
- 
- [[PushNotificationManager pushManager] setTags:tags];
- @endcode
- 
+
+ ```swift
+ func addInterest(_ interest: String) {
+     let tags: [AnyHashable: Any] = [
+         "interests": PWTagsBuilder.appendValues(toListTag: [interest])
+     ]
+     Pushwoosh.configure.setTags(tags)
+ }
+ ```
+
  @param array Array of values to be added to the tag.
  
  @return Dictionary to be sent as the value for the tag
@@ -1178,17 +1176,16 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
  Creates a dictionary for removing Tag’s values from existing values list
  
  Example:
- 
- @code
- NSDictionary *tags = @{
-     @"Alias" : aliasField.text,
-     @"FavNumber" : @([favNumField.text intValue]),
-     @"List" : [PWTags removeValuesFromListTag:@[ @"Item1" ]]
- };
- 
- [[PushNotificationManager pushManager] setTags:tags];
- @endcode
- 
+
+ ```swift
+ func removeInterest(_ interest: String) {
+     let tags: [AnyHashable: Any] = [
+         "interests": PWTagsBuilder.removeValues(fromListTag: [interest])
+     ]
+     Pushwoosh.configure.setTags(tags)
+ }
+ ```
+
  @param array Array of values to be removed from the tag.
  
  @return Dictionary to be sent as the value for the tag

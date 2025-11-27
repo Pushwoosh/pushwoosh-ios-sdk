@@ -6,30 +6,68 @@
 
 Delegate protocol for handling push notification events.
 
-## Discussion
-
-The `PWMessagingDelegate` protocol defines methods that notify your app about push notification lifecycle events. Implement these methods to respond to notifications being received and opened by users.
-
 ## Overview
 
-This protocol provides two key notification events:
-- When a push notification arrives (received)
-- When a user taps on a push notification (opened)
+Implement `PWMessagingDelegate` to respond to push notification lifecycle events:
+- **Received**: Notification arrived (app may be in foreground or background)
+- **Opened**: User tapped on the notification
 
-Both methods are called with a `PWMessage` object containing the notification payload and metadata.
+Both methods provide a ``PWMessage`` object containing the notification payload, custom data, and metadata.
 
-Set your delegate on the shared Pushwoosh instance:
+## Implementation
+
+1. Conform to the protocol
+2. Set the delegate on Pushwoosh
+3. Implement the methods you need
 
 ```swift
-Pushwoosh.sharedInstance().delegate = self
-```
+class AppDelegate: UIResponder, UIApplicationDelegate, PWMessagingDelegate {
 
-Both methods are optional. Implement only the events you need to handle.
+    func application(_ application: UIApplication,
+                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        Pushwoosh.configure.delegate = self
+        Pushwoosh.configure.registerForPushNotifications()
+
+        return true
+    }
+
+    func pushwoosh(_ pushwoosh: Pushwoosh, onMessageReceived message: PWMessage) {
+        Analytics.log("push_received", [
+            "title": message.title ?? "",
+            "customData": message.customData ?? [:]
+        ])
+    }
+
+    func pushwoosh(_ pushwoosh: Pushwoosh, onMessageOpened message: PWMessage) {
+        handleDeepLink(from: message)
+    }
+
+    private func handleDeepLink(from message: PWMessage) {
+        guard let customData = message.customData,
+              let screen = customData["screen"] as? String else {
+            return
+        }
+
+        switch screen {
+        case "order":
+            if let orderId = customData["order_id"] as? String {
+                navigateToOrder(orderId)
+            }
+        case "promo":
+            if let promoId = customData["promo_id"] as? String {
+                navigateToPromo(promoId)
+            }
+        default:
+            break
+        }
+    }
+}
+```
 
 ## Topics
 
 ### Handling Notifications
 
-- ``pushwoosh:onMessageReceived:``
-- ``pushwoosh:onMessageOpened:``
-
+- ``pushwoosh(_:onMessageReceived:)``
+- ``pushwoosh(_:onMessageOpened:)``

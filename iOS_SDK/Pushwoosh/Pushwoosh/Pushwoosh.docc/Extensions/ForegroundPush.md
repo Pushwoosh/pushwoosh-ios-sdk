@@ -6,15 +6,40 @@
 
 Provides access to custom foreground push notification handling.
 
-## Discussion
+## Overview
 
-Use this property to access APIs for customizing how push notifications are displayed when your app is in the foreground. This allows you to control notification presentation and behavior when the user is actively using your app.
+Controls how push notifications are displayed when your app is in the foreground. By default, iOS may not display notifications while the app is active.
 
-By default, notifications received while the app is in the foreground may not be displayed. Use this interface to customize this behavior.
+Use this API to:
+- Show notification banners while app is active
+- Customize presentation options (banner, sound, badge)
+- Implement custom foreground notification UI
 
-Access foreground push methods through this property:
+## Example
+
+Show all notifications in foreground:
 
 ```swift
-Pushwoosh.ForegroundPush.setCustomForegroundPresentationOptions()
+func application(_ application: UIApplication,
+                didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    Pushwoosh.ForegroundPush.setCustomForegroundPresentationOptions([.banner, .sound, .badge])
+
+    Pushwoosh.configure.registerForPushNotifications()
+
+    return true
+}
 ```
 
+Show only banner and sound:
+
+```swift
+func setupForegroundNotifications() {
+    Pushwoosh.ForegroundPush.setCustomForegroundPresentationOptions([.banner, .sound])
+}
+```
+
+## See Also
+
+- ``Pushwoosh/showPushnotificationAlert``
+- ``PWMessagingDelegate/pushwoosh(_:onMessageReceived:)``

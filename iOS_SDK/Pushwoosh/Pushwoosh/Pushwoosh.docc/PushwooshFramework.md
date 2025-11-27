@@ -1,4 +1,8 @@
-# ``Pushwoosh``
+# ``PushwooshFramework``
+
+@Metadata {
+    @TechnologyRoot
+}
 
 Push notification SDK for iOS applications.
 
@@ -58,74 +62,46 @@ Key features include:
 
 ### Initialization
 
-- ``Pushwoosh/sharedInstance``
+- ``Pushwoosh/sharedInstance()``
 
   Returns the shared Pushwoosh instance.
 
 ### Registration
 
-- ``Pushwoosh/registerForPushNotifications``
+- ``Pushwoosh/registerForPushNotifications()``
 
   Registers for push notifications and requests user permission.
 
-- ``Pushwoosh/setToken:``
-
-  Sets the device push token manually.
-
-- ``Pushwoosh/unregisterForPushNotifications``
+- ``Pushwoosh/unregisterForPushNotifications()``
 
   Unregisters from push notifications.
 
 ### User Management
 
-- ``Pushwoosh/setUserId:``
+- ``Pushwoosh/setUserId(_:)``
 
   Associates a user ID with the device.
 
-- ``Pushwoosh/setEmail:``
+- ``Pushwoosh/setEmail(_:)``
 
   Associates an email with the device.
 
-- ``Pushwoosh/setTags:``
+- ``Pushwoosh/setTags(_:)``
 
   Sets custom tags for user segmentation.
 
-- ``Pushwoosh/getTags:``
-
-  Retrieves current device tags.
-
 ### Messaging
 
-- ``PWMessagingDelegate/pushwoosh:onMessageReceived:``
+- ``PWMessagingDelegate/pushwoosh(_:onMessageReceived:)``
 
   Called when a push notification is received.
 
-- ``PWMessagingDelegate/pushwoosh:onMessageOpened:``
+- ``PWMessagingDelegate/pushwoosh(_:onMessageOpened:)``
 
   Called when user taps on a push notification.
-
-### Badge Management
-
-- ``Pushwoosh/setBadgeNumber:``
-
-  Sets the application badge number.
-
-- ``Pushwoosh/addBadgeNumber:``
-
-  Increments the badge number.
 
 ### Rich Media
 
 - ``PWNotificationExtensionManager``
 
   Manages rich media notification content.
-
-### Logging
-
-- ``PushwooshLog``
-
-  Logging utility for SDK diagnostics.
-
-- ``Pushwoosh/setLogLevel:``
-
-  Sets the SDK logging level.

@@ -6,12 +6,32 @@
 
 Sends push-to-start live activity token to the server.
 
-## Discussion
+## Overview
 
-**Deprecated since 6.8.0**: Use `Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token:)` instead.
+> Deprecated: Use ``Pushwoosh/LiveActivities`` API instead:
+> ```swift
+> Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: token)
+> ```
 
-Call this method when you want to initiate a live activity via push notification. The token is obtained from the Activity's push-to-start token updates.
+Registers a Push to Start token with Pushwoosh to enable starting Live Activities via push notifications (iOS 17.2+).
 
-## Parameters
+## Example
 
-- token: The push-to-start live activity token
+Set up Push to Start:
+
+```swift
+@available(iOS 17.2, *)
+func setupPushToStart() {
+    Task {
+        for await data in Activity<OrderAttributes>.pushToStartTokenUpdates {
+            let token = data.map { String(format: "%02x", $0) }.joined()
+            try? await Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: token)
+        }
+    }
+}
+```
+
+## See Also
+
+- ``Pushwoosh/LiveActivities``
+- ``Pushwoosh/startLiveActivity(withToken:activityId:)``

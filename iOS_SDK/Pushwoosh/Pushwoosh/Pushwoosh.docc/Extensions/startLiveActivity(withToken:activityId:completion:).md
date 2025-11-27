@@ -6,14 +6,37 @@
 
 Sends live activity token to the server with a completion handler.
 
-## Discussion
+## Overview
 
-**Deprecated since 6.8.0**: Use `Pushwoosh.LiveActivities.startLiveActivity(token:activityId:completion:)` instead.
+> Deprecated: Use ``Pushwoosh/LiveActivities`` API instead.
 
 Similar to `startLiveActivityWithToken:activityId:` but provides a callback when the operation completes.
 
-## Parameters
+## Example
 
-- token: The live activity token
-- activityId: Activity ID for updating Live Activities by segments (optional)
-- completion: Block called when the operation completes. Receives nil on success or an NSError on failure.
+Use the new LiveActivities API:
+
+```swift
+@available(iOS 16.1, *)
+func startDeliveryTracking(orderId: String) async throws {
+    let activity = try Activity.request(
+        attributes: DeliveryAttributes(orderId: orderId),
+        content: .init(state: DeliveryState(status: .preparing), staleDate: nil)
+    )
+
+    guard let token = activity.pushToken else { return }
+    let tokenString = token.map { String(format: "%02x", $0) }.joined()
+
+    Pushwoosh.LiveActivities.startLiveActivity(token: tokenString, activityId: orderId) { error in
+        if let error = error {
+            self.logger.error("Failed to register live activity: \(error)")
+        } else {
+            self.logger.info("Live activity registered for order: \(orderId)")
+        }
+    }
+}
+```
+
+## See Also
+
+- ``Pushwoosh/LiveActivities``

@@ -6,15 +6,75 @@
 
 Merges or moves all events from one user ID to another.
 
-## Discussion
+## Overview
 
-Transfers user data and events between user identifiers. If `doMerge` is true, all events from `oldUserId` are moved to `newUserId`. If false, all events for `oldUserId` are removed.
+Transfers user data and events between user identifiers. Use this when:
+- User links multiple accounts
+- Migrating from anonymous to authenticated user
+- Consolidating duplicate accounts
+- User changes their identifier
 
-This is useful when consolidating user accounts or handling user identifier changes in your system.
+## Merge vs Delete
 
-## Parameters
+- `doMerge: true` - All events from oldUserId are **moved** to newUserId
+- `doMerge: false` - All events for oldUserId are **deleted**
 
-- oldUserId: Source user identifier
-- newUserId: Destination user identifier
-- doMerge: If false, all events for oldUserId are removed. If true, all events are moved to newUserId.
-- completion: Block called when the operation completes
+## Example
+
+Merge anonymous user data after login:
+
+```swift
+func handleLogin(authenticatedUserId: String) {
+    let anonymousId = Pushwoosh.configure.getUserId()
+
+    Pushwoosh.configure.mergeUserId(
+        anonymousId,
+        to: authenticatedUserId,
+        doMerge: true
+    ) { error in
+        if let error = error {
+            Analytics.log("user_merge_failed", error: error)
+        } else {
+            Pushwoosh.configure.setUserId(authenticatedUserId)
+        }
+    }
+}
+```
+
+Handle account linking:
+
+```swift
+func linkAccounts(primaryId: String, secondaryId: String) {
+    Pushwoosh.configure.mergeUserId(
+        secondaryId,
+        to: primaryId,
+        doMerge: true
+    ) { error in
+        if error == nil {
+            self.showSuccess("Accounts linked successfully")
+        }
+    }
+}
+```
+
+Delete data for old user ID:
+
+```swift
+func handleAccountDeletion(userId: String) {
+    Pushwoosh.configure.mergeUserId(
+        userId,
+        to: "",
+        doMerge: false
+    ) { error in
+        if error == nil {
+            self.clearLocalUserData()
+        }
+    }
+}
+```
+
+## See Also
+
+- ``Pushwoosh/setUserId(_:)``
+- ``Pushwoosh/setUserId(_:completion:)``
+- ``Pushwoosh/getUserId()``

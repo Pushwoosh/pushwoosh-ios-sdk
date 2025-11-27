@@ -6,14 +6,76 @@
 
 Registers the device for push notifications.
 
-## Discussion
+## Overview
 
-This method initiates the push notification registration process by requesting user permission to display notifications and registering the device with Apple Push Notification service (APNs).
+This method initiates the push notification registration process:
+1. Requests user permission to display notifications
+2. Registers the device with Apple Push Notification service (APNs)
+3. Sends the device token to Pushwoosh servers
 
-When called, the system will display a permission dialog to the user asking them to allow notifications. Once the user grants permission, the device will receive a push token from APNs which will be automatically sent to Pushwoosh servers for future push notification delivery.
+## Permission Dialog
 
-The registration process is asynchronous. The device token will be handled automatically by the SDK.
+The system permission dialog is shown only once per app installation. If the user:
+- **Grants permission**: Device receives a push token from APNs
+- **Denies permission**: No token is received; user must enable notifications in Settings
 
-This method should be called after configuring the Pushwoosh App Code in Info.plist with key `Pushwoosh_APPID`.
+## When to Call
 
-The permission dialog will only be shown once. If the user denies permission, subsequent calls will not show the dialog again. Users must manually enable notifications in Settings.
+Call this method:
+- In `application(_:didFinishLaunchingWithOptions:)` for immediate registration
+- After onboarding flow to explain notification benefits first
+- When user explicitly enables notifications in your app settings
+
+## Example
+
+Register for push notifications at app launch:
+
+```swift
+func application(_ application: UIApplication,
+                didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    Pushwoosh.configure.delegate = self
+    Pushwoosh.configure.registerForPushNotifications()
+
+    return true
+}
+```
+
+Register after user completes onboarding:
+
+```swift
+func completeOnboarding() {
+    userDefaults.set(true, forKey: "onboardingComplete")
+
+    Pushwoosh.configure.registerForPushNotifications()
+
+    navigateToMainScreen()
+}
+```
+
+Prompt user before requesting permission:
+
+```swift
+func showNotificationPrompt() {
+    let alert = UIAlertController(
+        title: "Stay Updated",
+        message: "Enable notifications to receive order updates and exclusive offers",
+        preferredStyle: .alert
+    )
+
+    alert.addAction(UIAlertAction(title: "Enable", style: .default) { _ in
+        Pushwoosh.configure.registerForPushNotifications()
+    })
+
+    alert.addAction(UIAlertAction(title: "Later", style: .cancel))
+
+    present(alert, animated: true)
+}
+```
+
+## See Also
+
+- ``Pushwoosh/registerForPushNotifications(completion:)``
+- ``Pushwoosh/unregisterForPushNotifications()``
+- ``Pushwoosh/delegate``
+- ``PWMessagingDelegate``

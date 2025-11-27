@@ -6,13 +6,70 @@
 
 Retrieves the current device's tags from the Pushwoosh server.
 
-## Discussion
+## Overview
 
-Fetches all tags currently set for this device. Tags are returned as a dictionary where keys are tag names and values are the corresponding tag values.
+Fetches all tags currently set for this device. Use this to:
+- Sync local state with server-side tags
+- Display user preferences in settings
+- Verify tags were set correctly
+- Build conditional logic based on tag values
 
-The operation is performed asynchronously and does not block the calling thread.
+## Response Format
 
-## Parameters
+Tags are returned as a dictionary where:
+- Keys are tag names (String)
+- Values are tag values (can be String, Int, Bool, Array, or Date)
 
-- successHandler: Block called when tags are successfully retrieved. Receives a dictionary containing all device tags.
-- errorHandler: Block called if the request fails. Receives an error describing the failure.
+## Example
+
+Load user preferences from tags:
+
+```swift
+func loadUserPreferences() {
+    Pushwoosh.configure.getTags({ tags in
+        guard let tags = tags else { return }
+
+        self.userPreferences.isPremium = tags["isPremium"] as? Bool ?? false
+        self.userPreferences.language = tags["language"] as? String ?? "en"
+        self.userPreferences.interests = tags["interests"] as? [String] ?? []
+
+        self.updateUI()
+    }, onFailure: { error in
+        Analytics.log("tags_load_failed", error: error)
+    })
+}
+```
+
+Check if user has specific tag before showing content:
+
+```swift
+func shouldShowPremiumContent(completion: @escaping (Bool) -> Void) {
+    Pushwoosh.configure.getTags({ tags in
+        let isPremium = tags?["isPremium"] as? Bool ?? false
+        completion(isPremium)
+    }, onFailure: { _ in
+        completion(false)
+    })
+}
+```
+
+Debug current tag values:
+
+```swift
+func debugPrintTags() {
+    Pushwoosh.configure.getTags({ tags in
+        if let tags = tags {
+            for (key, value) in tags {
+                print("\(key): \(value)")
+            }
+        }
+    }, onFailure: { error in
+        print("Failed to get tags: \(error?.localizedDescription ?? "Unknown")")
+    })
+}
+```
+
+## See Also
+
+- ``Pushwoosh/setTags(_:)``
+- ``Pushwoosh/setTags(_:completion:)``

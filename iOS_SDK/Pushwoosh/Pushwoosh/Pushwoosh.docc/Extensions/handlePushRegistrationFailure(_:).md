@@ -6,12 +6,51 @@
 
 Handles push notification registration failures.
 
-## Discussion
+## Overview
 
-Call this method from your AppDelegate's `application:didFailToRegisterForRemoteNotificationsWithError:` to notify Pushwoosh of registration failures. This helps with debugging and analytics.
+Notifies Pushwoosh when APNs registration fails. This enables:
+- Error tracking and analytics
+- Debugging registration issues
+- Server-side error monitoring
 
-The error information is logged to help diagnose registration issues such as network problems, provisioning profile configuration, or APNs availability.
+## Common Failure Reasons
 
-## Parameters
+- Missing Push Notifications capability
+- Invalid provisioning profile
+- Simulator without push support
+- Network connectivity issues
+- APNs server unavailable
 
-- error: The error received from APNs during registration
+## Example
+
+Standard AppDelegate implementation:
+
+```swift
+func application(_ application: UIApplication,
+                didFailToRegisterForRemoteNotificationsWithError error: Error) {
+    Pushwoosh.configure.handlePushRegistrationFailure(error as NSError)
+}
+```
+
+With additional error logging:
+
+```swift
+func application(_ application: UIApplication,
+                didFailToRegisterForRemoteNotificationsWithError error: Error) {
+    Pushwoosh.configure.handlePushRegistrationFailure(error as NSError)
+
+    Analytics.log("push_registration_failed", [
+        "error": error.localizedDescription,
+        "code": (error as NSError).code
+    ])
+
+    #if DEBUG
+    print("Push registration failed: \(error)")
+    #endif
+}
+```
+
+## See Also
+
+- ``Pushwoosh/handlePushRegistration(_:)``
+- ``Pushwoosh/registerForPushNotifications()``

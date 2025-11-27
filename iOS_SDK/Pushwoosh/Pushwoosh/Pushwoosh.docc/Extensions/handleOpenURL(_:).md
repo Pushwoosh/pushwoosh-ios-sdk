@@ -6,16 +6,49 @@
 
 Processes deep link URLs.
 
-## Discussion
+## Overview
 
-Handles deep link URLs, primarily used for registering test devices. Call this method from your app delegate's URL handling methods to allow Pushwoosh to process special URLs.
+Handles special Pushwoosh URLs, primarily used for:
+- Registering test devices via QR code
+- Development and debugging workflows
+- Pushwoosh Control Panel device linking
 
-The SDK will return `true` if it handled the URL, or `false` if the URL is not a Pushwoosh URL.
+## Return Value
 
-## Parameters
+- `true` - URL was handled by Pushwoosh
+- `false` - URL is not a Pushwoosh URL, handle it yourself
 
-- url: The deep link URL to process
+## Example
 
-## Returns
+Handle URLs in AppDelegate:
 
-Boolean indicating whether Pushwoosh handled the URL
+```swift
+func application(_ app: UIApplication,
+                open url: URL,
+                options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
+
+    if Pushwoosh.configure.handleOpenURL(url) {
+        return true
+    }
+
+    return DeepLinkRouter.shared.handle(url)
+}
+```
+
+Handle URLs in SceneDelegate:
+
+```swift
+func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
+    guard let url = URLContexts.first?.url else { return }
+
+    if Pushwoosh.configure.handleOpenURL(url) {
+        return
+    }
+
+    DeepLinkRouter.shared.handle(url)
+}
+```
+
+## See Also
+
+- ``Pushwoosh/launchNotification``

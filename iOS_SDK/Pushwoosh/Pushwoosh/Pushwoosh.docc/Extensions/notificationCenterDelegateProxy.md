@@ -6,11 +6,45 @@
 
 Proxy that manages UNUserNotificationCenterDelegate objects.
 
-## Discussion
+## Overview
 
-This property provides access to the notification center delegate proxy, which allows multiple objects to receive notification center delegate callbacks. Use this to add additional `UNUserNotificationCenterDelegate` implementations alongside Pushwoosh's default handling.
+Allows multiple objects to receive `UNUserNotificationCenterDelegate` callbacks alongside Pushwoosh's default handling. Use this when:
+- Integrating multiple push notification SDKs
+- Adding custom notification handling logic
+- Implementing notification actions
 
-The proxy forwards delegate methods to all registered delegates, enabling multiple components to respond to notification events.
+## How It Works
 
-This is a read-only property.
+The proxy forwards all delegate methods to registered delegates, enabling multiple components to respond to notification events without conflicts.
 
+## Example
+
+Add custom notification delegate:
+
+```swift
+class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                               willPresent notification: UNNotification,
+                               withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+        Analytics.log("notification_will_present")
+        completionHandler([.banner, .sound])
+    }
+
+    func userNotificationCenter(_ center: UNUserNotificationCenter,
+                               didReceive response: UNNotificationResponse,
+                               withCompletionHandler completionHandler: @escaping () -> Void) {
+        handleNotificationAction(response.actionIdentifier)
+        completionHandler()
+    }
+}
+
+// Register with proxy
+let handler = NotificationHandler()
+Pushwoosh.configure.notificationCenterDelegateProxy.addDelegate(handler)
+```
+
+## See Also
+
+- ``Pushwoosh/delegate``
+- ``PWMessagingDelegate``

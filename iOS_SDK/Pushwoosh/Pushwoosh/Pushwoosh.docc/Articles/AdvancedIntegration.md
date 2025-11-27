@@ -34,20 +34,20 @@ By default, the SDK displays notification banners while the app is running in th
     @Tab("Swift") {
         ```swift
         // Enable foreground notifications
-        Pushwoosh.sharedInstance().showPushnotificationAlert = true
+        Pushwoosh.configure.setShowPushnotificationAlert(true)
 
         // Disable foreground notifications
-        Pushwoosh.sharedInstance().showPushnotificationAlert = false
+        Pushwoosh.configure.setShowPushnotificationAlert(false)
         ```
     }
 
     @Tab("Objective-C") {
         ```objc
         // Enable foreground notifications
-        [[Pushwoosh sharedInstance] setShowPushnotificationAlert:1];
+        [Pushwoosh.configure setShowPushnotificationAlert:YES];
 
         // Disable foreground notifications
-        [[Pushwoosh sharedInstance] setShowPushnotificationAlert:0];
+        [Pushwoosh.configure setShowPushnotificationAlert:NO];
         ```
     }
 }
@@ -115,13 +115,13 @@ If you need to implement custom notification handling alongside Pushwoosh, you c
 @TabNavigator {
     @Tab("Swift") {
         ```swift
-        Pushwoosh.sharedInstance()?.notificationCenterDelegateProxy.add(myDelegate)
+        Pushwoosh.sharedInstance().notificationCenterDelegateProxy.add(myDelegate)
         ```
     }
 
     @Tab("Objective-C") {
         ```objc
-        [Pushwoosh.sharedInstance.notificationCenterDelegateProxy
+        [[Pushwoosh sharedInstance].notificationCenterDelegateProxy
             addNotificationCenterDelegate:myDelegate];
         ```
     }
@@ -206,13 +206,13 @@ With this flag enabled, the SDK will not start automatically. Services will only
 @TabNavigator {
     @Tab("Swift") {
         ```swift
-        Pushwoosh.sharedInstance().registerForPushNotifications()
+        Pushwoosh.configure.registerForPushNotifications()
         ```
     }
 
     @Tab("Objective-C") {
         ```objc
-        [[Pushwoosh sharedInstance] registerForPushNotifications];
+        [Pushwoosh.configure registerForPushNotifications];
         ```
     }
 }

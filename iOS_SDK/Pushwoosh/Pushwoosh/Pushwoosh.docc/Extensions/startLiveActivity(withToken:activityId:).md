@@ -6,13 +6,39 @@
 
 Sends live activity token to the server.
 
-## Discussion
+## Overview
 
-**Deprecated since 6.8.0**: Use `Pushwoosh.LiveActivities.startLiveActivity(token:activityId:)` instead.
+> Deprecated: Use ``Pushwoosh/LiveActivities`` API instead:
+> ```swift
+> Pushwoosh.LiveActivities.startLiveActivity(token: token, activityId: activityId)
+> ```
 
-Call this method when you create a live activity. The token is obtained from the Activity's push token updates, and the activity ID enables updating Live Activities by segments.
+Registers a Live Activity token with Pushwoosh to enable remote updates.
 
-## Parameters
+## Example
 
-- token: The live activity token
-- activityId: Activity ID for updating Live Activities by segments (optional)
+Register Live Activity after creation:
+
+```swift
+func startOrderTracking(orderId: String) async throws {
+    let activity = try Activity.request(
+        attributes: OrderAttributes(orderId: orderId),
+        content: .init(state: initialState, staleDate: nil),
+        pushType: .token
+    )
+
+    for await tokenData in activity.pushTokenUpdates {
+        let token = tokenData.map { String(format: "%02x", $0) }.joined()
+        try await Pushwoosh.LiveActivities.startLiveActivity(
+            token: token,
+            activityId: "order_\(orderId)"
+        )
+        break
+    }
+}
+```
+
+## See Also
+
+- ``Pushwoosh/LiveActivities``
+- ``Pushwoosh/stopLiveActivity()``

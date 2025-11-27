@@ -6,11 +6,65 @@
 
 Additional authorization options for push notifications.
 
-## Discussion
+## Overview
 
-Use this property to request additional notification authorization options beyond the default set. The SDK automatically requests `UNAuthorizationOptionBadge`, `UNAuthorizationOptionSound`, `UNAuthorizationOptionAlert`, and `UNAuthorizationOptionCarPlay`.
+Request additional notification capabilities beyond the defaults. The SDK automatically requests:
+- `.badge`
+- `.sound`
+- `.alert`
+- `.carPlay`
 
-Set this property before calling `registerForPushNotifications()` to request additional options such as provisional authorization, critical alerts, or announcement notifications.
+Use this property to add:
+- `.provisional` - Deliver quietly without prompting (iOS 12+)
+- `.criticalAlert` - Bypass Do Not Disturb (requires entitlement)
+- `.announcement` - Siri announcement support (iOS 13+)
 
-Available on iOS 12.0 and later.
+## Important
 
+Set this property **before** calling ``registerForPushNotifications()``.
+
+## Example
+
+Request provisional authorization for soft opt-in:
+
+```swift
+func application(_ application: UIApplication,
+                didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    if #available(iOS 12.0, *) {
+        Pushwoosh.configure.additionalAuthorizationOptions = [.provisional]
+    }
+
+    Pushwoosh.configure.registerForPushNotifications()
+
+    return true
+}
+```
+
+Request critical alerts for medical app:
+
+```swift
+func setupNotifications() {
+    if #available(iOS 12.0, *) {
+        Pushwoosh.configure.additionalAuthorizationOptions = [.criticalAlert]
+    }
+
+    Pushwoosh.configure.registerForPushNotifications()
+}
+```
+
+Request Siri announcement:
+
+```swift
+func setupNotificationsWithSiri() {
+    if #available(iOS 13.0, *) {
+        Pushwoosh.configure.additionalAuthorizationOptions = [.announcement]
+    }
+
+    Pushwoosh.configure.registerForPushNotifications()
+}
+```
+
+## See Also
+
+- ``Pushwoosh/registerForPushNotifications()``

@@ -80,4 +80,57 @@
 - (void)startServerCommunication;
 - (void)stopServerCommunication;
 
+#pragma mark - Tags with Completion
+
+- (void)setTags:(NSDictionary *)tags withCompletion:(void (^)(NSError *error))completion;
+- (void)setEmailTags:(NSDictionary *)tags forEmail:(NSString *)email;
+- (void)setEmailTags:(NSDictionary *)tags forEmail:(NSString *)email withCompletion:(void (^)(NSError *error))completion;
+
+#pragma mark - Registration with Tags
+
+- (void)registerForPushNotificationsWith:(NSDictionary *)tags;
+- (void)registerForPushNotificationsWith:(NSDictionary *)tags completion:(PushwooshRegistrationHandler)completion;
+
+#pragma mark - SMS and WhatsApp
+
+- (void)registerSmsNumber:(NSString *)number;
+- (void)registerWhatsappNumber:(NSString *)number;
+
+#pragma mark - Badge
+
+- (void)sendBadges:(NSInteger)badge;
+
+#pragma mark - User Management
+
+- (void)setUserId:(NSString *)userId;
+- (void)setUserId:(NSString *)userId completion:(void (^)(NSError *error))completion;
+- (void)setEmails:(NSArray *)emails;
+- (void)setEmails:(NSArray *)emails completion:(void (^)(NSError *error))completion;
+- (void)setUser:(NSString *)userId emails:(NSArray *)emails;
+- (void)setUser:(NSString *)userId emails:(NSArray *)emails completion:(void (^)(NSError *error))completion;
+- (void)setUser:(NSString *)userId email:(NSString *)email completion:(void (^)(NSError *error))completion;
+- (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void (^)(NSError *error))completion;
+
+#pragma mark - Reverse Proxy
+
+- (void)setReverseProxy:(NSString *)url;
+- (void)disableReverseProxy;
+
+#pragma mark - URL Handling
+
+#if TARGET_OS_IOS || TARGET_OS_WATCH
+- (BOOL)handleOpenURL:(NSURL *)url;
+#endif
+
+#pragma mark - Purchases (iOS only)
+
+#if TARGET_OS_IOS
+- (void)sendPurchase:(NSString *)productIdentifier withPrice:(NSDecimalNumber *)price currencyCode:(NSString *)currencyCode andDate:(NSDate *)date;
+#endif
+
+#pragma mark - Utility
+
++ (void)clearNotificationCenter;
++ (NSString *)version;
+
 @end

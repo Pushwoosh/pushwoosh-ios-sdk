@@ -6,12 +6,45 @@
 
 Returns the current user identifier.
 
-## Discussion
+## Overview
 
-Retrieves the user ID that was previously set using `setUserId:`. If no user ID has been set, this method returns the Hardware ID (HWID) as the default identifier.
+The user ID is used to identify users across multiple devices and sessions. This enables:
+- Cross-device push notification targeting
+- User-level analytics and segmentation
+- Merging user data when users log in on new devices
 
-The user ID defaults to the HWID until explicitly set with `setUserId:`.
+## Default Behavior
 
-## Returns
+If no custom user ID has been set via ``setUserId(_:)``, this method returns the Hardware ID (HWID) as the default identifier.
 
-The current user identifier, or the HWID if no user ID has been set
+## Example
+
+Sync Pushwoosh user ID with your analytics platform:
+
+```swift
+func setupAnalytics() {
+    let userId = Pushwoosh.configure.getUserId()
+
+    Analytics.shared.identify(userId)
+    Crashlytics.setUserID(userId)
+}
+```
+
+Include user ID in support tickets:
+
+```swift
+func createSupportTicket(issue: String) -> SupportTicket {
+    return SupportTicket(
+        userId: Pushwoosh.configure.getUserId(),
+        hwid: Pushwoosh.configure.getHWID(),
+        issue: issue,
+        appVersion: Bundle.main.appVersion
+    )
+}
+```
+
+## See Also
+
+- ``Pushwoosh/setUserId(_:)``
+- ``Pushwoosh/setUserId(_:completion:)``
+- ``Pushwoosh/getHWID()``

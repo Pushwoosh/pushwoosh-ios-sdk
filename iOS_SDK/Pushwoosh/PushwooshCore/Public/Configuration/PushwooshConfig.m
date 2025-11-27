@@ -135,4 +135,132 @@
 }
 #endif
 
+#pragma mark - Tags with Completion
+
++ (void)setTags:(NSDictionary *)tags completion:(void (^)(NSError *error))completion {
+    [[PWManagerBridge shared] setTags:tags withCompletion:completion];
+}
+
++ (void)setEmailTags:(NSDictionary *)tags forEmail:(NSString *)email {
+    [[PWManagerBridge shared] setEmailTags:tags forEmail:email];
+}
+
++ (void)setEmailTags:(NSDictionary *)tags forEmail:(NSString *)email completion:(void (^)(NSError *error))completion {
+    [[PWManagerBridge shared] setEmailTags:tags forEmail:email withCompletion:completion];
+}
+
++ (void)getTags:(PushwooshGetTagsHandler)successHandler onFailure:(PushwooshErrorHandler)errorHandler {
+    [[PWManagerBridge shared] loadTags:successHandler error:errorHandler];
+}
+
+#pragma mark - Registration with Completion
+
++ (void)registerForPushNotificationsWithCompletion:(PushwooshRegistrationHandler)completion {
+    [[PWManagerBridge shared] registerForPushNotificationsWithCompletion:completion];
+}
+
++ (void)registerForPushNotificationsWith:(NSDictionary *)tags {
+    [[PWManagerBridge shared] registerForPushNotificationsWith:tags];
+}
+
++ (void)registerForPushNotificationsWith:(NSDictionary *)tags completion:(PushwooshRegistrationHandler)completion {
+    [[PWManagerBridge shared] registerForPushNotificationsWith:tags completion:completion];
+}
+
+#pragma mark - SMS and WhatsApp
+
++ (void)registerSmsNumber:(NSString *)number {
+    [[PWManagerBridge shared] registerSmsNumber:number];
+}
+
++ (void)registerWhatsappNumber:(NSString *)number {
+    [[PWManagerBridge shared] registerWhatsappNumber:number];
+}
+
+#pragma mark - Email with Completion
+
++ (void)setEmail:(NSString *)email completion:(void (^)(NSError *error))completion {
+    [[PWManagerBridge shared] setEmails:@[email] completion:completion];
+}
+
++ (void)setEmails:(NSArray *)emails {
+    [[PWManagerBridge shared] setEmails:emails];
+}
+
++ (void)setEmails:(NSArray *)emails completion:(void (^)(NSError *error))completion {
+    [[PWManagerBridge shared] setEmails:emails completion:completion];
+}
+
+#pragma mark - User Management
+
++ (void)setUserId:(NSString *)userId completion:(void (^)(NSError *error))completion {
+    [[PWManagerBridge shared] setUserId:userId completion:completion];
+}
+
++ (void)setUser:(NSString *)userId emails:(NSArray *)emails {
+    [[PWManagerBridge shared] setUser:userId emails:emails];
+}
+
++ (void)setUser:(NSString *)userId emails:(NSArray *)emails completion:(void (^)(NSError *error))completion {
+    [[PWManagerBridge shared] setUser:userId emails:emails completion:completion];
+}
+
++ (void)setUser:(NSString *)userId email:(NSString *)email completion:(void (^)(NSError *error))completion {
+    [[PWManagerBridge shared] setUser:userId email:email completion:completion];
+}
+
++ (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void (^)(NSError *error))completion {
+    [[PWManagerBridge shared] mergeUserId:oldUserId to:newUserId doMerge:doMerge completion:completion];
+}
+
+#pragma mark - Reverse Proxy
+
++ (void)setReverseProxy:(NSString *)url {
+    [[PWManagerBridge shared] setReverseProxy:url];
+}
+
++ (void)disableReverseProxy {
+    [[PWManagerBridge shared] disableReverseProxy];
+}
+
+#pragma mark - Badge
+
++ (void)sendBadges:(NSInteger)badge {
+    [[PWManagerBridge shared] sendBadges:badge];
+}
+
+#pragma mark - URL Handling
+
+#if TARGET_OS_IOS || TARGET_OS_WATCH
++ (BOOL)handleOpenURL:(NSURL *)url {
+    return [[PWManagerBridge shared] handleOpenURL:url];
+}
+#endif
+
+#pragma mark - Purchases (iOS only)
+
+#if TARGET_OS_IOS
++ (void)sendSKPaymentTransactions:(NSArray *)transactions {
+    [[PWManagerBridge shared] sendSKPaymentTransactions:transactions];
+}
+
++ (void)sendPurchase:(NSString *)productIdentifier withPrice:(NSDecimalNumber *)price currencyCode:(NSString *)currencyCode andDate:(NSDate *)date {
+    [[PWManagerBridge shared] sendPurchase:productIdentifier withPrice:price currencyCode:currencyCode andDate:date];
+}
+#endif
+
+#pragma mark - Utility
+
++ (void)clearNotificationCenter {
+    [PWManagerBridge clearNotificationCenter];
+}
+
++ (NSString *)version {
+    return [PWManagerBridge version];
+}
+
++ (NSString *)getCustomPushData:(NSDictionary *)pushNotification {
+    return [[PWManagerBridge shared] getCustomPushData:pushNotification];
+}
+
 @end

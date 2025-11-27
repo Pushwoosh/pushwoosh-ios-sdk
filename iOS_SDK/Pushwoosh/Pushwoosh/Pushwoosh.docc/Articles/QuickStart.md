@@ -83,14 +83,14 @@ In your AppDelegate or App struct:
             func application(_ application: UIApplication,
                             didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-                Pushwoosh.sharedInstance().registerForPushNotifications()
+                Pushwoosh.configure.registerForPushNotifications()
 
                 return true
             }
 
             func application(_ application: UIApplication,
                             didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-                Pushwoosh.sharedInstance().handlePushRegistration(deviceToken)
+                Pushwoosh.configure.handlePushRegistration(deviceToken)
             }
         }
         ```
@@ -108,14 +108,14 @@ In your AppDelegate or App struct:
         - (BOOL)application:(UIApplication *)application
                 didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
 
-            [[Pushwoosh sharedInstance] registerForPushNotifications];
+            [Pushwoosh.configure registerForPushNotifications];
 
             return YES;
         }
 
         - (void)application:(UIApplication *)application
                 didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken {
-            [[Pushwoosh sharedInstance] handlePushRegistration:deviceToken];
+            [Pushwoosh.configure handlePushRegistration:deviceToken];
         }
 
         @end

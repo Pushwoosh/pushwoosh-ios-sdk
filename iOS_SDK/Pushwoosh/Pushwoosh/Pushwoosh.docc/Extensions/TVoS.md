@@ -6,15 +6,37 @@
 
 Provides access to tvOS-specific functionality.
 
-## Discussion
+## Overview
 
-Use this property to access tvOS-specific APIs for Apple TV applications. This interface provides methods tailored for the tvOS platform, including handling push notifications on Apple TV.
+APIs for Apple TV applications. Use this when building tvOS targets to handle push notifications on Apple TV devices.
+
+## Platform Availability
 
 This property is only available when building for tvOS targets.
 
-Access tvOS methods through this property:
+## Example
+
+Handle tvOS notifications:
 
 ```swift
-Pushwoosh.TVoS.handleTVOSNotification()
+#if os(tvOS)
+func application(_ application: UIApplication,
+                didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    Pushwoosh.configure.delegate = self
+    Pushwoosh.configure.registerForPushNotifications()
+
+    return true
+}
+
+func application(_ application: UIApplication,
+                didReceiveRemoteNotification userInfo: [AnyHashable: Any]) {
+    Pushwoosh.TVoS.handleTVOSNotification(userInfo)
+}
+#endif
 ```
 
+## See Also
+
+- ``Pushwoosh/configure``
+- ``Pushwoosh/registerForPushNotifications()``

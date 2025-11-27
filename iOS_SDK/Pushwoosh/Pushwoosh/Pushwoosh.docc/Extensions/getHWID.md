@@ -6,12 +6,66 @@
 
 Returns the Pushwoosh Hardware ID (HWID) for this device.
 
-## Discussion
+## Overview
 
-The HWID is a unique device identifier used in all Pushwoosh API calls and for device tracking in the Pushwoosh Control Panel. On iOS, this corresponds to `UIDevice.identifierForVendor`.
+The HWID (Hardware ID) is a unique device identifier that Pushwoosh uses to identify devices across all API operations. This identifier is essential for:
 
-The HWID is generated on first SDK initialization and persists across app launches. Use this identifier to reference the device in Pushwoosh API calls.
+- Tracking devices in Pushwoosh Control Panel
+- Server-to-server API calls
+- Matching user data across different systems
+- Analytics and reporting
 
-## Returns
+## Platform-Specific Implementation
 
-The unique Pushwoosh device identifier
+| Platform | Underlying Identifier |
+|----------|----------------------|
+| iOS | `UIDevice.identifierForVendor` |
+| macOS | `IOPlatformUUID` |
+
+## Lifecycle
+
+The HWID is generated on first SDK initialization and persists across:
+- App launches
+- App updates
+- SDK updates
+
+The HWID will change if:
+- User reinstalls the app (iOS)
+- User deletes all apps from the same vendor (iOS)
+
+## Example
+
+Sync device identifier with your backend for cross-system user matching:
+
+```swift
+func syncDeviceWithBackend(userId: String) {
+    let hwid = Pushwoosh.configure.getHWID()
+
+    let payload: [String: Any] = [
+        "hwid": hwid,
+        "userId": userId,
+        "platform": "ios"
+    ]
+
+    apiClient.post("/devices/register", body: payload)
+}
+```
+
+Use HWID for server-to-server push notification targeting:
+
+```swift
+func sendPushFromServer(to userId: String, message: String) {
+    let hwid = Pushwoosh.configure.getHWID()
+
+    serverAPI.sendPush(
+        targetHWID: hwid,
+        content: message
+    )
+}
+```
+
+## See Also
+
+- ``Pushwoosh/getPushToken()``
+- ``Pushwoosh/getUserId()``
+- ``Pushwoosh/setUserId(_:)``

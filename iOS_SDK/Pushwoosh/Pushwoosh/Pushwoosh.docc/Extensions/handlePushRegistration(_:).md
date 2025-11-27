@@ -6,12 +6,43 @@
 
 Manually handles the device push token registration.
 
-## Discussion
+## Overview
 
-Call this method from your AppDelegate's `application:didRegisterForRemoteNotificationsWithDeviceToken:` to forward the device token to Pushwoosh. The SDK normally handles this automatically, but you can call this method directly if you're managing the registration flow manually.
+Forwards the APNs device token to Pushwoosh for push notification delivery.
 
-The device token is sent to Pushwoosh servers for push notification delivery to this specific device.
+## Automatic vs Manual Handling
 
-## Parameters
+The SDK handles token registration automatically in most cases. Use this method only when:
+- Using custom push notification setup
+- Integrating multiple push providers
+- Implementing manual swizzling control
 
-- devToken: The device token received from APNs
+## Example
+
+Standard AppDelegate implementation:
+
+```swift
+func application(_ application: UIApplication,
+                didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    Pushwoosh.configure.handlePushRegistration(deviceToken)
+}
+```
+
+With multiple push providers:
+
+```swift
+func application(_ application: UIApplication,
+                didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+    Pushwoosh.configure.handlePushRegistration(deviceToken)
+
+    FirebaseMessaging.messaging().apnsToken = deviceToken
+
+    OtherPushProvider.shared.registerToken(deviceToken)
+}
+```
+
+## See Also
+
+- ``Pushwoosh/handlePushRegistrationFailure(_:)``
+- ``Pushwoosh/registerForPushNotifications()``
+- ``Pushwoosh/getPushToken()``

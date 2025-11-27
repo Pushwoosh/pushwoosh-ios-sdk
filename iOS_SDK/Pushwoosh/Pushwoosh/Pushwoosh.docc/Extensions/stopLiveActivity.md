@@ -6,8 +6,27 @@
 
 Stops the current live activity.
 
-## Discussion
+## Overview
 
-**Deprecated since 6.8.0**: Use `Pushwoosh.LiveActivities.stopLiveActivity` instead.
+> Deprecated: Use ``Pushwoosh/LiveActivities`` API instead:
+> ```swift
+> Pushwoosh.LiveActivities.stopLiveActivity()
+> ```
 
-Call this method when you finish working with a live activity. This notifies the server that the live activity has ended.
+Notifies Pushwoosh servers that a Live Activity has ended.
+
+## Example
+
+End delivery tracking:
+
+```swift
+func completeDelivery() async {
+    await activity.end(dismissalPolicy: .immediate)
+
+    try? await Pushwoosh.LiveActivities.stopLiveActivity()
+}
+```
+
+## See Also
+
+- ``Pushwoosh/LiveActivities``

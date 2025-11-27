@@ -6,10 +6,45 @@
 
 Returns the Pushwoosh SDK version.
 
-## Discussion
+## Overview
 
-Retrieves the current version string of the Pushwoosh SDK. Useful for debugging and support purposes.
+Retrieves the current version string of the Pushwoosh SDK. Useful for:
+- Debugging and troubleshooting
+- Support tickets
+- Analytics and logging
+- Version-specific feature checks
 
-## Returns
+## Example
 
-The SDK version string (e.g., "6.12.1")
+Include SDK version in support tickets:
+
+```swift
+func createSupportTicket(issue: String) -> SupportTicket {
+    return SupportTicket(
+        issue: issue,
+        sdkVersion: Pushwoosh.version(),
+        appVersion: Bundle.main.appVersion,
+        hwid: Pushwoosh.configure.getHWID(),
+        osVersion: UIDevice.current.systemVersion
+    )
+}
+```
+
+Log SDK version on app launch:
+
+```swift
+func application(_ application: UIApplication,
+                didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    Analytics.log("app_launched", [
+        "pushwoosh_version": Pushwoosh.version(),
+        "app_version": Bundle.main.appVersion
+    ])
+
+    return true
+}
+```
+
+## See Also
+
+- ``Pushwoosh/getHWID()``

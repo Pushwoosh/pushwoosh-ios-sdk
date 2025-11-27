@@ -61,91 +61,41 @@ Before you begin, make sure you have:
 
 ### 2. Initialize in AppDelegate
 
-@TabNavigator {
-    @Tab("Swift") {
-        ```swift
-        func application(_ application: UIApplication,
-                        didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+```swift
+func application(_ application: UIApplication,
+                didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-            Pushwoosh.sharedInstance().registerForPushNotifications()
+    Pushwoosh.configure.registerForPushNotifications()
 
-            return true
-        }
-        ```
-    }
-
-    @Tab("Objective-C") {
-        ```objc
-        - (BOOL)application:(UIApplication *)application
-                didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-            [[Pushwoosh sharedInstance] registerForPushNotifications];
-
-            return YES;
-        }
-        ```
-    }
+    return true
 }
+```
 
 ### 3. Handle Push Notifications
 
 Implement `PWMessagingDelegate` to receive push notification events:
 
-@TabNavigator {
-    @Tab("Swift") {
-        ```swift
-        class AppDelegate: UIResponder, UIApplicationDelegate, PWMessagingDelegate {
+```swift
+class AppDelegate: UIResponder, UIApplicationDelegate, PWMessagingDelegate {
 
-            func application(_ application: UIApplication,
-                            didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+    func application(_ application: UIApplication,
+                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-                Pushwoosh.sharedInstance().delegate = self
-                Pushwoosh.sharedInstance().registerForPushNotifications()
+        Pushwoosh.configure.delegate = self
+        Pushwoosh.configure.registerForPushNotifications()
 
-                return true
-            }
-
-            func pushwoosh(_ pushwoosh: Pushwoosh, onMessageReceived message: PWMessage) {
-                print("Push notification received: \(message.payload)")
-            }
-
-            func pushwoosh(_ pushwoosh: Pushwoosh, onMessageOpened message: PWMessage) {
-                print("Push notification opened: \(message.payload)")
-            }
-        }
-        ```
+        return true
     }
 
-    @Tab("Objective-C") {
-        ```objc
-        @interface AppDelegate : UIResponder <UIApplicationDelegate, PWMessagingDelegate>
-        @end
+    func pushwoosh(_ pushwoosh: Pushwoosh, onMessageReceived message: PWMessage) {
+        print("Push notification received: \(message.payload)")
+    }
 
-        @implementation AppDelegate
-
-        - (BOOL)application:(UIApplication *)application
-                didFinishLaunchingWithOptions:(NSDictionary *)launchOptions {
-
-            [Pushwoosh sharedInstance].delegate = self;
-            [[Pushwoosh sharedInstance] registerForPushNotifications];
-
-            return YES;
-        }
-
-        - (void)pushwoosh:(Pushwoosh *)pushwoosh
-                onMessageReceived:(PWMessage *)message {
-            NSLog(@"Push notification received: %@", message.payload);
-        }
-
-        - (void)pushwoosh:(Pushwoosh *)pushwoosh
-                onMessageOpened:(PWMessage *)message {
-            NSLog(@"Push notification opened: %@", message.payload);
-        }
-
-        @end
-        ```
+    func pushwoosh(_ pushwoosh: Pushwoosh, onMessageOpened message: PWMessage) {
+        print("Push notification opened: \(message.payload)")
     }
 }
+```
 
 ### 4. Add Push Notification Capability
 

@@ -6,12 +6,60 @@
 
 Sends in-app purchase transactions to Pushwoosh.
 
-## Discussion
+## Overview
 
-Tracks in-app purchases by forwarding StoreKit payment transactions to Pushwoosh. This enables purchase-based analytics and user segmentation.
+Automatically tracks StoreKit purchases for:
+- Revenue analytics in Pushwoosh Control Panel
+- Purchase-based user segmentation
+- Conversion tracking
+- LTV (Lifetime Value) calculations
 
-Call this method from your `SKPaymentTransactionObserver`'s `paymentQueue:updatedTransactions:` method to automatically track all purchases.
+This is the recommended method for tracking StoreKit purchases.
 
-## Parameters
+## Example
 
-- transactions: Array of SKPaymentTransaction items received from the payment queue
+Track purchases in payment queue observer:
+
+```swift
+class StoreManager: NSObject, SKPaymentTransactionObserver {
+
+    func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+        Pushwoosh.configure.sendSKPaymentTransactions(transactions)
+
+        for transaction in transactions {
+            switch transaction.transactionState {
+            case .purchased:
+                handlePurchase(transaction)
+                queue.finishTransaction(transaction)
+            case .failed:
+                handleFailure(transaction)
+                queue.finishTransaction(transaction)
+            case .restored:
+                handleRestore(transaction)
+                queue.finishTransaction(transaction)
+            default:
+                break
+            }
+        }
+    }
+}
+```
+
+Filter transactions before sending:
+
+```swift
+func paymentQueue(_ queue: SKPaymentQueue, updatedTransactions transactions: [SKPaymentTransaction]) {
+    let completedTransactions = transactions.filter {
+        $0.transactionState == .purchased || $0.transactionState == .restored
+    }
+
+    if !completedTransactions.isEmpty {
+        Pushwoosh.configure.sendSKPaymentTransactions(completedTransactions)
+    }
+}
+```
+
+## See Also
+
+- ``Pushwoosh/sendPurchase(_:withPrice:currencyCode:andDate:)``
+- ``PWPurchaseDelegate``

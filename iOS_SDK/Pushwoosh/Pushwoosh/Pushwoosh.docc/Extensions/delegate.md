@@ -6,9 +6,58 @@
 
 Delegate that receives push notification events.
 
-## Discussion
+## Overview
 
-Set this property to an object conforming to `PWMessagingDelegate` to receive callbacks when push notifications are received or opened. The delegate receives information about events such as registering with APNs, receiving push notifications, and handling user interactions with notifications.
+Set this property to receive callbacks when:
+- Push notifications are received
+- User taps on a push notification
 
-Pushwoosh Runtime sets this to ApplicationDelegate by default, but you can override it with your own delegate object.
+The delegate must conform to ``PWMessagingDelegate`` protocol.
 
+## Default Behavior
+
+By default, Pushwoosh sets `AppDelegate` as the delegate if it conforms to `PWMessagingDelegate`. You can override this with any other object.
+
+## Example
+
+Set delegate in AppDelegate:
+
+```swift
+func application(_ application: UIApplication,
+                didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+    Pushwoosh.configure.delegate = self
+    Pushwoosh.configure.registerForPushNotifications()
+
+    return true
+}
+```
+
+Use a dedicated notification handler:
+
+```swift
+class NotificationHandler: NSObject, PWMessagingDelegate {
+    static let shared = NotificationHandler()
+
+    func pushwoosh(_ pushwoosh: Pushwoosh, onMessageReceived message: PWMessage) {
+        NotificationCenter.default.post(
+            name: .pushReceived,
+            object: nil,
+            userInfo: ["message": message]
+        )
+    }
+
+    func pushwoosh(_ pushwoosh: Pushwoosh, onMessageOpened message: PWMessage) {
+        DeepLinkRouter.shared.handle(message.customData)
+    }
+}
+
+// In AppDelegate
+Pushwoosh.configure.delegate = NotificationHandler.shared
+```
+
+## See Also
+
+- ``PWMessagingDelegate``
+- ``PWMessagingDelegate/pushwoosh(_:onMessageReceived:)``
+- ``PWMessagingDelegate/pushwoosh(_:onMessageOpened:)``

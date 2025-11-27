@@ -6,26 +6,74 @@
 
 Registers the device for push notifications with a completion handler.
 
-## Discussion
+## Overview
 
-This method initiates the push notification registration process and provides a callback when the operation completes. Use this when you need to know whether registration succeeded and want to receive the push token.
+Same as ``registerForPushNotifications()`` but provides a completion callback with the registration result.
 
-When called, the system displays a permission dialog to the user asking them to allow notifications. Once the user grants permission, the device receives a push token from APNs which is provided to the completion handler.
-
-The registration process is asynchronous. Handle the push token in the completion block.
-
-## Parameters
-
-- completion: Block called when registration completes. Receives the push token string on success, or an error on failure.
+Use this variant when you need to:
+- Confirm registration succeeded
+- Get the push token immediately
+- Handle registration errors
+- Chain operations after registration
 
 ## Example
 
+Register and wait for result:
+
 ```swift
-Pushwoosh.sharedInstance().registerForPushNotifications { token, error in
-    if let token = token {
-        print("Successfully registered with token: \(token)")
-    } else if let error = error {
-        print("Registration failed: \(error.localizedDescription)")
+func enablePushNotifications() {
+    Pushwoosh.configure.registerForPushNotifications { token, error in
+        if let error = error {
+            self.showError("Push registration failed: \(error.localizedDescription)")
+            return
+        }
+
+        if let token = token {
+            self.syncTokenWithBackend(token)
+        }
+
+        self.updateUI(pushEnabled: true)
     }
 }
 ```
+
+Register with async/await:
+
+```swift
+func enablePushNotifications() async throws -> String? {
+    try await withCheckedThrowingContinuation { continuation in
+        Pushwoosh.configure.registerForPushNotifications { token, error in
+            if let error = error {
+                continuation.resume(throwing: error)
+            } else {
+                continuation.resume(returning: token)
+            }
+        }
+    }
+}
+```
+
+Show different UI based on result:
+
+```swift
+func requestPushPermission() {
+    Pushwoosh.configure.registerForPushNotifications { token, error in
+        DispatchQueue.main.async {
+            if token != nil {
+                self.showSuccessState()
+            } else if let error = error as NSError?,
+                      error.code == 3010 {
+                self.showPermissionDeniedState()
+            } else {
+                self.showErrorState()
+            }
+        }
+    }
+}
+```
+
+## See Also
+
+- ``Pushwoosh/registerForPushNotifications()``
+- ``Pushwoosh/unregisterForPushNotifications(completion:)``
+- ``Pushwoosh/getPushToken()``

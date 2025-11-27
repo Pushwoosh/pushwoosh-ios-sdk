@@ -6,15 +6,60 @@
 
 Tracks an individual in-app purchase.
 
-## Discussion
+## Overview
 
-Manually reports a single in-app purchase to Pushwoosh for analytics and segmentation. For automatic tracking, use the recommended `sendSKPaymentTransactions:` method instead.
+Manually reports a purchase to Pushwoosh for:
+- Revenue analytics
+- Purchase-based segmentation
+- Conversion tracking
+- LTV calculations
 
-This method is useful when you need granular control over purchase tracking or are using a non-standard payment system.
+## Automatic vs Manual Tracking
 
-## Parameters
+For StoreKit purchases, prefer ``sendSKPaymentTransactions(_:)`` which handles tracking automatically. Use this method for:
+- Custom payment systems (Stripe, RevenueCat, etc.)
+- Server-side purchase verification
+- Non-StoreKit purchases
 
-- productIdentifier: The purchased product ID
-- price: The price paid for the product
-- currencyCode: The currency code (e.g., "USD", "EUR")
-- date: The time of purchase
+## Example
+
+Track purchase from custom payment system:
+
+```swift
+func handlePurchaseComplete(product: Product, transaction: PaymentTransaction) {
+    Pushwoosh.configure.sendPurchase(
+        product.identifier,
+        withPrice: NSDecimalNumber(decimal: transaction.amount),
+        currencyCode: transaction.currency,
+        andDate: transaction.date
+    )
+
+    Analytics.log("purchase_tracked", [
+        "product": product.identifier,
+        "amount": transaction.amount
+    ])
+}
+```
+
+Track subscription purchase:
+
+```swift
+func trackSubscriptionPurchase(subscription: Subscription) {
+    Pushwoosh.configure.sendPurchase(
+        subscription.productId,
+        withPrice: NSDecimalNumber(value: subscription.price),
+        currencyCode: subscription.currencyCode,
+        andDate: Date()
+    )
+
+    Pushwoosh.configure.setTags([
+        "subscription_tier": subscription.tier,
+        "subscription_expiry": subscription.expiryDate
+    ])
+}
+```
+
+## See Also
+
+- ``Pushwoosh/sendSKPaymentTransactions(_:)``
+- ``Pushwoosh/setTags(_:)``

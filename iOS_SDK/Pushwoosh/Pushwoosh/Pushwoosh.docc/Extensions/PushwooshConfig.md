@@ -6,16 +6,54 @@
 
 Configuration interface for the Pushwoosh SDK.
 
-## Discussion
+## Overview
 
-The `PushwooshConfig` class provides static methods for configuring the Pushwoosh SDK. Access these methods through the `Pushwoosh.configure` property to set up your application code, API tokens, and other SDK settings.
+`PushwooshConfig` provides static methods for SDK configuration. Access all methods through `Pushwoosh.configure`.
 
-This class implements the `PWConfiguration` protocol, providing all configuration methods needed to initialize and customize the SDK behavior.
+## Configuration Categories
 
-Access configuration methods through:
+### Registration
+- `registerForPushNotifications()`
+- `unregisterForPushNotifications()`
+
+### User Identity
+- `setUserId(_:)`
+- `setEmail(_:)`
+- `setTags(_:)`
+
+### Device Info
+- `getHWID()`
+- `getPushToken()`
+- `getUserId()`
+
+### Delegates
+- `delegate`
+- `purchaseDelegate`
+
+## Example
+
+Complete setup example:
 
 ```swift
-Pushwoosh.configure.setAppCode("YOUR-APP-CODE")
-Pushwoosh.configure.registerForPushNotifications()
+class AppDelegate: UIResponder, UIApplicationDelegate, PWMessagingDelegate {
+
+    func application(_ application: UIApplication,
+                    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+        Pushwoosh.configure.delegate = self
+        Pushwoosh.configure.showPushnotificationAlert = true
+        Pushwoosh.configure.registerForPushNotifications()
+
+        return true
+    }
+
+    func pushwoosh(_ pushwoosh: Pushwoosh, onMessageOpened message: PWMessage) {
+        handleDeepLink(from: message)
+    }
+}
 ```
 
+## See Also
+
+- ``PWConfiguration``
+- ``Pushwoosh/configure``
