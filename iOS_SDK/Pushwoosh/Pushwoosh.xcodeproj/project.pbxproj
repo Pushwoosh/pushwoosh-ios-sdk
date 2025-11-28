@@ -541,7 +541,7 @@
 		F49D19D107BC53D72703398E /* PWPurchaseRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = EED9413E71126F748F0DC476 /* PWPurchaseRuntime.m */; };
 		F638548EB5D2EB0859A71806 /* PWWebClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 17AC27ABBF3AEB0E7E41F9B5 /* PWWebClient.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		F77ECB032C657FA9CB13B464 /* PWSetTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2DB4997C7591095F0F771D /* PWSetTagsRequest.m */; };
-		F8F6EE5325E82365D5E6F59E /* PWRichMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = A81AA5E8A056C974E195F3DF /* PWRichMedia.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F8F6EE5325E82365D5E6F59E /* PWRichMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = A81AA5E8A056C974E195F3DF /* PWRichMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBA0CC2F5E791F5B349E131C /* PWBasePushTrackingRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C50E5E8A993D99ABB1AF81 /* PWBasePushTrackingRequest.m */; };
 		FBF5215E7ECD74F3C8F91F4F /* PWMessageViewController.ios.h in Headers */ = {isa = PBXBuildFile; fileRef = 2FA1588D6EF518239F0B4240 /* PWMessageViewController.ios.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		FD55608E333015A882899CE8 /* PWShowLoading.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E41742D39B2C320521269CF /* PWShowLoading.h */; };

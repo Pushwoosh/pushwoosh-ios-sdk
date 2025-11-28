@@ -39,9 +39,9 @@
  	};
 	NSDictionary * expectedDict = @{
 		@"attributes" :  @{
-			@"testArray" : @[ @"123", @"qwe", @"1" ],
-			@"testBoolFalse" : @"0",
-			@"testBoolTrue" : @"1",
+			@"testArray" : @[ @"123", @"qwe", @YES ],
+			@"testBoolFalse" : @NO,
+			@"testBoolTrue" : @YES,
 			@"testDate" : @"1970-01-01 00:24",
 			@"testNull" : @"null",
 			@"testNumber" : @"42",

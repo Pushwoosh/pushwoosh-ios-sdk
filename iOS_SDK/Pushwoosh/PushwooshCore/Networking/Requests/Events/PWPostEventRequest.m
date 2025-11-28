@@ -56,7 +56,7 @@
 	if ([attribute isKindOfClass:[NSNull class]]) {
 		return @"null";
 	} else if ([attribute isKindOfClass:[NSArray class]]) {
-		// convert [123, 456, "someString"] to ["123", "456", "someString"]
+        // convert [123, 456, "someString"] to ["123", "456", "someString"]
 		NSMutableArray *convertedArray = [NSMutableArray new];
 		for (id value in(NSArray *)attribute) {
 			[convertedArray addObject:[self convertAttribute:value]];
@@ -66,12 +66,10 @@
         if ([_event isEqualToString:@"PW_InAppPurchase"]) {
              return (NSDecimalNumber *)attribute;
         }
-        // convert @YES to "1" and @NO to "0"
-		NSNumber *numericAttribute = (NSNumber *)attribute;
-		if (!strcmp([numericAttribute objCType], @encode(BOOL))) {
-			BOOL value = [numericAttribute boolValue];
-			return value ? @"1" : @"0";
-		}
+        // Check if it's a boolean (works for both Objective-C and Swift booleans)
+        if (attribute == (id)kCFBooleanTrue || attribute == (id)kCFBooleanFalse) {
+            return attribute;
+        }
 	} else if ([attribute isKindOfClass:[NSDate class]]) {
 		NSDate *dateAttribute = (NSDate *)attribute;
         return dateAttribute.pw_formattedDate;

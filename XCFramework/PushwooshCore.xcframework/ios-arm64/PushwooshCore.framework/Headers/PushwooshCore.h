@@ -22,6 +22,7 @@
 #import <PushwooshCore/PWInAppManager.h>
 #import <PushwooshCore/PWInlineInAppView.h>
 #import <PushwooshCore/PWRichMediaManager.h>
+#import <PushwooshCore/PWRichMedia.h>
 #import <PushwooshCore/PWModalWindowConfiguration.h>
 #import <PushwooshCore/PWRichMediaStyle.h>
 #import <PushwooshCore/PWRichMediaTypes.h>
@@ -40,7 +41,7 @@
 #import <PushwooshCore/PWBasePushTrackingRequest.h>
 #import <PushwooshCore/PWMessage+Internal.h>
 
-#define PUSHWOOSH_VERSION @"7.0.7"
+#define PUSHWOOSH_VERSION @"7.0.8"
 
 @interface PushwooshCoreManager : NSObject
 

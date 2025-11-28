@@ -108,6 +108,10 @@
 		<data>
 		Hd7h/uxqq48JZ5kwGHmwBVogxsc=
 		</data>
+		<key>Headers/PWRichMedia.h</key>
+		<data>
+		Mkp+17mh73beU7PjBldd3YhN1Ts=
+		</data>
 		<key>Headers/PWRichMediaManager.h</key>
 		<data>
 		g7ud3soZ33AxS9RCIp/zS3y5qE8=
@@ -130,7 +134,7 @@
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		7E49g2HR3nc2kEq5WTEo6KludnE=
+		oS/+oGcnk5mx2cfCrPpHViZPas0=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -239,10 +243,6 @@
 		<key>PrivateHeaders/PWRichMedia+Internal.h</key>
 		<data>
 		uj5T4K6QF//+ldeSzRRe2mURlrI=
-		</data>
-		<key>PrivateHeaders/PWRichMedia.h</key>
-		<data>
-		Mkp+17mh73beU7PjBldd3YhN1Ts=
 		</data>
 		<key>PrivateHeaders/PWRichMediaConfig.h</key>
 		<data>
@@ -473,6 +473,13 @@
 			QIygbMSjR3tfFUoH80esOEfeHCB40g4EdzRiucYJI3A=
 			</data>
 		</dict>
+		<key>Headers/PWRichMedia.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			KBz/qxdQ+zb1a+wg0Hdh/MRQvJvxdDwkBL9SYkJ3O6A=
+			</data>
+		</dict>
 		<key>Headers/PWRichMediaManager.h</key>
 		<dict>
 			<key>hash2</key>
@@ -512,7 +519,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			NzIWP8ByBDnLxjCHD2b0DQ6ZEYKWIvXUM2nh/0gybus=
+			AhzuVuMEmxkVwTUsDqhLjiyNqaxX5yFQe4vLsBOoUJU=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -695,13 +702,6 @@
 			<key>hash2</key>
 			<data>
 			qQ5pOWB6ua67pZWnGWSkYKJlqkqt+CkBSv0cC/7BFek=
-			</data>
-		</dict>
-		<key>PrivateHeaders/PWRichMedia.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			KBz/qxdQ+zb1a+wg0Hdh/MRQvJvxdDwkBL9SYkJ3O6A=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWRichMediaConfig.h</key>
