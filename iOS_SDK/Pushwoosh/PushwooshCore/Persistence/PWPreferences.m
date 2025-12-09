@@ -18,7 +18,6 @@
 #endif
 
 static NSString *const KeyAppId = @"Pushwoosh_APPID";
-static NSString *const KeyVoipAppId = @"Pushwoosh_VOIP_APPID";
 static NSString *const KeyInfoPlistAppId = @"Pushwoosh_INFO_PLIST_APPID";
 static NSString *const KeyAppName = @"Pushwoosh_APPNAME";
 static NSString *const KeyPushToken = @"PWPushUserId";
@@ -49,7 +48,6 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 @implementation PWPreferences
 
 @synthesize appCode = _appCode;
-@synthesize voipAppCode = _voipAppCode;
 @synthesize appName = _appName;
 @synthesize pushToken = _pushToken;
 @synthesize voipPushToken = _voipPushToken;
@@ -85,10 +83,6 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
         }
 
         [self setAppCode:[PWPreferences readAppId]];
-
-        _voipAppCode = [PWConfig config].voipAppId
-            ? [PWConfig config].voipAppId
-            : [[NSUserDefaults standardUserDefaults] objectForKey:KeyVoipAppId];
 
         _appName = [PWPreferences readAppName];
         _pushToken = [[NSUserDefaults standardUserDefaults] objectForKey:KeyPushToken];
@@ -587,36 +581,6 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
     }
 
     return NO;
-}
-
-#pragma mark - voip app code
-
-- (void)setVoipAppCode:(NSString *)voipAppCode {
-    @synchronized(_lock) {
-        _voipAppCode = [voipAppCode copy];
-
-        if ([PWPreferences checkAppCodeforChanges:voipAppCode]) {
-            [self resetApplicationSetting];
-        }
-    }
-
-    [[NSUserDefaults standardUserDefaults] setObject:voipAppCode forKey:KeyVoipAppId];
-    [[NSUserDefaults standardUserDefaults] synchronize];
-}
-
-- (NSString *)voipAppCode {
-    @synchronized(_lock) {
-        return [_voipAppCode copy];
-    }
-}
-
-+ (BOOL)checkVoipAppCodeforChanges:(NSString *)voipAppCode {
-    NSString *appid = [[NSUserDefaults standardUserDefaults] objectForKey:KeyVoipAppId];
-    if (appid != nil && ![appid isEqualToString:voipAppCode]) {
-        return YES;
-    } else {
-        return NO;
-    }
 }
 
 + (BOOL)verifyObject:(id)object {

@@ -48,14 +48,6 @@ public protocol PWVoIP {
      */
     @objc
     static func setVoIPToken(_ token: Data)
-    
-    /**
-     Configures the Pushwoosh VoIP App ID.
-
-     - Parameter voipAppId: A Pushwoosh App ID (format: XXXXX-XXXXX) configured for VoIP push notifications.
-     */
-    @objc
-    static func setPushwooshVoIPAppId(_ voipAppId: String)
 
     /**
      Sets the timeout duration for incoming VoIP calls.

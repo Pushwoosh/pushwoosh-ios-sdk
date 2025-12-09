@@ -18,12 +18,10 @@ final class VoipNetworkManagerTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         networkManager = VoipNetworkManager.shared
-        PWPreferences.preferencesInstance().voipAppCode = "TEST-VOIP-APP"
     }
 
     override func tearDownWithError() throws {
         networkManager = nil
-        PWPreferences.preferencesInstance().voipAppCode = ""
         try super.tearDownWithError()
     }
 

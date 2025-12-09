@@ -15,11 +15,11 @@ final class PWRequestVoIPDeviceUnregisterTests: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        PWPreferences.preferencesInstance().voipAppCode = "TEST-VOIP-APP"
+        PWPreferences.preferencesInstance().appCode = "TEST-APP"
     }
 
     override func tearDownWithError() throws {
-        PWPreferences.preferencesInstance().voipAppCode = ""
+        PWPreferences.preferencesInstance().appCode = ""
         try super.tearDownWithError()
     }
 

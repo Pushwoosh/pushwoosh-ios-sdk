@@ -39,11 +39,15 @@ final class PWSetVoIPTokenRequest: PWRequest, PWCoreSetVoIPTokenRequest {
                                       message: "Failed to create base dictionary")
             return [:]
         }
-        dict["application"] = PWPreferences.preferencesInstance().voipAppCode
-        dict["push_token"] = parameters.token ?? ""
+
+        dict["voip_push_token"] = parameters.token ?? ""
         dict["gateway"] = PWCoreUtils.getAPSProductionStatus(false) ? "production" : "sandbox"
         dict["device_type"] = 1
         dict["timezone"] = PWCoreUtils.timezone()
+
+        if let pushToken = PWPreferences.preferencesInstance().pushToken, !pushToken.isEmpty {
+            dict["push_token"] = pushToken
+        }
 
         return dict as! [AnyHashable: Any]
     }

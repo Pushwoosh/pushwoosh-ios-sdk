@@ -352,37 +352,6 @@
           },
           {
             "kind": "Function",
-            "name": "setPushwooshVoIPAppId",
-            "printedName": "setPushwooshVoIPAppId(_:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cm)setPushwooshVoIPAppId:",
-            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC03setaB7IPAppIdyySSFZ",
-            "moduleName": "PushwooshVoIP",
-            "static": true,
-            "objc_name": "setPushwooshVoIPAppId:",
-            "declAttributes": [
-              "Final",
-              "ObjC",
-              "AccessControl",
-              "RawDocComment"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
             "name": "setIncomingCallTimeout",
             "printedName": "setIncomingCallTimeout(_:)",
             "children": [
@@ -2968,38 +2937,6 @@
             "declKind": "Func",
             "usr": "s:15PushwooshBridge6PWVoIPP0a2VoD0E03setE7IPTokenyy10Foundation4DataVFZ",
             "mangledName": "$s15PushwooshBridge6PWVoIPP0a2VoD0E03setE7IPTokenyy10Foundation4DataVFZ",
-            "moduleName": "PushwooshVoIP",
-            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
-            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
-            "static": true,
-            "intro_iOS": "14.0",
-            "declAttributes": [
-              "Available",
-              "RawDocComment"
-            ],
-            "isFromExtension": true,
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "setPushwooshVoIPAppId",
-            "printedName": "setPushwooshVoIPAppId(_:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "s:15PushwooshBridge6PWVoIPP0a2VoD0E03setaE7IPAppIdyySSFZ",
-            "mangledName": "$s15PushwooshBridge6PWVoIPP0a2VoD0E03setaE7IPAppIdyySSFZ",
             "moduleName": "PushwooshVoIP",
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",

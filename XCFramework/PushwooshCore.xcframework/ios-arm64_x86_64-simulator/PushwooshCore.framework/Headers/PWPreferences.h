@@ -18,8 +18,6 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy) NSString *appCode;
 
-@property (copy) NSString *voipAppCode;
-
 @property (copy) NSString *appName;
 
 @property (copy, nullable) NSString *pushToken;

@@ -20,12 +20,7 @@ import Foundation
     public static func setVoIPToken(_ token: Data) {
         print("PushwooshVoIP not found. To enable VoIP features, make sure the PushwooshVoIP module is added to the project.")
     }
-    
-    @objc
-    public static func setPushwooshVoIPAppId(_ voipAppId: String) {
-        print("PushwooshVoIP not found. To enable VoIP features, make sure the PushwooshVoIP module is added to the project.")
-    }
-    
+
     @objc
     public static func initializeVoIP(_ supportVideo: Bool,
                                       ringtoneSound: String,

@@ -23,12 +23,10 @@ final class CallCancellationTests: XCTestCase {
         implementation = PushwooshVoIPImplementation.shared
         mockDelegate = MockVoIPDelegate()
         PushwooshVoIPImplementation.delegate = mockDelegate
-        PWPreferences.preferencesInstance().voipAppCode = "TEST-APP"
     }
 
     override func tearDownWithError() throws {
         PushwooshVoIPImplementation.delegate = nil
-        PWPreferences.preferencesInstance().voipAppCode = ""
         PWPreferences.preferencesInstance().voipPushToken = nil
         mockDelegate = nil
         try super.tearDownWithError()

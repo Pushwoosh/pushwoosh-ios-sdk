@@ -97,12 +97,6 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         shared.handleVoIPToken(token)
     }
 
-    /// Sets the Pushwoosh VoIP Application Code.
-    @objc
-    public static func setPushwooshVoIPAppId(_ voipAppId: String) {
-        shared.setPushwooshVoIPAppId(voipAppId)
-    }
-
     @objc
     public static func setIncomingCallTimeout(_ timeout: TimeInterval) {
         shared.syncQueue.async {
@@ -374,17 +368,16 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     }
     
     private func handleVoIPToken(_ token: Data) {
-        let requestParameters = VoIPRequestParameters(token: hexString(from: token))
+        let tokenString = hexString(from: token)
+        PWPreferences.preferencesInstance().voipPushToken = tokenString
+
+        let requestParameters = VoIPRequestParameters(token: tokenString)
         let request = PWSetVoIPTokenRequest(parameters: requestParameters)
         VoipNetworkManager.shared.sendInnerRequest(request: request) { error in
             self.handleVoIPTokenResult(error: error)
         }
     }
-    
-    private func setPushwooshVoIPAppId(_ voipAppId: String) {
-        PWPreferences.preferencesInstance().voipAppCode = voipAppId
-    }
-    
+
     private func unregisterVoIPDeviceRequest() {
         let requestParameters = VoIPRequestParameters(token: nil)
         let request = PWUnregisterVoIPDeviceRequest(parameters: requestParameters)
@@ -395,12 +388,12 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     
     private func handleVoIPDeviceUnregisterResult(error: Error?) {
         if let error = error {
-            PushwooshLog.pushwooshLog(.PW_LL_ERROR, 
+            PushwooshLog.pushwooshLog(.PW_LL_ERROR,
                                       className: self,
                                       message: "Failed device unregistered. Error: \(error.localizedDescription)")
         } else {
-            PWPreferences.preferencesInstance().pushToken = nil
-            PushwooshLog.pushwooshLog(.PW_LL_INFO, 
+            PWPreferences.preferencesInstance().voipPushToken = nil
+            PushwooshLog.pushwooshLog(.PW_LL_INFO,
                                       className: self,
                                       message: "VoIP device successfully unregistered.")
         }

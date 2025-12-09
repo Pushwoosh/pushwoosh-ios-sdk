@@ -857,10 +857,6 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWVoIP_")
 /// \endcode\param token The VoIP push token received from <code>PKPushRegistry</code>.
 ///
 + (void)setVoIPToken:(NSData * _Nonnull)token;
-/// Configures the Pushwoosh VoIP App ID.
-/// \param voipAppId A Pushwoosh App ID (format: XXXXX-XXXXX) configured for VoIP push notifications.
-///
-+ (void)setPushwooshVoIPAppId:(NSString * _Nonnull)voipAppId;
 /// Sets the timeout duration for incoming VoIP calls.
 /// When an incoming call is not answered within this timeout period, it will be automatically
 /// ended and reported to the system as an unanswered (missed) call.
@@ -908,7 +904,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;
 + (void)setDelegate:(id _Nullable)value;
 + (Class _Nonnull)voip SWIFT_WARN_UNUSED_RESULT;
 + (void)setVoIPToken:(NSData * _Nonnull)token;
-+ (void)setPushwooshVoIPAppId:(NSString * _Nonnull)voipAppId;
 + (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
 + (void)setIncomingCallTimeout:(NSTimeInterval)timeout;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
@@ -1781,10 +1776,6 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWVoIP_")
 /// \endcode\param token The VoIP push token received from <code>PKPushRegistry</code>.
 ///
 + (void)setVoIPToken:(NSData * _Nonnull)token;
-/// Configures the Pushwoosh VoIP App ID.
-/// \param voipAppId A Pushwoosh App ID (format: XXXXX-XXXXX) configured for VoIP push notifications.
-///
-+ (void)setPushwooshVoIPAppId:(NSString * _Nonnull)voipAppId;
 /// Sets the timeout duration for incoming VoIP calls.
 /// When an incoming call is not answered within this timeout period, it will be automatically
 /// ended and reported to the system as an unanswered (missed) call.
@@ -1832,7 +1823,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;
 + (void)setDelegate:(id _Nullable)value;
 + (Class _Nonnull)voip SWIFT_WARN_UNUSED_RESULT;
 + (void)setVoIPToken:(NSData * _Nonnull)token;
-+ (void)setPushwooshVoIPAppId:(NSString * _Nonnull)voipAppId;
 + (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
 + (void)setIncomingCallTimeout:(NSTimeInterval)timeout;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;

@@ -19,22 +19,12 @@ final class PushwooshVoIPTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         implementation = PushwooshVoIPImplementation.shared
-        PWPreferences.preferencesInstance().voipAppCode = ""
         PWPreferences.preferencesInstance().voipPushToken = nil
     }
 
     override func tearDownWithError() throws {
-        PWPreferences.preferencesInstance().voipAppCode = ""
         PWPreferences.preferencesInstance().voipPushToken = nil
         try super.tearDownWithError()
-    }
-
-    func testSetVoIPAppId() throws {
-        let testAppId = "VOIP-12345"
-
-        PushwooshVoIPImplementation.setPushwooshVoIPAppId(testAppId)
-
-        XCTAssertEqual(PWPreferences.preferencesInstance().voipAppCode, testAppId)
     }
 
     func testSharedInstanceIsSingleton() throws {
@@ -105,24 +95,13 @@ final class PushwooshVoIPTests: XCTestCase {
         XCTAssertNotNil(retrievedDelegate)
     }
 
-    func testSetVoIPTokenWithValidData() throws {
+    func testSetVoIPTokenSavesToPreferences() throws {
         let tokenData = Data([0x12, 0x34, 0x56, 0x78])
 
-        PWPreferences.preferencesInstance().voipAppCode = "TEST-APP"
         PushwooshVoIPImplementation.setVoIPToken(tokenData)
 
-        XCTAssertNotNil(PWPreferences.preferencesInstance().voipAppCode)
-    }
-
-    func testMultipleAppIdChanges() throws {
-        PushwooshVoIPImplementation.setPushwooshVoIPAppId("APP-1")
-        XCTAssertEqual(PWPreferences.preferencesInstance().voipAppCode, "APP-1")
-
-        PushwooshVoIPImplementation.setPushwooshVoIPAppId("APP-2")
-        XCTAssertEqual(PWPreferences.preferencesInstance().voipAppCode, "APP-2")
-
-        PushwooshVoIPImplementation.setPushwooshVoIPAppId("APP-3")
-        XCTAssertEqual(PWPreferences.preferencesInstance().voipAppCode, "APP-3")
+        XCTAssertNotNil(PWPreferences.preferencesInstance().voipPushToken)
+        XCTAssertEqual(PWPreferences.preferencesInstance().voipPushToken, "12345678")
     }
 
     func testRawPayloadFiltersNSNull() throws {

@@ -270,7 +270,7 @@ public class PushwooshForegroundPushImplementation: NSObject {
             
             disappearedAnimation(animation: animation, view: notificationView)
         }
-#if compiler(>=5.13)
+#if compiler(>=5.13) && swift(>=6.2)
         @available(iOS 26.0, *)
         func showGlassNotification(with image: UIImage?,
                                    animation: PWForegroundPushDisappearedAnimation) {

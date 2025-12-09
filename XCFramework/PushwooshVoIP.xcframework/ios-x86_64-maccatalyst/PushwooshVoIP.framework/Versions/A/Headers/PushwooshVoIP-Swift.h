@@ -654,8 +654,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, weak) id _Nullable delegate;)
 + (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
 /// Sets the VoIP push token manually.
 + (void)setVoIPToken:(NSData * _Nonnull)token;
-/// Sets the Pushwoosh VoIP Application Code.
-+ (void)setPushwooshVoIPAppId:(NSString * _Nonnull)voipAppId;
 + (void)setIncomingCallTimeout:(NSTimeInterval)timeout;
 - (void)pushRegistry:(PKPushRegistry * _Nonnull)registry didUpdatePushCredentials:(PKPushCredentials * _Nonnull)pushCredentials forType:(PKPushType _Nonnull)type;
 - (void)pushRegistry:(PKPushRegistry * _Nonnull)registry didInvalidatePushTokenForType:(PKPushType _Nonnull)type;

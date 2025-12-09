@@ -15,11 +15,11 @@ final class PWRequestVoIPTokenRegistrationTests: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
-        PWPreferences.preferencesInstance().voipAppCode = "TEST-VOIP-12345"
+        PWPreferences.preferencesInstance().appCode = "TEST-APP-12345"
     }
 
     override func tearDownWithError() throws {
-        PWPreferences.preferencesInstance().voipAppCode = ""
+        PWPreferences.preferencesInstance().appCode = ""
         try super.tearDownWithError()
     }
 
@@ -64,8 +64,8 @@ final class PWRequestVoIPTokenRegistrationTests: XCTestCase {
         let dictionary = request.requestDictionary()
 
         XCTAssertNotNil(dictionary)
-        XCTAssertEqual(dictionary["application"] as? String, "TEST-VOIP-12345")
-        XCTAssertEqual(dictionary["push_token"] as? String, "test_token_abc")
+        XCTAssertEqual(dictionary["application"] as? String, "TEST-APP-12345")
+        XCTAssertEqual(dictionary["voip_push_token"] as? String, "test_token_abc")
         XCTAssertNotNil(dictionary["gateway"])
         XCTAssertEqual(dictionary["device_type"] as? Int, 1)
         XCTAssertNotNil(dictionary["timezone"])
@@ -102,7 +102,7 @@ final class PWRequestVoIPTokenRegistrationTests: XCTestCase {
     }
 
     func testRequestDictionaryApplication() throws {
-        PWPreferences.preferencesInstance().voipAppCode = "CUSTOM-APP-CODE"
+        PWPreferences.preferencesInstance().appCode = "CUSTOM-APP-CODE"
         let parameters = VoIPRequestParameters(token: "test_token")
         let request = PWSetVoIPTokenRequest(parameters: parameters)
 
@@ -121,8 +121,8 @@ final class PWRequestVoIPTokenRegistrationTests: XCTestCase {
         let dict1 = request1.requestDictionary()
         let dict2 = request2.requestDictionary()
 
-        XCTAssertEqual(dict1["push_token"] as? String, "token1")
-        XCTAssertEqual(dict2["push_token"] as? String, "token2")
+        XCTAssertEqual(dict1["voip_push_token"] as? String, "token1")
+        XCTAssertEqual(dict2["voip_push_token"] as? String, "token2")
     }
 
     func testRequestParametersWithToken() throws {
@@ -157,7 +157,7 @@ final class PWRequestVoIPTokenRegistrationTests: XCTestCase {
 
         let dictionary = request.requestDictionary()
 
-        XCTAssertEqual(dictionary["push_token"] as? String, longToken)
+        XCTAssertEqual(dictionary["voip_push_token"] as? String, longToken)
     }
 
     func testRequestDictionaryWithSpecialCharactersInToken() throws {
@@ -167,6 +167,6 @@ final class PWRequestVoIPTokenRegistrationTests: XCTestCase {
 
         let dictionary = request.requestDictionary()
 
-        XCTAssertEqual(dictionary["push_token"] as? String, specialToken)
+        XCTAssertEqual(dictionary["voip_push_token"] as? String, specialToken)
     }
 }

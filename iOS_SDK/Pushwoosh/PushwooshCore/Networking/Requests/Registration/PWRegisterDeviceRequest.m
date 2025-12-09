@@ -7,6 +7,7 @@
 #import "PWRegisterDeviceRequest.h"
 #import "PWUtils.h"
 #import "PWPushRuntime.h"
+#import "PWPreferences.h"
 
 #import "PWPlatformModule.h"
 #import "PWNotificationManagerCompat.h"
@@ -79,9 +80,14 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         case iOS: {
             BOOL sandbox = ![PWUtils getAPSProductionStatus:NO];
             dict[@"gateway"] = sandbox ? @"sandbox" : @"production";
-            
+
             NSArray *soundsList = [self buildSoundsList];
             dict[@"sounds"] = soundsList;
+
+            NSString *voipToken = [PWPreferences preferences].voipPushToken;
+            if (voipToken.length > 0) {
+                dict[@"voip_push_token"] = voipToken;
+            }
             break;
         }
             

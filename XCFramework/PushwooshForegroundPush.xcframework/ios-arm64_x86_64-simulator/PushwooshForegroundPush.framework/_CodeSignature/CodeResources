@@ -14,7 +14,7 @@
 		</data>
 		<key>Frameworks/PushwooshBridge.framework/PushwooshBridge</key>
 		<data>
-		haKIy+8IZF9gpDcfXOsXuYi2P+8=
+		HPirkZm9agzOk2R0TQaaQmAkJgI=
 		</data>
 		<key>Frameworks/PushwooshBridge.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Frameworks/PushwooshCore.framework/PushwooshCore</key>
 		<data>
-		DbKfJaCNQyP3DtwbrcCrY0I0O74=
+		zebS/Qrw+SITSN6zgUXVPpg1IPA=
 		</data>
 		<key>Frameworks/PushwooshCore.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Modules/PushwooshForegroundPush.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		Cl0vPzRuI8RV77x5uUqFZ3uA9eI=
+		/d3RrXKcSSuUsdqyZUYpWcEIgtQ=
 		</data>
 		<key>Modules/PushwooshForegroundPush.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -66,7 +66,7 @@
 		</data>
 		<key>Modules/PushwooshForegroundPush.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		Cl0vPzRuI8RV77x5uUqFZ3uA9eI=
+		/d3RrXKcSSuUsdqyZUYpWcEIgtQ=
 		</data>
 		<key>Modules/PushwooshForegroundPush.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -113,7 +113,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			QaJBBxstaKrf1sx0T6c39d7ULMcKeSc72zOApoh6qao=
+			XT2C4xBSQriyc+d3UNYROMqyfhQLwfp3rK6s7tiNkXw=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshBridge.framework/_CodeSignature/CodeResources</key>
@@ -141,7 +141,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6DKSoy3ywC1178VriJGWqOKAQ7ekBAXzmcuKdPel/Vc=
+			Bxuo9wXLI+bfep7OGQkzOPoTcxtmWCvLKKXhDmejtUM=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshCore.framework/_CodeSignature/CodeResources</key>
@@ -162,7 +162,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1T7v60GoiFVAvxMzRFqvzS+eHyUCqmOlUrk6qvcLGFo=
+			Am3S0mQQGoHuMalypFYbfOqg1BDx++MITJBdI64aM48=
 			</data>
 		</dict>
 		<key>Modules/PushwooshForegroundPush.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
@@ -197,7 +197,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1T7v60GoiFVAvxMzRFqvzS+eHyUCqmOlUrk6qvcLGFo=
+			Am3S0mQQGoHuMalypFYbfOqg1BDx++MITJBdI64aM48=
 			</data>
 		</dict>
 		<key>Modules/PushwooshForegroundPush.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>

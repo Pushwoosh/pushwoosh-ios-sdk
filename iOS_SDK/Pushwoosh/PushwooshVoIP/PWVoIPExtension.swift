@@ -59,19 +59,6 @@ public extension PWVoIP {
         PushwooshVoIPImplementation.setVoIPToken(token)
     }
 
-    /// Sets the Pushwoosh VoIP application code.
-    ///
-    /// Configure the VoIP-specific application code to use for registering VoIP push tokens.
-    /// This allows using a separate Pushwoosh application for VoIP notifications if needed.
-    ///
-    /// - Parameter voipAppId: The Pushwoosh application code for VoIP notifications (e.g., "XXXXX-XXXXX").
-    ///
-    /// - Note: If not set, the SDK uses the main Pushwoosh application code configured via `Pushwoosh.sharedInstance().setAppCode()`.
-    @available(iOS 14.0, *)
-    static func setPushwooshVoIPAppId(_ voipAppId: String) {
-        PushwooshVoIPImplementation.setPushwooshVoIPAppId(voipAppId)
-    }
-
     /// Sets the timeout duration for incoming call notifications.
     ///
     /// Configures how long the incoming call UI remains active before automatically timing out.

@@ -4,7 +4,6 @@
 @interface PWConfig ()
 
 @property (nonatomic, copy, readwrite) NSString *appId;
-@property (nonatomic, copy, readwrite) NSString *voipAppId;
 @property (nonatomic, copy, readwrite) NSString *apiToken;
 @property (nonatomic, copy, readwrite) NSString *pushwooshApiToken;
 @property (nonatomic, copy, readwrite) NSString *appIdDev;
@@ -42,8 +41,6 @@
         _bundle = bundle;
 
 		self.appId = [bundle objectForInfoDictionaryKey:@"Pushwoosh_APPID"];
-
-        self.voipAppId = [bundle objectForInfoDictionaryKey:@"Pushwoosh_VOIP_APPID"];
 
         self.apiToken = [bundle objectForInfoDictionaryKey:@"PW_API_TOKEN"];
         

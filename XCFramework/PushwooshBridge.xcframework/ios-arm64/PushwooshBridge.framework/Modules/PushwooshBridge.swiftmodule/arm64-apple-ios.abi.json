@@ -1645,38 +1645,6 @@
           },
           {
             "kind": "Function",
-            "name": "setPushwooshVoIPAppId",
-            "printedName": "setPushwooshVoIPAppId(_:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "c:@M@PushwooshBridge@objc(pl)PWVoIP(cm)setPushwooshVoIPAppId:",
-            "mangledName": "$s15PushwooshBridge6PWVoIPP03setA9VoIPAppIdyySSFZ",
-            "moduleName": "PushwooshBridge",
-            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
-            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
-            "static": true,
-            "protocolReq": true,
-            "declAttributes": [
-              "ObjC",
-              "RawDocComment"
-            ],
-            "reqNewWitnessTableEntry": true,
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
             "name": "setIncomingCallTimeout",
             "printedName": "setIncomingCallTimeout(_:)",
             "children": [
@@ -6428,36 +6396,6 @@
             "moduleName": "PushwooshBridge",
             "static": true,
             "objc_name": "setVoIPToken:",
-            "declAttributes": [
-              "Final",
-              "ObjC",
-              "AccessControl"
-            ],
-            "funcSelfKind": "NonMutating"
-          },
-          {
-            "kind": "Function",
-            "name": "setPushwooshVoIPAppId",
-            "printedName": "setPushwooshVoIPAppId(_:)",
-            "children": [
-              {
-                "kind": "TypeNominal",
-                "name": "Void",
-                "printedName": "()"
-              },
-              {
-                "kind": "TypeNominal",
-                "name": "String",
-                "printedName": "Swift.String",
-                "usr": "s:SS"
-              }
-            ],
-            "declKind": "Func",
-            "usr": "c:@M@PushwooshBridge@objc(cs)PWVoIPStub(cm)setPushwooshVoIPAppId:",
-            "mangledName": "$s15PushwooshBridge10PWVoIPStubC03setA9VoIPAppIdyySSFZ",
-            "moduleName": "PushwooshBridge",
-            "static": true,
-            "objc_name": "setPushwooshVoIPAppId:",
             "declAttributes": [
               "Final",
               "ObjC",
