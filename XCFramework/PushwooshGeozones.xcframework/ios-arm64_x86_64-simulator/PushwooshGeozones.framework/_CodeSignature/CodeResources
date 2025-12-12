@@ -4,22 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Frameworks/PushwooshCore.framework/Info.plist</key>
-		<data>
-		ti8PFNF7DK2TNxKN9x4AFbFsVKk=
-		</data>
-		<key>Frameworks/PushwooshCore.framework/PrivacyInfo.xcprivacy</key>
-		<data>
-		7NzAl/qfKZwy0neaQU691RMQzrw=
-		</data>
-		<key>Frameworks/PushwooshCore.framework/PushwooshCore</key>
-		<data>
-		Nn/eemZ2Fm0Of6T+7E7FGVOx18g=
-		</data>
-		<key>Frameworks/PushwooshCore.framework/_CodeSignature/CodeResources</key>
-		<data>
-		Iu+U3NKruW7kB8M4nenISJ5OEx4=
-		</data>
 		<key>Headers/PWGeozonesManager.h</key>
 		<data>
 		5CVD7c49rKWfWujkOP7LYzHtx8Q=
@@ -43,34 +27,6 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Frameworks/PushwooshCore.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			THsAd8f7c3DCxUww642myCxDB1t04aLGOWBTXsHUgz4=
-			</data>
-		</dict>
-		<key>Frameworks/PushwooshCore.framework/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			5JV1VLSsu0iGctH5UBK5JwFbMxxCcRJL5PJrqjkX+ZM=
-			</data>
-		</dict>
-		<key>Frameworks/PushwooshCore.framework/PushwooshCore</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			dEF7zzKSxfT+k2eNEEqI1TQVhHlE6z2+sTMzx3v9I/0=
-			</data>
-		</dict>
-		<key>Frameworks/PushwooshCore.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			3m3/Wzm0UbpIman5bBUNppdNB1MECCf3bK+o3zgZo8E=
-			</data>
-		</dict>
 		<key>Headers/PWGeozonesManager.h</key>
 		<dict>
 			<key>hash2</key>

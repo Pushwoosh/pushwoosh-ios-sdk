@@ -23,7 +23,7 @@
 /* Begin PBXBuildFile section */
 		442A29682BBAC118009BEF78 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 442A29672BBAC118009BEF78 /* PrivacyInfo.xcprivacy */; };
 		44659CCC2EB2256E00ED66B7 /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44659CBD2EB2256E00ED66B7 /* PushwooshCore.framework */; };
-		44659CCD2EB2256E00ED66B7 /* PushwooshCore.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44659CBD2EB2256E00ED66B7 /* PushwooshCore.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		44659CCD2EB2256E00ED66B7 /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 44659CBD2EB2256E00ED66B7 /* PushwooshCore.framework */; platformFilter = ios; };
 		5D0E315D213D519D0086AC05 /* PWGeozonesManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0E315B213D519D0086AC05 /* PWGeozonesManager.m */; };
 		5D0E3176213E4BB30086AC05 /* PWLocationHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0E3167213E4BB20086AC05 /* PWLocationHelper.m */; };
 		5D0E3178213E4BB30086AC05 /* PWRemoveLocationRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5D0E3168213E4BB20086AC05 /* PWRemoveLocationRequest.m */; };
@@ -182,7 +182,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				44659CCD2EB2256E00ED66B7 /* PushwooshCore.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
