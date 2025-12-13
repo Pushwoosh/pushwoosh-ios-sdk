@@ -53,7 +53,7 @@ NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpda
 }
 
 - (NSString *)getPushToken {
-    return self.pushToken;
+    return [PWPreferences preferences].pushToken;
 }
 
 + (NSDictionary *)getRemoteNotificationStatus {
