@@ -29,14 +29,12 @@ extern NSString * const PWInboxMessagesDidUpdateNotification;
 #import "PWInteractionDisabledView.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
-#import "PWBusinessCaseManager.h"
 #import "PWTriggerInAppActionRequest.h"
 #import "PWRichMediaActionRequest.h"
 #import "PWMessageViewController.h"
 #import "PWPushManagerJSBridge.h"
 #import "PWShowLoading.h"
 #import "PWResource.h"
-#import "PWTriggerInAppActionRequest.h"
 #endif
 
 #if TARGET_OS_TV
@@ -156,14 +154,8 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 }
 #endif
 
-#if TARGET_OS_IOS || TARGET_OS_OSX
-- (void)resetBusinessCasesFrequencyCapping {
-    [[PWBusinessCaseManager sharedManager] resetCappings];
-}
-#endif
-
 - (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void (^)(NSError *error))completion {
-    [self postEventInternal:event withAttributes:attributes isInlineInApp:NO completion:^(id resource, NSError *error) {
+    [self postEventInternal:event withAttributes:attributes completion:^(id resource, NSError *error) {
 #if TARGET_OS_TV
         if (!error && resource) {
             dispatch_async(dispatch_get_main_queue(), ^{
@@ -214,7 +206,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 #endif
 }
 
-- (void)postEventInternal:(NSString *)event withAttributes:(NSDictionary *)attributes isInlineInApp:(BOOL)isInlineInApp completion:(void (^)(id resource, NSError *error))completion {
+- (void)postEventInternal:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void (^)(id resource, NSError *error))completion {
     if (event.length == 0) {
         [PushwooshLog pushwooshLog:PW_LL_WARN
                          className:self
@@ -278,7 +270,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
             void (^loadResource)(void) = ^{
                 RichMediaStyleType style = [[PWConfig config] richMediaStyle];
 
-                if (style != PWRichMediaStyleTypeModal && !isInlineInApp) {
+                if (style != PWRichMediaStyleTypeModal) {
                     [PWShowLoading showLoadingWithCancelBlock:^{
                         [[PWInAppStorage storage] resetBlocks];
                     }];

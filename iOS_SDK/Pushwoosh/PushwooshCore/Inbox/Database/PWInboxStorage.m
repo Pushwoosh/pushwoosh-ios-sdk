@@ -9,7 +9,6 @@
 #import "PWInboxStorage.h"
 #import "PWInboxMerge.h"
 #import "PWInboxMessageInternal+Status.h"
-#import "PWUtils.h"
 
 @interface PWInboxStorage ()
 
@@ -227,41 +226,40 @@
 
 - (BOOL)save:(NSMutableDictionary<NSString *, PWInboxMessageInternal *> *)dictionary forFileName:(NSString *)fileName {
     NSString *path = [self pathForFileName:fileName];
-    
-    if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
-        NSError *error = nil;
-                
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dictionary requiringSecureCoding:YES error:&error];
-        return [data writeToFile:path options:NSDataWritingAtomic error:&error];
-    } else {
-        return [NSKeyedArchiver archiveRootObject:dictionary toFile:path];
-    }
+
+#if TARGET_OS_IOS
+    NSError *error = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:dictionary requiringSecureCoding:YES error:&error];
+    return [data writeToFile:path options:NSDataWritingAtomic error:&error];
+#else
+    return NO;
+#endif
 }
 
 - (NSMutableDictionary<NSString *, PWInboxMessageInternal *> *)loadWithFileName:(NSString *)fileName {
     NSString *path = [self pathForFileName:fileName];
-    
-    if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
-        NSURL *url = [NSURL fileURLWithPath:path];
-        NSData *data = [NSData dataWithContentsOfURL:url];
-        
-        if (data == nil) {
-            return nil;
-        }
-        
-        NSError *error = nil;
-        NSMutableDictionary *dict = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSMutableDictionary class] fromData:data error:&error];
-        if (error != nil) {
-            [PushwooshLog pushwooshLog:PW_LL_ERROR
-                             className:self
-                               message:[NSString stringWithFormat:@"Deserialization failed: %@", error.localizedDescription]];
-            return nil;
-        } else {
-            return dict;
-        }
-    } else {
-        return [NSKeyedUnarchiver unarchiveObjectWithFile:path];
+
+#if TARGET_OS_IOS
+    NSURL *url = [NSURL fileURLWithPath:path];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+
+    if (data == nil) {
+        return nil;
     }
+
+    NSError *error = nil;
+    NSMutableDictionary *dict = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSMutableDictionary class] fromData:data error:&error];
+    if (error != nil) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:[NSString stringWithFormat:@"Deserialization failed: %@", error.localizedDescription]];
+        return nil;
+    } else {
+        return dict;
+    }
+#else
+    return nil;
+#endif
 }
 
 @end

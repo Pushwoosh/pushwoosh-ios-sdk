@@ -73,12 +73,6 @@ static dispatch_once_t inAppManagerOnceToken;
     [PWInAppManager sharedManager];
 }
 
-- (void)resetBusinessCasesFrequencyCapping {
-#if TARGET_OS_IOS
-    [self.inAppMessagesManager resetBusinessCasesFrequencyCapping];
-#endif
-}
-
 - (void)setUserId:(NSString *)userId {
     [self setUserId:userId completion:nil];
 }

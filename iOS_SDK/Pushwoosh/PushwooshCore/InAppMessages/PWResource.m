@@ -71,7 +71,6 @@
         id closeButtonValue = [dictionary pw_objectForKey:@"closeButtonType" ofTypes:@[ [NSString class], [NSNumber class] ]];
         _closeButton = [closeButtonValue boolValue];
         _tags = [dictionary pw_dictionaryForKey:@"tags"];
-        _businessCase = [dictionary pw_stringForKey:@"businessCase"];
 
         if (!_code || !updatedValue || !_url) {
             [PushwooshLog pushwooshLog:PW_LL_ERROR

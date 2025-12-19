@@ -150,7 +150,7 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
 
 @property (nonatomic, readonly) BOOL lazyInitialization;
 
-@property (nonatomic, readonly) RichMediaStyleType richMediaStyle;
+@property (nonatomic, assign) RichMediaStyleType richMediaStyle;
 
 /**
  key: Pushwoosh_PLUGIN_NOTIFICATION_HANDLER

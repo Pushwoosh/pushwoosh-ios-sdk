@@ -13,7 +13,6 @@
 #import "PWPreferences.h"
 #import "PWInAppManager.h"
 #import "PWInAppManager+Internal.h"
-#import "PWUtils.h"
 
 #import "PWTestUtils.h"
 #import <objc/runtime.h>
@@ -47,13 +46,11 @@ static NSString * cacheFile() {
 }
 
 + (void)writeCacheTags:(id)tags {
-    if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
-        NSError *error = nil;
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tags requiringSecureCoding:YES error:&error];
-        [data writeToFile:cacheFile() options:NSDataWritingAtomic error:&error];
-    } else {
-        [NSKeyedArchiver archiveRootObject:tags toFile:cacheFile()];
-    }
+#if TARGET_OS_IOS
+    NSError *error = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tags requiringSecureCoding:YES error:&error];
+    [data writeToFile:cacheFile() options:NSDataWritingAtomic error:&error];
+#endif
 }
 
 + (void)mockStaticMethodForClass:(Class)clazz selector:(SEL)selector block:(id)block {

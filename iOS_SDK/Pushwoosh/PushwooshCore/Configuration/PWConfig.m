@@ -1,6 +1,8 @@
 
 #import "PWConfig.h"
 
+static NSString * const kPWRichMediaStyleModalKey = @"PWRichMediaStyleModal";
+
 @interface PWConfig ()
 
 @property (nonatomic, copy, readwrite) NSString *appId;
@@ -26,7 +28,6 @@
 @property (nonatomic, readwrite) BOOL sendPurchaseTrackingEnabled;
 @property (nonatomic, assign, readwrite) BOOL preHandleNotificationsWithUrl;
 @property (nonatomic, assign, readwrite) BOOL lazyInitialization;
-@property (nonatomic, assign, readwrite) RichMediaStyleType richMediaStyle;
 @property (nonatomic, readwrite) BOOL isUsingPluginForPushHandling;
 
 @property (nonatomic) NSBundle *bundle;
@@ -144,6 +145,14 @@
 }
 
 - (void)styleRichMediaTypeFromString:(NSString *)style {
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kPWRichMediaStyleModalKey] != nil) {
+        _richMediaStyle = [[NSUserDefaults standardUserDefaults] boolForKey:kPWRichMediaStyleModalKey]
+            ? PWRichMediaStyleTypeModal
+            : PWRichMediaStyleTypeDefault;
+        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kPWRichMediaStyleModalKey];
+        return;
+    }
+
     if ([style isEqualToString:@"MODAL_RICH_MEDIA"]) {
         self.richMediaStyle = PWRichMediaStyleTypeModal;
     } else if ([style isEqualToString:@"LEGACY_RICH_MEDIA"]) {

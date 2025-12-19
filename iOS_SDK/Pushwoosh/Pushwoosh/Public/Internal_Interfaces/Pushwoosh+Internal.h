@@ -12,7 +12,6 @@
 #endif
 
 #if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_IPHONE
-#import <PushwooshCore/PWBusinessCaseManager.h>
 #import <PushwooshCore/PWRichPushManager.h>
 #import <PushwooshCore/PWPurchaseManager.h>
 #endif

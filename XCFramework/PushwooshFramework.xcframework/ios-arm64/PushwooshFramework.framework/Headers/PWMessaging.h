@@ -14,5 +14,4 @@
     #import <PushwooshCore/PWModalWindowConfiguration.h>
     #import <PushwooshCore/PWRichMediaStyle.h>
     #import "PWInbox.h"
-    #import <PushwooshCore/PWInlineInAppView.h>
 #endif

@@ -6,22 +6,6 @@
 	<array>
 		<dict>
 			<key>BinaryPath</key>
-			<string>PushwooshVoIP.framework/Versions/A/PushwooshVoIP</string>
-			<key>LibraryIdentifier</key>
-			<string>ios-x86_64-maccatalyst</string>
-			<key>LibraryPath</key>
-			<string>PushwooshVoIP.framework</string>
-			<key>SupportedArchitectures</key>
-			<array>
-				<string>x86_64</string>
-			</array>
-			<key>SupportedPlatform</key>
-			<string>ios</string>
-			<key>SupportedPlatformVariant</key>
-			<string>maccatalyst</string>
-		</dict>
-		<dict>
-			<key>BinaryPath</key>
 			<string>PushwooshVoIP.framework/PushwooshVoIP</string>
 			<key>LibraryIdentifier</key>
 			<string>ios-arm64_x86_64-simulator</string>
@@ -36,6 +20,22 @@
 			<string>ios</string>
 			<key>SupportedPlatformVariant</key>
 			<string>simulator</string>
+		</dict>
+		<dict>
+			<key>BinaryPath</key>
+			<string>PushwooshVoIP.framework/Versions/A/PushwooshVoIP</string>
+			<key>LibraryIdentifier</key>
+			<string>ios-x86_64-maccatalyst</string>
+			<key>LibraryPath</key>
+			<string>PushwooshVoIP.framework</string>
+			<key>SupportedArchitectures</key>
+			<array>
+				<string>x86_64</string>
+			</array>
+			<key>SupportedPlatform</key>
+			<string>ios</string>
+			<key>SupportedPlatformVariant</key>
+			<string>maccatalyst</string>
 		</dict>
 		<dict>
 			<key>BinaryPath</key>

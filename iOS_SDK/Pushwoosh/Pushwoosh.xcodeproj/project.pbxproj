@@ -259,7 +259,6 @@
 		4ED5A539FB49F44201628CFF /* PWUtils.ios.m in Sources */ = {isa = PBXBuildFile; fileRef = A14FF04F84CE2E7D2BBAD438 /* PWUtils.ios.m */; };
 		500AEE921B038C19C8CD68F7 /* PWModalWindowConfiguration.h in Headers */ = {isa = PBXBuildFile; fileRef = 611137153F0C87C313957411 /* PWModalWindowConfiguration.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		509E3848D8CAD5DEC872B3F0 /* PWPushNotificationsManager.ios.m in Sources */ = {isa = PBXBuildFile; fileRef = EF34D4F650FC70EC561A17AE /* PWPushNotificationsManager.ios.m */; };
-		51661F6FD1063A65A148831A /* PWBusinessCase.m in Sources */ = {isa = PBXBuildFile; fileRef = CC8880B6D1CF18222A23BD74 /* PWBusinessCase.m */; };
 		533E02A2794ACBEC08296800 /* PWMessageViewController.ios.m in Sources */ = {isa = PBXBuildFile; fileRef = 59B755AE2636FB3272A86A83 /* PWMessageViewController.ios.m */; };
 		5386D10B616A118738264DF0 /* PWNotificationManagerCompattvOS.m in Sources */ = {isa = PBXBuildFile; fileRef = 7CC444DC93C5C65CFDE4366D /* PWNotificationManagerCompattvOS.m */; };
 		5480F7219A2E8496124CF5B7 /* PWRequestsCacheManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 4A1AFB9A0E2C792BCBB6C6AF /* PWRequestsCacheManager.m */; };
@@ -359,7 +358,6 @@
 		73E38EB6F6EB64FA9FC041A1 /* PWBaseInboxRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8B947C10BE7AA96AE1A210 /* PWBaseInboxRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7401463C64F9BBD2E60ACF94 /* WKWebView+PWSynchronousEvaluateJavaScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E01103134CE1C4B3F5CF3C /* WKWebView+PWSynchronousEvaluateJavaScript.m */; };
 		759AA43F4D2364995C48D5D7 /* PWUtilsMobile.h in Headers */ = {isa = PBXBuildFile; fileRef = 9F98FB58CBD6BA22BC4D8372 /* PWUtilsMobile.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		75C74CAF81E5B7324C9F192D /* PWBusinessCaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = A3A0A3B6D38C28657A5708BB /* PWBusinessCaseManager.m */; };
 		768EB053B0EB1B3D886DA7E8 /* PWCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 171A0C2F5A57DF230456F3D3 /* PWCache.h */; };
 		769082F33E77786767E6422C /* PWGetTagsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = BB5C6A2F3EDB3846C465D603 /* PWGetTagsRequest.h */; };
 		76FA5EB5A2B53BAE98EB2519 /* PWAlphabetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 43ED06CC8E78A8E8AEE512A7 /* PWAlphabetUtils.m */; };
@@ -423,7 +421,6 @@
 		A28DD8AD0E878B1DBA0C47F6 /* NSDictionary+PWDictUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 3444A85641B784BAE97411C8 /* NSDictionary+PWDictUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A2F66592F564E525E8A8F0A4 /* PWPushwooshJSBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 02638F96D9572AA361C95675 /* PWPushwooshJSBridge.m */; };
 		A4135DD9ECF411B6C40B0EE0 /* PWRichMediaConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 0383E68147C07E7982EAE46A /* PWRichMediaConfig.h */; settings = {ATTRIBUTES = (Private, ); }; };
-		A55853A6E246341447076256 /* PWInlineInAppView.m in Sources */ = {isa = PBXBuildFile; fileRef = D4C99FC710A3E5F83DEEEAC5 /* PWInlineInAppView.m */; };
 		A6E1E0B5A76B208AC2389A00 /* PWCombinedSetTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F01AEED9CB071503E6BB2A54 /* PWCombinedSetTagsRequest.m */; };
 		A82360A2F6520107BC0A8BF3 /* PWStartLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 91D8E4C186193139BDE666A5 /* PWStartLiveActivityRequest.m */; };
 		A8A904105FBFAE6D466168B4 /* PWInboxMerge.m in Sources */ = {isa = PBXBuildFile; fileRef = 75F970939738EE5377837C36 /* PWInboxMerge.m */; };
@@ -485,7 +482,6 @@
 		DDA5AF1AF87FA7213389522B /* WKUserScript+PWInterfacesScriptGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6498C61154E386D42BC289A6 /* WKUserScript+PWInterfacesScriptGenerator.m */; };
 		DE2129C69F8C4BE531ABBF62 /* PWNotificationManagerCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378EE277A0653882799479 /* PWNotificationManagerCompat.m */; };
 		DE4B8B3F31C89E6C3AA5D8F4 /* PWPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 033C7FB38DF19FC21123C93F /* PWPurchaseManager.m */; };
-		DEA82AD8B7A790725DED7141 /* PWBusinessCaseManager.h in Headers */ = {isa = PBXBuildFile; fileRef = C8D15F66DF4A96D7B760FB9F /* PWBusinessCaseManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E0C7286607144B6E3FDEFF76 /* PWLoadingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5630DF646CDF9CF04148325B /* PWLoadingViewController.h */; };
 		E124FB452DD52E9700737A6D /* PWRequestVoIPDeviceUnregister.swift in Sources */ = {isa = PBXBuildFile; fileRef = E124FB442DD52E9700737A6D /* PWRequestVoIPDeviceUnregister.swift */; };
 		E15185C72E018F6A00CE8936 /* PushwooshConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = E15185C42E018F6A00CE8936 /* PushwooshConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -519,11 +515,9 @@
 		E3121C2C4EFD3A6BB49D0D59 /* PWChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C2CADC7EDEB512C631DD6A7 /* PWChannel.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		E574051EB38C3445F5289A6E /* PWUtils+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AE9EFDCD14B8D72080E3A6 /* PWUtils+Internal.h */; };
 		E5A2504658A7529B7C022742 /* PWNotificationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = E74567F65D3148777120F5E4 /* PWNotificationCenter.h */; };
-		E619BE36A2DF07787573ABDD /* PWBusinessCase.h in Headers */ = {isa = PBXBuildFile; fileRef = 269001EA16F428343F65CF36 /* PWBusinessCase.h */; };
 		E64C4C018D1792DF872420E2 /* PWLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCEDFFD0E105B1C251C402E /* PWLiveActivityRequest.m */; };
 		E6C78CBC2A51ECF4D63B6E06 /* PWMessageDeliveryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D9585520866B07334AADBCC7 /* PWMessageDeliveryRequest.m */; };
 		E988A236BE35BE6F0F7187E3 /* PWRichMediaActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AFFB17C939911BF73DC1545 /* PWRichMediaActionRequest.m */; };
-		EA0433A37AA7F409D2459D41 /* PWInlineInAppView.h in Headers */ = {isa = PBXBuildFile; fileRef = 7D6936D8D0BCDA7E6848D5BF /* PWInlineInAppView.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		EA4538D8D360E356E0E266BB /* PWNotificationCategoryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 88A26E71DF5C55ED6BB7395B /* PWNotificationCategoryBuilder.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		EBCA3FD0CEE6EB86E5AF085F /* PWPushManagerJSBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 25FC14F8EFA36FCD2537DC5E /* PWPushManagerJSBridge.h */; };
 		EC895BB2C0444BF9EDEFEB6F /* PWAppOpenRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7F491B7A689156D0631335F0 /* PWAppOpenRequest.m */; };
@@ -770,7 +764,6 @@
 		25FC14F8EFA36FCD2537DC5E /* PWPushManagerJSBridge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWPushManagerJSBridge.h; sourceTree = "<group>"; };
 		260CD7B09657637EA2D2D686 /* PWPurchaseManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWPurchaseManager.h; sourceTree = "<group>"; };
 		264FF82A51031103147D0463 /* PWHashDecoder.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWHashDecoder.h; sourceTree = "<group>"; };
-		269001EA16F428343F65CF36 /* PWBusinessCase.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWBusinessCase.h; sourceTree = "<group>"; };
 		28C4D1B66110A3217A6EA913 /* PWVersionTracking.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWVersionTracking.h; sourceTree = "<group>"; };
 		29E68EF108132A7EB6EBD045 /* PWPostEventRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWPostEventRequest.h; sourceTree = "<group>"; };
 		2C25DC932DB5E0905EC8C54E /* PWRegisterDeviceRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWRegisterDeviceRequest.h; sourceTree = "<group>"; };
@@ -1024,7 +1017,6 @@
 		7CC444DC93C5C65CFDE4366D /* PWNotificationManagerCompattvOS.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWNotificationManagerCompattvOS.m; sourceTree = "<group>"; };
 		7D378EE277A0653882799479 /* PWNotificationManagerCompat.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWNotificationManagerCompat.m; sourceTree = "<group>"; };
 		7D64C9507883AC480620E8E5 /* PWMergeUserRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWMergeUserRequest.m; sourceTree = "<group>"; };
-		7D6936D8D0BCDA7E6848D5BF /* PWInlineInAppView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInlineInAppView.h; sourceTree = "<group>"; };
 		7F0ACC0FB1F5BE7251C5A288 /* PWEasyJSWKDataFunction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWEasyJSWKDataFunction.m; sourceTree = "<group>"; };
 		7F491B7A689156D0631335F0 /* PWAppOpenRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWAppOpenRequest.m; sourceTree = "<group>"; };
 		80ADD3F86EB9D3A3976EE9ED /* PWSendPurchaseRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWSendPurchaseRequest.h; sourceTree = "<group>"; };
@@ -1062,7 +1054,6 @@
 		9FE51AE2A7A0C3E53535F36F /* PWChannel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWChannel.m; sourceTree = "<group>"; };
 		A14FF04F84CE2E7D2BBAD438 /* PWUtils.ios.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWUtils.ios.m; sourceTree = "<group>"; };
 		A2B1407DF0180FEF7CF2681D /* NSDictionary+PWDictUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+PWDictUtils.m"; sourceTree = "<group>"; };
-		A3A0A3B6D38C28657A5708BB /* PWBusinessCaseManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWBusinessCaseManager.m; sourceTree = "<group>"; };
 		A45A5125F2D71AEAABD7CEE4 /* PWPushNotificationsManager+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PWPushNotificationsManager+Internal.h"; sourceTree = "<group>"; };
 		A4B9EA51E220DC6BC4974B1A /* PWReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWReachability.h; sourceTree = "<group>"; };
 		A5AF77A5F664295246BBBFD2 /* PWShowLoading.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWShowLoading.m; sourceTree = "<group>"; };
@@ -1099,11 +1090,9 @@
 		C4C97410A254E1B1B72CDC10 /* zip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 		C6954B9986FC60ACCF9B51FE /* PWButtonExt.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWButtonExt.h; sourceTree = "<group>"; };
 		C7DAF9D9EE1E9F94C863AA32 /* PWBaseLoadingViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWBaseLoadingViewController.h; sourceTree = "<group>"; };
-		C8D15F66DF4A96D7B760FB9F /* PWBusinessCaseManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWBusinessCaseManager.h; sourceTree = "<group>"; };
 		CA91D43B6BC7E69063FCFBBB /* PWLiveActivityRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWLiveActivityRequest.h; sourceTree = "<group>"; };
 		CB897EDF2E9F20DEE44A4339 /* PWRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWRequest.h; sourceTree = "<group>"; };
 		CBCEDFFD0E105B1C251C402E /* PWLiveActivityRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWLiveActivityRequest.m; sourceTree = "<group>"; };
-		CC8880B6D1CF18222A23BD74 /* PWBusinessCase.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWBusinessCase.m; sourceTree = "<group>"; };
 		CC93E408F4BF5F264208E27F /* PWDataManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWDataManager.h; sourceTree = "<group>"; };
 		CDDE052F46FF1E9D53F3440A /* PWTVOSAPIClientTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PWTVOSAPIClientTests.swift; sourceTree = "<group>"; };
 		CF338187D3026443257CCF08 /* PWInboxMessageInternal+Status.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PWInboxMessageInternal+Status.h"; sourceTree = "<group>"; };
@@ -1115,7 +1104,6 @@
 		D2AAC07E0554694100DB518D /* libPushwoosh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwoosh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2DDF69EF8F4E40F3112AEBD /* PWGetConfigRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWGetConfigRequest.h; sourceTree = "<group>"; };
 		D408CD2C1B9CE10E7F7B8E5C /* Pushwoosh+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pushwoosh+Internal.h"; sourceTree = "<group>"; };
-		D4C99FC710A3E5F83DEEEAC5 /* PWInlineInAppView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInlineInAppView.m; sourceTree = "<group>"; };
 		D555A7ED8BEA22B547ABCF39 /* PWNotification.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWNotification.m; sourceTree = "<group>"; };
 		D63963E330A1BFC60A12252D /* PWInboxAllMessagesRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInboxAllMessagesRequest.m; sourceTree = "<group>"; };
 		D7C257FD3059791BF5C5D712 /* PWInAppMessagesManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInAppMessagesManager.m; sourceTree = "<group>"; };
@@ -2482,17 +2470,6 @@
 			path = "Push Stat";
 			sourceTree = "<group>";
 		};
-		77F031DC0BC5DE940D9D46AB /* Business Cases */ = {
-			isa = PBXGroup;
-			children = (
-				C8D15F66DF4A96D7B760FB9F /* PWBusinessCaseManager.h */,
-				CC8880B6D1CF18222A23BD74 /* PWBusinessCase.m */,
-				A3A0A3B6D38C28657A5708BB /* PWBusinessCaseManager.m */,
-				269001EA16F428343F65CF36 /* PWBusinessCase.h */,
-			);
-			path = "Business Cases";
-			sourceTree = "<group>";
-		};
 		874C1EFF837F965BED78C2D3 /* Embedded Events */ = {
 			isa = PBXGroup;
 			children = (
@@ -2681,11 +2658,8 @@
 				86A2CD014E6319596B433044 /* PWInAppMessagesManager.h */,
 				5848AC06BD1779B33A2932DE /* PWInAppStorage.m */,
 				1FA286DDE439B807F02C4263 /* PWResource.h */,
-				77F031DC0BC5DE940D9D46AB /* Business Cases */,
 				F6EADA38461E3A127F720B61 /* PWInAppManager.h */,
 				D9ED321145B0940C98BA6C28 /* PWInAppManager.m */,
-				7D6936D8D0BCDA7E6848D5BF /* PWInlineInAppView.h */,
-				D4C99FC710A3E5F83DEEEAC5 /* PWInlineInAppView.m */,
 			);
 			path = InAppMessages;
 			sourceTree = "<group>";
@@ -2900,8 +2874,6 @@
 				B5DE7198C51A95F2C29D1F78 /* PWInAppStorage.h in Headers */,
 				9F11AFF2BAA9325B15AA9E8E /* PWInAppMessagesManager.h in Headers */,
 				022DDC3F74ACFA8B69B33C36 /* PWResource.h in Headers */,
-				DEA82AD8B7A790725DED7141 /* PWBusinessCaseManager.h in Headers */,
-				E619BE36A2DF07787573ABDD /* PWBusinessCase.h in Headers */,
 				188A6AF4CEF3AACCA21AD5B7 /* PWInboxStorage.h in Headers */,
 				8BBC9814E7B0F09C3C8C7B7D /* PWInboxMerge.h in Headers */,
 				2E8FABD29DBAF40C7E624154 /* PWInboxMessageInternal.h in Headers */,
@@ -3007,7 +2979,6 @@
 				AD47C2351F310064F1D14791 /* PWPushNotificationsManager.common.h in Headers */,
 				F36431E37990AECCF273D269 /* PWInboxTypes.h in Headers */,
 				48E4A2EFF8720AD0F66DF965 /* PWInAppManager.h in Headers */,
-				EA0433A37AA7F409D2459D41 /* PWInlineInAppView.h in Headers */,
 				500AEE921B038C19C8CD68F7 /* PWModalWindowConfiguration.h in Headers */,
 				C7B71D887FE708C182CA4586 /* PWRichMediaManager.h in Headers */,
 				59914689FC237C523920C677 /* PWRichMediaStyle.h in Headers */,
@@ -3773,8 +3744,6 @@
 				CE33FAFD84FBB7A814B532AE /* PWInAppMessagesManager.m in Sources */,
 				6D4EBF685A1F7CB9656A1AEE /* PWResource.m in Sources */,
 				2754BEA876FA0126E27DC48C /* PWInAppStorage.m in Sources */,
-				51661F6FD1063A65A148831A /* PWBusinessCase.m in Sources */,
-				75C74CAF81E5B7324C9F192D /* PWBusinessCaseManager.m in Sources */,
 				320FBF071E9C35A0D669D69F /* PWInboxStorage.m in Sources */,
 				A8A904105FBFAE6D466168B4 /* PWInboxMerge.m in Sources */,
 				91B69092847EE965E5A46011 /* PWInboxService.m in Sources */,
@@ -3869,7 +3838,6 @@
 				4488D0422ED88A20005B798B /* PushwooshCore.docc in Sources */,
 				C286E11210FE01134ADE5340 /* PWInboxTypes.h in Sources */,
 				681BA252B24F642E471410A3 /* PWInAppManager.m in Sources */,
-				A55853A6E246341447076256 /* PWInlineInAppView.m in Sources */,
 				176086182D00572BFA97CC48 /* PWModalWindowConfiguration.m in Sources */,
 				93C9B3E189B720308606CA0D /* PWRichMediaManager.m in Sources */,
 				01A83928D3931BDD87544E01 /* PWRichMediaStyle.m in Sources */,

@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/PWConfig.h</key>
 		<data>
-		yvW3kfkMILTtYL6+TERJPnKynMM=
+		arnoW97EZ8ZBEeXNA3+UDwBLHGk=
 		</data>
 		<key>Headers/PWCoreUtils.h</key>
 		<data>
@@ -30,7 +30,7 @@
 		</data>
 		<key>Headers/PWInAppManager.h</key>
 		<data>
-		C7iqQqTOS1mE3P3h5YopF1Pcs2A=
+		6VkC8M+dy/KG1RYz5p9WzNzxzFc=
 		</data>
 		<key>Headers/PWInboxBridge.h</key>
 		<data>
@@ -63,10 +63,6 @@
 		<key>Headers/PWInboxUpdateStatusRequest.h</key>
 		<data>
 		GK9uUAabUuDjMcUdB52ojDYJpjQ=
-		</data>
-		<key>Headers/PWInlineInAppView.h</key>
-		<data>
-		ZMDuC0VpJfyCvg9jm9+Xu53pSQg=
 		</data>
 		<key>Headers/PWManagerBridge.h</key>
 		<data>
@@ -134,7 +130,7 @@
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		sV86raOxPsKRV2p3W2MqEtk6ZXU=
+		mxkUPduyAYOzCTWj902M0DQpG7k=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -155,10 +151,6 @@
 		<key>PrivateHeaders/PWBaseLoadingViewController.h</key>
 		<data>
 		rset9tr3mBC1IQUjQAvV1uau60o=
-		</data>
-		<key>PrivateHeaders/PWBusinessCaseManager.h</key>
-		<data>
-		y4HZ0FPgptOMbxlaafh8Lcf7WUI=
 		</data>
 		<key>PrivateHeaders/PWChannel.h</key>
 		<data>
@@ -182,7 +174,7 @@
 		</data>
 		<key>PrivateHeaders/PWInAppMessagesManager.h</key>
 		<data>
-		Ah/Ae0SKuUF8ZfJqt37zA5YLzCg=
+		zTgHGAcieFoHFzTBEoj8XFrk4WU=
 		</data>
 		<key>PrivateHeaders/PWInAppStorage.h</key>
 		<data>
@@ -238,7 +230,7 @@
 		</data>
 		<key>PrivateHeaders/PWResource.h</key>
 		<data>
-		AOR5PIMmh5GGXUb1UObZLjfkOgg=
+		x1P/bWcWWlsPRIreVnYdw4eF+Jg=
 		</data>
 		<key>PrivateHeaders/PWRichMedia+Internal.h</key>
 		<data>
@@ -323,7 +315,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			IDwZpPunnHZoEzxc0vXq+ZtuXPMwYnNHvvPsWmZYWGk=
+			pyTWaOCOG6yVtvUrNuLBjIeHLkwJ4ht4pPH7+xnVjww=
 			</data>
 		</dict>
 		<key>Headers/PWCoreUtils.h</key>
@@ -337,7 +329,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TzFhlXHO2pkk6Et4EvcsbOJdJgxl9rZlFufZ4TdNo7s=
+			K9mIEH/4u3BXeitT08ELRch9jwRtuBck+6lokBX2XfQ=
 			</data>
 		</dict>
 		<key>Headers/PWInboxBridge.h</key>
@@ -394,13 +386,6 @@
 			<key>hash2</key>
 			<data>
 			DbbrRQZ3GwpofQcWGdjo0iSJ4FGdTJIWuCnqXQgGUv8=
-			</data>
-		</dict>
-		<key>Headers/PWInlineInAppView.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			/dOzaP2mQCBmfzKE+Hne/6juAnkCwqCxry8i1u8AX0Q=
 			</data>
 		</dict>
 		<key>Headers/PWManagerBridge.h</key>
@@ -519,7 +504,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			afTKOA92rV71JfJodQAFnxCrnRjez7rQZgKJkpIr2Gc=
+			bTFlj3k1zackJHr/fziN9zfJ1LRwhIgmb48xqkji/hE=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -548,13 +533,6 @@
 			<key>hash2</key>
 			<data>
 			4GUT4MG/CmZT7GXJO4J+Yt0PP+ruWEGe6NwcKvizFfs=
-			</data>
-		</dict>
-		<key>PrivateHeaders/PWBusinessCaseManager.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			7L2e4R0geU4XIy+IdY+JrNcJM87FSLXTPpoBFVowehE=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWChannel.h</key>
@@ -596,7 +574,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			gsRmCo63n36ZVO0moJdT+npP96RVW7rO9Z1+v9YuIAk=
+			MH9ZfeG7sm+CiaAWDHllzu2NK9dMXYyVgQVX3dbt5nc=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWInAppStorage.h</key>
@@ -694,7 +672,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			nj6Da7IksUoeDEDIuh21Shb0YspA4LNWtQINDdNelgo=
+			fapfwJJf/y6hP4FKlXRZ3+MRlJ1tAKwtxbMG6/wVBLs=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWRichMedia+Internal.h</key>

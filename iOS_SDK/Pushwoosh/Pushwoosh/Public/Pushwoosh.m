@@ -224,30 +224,9 @@ static dispatch_once_t ensureInitializedOncePredicate;
         return;
     }
 #if TARGET_OS_IOS
-    static BOOL isSubscriptionSegmentsCasePresented = NO;
-    
     [[PWPreferences preferences] setCustomTags:tags];
-    
-    if (!isSubscriptionSegmentsCasePresented) {
-        isSubscriptionSegmentsCasePresented = YES;
-        
-        [[PWBusinessCaseManager sharedManager] startBusinessCase:kPWIncreaseRateBusinessCase completion:^(PWBusinessCaseResult result) {
-            isSubscriptionSegmentsCasePresented = NO;
-            
-            if (result != PWBusinessCaseResultSuccess && result != PWBusinessCaseResultIntervalFail) {
-                [self.pushNotificationManager registerForPushNotificationsWithCompletion:completion];
-                
-                [[PWBusinessCaseManager sharedManager] startBusinessCase:kPWRecoveryBusinessCase completion:^(PWBusinessCaseResult result) {
-                    
-                }];
-            }
-        }];
-    } else {
-        [self.pushNotificationManager registerForPushNotificationsWithCompletion:completion];
-    }
-#else
-    [self.pushNotificationManager registerForPushNotificationsWithCompletion:completion];
 #endif
+    [self.pushNotificationManager registerForPushNotificationsWithCompletion:completion];
 }
 
 - (void)handlePushRegistration:(NSData *)deviceToken {

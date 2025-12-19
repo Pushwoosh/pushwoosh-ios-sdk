@@ -39,7 +39,7 @@
     }
     return self;
 }
-                  
+
 - (void)configureModalWindowWith:(ModalWindowPosition)position
                    presentAnimation:(PresentModalWindowAnimation)presentAnimation
                    dismissAnimation:(DismissModalWindowAnimation)dismissAnimation {

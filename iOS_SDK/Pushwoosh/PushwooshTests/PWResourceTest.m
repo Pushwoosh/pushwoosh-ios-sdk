@@ -12,7 +12,7 @@
 + (NSDictionary *)dict {
     static NSDictionary *dictionary;
     if (dictionary == nil) {
-        dictionary =  [[NSDictionary alloc] initWithObjectsAndKeys: @"topbanner", @"layout", @1234567890, @"updated", @"1q2w3e4r5t6y7u8", @"hash", @"AAAAA-11111", @"code", @0, @"closeButtonType", @"Consent", @"businessCase", @"NO", @"required", @0, @"priority", @"https://fakeurl.com/11111-AAAAA", @"url", nil];
+        dictionary =  [[NSDictionary alloc] initWithObjectsAndKeys: @"topbanner", @"layout", @1234567890, @"updated", @"1q2w3e4r5t6y7u8", @"hash", @"AAAAA-11111", @"code", @0, @"closeButtonType", @"NO", @"required", @0, @"priority", @"https://fakeurl.com/11111-AAAAA", @"url", nil];
     }
     return dictionary;
 }

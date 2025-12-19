@@ -5,7 +5,6 @@
 //
 
 #import "PWCache.h"
-#import "PWUtils.h"
 #import "PWUnarchiver.h"
 
 @interface PWCache ()
@@ -47,14 +46,12 @@
     [PushwooshLog pushwooshLog:PW_LL_VERBOSE
                      className:self
                        message:[NSString stringWithFormat:@"Set cached tags: %@", tags]];
-    
-    if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
-        NSError *error = nil;
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tags requiringSecureCoding:YES error:&error];
-        [data writeToFile:self.tagsCacheFile options:NSDataWritingAtomic error:&error];
-    } else {
-        [NSKeyedArchiver archiveRootObject:tags toFile:self.tagsCacheFile];
-    }
+
+#if TARGET_OS_IOS
+    NSError *error = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tags requiringSecureCoding:YES error:&error];
+    [data writeToFile:self.tagsCacheFile options:NSDataWritingAtomic error:&error];
+#endif
 }
 
 - (void)addTags:(NSDictionary *)tags {
@@ -97,14 +94,12 @@
     [PushwooshLog pushwooshLog:PW_LL_VERBOSE
                      className:self
                        message:[NSString stringWithFormat:@"Set cached email tags: %@", tags]];
-    
-    if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
-        NSError *error = nil;
-        NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tags requiringSecureCoding:YES error:&error];
-        [data writeToFile:self.emailTagsCacheFile options:NSDataWritingAtomic error:&error];
-    } else {
-        [NSKeyedArchiver archiveRootObject:tags toFile:self.emailTagsCacheFile];
-    }
+
+#if TARGET_OS_IOS
+    NSError *error = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:tags requiringSecureCoding:YES error:&error];
+    [data writeToFile:self.emailTagsCacheFile options:NSDataWritingAtomic error:&error];
+#endif
 }
 
 - (void)addEmailTags:(NSDictionary *)tags {

@@ -13,10 +13,6 @@ FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 
 @interface PWInAppMessagesManager : NSObject
 
-#if TARGET_OS_IOS || TARGET_OS_OSX
-- (void)resetBusinessCasesFrequencyCapping;
-#endif
-
 - (void)setUserId:(NSString*)userId completion:(void (^)(NSError* error))completion;
 
 - (void)mergeUserId:(NSString*)oldUserId to:(NSString*)newUserId doMerge:(BOOL)doMerge completion:(void (^)(NSError* error))completion;
@@ -27,7 +23,7 @@ FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 
 - (void)postEvent:(NSString*)event withAttributes:(NSDictionary*)attributes completion:(void (^)(NSError* error))completion;
 
-- (void)postEventInternal:(NSString *)event withAttributes:(NSDictionary *)attributes isInlineInApp:(BOOL)isInlineInApp completion:(void (^)(id resource, NSError *error))completion;
+- (void)postEventInternal:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void (^)(id resource, NSError *error))completion;
 
 - (void)reloadInAppsWithCompletion:(void (^)(NSError *error)) completion;
 

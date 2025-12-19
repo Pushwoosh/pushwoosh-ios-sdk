@@ -9,7 +9,6 @@
 #import "PWRequestsCacheManager.h"
 #import "PWCachedRequest.h"
 #import "PWNetworkModule.h"
-#import "PWUtils.h"
 #import "PWUnarchiver.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
@@ -134,16 +133,14 @@
 }
 
 - (void)save:(NSMutableArray *)requestsQueue withPath:(NSString *)path {
-    if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"11.0"]) {
+#if TARGET_OS_IOS
     NSError *error = nil;
     NSData *data = [NSKeyedArchiver archivedDataWithRootObject:requestsQueue requiringSecureCoding:YES error:&error];
-        [data writeToFile:path options:NSDataWritingAtomic error:&error];
-        if (error != nil) {
-            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Write to file failed: %@", error.localizedDescription]];
-        }
-    } else {
-        [NSKeyedArchiver archiveRootObject:requestsQueue toFile:path];
+    [data writeToFile:path options:NSDataWritingAtomic error:&error];
+    if (error != nil) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Write to file failed: %@", error.localizedDescription]];
     }
+#endif
 }
 
 - (NSString *)getCachePath {

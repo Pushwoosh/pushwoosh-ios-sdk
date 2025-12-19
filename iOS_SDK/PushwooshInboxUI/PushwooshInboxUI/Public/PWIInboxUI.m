@@ -10,7 +10,7 @@
 #import "PWIInboxStyle.h"
 #import "PWIInboxViewController.h"
 
-NSString * const PushwooshInboxUIVersion = @"7.0.12";
+NSString * const PushwooshInboxUIVersion = @"7.0.13";
 
 @implementation PWIInboxUI
 

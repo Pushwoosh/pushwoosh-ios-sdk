@@ -18,7 +18,6 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
 #import "PWRichMediaManager.h"
 #import "PWRichMediaStyle.h"
 #import "PWRichMediaView.h"
-#import "PWBusinessCaseManager.h"
 #import "PWRichMedia+Internal.h"
 
 #import <objc/runtime.h>
@@ -225,9 +224,7 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
                                       completion:nil
              ];
         }
-        
-        [[PWBusinessCaseManager sharedManager] resourceDidClosed:_richMedia.resource];
-        
+
         if (_completion) {
             _completion(_succeeded);
         }

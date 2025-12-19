@@ -23,7 +23,6 @@
 #import "PWStartLiveActivityRequest.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
-#import "PWBusinessCaseManager.h"
 #import "PWGetConfigRequest.h"
 #endif
 
@@ -218,44 +217,28 @@
     _appOpenDidSent = YES;
     
     [PWVersionTracking track];
-    
-    #if TARGET_OS_IOS || TARGET_OS_OSX
-    
-    [[PWBusinessCaseManager sharedManager] startBusinessCase:kPWWelcomeBusinessCase completion:^(PWBusinessCaseResult result) {
-        if (result == PWBusinessCaseResultConditionFail) {
-            [[PWBusinessCaseManager sharedManager] startBusinessCase:kPWUpdateBusinessCase completion:nil];
-        }
-    }];
-    
-    #endif
-    
+
     //it's ok to call this method without push token
     PWAppOpenRequest *request = [[PWAppOpenRequest alloc] init];
     
     [self.requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {
-            #if TARGET_OS_IOS || TARGET_OS_OSX
-            [[PWBusinessCaseManager sharedManager] handleBusinessCaseResources:request.businessCasesDict];
-            #endif
-            
-            if (!error) {
-                if ([PWPreferences preferences].previosHWID) {
-                    [self performDeviceMigrationWithCompletion:^(NSError *error) {
-                        if (!error) {
-                            [[PWPreferences preferences] saveCurrentHWIDtoUserDefaults]; //forget previous HWID
-                            
-                            if ([PWManagerBridge shared].getPushToken) {
-                                [PWPreferences preferences].lastRegTime = nil;
-                                [[PWManagerBridge shared] registerForPushNotifications];
-                            }
+            if ([PWPreferences preferences].previosHWID) {
+                [self performDeviceMigrationWithCompletion:^(NSError *error) {
+                    if (!error) {
+                        [[PWPreferences preferences] saveCurrentHWIDtoUserDefaults]; //forget previous HWID
+
+                        if ([PWManagerBridge shared].getPushToken) {
+                            [PWPreferences preferences].lastRegTime = nil;
+                            [[PWManagerBridge shared] registerForPushNotifications];
                         }
-                    }];
-                }
+                    }
+                }];
             }
         } else {
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"sending appOpen failed"];
         }
-        
+
         if (completion) {
             completion(error);
         }

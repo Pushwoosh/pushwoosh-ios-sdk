@@ -31,7 +31,6 @@ typedef NS_ENUM(unsigned int, IAResourcePresentationStyle) {
 @property (nonatomic, assign, readonly) DismissModalWindowAnimation dismissAnimation;
 @property (nonatomic, strong, readonly) NSArray<NSNumber *> *swipeToDismiss;
 @property (nonatomic, readonly) NSTimeInterval updated;
-@property (nonatomic, readonly) NSString *businessCase;
 
 @property (nonatomic, strong, readonly) NSDictionary *tags;
 

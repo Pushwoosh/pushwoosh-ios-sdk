@@ -9,6 +9,4 @@
 
 @interface PWAppOpenRequest : PWRequest
 
-@property (nonatomic) NSDictionary *businessCasesDict;
-
 @end
