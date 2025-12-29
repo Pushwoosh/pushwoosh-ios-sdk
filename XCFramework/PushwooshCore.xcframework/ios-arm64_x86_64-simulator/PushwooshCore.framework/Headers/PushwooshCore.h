@@ -23,6 +23,9 @@
 #import <PushwooshCore/PWRichMediaManager.h>
 #import <PushwooshCore/PWRichMedia.h>
 #import <PushwooshCore/PWModalWindowConfiguration.h>
+#import <PushwooshCore/PWMedia.h>
+#import <PushwooshCore/PWModalRichMedia.h>
+#import <PushwooshCore/PWLegacyRichMedia.h>
 #import <PushwooshCore/PWRichMediaStyle.h>
 #import <PushwooshCore/PWRichMediaTypes.h>
 #import <PushwooshCore/PWInboxTypes.h>
@@ -40,7 +43,7 @@
 #import <PushwooshCore/PWBasePushTrackingRequest.h>
 #import <PushwooshCore/PWMessage+Internal.h>
 
-#define PUSHWOOSH_VERSION @"7.0.13"
+#define PUSHWOOSH_VERSION @"7.0.14"
 
 @interface PushwooshCoreManager : NSObject
 

@@ -36,7 +36,6 @@
     [aCoder encodeObject:_code forKey:@"code"];
     [aCoder encodeObject:_url forKey:@"url"];
     [aCoder encodeDouble:_updated forKey:@"updated"];
-    [aCoder encodeBool:_required forKey:@"required"];
     [aCoder encodeBool:_closeButton forKey:@"closeButton"];
     [aCoder encodeObject:_presentationStyleKey forKey:@"presentationStyleKey"];
 }
@@ -50,7 +49,6 @@
         _code = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"code"];
         _url = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"url"];
         _updated = [aDecoder decodeDoubleForKey:@"updated"];
-        _required = [aDecoder decodeBoolForKey:@"required"];
         _closeButton = [aDecoder decodeBoolForKey:@"closeButton"];
         _presentationStyleKey = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"presentationStyleKey"];
         _downloadListeners = [NSMutableArray new];
@@ -65,8 +63,6 @@
         _url = [dictionary pw_stringForKey:@"url"];
         id updatedValue = [dictionary pw_objectForKey:@"updated" ofTypes:@[ [NSString class], [NSNumber class] ]];
         _updated = [updatedValue doubleValue];
-        id requiredValue = [dictionary pw_objectForKey:@"required" ofTypes:@[ [NSString class], [NSNumber class] ]];
-        _required = [requiredValue boolValue];
         _presentationStyleKey = [dictionary pw_stringForKey:@"presentationStyleKey"];
         id closeButtonValue = [dictionary pw_objectForKey:@"closeButtonType" ofTypes:@[ [NSString class], [NSNumber class] ]];
         _closeButton = [closeButtonValue boolValue];
@@ -111,10 +107,6 @@
     } else {
         return IAResourcePresentationUndefined;
     }
-}
-
-- (double)priority {
-    return _required ? 100 : 0;
 }
 
 - (BOOL)isDownloaded {

@@ -15,7 +15,6 @@
 - (void)setUp {
     self.mockResource = OCMClassMock([PWResource class]);
     OCMStub([(PWResource *)self.mockResource code]).andReturn(@"testCode");
-    OCMStub([(PWResource *)self.mockResource required]).andReturn(YES);
 }
 
 - (void)tearDown {
@@ -46,43 +45,6 @@
     PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourcePush resource:self.mockResource];
 
     XCTAssertEqualObjects(richMedia.content, @"testCode");
-}
-
-- (void)testIsRequiredForPushSource {
-    PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourcePush resource:self.mockResource];
-
-    XCTAssertTrue(richMedia.isRequired);
-}
-
-- (void)testIsRequiredForInAppSourceWhenResourceRequired {
-    OCMStub([self.mockResource required]).andReturn(YES);
-    PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourceInApp resource:self.mockResource];
-
-    XCTAssertTrue(richMedia.isRequired);
-}
-
-- (void)testIsRequiredForInAppSourceWhenResourceNotRequired {
-    id resource = OCMClassMock([PWResource class]);
-    OCMStub([(PWResource *)resource code]).andReturn(@"testCode");
-    OCMStub([(PWResource *)resource required]).andReturn(NO);
-
-    PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourceInApp resource:resource];
-
-    XCTAssertFalse(richMedia.isRequired);
-
-    [resource stopMocking];
-}
-
-- (void)testPushSourceAlwaysRequired {
-    id resource = OCMClassMock([PWResource class]);
-    OCMStub([(PWResource *)resource code]).andReturn(@"testCode");
-    OCMStub([(PWResource *)resource required]).andReturn(NO);
-
-    PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourcePush resource:resource];
-
-    XCTAssertTrue(richMedia.isRequired);
-
-    [resource stopMocking];
 }
 
 - (void)testInitWithNilPushPayload {

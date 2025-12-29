@@ -25,6 +25,10 @@
 #import <PushwooshCore/PWRichMediaManager.h>
 #endif
 
+#if TARGET_OS_IOS
+#import <PushwooshCore/PWMedia.h>
+#endif
+
 #if defined(__cplusplus)
 #define let auto const
 #else
@@ -76,6 +80,12 @@
         return [PWTVoSStub tvos];
     }
 }
+
+#if TARGET_OS_IOS
++ (Class<PWMedia>)media {
+    return [PWMedia media];
+}
+#endif
 
 + (Class)configure {
     [self ensureInitialized];

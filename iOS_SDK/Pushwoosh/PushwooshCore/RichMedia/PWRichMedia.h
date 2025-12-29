@@ -20,7 +20,6 @@ typedef NS_ENUM(NSUInteger, PWRichMediaSource) {
 @property (nonatomic, readonly) PWRichMediaSource source;
 @property (nonatomic, readonly) NSString *content;
 @property (nonatomic, readonly) NSDictionary *pushPayload;
-@property (nonatomic, readonly, getter=isRequired) BOOL required;
 
 @end
 

@@ -58,7 +58,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -119,7 +120,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -180,7 +182,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -241,7 +244,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -302,7 +306,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -363,7 +368,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -398,6 +404,68 @@
                 "accessorKind": "get"
               }
             ]
+          },
+          {
+            "kind": "Var",
+            "name": "media",
+            "printedName": "media",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Metatype",
+                "printedName": "PushwooshCore.PWMedia.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWMedia",
+                    "printedName": "PushwooshCore.PWMedia",
+                    "usr": "c:objc(cs)PWMedia"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So9PushwooshC0A9FrameworkE5mediaSo7PWMediaCmvpZ",
+            "mangledName": "$sSo9PushwooshC0A9FrameworkE5mediaSo7PWMediaCmvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshCore.PWMedia.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWMedia",
+                        "printedName": "PushwooshCore.PWMedia",
+                        "usr": "c:objc(cs)PWMedia"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So9PushwooshC0A9FrameworkE5mediaSo7PWMediaCmvgZ",
+                "mangledName": "$sSo9PushwooshC0A9FrameworkE5mediaSo7PWMediaCmvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
           }
         ],
         "declKind": "Class",
@@ -405,6 +473,595 @@
         "moduleName": "PushwooshFramework",
         "isOpen": true,
         "objc_name": "Pushwoosh",
+        "declAttributes": [
+          "ObjC",
+          "Dynamic"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWMedia",
+        "printedName": "PWMedia",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "modalRichMedia",
+            "printedName": "modalRichMedia",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Metatype",
+                "printedName": "PushwooshCore.PWModalRichMedia.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWModalRichMedia",
+                    "printedName": "PushwooshCore.PWModalRichMedia",
+                    "usr": "c:objc(cs)PWModalRichMedia"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So7PWMediaC18PushwooshFrameworkE14modalRichMediaSo07PWModaleF0CmvpZ",
+            "mangledName": "$sSo7PWMediaC18PushwooshFrameworkE14modalRichMediaSo07PWModaleF0CmvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshCore.PWModalRichMedia.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWModalRichMedia",
+                        "printedName": "PushwooshCore.PWModalRichMedia",
+                        "usr": "c:objc(cs)PWModalRichMedia"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So7PWMediaC18PushwooshFrameworkE14modalRichMediaSo07PWModaleF0CmvgZ",
+                "mangledName": "$sSo7PWMediaC18PushwooshFrameworkE14modalRichMediaSo07PWModaleF0CmvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "legacyRichMedia",
+            "printedName": "legacyRichMedia",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Metatype",
+                "printedName": "PushwooshCore.PWLegacyRichMedia.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWLegacyRichMedia",
+                    "printedName": "PushwooshCore.PWLegacyRichMedia",
+                    "usr": "c:objc(cs)PWLegacyRichMedia"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So7PWMediaC18PushwooshFrameworkE15legacyRichMediaSo08PWLegacyeF0CmvpZ",
+            "mangledName": "$sSo7PWMediaC18PushwooshFrameworkE15legacyRichMediaSo08PWLegacyeF0CmvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshCore.PWLegacyRichMedia.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWLegacyRichMedia",
+                        "printedName": "PushwooshCore.PWLegacyRichMedia",
+                        "usr": "c:objc(cs)PWLegacyRichMedia"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So7PWMediaC18PushwooshFrameworkE15legacyRichMediaSo08PWLegacyeF0CmvgZ",
+                "mangledName": "$sSo7PWMediaC18PushwooshFrameworkE15legacyRichMediaSo08PWLegacyeF0CmvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:objc(cs)PWMedia",
+        "moduleName": "PushwooshCore",
+        "isOpen": true,
+        "objc_name": "PWMedia",
+        "declAttributes": [
+          "ObjC",
+          "Dynamic"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWModalRichMedia",
+        "printedName": "PWModalRichMedia",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "delegate",
+            "printedName": "delegate",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any PushwooshCore.PWRichMediaPresentingDelegate)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWRichMediaPresentingDelegate",
+                    "printedName": "any PushwooshCore.PWRichMediaPresentingDelegate",
+                    "usr": "c:objc(pl)PWRichMediaPresentingDelegate"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So16PWModalRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvpZ",
+            "mangledName": "$sSo16PWModalRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any PushwooshCore.PWRichMediaPresentingDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWRichMediaPresentingDelegate",
+                        "printedName": "any PushwooshCore.PWRichMediaPresentingDelegate",
+                        "usr": "c:objc(pl)PWRichMediaPresentingDelegate"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So16PWModalRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvgZ",
+                "mangledName": "$sSo16PWModalRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any PushwooshCore.PWRichMediaPresentingDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWRichMediaPresentingDelegate",
+                        "printedName": "any PushwooshCore.PWRichMediaPresentingDelegate",
+                        "usr": "c:objc(pl)PWRichMediaPresentingDelegate"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So16PWModalRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvsZ",
+                "mangledName": "$sSo16PWModalRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvsZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So16PWModalRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvMZ",
+                "mangledName": "$sSo16PWModalRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvMZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:objc(cs)PWModalRichMedia",
+        "moduleName": "PushwooshCore",
+        "isOpen": true,
+        "objc_name": "PWModalRichMedia",
+        "declAttributes": [
+          "ObjC",
+          "Dynamic"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWLegacyRichMedia",
+        "printedName": "PWLegacyRichMedia",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "delegate",
+            "printedName": "delegate",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any PushwooshCore.PWRichMediaPresentingDelegate)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWRichMediaPresentingDelegate",
+                    "printedName": "any PushwooshCore.PWRichMediaPresentingDelegate",
+                    "usr": "c:objc(pl)PWRichMediaPresentingDelegate"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So17PWLegacyRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvpZ",
+            "mangledName": "$sSo17PWLegacyRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any PushwooshCore.PWRichMediaPresentingDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWRichMediaPresentingDelegate",
+                        "printedName": "any PushwooshCore.PWRichMediaPresentingDelegate",
+                        "usr": "c:objc(pl)PWRichMediaPresentingDelegate"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So17PWLegacyRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvgZ",
+                "mangledName": "$sSo17PWLegacyRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any PushwooshCore.PWRichMediaPresentingDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWRichMediaPresentingDelegate",
+                        "printedName": "any PushwooshCore.PWRichMediaPresentingDelegate",
+                        "usr": "c:objc(pl)PWRichMediaPresentingDelegate"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So17PWLegacyRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvsZ",
+                "mangledName": "$sSo17PWLegacyRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvsZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So17PWLegacyRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvMZ",
+                "mangledName": "$sSo17PWLegacyRichMediaC18PushwooshFrameworkE8delegateSo06PWRichC18PresentingDelegate_pSgvMZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:objc(cs)PWLegacyRichMedia",
+        "moduleName": "PushwooshCore",
+        "isOpen": true,
+        "objc_name": "PWLegacyRichMedia",
         "declAttributes": [
           "ObjC",
           "Dynamic"
@@ -498,7 +1155,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -620,7 +1278,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [

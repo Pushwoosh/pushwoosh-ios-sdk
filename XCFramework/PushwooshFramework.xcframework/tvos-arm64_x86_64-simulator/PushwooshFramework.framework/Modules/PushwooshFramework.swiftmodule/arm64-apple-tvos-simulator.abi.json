@@ -58,7 +58,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -119,7 +120,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -180,7 +182,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -241,7 +244,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -302,7 +306,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -363,7 +368,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [
@@ -498,7 +504,8 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final"
+              "Final",
+              "RawDocComment"
             ],
             "isFromExtension": true,
             "accessors": [

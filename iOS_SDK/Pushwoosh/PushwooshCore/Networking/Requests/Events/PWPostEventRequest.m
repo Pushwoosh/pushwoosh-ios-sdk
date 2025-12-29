@@ -125,8 +125,6 @@
                             @"tags" : tags };
         }
     }
-    NSNumber *required = [response pw_numberForKey:@"required"];
-    _required = required.boolValue;
 }
 
 // tags must be NSString -> NSString dictionary

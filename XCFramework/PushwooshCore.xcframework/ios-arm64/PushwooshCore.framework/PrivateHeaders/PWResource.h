@@ -23,8 +23,6 @@ typedef NS_ENUM(unsigned int, IAResourcePresentationStyle) {
 
 @property (nonatomic, strong, readonly) NSString *code;  //identifier
 @property (nonatomic, strong, readonly) NSString *url;
-@property (nonatomic, readonly) BOOL required;
-@property (nonatomic, readonly) double priority;
 @property (nonatomic, readonly) BOOL closeButton;
 @property (nonatomic, assign, readonly) ModalWindowPosition position;
 @property (nonatomic, assign, readonly) PresentModalWindowAnimation presentAnimation;
@@ -36,7 +34,7 @@ typedef NS_ENUM(unsigned int, IAResourcePresentationStyle) {
 
 @property (nonatomic, strong, readonly) PWRichMediaConfig *config;
 
-// InApp is currentle showing
+// InApp is currently showing
 @property (nonatomic, assign) BOOL locked;
 
 - (instancetype)initWithDictionary:(NSDictionary *)dictionary;

@@ -2,6 +2,7 @@
 #import "PWConfig.h"
 
 static NSString * const kPWRichMediaStyleModalKey = @"PWRichMediaStyleModal";
+static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresentationStyle";
 
 @interface PWConfig ()
 
@@ -145,11 +146,29 @@ static NSString * const kPWRichMediaStyleModalKey = @"PWRichMediaStyleModal";
 }
 
 - (void)styleRichMediaTypeFromString:(NSString *)style {
+    if ([[NSUserDefaults standardUserDefaults] objectForKey:kPWRichMediaPresentationStyleKey] != nil) {
+        NSInteger savedStyle = [[NSUserDefaults standardUserDefaults] integerForKey:kPWRichMediaPresentationStyleKey];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPWRichMediaPresentationStyleKey];
+        switch (savedStyle) {
+            case 0:
+                self.richMediaStyle = PWRichMediaStyleTypeModal;
+                break;
+            case 1:
+                self.richMediaStyle = PWRichMediaStyleTypeLegacy;
+                break;
+            case 2:
+            default:
+                self.richMediaStyle = PWRichMediaStyleTypeDefault;
+                break;
+        }
+        return;
+    }
+
     if ([[NSUserDefaults standardUserDefaults] objectForKey:kPWRichMediaStyleModalKey] != nil) {
         _richMediaStyle = [[NSUserDefaults standardUserDefaults] boolForKey:kPWRichMediaStyleModalKey]
             ? PWRichMediaStyleTypeModal
             : PWRichMediaStyleTypeDefault;
-        [[NSUserDefaults standardUserDefaults] setBool:NO forKey:kPWRichMediaStyleModalKey];
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPWRichMediaStyleModalKey];
         return;
     }
 

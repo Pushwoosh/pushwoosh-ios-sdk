@@ -34,10 +34,6 @@
     return _resource.code;
 }
 
-- (BOOL)isRequired {
-    return _source == PWRichMediaSourceInApp ? _resource.required : YES;
-}
-
 @end
 
 #endif

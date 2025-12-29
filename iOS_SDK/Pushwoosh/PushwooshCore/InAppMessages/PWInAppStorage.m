@@ -168,14 +168,9 @@ static dispatch_once_t inAppStorageOncePred;
         }
     }
 
-    NSMutableArray<PWResource *> *priorityResources = [NSMutableArray arrayWithArray:resources.allValues];
-    [priorityResources sortUsingComparator:^NSComparisonResult(PWResource *obj1, PWResource *obj2) {
-        return obj1.priority > obj2.priority ? NSOrderedAscending : NSOrderedDescending;
-    }];
-
     dispatch_group_t group = dispatch_group_create();
 
-    for (PWResource *resource in priorityResources) {
+    for (PWResource *resource in resources.allValues) {
         PWResource *existingResource = currentResources[resource.code];
         if (existingResource.locked) {
             continue;

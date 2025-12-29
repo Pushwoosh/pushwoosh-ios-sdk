@@ -64,9 +64,17 @@
 		<data>
 		GK9uUAabUuDjMcUdB52ojDYJpjQ=
 		</data>
+		<key>Headers/PWLegacyRichMedia.h</key>
+		<data>
+		pSdkgYh5hzuHFtlJozoHA8U48NM=
+		</data>
 		<key>Headers/PWManagerBridge.h</key>
 		<data>
 		ROnX4ZV6WZuo7j2FNmsrHUfzbUM=
+		</data>
+		<key>Headers/PWMedia.h</key>
+		<data>
+		nbMxYq8MvnrwsTknnUX+KVOFmzo=
 		</data>
 		<key>Headers/PWMessage+Internal.h</key>
 		<data>
@@ -79,6 +87,10 @@
 		<key>Headers/PWMessageDeliveryRequest.h</key>
 		<data>
 		SGGh6lI0zUChXDTFexgDRN2YJdI=
+		</data>
+		<key>Headers/PWModalRichMedia.h</key>
+		<data>
+		Y04i6qDeTuC2xnilS8pA6U2Pqnc=
 		</data>
 		<key>Headers/PWModalWindowConfiguration.h</key>
 		<data>
@@ -106,7 +118,7 @@
 		</data>
 		<key>Headers/PWRichMedia.h</key>
 		<data>
-		Mkp+17mh73beU7PjBldd3YhN1Ts=
+		UuUkeswyYV5jMYfNfnJNoNtNZ7k=
 		</data>
 		<key>Headers/PWRichMediaManager.h</key>
 		<data>
@@ -130,7 +142,7 @@
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		mxkUPduyAYOzCTWj902M0DQpG7k=
+		vAk8xzbbkBblab8AtiT5kQ5+sfs=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -230,7 +242,7 @@
 		</data>
 		<key>PrivateHeaders/PWResource.h</key>
 		<data>
-		x1P/bWcWWlsPRIreVnYdw4eF+Jg=
+		NGaXq3+kE+OKalFsDS8IyDCsQt4=
 		</data>
 		<key>PrivateHeaders/PWRichMedia+Internal.h</key>
 		<data>
@@ -388,11 +400,25 @@
 			DbbrRQZ3GwpofQcWGdjo0iSJ4FGdTJIWuCnqXQgGUv8=
 			</data>
 		</dict>
+		<key>Headers/PWLegacyRichMedia.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			axJjI/d0HkTCM27eJD71T3brLT9wU/L4i75yGRq2JcM=
+			</data>
+		</dict>
 		<key>Headers/PWManagerBridge.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
 			7y0uPwwZD0iasXCl208L975lqigtQJS3RVvzeRpeo/w=
+			</data>
+		</dict>
+		<key>Headers/PWMedia.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			E6lTfkm6/UUhzWiTrCT+a82wzxLkqvcaVtHXihpnyeY=
 			</data>
 		</dict>
 		<key>Headers/PWMessage+Internal.h</key>
@@ -414,6 +440,13 @@
 			<key>hash2</key>
 			<data>
 			nwjl99QtDcM7xVAqX1tXGrcNWRVJI/By/v3XB5ireco=
+			</data>
+		</dict>
+		<key>Headers/PWModalRichMedia.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			tiSj/pS56ahzVawDpBtTXWa6P8h4N4ChCkrqPXJps20=
 			</data>
 		</dict>
 		<key>Headers/PWModalWindowConfiguration.h</key>
@@ -462,7 +495,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			KBz/qxdQ+zb1a+wg0Hdh/MRQvJvxdDwkBL9SYkJ3O6A=
+			jTKfNinUgEnfMWs9vc9Vm1WaTul/+chZMDoXkejqNGo=
 			</data>
 		</dict>
 		<key>Headers/PWRichMediaManager.h</key>
@@ -504,7 +537,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bTFlj3k1zackJHr/fziN9zfJ1LRwhIgmb48xqkji/hE=
+			aIhnuzVRSzxK0/ZBRg8++GZd6a9IX8KBQzf0C/AV3cU=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -672,7 +705,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			fapfwJJf/y6hP4FKlXRZ3+MRlJ1tAKwtxbMG6/wVBLs=
+			CAVmvWIWc29FdHnzW2Nb/UlD4qR9r3plKzpNVzsqZN4=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWRichMedia+Internal.h</key>

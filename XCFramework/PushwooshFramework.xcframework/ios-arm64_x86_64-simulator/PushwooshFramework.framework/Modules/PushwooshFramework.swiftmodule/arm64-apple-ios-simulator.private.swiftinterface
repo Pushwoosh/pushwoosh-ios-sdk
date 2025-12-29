@@ -28,6 +28,29 @@ extension PushwooshFramework.Pushwoosh {
   public static var configure: PushwooshCore.PushwooshConfig.Type {
     get
   }
+  public static var media: PushwooshCore.PWMedia.Type {
+    get
+  }
+}
+extension PushwooshCore.PWMedia {
+  public static var modalRichMedia: PushwooshCore.PWModalRichMedia.Type {
+    get
+  }
+  public static var legacyRichMedia: PushwooshCore.PWLegacyRichMedia.Type {
+    get
+  }
+}
+extension PushwooshCore.PWModalRichMedia {
+  public static var delegate: (any PushwooshCore.PWRichMediaPresentingDelegate)? {
+    get
+    set
+  }
+}
+extension PushwooshCore.PWLegacyRichMedia {
+  public static var delegate: (any PushwooshCore.PWRichMediaPresentingDelegate)? {
+    get
+    set
+  }
 }
 extension PushwooshCore.PushwooshConfig {
   public static var delegate: (any PushwooshFramework.PWMessagingDelegate)? {

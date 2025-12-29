@@ -291,8 +291,6 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
                         loadResource();
                     }
                 }];
-            } else if (request.required && resource == nil) {
-                loadResource();
             } else {
                 [wself processingResource:resource withRequest:request completion:completion];
             }
@@ -324,8 +322,6 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
                         completion(nil, error);
                     }
                 }];
-            } else if (request.required && resource == nil) {
-                loadResource();
             } else {
                 [wself processingResource:resource withRequest:request completion:completion];
             }
@@ -352,7 +348,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         return;
     }
 
-    if (!resource.isDownloaded && !resource.required) {
+    if (!resource.isDownloaded) {
         NSString *message = [NSString stringWithFormat:@"Pushwoosh In-App: Resource with code %@ is not downloaded yet", request.resultCode];
         [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:message];
         completion(nil, [PWUtils pushwooshError:message]);

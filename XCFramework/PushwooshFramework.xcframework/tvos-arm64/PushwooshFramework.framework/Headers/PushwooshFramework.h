@@ -23,11 +23,11 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"7.0.13"
+#define PUSHWOOSH_VERSION @"7.0.14"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy, PushwooshConfig;
-@protocol PWLiveActivities, PWVoIP, PWForegroundPush, PWTVoS, PWDebug;
+@protocol PWLiveActivities, PWVoIP, PWForegroundPush, PWTVoS, PWDebug, PWMedia;
 
 
 typedef void (^PushwooshRegistrationHandler)(NSString * _Nullable token, NSError * _Nullable error);
@@ -277,6 +277,11 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
 #pragma mark - tvOS Features
 + (Class<PWTVoS>_Nonnull)TVoS NS_REFINED_FOR_SWIFT;
+
+#if TARGET_OS_IOS
+#pragma mark - Rich Media
++ (Class<PWMedia>_Nonnull)media NS_REFINED_FOR_SWIFT;
+#endif
 
 /**
  Pushwoosh Application ID. Usually retrieved automatically from Info.plist parameter `Pushwoosh_APPID`
