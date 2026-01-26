@@ -29,7 +29,46 @@
 }
 
 + (void)applicationOpenURL:(NSURL *)url {
-    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+    NSString *scheme = url.scheme.lowercaseString;
+
+    if ([scheme isEqualToString:@"https"] || [scheme isEqualToString:@"http"]) {
+        // Try to handle as Universal Link within the app
+        NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:NSUserActivityTypeBrowsingWeb];
+        userActivity.webpageURL = url;
+
+        BOOL handled = NO;
+
+        // Try scene delegate first (iOS 13+)
+        if (@available(iOS 13.0, *)) {
+            for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
+                if ([scene isKindOfClass:[UIWindowScene class]] && scene.delegate) {
+                    if ([scene.delegate respondsToSelector:@selector(scene:continueUserActivity:)]) {
+                        [scene.delegate scene:scene continueUserActivity:userActivity];
+                        handled = YES;
+                        break;
+                    }
+                }
+            }
+        }
+
+        // Try app delegate if scene delegate didn't handle
+        if (!handled) {
+            id<UIApplicationDelegate> appDelegate = [UIApplication sharedApplication].delegate;
+            if ([appDelegate respondsToSelector:@selector(application:continueUserActivity:restorationHandler:)]) {
+                handled = [appDelegate application:[UIApplication sharedApplication]
+                          continueUserActivity:userActivity
+                            restorationHandler:^(NSArray<id<UIUserActivityRestoring>> * _Nullable restorableObjects) {}];
+            }
+        }
+
+        // If not handled, open in Safari
+        if (!handled) {
+            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+        }
+    } else {
+        // Custom URL scheme (myapp://) — open directly
+        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+    }
 }
 
 #if TARGET_OS_IOS
