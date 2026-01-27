@@ -43,7 +43,7 @@
 #import <PushwooshCore/PWBasePushTrackingRequest.h>
 #import <PushwooshCore/PWMessage+Internal.h>
 
-#define PUSHWOOSH_VERSION @"7.0.16"
+#define PUSHWOOSH_VERSION @"7.0.17"
 
 @interface PushwooshCoreManager : NSObject
 

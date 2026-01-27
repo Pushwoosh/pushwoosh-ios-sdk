@@ -25,6 +25,9 @@ extension PushwooshFramework.Pushwoosh {
   public static var ForegroundPush: any PushwooshBridge.PWForegroundPush.Type {
     get
   }
+  public static var Keychain: any PushwooshBridge.PWKeychain.Type {
+    get
+  }
   public static var configure: PushwooshCore.PushwooshConfig.Type {
     get
   }

@@ -89,6 +89,21 @@ public extension Pushwoosh {
         return __foregroundPush()
     }
 
+    /// Provides access to persistent HWID functionality via iOS Keychain.
+    ///
+    /// Use this property to manage persistent device identification that survives app reinstalls.
+    /// The module is automatically disabled in App Store builds for privacy compliance.
+    ///
+    /// ```swift
+    /// // Clear the stored HWID from Keychain (development only)
+    /// Pushwoosh.Keychain.clearPersistentHWID()
+    /// ```
+    ///
+    /// - Note: Available starting from SDK version 7.0.16.
+    static var Keychain: PWKeychain.Type {
+        return __keychain()
+    }
+
     /// Provides access to Pushwoosh configuration.
     ///
     /// Use this property to configure the SDK, register for push notifications, and manage user data.

@@ -345,6 +345,68 @@
           },
           {
             "kind": "Var",
+            "name": "Keychain",
+            "printedName": "Keychain",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any PushwooshBridge.PWKeychain.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWKeychain",
+                    "printedName": "PushwooshBridge.PWKeychain",
+                    "usr": "c:@M@PushwooshBridge@objc(pl)PWKeychain"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So9PushwooshC0A9FrameworkE8Keychain0A6Bridge10PWKeychain_pXpvpZ",
+            "mangledName": "$sSo9PushwooshC0A9FrameworkE8Keychain0A6Bridge10PWKeychain_pXpvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ExistentialMetatype",
+                    "printedName": "any PushwooshBridge.PWKeychain.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWKeychain",
+                        "printedName": "PushwooshBridge.PWKeychain",
+                        "usr": "c:@M@PushwooshBridge@objc(pl)PWKeychain"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So9PushwooshC0A9FrameworkE8Keychain0A6Bridge10PWKeychain_pXpvgZ",
+                "mangledName": "$sSo9PushwooshC0A9FrameworkE8Keychain0A6Bridge10PWKeychain_pXpvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "configure",
             "printedName": "configure",
             "children": [
