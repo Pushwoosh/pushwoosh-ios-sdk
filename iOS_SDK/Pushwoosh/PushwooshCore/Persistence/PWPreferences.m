@@ -74,7 +74,13 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
         _lock = [NSObject new];
 
         NSString *previosHWID = [[NSUserDefaults standardUserDefaults] objectForKey:KeyDeviceId];
-        _hwid = [PWUtils uniqueGlobalDeviceIdentifier];
+
+        NSString *persistentHWID = [self getPersistentHWIDIfAvailable];
+        if (persistentHWID) {
+            _hwid = persistentHWID;
+        } else {
+            _hwid = [PWUtils uniqueGlobalDeviceIdentifier];
+        }
 
         if (![PWUtils isValidHwid:previosHWID] ) {
             [self saveCurrentHWIDtoUserDefaults];
@@ -615,6 +621,45 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 - (void)saveCurrentHWIDtoUserDefaults {
     _previosHWID = nil;
     [[NSUserDefaults standardUserDefaults] setObject:_hwid forKey:KeyDeviceId];
+}
+
+#pragma mark - Keychain Persistent HWID
+
+- (NSString *)getPersistentHWIDIfAvailable {
+    Class keychainClass = NSClassFromString(@"PushwooshKeychainImplementation");
+    if (keychainClass == nil) {
+        return nil;
+    }
+
+    SEL isEnabledSelector = NSSelectorFromString(@"isEnabled");
+    if (![keychainClass respondsToSelector:isEnabledSelector]) {
+        return nil;
+    }
+
+    NSMethodSignature *signature = [keychainClass methodSignatureForSelector:isEnabledSelector];
+    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+    [invocation setSelector:isEnabledSelector];
+    [invocation setTarget:keychainClass];
+    [invocation invoke];
+
+    BOOL isEnabled = NO;
+    [invocation getReturnValue:&isEnabled];
+
+    if (!isEnabled) {
+        return nil;
+    }
+
+    SEL getPersistentHWIDSelector = NSSelectorFromString(@"getPersistentHWID");
+    if (![keychainClass respondsToSelector:getPersistentHWIDSelector]) {
+        return nil;
+    }
+
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+    NSString *persistentHWID = [keychainClass performSelector:getPersistentHWIDSelector];
+#pragma clang diagnostic pop
+
+    return persistentHWID;
 }
 
 @end

@@ -172,6 +172,37 @@ import _SwiftConcurrencyShims
   @objc override dynamic public init()
   @objc deinit
 }
+@objc public enum PWAppEnvironment : Swift.Int {
+  case simulator = 0
+  case debug = 1
+  case testFlight = 2
+  case appStore = 3
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol PWKeychain {
+  @objc static func keychain() -> Swift.AnyClass
+  @objc static var isEnabled: Swift.Bool { get }
+  @objc static var currentEnvironment: PushwooshBridge.PWAppEnvironment { get }
+  @objc static func getPersistentHWID() -> Swift.String?
+  @objc static func clearPersistentHWID()
+}
+@_inheritsConvenienceInitializers @objc public class PWKeychainStub : ObjectiveC.NSObject, PushwooshBridge.PWKeychain {
+  @objc public static func keychain() -> Swift.AnyClass
+  @objc public static var isEnabled: Swift.Bool {
+    @objc get
+  }
+  @objc public static var currentEnvironment: PushwooshBridge.PWAppEnvironment {
+    @objc get
+  }
+  @objc public static func getPersistentHWID() -> Swift.String?
+  @objc public static func clearPersistentHWID()
+  @objc override dynamic public init()
+  @objc deinit
+}
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Equatable {}
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Hashable {}
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.RawRepresentable {}
@@ -190,3 +221,6 @@ extension PushwooshBridge.PWForegroundPushHapticFeedback : Swift.RawRepresentabl
 extension PushwooshBridge.PWForegroundPushDisappearedAnimation : Swift.Equatable {}
 extension PushwooshBridge.PWForegroundPushDisappearedAnimation : Swift.Hashable {}
 extension PushwooshBridge.PWForegroundPushDisappearedAnimation : Swift.RawRepresentable {}
+extension PushwooshBridge.PWAppEnvironment : Swift.Equatable {}
+extension PushwooshBridge.PWAppEnvironment : Swift.Hashable {}
+extension PushwooshBridge.PWAppEnvironment : Swift.RawRepresentable {}

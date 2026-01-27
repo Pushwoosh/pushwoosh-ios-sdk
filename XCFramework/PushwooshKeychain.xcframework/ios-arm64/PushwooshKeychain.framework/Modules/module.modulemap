@@ -1,0 +1,11 @@
+framework module PushwooshKeychain {
+  umbrella header "PushwooshKeychain.h"
+  export *
+
+  module * { export * }
+}
+
+module PushwooshKeychain.Swift {
+  header "PushwooshKeychain-Swift.h"
+  requires objc
+}

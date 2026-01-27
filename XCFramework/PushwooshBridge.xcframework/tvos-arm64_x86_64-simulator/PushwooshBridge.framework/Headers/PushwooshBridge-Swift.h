@@ -300,6 +300,18 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 #if defined(__OBJC__)
+/// Environment types for the running application.
+typedef SWIFT_ENUM(NSInteger, PWAppEnvironment, open) {
+/// Running in iOS Simulator
+  PWAppEnvironmentSimulator = 0,
+/// Running on device with debug/development provisioning
+  PWAppEnvironmentDebug = 1,
+/// Installed via TestFlight
+  PWAppEnvironmentTestFlight = 2,
+/// Installed from App Store
+  PWAppEnvironmentAppStore = 3,
+};
+
 @class UIColor;
 @class UIFont;
 @class NSObject;
@@ -421,6 +433,93 @@ typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
 };
 
 @class NSString;
+
+/// Protocol for managing persistent HWID storage using Keychain.
+/// This module provides persistent device identification that survives app reinstallation.
+/// It automatically disables itself in App Store builds to avoid using Keychain in production.
+/// <h2>Overview</h2>
+/// When the PushwooshKeychain module is linked and the app is running in a non-production
+/// environment (Simulator, Debug, TestFlight), the SDK will:
+/// <ol>
+///   <li>
+///     Check Keychain for existing HWID on first launch
+///   </li>
+///   <li>
+///     If found, use the stored HWID (device won’t create duplicate)
+///   </li>
+///   <li>
+///     If not found, save current HWID to Keychain for future reinstalls
+///   </li>
+/// </ol>
+/// In App Store builds, the module is automatically disabled and standard IDFV-based
+/// identification is used.
+/// <h2>Usage</h2>
+/// Simply link the PushwooshKeychain module to your project. No additional code required.
+/// The module activates automatically in non-production environments.
+/// \code
+/// // Check if persistent HWID is active
+/// if Pushwoosh.Keychain.isEnabled {
+///     print("Persistent HWID is active")
+/// }
+///
+/// // Get current environment
+/// let env = Pushwoosh.Keychain.currentEnvironment
+/// print("Running in: \(env)")
+///
+/// \endcode<blockquote>
+/// Important: This module is intended for QA/Development use only.
+/// It automatically disables itself in App Store builds.
+///
+/// </blockquote>
+SWIFT_PROTOCOL("_TtP15PushwooshBridge10PWKeychain_")
+@protocol PWKeychain
+/// Returns the implementation class for runtime detection.
++ (Class _Nonnull)keychain SWIFT_WARN_UNUSED_RESULT;
+/// Indicates whether persistent HWID storage is enabled.
+/// Returns <code>true</code> for Simulator, Debug, and TestFlight builds.
+/// Returns <code>false</code> for App Store builds.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isEnabled;)
++ (BOOL)isEnabled SWIFT_WARN_UNUSED_RESULT;
+/// Returns the current application environment.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) enum PWAppEnvironment currentEnvironment;)
++ (enum PWAppEnvironment)currentEnvironment SWIFT_WARN_UNUSED_RESULT;
+/// Returns the persistent HWID from Keychain, or nil if not available.
+/// This method:
+/// <ul>
+///   <li>
+///     Returns existing HWID from Keychain if found
+///   </li>
+///   <li>
+///     Creates and stores new HWID in Keychain if not found (first launch)
+///   </li>
+/// </ul>
+///
+/// returns:
+/// Persistent HWID string, or nil if module is disabled.
++ (NSString * _Nullable)getPersistentHWID SWIFT_WARN_UNUSED_RESULT;
+/// Clears the stored HWID from Keychain.
+/// Use this method to reset the persistent HWID.
+/// After calling this method, the next call to <code>getPersistentHWID()</code>
+/// will generate and store a new HWID.
++ (void)clearPersistentHWID;
+@end
+
+
+/// Stub implementation for PWKeychain protocol.
+/// This stub is used when the PushwooshKeychain module is not linked.
+/// All methods return safe default values and print informational messages.
+SWIFT_CLASS("_TtC15PushwooshBridge14PWKeychainStub")
+@interface PWKeychainStub : NSObject <PWKeychain>
++ (Class _Nonnull)keychain SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isEnabled;)
++ (BOOL)isEnabled SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) enum PWAppEnvironment currentEnvironment;)
++ (enum PWAppEnvironment)currentEnvironment SWIFT_WARN_UNUSED_RESULT;
++ (NSString * _Nullable)getPersistentHWID SWIFT_WARN_UNUSED_RESULT;
++ (void)clearPersistentHWID;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 /// Protocol for managing iOS Live Activities with Pushwoosh push notifications.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWLiveActivities_")
@@ -1219,6 +1318,18 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 #if defined(__OBJC__)
+/// Environment types for the running application.
+typedef SWIFT_ENUM(NSInteger, PWAppEnvironment, open) {
+/// Running in iOS Simulator
+  PWAppEnvironmentSimulator = 0,
+/// Running on device with debug/development provisioning
+  PWAppEnvironmentDebug = 1,
+/// Installed via TestFlight
+  PWAppEnvironmentTestFlight = 2,
+/// Installed from App Store
+  PWAppEnvironmentAppStore = 3,
+};
+
 @class UIColor;
 @class UIFont;
 @class NSObject;
@@ -1340,6 +1451,93 @@ typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
 };
 
 @class NSString;
+
+/// Protocol for managing persistent HWID storage using Keychain.
+/// This module provides persistent device identification that survives app reinstallation.
+/// It automatically disables itself in App Store builds to avoid using Keychain in production.
+/// <h2>Overview</h2>
+/// When the PushwooshKeychain module is linked and the app is running in a non-production
+/// environment (Simulator, Debug, TestFlight), the SDK will:
+/// <ol>
+///   <li>
+///     Check Keychain for existing HWID on first launch
+///   </li>
+///   <li>
+///     If found, use the stored HWID (device won’t create duplicate)
+///   </li>
+///   <li>
+///     If not found, save current HWID to Keychain for future reinstalls
+///   </li>
+/// </ol>
+/// In App Store builds, the module is automatically disabled and standard IDFV-based
+/// identification is used.
+/// <h2>Usage</h2>
+/// Simply link the PushwooshKeychain module to your project. No additional code required.
+/// The module activates automatically in non-production environments.
+/// \code
+/// // Check if persistent HWID is active
+/// if Pushwoosh.Keychain.isEnabled {
+///     print("Persistent HWID is active")
+/// }
+///
+/// // Get current environment
+/// let env = Pushwoosh.Keychain.currentEnvironment
+/// print("Running in: \(env)")
+///
+/// \endcode<blockquote>
+/// Important: This module is intended for QA/Development use only.
+/// It automatically disables itself in App Store builds.
+///
+/// </blockquote>
+SWIFT_PROTOCOL("_TtP15PushwooshBridge10PWKeychain_")
+@protocol PWKeychain
+/// Returns the implementation class for runtime detection.
++ (Class _Nonnull)keychain SWIFT_WARN_UNUSED_RESULT;
+/// Indicates whether persistent HWID storage is enabled.
+/// Returns <code>true</code> for Simulator, Debug, and TestFlight builds.
+/// Returns <code>false</code> for App Store builds.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isEnabled;)
++ (BOOL)isEnabled SWIFT_WARN_UNUSED_RESULT;
+/// Returns the current application environment.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) enum PWAppEnvironment currentEnvironment;)
++ (enum PWAppEnvironment)currentEnvironment SWIFT_WARN_UNUSED_RESULT;
+/// Returns the persistent HWID from Keychain, or nil if not available.
+/// This method:
+/// <ul>
+///   <li>
+///     Returns existing HWID from Keychain if found
+///   </li>
+///   <li>
+///     Creates and stores new HWID in Keychain if not found (first launch)
+///   </li>
+/// </ul>
+///
+/// returns:
+/// Persistent HWID string, or nil if module is disabled.
++ (NSString * _Nullable)getPersistentHWID SWIFT_WARN_UNUSED_RESULT;
+/// Clears the stored HWID from Keychain.
+/// Use this method to reset the persistent HWID.
+/// After calling this method, the next call to <code>getPersistentHWID()</code>
+/// will generate and store a new HWID.
++ (void)clearPersistentHWID;
+@end
+
+
+/// Stub implementation for PWKeychain protocol.
+/// This stub is used when the PushwooshKeychain module is not linked.
+/// All methods return safe default values and print informational messages.
+SWIFT_CLASS("_TtC15PushwooshBridge14PWKeychainStub")
+@interface PWKeychainStub : NSObject <PWKeychain>
++ (Class _Nonnull)keychain SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isEnabled;)
++ (BOOL)isEnabled SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) enum PWAppEnvironment currentEnvironment;)
++ (enum PWAppEnvironment)currentEnvironment SWIFT_WARN_UNUSED_RESULT;
++ (NSString * _Nullable)getPersistentHWID SWIFT_WARN_UNUSED_RESULT;
++ (void)clearPersistentHWID;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 /// Protocol for managing iOS Live Activities with Pushwoosh push notifications.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWLiveActivities_")

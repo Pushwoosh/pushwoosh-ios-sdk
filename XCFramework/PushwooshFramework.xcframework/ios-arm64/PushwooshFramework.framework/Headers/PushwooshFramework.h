@@ -4,6 +4,264 @@
 //  (c) Pushwoosh 2024
 //
 
+/**
+ @mainpage Pushwoosh iOS SDK - Integration Guide
+
+ @section overview Overview
+
+ Pushwoosh is a customer engagement platform for push notifications, in-app messages,
+ emails, SMS, and WhatsApp. This SDK handles device registration, notification delivery,
+ user segmentation, Live Activities (iOS 16.1+), and rich media notifications.
+
+ @section requirements Requirements
+
+ - iOS 11.0+ / tvOS 12.0+ / macOS 10.14+ / watchOS 6.0+
+ - Xcode 14.0+
+ - Apple Developer account with Push Notifications capability
+
+ @section quick_start Quick Start Guide
+
+ @subsection step1 Step 1: Install SDK
+
+ CocoaPods (Podfile):
+ ```ruby
+ pod 'PushwooshXCFramework'
+ ```
+
+ Swift Package Manager:
+ ```
+ https://github.com/Pushwoosh/Pushwoosh-XCFramework
+ ```
+
+ @subsection step2 Step 2: Configure Info.plist
+
+ Add to your Info.plist (replace XXXXX-XXXXX with your App Code from Pushwoosh Control Panel):
+ ```xml
+ <key>Pushwoosh_APPID</key>
+ <string>XXXXX-XXXXX</string>
+ ```
+
+ @subsection step3 Step 3: Enable Capabilities in Xcode
+
+ 1. Select your project target
+ 2. Go to "Signing & Capabilities"
+ 3. Add "Push Notifications" capability
+ 4. Add "Background Modes" and enable "Remote notifications"
+
+ @subsection step4 Step 4: Integrate in AppDelegate (Swift)
+
+ ```swift
+ import PushwooshFramework
+
+ @main
+ class AppDelegate: UIResponder, UIApplicationDelegate {
+
+     func application(_ application: UIApplication,
+                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+         Pushwoosh.configure.delegate = self
+         Pushwoosh.configure.registerForPushNotifications()
+         return true
+     }
+
+     func application(_ application: UIApplication,
+                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+         Pushwoosh.configure.handlePushRegistration(deviceToken)
+     }
+
+     func application(_ application: UIApplication,
+                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
+         Pushwoosh.configure.handlePushRegistrationFailure(error)
+     }
+ }
+
+ extension AppDelegate: PWMessagingDelegate {
+     func pushwoosh(_ pushwoosh: Pushwoosh, onMessageReceived message: PWMessage) {
+         print("Push received: \(message.payload ?? [:])")
+     }
+
+     func pushwoosh(_ pushwoosh: Pushwoosh, onMessageOpened message: PWMessage) {
+         print("Push opened: \(message.payload ?? [:])")
+     }
+ }
+ ```
+
+ @subsection step5 Step 5: SwiftUI Integration
+
+ ```swift
+ import SwiftUI
+ import PushwooshFramework
+
+ @main
+ struct MyApp: App {
+     @UIApplicationDelegateAdaptor(AppDelegate.self) var appDelegate
+
+     var body: some Scene {
+         WindowGroup {
+             ContentView()
+         }
+     }
+ }
+
+ class AppDelegate: NSObject, UIApplicationDelegate, PWMessagingDelegate {
+     func application(_ application: UIApplication,
+                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]? = nil) -> Bool {
+         Pushwoosh.configure.delegate = self
+         Pushwoosh.configure.registerForPushNotifications()
+         return true
+     }
+
+     func application(_ application: UIApplication,
+                      didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
+         Pushwoosh.configure.handlePushRegistration(deviceToken)
+     }
+
+     func application(_ application: UIApplication,
+                      didFailToRegisterForRemoteNotificationsWithError error: Error) {
+         Pushwoosh.configure.handlePushRegistrationFailure(error)
+     }
+
+     func pushwoosh(_ pushwoosh: Pushwoosh, onMessageOpened message: PWMessage) {
+         // Handle notification tap - navigate to relevant screen
+     }
+ }
+ ```
+
+ @section common_use_cases Common Use Cases
+
+ @subsection user_id User Identification
+
+ ```swift
+ // After user login
+ Pushwoosh.configure.setUserId("user_12345")
+ Pushwoosh.configure.setEmail("user@example.com")
+ ```
+
+ @subsection tags User Segmentation with Tags
+
+ ```swift
+ Pushwoosh.configure.setTags([
+     "subscription": "premium",
+     "age": 25,
+     "interests": ["sports", "music"],
+     "last_purchase": Date()
+ ])
+
+ // Increment numeric tags
+ Pushwoosh.configure.setTags([
+     "purchases_count": PWTagsBuilder.incrementalTag(withInteger: 1)
+ ])
+ ```
+
+ @subsection deep_links Handle Deep Links
+
+ ```swift
+ func pushwoosh(_ pushwoosh: Pushwoosh, onMessageOpened message: PWMessage) {
+     if let deepLink = message.customData?["deep_link"] as? String {
+         handleDeepLink(deepLink)
+     }
+ }
+ ```
+
+ @subsection logout Unregister on Logout
+
+ ```swift
+ func handleLogout() {
+     Pushwoosh.configure.unregisterForPushNotifications { error in
+         if let error = error {
+             print("Unregister failed: \(error)")
+         }
+     }
+ }
+ ```
+
+ @section optional_modules Optional Modules
+
+ @subsection live_activities Live Activities (iOS 16.1+)
+
+ Add to Podfile: `pod 'PushwooshXCFramework/PushwooshLiveActivities'`
+
+ ```swift
+ // Push-to-start token (iOS 17.2+)
+ if #available(iOS 17.2, *) {
+     for await data in Activity<MyAttributes>.pushToStartTokenUpdates {
+         let token = data.map { String(format: "%02x", $0) }.joined()
+         Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: token)
+     }
+ }
+
+ // Activity token
+ for await data in activity.pushTokenUpdates {
+     let token = data.map { String(format: "%02x", $0) }.joined()
+     Pushwoosh.LiveActivities.startLiveActivity(token: token, activityId: "order_123")
+ }
+
+ // Stop activity
+ Pushwoosh.LiveActivities.stopLiveActivity(activityId: "order_123")
+ ```
+
+ @subsection voip VoIP Push
+
+ Add to Podfile: `pod 'PushwooshXCFramework/PushwooshVoIP'`
+
+ @subsection geozones Geofencing
+
+ Add to Podfile: `pod 'PushwooshXCFramework/Geozones'`
+
+ @section rich_notifications Rich Notifications (Images, Buttons)
+
+ 1. File → New → Target → Notification Service Extension
+ 2. Name it "NotificationService"
+ 3. Add to Podfile:
+    ```ruby
+    target 'NotificationService' do
+      pod 'PushwooshXCFramework'
+    end
+    ```
+ 4. Replace NotificationService.swift:
+
+ ```swift
+ import UserNotifications
+ import PushwooshFramework
+
+ class NotificationService: UNNotificationServiceExtension {
+     var contentHandler: ((UNNotificationContent) -> Void)?
+     var bestAttemptContent: UNMutableNotificationContent?
+
+     override func didReceive(_ request: UNNotificationRequest,
+                              withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
+         self.contentHandler = contentHandler
+         bestAttemptContent = request.content.mutableCopy() as? UNMutableNotificationContent
+         PWNotificationExtensionManager.shared().handle(request, contentHandler: contentHandler)
+     }
+
+     override func serviceExtensionTimeWillExpire() {
+         if let contentHandler = contentHandler, let content = bestAttemptContent {
+             contentHandler(content)
+         }
+     }
+ }
+ ```
+
+ @section troubleshooting Troubleshooting
+
+ Push token is nil:
+ - Verify Push Notifications capability is enabled
+ - Check provisioning profile includes push entitlements
+ - Use real device (not simulator) for testing
+ - Check Info.plist has Pushwoosh_APPID
+
+ Notifications not received:
+ - Upload APNs certificate to Pushwoosh Control Panel
+ - Check notification permission in Settings
+ - Enable Background Modes → Remote notifications
+
+ Enable debug logging:
+ ```swift
+ Pushwoosh.debug.setLogLevel(.PW_LL_DEBUG)
+ ```
+ */
+
 #import <Foundation/Foundation.h>
 #import <PushwooshBridge/PushwooshBridge.h>
 #import <PushwooshCore/PushwooshCore.h>
@@ -23,11 +281,11 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"7.0.15"
+#define PUSHWOOSH_VERSION @"7.0.16"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy, PushwooshConfig;
-@protocol PWLiveActivities, PWVoIP, PWForegroundPush, PWTVoS, PWDebug, PWMedia;
+@protocol PWLiveActivities, PWVoIP, PWForegroundPush, PWTVoS, PWDebug, PWMedia, PWKeychain;
 
 
 typedef void (^PushwooshRegistrationHandler)(NSString * _Nullable token, NSError * _Nullable error);
@@ -277,6 +535,9 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
 #pragma mark - tvOS Features
 + (Class<PWTVoS>_Nonnull)TVoS NS_REFINED_FOR_SWIFT;
+
+#pragma mark - Keychain Persistent HWID
++ (Class<PWKeychain>_Nonnull)Keychain NS_REFINED_FOR_SWIFT;
 
 #if TARGET_OS_IOS
 #pragma mark - Rich Media

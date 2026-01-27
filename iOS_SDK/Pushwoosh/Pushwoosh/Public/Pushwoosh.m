@@ -81,6 +81,16 @@
     }
 }
 
++ (Class<PWKeychain>)Keychain {
+    [self ensureInitialized];
+    let pushwooshKeychain = NSClassFromString(@"PushwooshKeychainImplementation");
+    if (pushwooshKeychain != nil) {
+        return [pushwooshKeychain performSelector:@selector(keychain)];
+    } else {
+        return [PWKeychainStub keychain];
+    }
+}
+
 #if TARGET_OS_IOS
 + (Class<PWMedia>)media {
     return [PWMedia media];

@@ -14,6 +14,7 @@ Push notifications, In-App Messaging, and more for iOS, tvOS, and watchOS applic
 [![PushwooshLiveActivities Documentation](https://img.shields.io/badge/docs-PushwooshLiveActivities-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshLiveActivities/documentation/pushwooshliveactivities/)
 [![PushwooshTVOS Documentation](https://img.shields.io/badge/docs-PushwooshTVOS-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshTVOS/documentation/pushwooshtvos/)
 [![PushwooshForegroundPush Documentation](https://img.shields.io/badge/docs-PushwooshForegroundPush-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshForegroundPush/documentation/pushwooshforegroundpush/)
+[![PushwooshKeychain Documentation](https://img.shields.io/badge/docs-PushwooshKeychain-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshKeychain/documentation/pushwooshkeychain/)
 
 ## 🚀 Features
 
@@ -50,6 +51,7 @@ Select the modules you need in your target's **Frameworks, Libraries, and Embedd
 - `PushwooshVoIP` - VoIP push notifications *(optional)*
 - `PushwooshTVOS` - tvOS support *(optional)*
 - `PushwooshForegroundPush` - Custom foreground notifications *(optional)*
+- `PushwooshKeychain` - Persistent device ID across app reinstalls *(optional)*
 
 ---
 
@@ -65,6 +67,7 @@ pod 'PushwooshXCFramework'
 pod 'PushwooshXCFramework/PushwooshVoIP'
 pod 'PushwooshXCFramework/PushwooshTVOS'
 pod 'PushwooshXCFramework/PushwooshForegroundPush'
+pod 'PushwooshXCFramework/PushwooshKeychain'
 pod 'PushwooshInboxUIXCFramework'
 ```
 
@@ -72,6 +75,66 @@ Then run:
 ```bash
 pod install
 ```
+
+## 🤖 AI-Assisted Integration
+
+Integrate Pushwoosh iOS SDK using AI coding assistants (Claude Code, Cursor, GitHub Copilot, etc.).
+
+> **Requirement:** Your AI assistant must have access to [Context7](https://context7.com/) MCP server or web search capabilities.
+
+### Quick Start Prompts
+
+Choose the prompt that matches your task:
+
+---
+
+#### 1. Basic SDK Integration
+
+```
+Integrate Pushwoosh iOS SDK into my iOS project using Swift Package Manager.
+
+Requirements:
+- Add SPM dependency from https://github.com/Pushwoosh/Pushwoosh-XCFramework
+- Configure Info.plist with Pushwoosh App ID: YOUR_APP_ID
+- Register for push notifications in AppDelegate
+
+Use Context7 MCP to fetch Pushwoosh iOS SDK documentation.
+```
+
+---
+
+#### 2. Custom Push Notification Handling
+
+```
+Show me how to handle push notification callbacks (receive, open) with Pushwoosh SDK in iOS. I want to implement PWMessagingDelegate and add analytics tracking for these events.
+
+Use Context7 MCP to fetch Pushwoosh iOS SDK documentation for PWMessagingDelegate.
+```
+
+---
+
+#### 3. User Segmentation with Tags
+
+```
+Show me how to use Pushwoosh tags for user segmentation in iOS. Create example helper class with methods for setting and getting tags.
+
+Use Context7 MCP to fetch Pushwoosh iOS SDK documentation for setTags and getTags.
+```
+
+---
+
+#### 4. Live Activities Integration
+
+```
+Integrate Pushwoosh Live Activities into my iOS app. Show me how to:
+- Create an ActivityAttributes model
+- Start a Live Activity
+- Update it via push notifications
+
+Use Context7 MCP to fetch PushwooshLiveActivities documentation.
+```
+
+---
 
 ## 🔧 Quick Start
 
@@ -136,6 +199,11 @@ Push notifications and Rich Media HTML for Apple TV.
 Custom foreground notifications with animations, haptic feedback, and visual effects.
 
 **Requirements:** iOS 13.0+ | Supports Liquid Glass effect on iOS 26+
+
+### [PushwooshKeychain](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshKeychain/documentation/pushwooshkeychain/)
+Persistent device identification (HWID) that survives app reinstallation using Keychain storage.
+
+**Requirements:** iOS 11.0+
 
 ## 🆘 Support
 

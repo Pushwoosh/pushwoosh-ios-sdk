@@ -55,6 +55,7 @@
 		08C59AE0E8A7211AC67C4DD2 /* PWInteractionDisabledView.m in Sources */ = {isa = PBXBuildFile; fileRef = A949405A76CBDC59020B0E14 /* PWInteractionDisabledView.m */; };
 		0A0627D031BE86F730AD6588 /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9BABD65F8B19DCC19F8F9A /* Constants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0AFC52078C3CCE867C15F2D4 /* PWNotificationBannerWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = AA5D7F319701EAA5611CD0AA /* PWNotificationBannerWindow.h */; };
+		0BB385F706934C31D3337E15 /* PWKeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49F01189535419F826E583C /* PWKeychainHelper.swift */; };
 		0D61DE78A22319D707E35D19 /* PWNotificationManagerCompat.h in Headers */ = {isa = PBXBuildFile; fileRef = C1C9954DD7A006F0F99489F3 /* PWNotificationManagerCompat.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0DA34A14020F28BC1485C604 /* PWHashDecoder.h in Headers */ = {isa = PBXBuildFile; fileRef = 264FF82A51031103147D0463 /* PWHashDecoder.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		0E3E89E28892B211D2979D94 /* PWRegisterTestDeviceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0D3C89701D35AFA3690AC7DD /* PWRegisterTestDeviceRequest.m */; };
@@ -79,9 +80,11 @@
 		1C2EB0EFFECA785106F8C2F3 /* PWEasyJSWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEDE09B464258AC1EB60C73 /* PWEasyJSWKWebView.m */; };
 		1C9CE999768CC1A8C7B133F7 /* PWConfig.m in Sources */ = {isa = PBXBuildFile; fileRef = 59D6E0076A34FED35D91332E /* PWConfig.m */; };
 		1D7D97DFA46C4C64F28DEA10 /* PWTVOSJavaScriptParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = D22FA1E7B8E58A74156D3436 /* PWTVOSJavaScriptParserTests.swift */; };
+		1F8A2E9DF4EA022910CFA3E1 /* PushwooshKeychain.h in Headers */ = {isa = PBXBuildFile; fileRef = 6E479D1EA9465774B467B276 /* PushwooshKeychain.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		211D4F10F42545B6CEFF8B52 /* PWUtils.common.h in Headers */ = {isa = PBXBuildFile; fileRef = 18D6A2BD86AF3FA99EEB58EE /* PWUtils.common.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		2141B3C49C89871A3CDA4EDE /* PWCoreUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = FFB8F1349BBBC0AF74776CD7 /* PWCoreUtils.m */; };
 		21A5DE1701C0131A00EEC899 /* PWRichMedia+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = A5E3DCB8EE8211E5D4A55145 /* PWRichMedia+Internal.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		258A22554084F9524DF9F3FA /* Security.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = E441A98DB707F782B68B2507 /* Security.framework */; };
 		2754BEA876FA0126E27DC48C /* PWInAppStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 5848AC06BD1779B33A2932DE /* PWInAppStorage.m */; };
 		287A38712ED02C3E5D9910F3 /* PWInboxMessageInternal+Status.m in Sources */ = {isa = PBXBuildFile; fileRef = 5C2B687F80BC9075F5CB5958 /* PWInboxMessageInternal+Status.m */; };
 		2ACE914D0E7D557660DA6E06 /* PWRegisterEmailUser.h in Headers */ = {isa = PBXBuildFile; fileRef = 897252B1CC9322C012F21F03 /* PWRegisterEmailUser.h */; };
@@ -91,6 +94,7 @@
 		2DA92CA40C2B35C0537EF48E /* PWChannel.m in Sources */ = {isa = PBXBuildFile; fileRef = 9FE51AE2A7A0C3E53535F36F /* PWChannel.m */; };
 		2E522C0A3B826D330266D0E5 /* PWRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 632D909692DF764BFB9EEB8A /* PWRequest.m */; };
 		2E8FABD29DBAF40C7E624154 /* PWInboxMessageInternal.h in Headers */ = {isa = PBXBuildFile; fileRef = 10A56A5CBCB5D384F2215F11 /* PWInboxMessageInternal.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		2FF29D37DA38D68ABDFC60CB /* PWKeychain.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7E0FE63173FA206FCF87F902 /* PWKeychain.swift */; };
 		3158C8B6C42116315DB89CFE /* PWEasyJSWKDataFunction.h in Headers */ = {isa = PBXBuildFile; fileRef = 5531B2DCFAEB474821D92DF1 /* PWEasyJSWKDataFunction.h */; };
 		320FBF071E9C35A0D669D69F /* PWInboxStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 45BDEF83634BE574F34FEE25 /* PWInboxStorage.m */; };
 		3252C1D969DB55DE061775C1 /* zip.h in Headers */ = {isa = PBXBuildFile; fileRef = C4C97410A254E1B1B72CDC10 /* zip.h */; };
@@ -339,6 +343,7 @@
 		5DFE627023F6B46C00A25AA5 /* PWMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DFE627123F6B46C00A25AA5 /* PWMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		5DFE627223F6B46C00A25AA5 /* PWMessaging.h in Headers */ = {isa = PBXBuildFile; fileRef = 5DFE626C23F6B46B00A25AA5 /* PWMessaging.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		5E7F5B7C8DC7AFDDE67D824A /* PushwooshKeychainImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = 02B606E71D7CF3672E9B8E46 /* PushwooshKeychainImplementation.swift */; };
 		5FF64EBB1F3F56BA91601A42 /* PWManagerBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = E030F0C3FDA3454BB41C9C3C /* PWManagerBridge.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		6376A09EA3C564ADDF30523B /* PWRegisterTestDeviceRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = B91E4C8E94F2C01EF02F9C02 /* PWRegisterTestDeviceRequest.h */; };
 		6507D8950F6B38080EDADD89 /* PWNotificationAppSettings.m in Sources */ = {isa = PBXBuildFile; fileRef = 781408D7BB3B8CF78420ED92 /* PWNotificationAppSettings.m */; };
@@ -362,6 +367,8 @@
 		769082F33E77786767E6422C /* PWGetTagsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = BB5C6A2F3EDB3846C465D603 /* PWGetTagsRequest.h */; };
 		76FA5EB5A2B53BAE98EB2519 /* PWAlphabetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 43ED06CC8E78A8E8AEE512A7 /* PWAlphabetUtils.m */; };
 		7706A872A24453117591E1A8 /* PWPurchaseRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = F17B795772D8033692D5802F /* PWPurchaseRuntime.h */; };
+		789012345678901AB2C3D4E5 /* PWLegacyRichMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D4E5F6789012345678901A /* PWLegacyRichMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		789012345678901AB2C3D4E6 /* PWMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D4E5F6789012345678901B /* PWMediaTest.m */; };
 		79D643AE87EE5AB6C4CEC12B /* PWRequestManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D20FAB28354777A48F56AEAA /* PWRequestManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7C3B8141F2A57165E0C51F9F /* PWPreferences.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F0F7A879506025CBE4E167A /* PWPreferences.m */; };
 		7CC11B3EF2C742CD89C3D6F9 /* PWVersionTracking.m in Sources */ = {isa = PBXBuildFile; fileRef = FDD1F0C5C14AE76850F010F6 /* PWVersionTracking.m */; };
@@ -369,12 +376,15 @@
 		7EE7B6DB4C56FF22A2237B9E /* PWAppOpenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EE82B39D405D0E277D2FEF96 /* PWAppOpenRequest.h */; };
 		7F8B982D887E52587DF948D6 /* PWRegisterUserRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABD4C33FA5D0F8604538BC /* PWRegisterUserRequest.h */; };
 		7FDB3F268F1C45D48D6A94BF /* PWScreenTrackingManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EFB80C8138517D81635EAB71 /* PWScreenTrackingManager.h */; };
+		858C5FEBD8082E4E2F2D9811 /* PushwooshBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEF972D77883300CD410A /* PushwooshBridge.framework */; };
 		85B6DA8E455704AE8DE823CE /* PWSendPurchaseRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = B369F88F7C235131E64356DE /* PWSendPurchaseRequest.m */; };
 		8602273B3A5392FDC656BCF0 /* PWSetTagsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 6A79035BD4C3F17D5789AAF1 /* PWSetTagsRequest.h */; };
 		860619694F404D371AAC12C6 /* PWEasyJSListener.m in Sources */ = {isa = PBXBuildFile; fileRef = B698F32AFC1ADAD5C7DBE747 /* PWEasyJSListener.m */; };
 		863048995F956FDE008DF957 /* PWTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = 440DF4A46A31E3701BFED23F /* PWTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		88435F5EE5D0D1C1C4ECD545 /* PWInboxAllMessagesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D63963E330A1BFC60A12252D /* PWInboxAllMessagesRequest.m */; };
 		88E766210E4A4006BA0BF5E2 /* PWRichMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 072DE84F114FEE2A8F529BBE /* PWRichMedia.m */; };
+		88FBD03610FC4BECA957CFAC /* PWMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = 9565B350F98B45628AA6489B /* PWMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		89012345678901AB2C3D4E5F /* PWLegacyRichMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F6789012345678901AB2 /* PWLegacyRichMedia.m */; };
 		8AE4755C3D2BA6FFE03C26AF /* PWNotificationCategoryBuilderUserNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 115F75312955D5507C2F4416 /* PWNotificationCategoryBuilderUserNotifications.m */; };
 		8B5BEE417EE38344F25F54AE /* PWRegisterDeviceRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 37214F65FB3F0F130D819CF3 /* PWRegisterDeviceRequest.m */; };
 		8BBC9814E7B0F09C3C8C7B7D /* PWInboxMerge.h in Headers */ = {isa = PBXBuildFile; fileRef = 651050A55E73A34338AE6D08 /* PWInboxMerge.h */; };
@@ -457,18 +467,9 @@
 		C69177B6BE40B5143FF337BC /* PWAppLifecycleTrackingManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 6AEABCDBD206751912C6AE2F /* PWAppLifecycleTrackingManager.h */; };
 		C69D9CDD91F62C5C4D7C8DB8 /* PWInAppPurchaseHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 489B2908C16B8A5078C854A5 /* PWInAppPurchaseHelper.h */; };
 		C7B71D887FE708C182CA4586 /* PWRichMediaManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A05D12875B14916AA3A23B /* PWRichMediaManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		88FBD03610FC4BECA957CFAC /* PWMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = 9565B350F98B45628AA6489B /* PWMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F161225FDB394788AC003ADB /* PWMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 565ED799E2724023A765DBB3 /* PWMedia.m */; };
-		E5F6789012345678901AB2C3 /* PWModalRichMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6789012345678 /* PWModalRichMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		F6789012345678901AB2C3D4 /* PWModalRichMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F678901234567890 /* PWModalRichMedia.m */; };
-		789012345678901AB2C3D4E5 /* PWLegacyRichMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D4E5F6789012345678901A /* PWLegacyRichMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		89012345678901AB2C3D4E5F /* PWLegacyRichMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F6789012345678901AB2 /* PWLegacyRichMedia.m */; };
 		C91A54ED17990346B626BFD3 /* PWUtils.common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C75C1F0DC16F0A3FAD7495F /* PWUtils.common.m */; };
 		C9EA67FA6EBDCAD7CE874BB3 /* PWUnarchiver.h in Headers */ = {isa = PBXBuildFile; fileRef = 43247CB9EFAEC452AA7312C8 /* PWUnarchiver.h */; };
 		CC2F6D2AD96A1E1D6B5F6C2A /* PWRichMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E71BEE0F83AFA83D08311BFA /* PWRichMediaTest.m */; };
-		E5F6789012345678901AB2C4 /* PWModalRichMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6789012345679 /* PWModalRichMediaTest.m */; };
-		F6789012345678901AB2C3D5 /* PWLegacyRichMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F678901234567891 /* PWLegacyRichMediaTest.m */; };
-		789012345678901AB2C3D4E6 /* PWMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D4E5F6789012345678901B /* PWMediaTest.m */; };
 		CC4244895550257591B6AD6F /* PWInteractionDisabledWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4CC80B0A467FFC7362E279 /* PWInteractionDisabledWindow.h */; };
 		CD62A24FCC8F912DF90E2250 /* NSDate+PWDateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D4774C7DC9FD651DE80EED /* NSDate+PWDateUtils.m */; };
 		CDE5F08BDCAD27BF67F0A781 /* PWUserNotificationCenterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = EA1380F43DE98E946035F35C /* PWUserNotificationCenterDelegate.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -483,7 +484,9 @@
 		D4F56592E6731F4041C6BD06 /* PWInboxUpdateStatusRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1584DF6D1E3A95A64FA7FA50 /* PWInboxUpdateStatusRequest.m */; };
 		D4F76BDD211BD5AA3DFAE0E2 /* PWPushStatRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 0DCA4562DBD18C97255460C3 /* PWPushStatRequest.h */; };
 		D55223E82FC156417DC237AD /* PWInboxMessagesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 34F6A38E3A1EF19BF779A7E6 /* PWInboxMessagesRequest.m */; };
+		D5ADA4FA10D82C29363CB0EE /* PWEnvironmentDetector.swift in Sources */ = {isa = PBXBuildFile; fileRef = 58327EEB11D5BB8576A2521A /* PWEnvironmentDetector.swift */; };
 		D5E78AE02A9627E8552CF96D /* PWSetEmailTagsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 0AA35A81067379BE40F84586 /* PWSetEmailTagsRequest.h */; };
+		D6E1EAE84CDDB564398F3F55 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 11065449D3C3128ABEBF78AC /* PrivacyInfo.xcprivacy */; };
 		D80FC0F68662C9C948B36738 /* PWModalWindowSettingsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 90ED0A7E6D735AA50E71821E /* PWModalWindowSettingsTest.m */; };
 		D97307BC2A4B3F7B3A251CE1 /* PWPushRuntime.h in Headers */ = {isa = PBXBuildFile; fileRef = 9C4EB122D46B12151518293B /* PWPushRuntime.h */; };
 		DA049C0CB5ED0D093F7DEF5F /* PWModalWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 11853B274C21F0593CD7275A /* PWModalWindow.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -522,9 +525,13 @@
 		E19B8FB42EAB9BD500A0577E /* PushwooshVoIP.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 44C0F3442DCA323300BE6564 /* PushwooshVoIP.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		E1FE18AD2E0559AB004A8639 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E1FE18AC2E0559AB004A8639 /* PrivacyInfo.xcprivacy */; };
 		E3121C2C4EFD3A6BB49D0D59 /* PWChannel.h in Headers */ = {isa = PBXBuildFile; fileRef = 5C2CADC7EDEB512C631DD6A7 /* PWChannel.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		E42B39AD3791E228BF0F7B66 /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; };
 		E574051EB38C3445F5289A6E /* PWUtils+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AE9EFDCD14B8D72080E3A6 /* PWUtils+Internal.h */; };
 		E5A2504658A7529B7C022742 /* PWNotificationCenter.h in Headers */ = {isa = PBXBuildFile; fileRef = E74567F65D3148777120F5E4 /* PWNotificationCenter.h */; };
+		E5F6789012345678901AB2C3 /* PWModalRichMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6789012345678 /* PWModalRichMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E5F6789012345678901AB2C4 /* PWModalRichMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6789012345679 /* PWModalRichMediaTest.m */; };
 		E64C4C018D1792DF872420E2 /* PWLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCEDFFD0E105B1C251C402E /* PWLiveActivityRequest.m */; };
+		E68C3F2270EF83B8E423D375 /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CA115F98A912EBCB9597B8AA /* Foundation.framework */; };
 		E6C78CBC2A51ECF4D63B6E06 /* PWMessageDeliveryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D9585520866B07334AADBCC7 /* PWMessageDeliveryRequest.m */; };
 		E988A236BE35BE6F0F7187E3 /* PWRichMediaActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AFFB17C939911BF73DC1545 /* PWRichMediaActionRequest.m */; };
 		EA4538D8D360E356E0E266BB /* PWNotificationCategoryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 88A26E71DF5C55ED6BB7395B /* PWNotificationCategoryBuilder.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -537,12 +544,16 @@
 		EDF203B8F4AC5357A49B8E50 /* PWRichMediaActionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = F53CE29643553DB7CA1D2D67 /* PWRichMediaActionRequest.h */; };
 		EE18EE0EC02B63415633D54B /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 627A9F637A2AC16685ABE703 /* PrivacyInfo.xcprivacy */; };
 		F154469D1BC3EFF98F936240 /* PWPushwooshJSBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 2C9511698653FB44AC980E0E /* PWPushwooshJSBridge.h */; };
+		F161225FDB394788AC003ADB /* PWMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = 565ED799E2724023A765DBB3 /* PWMedia.m */; };
+		F238C1B99350BE2B08BAB26B /* PWKeychainStub.swift in Sources */ = {isa = PBXBuildFile; fileRef = 36FF527C604CAFB6CFB96AA1 /* PWKeychainStub.swift */; };
 		F242797E2E50D742CCD7A460 /* PWPostEventRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 8A6B4EC3A269AE24D6E978FC /* PWPostEventRequest.m */; };
 		F276D91BC74E441B663C25D3 /* PWRichMediaTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = EC31EF46980BB4BEA9867A3B /* PWRichMediaTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F2F47FD7A3A840B402DFAAD8 /* PWInboxUpdateStatusRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D159048D6063EE3877B96BA7 /* PWInboxUpdateStatusRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F36431E37990AECCF273D269 /* PWInboxTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = E75A70EA5C56A834D4BD74F7 /* PWInboxTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F49D19D107BC53D72703398E /* PWPurchaseRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = EED9413E71126F748F0DC476 /* PWPurchaseRuntime.m */; };
 		F638548EB5D2EB0859A71806 /* PWWebClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 17AC27ABBF3AEB0E7E41F9B5 /* PWWebClient.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		F6789012345678901AB2C3D4 /* PWModalRichMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F678901234567890 /* PWModalRichMedia.m */; };
+		F6789012345678901AB2C3D5 /* PWLegacyRichMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B2C3D4E5F678901234567891 /* PWLegacyRichMediaTest.m */; };
 		F77ECB032C657FA9CB13B464 /* PWSetTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = FF2DB4997C7591095F0F771D /* PWSetTagsRequest.m */; };
 		F8F6EE5325E82365D5E6F59E /* PWRichMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = A81AA5E8A056C974E195F3DF /* PWRichMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		FBA0CC2F5E791F5B349E131C /* PWBasePushTrackingRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 49C50E5E8A993D99ABB1AF81 /* PWBasePushTrackingRequest.m */; };
@@ -629,6 +640,20 @@
 			remoteInfo = PushwooshCore;
 		};
 		44A3FFBA2E0300A7002316B0 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 447CEF962D77883300CD410A;
+			remoteInfo = PushwooshBridge;
+		};
+		54421D5C7D23800353B249F5 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 441806DE2D7B285900DE71A7;
+			remoteInfo = PushwooshCore;
+		};
+		878CB4E751AFED7236A8766C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
 			proxyType = 1;
@@ -742,15 +767,10 @@
 		00D9BCC1FEA548CDD0CF47AC /* PWEasyJSListener.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWEasyJSListener.h; sourceTree = "<group>"; };
 		011208FEAA1C2F3B1E2800C9 /* PWGetConfigRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWGetConfigRequest.m; sourceTree = "<group>"; };
 		02638F96D9572AA361C95675 /* PWPushwooshJSBridge.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWPushwooshJSBridge.m; sourceTree = "<group>"; };
+		02B606E71D7CF3672E9B8E46 /* PushwooshKeychainImplementation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshKeychainImplementation.swift; sourceTree = "<group>"; };
 		033C7FB38DF19FC21123C93F /* PWPurchaseManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWPurchaseManager.m; sourceTree = "<group>"; };
 		0383E68147C07E7982EAE46A /* PWRichMediaConfig.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWRichMediaConfig.h; sourceTree = "<group>"; };
 		072DE84F114FEE2A8F529BBE /* PWRichMedia.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRichMedia.m; sourceTree = "<group>"; };
-		9565B350F98B45628AA6489B /* PWMedia.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWMedia.h; sourceTree = "<group>"; };
-		565ED799E2724023A765DBB3 /* PWMedia.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWMedia.m; sourceTree = "<group>"; };
-		A1B2C3D4E5F6789012345678 /* PWModalRichMedia.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWModalRichMedia.h; sourceTree = "<group>"; };
-		B2C3D4E5F678901234567890 /* PWModalRichMedia.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWModalRichMedia.m; sourceTree = "<group>"; };
-		C3D4E5F6789012345678901A /* PWLegacyRichMedia.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWLegacyRichMedia.h; sourceTree = "<group>"; };
-		D4E5F6789012345678901AB2 /* PWLegacyRichMedia.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWLegacyRichMedia.m; sourceTree = "<group>"; };
 		07F72C1B74C50C7B18F7C461 /* PWMessage.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWMessage.h; sourceTree = "<group>"; };
 		088D545A28A1EED63AE1D21F /* PWInteractivePush.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInteractivePush.m; sourceTree = "<group>"; };
 		0AA35A81067379BE40F84586 /* PWSetEmailTagsRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWSetEmailTagsRequest.h; sourceTree = "<group>"; };
@@ -759,6 +779,7 @@
 		0DCA4562DBD18C97255460C3 /* PWPushStatRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWPushStatRequest.h; sourceTree = "<group>"; };
 		0E5D872D5C70A1595CEAFE47 /* PWHtmlWebViewController.ios.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWHtmlWebViewController.ios.h; sourceTree = "<group>"; };
 		10A56A5CBCB5D384F2215F11 /* PWInboxMessageInternal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInboxMessageInternal.h; sourceTree = "<group>"; };
+		11065449D3C3128ABEBF78AC /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		115F75312955D5507C2F4416 /* PWNotificationCategoryBuilderUserNotifications.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWNotificationCategoryBuilderUserNotifications.m; sourceTree = "<group>"; };
 		11853B274C21F0593CD7275A /* PWModalWindow.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWModalWindow.h; sourceTree = "<group>"; };
 		12E6FA0B523B8C747D8886D2 /* PWMergeUserRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWMergeUserRequest.h; sourceTree = "<group>"; };
@@ -792,6 +813,7 @@
 		347EAF01A954D6154A323BC8 /* PWPushRuntime.ios.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWPushRuntime.ios.h; sourceTree = "<group>"; };
 		34F6A38E3A1EF19BF779A7E6 /* PWInboxMessagesRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInboxMessagesRequest.m; sourceTree = "<group>"; };
 		35B1A0500E71C8117D2D7A25 /* WKUserScript+PWInterfacesScriptGenerator.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "WKUserScript+PWInterfacesScriptGenerator.h"; sourceTree = "<group>"; };
+		36FF527C604CAFB6CFB96AA1 /* PWKeychainStub.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PWKeychainStub.swift; sourceTree = "<group>"; };
 		37214F65FB3F0F130D819CF3 /* PWRegisterDeviceRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRegisterDeviceRequest.m; sourceTree = "<group>"; };
 		375AA9D82CE598EEE343A1ED /* PWLoadingViewController.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWLoadingViewController.m; sourceTree = "<group>"; };
 		37C532557000C267B290A57E /* PWTriggerInAppActionRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWTriggerInAppActionRequest.h; sourceTree = "<group>"; };
@@ -955,6 +977,8 @@
 		55A05D12875B14916AA3A23B /* PWRichMediaManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWRichMediaManager.h; sourceTree = "<group>"; };
 		5630DF646CDF9CF04148325B /* PWLoadingViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWLoadingViewController.h; sourceTree = "<group>"; };
 		564F4AAF58CEFC18F223708F /* PWInteractionDisabledWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInteractionDisabledWindow.m; sourceTree = "<group>"; };
+		565ED799E2724023A765DBB3 /* PWMedia.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWMedia.m; sourceTree = "<group>"; };
+		58327EEB11D5BB8576A2521A /* PWEnvironmentDetector.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PWEnvironmentDetector.swift; sourceTree = "<group>"; };
 		5848AC06BD1779B33A2932DE /* PWInAppStorage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInAppStorage.m; sourceTree = "<group>"; };
 		58D4774C7DC9FD651DE80EED /* NSDate+PWDateUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PWDateUtils.m"; sourceTree = "<group>"; };
 		5974901DD0EB945F8502B17F /* PWMessage+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PWMessage+Internal.h"; sourceTree = "<group>"; };
@@ -1014,6 +1038,7 @@
 		6CE4C8C1DD908330A67CCA62 /* PWNotificationManagerCompattvOS.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWNotificationManagerCompattvOS.h; sourceTree = "<group>"; };
 		6D2B8E621ACFDEA001AC3E8B /* PrivacyInfo.xcprivacy */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xml; path = PrivacyInfo.xcprivacy; sourceTree = "<group>"; };
 		6D9BABD65F8B19DCC19F8F9A /* Constants.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = Constants.h; sourceTree = "<group>"; };
+		6E479D1EA9465774B467B276 /* PushwooshKeychain.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PushwooshKeychain.h; sourceTree = "<group>"; };
 		6F430C390524BD0F16148F48 /* PWRichMediaView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRichMediaView.m; sourceTree = "<group>"; };
 		708968CAC27200D21FECC1FC /* PWGetResourcesRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWGetResourcesRequest.h; sourceTree = "<group>"; };
 		715E70D8FDC6CEC41ACDB6CE /* PWCombinedSetTagsRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWCombinedSetTagsRequest.h; sourceTree = "<group>"; };
@@ -1032,6 +1057,7 @@
 		7CC444DC93C5C65CFDE4366D /* PWNotificationManagerCompattvOS.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWNotificationManagerCompattvOS.m; sourceTree = "<group>"; };
 		7D378EE277A0653882799479 /* PWNotificationManagerCompat.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWNotificationManagerCompat.m; sourceTree = "<group>"; };
 		7D64C9507883AC480620E8E5 /* PWMergeUserRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWMergeUserRequest.m; sourceTree = "<group>"; };
+		7E0FE63173FA206FCF87F902 /* PWKeychain.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PWKeychain.swift; sourceTree = "<group>"; };
 		7F0ACC0FB1F5BE7251C5A288 /* PWEasyJSWKDataFunction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWEasyJSWKDataFunction.m; sourceTree = "<group>"; };
 		7F491B7A689156D0631335F0 /* PWAppOpenRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWAppOpenRequest.m; sourceTree = "<group>"; };
 		80ADD3F86EB9D3A3976EE9ED /* PWSendPurchaseRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWSendPurchaseRequest.h; sourceTree = "<group>"; };
@@ -1051,6 +1077,7 @@
 		916A37777475307767870D7E /* PWInboxMessagesRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInboxMessagesRequest.h; sourceTree = "<group>"; };
 		91D8E4C186193139BDE666A5 /* PWStartLiveActivityRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWStartLiveActivityRequest.m; sourceTree = "<group>"; };
 		940B0F698932C3DADCCD4B2E /* PWCache.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWCache.m; sourceTree = "<group>"; };
+		9565B350F98B45628AA6489B /* PWMedia.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWMedia.h; sourceTree = "<group>"; };
 		960269CF97943F49826CC683 /* PWInboxService.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInboxService.h; sourceTree = "<group>"; };
 		972C9AA727F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWNotificationExtensionManagerTest.m; sourceTree = "<group>"; };
 		9762CEA8277B17B9003196C1 /* PWTestPurchaseRuntime.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWTestPurchaseRuntime.m; sourceTree = "<group>"; };
@@ -1068,6 +1095,8 @@
 		9F98FB58CBD6BA22BC4D8372 /* PWUtilsMobile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWUtilsMobile.h; sourceTree = "<group>"; };
 		9FE51AE2A7A0C3E53535F36F /* PWChannel.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWChannel.m; sourceTree = "<group>"; };
 		A14FF04F84CE2E7D2BBAD438 /* PWUtils.ios.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWUtils.ios.m; sourceTree = "<group>"; };
+		A1B2C3D4E5F6789012345678 /* PWModalRichMedia.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWModalRichMedia.h; sourceTree = "<group>"; };
+		A1B2C3D4E5F6789012345679 /* PWModalRichMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWModalRichMediaTest.m; path = RichMedia/PWModalRichMediaTest.m; sourceTree = "<group>"; };
 		A2B1407DF0180FEF7CF2681D /* NSDictionary+PWDictUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+PWDictUtils.m"; sourceTree = "<group>"; };
 		A45A5125F2D71AEAABD7CEE4 /* PWPushNotificationsManager+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PWPushNotificationsManager+Internal.h"; sourceTree = "<group>"; };
 		A4B9EA51E220DC6BC4974B1A /* PWReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWReachability.h; sourceTree = "<group>"; };
@@ -1088,6 +1117,8 @@
 		B11203AECD4A33F098B0BBEB /* PWInteractionDisabledView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInteractionDisabledView.h; sourceTree = "<group>"; };
 		B197CDBAA1A4DDAFC57A2F6B /* PWNotificationCenterDelegateProxy+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PWNotificationCenterDelegateProxy+Internal.h"; sourceTree = "<group>"; };
 		B1D375F3D300C7987DF0DE7B /* PWUnarchiver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWUnarchiver.m; sourceTree = "<group>"; };
+		B2C3D4E5F678901234567890 /* PWModalRichMedia.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWModalRichMedia.m; sourceTree = "<group>"; };
+		B2C3D4E5F678901234567891 /* PWLegacyRichMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWLegacyRichMediaTest.m; path = RichMedia/PWLegacyRichMediaTest.m; sourceTree = "<group>"; };
 		B369F88F7C235131E64356DE /* PWSendPurchaseRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWSendPurchaseRequest.m; sourceTree = "<group>"; };
 		B698F32AFC1ADAD5C7DBE747 /* PWEasyJSListener.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWEasyJSListener.m; sourceTree = "<group>"; };
 		B91E4C8E94F2C01EF02F9C02 /* PWRegisterTestDeviceRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWRegisterTestDeviceRequest.h; sourceTree = "<group>"; };
@@ -1101,10 +1132,13 @@
 		C25369D4F2C577A6B5CAA46B /* PWRichMediaManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRichMediaManager.m; sourceTree = "<group>"; };
 		C321900C4FA3F721457185FF /* PWNotificationCategoryBuilder.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWNotificationCategoryBuilder.m; sourceTree = "<group>"; };
 		C34847005E8ACA1451BAAD56 /* PWNotificationAppSettings_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWNotificationAppSettings_Private.h; sourceTree = "<group>"; };
+		C3D4E5F6789012345678901A /* PWLegacyRichMedia.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWLegacyRichMedia.h; sourceTree = "<group>"; };
+		C3D4E5F6789012345678901B /* PWMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWMediaTest.m; path = RichMedia/PWMediaTest.m; sourceTree = "<group>"; };
 		C42A20691D06CBB800CC3BCB /* libPushwoosh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwoosh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4C97410A254E1B1B72CDC10 /* zip.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = zip.h; sourceTree = "<group>"; };
 		C6954B9986FC60ACCF9B51FE /* PWButtonExt.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWButtonExt.h; sourceTree = "<group>"; };
 		C7DAF9D9EE1E9F94C863AA32 /* PWBaseLoadingViewController.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWBaseLoadingViewController.h; sourceTree = "<group>"; };
+		CA115F98A912EBCB9597B8AA /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = Platforms/iPhoneOS.platform/Developer/SDKs/iPhoneOS18.0.sdk/System/Library/Frameworks/Foundation.framework; sourceTree = DEVELOPER_DIR; };
 		CA91D43B6BC7E69063FCFBBB /* PWLiveActivityRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWLiveActivityRequest.h; sourceTree = "<group>"; };
 		CB897EDF2E9F20DEE44A4339 /* PWRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWRequest.h; sourceTree = "<group>"; };
 		CBCEDFFD0E105B1C251C402E /* PWLiveActivityRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWLiveActivityRequest.m; sourceTree = "<group>"; };
@@ -1119,6 +1153,8 @@
 		D2AAC07E0554694100DB518D /* libPushwoosh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwoosh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		D2DDF69EF8F4E40F3112AEBD /* PWGetConfigRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWGetConfigRequest.h; sourceTree = "<group>"; };
 		D408CD2C1B9CE10E7F7B8E5C /* Pushwoosh+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "Pushwoosh+Internal.h"; sourceTree = "<group>"; };
+		D49F01189535419F826E583C /* PWKeychainHelper.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PWKeychainHelper.swift; sourceTree = "<group>"; };
+		D4E5F6789012345678901AB2 /* PWLegacyRichMedia.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWLegacyRichMedia.m; sourceTree = "<group>"; };
 		D555A7ED8BEA22B547ABCF39 /* PWNotification.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWNotification.m; sourceTree = "<group>"; };
 		D63963E330A1BFC60A12252D /* PWInboxAllMessagesRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInboxAllMessagesRequest.m; sourceTree = "<group>"; };
 		D7C257FD3059791BF5C5D712 /* PWInAppMessagesManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInAppMessagesManager.m; sourceTree = "<group>"; };
@@ -1153,12 +1189,10 @@
 		E2888D63BE46DBB13826E365 /* PWUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWUtils.h; sourceTree = "<group>"; };
 		E2BEFC8EF225CA98078EEC4B /* PWRichMediaConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRichMediaConfig.m; sourceTree = "<group>"; };
 		E434401C4D1372101A15F225 /* PWMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWMessage.m; sourceTree = "<group>"; };
+		E441A98DB707F782B68B2507 /* Security.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; path = Security.framework; sourceTree = SDKROOT; };
 		E63AA2BD305DADC499B80110 /* PWButtonExt.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWButtonExt.m; sourceTree = "<group>"; };
 		E65A8436AE01F237B88B867E /* NSDate+PWDateUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "NSDate+PWDateUtils.h"; sourceTree = "<group>"; };
 		E71BEE0F83AFA83D08311BFA /* PWRichMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWRichMediaTest.m; path = RichMedia/PWRichMediaTest.m; sourceTree = "<group>"; };
-		A1B2C3D4E5F6789012345679 /* PWModalRichMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWModalRichMediaTest.m; path = RichMedia/PWModalRichMediaTest.m; sourceTree = "<group>"; };
-		B2C3D4E5F678901234567891 /* PWLegacyRichMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWLegacyRichMediaTest.m; path = RichMedia/PWLegacyRichMediaTest.m; sourceTree = "<group>"; };
-		C3D4E5F6789012345678901B /* PWMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWMediaTest.m; path = RichMedia/PWMediaTest.m; sourceTree = "<group>"; };
 		E74567F65D3148777120F5E4 /* PWNotificationCenter.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWNotificationCenter.h; sourceTree = "<group>"; };
 		E75A70EA5C56A834D4BD74F7 /* PWInboxTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInboxTypes.h; sourceTree = "<group>"; };
 		EA1380F43DE98E946035F35C /* PWUserNotificationCenterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWUserNotificationCenterDelegate.h; sourceTree = "<group>"; };
@@ -1184,6 +1218,7 @@
 		F9C3F3E25101935AC2094F22 /* PWPushManagerJSBridge.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWPushManagerJSBridge.m; sourceTree = "<group>"; };
 		FA9E4F30CE36A1A3B4ACF8FB /* PWZipArchive.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWZipArchive.h; sourceTree = "<group>"; };
 		FB866BD4C0AB03B6B231DC1A /* PWCachedRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWCachedRequest.h; sourceTree = "<group>"; };
+		FBF3A8066EB16F92989CBD38 /* PushwooshKeychain.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshKeychain.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		FCE1B07F6118CF11C0DBD394 /* PWRegisterEmail.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRegisterEmail.m; sourceTree = "<group>"; };
 		FDD1F0C5C14AE76850F010F6 /* PWVersionTracking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWVersionTracking.m; sourceTree = "<group>"; };
 		FE888348F6F6AB5444D0D3CD /* PWMessageDeliveryRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWMessageDeliveryRequest.h; sourceTree = "<group>"; };
@@ -1241,7 +1276,6 @@
 			files = (
 				441806E82D7B28A500DE71A7 /* PushwooshCore.framework in Frameworks */,
 				447CEFA72D778A0A00CD410A /* PushwooshBridge.framework in Frameworks */,
-				447CEFC52D7793F400CD410A /* PushwooshLiveActivities.framework in Frameworks */,
 				5D21BA2B208F4CDF00F23B64 /* libstdc++.tbd in Frameworks */,
 				5D21BA2A208F4CD900F23B64 /* libz.tbd in Frameworks */,
 			);
@@ -1283,6 +1317,17 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		834F468533972DC157938848 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				E68C3F2270EF83B8E423D375 /* Foundation.framework in Frameworks */,
+				258A22554084F9524DF9F3FA /* Security.framework in Frameworks */,
+				E42B39AD3791E228BF0F7B66 /* PushwooshCore.framework in Frameworks */,
+				858C5FEBD8082E4E2F2D9811 /* PushwooshBridge.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1383,6 +1428,7 @@
 				E19B8F842E8FE99F00A0577E /* PushwooshTVOS.framework */,
 				E19B8F9B2EA9460800A0577E /* PushwooshTVOSTests.xctest */,
 				E19B8FA92EAB9BBA00A0577E /* PushwooshVoIPTests.xctest */,
+				FBF3A8066EB16F92989CBD38 /* PushwooshKeychain.framework */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1425,6 +1471,7 @@
 				44C0F3452DCA323300BE6564 /* PushwooshVoIP */,
 				E192B7D32E5DF54A0027015B /* PushwooshForegroundPush */,
 				E19B8F852E8FE99F00A0577E /* PushwooshTVOS */,
+				1384C6EF49BB7547B3FA8AB6 /* PushwooshKeychain */,
 				5D21C42B23F6746100D161F1 /* Supporting_Files */,
 				46FA9E351C7DB1AA00741A11 /* PushwooshTests */,
 				E19B8F9C2EA9460800A0577E /* PushwooshTVOSTests */,
@@ -1476,6 +1523,18 @@
 				7D378EE277A0653882799479 /* PWNotificationManagerCompat.m */,
 			);
 			path = Registration;
+			sourceTree = "<group>";
+		};
+		1384C6EF49BB7547B3FA8AB6 /* PushwooshKeychain */ = {
+			isa = PBXGroup;
+			children = (
+				6E479D1EA9465774B467B276 /* PushwooshKeychain.h */,
+				58327EEB11D5BB8576A2521A /* PWEnvironmentDetector.swift */,
+				D49F01189535419F826E583C /* PWKeychainHelper.swift */,
+				02B606E71D7CF3672E9B8E46 /* PushwooshKeychainImplementation.swift */,
+				11065449D3C3128ABEBF78AC /* PrivacyInfo.xcprivacy */,
+			);
+			path = PushwooshKeychain;
 			sourceTree = "<group>";
 		};
 		14D22428C2BB8EC22BA25186 /* UI */ = {
@@ -1880,6 +1939,8 @@
 				441CC9462DCA568500DBE44A /* PWVoIPStub.swift */,
 				E192B7DB2E5DF6640027015B /* PWForegroundPushStub.swift */,
 				44CA94AB2E8FF51000143656 /* PWTVoSStub.swift */,
+				7E0FE63173FA206FCF87F902 /* PWKeychain.swift */,
+				36FF527C604CAFB6CFB96AA1 /* PWKeychainStub.swift */,
 			);
 			path = PushwooshBridge;
 			sourceTree = "<group>";
@@ -2152,6 +2213,14 @@
 			name = PWRequestManager;
 			sourceTree = "<group>";
 		};
+		4549E27731FCC0FEB6C80FF3 /* iOS */ = {
+			isa = PBXGroup;
+			children = (
+				CA115F98A912EBCB9597B8AA /* Foundation.framework */,
+			);
+			name = iOS;
+			sourceTree = "<group>";
+		};
 		46376BC91DF6DA2700126EB3 /* Utils */ = {
 			isa = PBXGroup;
 			children = (
@@ -2215,6 +2284,8 @@
 				AFB0024A29F7EA440083A3E6 /* OCHamcrest.xcframework */,
 				97A59FED257F6A830022359C /* libc++.tbd */,
 				979229B725B5BB9B00F5D0C1 /* libOCMock.a */,
+				4549E27731FCC0FEB6C80FF3 /* iOS */,
+				E441A98DB707F782B68B2507 /* Security.framework */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -3124,6 +3195,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		A252057AFE24764E6807BFA4 /* Headers */ = {
+			isa = PBXHeadersBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				1F8A2E9DF4EA022910CFA3E1 /* PushwooshKeychain.h in Headers */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		C42A20671D06CBB800CC3BCB /* Headers */ = {
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
@@ -3285,7 +3364,6 @@
 			dependencies = (
 				441806E72D7B289D00DE71A7 /* PBXTargetDependency */,
 				447CEFA62D778A0400CD410A /* PBXTargetDependency */,
-				447CEFC42D7793EF00CD410A /* PBXTargetDependency */,
 			);
 			name = PushwooshiOS;
 			productName = PushwooshiOS;
@@ -3368,6 +3446,26 @@
 			productName = Pushwoosh.watchOS;
 			productReference = 5DA6EBC722E18CAD00097C50 /* libPushwoosh.watchOS.a */;
 			productType = "com.apple.product-type.library.static";
+		};
+		B12496E53892F86E7032F4D4 /* PushwooshKeychain */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 1714D841403C6B10AA227B84 /* Build configuration list for PBXNativeTarget "PushwooshKeychain" */;
+			buildPhases = (
+				A252057AFE24764E6807BFA4 /* Headers */,
+				35AC07CB95B8AAC99A6C96D0 /* Sources */,
+				834F468533972DC157938848 /* Frameworks */,
+				C3B4CBDB0F85C24E65B8E8F1 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				353477A811C9D9E7F6B13BAD /* PBXTargetDependency */,
+				31D3A89656643F5694730369 /* PBXTargetDependency */,
+			);
+			name = PushwooshKeychain;
+			productName = PushwooshKeychain;
+			productReference = FBF3A8066EB16F92989CBD38 /* PushwooshKeychain.framework */;
+			productType = "com.apple.product-type.framework";
 		};
 		C42A20681D06CBB800CC3BCB /* Pushwoosh.mac */ = {
 			isa = PBXNativeTarget;
@@ -3586,6 +3684,7 @@
 				44C0F3432DCA323300BE6564 /* PushwooshVoIP */,
 				E192B7D12E5DF54A0027015B /* PushwooshForegroundPush */,
 				E19B8F832E8FE99F00A0577E /* PushwooshTVOS */,
+				B12496E53892F86E7032F4D4 /* PushwooshKeychain */,
 				C42A20681D06CBB800CC3BCB /* Pushwoosh.mac */,
 				467F61F11EB87F3300548315 /* PushwooshMac */,
 				5DA6EBC622E18CAD00097C50 /* Pushwoosh.watchOS */,
@@ -3671,6 +3770,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C3B4CBDB0F85C24E65B8E8F1 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D6E1EAE84CDDB564398F3F55 /* PrivacyInfo.xcprivacy in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		E192B7D02E5DF54A0027015B /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3753,6 +3860,16 @@
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
+		35AC07CB95B8AAC99A6C96D0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				D5ADA4FA10D82C29363CB0EE /* PWEnvironmentDetector.swift in Sources */,
+				0BB385F706934C31D3337E15 /* PWKeychainHelper.swift in Sources */,
+				5E7F5B7C8DC7AFDDE67D824A /* PushwooshKeychainImplementation.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 		441806DB2D7B285900DE71A7 /* Sources */ = {
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
@@ -3894,6 +4011,8 @@
 				E192B7DC2E5DF6640027015B /* PWForegroundPushStub.swift in Sources */,
 				441CC9472DCA568500DBE44A /* PWVoIPStub.swift in Sources */,
 				44155FD42D77B30E00358B1C /* PWLiveActivitiesStub.swift in Sources */,
+				2FF29D37DA38D68ABDFC60CB /* PWKeychain.swift in Sources */,
+				F238C1B99350BE2B08BAB26B /* PWKeychainStub.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4135,6 +4254,18 @@
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
+		31D3A89656643F5694730369 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PushwooshBridge;
+			target = 447CEF962D77883300CD410A /* PushwooshBridge */;
+			targetProxy = 878CB4E751AFED7236A8766C /* PBXContainerItemProxy */;
+		};
+		353477A811C9D9E7F6B13BAD /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = PushwooshCore;
+			target = 441806DE2D7B285900DE71A7 /* PushwooshCore */;
+			targetProxy = 54421D5C7D23800353B249F5 /* PBXContainerItemProxy */;
+		};
 		44155FE52D78894400358B1C /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
 			target = 447CEF962D77883300CD410A /* PushwooshBridge */;
@@ -5695,6 +5826,47 @@
 			};
 			name = Release;
 		};
+		57232EB706092463EF2276FF /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				KEEP_PRIVATE_EXTERNS = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULEMAP_FILE = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshKeychain;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Release;
+		};
 		5D4496C522F01C6B00BD62F4 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
@@ -5940,6 +6112,47 @@
 				WATCHOS_DEPLOYMENT_TARGET = 6.0;
 			};
 			name = Release;
+		};
+		B1F8CC0C83935BD468DBE4BB /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				BUILD_LIBRARY_FOR_DISTRIBUTION = YES;
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEFINES_MODULE = YES;
+				DYLIB_COMPATIBILITY_VERSION = 1;
+				DYLIB_CURRENT_VERSION = 1;
+				DYLIB_INSTALL_NAME_BASE = "@rpath";
+				FRAMEWORK_SEARCH_PATHS = (
+					"$(inherited)",
+					"$(BUILD_DIR)/$(CONFIGURATION)$(EFFECTIVE_PLATFORM_NAME)",
+				);
+				GENERATE_INFOPLIST_FILE = YES;
+				INFOPLIST_FILE = "";
+				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
+				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				KEEP_PRIVATE_EXTERNS = NO;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				MARKETING_VERSION = 1.0;
+				MODULEMAP_FILE = "";
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshKeychain;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SDKROOT = iphoneos;
+				SKIP_INSTALL = YES;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_EMIT_LOC_STRINGS = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VERSIONING_SYSTEM = "apple-generic";
+				VERSION_INFO_PREFIX = "";
+			};
+			name = Debug;
 		};
 		C42A20701D06CBB800CC3BCB /* Debug */ = {
 			isa = XCBuildConfiguration;
@@ -6589,6 +6802,15 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
+		1714D841403C6B10AA227B84 /* Build configuration list for PBXNativeTarget "PushwooshKeychain" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				57232EB706092463EF2276FF /* Release */,
+				B1F8CC0C83935BD468DBE4BB /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
 		1DEB921E08733DC00010E9CD /* Build configuration list for PBXNativeTarget "Pushwoosh.ios" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (

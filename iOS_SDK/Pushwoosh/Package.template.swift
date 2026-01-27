@@ -26,7 +26,10 @@ let package = Package(
             targets: ["PushwooshTVOS"]),
         .library(
             name: "PushwooshForegroundPush",
-            targets: ["PushwooshForegroundPush"])
+            targets: ["PushwooshForegroundPush"]),
+        .library(
+            name: "PushwooshKeychain",
+            targets: ["PushwooshKeychain"])
     ],
     targets: [
         .binaryTarget(
@@ -63,6 +66,11 @@ let package = Package(
             name: "PushwooshForegroundPush",
             url: "__PushwooshForegroundPush_URL__",
             checksum: "__PushwooshForegroundPush_CHECKSUM__"
+        ),
+        .binaryTarget(
+            name: "PushwooshKeychain",
+            url: "__PushwooshKeychain_URL__",
+            checksum: "__PushwooshKeychain_CHECKSUM__"
         )
     ]
 )

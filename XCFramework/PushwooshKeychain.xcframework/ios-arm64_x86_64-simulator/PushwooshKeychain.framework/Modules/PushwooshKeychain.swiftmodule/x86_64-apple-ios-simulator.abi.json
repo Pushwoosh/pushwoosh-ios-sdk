@@ -1,0 +1,454 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "TopLevel",
+    "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshKeychain",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshBridge",
+        "printedName": "PushwooshBridge",
+        "declKind": "Import",
+        "moduleName": "PushwooshKeychain"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshKeychain",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Security",
+        "printedName": "Security",
+        "declKind": "Import",
+        "moduleName": "PushwooshKeychain"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshKeychain"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshKeychain",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshKeychain"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshBridge",
+        "printedName": "PushwooshBridge",
+        "declKind": "Import",
+        "moduleName": "PushwooshKeychain"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshKeychain"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshKeychainImplementation",
+        "printedName": "PushwooshKeychainImplementation",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "shared",
+            "printedName": "shared",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshKeychainImplementation",
+                "printedName": "PushwooshKeychain.PushwooshKeychainImplementation",
+                "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation(cpy)shared",
+            "mangledName": "$s17PushwooshKeychain0aB14ImplementationC6sharedACvpZ",
+            "moduleName": "PushwooshKeychain",
+            "static": true,
+            "objc_name": "shared",
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshKeychainImplementation",
+                    "printedName": "PushwooshKeychain.PushwooshKeychainImplementation",
+                    "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation(cm)shared",
+                "mangledName": "$s17PushwooshKeychain0aB14ImplementationC6sharedACvgZ",
+                "moduleName": "PushwooshKeychain",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "keychain",
+            "printedName": "keychain()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any AnyObject.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "AnyObject"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation(cm)keychain",
+            "mangledName": "$s17PushwooshKeychain0aB14ImplementationC8keychainyXlXpyFZ",
+            "moduleName": "PushwooshKeychain",
+            "static": true,
+            "objc_name": "keychain",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "isEnabled",
+            "printedName": "isEnabled",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation(cpy)isEnabled",
+            "mangledName": "$s17PushwooshKeychain0aB14ImplementationC9isEnabledSbvpZ",
+            "moduleName": "PushwooshKeychain",
+            "static": true,
+            "objc_name": "isEnabled",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation(cm)isEnabled",
+                "mangledName": "$s17PushwooshKeychain0aB14ImplementationC9isEnabledSbvgZ",
+                "moduleName": "PushwooshKeychain",
+                "static": true,
+                "objc_name": "isEnabled",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "currentEnvironment",
+            "printedName": "currentEnvironment",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWAppEnvironment",
+                "printedName": "PushwooshBridge.PWAppEnvironment",
+                "usr": "c:@M@PushwooshBridge@E@PWAppEnvironment"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation(cpy)currentEnvironment",
+            "mangledName": "$s17PushwooshKeychain0aB14ImplementationC18currentEnvironment0A6Bridge05PWAppE0OvpZ",
+            "moduleName": "PushwooshKeychain",
+            "static": true,
+            "objc_name": "currentEnvironment",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWAppEnvironment",
+                    "printedName": "PushwooshBridge.PWAppEnvironment",
+                    "usr": "c:@M@PushwooshBridge@E@PWAppEnvironment"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation(cm)currentEnvironment",
+                "mangledName": "$s17PushwooshKeychain0aB14ImplementationC18currentEnvironment0A6Bridge05PWAppE0OvgZ",
+                "moduleName": "PushwooshKeychain",
+                "static": true,
+                "objc_name": "currentEnvironment",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "getPersistentHWID",
+            "printedName": "getPersistentHWID()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation(cm)getPersistentHWID",
+            "mangledName": "$s17PushwooshKeychain0aB14ImplementationC17getPersistentHWIDSSSgyFZ",
+            "moduleName": "PushwooshKeychain",
+            "static": true,
+            "objc_name": "getPersistentHWID",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "clearPersistentHWID",
+            "printedName": "clearPersistentHWID()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation(cm)clearPersistentHWID",
+            "mangledName": "$s17PushwooshKeychain0aB14ImplementationC19clearPersistentHWIDyyFZ",
+            "moduleName": "PushwooshKeychain",
+            "static": true,
+            "objc_name": "clearPersistentHWID",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshKeychainImplementation",
+                "printedName": "PushwooshKeychain.PushwooshKeychainImplementation",
+                "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation(im)init",
+            "mangledName": "$s17PushwooshKeychain0aB14ImplementationCACycfc",
+            "moduleName": "PushwooshKeychain",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation",
+        "mangledName": "$s17PushwooshKeychain0aB14ImplementationC",
+        "moduleName": "PushwooshKeychain",
+        "intro_iOS": "12.0",
+        "objc_name": "PushwooshKeychainImplementation",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "Available",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "PWKeychain",
+            "printedName": "PWKeychain",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWKeychain",
+            "mangledName": "$s15PushwooshBridge10PWKeychainP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshKeychain\/PWKeychainHelper.swift",
+      "kind": "StringLiteral",
+      "offset": 490,
+      "length": 24,
+      "value": "\"com.pushwoosh.keychain\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshKeychain\/PWKeychainHelper.swift",
+      "kind": "StringLiteral",
+      "offset": 548,
+      "length": 17,
+      "value": "\"persistent_hwid\""
+    }
+  ]
+}

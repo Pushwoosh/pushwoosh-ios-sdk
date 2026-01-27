@@ -5,7 +5,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PushwooshXCFramework"
-  s.version      = "7.0.15"
+  s.version      = "7.0.16"
   s.summary      = "Push notifications library by Pushwoosh."
 
   s.description  = "Push notifications iOS library by Pushwoosh - cross platform push notifications service. " \
@@ -31,7 +31,6 @@ Pod::Spec.new do |s|
     core.frameworks  = 'Security', 'StoreKit'
     core.dependency 'PushwooshXCFramework/PushwooshCore'
     core.dependency 'PushwooshXCFramework/PushwooshBridge'
-    core.dependency 'PushwooshXCFramework/PushwooshLiveActivities'
   end
 
   s.subspec 'PushwooshCore' do |corep|
@@ -46,7 +45,7 @@ Pod::Spec.new do |s|
     bridge.tvos.vendored_frameworks = 'XCFramework/PushwooshBridge.xcframework'
   end
 
-  # PushwooshLiveActivities
+  # PushwooshLiveActivities subspec (optional)
   s.subspec 'PushwooshLiveActivities' do |activities|
     activities.dependency 'PushwooshXCFramework/PushwooshCore'
     activities.dependency 'PushwooshXCFramework/PushwooshBridge'
@@ -74,6 +73,11 @@ Pod::Spec.new do |s|
     foreground.dependency 'PushwooshXCFramework/PushwooshCore'
     foreground.dependency 'PushwooshXCFramework/PushwooshBridge'
     foreground.vendored_frameworks = 'XCFramework/PushwooshForegroundPush.xcframework'
+  end
+
+  # PushwooshKeychain subspec (optional)
+  s.subspec 'PushwooshKeychain' do |keychain|
+    keychain.vendored_frameworks = 'XCFramework/PushwooshKeychain.xcframework'
   end
 
   # Geozones Subspec
