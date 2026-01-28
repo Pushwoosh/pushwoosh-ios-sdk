@@ -52,6 +52,7 @@ Select the modules you need in your target's **Frameworks, Libraries, and Embedd
 - `PushwooshTVOS` - tvOS support *(optional)*
 - `PushwooshForegroundPush` - Custom foreground notifications *(optional)*
 - `PushwooshKeychain` - Persistent device ID across app reinstalls *(optional)*
+- `PushwooshGRPC` - gRPC transport for improved performance *(optional)*
 
 ---
 
@@ -68,6 +69,7 @@ pod 'PushwooshXCFramework/PushwooshVoIP'
 pod 'PushwooshXCFramework/PushwooshTVOS'
 pod 'PushwooshXCFramework/PushwooshForegroundPush'
 pod 'PushwooshXCFramework/PushwooshKeychain'
+pod 'PushwooshXCFramework/PushwooshGRPC'
 pod 'PushwooshInboxUIXCFramework'
 ```
 
@@ -204,6 +206,11 @@ Custom foreground notifications with animations, haptic feedback, and visual eff
 Persistent device identification (HWID) that survives app reinstallation using Keychain storage.
 
 **Requirements:** iOS 11.0+
+
+### PushwooshGRPC
+Optional gRPC transport layer for improved network performance. Automatically falls back to REST if unavailable.
+
+**Requirements:** iOS 13.0+
 
 ## 🆘 Support
 
