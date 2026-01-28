@@ -1,0 +1,53 @@
+syntax = "proto3";
+
+package pushwoosh.post_event_api;
+
+import "google/api/annotations.proto";
+import "google/protobuf/struct.proto";
+import "google/protobuf/timestamp.proto";
+
+option go_package = "gitlab.corp.pushwoosh.com/uds/post-event-api/api/go/post-event-api;posteventapi";
+
+service PostEventService {
+  rpc PostEvent(PostEventRequest) returns (PostEventResponse) {
+    option (google.api.http) = {post: "/api/v1/event-api/postEvent", body: '*'};
+  }
+  rpc ShowInappMessage(ShowInappMessageRequest) returns (ShowInappMessageResponse) {
+    option (google.api.http) = {post: "/api/v1/event-api/showInappMessage", body: '*'};
+  }
+}
+
+message PostEventRequest {
+  string hwid = 1;
+  string application = 2;
+  string event = 3;
+  string user_id = 4;
+  int32 platform = 5;
+  int64 timestamp = 6;
+  google.protobuf.Struct attributes = 7;
+  string sdk_version = 8;
+}
+
+message RichMedia {
+  string url = 1;
+  string code = 2;
+  int32 ts = 3; // updated_at (legacy name)
+  string hash = 4;
+}
+
+message PostEventResponse {
+  string code = 1;
+  bool required = 2;
+  RichMedia richmedia = 3;
+  string message_hash = 4;
+}
+
+message ShowInappMessageRequest {
+  string user_id = 1;
+  string application = 2;
+  string inapp = 3;
+  google.protobuf.Timestamp expiry_date = 4;
+  uint64 campaign_id = 5;
+}
+
+message ShowInappMessageResponse {}

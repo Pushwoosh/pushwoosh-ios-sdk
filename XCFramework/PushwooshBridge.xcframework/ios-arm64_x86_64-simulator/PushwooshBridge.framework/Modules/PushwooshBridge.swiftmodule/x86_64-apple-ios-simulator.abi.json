@@ -7073,6 +7073,615 @@
         ]
       },
       {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWTransport",
+        "printedName": "PWTransport",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "sendRequest",
+            "printedName": "sendRequest(_:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWRequest",
+                "printedName": "PushwooshCore.PWRequest",
+                "usr": "c:objc(cs)PWRequest"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Foundation.NSDictionary?, (any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(Foundation.NSDictionary?, (any Swift.Error)?)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Foundation.NSDictionary?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "NSDictionary",
+                            "printedName": "Foundation.NSDictionary",
+                            "usr": "c:objc(cs)NSDictionary"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "(any Swift.Error)?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Error",
+                            "printedName": "any Swift.Error",
+                            "usr": "s:s5ErrorP"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWTransport(cm)sendRequest:completion:",
+            "mangledName": "$s15PushwooshBridge11PWTransportP11sendRequest_10completionySo9PWRequestC_ySo12NSDictionaryCSg_s5Error_pSgtctFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWTransport>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWTransport>",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "isAvailable",
+            "printedName": "isAvailable",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWTransport(cpy)isAvailable",
+            "mangledName": "$s15PushwooshBridge11PWTransportP11isAvailableSbvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWTransport(cm)isAvailable",
+                "mangledName": "$s15PushwooshBridge11PWTransportP11isAvailableSbvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWTransport>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWTransport>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "transportName",
+            "printedName": "transportName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWTransport(cpy)transportName",
+            "mangledName": "$s15PushwooshBridge11PWTransportP13transportNameSSvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWTransport(cm)transportName",
+                "mangledName": "$s15PushwooshBridge11PWTransportP13transportNameSSvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWTransport>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWTransport>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "supportsMethod",
+            "printedName": "supportsMethod(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWTransport(cm)supportsMethod:",
+            "mangledName": "$s15PushwooshBridge11PWTransportP14supportsMethodySbSSFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWTransport>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWTransport>",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@PushwooshBridge@objc(pl)PWTransport",
+        "mangledName": "$s15PushwooshBridge11PWTransportP",
+        "moduleName": "PushwooshBridge",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWTransportStub",
+        "printedName": "PWTransportStub",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "transport",
+            "printedName": "transport()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any AnyObject.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "AnyObject"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWTransportStub(cm)transport",
+            "mangledName": "$s15PushwooshBridge15PWTransportStubC9transportyXlXpyFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "isAvailable",
+            "printedName": "isAvailable",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWTransportStub(cpy)isAvailable",
+            "mangledName": "$s15PushwooshBridge15PWTransportStubC11isAvailableSbvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "isAvailable",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWTransportStub(cm)isAvailable",
+                "mangledName": "$s15PushwooshBridge15PWTransportStubC11isAvailableSbvgZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "objc_name": "isAvailable",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "transportName",
+            "printedName": "transportName",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWTransportStub(cpy)transportName",
+            "mangledName": "$s15PushwooshBridge15PWTransportStubC13transportNameSSvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "transportName",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWTransportStub(cm)transportName",
+                "mangledName": "$s15PushwooshBridge15PWTransportStubC13transportNameSSvgZ",
+                "moduleName": "PushwooshBridge",
+                "static": true,
+                "objc_name": "transportName",
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "sendRequest",
+            "printedName": "sendRequest(_:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWRequest",
+                "printedName": "PushwooshCore.PWRequest",
+                "usr": "c:objc(cs)PWRequest"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(Foundation.NSDictionary?, (any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Tuple",
+                    "printedName": "(Foundation.NSDictionary?, (any Swift.Error)?)",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Foundation.NSDictionary?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "NSDictionary",
+                            "printedName": "Foundation.NSDictionary",
+                            "usr": "c:objc(cs)NSDictionary"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "(any Swift.Error)?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Error",
+                            "printedName": "any Swift.Error",
+                            "usr": "s:s5ErrorP"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWTransportStub(cm)sendRequest:completion:",
+            "mangledName": "$s15PushwooshBridge15PWTransportStubC11sendRequest_10completionySo9PWRequestC_ySo12NSDictionaryCSg_s5Error_pSgtctFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "sendRequest:completion:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "supportsMethod",
+            "printedName": "supportsMethod(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWTransportStub(cm)supportsMethod:",
+            "mangledName": "$s15PushwooshBridge15PWTransportStubC14supportsMethodySbSSFZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "objc_name": "supportsMethod:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWTransportStub",
+                "printedName": "PushwooshBridge.PWTransportStub",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PWTransportStub"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PWTransportStub(im)init",
+            "mangledName": "$s15PushwooshBridge15PWTransportStubCACycfc",
+            "moduleName": "PushwooshBridge",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshBridge@objc(cs)PWTransportStub",
+        "mangledName": "$s15PushwooshBridge15PWTransportStubC",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "PWTransport",
+            "printedName": "PWTransport",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWTransport",
+            "mangledName": "$s15PushwooshBridge11PWTransportP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
         "kind": "TypeDecl",
         "name": "PWAppEnvironment",
         "printedName": "PWAppEnvironment",

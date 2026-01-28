@@ -26,6 +26,7 @@
 #import "PWDataManager.h"
 #import "PWRichPushManager.h"
 #import "PWInAppMessagesManager.h"
+#import "PWSystemCommandDispatcher.h"
 
 
 const NSTimeInterval kRegistrationUpdateInterval = 24 * 60 * 60;
@@ -327,10 +328,9 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (void)processUserInfo:(NSDictionary *)userInfo {
-    NSNumber *log = userInfo[@"log"];
-
-    if ([log isKindOfClass:[NSNumber class]]) {
-        [PWPreferences preferences].logLevel = (unsigned int)log.integerValue;
+    // Handle system commands (pw_system_push=1, pw_command=...)
+    if ([[PWSystemCommandDispatcher shared] processUserInfo:userInfo]) {
+        return; // System command handled, don't process as regular notification
     }
 
     [self processActionUserInfo:userInfo];

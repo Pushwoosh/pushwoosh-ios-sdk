@@ -14,6 +14,7 @@
 #import <objc/runtime.h>
 #import "PWPreferences.h"
 #import "PWUtils.h"
+#import "PWSystemCommandDispatcher.h"
 
 #if TARGET_OS_IOS || TARGET_OS_TV
 #import <UIKit/UIKit.h>
@@ -80,6 +81,12 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 
 - (void)startSendingEvents {
     if ([PW_APPLICATION_CLASS sharedApplication].applicationState != PW_APPLICATION_STATE_BACKGROUND) {
+        // Process system push from launch notification before sending applicationOpen
+        NSDictionary *launchNotification = [PWManagerBridge shared].launchNotification;
+        if (launchNotification) {
+            [[PWSystemCommandDispatcher shared] processUserInfo:launchNotification];
+        }
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [[PWManagerBridge shared].dataManager sendAppOpenWithCompletion:nil];
         });

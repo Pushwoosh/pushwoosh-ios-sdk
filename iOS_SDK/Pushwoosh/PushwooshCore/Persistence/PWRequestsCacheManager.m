@@ -9,7 +9,7 @@
 #import "PWRequestsCacheManager.h"
 #import "PWCachedRequest.h"
 #import "PWNetworkModule.h"
-#import "PWUnarchiver.h"
+#import <PushwooshCore/PushwooshLog.h>
 
 #if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 #import "PWReachability.h"
@@ -73,9 +73,11 @@
                 NSData *data = [NSData dataWithContentsOfURL:url];
 
                 NSSet *set = [NSSet setWithObjects:[PWCachedRequest class], [NSMutableArray class], [NSURL class], nil];
-                
-                PWUnarchiver *unarchiver = [[PWUnarchiver alloc] init];
-                _requestsQueue = [unarchiver unarchivedObjectOfClasses:set data:data];
+                NSError *error = nil;
+                _requestsQueue = [NSKeyedUnarchiver unarchivedObjectOfClasses:set fromData:data error:&error];
+                if (error) {
+                    [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Deserialization failed: %@", error.localizedDescription]];
+                }
             }
         }
         if (!_requestsQueue) {

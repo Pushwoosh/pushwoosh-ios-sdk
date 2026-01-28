@@ -7,7 +7,6 @@
 //
 
 #import "PWConfig.h"
-#import "PWNotificationAppSettings.h"
 #import <PushwooshCore/PushwooshLog.h>
 
 #import <XCTest/XCTest.h>
@@ -67,7 +66,6 @@
     XCTAssertTrue(_config.showAlert);
     XCTAssertTrue(_config.sendPushStatIfAlertsDisabled);
     XCTAssertTrue(_config.sendPurchaseTrackingEnabled);
-    XCTAssertEqual(_config.alertStyle, PWNotificationAlertStyleBanner);
     XCTAssertEqual(requestUrl, _config.requestUrl);
     XCTAssertTrue(_config.selfTestEnabled);
     XCTAssertTrue(_config.useRuntime);
@@ -77,39 +75,6 @@
     XCTAssertTrue(_config.allowServerCommunication);
     XCTAssertTrue(_config.allowCollectingDeviceData);
     XCTAssertEqual(_config.logLevel, PW_LL_INFO);
-    [mockNSBundle stopMocking];
-}
-
-- (void)testCheckAlertTypeBanner {
-    NSString *type = @"BANNER";
-    id mockNSBundle = OCMPartialMock([NSBundle mainBundle]);
-    OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALERT_TYPE"]).andReturn(type);
-
-    _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
-    
-    XCTAssertEqual(PWNotificationAlertStyleBanner, _config.alertStyle);
-    [mockNSBundle stopMocking];
-}
-
-- (void)testCheckAlertTypeAlert {
-    NSString *type = @"ALERT";
-    id mockNSBundle = OCMPartialMock([NSBundle mainBundle]);
-    OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALERT_TYPE"]).andReturn(type);
-
-    _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
-    
-    XCTAssertEqual(PWNotificationAlertStyleAlert, _config.alertStyle);
-    [mockNSBundle stopMocking];
-}
-
-- (void)testCheckAlertTypeNone {
-    NSString *type = @"NONE";
-    id mockNSBundle = OCMPartialMock([NSBundle mainBundle]);
-    OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALERT_TYPE"]).andReturn(type);
-
-    _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
-    
-    XCTAssertEqual(PWNotificationAlertStyleNone, _config.alertStyle);
     [mockNSBundle stopMocking];
 }
 

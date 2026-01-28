@@ -163,6 +163,9 @@ void heavy_operation_impl(const char *function) {
     return [self isValidHwid:userId];
 }
 
++ (NSInteger)getStatusesMask {
+    return 0;
+}
 
 + (void)applicationOpenURL:(NSURL *)url {
 }

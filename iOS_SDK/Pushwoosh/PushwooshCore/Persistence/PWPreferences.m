@@ -38,6 +38,9 @@ static NSString *const KeyLanguage = @"Pushwoosh_Language";
 static NSString *const KeyIsLoggerAvailable = @"Logger_available";
 static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_enabled";
 
+/// Flag to prevent recursive calls during singleton initialization
+static BOOL _isInitializing = NO;
+
 @interface PWPreferences ()
 
 @property (nonatomic, strong) NSObject *lock;
@@ -66,7 +69,13 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 @synthesize isServerCommunicationEnabled = _isServerCommunicationEnabled;
 @synthesize customTags = _customTags;
 
++ (BOOL)isInitializing {
+    return _isInitializing;
+}
+
 - (instancetype)init {
+    _isInitializing = YES;
+
     self = [super init];
     if (self) {
         [[NSUserDefaults standardUserDefaults] synchronize];
@@ -148,6 +157,8 @@ static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_
 
         _showForegroundNotifications = [PWConfig config].showAlert;
     }
+
+    _isInitializing = NO;
 
     return self;
 }

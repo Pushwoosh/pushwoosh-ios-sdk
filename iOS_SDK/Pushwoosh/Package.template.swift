@@ -5,6 +5,9 @@ import PackageDescription
 
 let package = Package(
     name: "PushwooshFramework",
+    platforms: [
+        .iOS(.v13)
+    ],
     products: [
         .library(
             name: "PushwooshFramework",
@@ -29,7 +32,13 @@ let package = Package(
             targets: ["PushwooshForegroundPush"]),
         .library(
             name: "PushwooshKeychain",
-            targets: ["PushwooshKeychain"])
+            targets: ["PushwooshKeychain"]),
+        .library(
+            name: "PushwooshGRPC",
+            targets: ["PushwooshGRPC"])
+    ],
+    dependencies: [
+        .package(url: "https://github.com/apple/swift-protobuf.git", from: "1.20.0")
     ],
     targets: [
         .binaryTarget(
@@ -71,6 +80,28 @@ let package = Package(
             name: "PushwooshKeychain",
             url: "__PushwooshKeychain_URL__",
             checksum: "__PushwooshKeychain_CHECKSUM__"
+        ),
+        .target(
+            name: "PushwooshGRPC",
+            dependencies: [
+                "PushwooshCore",
+                "PushwooshBridge",
+                .product(name: "SwiftProtobuf", package: "swift-protobuf")
+            ],
+            path: "Pushwoosh/PushwooshGRPC",
+            exclude: ["Info.plist", "Proto"],
+            sources: [
+                "PushwooshGRPCImplementation.swift",
+                "Transport/GRPCTransport.swift",
+                "Transport/GRPCFraming.swift",
+                "Builders/GRPCRequestBuilders.swift",
+                "Converters/GRPCResponseConverters.swift",
+                "Utils/GRPCLogger.swift",
+                "Generated/device.pb.swift",
+                "Generated/device_service.pb.swift",
+                "Generated/post_event.pb.swift"
+            ],
+            publicHeadersPath: "."
         )
     ]
 )

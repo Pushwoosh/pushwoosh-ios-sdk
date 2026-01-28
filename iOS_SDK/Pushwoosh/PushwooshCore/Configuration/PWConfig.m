@@ -13,7 +13,6 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
 @property (nonatomic, copy, readwrite) NSString *appName;
 @property (nonatomic, copy, readwrite) NSString *appGroupsName;
 @property (nonatomic, assign, readwrite) BOOL showAlert;
-@property (nonatomic, assign, readwrite) PWNotificationAlertStyle alertStyle;
 @property (nonatomic, copy, readwrite) NSString *requestUrl;
 @property (nonatomic, assign, readwrite) BOOL selfTestEnabled;
 @property (nonatomic, assign, readwrite) BOOL useRuntime;
@@ -30,6 +29,11 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
 @property (nonatomic, assign, readwrite) BOOL preHandleNotificationsWithUrl;
 @property (nonatomic, assign, readwrite) BOOL lazyInitialization;
 @property (nonatomic, readwrite) BOOL isUsingPluginForPushHandling;
+
+// gRPC configuration
+@property (nonatomic, assign, readwrite) BOOL preferGRPC;
+@property (nonatomic, copy, readwrite) NSString *grpcHost;
+@property (nonatomic, assign, readwrite) NSInteger grpcPort;
 
 @property (nonatomic) NSBundle *bundle;
 
@@ -59,23 +63,8 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
 		self.showAlert = [self getBoolean:@"Pushwoosh_SHOW_ALERT" default:YES];
 
         self.sendPushStatIfAlertsDisabled = [self getBoolean:@"Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED" default:NO];
-        
-        self.alertStyle = PWNotificationAlertStyleBanner;
-        
+
         [self styleRichMediaTypeFromString:[bundle objectForInfoDictionaryKey:@"Pushwoosh_RICH_MEDIA_STYLE"]];
-
-		NSString *alertTypeString = [bundle objectForInfoDictionaryKey:@"Pushwoosh_ALERT_TYPE"];
-		if ([alertTypeString isKindOfClass:[NSString class]] && [alertTypeString isEqualToString:@"BANNER"]) {
-			self.alertStyle = PWNotificationAlertStyleBanner;
-		}
-
-		if ([alertTypeString isKindOfClass:[NSString class]] && [alertTypeString isEqualToString:@"ALERT"]) {
-			self.alertStyle = PWNotificationAlertStyleAlert;
-		}
-
-		if ([alertTypeString isKindOfClass:[NSString class]] && [alertTypeString isEqualToString:@"NONE"]) {
-			self.alertStyle = PWNotificationAlertStyleNone;
-		}
 
 		self.requestUrl = [bundle objectForInfoDictionaryKey:@"Pushwoosh_BASEURL"];
 
@@ -140,6 +129,13 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
 		self.logLevel = (PUSHWOOSH_LOG_LEVEL)logLevelObject.integerValue;
         
         self.lazyInitialization = [self getBoolean:@"Pushwoosh_LAZY_INITIALIZATION" default:NO];
+
+        // gRPC configuration
+        self.preferGRPC = [self getBoolean:@"Pushwoosh_PREFER_GRPC" default:NO];
+        self.grpcHost = [bundle objectForInfoDictionaryKey:@"Pushwoosh_GRPC_HOST"] ?: @"grpc.pushwoosh.com";
+
+        NSNumber *grpcPortNum = [bundle objectForInfoDictionaryKey:@"Pushwoosh_GRPC_PORT"];
+        self.grpcPort = grpcPortNum ? [grpcPortNum integerValue] : 443;
 	}
 
 	return self;

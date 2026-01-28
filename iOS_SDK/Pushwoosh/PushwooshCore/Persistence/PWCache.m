@@ -5,7 +5,6 @@
 //
 
 #import "PWCache.h"
-#import "PWUnarchiver.h"
 
 @interface PWCache ()
 
@@ -66,16 +65,21 @@
 
 - (NSDictionary *)getTags {
     NSDictionary *tags = nil;
-    
+
     if (TARGET_OS_IOS) {
         NSURL *url = [NSURL fileURLWithPath:self.tagsCacheFile];
         NSData *data = [NSData dataWithContentsOfURL:url];
-        
-        NSSet *set = [NSSet setWithObjects:[NSDictionary class], [NSString class], [NSNumber class], [NSArray class], nil];
-        PWUnarchiver *unarchiver = [[PWUnarchiver alloc] init];
-        tags = [unarchiver unarchivedObjectOfClasses:set data:data];
+
+        if (data) {
+            NSSet *set = [NSSet setWithObjects:[NSDictionary class], [NSString class], [NSNumber class], [NSArray class], [NSDate class], [NSNull class], nil];
+            NSError *error = nil;
+            tags = [NSKeyedUnarchiver unarchivedObjectOfClasses:set fromData:data error:&error];
+            if (error) {
+                [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Deserialization failed: %@", error.localizedDescription]];
+            }
+        }
     }
-    
+
     [PushwooshLog pushwooshLog:PW_LL_VERBOSE
                      className:self
                        message:[NSString stringWithFormat:@"Get cached tags: %@", tags]];
@@ -114,14 +118,19 @@
 
 - (NSDictionary *)getEmailTags {
     NSDictionary *tags = nil;
-    
+
     if (TARGET_OS_IOS) {
         NSURL *url = [NSURL fileURLWithPath:self.emailTagsCacheFile];
         NSData *data = [NSData dataWithContentsOfURL:url];
-                
-        NSSet *set = [NSSet setWithObjects:[NSString class], [NSDictionary class], nil];
-        PWUnarchiver *unarchiver = [[PWUnarchiver alloc] init];
-        tags = [unarchiver unarchivedObjectOfClasses:set data:data];
+
+        if (data) {
+            NSSet *set = [NSSet setWithObjects:[NSDictionary class], [NSString class], [NSNumber class], [NSArray class], [NSDate class], [NSNull class], nil];
+            NSError *error = nil;
+            tags = [NSKeyedUnarchiver unarchivedObjectOfClasses:set fromData:data error:&error];
+            if (error) {
+                [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Deserialization failed: %@", error.localizedDescription]];
+            }
+        }
     }
 
     [PushwooshLog pushwooshLog:PW_LL_VERBOSE

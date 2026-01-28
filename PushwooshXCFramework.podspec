@@ -5,7 +5,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PushwooshXCFramework"
-  s.version      = "7.0.17"
+  s.version      = "7.0.18"
   s.summary      = "Push notifications library by Pushwoosh."
 
   s.description  = "Push notifications iOS library by Pushwoosh - cross platform push notifications service. " \
@@ -78,6 +78,13 @@ Pod::Spec.new do |s|
   # PushwooshKeychain subspec (optional)
   s.subspec 'PushwooshKeychain' do |keychain|
     keychain.vendored_frameworks = 'XCFramework/PushwooshKeychain.xcframework'
+  end
+
+  # PushwooshGRPC subspec (optional)
+  s.subspec 'PushwooshGRPC' do |grpc|
+    grpc.dependency 'PushwooshXCFramework/PushwooshCore'
+    grpc.dependency 'PushwooshXCFramework/PushwooshBridge'
+    grpc.vendored_frameworks = 'XCFramework/PushwooshGRPC.xcframework'
   end
 
   # Geozones Subspec

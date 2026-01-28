@@ -11,11 +11,6 @@
 #import "PWPushRuntime.h"
 #import "PWInteractivePush.h"
 #import "PWPreferences.h"
-#if TARGET_OS_IOS
-#import "PWNotification.h"
-#import "PWNotificationCenter.h"
-#import "PWNotificationAppSettings.h"
-#endif
 #import "PWConfig.h"
 #import "PWUtils.h"
 #import <PushwooshCore/PWManagerBridge.h>
@@ -32,7 +27,6 @@
 
 - (instancetype)init {
 	if (self = [super init]) {
-		[self setUpInAppAlerts];
         //need to track app is waking from background or just become active. if app woke from background [UIApplication sharedApplication].applicationState == UIApplicationStateInactive
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(didFinishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(willForeground:) name:UIApplicationWillEnterForegroundNotification object:nil];
@@ -54,28 +48,6 @@
 
 - (void)didBecomeActive:(NSNotification *)notifiaction {
     _fromForeground = NO;
-}
-
-- (void)setUpInAppAlerts {
-#if TARGET_OS_IOS
-	//get app icon for in-app alert module
-    UIImage *appIcon = [UIImage imageNamed:[[[NSBundle mainBundle] infoDictionary][@"CFBundleIcons"][@"CFBundlePrimaryIcon"][@"CFBundleIconFiles"] firstObject]];
-
-	if (!appIcon) {
-		appIcon = [UIImage imageNamed:[[[NSBundle mainBundle] infoDictionary][@"CFBundleIconFiles"] firstObject]];
-	}
-
-	//initialize in-app alert module
-	[[PWNotificationCenter defaultCenter] registerApplicationWithIdentifier:@"com.pushwoosh.app" name:[PWPreferences preferences].appName icon:appIcon defaultSettings:[PWNotificationAppSettings defaultSettings]];
-
-
-	//set up alert type
-	PWNotificationAppSettings *inappAlertSettings = [PWNotificationAppSettings new];
-	inappAlertSettings.alertStyle = [PWConfig config].alertStyle;
-
-	inappAlertSettings.soundEnabled = YES;
-	[[PWNotificationCenter defaultCenter] setSettings:inappAlertSettings enabled:YES forAppIdentifier:@"com.pushwoosh.app"];
-#endif
 }
 
 - (void)internalRegisterForPushNotifications {
@@ -114,41 +86,8 @@
     return [[UIApplication sharedApplication] applicationState] != UIApplicationStateActive;
 }
 
-// Returns YES if foreground alert is shown
 - (BOOL)showForegroundAlert:(NSDictionary *)userInfo onStart:(BOOL)onStart {
-	BOOL needToShowAlert = [PWManagerBridge shared].showPushnotificationAlert;
-	if ([self isAppInBackground]) {
-		needToShowAlert = NO;  //we cannot display alerts in background anyway
-	}
-
-	NSDictionary *pushDict = userInfo[@"aps"];
-	id alertMsg = pushDict[@"alert"];
-
-	if ([alertMsg isKindOfClass:[NSDictionary class]]) {
-		alertMsg = alertMsg[@"body"];
-	}
-
-	bool msgIsString = YES;
-	if (![alertMsg isKindOfClass:[NSString class]])
-		msgIsString = NO;
-
-	//the app is running, display alert only
-	if (!onStart && needToShowAlert && msgIsString) {
-#if TARGET_OS_IOS
-		PWNotification *notification = [PWNotification notificationWithMessage:alertMsg];
-		notification.title = [PWManagerBridge shared].appName;
-		notification.soundName = pushDict[@"sound"];
-		notification.defaultAction = [PWNotificationAction actionWithTitle:@"View" handler:^(PWNotificationAction *action) {
-			[self handlePushAccepted:userInfo onStart:onStart];
-		}];
-
-		[[PWNotificationCenter defaultCenter] presentNotification:notification forApplicationIdentifier:@"com.pushwoosh.app"];
-		return YES;
-#else
-		return NO;
-#endif
-	}
-
+	// Legacy in-app banner removed. Foreground notifications are now handled by UNUserNotificationCenter.
 	return NO;
 }
 

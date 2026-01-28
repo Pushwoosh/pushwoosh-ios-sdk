@@ -11,7 +11,7 @@
 #import "PWNetworkModule.h"
 #import "PWGetResourcesRequest.h"
 #import "PWUtils.h"
-#import "PWUnarchiver.h"
+#import <PushwooshCore/PushwooshLog.h>
 
 static NSString *const KeyInAppSavedResources = @"InAppSavedResources";
 
@@ -40,9 +40,11 @@ static NSString *const KeyInAppSavedResources = @"InAppSavedResources";
 		if (data) {
             if (TARGET_OS_IOS || TARGET_OS_TV) {
                 NSSet *set = [NSSet setWithObjects:[PWResource class], [NSString class], [NSDictionary class], nil];
-
-                PWUnarchiver *unarchiver = [[PWUnarchiver alloc] init];
-                _resources = [unarchiver unarchivedObjectOfClasses:set data:data];
+                NSError *error = nil;
+                _resources = [NSKeyedUnarchiver unarchivedObjectOfClasses:set fromData:data error:&error];
+                if (error) {
+                    [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Deserialization failed: %@", error.localizedDescription]];
+                }
             }
 		} else {
 			_resources = @{};

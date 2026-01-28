@@ -14,6 +14,10 @@ NS_ASSUME_NONNULL_BEGIN
 
 + (instancetype)preferences NS_SWIFT_NAME(preferencesInstance());
 
+/// Returns YES if PWPreferences is currently being initialized.
+/// Used to prevent recursive calls during singleton initialization.
++ (BOOL)isInitializing;
+
 @property (nonatomic) BOOL showForegroundNotifications;
 
 @property (copy) NSString *appCode;

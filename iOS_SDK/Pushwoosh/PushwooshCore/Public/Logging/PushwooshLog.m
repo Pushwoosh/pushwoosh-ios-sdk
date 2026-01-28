@@ -25,7 +25,14 @@ void pushwoosh_Log(id object, PUSHWOOSH_LOG_LEVEL logLevel, NSString *format, ..
         return;
     }
 
-    PUSHWOOSH_LOG_LEVEL currentLevel = [PWPreferences preferences].logLevel;
+    // Get log level safely: if PWPreferences is initializing, use default level
+    // to prevent recursive dispatch_once deadlock
+    PUSHWOOSH_LOG_LEVEL currentLevel;
+    if ([PWPreferences isInitializing]) {
+        currentLevel = PW_LL_INFO; // Default level during init
+    } else {
+        currentLevel = [PWPreferences preferences].logLevel;
+    }
 
     if (_llPushwooshLogLevel != PW_LL_INFO) {
         currentLevel = _llPushwooshLogLevel;

@@ -1,0 +1,76 @@
+syntax = "proto3";
+
+package pushwoosh.device_api.v2;
+
+import "google/protobuf/timestamp.proto";
+
+option go_package = "gitlab.corp.pushwoosh.com/uds/device-api-v2/v2/api/go/device-api/v2;deviceapi";
+
+message LoadDevicesRequest {
+  repeated string hwids = 1;
+  repeated string push_tokens = 2;
+  repeated string users = 3;
+  string application = 4;
+}
+
+message LoadDevicesResponse {
+  repeated Device devices = 1;
+  repeated Tag user_tags = 2; // only available when loading by user
+}
+
+message TagList {
+  repeated Tag tags = 1;
+}
+
+message Device {
+  string hwid = 1;
+  uint32 platform = 2;
+  map<string, string> push_tokens = 3;
+  repeated Tag device_tags = 4;
+  map<string, TagList> app_tags = 5;
+  map<string, User> users = 6;
+  map<string, int32> badges = 7;
+  map<string, string> attributes = 8;
+  map<string, FCMKey> fcm_keys = 9;
+  map<string, WebKey> web_keys = 10;
+  bool unsubscribed = 11;
+  Location location = 12;
+  map<string, string> voip_push_tokens = 13;
+}
+
+message FCMKey {
+  string token = 1;
+  string push_set = 2;
+}
+
+message Location {
+  double lat = 1;
+  double lon = 2;
+}
+
+message WebKey {
+  string public_key = 1;
+  string auth_token = 2;
+}
+
+message StringList {
+  repeated string values = 1;
+}
+
+message Tag {
+  string name = 1;
+  oneof value {
+    int32 integer = 2;
+    string string = 3;
+    StringList list = 4;
+    google.protobuf.Timestamp date = 5;
+    bool boolean = 6;
+    string price = 7;
+    string version = 8;
+    int32 timezone = 9;
+  }
+}
+
+message User {
+  string id = 1;
+}

@@ -22,7 +22,6 @@
 - (NSDictionary *)requestDictionary {
     NSMutableDictionary *requestDict = [self baseDictionary];
     requestDict[@"features"] = @[
-        @"channels",
         @"events"
     ];
     return [requestDict copy];
@@ -42,14 +41,7 @@
             _isLoggerActive = NO;
         }
         
-        NSArray *channelsDicts = [featuresDictionary pw_arrayForKey:@"channels"];
-        NSMutableArray<PWChannel *> *channels = [NSMutableArray array];
-        for (NSDictionary *channelDict in channelsDicts) {
-            [channels addObject:[[PWChannel alloc] initWithDictionary:channelDict]];
-        }
         NSArray *eventsDicts = [featuresDictionary pw_arrayForKey:@"events"];
-    
-        _channels = [channels copy];
         _events = [eventsDicts copy];
     } else {
         _isLoggerActive = NO;

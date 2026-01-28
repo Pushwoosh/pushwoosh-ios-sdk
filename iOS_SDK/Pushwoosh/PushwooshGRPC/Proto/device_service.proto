@@ -1,0 +1,507 @@
+syntax = "proto3";
+
+package pushwoosh.device_api.v2;
+
+import "pushwoosh/device.proto";
+import "google/api/annotations.proto";
+import "google/protobuf/wrappers.proto";
+import "google/protobuf/struct.proto";
+
+option go_package = "gitlab.corp.pushwoosh.com/uds/device-api-v2/v2/api/go/device-api/v2;deviceapi";
+
+service DeviceService {
+  rpc ApplicationOpen(ApplicationOpenRequest) returns (ApplicationOpenResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/applicationOpen", body: '*'};
+  }
+
+  rpc SetBadge(SetBadgeRequest) returns (SetBadgeResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/setBadge", body: '*'};
+  }
+
+  rpc PushStat(PushStatRequest) returns (PushStatResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/pushStat", body: '*'};
+  }
+
+  rpc MessageDelivery(MessageDeliveryRequest) returns (MessageDeliveryResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/messageDeliveryEvent", body: '*'};
+  }
+
+  rpc SetTags(SetTagsRequest) returns (SetTagsResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/setTags", body: '*'};
+  }
+
+  rpc MultiRegisterDevice(MultiRegisterDeviceRequest) returns (MultiRegisterDeviceResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/multiRegisterDevice", body: '*'};
+  }
+
+  rpc MultiRegisterDeviceSync(MultiRegisterDeviceRequest) returns (MultiRegisterDeviceResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/multiRegisterDeviceSync", body: '*'};
+  }
+
+  // Fetches platform-specific configurations for an application.
+  rpc GetPlatformConfiguration(GetPlatformConfigurationRequest) returns (GetPlatformConfigurationResponse) {
+    option (google.api.http) = {get: "/api/v2/device-api/platformConfiguration"};
+  }
+
+  rpc RegisterDevice(RegisterDeviceRequest) returns (RegisterDeviceResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/registerDevice", body: '*'};
+  }
+
+  rpc RegisterDeviceSync(RegisterDeviceRequest) returns (RegisterDeviceResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/registerDeviceSync", body: '*'};
+  }
+
+  rpc UnregisterDevice(UnregisterDeviceRequest) returns (UnregisterDeviceResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/unregisterDevice", body: '*'};
+  }
+
+  rpc UnregisterDeviceSync(UnregisterDeviceRequest) returns (UnregisterDeviceResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/unregisterDeviceSync", body: '*'};
+  }
+
+  rpc DeleteDevice(DeleteDeviceRequest) returns (DeleteDeviceResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/deleteDevice", body: '*'};
+  }
+
+  rpc DeleteDeviceSync(DeleteDeviceRequest) returns (DeleteDeviceResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/deleteDeviceSync", body: '*'};
+  }
+
+  rpc DeleteUser(DeleteUserRequest) returns (DeleteUserResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/deleteUser", body: '*'};
+  }
+
+  rpc DeleteUserSync(DeleteUserRequest) returns (DeleteUserResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/deleteUserSync", body: '*'};
+  }
+
+  rpc GetInApps(GetInAppsRequest) returns (GetInAppsResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/getInApps", body: '*'};
+  }
+
+  rpc SetAttributes(SetAttributesRequest) returns (SetAttributesResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/setAttributes", body: '*'};
+  }
+
+  rpc CheckDevice(CheckDeviceRequest) returns (CheckDeviceResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/checkDevice", body: '*'};
+  }
+
+  rpc RegisterUser(RegisterUserRequest) returns (RegisterUserResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/registerUser", body: '*'};
+  }
+
+  rpc GetTags(GetTagsRequest) returns (GetTagsResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/getTags", body: '*'};
+  }
+
+  rpc EmailLinkClick(EmailLinkClickRequest) returns (EmailLinkClickResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/emailLinkClick", body: '*'};
+  }
+
+  rpc GetUnregisteredDevices(GetUnregisteredDevicesRequest) returns (GetUnregisteredDevicesResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/getUnregisteredDevices", body: '*'};
+  }
+  // LoadDevices returns list of devices by users/hwids/push tokens
+  rpc LoadDevices(LoadDevicesRequest) returns (LoadDevicesResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/loadDevices", body: "*"};
+  }
+
+  rpc SetActivityToken(SetActivityTokenRequest) returns (SetActivityTokenResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/setActivityToken", body: "*"};
+  }
+
+  rpc SetActivityPushToStartToken(SetActivityPushToStartTokenRequest) returns (SetActivityPushToStartTokenResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/setActivityPushToStartToken", body: "*"};
+  }
+
+  rpc RichMediaAction(RichMediaActionRequest) returns (RichMediaActionResponse) {
+    option (google.api.http) = {post: "/api/v2/device-api/richMediaAction", body: '*'};
+  }
+}
+
+message ApplicationOpenRequest {
+  string hwid = 1;  // device hwid
+  string application = 2;
+  uint32 platform = 3;  // device type (1 = iOS, 3 = Android, etc.)
+  string language = 4;
+  string app_version = 5;
+  string device_model = 6;
+  string os_version = 7;
+  string sdk_version = 8; // v in payload
+  google.protobuf.BoolValue push_alerts_enabled = 9;  // true if not provided
+  string timezone = 10; // UTC if not provided
+  google.protobuf.BoolValue time_sensitive_notifications = 11;
+  google.protobuf.BoolValue scheduled_summary = 12;
+  string user_id = 13;
+}
+
+message ApplicationOpenResponse {
+  message RequiredInApp {
+    string code = 1;
+    int32 updated = 2;
+  }
+
+  map<string, RequiredInApp> required_inapps = 1; // in-app messages to preload on the device
+}
+
+message SetBadgeRequest {
+  string hwid = 1;
+  string application = 2;
+  int32 badge = 3;
+}
+
+message SetBadgeResponse {
+}
+
+message PushStatRequest {
+  string hwid = 1;
+  string application = 2;
+  string hash = 3;
+  uint32 platform = 4;
+  string user_id = 5;
+  google.protobuf.Struct metadata = 7;
+}
+
+message PushStatResponse {
+}
+
+message MessageDeliveryRequest {
+  string hwid = 1;
+  string application = 2;
+  string hash = 3;
+  uint32 platform = 4;
+  string user_id = 5;
+  uint64 message_id = 6;
+  google.protobuf.Struct metadata = 7;
+}
+
+message MessageDeliveryResponse {
+}
+
+message SetTagsRequest {
+  string hwid = 1;
+  string application = 2;
+  string user_id = 3;
+  uint32 platform = 5;
+  google.protobuf.Struct tags = 4;
+}
+
+message SetTagsResponse {
+}
+
+message MultiRegisterDeviceRequest {
+  string user_id = 1;
+  string application = 2;
+  string email = 3;
+  string sms_phone_number = 4;
+  string whatsapp_phone_number = 5;
+  string kakao_phone_number = 6;
+  string line_token = 7;
+  string telegram_user_id = 8;
+  string language = 9;
+  string timezone = 10; // UTC if not provided
+  string city = 11;
+  string country = 12;
+  string state = 13;
+
+  message TagValue {
+    enum Operation {
+      OPERATION_SET = 0;
+      OPERATION_APPEND = 1;
+      OPERATION_REMOVE = 2;
+      OPERATION_INCREMENT = 3;
+    }
+    Operation operation = 1;
+    string value = 2; // will be auto converted to proper tag value (or type will be auto detected for new tags)
+    repeated string values = 3; // must be present for list operations
+  }
+
+  map<string, TagValue> tags = 14;
+
+  message PushDevice {
+    enum Platform {
+      reserved 2, 4, 5, 6, 13, 14, 15, 16, 18, 19, 21, 22, 23, 24;
+      PLATFORM_UNSPECIFIED = 0;
+      IOS = 1;
+      ANDROID = 3;
+      OSX = 7;
+      WINDOWS = 8;
+      AMAZON = 9;
+      SAFARI = 10;
+      CHROME = 11;
+      FIREFOX = 12;
+      HUAWEI_ANDROID = 17;
+      WEB = 20;
+    }
+
+    string hwid = 1;
+    Platform platform = 2;
+    string push_token = 3;
+    string app_version = 4;
+    string os_version = 5;
+    string sdk_version = 6;
+
+    message Location {
+      double lat = 1;
+      double lon = 2;
+    }
+    Location location = 7;
+
+    message PushPlatformData {
+      google.protobuf.BoolValue push_alerts_enabled = 1;  // true if not provided
+      string device_model = 2;
+      repeated string application_sounds = 3;
+    }
+
+    message WebPushPlatformData {
+      string public_key = 1;
+      string auth_token = 2;
+      string browser = 3;
+    }
+
+    oneof PlatformData {
+      PushPlatformData push = 8;
+      WebPushPlatformData web_push = 9;
+    }
+  }
+
+  repeated PushDevice push_devices = 15;
+}
+
+message MultiRegisterDeviceResponse {}
+
+message GetPlatformConfigurationRequest {
+  string application = 1;
+}
+
+message GetPlatformConfigurationResponse {
+  message PlatformParamIOS {
+    message Category {
+      enum ButtonType {
+        BUTTON_TYPE_DEFAULT = 0;
+        BUTTON_TYPE_DESTRUCTIVE = 1;
+      }
+
+      enum StartApplication {
+        START_APP_BACKGROUND = 0;
+        START_APP_FOREGROUND = 1;
+      }
+
+      message Button {
+        string id = 1;
+        string label = 2;
+        ButtonType type = 3;
+        StartApplication start_application = 4;
+      }
+
+      int32 category_id = 1;
+      repeated Button buttons = 2;
+    }
+
+    repeated Category categories = 1;
+  }
+
+  PlatformParamIOS ios = 1;
+}
+
+message RegisterDeviceRequest {
+  string hwid = 1;
+  string application = 2;
+  uint32 platform = 3;
+  string push_token = 4;
+  string user_id = 5;
+  string language = 6;
+  string app_version = 7;
+  string device_model = 8;
+  string os_version = 9;
+  string sdk_version = 10;
+  google.protobuf.BoolValue push_alerts_enabled = 11;
+  string timezone = 12;
+  google.protobuf.BoolValue  time_sensitive_notifications = 13;
+  google.protobuf.BoolValue  scheduled_summary = 14;
+
+  // Application WebKeys
+  string public_key = 15;
+  string auth_token = 16;
+
+  // Application FcmKeys
+  string fcm_token = 17;
+  string fcm_push_set = 18;
+
+  // sounds for push notification from app bundle
+  repeated string sounds = 19;
+  google.protobuf.Struct tags = 20;
+
+  string voip_push_token = 21;
+}
+
+message RegisterDeviceResponse {
+  message IOSCategory {
+    message Button {
+      string id = 1;
+      string label = 2;
+      int32 type = 3; // destructive or not
+      int32 startApplication = 4;
+    }
+
+    int32 categoryId = 1;
+    repeated Button buttons = 2;
+  }
+
+  repeated IOSCategory iosCategories = 1;
+}
+
+message UnregisterDeviceRequest {
+  string hwid = 1;
+  string application = 2;
+  string hash = 3;
+  google.protobuf.Struct metadata = 4;
+}
+
+message UnregisterDeviceResponse {
+}
+
+message DeleteDeviceRequest {
+  string hwid = 1;
+  string application = 2;
+}
+
+message DeleteDeviceResponse {
+}
+
+message DeleteUserRequest {
+  string user_id = 1;
+  string application = 2;
+}
+
+message DeleteUserResponse {
+}
+
+message GetInAppsRequest {
+  string application = 1;
+}
+
+message GetInAppsResponse {
+  message InApp {
+    string url = 1;
+    string code = 2;
+    string layout = 3;
+    int32 updated = 4;
+    int32 closeButtonType = 5;
+    string hash = 6;
+    bool required = 7;
+    int32 priority = 8;
+    string businessCase = 9;
+    string gdpr = 10;
+  }
+
+  repeated InApp inApps = 1;
+}
+
+message SetAttributesRequest {
+  string hwid = 1;
+  string application = 2;
+  string key = 3;
+  string encrypted_data = 4;
+  google.protobuf.Struct attributes = 5;
+}
+
+message SetAttributesResponse {
+}
+
+
+message CheckDeviceRequest {
+  string hwid = 1;
+  string application = 2;
+}
+
+message CheckDeviceResponse {
+  bool exist = 1;
+  bool push_token_exist = 2;
+}
+
+
+message RegisterUserRequest {
+  string hwid = 1;
+  string application = 3;
+  string user_id = 4;
+  uint32 platform = 5;
+}
+
+message RegisterUserResponse {
+}
+
+message GetTagsRequest {
+  string hwid = 1;
+  string application = 2;
+  string user_id = 3;
+}
+
+message GetTagsResponse {
+  google.protobuf.Struct result = 1;
+}
+
+message EmailLinkClickRequest {
+  string hwid = 1;            // email
+  string application = 2;
+  string redirect_link = 3;
+  string original_link = 4;   // don't know why we need this
+  string original_title = 5;  // don't know why we need this
+  string template_code = 6;
+  string hash = 7;
+  string point_uuid = 8;
+  string ip = 9;
+}
+
+message EmailLinkClickResponse {
+}
+
+message GetUnregisteredDevicesRequest {
+  string auth = 1;
+  string application = 2;
+  string date_from = 3; // format YYYY-MM-DD
+  string date_to = 4;
+}
+
+message GetUnregisteredDevicesResponse {
+  repeated string hwids = 1;
+}
+
+message SetActivityTokenRequest {
+  string hwid = 1;
+  string application = 2;
+
+  // set to empty string to remove token
+  string activity_token = 3;
+  string activity_id = 4;
+}
+
+message SetActivityTokenResponse {
+}
+
+message SetActivityPushToStartTokenRequest {
+  string hwid = 1;
+  string application = 2;
+
+  // set to empty string to remove token
+  string activity_push_to_start_token = 3;
+}
+
+message SetActivityPushToStartTokenResponse {
+}
+
+message RichMediaActionRequest {
+  string application = 1;
+  string hwid = 2;
+  string user_id = 3;
+  string inapp_code = 4;
+  string rich_media_code = 5;
+  string message_hash = 6;
+  uint32 platform = 7;
+  uint32 action_type = 8;
+  string action_attributes = 9;
+}
+
+message RichMediaActionResponse {
+}

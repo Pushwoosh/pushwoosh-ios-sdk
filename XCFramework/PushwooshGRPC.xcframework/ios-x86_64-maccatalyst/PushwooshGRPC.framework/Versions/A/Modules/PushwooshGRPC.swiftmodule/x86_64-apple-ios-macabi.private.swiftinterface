@@ -1,0 +1,1538 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target x86_64-apple-ios13.1-macabi -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PushwooshGRPC
+import Foundation
+import PushwooshBridge
+import PushwooshCore
+@_exported import PushwooshGRPC
+import Swift
+import SwiftProtobuf
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+@_inheritsConvenienceInitializers @objc public class PushwooshGRPCImplementation : ObjectiveC.NSObject, PushwooshBridge.PWTransport {
+  @objc public static var isAvailable: Swift.Bool {
+    @objc get
+  }
+  @objc public static var transportName: Swift.String {
+    @objc get
+  }
+  @objc public static func supportsMethod(_ methodName: Swift.String) -> Swift.Bool
+  @objc public static func sendRequest(_ request: PushwooshCore.PWRequest, completion: @escaping (Foundation.NSDictionary?, (any Swift.Error)?) -> Swift.Void)
+  @objc override dynamic public init()
+  @objc deinit
+}
+public struct Pushwoosh_DeviceApi_V2_ApplicationOpenRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var platform: Swift.UInt32
+  public var language: Swift.String
+  public var appVersion: Swift.String
+  public var deviceModel: Swift.String
+  public var osVersion: Swift.String
+  public var sdkVersion: Swift.String
+  public var pushAlertsEnabled: SwiftProtobuf.Google_Protobuf_BoolValue {
+    get
+    set
+  }
+  public var hasPushAlertsEnabled: Swift.Bool {
+    get
+  }
+  public mutating func clearPushAlertsEnabled()
+  public var timezone: Swift.String
+  public var timeSensitiveNotifications: SwiftProtobuf.Google_Protobuf_BoolValue {
+    get
+    set
+  }
+  public var hasTimeSensitiveNotifications: Swift.Bool {
+    get
+  }
+  public mutating func clearTimeSensitiveNotifications()
+  public var scheduledSummary: SwiftProtobuf.Google_Protobuf_BoolValue {
+    get
+    set
+  }
+  public var hasScheduledSummary: Swift.Bool {
+    get
+  }
+  public mutating func clearScheduledSummary()
+  public var userID: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_ApplicationOpenResponse : Swift.Sendable {
+  public var requiredInapps: [Swift.String : PushwooshGRPC.Pushwoosh_DeviceApi_V2_ApplicationOpenResponse.RequiredInApp]
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public struct RequiredInApp : Swift.Sendable {
+    public var code: Swift.String
+    public var updated: Swift.Int32
+    public var unknownFields: SwiftProtobuf.UnknownStorage
+    public init()
+  }
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_SetBadgeRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var badge: Swift.Int32
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_SetBadgeResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_PushStatRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var hash: Swift.String
+  public var platform: Swift.UInt32
+  public var userID: Swift.String
+  public var metadata: SwiftProtobuf.Google_Protobuf_Struct {
+    get
+    set
+  }
+  public var hasMetadata: Swift.Bool {
+    get
+  }
+  public mutating func clearMetadata()
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_PushStatResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_MessageDeliveryRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var hash: Swift.String
+  public var platform: Swift.UInt32
+  public var userID: Swift.String
+  public var messageID: Swift.UInt64
+  public var metadata: SwiftProtobuf.Google_Protobuf_Struct {
+    get
+    set
+  }
+  public var hasMetadata: Swift.Bool {
+    get
+  }
+  public mutating func clearMetadata()
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_MessageDeliveryResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_SetTagsRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var userID: Swift.String
+  public var platform: Swift.UInt32
+  public var tags: SwiftProtobuf.Google_Protobuf_Struct {
+    get
+    set
+  }
+  public var hasTags: Swift.Bool {
+    get
+  }
+  public mutating func clearTags()
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_SetTagsResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest : Swift.Sendable {
+  public var userID: Swift.String
+  public var application: Swift.String
+  public var email: Swift.String
+  public var smsPhoneNumber: Swift.String
+  public var whatsappPhoneNumber: Swift.String
+  public var kakaoPhoneNumber: Swift.String
+  public var lineToken: Swift.String
+  public var telegramUserID: Swift.String
+  public var language: Swift.String
+  public var timezone: Swift.String
+  public var city: Swift.String
+  public var country: Swift.String
+  public var state: Swift.String
+  public var tags: [Swift.String : PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.TagValue]
+  public var pushDevices: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice]
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public struct TagValue : Swift.Sendable {
+    public var operation: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.TagValue.Operation
+    public var value: Swift.String
+    public var values: [Swift.String]
+    public var unknownFields: SwiftProtobuf.UnknownStorage
+    public enum Operation : SwiftProtobuf.Enum, Swift.CaseIterable {
+      public typealias RawValue = Swift.Int
+      case set
+      case append
+      case remove
+      case increment
+      case UNRECOGNIZED(Swift.Int)
+      public init()
+      public init?(rawValue: Swift.Int)
+      public var rawValue: Swift.Int {
+        get
+      }
+      public static let allCases: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.TagValue.Operation]
+      public typealias AllCases = [PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.TagValue.Operation]
+    }
+    public init()
+  }
+  public struct PushDevice : Swift.Sendable {
+    public var hwid: Swift.String
+    public var platform: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.Platform
+    public var pushToken: Swift.String
+    public var appVersion: Swift.String
+    public var osVersion: Swift.String
+    public var sdkVersion: Swift.String
+    public var location: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.Location {
+      get
+      set
+    }
+    public var hasLocation: Swift.Bool {
+      get
+    }
+    public mutating func clearLocation()
+    public var platformData: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.OneOf_PlatformData?
+    public var push: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.PushPlatformData {
+      get
+      set
+    }
+    public var webPush: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.WebPushPlatformData {
+      get
+      set
+    }
+    public var unknownFields: SwiftProtobuf.UnknownStorage
+    public enum OneOf_PlatformData : Swift.Equatable, Swift.Sendable {
+      case push(PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.PushPlatformData)
+      case webPush(PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.WebPushPlatformData)
+      public static func == (a: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.OneOf_PlatformData, b: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.OneOf_PlatformData) -> Swift.Bool
+    }
+    public enum Platform : SwiftProtobuf.Enum, Swift.CaseIterable {
+      public typealias RawValue = Swift.Int
+      case unspecified
+      case ios
+      case android
+      case osx
+      case windows
+      case amazon
+      case safari
+      case chrome
+      case firefox
+      case huaweiAndroid
+      case web
+      case UNRECOGNIZED(Swift.Int)
+      public init()
+      public init?(rawValue: Swift.Int)
+      public var rawValue: Swift.Int {
+        get
+      }
+      public static let allCases: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.Platform]
+      public typealias AllCases = [PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.Platform]
+    }
+    public struct Location : Swift.Sendable {
+      public var lat: Swift.Double
+      public var lon: Swift.Double
+      public var unknownFields: SwiftProtobuf.UnknownStorage
+      public init()
+    }
+    public struct PushPlatformData : Swift.Sendable {
+      public var pushAlertsEnabled: SwiftProtobuf.Google_Protobuf_BoolValue {
+        get
+        set
+      }
+      public var hasPushAlertsEnabled: Swift.Bool {
+        get
+      }
+      public mutating func clearPushAlertsEnabled()
+      public var deviceModel: Swift.String
+      public var applicationSounds: [Swift.String]
+      public var unknownFields: SwiftProtobuf.UnknownStorage
+      public init()
+    }
+    public struct WebPushPlatformData : Swift.Sendable {
+      public var publicKey: Swift.String
+      public var authToken: Swift.String
+      public var browser: Swift.String
+      public var unknownFields: SwiftProtobuf.UnknownStorage
+      public init()
+    }
+    public init()
+  }
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_MultiRegisterDeviceResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_GetPlatformConfigurationRequest : Swift.Sendable {
+  public var application: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse : Swift.Sendable {
+  public var ios: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS {
+    get
+    set
+  }
+  public var hasIos: Swift.Bool {
+    get
+  }
+  public mutating func clearIos()
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public struct PlatformParamIOS : Swift.Sendable {
+    public var categories: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category]
+    public var unknownFields: SwiftProtobuf.UnknownStorage
+    public struct Category : Swift.Sendable {
+      public var categoryID: Swift.Int32
+      public var buttons: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category.Button]
+      public var unknownFields: SwiftProtobuf.UnknownStorage
+      public enum ButtonType : SwiftProtobuf.Enum, Swift.CaseIterable {
+        public typealias RawValue = Swift.Int
+        case `default`
+        case destructive
+        case UNRECOGNIZED(Swift.Int)
+        public init()
+        public init?(rawValue: Swift.Int)
+        public var rawValue: Swift.Int {
+          get
+        }
+        public static let allCases: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category.ButtonType]
+        public typealias AllCases = [PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category.ButtonType]
+      }
+      public enum StartApplication : SwiftProtobuf.Enum, Swift.CaseIterable {
+        public typealias RawValue = Swift.Int
+        case startAppBackground
+        case startAppForeground
+        case UNRECOGNIZED(Swift.Int)
+        public init()
+        public init?(rawValue: Swift.Int)
+        public var rawValue: Swift.Int {
+          get
+        }
+        public static let allCases: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category.StartApplication]
+        public typealias AllCases = [PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category.StartApplication]
+      }
+      public struct Button : Swift.Sendable {
+        public var id: Swift.String
+        public var label: Swift.String
+        public var type: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category.ButtonType
+        public var startApplication: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category.StartApplication
+        public var unknownFields: SwiftProtobuf.UnknownStorage
+        public init()
+      }
+      public init()
+    }
+    public init()
+  }
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_RegisterDeviceRequest : @unchecked Swift.Sendable {
+  public var hwid: Swift.String {
+    get
+    set
+  }
+  public var application: Swift.String {
+    get
+    set
+  }
+  public var platform: Swift.UInt32 {
+    get
+    set
+  }
+  public var pushToken: Swift.String {
+    get
+    set
+  }
+  public var userID: Swift.String {
+    get
+    set
+  }
+  public var language: Swift.String {
+    get
+    set
+  }
+  public var appVersion: Swift.String {
+    get
+    set
+  }
+  public var deviceModel: Swift.String {
+    get
+    set
+  }
+  public var osVersion: Swift.String {
+    get
+    set
+  }
+  public var sdkVersion: Swift.String {
+    get
+    set
+  }
+  public var pushAlertsEnabled: SwiftProtobuf.Google_Protobuf_BoolValue {
+    get
+    set
+  }
+  public var hasPushAlertsEnabled: Swift.Bool {
+    get
+  }
+  public mutating func clearPushAlertsEnabled()
+  public var timezone: Swift.String {
+    get
+    set
+  }
+  public var timeSensitiveNotifications: SwiftProtobuf.Google_Protobuf_BoolValue {
+    get
+    set
+  }
+  public var hasTimeSensitiveNotifications: Swift.Bool {
+    get
+  }
+  public mutating func clearTimeSensitiveNotifications()
+  public var scheduledSummary: SwiftProtobuf.Google_Protobuf_BoolValue {
+    get
+    set
+  }
+  public var hasScheduledSummary: Swift.Bool {
+    get
+  }
+  public mutating func clearScheduledSummary()
+  public var publicKey: Swift.String {
+    get
+    set
+  }
+  public var authToken: Swift.String {
+    get
+    set
+  }
+  public var fcmToken: Swift.String {
+    get
+    set
+  }
+  public var fcmPushSet: Swift.String {
+    get
+    set
+  }
+  public var sounds: [Swift.String] {
+    get
+    set
+  }
+  public var tags: SwiftProtobuf.Google_Protobuf_Struct {
+    get
+    set
+  }
+  public var hasTags: Swift.Bool {
+    get
+  }
+  public mutating func clearTags()
+  public var voipPushToken: Swift.String {
+    get
+    set
+  }
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_RegisterDeviceResponse : Swift.Sendable {
+  public var iosCategories: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceResponse.IOSCategory]
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public struct IOSCategory : Swift.Sendable {
+    public var categoryID: Swift.Int32
+    public var buttons: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceResponse.IOSCategory.Button]
+    public var unknownFields: SwiftProtobuf.UnknownStorage
+    public struct Button : Swift.Sendable {
+      public var id: Swift.String
+      public var label: Swift.String
+      public var type: Swift.Int32
+      public var startApplication: Swift.Int32
+      public var unknownFields: SwiftProtobuf.UnknownStorage
+      public init()
+    }
+    public init()
+  }
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_UnregisterDeviceRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var hash: Swift.String
+  public var metadata: SwiftProtobuf.Google_Protobuf_Struct {
+    get
+    set
+  }
+  public var hasMetadata: Swift.Bool {
+    get
+  }
+  public mutating func clearMetadata()
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_UnregisterDeviceResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_DeleteDeviceRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_DeleteDeviceResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_DeleteUserRequest : Swift.Sendable {
+  public var userID: Swift.String
+  public var application: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_DeleteUserResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_GetInAppsRequest : Swift.Sendable {
+  public var application: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_GetInAppsResponse : Swift.Sendable {
+  public var inApps: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetInAppsResponse.InApp]
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public struct InApp : Swift.Sendable {
+    public var url: Swift.String
+    public var code: Swift.String
+    public var layout: Swift.String
+    public var updated: Swift.Int32
+    public var closeButtonType: Swift.Int32
+    public var hash: Swift.String
+    public var required: Swift.Bool
+    public var priority: Swift.Int32
+    public var businessCase: Swift.String
+    public var gdpr: Swift.String
+    public var unknownFields: SwiftProtobuf.UnknownStorage
+    public init()
+  }
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_SetAttributesRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var key: Swift.String
+  public var encryptedData: Swift.String
+  public var attributes: SwiftProtobuf.Google_Protobuf_Struct {
+    get
+    set
+  }
+  public var hasAttributes: Swift.Bool {
+    get
+  }
+  public mutating func clearAttributes()
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_SetAttributesResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_CheckDeviceRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_CheckDeviceResponse : Swift.Sendable {
+  public var exist: Swift.Bool
+  public var pushTokenExist: Swift.Bool
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_RegisterUserRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var userID: Swift.String
+  public var platform: Swift.UInt32
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_RegisterUserResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_GetTagsRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var userID: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_GetTagsResponse : Swift.Sendable {
+  public var result: SwiftProtobuf.Google_Protobuf_Struct {
+    get
+    set
+  }
+  public var hasResult: Swift.Bool {
+    get
+  }
+  public mutating func clearResult()
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_EmailLinkClickRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var redirectLink: Swift.String
+  public var originalLink: Swift.String
+  public var originalTitle: Swift.String
+  public var templateCode: Swift.String
+  public var hash: Swift.String
+  public var pointUuid: Swift.String
+  public var ip: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_EmailLinkClickResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_GetUnregisteredDevicesRequest : Swift.Sendable {
+  public var auth: Swift.String
+  public var application: Swift.String
+  public var dateFrom: Swift.String
+  public var dateTo: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_GetUnregisteredDevicesResponse : Swift.Sendable {
+  public var hwids: [Swift.String]
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_SetActivityTokenRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var activityToken: Swift.String
+  public var activityID: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_SetActivityTokenResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_SetActivityPushToStartTokenRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var activityPushToStartToken: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_SetActivityPushToStartTokenResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_RichMediaActionRequest : Swift.Sendable {
+  public var application: Swift.String
+  public var hwid: Swift.String
+  public var userID: Swift.String
+  public var inappCode: Swift.String
+  public var richMediaCode: Swift.String
+  public var messageHash: Swift.String
+  public var platform: Swift.UInt32
+  public var actionType: Swift.UInt32
+  public var actionAttributes: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_RichMediaActionResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_ApplicationOpenRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_ApplicationOpenRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_ApplicationOpenRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_ApplicationOpenResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_ApplicationOpenResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_ApplicationOpenResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_ApplicationOpenResponse.RequiredInApp : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_ApplicationOpenResponse.RequiredInApp, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_ApplicationOpenResponse.RequiredInApp) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetBadgeRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetBadgeRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetBadgeRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetBadgeResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetBadgeResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetBadgeResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_PushStatRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_PushStatRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_PushStatRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_PushStatResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_PushStatResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_PushStatResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_MessageDeliveryRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MessageDeliveryRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MessageDeliveryRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_MessageDeliveryResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MessageDeliveryResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MessageDeliveryResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetTagsRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetTagsRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetTagsRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetTagsResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetTagsResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetTagsResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.TagValue : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.TagValue, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.TagValue) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.TagValue.Operation : SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.Platform : SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.Location : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.Location, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.Location) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.PushPlatformData : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.PushPlatformData, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.PushPlatformData) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.WebPushPlatformData : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.WebPushPlatformData, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceRequest.PushDevice.WebPushPlatformData) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_MultiRegisterDeviceResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category.ButtonType : SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category.StartApplication : SwiftProtobuf._ProtoNameProviding {
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category.Button : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category.Button, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamIOS.Category.Button) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceResponse.IOSCategory : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceResponse.IOSCategory, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceResponse.IOSCategory) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceResponse.IOSCategory.Button : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceResponse.IOSCategory.Button, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterDeviceResponse.IOSCategory.Button) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_UnregisterDeviceRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_UnregisterDeviceRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_UnregisterDeviceRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_UnregisterDeviceResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_UnregisterDeviceResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_UnregisterDeviceResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_DeleteDeviceRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_DeleteDeviceRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_DeleteDeviceRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_DeleteDeviceResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_DeleteDeviceResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_DeleteDeviceResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_DeleteUserRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_DeleteUserRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_DeleteUserRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_DeleteUserResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_DeleteUserResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_DeleteUserResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetInAppsRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetInAppsRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetInAppsRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetInAppsResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetInAppsResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetInAppsResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetInAppsResponse.InApp : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetInAppsResponse.InApp, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetInAppsResponse.InApp) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetAttributesRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetAttributesRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetAttributesRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetAttributesResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetAttributesResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetAttributesResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_CheckDeviceRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_CheckDeviceRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_CheckDeviceRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_CheckDeviceResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_CheckDeviceResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_CheckDeviceResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterUserRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterUserRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterUserRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterUserResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterUserResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RegisterUserResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetTagsRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetTagsRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetTagsRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetTagsResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetTagsResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetTagsResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_EmailLinkClickRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_EmailLinkClickRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_EmailLinkClickRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_EmailLinkClickResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_EmailLinkClickResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_EmailLinkClickResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetUnregisteredDevicesRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetUnregisteredDevicesRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetUnregisteredDevicesRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetUnregisteredDevicesResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetUnregisteredDevicesResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_GetUnregisteredDevicesResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetActivityTokenRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetActivityTokenRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetActivityTokenRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetActivityTokenResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetActivityTokenResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetActivityTokenResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetActivityPushToStartTokenRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetActivityPushToStartTokenRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetActivityPushToStartTokenRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetActivityPushToStartTokenResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetActivityPushToStartTokenResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_SetActivityPushToStartTokenResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_RichMediaActionRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RichMediaActionRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RichMediaActionRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_RichMediaActionResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RichMediaActionResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_RichMediaActionResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct Pushwoosh_DeviceApi_V2_LoadDevicesRequest : Swift.Sendable {
+  public var hwids: [Swift.String]
+  public var pushTokens: [Swift.String]
+  public var users: [Swift.String]
+  public var application: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_LoadDevicesResponse : Swift.Sendable {
+  public var devices: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_Device]
+  public var userTags: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_Tag]
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_TagList : Swift.Sendable {
+  public var tags: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_Tag]
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_Device : Swift.Sendable {
+  public var hwid: Swift.String
+  public var platform: Swift.UInt32
+  public var pushTokens: [Swift.String : Swift.String]
+  public var deviceTags: [PushwooshGRPC.Pushwoosh_DeviceApi_V2_Tag]
+  public var appTags: [Swift.String : PushwooshGRPC.Pushwoosh_DeviceApi_V2_TagList]
+  public var users: [Swift.String : PushwooshGRPC.Pushwoosh_DeviceApi_V2_User]
+  public var badges: [Swift.String : Swift.Int32]
+  public var attributes: [Swift.String : Swift.String]
+  public var fcmKeys: [Swift.String : PushwooshGRPC.Pushwoosh_DeviceApi_V2_FCMKey]
+  public var webKeys: [Swift.String : PushwooshGRPC.Pushwoosh_DeviceApi_V2_WebKey]
+  public var unsubscribed: Swift.Bool
+  public var location: PushwooshGRPC.Pushwoosh_DeviceApi_V2_Location {
+    get
+    set
+  }
+  public var hasLocation: Swift.Bool {
+    get
+  }
+  public mutating func clearLocation()
+  public var voipPushTokens: [Swift.String : Swift.String]
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_FCMKey : Swift.Sendable {
+  public var token: Swift.String
+  public var pushSet: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_Location : Swift.Sendable {
+  public var lat: Swift.Double
+  public var lon: Swift.Double
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_WebKey : Swift.Sendable {
+  public var publicKey: Swift.String
+  public var authToken: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_StringList : Swift.Sendable {
+  public var values: [Swift.String]
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_Tag : Swift.Sendable {
+  public var name: Swift.String
+  public var value: PushwooshGRPC.Pushwoosh_DeviceApi_V2_Tag.OneOf_Value?
+  public var integer: Swift.Int32 {
+    get
+    set
+  }
+  public var string: Swift.String {
+    get
+    set
+  }
+  public var list: PushwooshGRPC.Pushwoosh_DeviceApi_V2_StringList {
+    get
+    set
+  }
+  public var date: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get
+    set
+  }
+  public var boolean: Swift.Bool {
+    get
+    set
+  }
+  public var price: Swift.String {
+    get
+    set
+  }
+  public var version: Swift.String {
+    get
+    set
+  }
+  public var timezone: Swift.Int32 {
+    get
+    set
+  }
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public enum OneOf_Value : Swift.Equatable, Swift.Sendable {
+    case integer(Swift.Int32)
+    case string(Swift.String)
+    case list(PushwooshGRPC.Pushwoosh_DeviceApi_V2_StringList)
+    case date(SwiftProtobuf.Google_Protobuf_Timestamp)
+    case boolean(Swift.Bool)
+    case price(Swift.String)
+    case version(Swift.String)
+    case timezone(Swift.Int32)
+    public static func == (a: PushwooshGRPC.Pushwoosh_DeviceApi_V2_Tag.OneOf_Value, b: PushwooshGRPC.Pushwoosh_DeviceApi_V2_Tag.OneOf_Value) -> Swift.Bool
+  }
+  public init()
+}
+public struct Pushwoosh_DeviceApi_V2_User : Swift.Sendable {
+  public var id: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_LoadDevicesRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_LoadDevicesRequest, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_LoadDevicesRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_LoadDevicesResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_LoadDevicesResponse, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_LoadDevicesResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_TagList : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_TagList, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_TagList) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_Device : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_Device, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_Device) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_FCMKey : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_FCMKey, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_FCMKey) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_Location : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_Location, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_Location) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_WebKey : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_WebKey, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_WebKey) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_StringList : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_StringList, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_StringList) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_Tag : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_Tag, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_Tag) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_DeviceApi_V2_User : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_User, rhs: PushwooshGRPC.Pushwoosh_DeviceApi_V2_User) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+public struct Pushwoosh_PostEventApi_PostEventRequest : Swift.Sendable {
+  public var hwid: Swift.String
+  public var application: Swift.String
+  public var event: Swift.String
+  public var userID: Swift.String
+  public var platform: Swift.Int32
+  public var timestamp: Swift.Int64
+  public var attributes: SwiftProtobuf.Google_Protobuf_Struct {
+    get
+    set
+  }
+  public var hasAttributes: Swift.Bool {
+    get
+  }
+  public mutating func clearAttributes()
+  public var sdkVersion: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_PostEventApi_RichMedia : Swift.Sendable {
+  public var url: Swift.String
+  public var code: Swift.String
+  public var ts: Swift.Int32
+  public var hash: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_PostEventApi_PostEventResponse : Swift.Sendable {
+  public var code: Swift.String
+  public var required: Swift.Bool
+  public var richmedia: PushwooshGRPC.Pushwoosh_PostEventApi_RichMedia {
+    get
+    set
+  }
+  public var hasRichmedia: Swift.Bool {
+    get
+  }
+  public mutating func clearRichmedia()
+  public var messageHash: Swift.String
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_PostEventApi_ShowInappMessageRequest : Swift.Sendable {
+  public var userID: Swift.String
+  public var application: Swift.String
+  public var inapp: Swift.String
+  public var expiryDate: SwiftProtobuf.Google_Protobuf_Timestamp {
+    get
+    set
+  }
+  public var hasExpiryDate: Swift.Bool {
+    get
+  }
+  public mutating func clearExpiryDate()
+  public var campaignID: Swift.UInt64
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+public struct Pushwoosh_PostEventApi_ShowInappMessageResponse : Swift.Sendable {
+  public var unknownFields: SwiftProtobuf.UnknownStorage
+  public init()
+}
+extension PushwooshGRPC.Pushwoosh_PostEventApi_PostEventRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_PostEventApi_PostEventRequest, rhs: PushwooshGRPC.Pushwoosh_PostEventApi_PostEventRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_PostEventApi_RichMedia : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_PostEventApi_RichMedia, rhs: PushwooshGRPC.Pushwoosh_PostEventApi_RichMedia) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_PostEventApi_PostEventResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_PostEventApi_PostEventResponse, rhs: PushwooshGRPC.Pushwoosh_PostEventApi_PostEventResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_PostEventApi_ShowInappMessageRequest : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_PostEventApi_ShowInappMessageRequest, rhs: PushwooshGRPC.Pushwoosh_PostEventApi_ShowInappMessageRequest) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}
+extension PushwooshGRPC.Pushwoosh_PostEventApi_ShowInappMessageResponse : SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
+  public static let protoMessageName: Swift.String
+  public static let _protobuf_nameMap: SwiftProtobuf._NameMap
+  public mutating func decodeMessage<D>(decoder: inout D) throws where D : SwiftProtobuf.Decoder
+  public func traverse<V>(visitor: inout V) throws where V : SwiftProtobuf.Visitor
+  public static func == (lhs: PushwooshGRPC.Pushwoosh_PostEventApi_ShowInappMessageResponse, rhs: PushwooshGRPC.Pushwoosh_PostEventApi_ShowInappMessageResponse) -> Swift.Bool
+  public var hashValue: Swift.Int {
+    get
+  }
+}

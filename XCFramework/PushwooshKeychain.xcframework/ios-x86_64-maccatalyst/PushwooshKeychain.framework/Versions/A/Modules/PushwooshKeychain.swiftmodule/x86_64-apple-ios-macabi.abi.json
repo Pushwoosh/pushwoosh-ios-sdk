@@ -16,23 +16,6 @@
       },
       {
         "kind": "Import",
-        "name": "PushwooshBridge",
-        "printedName": "PushwooshBridge",
-        "declKind": "Import",
-        "moduleName": "PushwooshKeychain"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "PushwooshKeychain",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
         "name": "Security",
         "printedName": "Security",
         "declKind": "Import",
@@ -431,6 +414,23 @@
             "mangledName": "$ss28CustomDebugStringConvertibleP"
           }
         ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshKeychain",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshBridge",
+        "printedName": "PushwooshBridge",
+        "declKind": "Import",
+        "moduleName": "PushwooshKeychain"
       }
     ],
     "json_format_version": 8

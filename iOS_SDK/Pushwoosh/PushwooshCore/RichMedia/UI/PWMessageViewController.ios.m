@@ -14,7 +14,7 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
 #import "PWInteractionDisabledView.h"
 #import "PWPushManagerJSBridge.h"
 #import "PWUtils.h"
-#import "PWSupportedOrientations.h"
+#import "PWRichMediaTypes.h"
 #import "PWRichMediaManager.h"
 #import "PWRichMediaStyle.h"
 #import "PWRichMediaView.h"

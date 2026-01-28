@@ -57,3 +57,10 @@ typedef NS_OPTIONS(NSUInteger, CornerType) {
     PWCornerTypeBottomLeft  = 1 << 2,
     PWCornerTypeBottomRight = 1 << 3,
 };
+
+typedef NS_OPTIONS(NSInteger, PWSupportedOrientations) {
+    PWOrientationPortrait = 1 << 0,
+    PWOrientationPortraitUpsideDown = 1 << 1,
+    PWOrientationLandscapeLeft = 1 << 2,
+    PWOrientationLandscapeRight = 1 << 3,
+};

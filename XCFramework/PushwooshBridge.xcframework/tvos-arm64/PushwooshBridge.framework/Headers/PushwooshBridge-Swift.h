@@ -913,6 +913,48 @@ SWIFT_CLASS("_TtC15PushwooshBridge10PWTVoSStub")
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@class PWRequest;
+
+/// Protocol defining the transport layer interface for sending network requests.
+/// This allows for different transport implementations (REST, gRPC) to be used interchangeably.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge11PWTransport_")
+@protocol PWTransport
+/// Sends a request using this transport.
+/// \param request The PWRequest to send
+///
+/// \param completion Completion handler called with the response dictionary and/or error
+///
++ (void)sendRequest:(PWRequest * _Nonnull)request completion:(void (^ _Nonnull)(NSDictionary * _Nullable, NSError * _Nullable))completion;
+/// Indicates whether this transport is currently available and can be used.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isAvailable;)
++ (BOOL)isAvailable SWIFT_WARN_UNUSED_RESULT;
+/// Returns the transport name for logging purposes.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull transportName;)
++ (NSString * _Nonnull)transportName SWIFT_WARN_UNUSED_RESULT;
+/// Checks if this transport supports the given method.
+/// \param methodName The API method name (e.g., “registerDevice”, “postEvent”)
+///
+///
+/// returns:
+/// true if this transport can handle the method, false otherwise
++ (BOOL)supportsMethod:(NSString * _Nonnull)methodName SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+/// Stub implementation of PWTransport for when gRPC module is not linked.
+/// Returns an error indicating that gRPC transport is not available.
+SWIFT_CLASS("_TtC15PushwooshBridge15PWTransportStub")
+@interface PWTransportStub : NSObject <PWTransport>
++ (Class _Nonnull)transport SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isAvailable;)
++ (BOOL)isAvailable SWIFT_WARN_UNUSED_RESULT;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, copy) NSString * _Nonnull transportName;)
++ (NSString * _Nonnull)transportName SWIFT_WARN_UNUSED_RESULT;
++ (void)sendRequest:(PWRequest * _Nonnull)request completion:(void (^ _Nonnull)(NSDictionary * _Nullable, NSError * _Nullable))completion;
++ (BOOL)supportsMethod:(NSString * _Nonnull)methodName SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 
 SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWVoIP_")
 @protocol PWVoIP

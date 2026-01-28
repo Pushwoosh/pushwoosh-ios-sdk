@@ -10,7 +10,6 @@
 #import <PushwooshCore/PWManagerBridge.h>
 #import "PWPushNotificationsManager.h"
 #import "PWUtils.h"
-#import "PWChannel.h"
 #import "PWInAppPurchaseHelper.h"
 #import "PWRequestManager.h"
 #import "PWRichMediaActionRequest.h"

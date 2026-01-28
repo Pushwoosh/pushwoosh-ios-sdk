@@ -172,6 +172,25 @@ import _SwiftConcurrencyShims
   @objc override dynamic public init()
   @objc deinit
 }
+@objc public protocol PWTransport {
+  @objc static func sendRequest(_ request: PushwooshCore.PWRequest, completion: @escaping (Foundation.NSDictionary?, (any Swift.Error)?) -> Swift.Void)
+  @objc static var isAvailable: Swift.Bool { get }
+  @objc static var transportName: Swift.String { get }
+  @objc static func supportsMethod(_ methodName: Swift.String) -> Swift.Bool
+}
+@_inheritsConvenienceInitializers @objc public class PWTransportStub : ObjectiveC.NSObject, PushwooshBridge.PWTransport {
+  @objc public static func transport() -> Swift.AnyClass
+  @objc public static var isAvailable: Swift.Bool {
+    @objc get
+  }
+  @objc public static var transportName: Swift.String {
+    @objc get
+  }
+  @objc public static func sendRequest(_ request: PushwooshCore.PWRequest, completion: @escaping (Foundation.NSDictionary?, (any Swift.Error)?) -> Swift.Void)
+  @objc public static func supportsMethod(_ methodName: Swift.String) -> Swift.Bool
+  @objc override dynamic public init()
+  @objc deinit
+}
 @objc public enum PWAppEnvironment : Swift.Int {
   case simulator = 0
   case debug = 1

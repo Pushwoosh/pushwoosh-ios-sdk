@@ -1,0 +1,11 @@
+framework module PushwooshGRPC {
+  umbrella header "PushwooshGRPC.h"
+  export *
+
+  module * { export * }
+}
+
+module PushwooshGRPC.Swift {
+  header "PushwooshGRPC-Swift.h"
+  requires objc
+}

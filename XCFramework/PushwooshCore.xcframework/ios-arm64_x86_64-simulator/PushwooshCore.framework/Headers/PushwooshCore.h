@@ -30,7 +30,6 @@
 #import <PushwooshCore/PWRichMediaTypes.h>
 #import <PushwooshCore/PWInboxTypes.h>
 #import <PushwooshCore/PWConfig.h>
-#import <PushwooshCore/PWNotificationAppSettings.h>
 #import <PushwooshCore/PWInboxStorage.h>
 #import <PushwooshCore/PWInboxService.h>
 #import <PushwooshCore/PWInboxMessagesRequest.h>
@@ -43,7 +42,7 @@
 #import <PushwooshCore/PWBasePushTrackingRequest.h>
 #import <PushwooshCore/PWMessage+Internal.h>
 
-#define PUSHWOOSH_VERSION @"7.0.17"
+#define PUSHWOOSH_VERSION @"7.0.18"
 
 @interface PushwooshCoreManager : NSObject
 

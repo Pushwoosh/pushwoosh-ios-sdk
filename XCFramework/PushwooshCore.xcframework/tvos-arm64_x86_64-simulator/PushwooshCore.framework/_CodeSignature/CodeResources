@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/PWConfig.h</key>
 		<data>
-		arnoW97EZ8ZBEeXNA3+UDwBLHGk=
+		EDRnKlq8lGOvSipBuFTfnF93dM8=
 		</data>
 		<key>Headers/PWCoreUtils.h</key>
 		<data>
@@ -100,13 +100,9 @@
 		<data>
 		L5CJUsa5Ht+LQfXLeS2WntwIyWM=
 		</data>
-		<key>Headers/PWNotificationAppSettings.h</key>
-		<data>
-		yA9Vzae5iCxSlUGahro/ozNpy4c=
-		</data>
 		<key>Headers/PWPreferences.h</key>
 		<data>
-		kifFePwlXF7Y5viOyUqyRCST5A8=
+		PHaOV2BFzbz2vLGiGLJcjsA911c=
 		</data>
 		<key>Headers/PWRequest.h</key>
 		<data>
@@ -114,7 +110,7 @@
 		</data>
 		<key>Headers/PWRequestManager.h</key>
 		<data>
-		Hd7h/uxqq48JZ5kwGHmwBVogxsc=
+		lap9LvmRHm9+6PzizQoMntePpfs=
 		</data>
 		<key>Headers/PWRichMedia.h</key>
 		<data>
@@ -130,7 +126,7 @@
 		</data>
 		<key>Headers/PWRichMediaTypes.h</key>
 		<data>
-		oPMhN1ltQhHpQUAwbSueUVSbQUg=
+		D8OVpeVwD+OQqhr7VIiQkBEedXA=
 		</data>
 		<key>Headers/PWTypes.h</key>
 		<data>
@@ -142,7 +138,7 @@
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		I88RFwE1cREYOR2MhYC3ibe/iaE=
+		Bg5VsFbX1ezlGtzCa5xknfR6uBk=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -164,13 +160,9 @@
 		<data>
 		rset9tr3mBC1IQUjQAvV1uau60o=
 		</data>
-		<key>PrivateHeaders/PWChannel.h</key>
-		<data>
-		vgAuds+sCd5g9qK98lPVtN4n6lM=
-		</data>
 		<key>PrivateHeaders/PWDataManager.common.h</key>
 		<data>
-		A8HNkfjJxQS3RU1ahS/Oi0LWUbk=
+		790OMjJp5MKG7kJbDo2kPDy+vOo=
 		</data>
 		<key>PrivateHeaders/PWDataManager.h</key>
 		<data>
@@ -327,7 +319,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			pyTWaOCOG6yVtvUrNuLBjIeHLkwJ4ht4pPH7+xnVjww=
+			efPNarFQX3Kho5a+vzYMnwd0MNVAzAsqwSKjiDdvXuA=
 			</data>
 		</dict>
 		<key>Headers/PWCoreUtils.h</key>
@@ -463,18 +455,11 @@
 			sFedTkmZR7bCuJvYhodn/0yJWWw5CwDU78P7IDB5Qmo=
 			</data>
 		</dict>
-		<key>Headers/PWNotificationAppSettings.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			FNd7bblFPC6ITNEyxPrNEUu5LNhUsgulhWe5cG60rEQ=
-			</data>
-		</dict>
 		<key>Headers/PWPreferences.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			fhwAUk/Tj9P3GfqWFkuK4if0itKktU/HPJnKnvu0wBY=
+			hSrOlCvsTQZzgPEt5bZs2b9ixKkgQzUXR9mPWJtzZrs=
 			</data>
 		</dict>
 		<key>Headers/PWRequest.h</key>
@@ -488,7 +473,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			QIygbMSjR3tfFUoH80esOEfeHCB40g4EdzRiucYJI3A=
+			XmvVo+2p/QxXMpLXZBOwS9XjJTIgJSWy/sm3A0xyY04=
 			</data>
 		</dict>
 		<key>Headers/PWRichMedia.h</key>
@@ -516,7 +501,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			gMCjRX5NjRCjgvyZ8FgPwTWTK3gPAkIWnlosyS02wJw=
+			IA8eXQeJKsSP3y17tAsuk3HsQPL7mHCI2YGnSGHJLbI=
 			</data>
 		</dict>
 		<key>Headers/PWTypes.h</key>
@@ -537,7 +522,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			iiLZnG7riQZ+hLO/XWfwkvoSydWd1QYy4XUwPKOgJrY=
+			3uK5KKG6H7e4x6maSMJmcyN/FEzfaeALBsw9vdjGxQ8=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -568,18 +553,11 @@
 			4GUT4MG/CmZT7GXJO4J+Yt0PP+ruWEGe6NwcKvizFfs=
 			</data>
 		</dict>
-		<key>PrivateHeaders/PWChannel.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			UhBapYN3YfGuY1jMUqT9eC9SEeOPNY63Tq9hO0Iynl4=
-			</data>
-		</dict>
 		<key>PrivateHeaders/PWDataManager.common.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZpgF4WUkN4Z667KmMvAK/t/HOMc8TxnUj+aok6jxTE8=
+			ZCmhCi9pt5rWRFMedvb/BCXeNOYcbb0HqXhcVeZebeY=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWDataManager.h</key>

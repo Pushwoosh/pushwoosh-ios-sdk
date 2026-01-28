@@ -6,7 +6,7 @@
 
 #if TARGET_OS_IOS
 #import "PWRichPushManager.h"
-#import "PWSupportedOrientations.h"
+#import "PWRichMediaTypes.h"
 
 #import <WebKit/WebKit.h>
 

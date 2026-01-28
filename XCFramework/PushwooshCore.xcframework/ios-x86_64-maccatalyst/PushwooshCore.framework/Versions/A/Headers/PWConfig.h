@@ -1,7 +1,6 @@
 
 #import <Foundation/Foundation.h>
 
-#import <PushwooshCore/PWNotificationAppSettings.h>
 #import <PushwooshCore/PushwooshLog.h>
 
 typedef NS_ENUM(NSInteger, RichMediaStyleType) {
@@ -64,13 +63,6 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
  value: Shows notification foreground alert
  */
 @property (nonatomic, assign, readonly) BOOL showAlert;
-
-/**
- key: Pushwoosh_ALERT_TYPE
- type: string
- value: Sets the notification alert style (BANNER, ALERT, NONE)
- */
-@property (nonatomic, assign, readonly) PWNotificationAlertStyle alertStyle;
 
 /**
  key: Pushwoosh_BASEURL
@@ -166,6 +158,27 @@ type: boolean
 value: If YES, Deep Links received in silent pushes will be processed automatically (by default it is set to YES)
 */
 @property (nonatomic, assign, readonly) BOOL acceptedDeepLinkForSilentPush;
+
+/**
+ key: Pushwoosh_PREFER_GRPC
+ type: boolean
+ value: Deprecated. gRPC transport is now used automatically when PushwooshGRPC module is linked.
+ */
+@property (nonatomic, assign, readonly) BOOL preferGRPC __attribute__((deprecated("gRPC is now used automatically when PushwooshGRPC module is linked")));
+
+/**
+ key: Pushwoosh_GRPC_HOST
+ type: string
+ value: Custom gRPC server host (default: grpc.pushwoosh.com)
+ */
+@property (nonatomic, copy, readonly) NSString *grpcHost;
+
+/**
+ key: Pushwoosh_GRPC_PORT
+ type: integer
+ value: Custom gRPC server port (default: 443)
+ */
+@property (nonatomic, assign, readonly) NSInteger grpcPort;
 
 - (instancetype)initWithBundle:(NSBundle *)bundle;
 
