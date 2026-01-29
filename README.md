@@ -1,7 +1,3 @@
-<p align="center">
-  <img src="pushwoosh.svg" alt="Pushwoosh" width="300">
-</p>
-
 # Pushwoosh iOS SDK
 
 [![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20iPadOS%20%7C%20tvOS%20%7C%20Mac%20Catalyst-lightgrey.svg?style=flat-square)](https://www.apple.com/ios/)
