@@ -2,14 +2,18 @@
     <img src="pushwoosh.svg" alt="Pushwoosh" width="300">
 </p>
 
-# Pushwoosh iOS SDK
+<h1 align="center">Pushwoosh iOS SDK</h1>
 
-[![Platform](https://img.shields.io/badge/platform-iOS%20%7C%20iPadOS%20%7C%20tvOS%20%7C%20Mac%20Catalyst-lightgrey.svg?style=flat-square)](https://www.apple.com/ios/)
-[![Swift](https://img.shields.io/badge/Swift-5.0+-orange.svg?style=flat-square)](https://swift.org)
-[![Objective-C](https://img.shields.io/badge/Objective--C-compatible-orange.svg?style=flat-square)](https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html)
-[![License](https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square)](LICENSE)
+<p align="center">
+<a href="https://www.apple.com/ios/"><img src="https://img.shields.io/badge/platform-iOS%20%7C%20iPadOS%20%7C%20tvOS%20%7C%20Mac%20Catalyst-lightgrey.svg?style=flat-square" alt="Platform"></a>
+<a href="https://swift.org"><img src="https://img.shields.io/badge/Swift-5.0+-orange.svg?style=flat-square" alt="Swift"></a>
+<a href="https://developer.apple.com/library/archive/documentation/Cocoa/Conceptual/ProgrammingWithObjectiveC/Introduction/Introduction.html"><img src="https://img.shields.io/badge/Objective--C-compatible-orange.svg?style=flat-square" alt="Objective-C"></a>
+<a href="LICENSE"><img src="https://img.shields.io/badge/license-MIT-blue.svg?style=flat-square" alt="License"></a>
+  </p>
 
-Push notifications, In-App Messaging, and more for iOS, tvOS, and watchOS applications.
+<p align="center">
+    Push notifications, In-App Messaging, and more for iOS, tvOS, and watchOS applications.
+  </p> 
 
 ## Table of Contents
 
