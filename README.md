@@ -48,7 +48,7 @@ Select the modules you need in your target's **Frameworks, Libraries, and Embedd
 - `PushwooshFramework` - Core SDK **(required)**
 - `PushwooshCore` - Core functionality **(required)**
 - `PushwooshBridge` - Bridge module **(required)**
-- `PushwooshLiveActivities` - Live Activities support **(required)**
+- `PushwooshLiveActivities` - Live Activities support *(optional)*
 - `PushwooshVoIP` - VoIP push notifications *(optional)*
 - `PushwooshTVOS` - tvOS support *(optional)*
 - `PushwooshForegroundPush` - Custom foreground notifications *(optional)*
