@@ -66,6 +66,7 @@ Add to your `Podfile`:
 pod 'PushwooshXCFramework'
 
 # Optional modules
+pod 'PushwooshXCFramework/PushwooshLiveActivities'
 pod 'PushwooshXCFramework/PushwooshVoIP'
 pod 'PushwooshXCFramework/PushwooshTVOS'
 pod 'PushwooshXCFramework/PushwooshForegroundPush'
