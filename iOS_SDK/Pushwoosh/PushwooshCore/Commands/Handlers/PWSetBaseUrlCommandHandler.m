@@ -31,6 +31,13 @@ static NSString *const kPWValueKey = @"value";
         return NO;
     }
 
+    if (![self isValidUrl:baseUrl]) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:[NSString stringWithFormat:@"Invalid URL: %@", baseUrl]];
+        return NO;
+    }
+
     // Persist to preferences (NSUserDefaults) - all network requests read from here
     [PWPreferences preferences].baseUrl = baseUrl;
 
@@ -39,6 +46,14 @@ static NSString *const kPWValueKey = @"value";
                        message:[NSString stringWithFormat:@"Base URL set to: %@", baseUrl]];
 
     return YES;
+}
+
+- (BOOL)isValidUrl:(NSString *)url {
+    if (![url hasPrefix:@"https://"] && ![url hasPrefix:@"http://"]) {
+        return NO;
+    }
+    NSURL *nsUrl = [NSURL URLWithString:url];
+    return nsUrl != nil;
 }
 
 #pragma mark - Private Methods
