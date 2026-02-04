@@ -11,6 +11,7 @@
 #import "PWUtils+Internal.h"
 #import "PWReachability.h"
 #import "PWPreferences.h"
+#import "PWConfig.h"
 #import <PushwooshCore/PWManagerBridge.h>
 #import "PWPushNotificationsManager.h"
 
@@ -55,9 +56,11 @@
         if (!handled) {
             id<UIApplicationDelegate> appDelegate = [UIApplication sharedApplication].delegate;
             if ([appDelegate respondsToSelector:@selector(application:continueUserActivity:restorationHandler:)]) {
-                handled = [appDelegate application:[UIApplication sharedApplication]
+                BOOL result = [appDelegate application:[UIApplication sharedApplication]
                           continueUserActivity:userActivity
                             restorationHandler:^(NSArray<id<UIUserActivityRestoring>> * _Nullable restorableObjects) {}];
+                // If disableUrlFallback is YES, ignore return value (same as SceneDelegate behavior)
+                handled = [[PWConfig config] disableUrlFallback] ? YES : result;
             }
         }
 

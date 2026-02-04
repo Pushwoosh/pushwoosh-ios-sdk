@@ -27,6 +27,7 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
 @property (nonatomic, assign, readwrite) BOOL acceptedDeepLinkForSilentPush;
 @property (nonatomic, readwrite) BOOL sendPurchaseTrackingEnabled;
 @property (nonatomic, assign, readwrite) BOOL preHandleNotificationsWithUrl;
+@property (nonatomic, assign, readwrite) BOOL disableUrlFallback;
 @property (nonatomic, assign, readwrite) BOOL lazyInitialization;
 @property (nonatomic, readwrite) BOOL isUsingPluginForPushHandling;
 
@@ -83,6 +84,7 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
         // this key is used to allow server communication (by default it is allowed)
         self.allowServerCommunication = [self getBoolean:@"Pushwoosh_ALLOW_SERVER_COMMUNICATION" default: YES];
         self.preHandleNotificationsWithUrl = [self getBoolean:@"Pushwoosh_PREHANDLE_URL_NOTIFICATIONS" default:YES];
+        self.disableUrlFallback = [self getBoolean:@"Pushwoosh_DISABLE_URL_FALLBACK" default:NO];
 
         // this key is used to allow collecting and sending device data (by default it is allowed)
         self.allowCollectingDeviceData = [self getBoolean:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_DATA" default: YES];

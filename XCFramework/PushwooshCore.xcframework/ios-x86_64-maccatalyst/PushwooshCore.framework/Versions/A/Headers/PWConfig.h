@@ -140,6 +140,15 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
 
 @property (nonatomic, assign, readonly) BOOL preHandleNotificationsWithUrl;
 
+/**
+ key: Pushwoosh_DISABLE_URL_FALLBACK
+ type: boolean
+ value: If YES, disables fallback to Safari when continueUserActivity returns NO.
+        Use this if your app handles Universal Links but swizzlers or other factors
+        cause incorrect return values. Default is NO.
+ */
+@property (nonatomic, assign, readonly) BOOL disableUrlFallback;
+
 @property (nonatomic, readonly) BOOL lazyInitialization;
 
 @property (nonatomic, assign) RichMediaStyleType richMediaStyle;
