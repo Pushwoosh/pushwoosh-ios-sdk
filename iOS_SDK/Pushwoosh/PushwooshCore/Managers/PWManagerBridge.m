@@ -7,8 +7,10 @@
 //
 
 #import "PWManagerBridge.h"
+#import "PushwooshLog.h"
 #import "PWPreferences.h"
 #import "PWDataManager.h"
+#import "PWConfig.h"
 #import "PWPushNotificationsManager.h"
 #import "PWServerCommunicationManager.h"
 #import "PWInAppManager.h"
@@ -251,15 +253,13 @@ NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpda
 
 #pragma mark - Reverse Proxy
 
-- (void)setReverseProxy:(NSString *)url {
-    if (self.pushNotificationManager) {
-        [self.pushNotificationManager setReverseProxy:url];
+- (void)setReverseProxy:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers {
+    if (![PWConfig config].allowReverseProxy) {
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"setReverseProxy() ignored. Set Pushwoosh_ALLOW_REVERSE_PROXY to YES in Info.plist"];
+        return;
     }
-}
-
-- (void)disableReverseProxy {
     if (self.pushNotificationManager) {
-        [self.pushNotificationManager disableReverseProxy];
+        [self.pushNotificationManager setReverseProxy:url headers:headers];
     }
 }
 

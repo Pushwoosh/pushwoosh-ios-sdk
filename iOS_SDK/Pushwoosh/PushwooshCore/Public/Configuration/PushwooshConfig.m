@@ -215,12 +215,8 @@
 
 #pragma mark - Reverse Proxy
 
-+ (void)setReverseProxy:(NSString *)url {
-    [[PWManagerBridge shared] setReverseProxy:url];
-}
-
-+ (void)disableReverseProxy {
-    [[PWManagerBridge shared] disableReverseProxy];
++ (void)setReverseProxy:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers {
+    [[PWManagerBridge shared] setReverseProxy:url headers:headers];
 }
 
 #pragma mark - Badge

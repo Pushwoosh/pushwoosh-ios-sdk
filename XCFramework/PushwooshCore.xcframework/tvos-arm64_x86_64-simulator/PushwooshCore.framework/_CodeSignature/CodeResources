@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/PWConfig.h</key>
 		<data>
-		5EljQM69BGjI0px8Gu0pthYgPmU=
+		1WtP7CW7VlblJLulmnSafyZvI+M=
 		</data>
 		<key>Headers/PWCoreUtils.h</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>Headers/PWManagerBridge.h</key>
 		<data>
-		ROnX4ZV6WZuo7j2FNmsrHUfzbUM=
+		FV/JlTnkVNf6v85ajemyXoVK0RE=
 		</data>
 		<key>Headers/PWMedia.h</key>
 		<data>
@@ -110,7 +110,7 @@
 		</data>
 		<key>Headers/PWRequestManager.h</key>
 		<data>
-		lap9LvmRHm9+6PzizQoMntePpfs=
+		7oNujf5OF/Ewga1j4akrLUC9muE=
 		</data>
 		<key>Headers/PWRichMedia.h</key>
 		<data>
@@ -134,11 +134,11 @@
 		</data>
 		<key>Headers/PushwooshConfig.h</key>
 		<data>
-		aeH7AXc7FA32ONpIE7r2pjWwcRM=
+		QdqP8IO7EDsd8eANI29juBYrH1Q=
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		Y3NXeo8utVJz2v6Aawu0Hjao0iU=
+		ZjXDN63Bkij80eCyzYKy8Rg23kk=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -222,7 +222,7 @@
 		</data>
 		<key>PrivateHeaders/PWPushNotificationsManager.common.h</key>
 		<data>
-		6xYMlgZuhZd8BDETe0BANtBjM+M=
+		UttXWWQSuy+728PNti2u4/dJT+A=
 		</data>
 		<key>PrivateHeaders/PWPushNotificationsManager.h</key>
 		<data>
@@ -319,7 +319,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ZSfQRbyXDRhz+JfQa2i1SnRIOCb+gzqtL6IpTXAh4OU=
+			ti8LU5DglDjLQi916MjGbjnK9ZN0fPjjILq7vEO6JWY=
 			</data>
 		</dict>
 		<key>Headers/PWCoreUtils.h</key>
@@ -403,7 +403,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			7y0uPwwZD0iasXCl208L975lqigtQJS3RVvzeRpeo/w=
+			Ymvlh+nci5EISzXzaYVjkOvWuf7i4lAjFYKHGSC19a0=
 			</data>
 		</dict>
 		<key>Headers/PWMedia.h</key>
@@ -473,7 +473,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			XmvVo+2p/QxXMpLXZBOwS9XjJTIgJSWy/sm3A0xyY04=
+			FH5OPs9CoEbhJ7+yTXyRdYm2nerUATyORiidjVd7FZQ=
 			</data>
 		</dict>
 		<key>Headers/PWRichMedia.h</key>
@@ -515,14 +515,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5t0fOBMJFWE1TTpFjeBzZJfI/W0nkdzxTVibBJPomPI=
+			xhXlMjwieM9FTX5axIeaPmNd6ZRDJKvoPOGkAee55fg=
 			</data>
 		</dict>
 		<key>Headers/PushwooshCore.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			qT/gFPO4Vq+n9WhyfyaEdW8YJDXv8H/X33JPoXpjXeQ=
+			0UJQVRufTL2t6k2sq5beTGg6onWUzbphj6acvYy5IoY=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -662,7 +662,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			3uDRliPJRdcige3NZ9YV/DIcugg846LQAGSBDEKY9ss=
+			xrTSk7sOi89a14qwxnRyQjRcUiTmVEJJdDD7fGHfyIo=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWPushNotificationsManager.h</key>

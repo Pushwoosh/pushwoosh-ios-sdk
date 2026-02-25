@@ -249,6 +249,7 @@
 		4649F4F11ED5534200D3D90C /* PWJSInterfaceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4649F4ED1ED5534200D3D90C /* PWJSInterfaceTest.m */; };
 		4649F4F21ED5534200D3D90C /* PWRequestManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4649F4EE1ED5534200D3D90C /* PWRequestManagerTest.m */; };
 		4649F4F31ED5534200D3D90C /* PWResourceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4649F4EF1ED5534200D3D90C /* PWResourceTest.m */; };
+		AK00000126021000PROXY01 /* PWReverseProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AK00000126021000PROXY00 /* PWReverseProxyTest.m */; };
 		46B0CBFAFD612942017551E9 /* PWSystemCommandHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = FEEBB197F41609F7D6B368D9 /* PWSystemCommandHandler.h */; };
 		46FA9E441C7DB92800741A11 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FA9E431C7DB92800741A11 /* libstdc++.tbd */; };
 		46FA9E461C7DB92D00741A11 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FA9E451C7DB92D00741A11 /* libz.tbd */; };
@@ -960,6 +961,7 @@
 		4649F4ED1ED5534200D3D90C /* PWJSInterfaceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWJSInterfaceTest.m; path = PushwooshTests/PWJSInterfaceTest.m; sourceTree = SOURCE_ROOT; };
 		4649F4EE1ED5534200D3D90C /* PWRequestManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWRequestManagerTest.m; path = PushwooshTests/PWRequestManagerTest.m; sourceTree = SOURCE_ROOT; };
 		4649F4EF1ED5534200D3D90C /* PWResourceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWResourceTest.m; path = PushwooshTests/PWResourceTest.m; sourceTree = SOURCE_ROOT; };
+		AK00000126021000PROXY00 /* PWReverseProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWReverseProxyTest.m; path = PushwooshTests/PWReverseProxyTest.m; sourceTree = SOURCE_ROOT; };
 		467EB9371DFEC23A00506823 /* PushwooshFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		467F61F21EB87F3300548315 /* Pushwoosh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pushwoosh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46AE9EFDCD14B8D72080E3A6 /* PWUtils+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PWUtils+Internal.h"; sourceTree = "<group>"; };
@@ -2201,6 +2203,7 @@
 			isa = PBXGroup;
 			children = (
 				4649F4EE1ED5534200D3D90C /* PWRequestManagerTest.m */,
+				AK00000126021000PROXY00 /* PWReverseProxyTest.m */,
 			);
 			name = PWRequestManager;
 			sourceTree = "<group>";
@@ -4108,6 +4111,7 @@
 				449CA9FC2877253B00B4EEEF /* PWRequestTest.m in Sources */,
 				AFB0025129F7ED5A0083A3E6 /* PWPreferencesTest.m in Sources */,
 				4649F4F21ED5534200D3D90C /* PWRequestManagerTest.m in Sources */,
+				AK00000126021000PROXY01 /* PWReverseProxyTest.m in Sources */,
 				449CAA122877265C00B4EEEF /* PWPushStatRequestTest.m in Sources */,
 				449CAA04287725BD00B4EEEF /* PWRegisterEmailTest.m in Sources */,
 				4649F4DF1ED5531B00D3D90C /* PWNotificationManagerTest.m in Sources */,

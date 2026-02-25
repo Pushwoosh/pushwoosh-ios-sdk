@@ -281,7 +281,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"7.0.22"
+#define PUSHWOOSH_VERSION @"7.0.23"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy, PushwooshConfig;
@@ -821,13 +821,9 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 /**
  * Change default base url to reverse proxy url
  * @param url - reverse proxy url
+ * @deprecated Use Pushwoosh.configure.setReverseProxy(_:headers:) instead.
 */
-- (void)setReverseProxy:(NSString * _Nonnull)url;
-
-/**
- * Disables reverse proxy
-*/
-- (void)disableReverseProxy;
+- (void)setReverseProxy:(NSString * _Nonnull)url __attribute__((deprecated("Use Pushwoosh.configure.setReverseProxy(_:headers:) instead")));
 
 /**
  Sets user tags for device segmentation.

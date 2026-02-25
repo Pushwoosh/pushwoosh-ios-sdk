@@ -113,8 +113,7 @@
 
 #pragma mark - Reverse Proxy
 
-- (void)setReverseProxy:(NSString *)url;
-- (void)disableReverseProxy;
+- (void)setReverseProxy:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers;
 
 #pragma mark - URL Handling
 

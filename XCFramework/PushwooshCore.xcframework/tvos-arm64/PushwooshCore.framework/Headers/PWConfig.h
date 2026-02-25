@@ -189,6 +189,13 @@ value: If YES, Deep Links received in silent pushes will be processed automatica
  */
 @property (nonatomic, assign, readonly) NSInteger grpcPort;
 
+/**
+ key: Pushwoosh_ALLOW_REVERSE_PROXY
+ type: boolean
+ value: If YES, allows routing SDK requests through a reverse proxy URL set via setReverseProxy:. Default is NO.
+ */
+@property (nonatomic, assign, readonly) BOOL allowReverseProxy;
+
 - (instancetype)initWithBundle:(NSBundle *)bundle;
 
 @end

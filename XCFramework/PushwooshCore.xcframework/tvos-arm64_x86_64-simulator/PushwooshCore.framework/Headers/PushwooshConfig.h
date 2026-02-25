@@ -2722,7 +2722,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 #pragma mark - Reverse Proxy
 
 /**
- Sets a reverse proxy URL for all Pushwoosh API communications.
+ Sets a reverse proxy URL and optional custom HTTP headers for all SDK network requests.
 
  @discussion
  Routes all Pushwoosh SDK network requests through your own proxy server.
@@ -2736,7 +2736,12 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  The proxy must forward requests to the appropriate Pushwoosh API endpoints
  while preserving all headers and request body content.
 
- @param url The full URL of your reverse proxy endpoint (e.g., "https://proxy.company.com/pushwoosh").
+ Settings are not persisted and must be set on every app start.
+ URL must start with https:// or http://.
+ Custom headers are only applied when reverse proxy is active.
+
+ @param url The full URL of your reverse proxy endpoint (e.g., "https://proxy.company.com/pushwoosh"). Must not be nil or empty.
+ @param headers Optional dictionary of custom HTTP headers. Pass nil if no custom headers are needed.
 
  ## Example
 
@@ -2746,76 +2751,40 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  class NetworkConfiguration {
 
      func configureForEnterprise() {
-         // Check if enterprise proxy is required
          guard let proxyURL = Configuration.shared.pushwooshProxyURL else {
              return
          }
 
-         Pushwoosh.configure.setReverseProxy(proxyURL)
+         Pushwoosh.configure.setReverseProxy(proxyURL, headers: nil)
 
          Logger.info("Pushwoosh configured to use proxy: \(proxyURL)")
-
-         // Track proxy configuration
-         Pushwoosh.configure.setTags([
-             "uses_proxy": true,
-             "proxy_region": extractRegion(from: proxyURL)
-         ])
      }
 
      func configureForRegion(_ region: Region) {
          switch region {
          case .eu:
-             Pushwoosh.configure.setReverseProxy("https://eu-proxy.company.com/pushwoosh")
+             Pushwoosh.configure.setReverseProxy(
+                 "https://eu-proxy.company.com/pushwoosh",
+                 headers: ["X-Auth-Token": "your-token"]
+             )
          case .asia:
-             Pushwoosh.configure.setReverseProxy("https://asia-proxy.company.com/pushwoosh")
+             Pushwoosh.configure.setReverseProxy(
+                 "https://asia-proxy.company.com/pushwoosh",
+                 headers: nil
+             )
          case .us:
-             Pushwoosh.configure.disableReverseProxy()
+             break // No proxy needed
          }
      }
  }
  ```
 
+ @note Requires ``Pushwoosh_ALLOW_REVERSE_PROXY`` to be set to YES in Info.plist.
  @note The proxy server must be configured to forward requests to Pushwoosh APIs.
  @note SSL certificate validation is performed against the proxy URL.
  @note Call this method before any other Pushwoosh API calls.
-
- @see disableReverseProxy
  */
-+ (void)setReverseProxy:(NSString *_Nonnull)url;
-
-/**
- Disables the reverse proxy and restores default Pushwoosh API endpoints.
-
- @discussion
- Removes any previously configured reverse proxy and returns to using
- Pushwoosh's default API endpoints directly.
-
- Use this when:
- - Switching from enterprise to standard mode
- - Proxy server becomes unavailable
- - User changes network configuration
-
- ## Example
-
- Toggle proxy based on network type:
-
- ```swift
- class NetworkMonitor {
-
-     func handleNetworkChange(_ network: NetworkType) {
-         switch network {
-         case .corporate:
-             Pushwoosh.configure.setReverseProxy(enterpriseProxyURL)
-         case .public, .home:
-             Pushwoosh.configure.disableReverseProxy()
-         }
-     }
- }
- ```
-
- @see setReverseProxy:
- */
-+ (void)disableReverseProxy;
++ (void)setReverseProxy:(NSString *_Nonnull)url headers:(NSDictionary<NSString *, NSString *> *_Nullable)headers;
 
 #pragma mark - Badge Management
 

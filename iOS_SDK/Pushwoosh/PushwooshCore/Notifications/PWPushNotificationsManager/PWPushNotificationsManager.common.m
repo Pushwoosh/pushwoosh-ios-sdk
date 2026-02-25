@@ -588,12 +588,8 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     }];
 }
 
-- (void)setReverseProxy:(NSString *)url {
-    [_requestManager setReverseProxyUrl:url];
-}
-
-- (void)disableReverseProxy {
-    [_requestManager disableReverseProxy];
+- (void)setReverseProxy:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers {
+    [_requestManager setReverseProxyUrl:url headers:headers];
 }
 
 - (void)registerNumber:(NSString *)number forPlatform:(PWPlatform)platform {

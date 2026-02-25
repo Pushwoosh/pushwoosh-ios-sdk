@@ -14,6 +14,9 @@ Route all Pushwoosh API requests through a custom reverse proxy server. Use this
 - Regional compliance
 - Custom domain requirements
 
+Settings are not persisted and must be set on every app start.
+URL must start with `https://` or `http://`.
+
 ## Proxy Requirements
 
 Your reverse proxy must:
@@ -31,7 +34,7 @@ func application(_ application: UIApplication,
                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
     if let proxyURL = Configuration.pushwooshProxyURL {
-        Pushwoosh.configure.setReverseProxy(proxyURL)
+        Pushwoosh.configure.setReverseProxy(proxyURL, headers: ["X-Auth-Token": "your-token"])
     }
 
     Pushwoosh.configure.registerForPushNotifications()
@@ -45,13 +48,9 @@ Set proxy based on environment:
 ```swift
 func configurePushwoosh() {
     #if ENTERPRISE
-    Pushwoosh.configure.setReverseProxy("https://pushwoosh-proxy.company.com")
+    Pushwoosh.configure.setReverseProxy("https://pushwoosh-proxy.company.com", headers: nil)
     #endif
 
     Pushwoosh.configure.registerForPushNotifications()
 }
 ```
-
-## See Also
-
-- ``Pushwoosh/disableReverseProxy()``

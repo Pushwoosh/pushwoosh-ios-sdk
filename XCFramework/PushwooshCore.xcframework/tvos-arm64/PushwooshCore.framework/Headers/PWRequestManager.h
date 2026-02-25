@@ -20,7 +20,7 @@ typedef void (^PWRequestDownloadCompleteBlock)(NSString *, NSError *);
 
 - (void)sendRequest:(PWRequest *)request completion:(void (^)(NSError *error))completion;
 - (void)downloadDataFromURL:(NSURL *)url withCompletion:(PWRequestDownloadCompleteBlock)completion;
-- (void)setReverseProxyUrl:(NSString *)url;
-- (void)disableReverseProxy;
+- (void)setReverseProxyUrl:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers;
+- (void)loadReverseProxyFromAppGroups;
 
 @end

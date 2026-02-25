@@ -153,6 +153,9 @@
 }
 
 - (void)sendDeliveryEventForPushNotification:(NSDictionary *)pushNotification completion:(dispatch_block_t)completion {
+    // Load reverse proxy settings from App Groups (set by main app)
+    [_requestManager loadReverseProxyFromAppGroups];
+
     PWMessageDeliveryRequest *request = [PWMessageDeliveryRequest new];
     request.pushDict = pushNotification;
 

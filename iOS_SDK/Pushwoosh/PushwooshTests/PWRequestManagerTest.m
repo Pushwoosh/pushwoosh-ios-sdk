@@ -365,10 +365,13 @@ static id _mockNSBundle;
     OCMStub([mockNSMutableURLRequest initWithURL:OCMOCK_ANY]).andReturn(mockNSMutableURLRequest);
     id mockPWConfig = OCMPartialMock([PWConfig config]);
     OCMStub([mockPWConfig apiToken]).andReturn(apiToken);
-    
+
     [_requestManager prepareRequest:@"" jsonRequestData:@""];
-    
-    OCMVerify([mockNSMutableURLRequest addValue:correctFormat forHTTPHeaderField:@"Authorization"]);
+
+    OCMVerify([mockNSMutableURLRequest setValue:correctFormat forHTTPHeaderField:@"Authorization"]);
+
+    [mockNSMutableURLRequest stopMocking];
+    [mockPWConfig stopMocking];
 }
 
 - (void)testCheckCurrectCulculateDelay {

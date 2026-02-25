@@ -287,11 +287,7 @@ static dispatch_once_t ensureInitializedOncePredicate;
 #pragma mark - Proxy URL
 
 - (void)setReverseProxy:(NSString *)url {
-    [self.pushNotificationManager setReverseProxy:url];
-}
-
-- (void)disableReverseProxy {
-    [self.pushNotificationManager disableReverseProxy];
+    [PushwooshConfig setReverseProxy:url headers:nil];
 }
 
 #pragma mark - Delegates

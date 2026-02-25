@@ -38,7 +38,8 @@
 @property (nonatomic, strong) NSObject *sendTagsLock;
 @property (nonatomic, strong) PWCombinedSetTagsRequest *combinedRequest;
 @property (nonatomic, strong) NSMutableArray *sendTagsCompletions;
-@property (nonatomic) BOOL usingReverseProxy;
+@property (nonatomic, copy) NSString *reverseProxyUrl;
+@property (nonatomic, copy) NSDictionary<NSString *, NSString *> *customHeaders;
 
 // gRPC transport class (dynamically loaded)
 @property (nonatomic, strong) Class grpcTransportClass;
@@ -47,16 +48,27 @@
 
 @implementation PWRequestManager
 
+static NSString *const kPWSharedReverseProxyURLKey = @"PWReverseProxyURL";
+static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
+
 - (instancetype)init {
 	if (self = [super init]) {
 		NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
 		_session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
 		_sendTagsLock = [NSObject new];
 		_sendTagsCompletions = [NSMutableArray new];
+		_customHeaders = @{};
 
         // Try to load gRPC transport class
         // gRPC is used automatically when PushwooshGRPC module is linked
         _grpcTransportClass = NSClassFromString(@"PushwooshGRPC.PushwooshGRPCImplementation");
+
+        if ([PWConfig config].allowReverseProxy) {
+            [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Pushwoosh_ALLOW_REVERSE_PROXY is enabled. All requests will be blocked until setReverseProxy() is called."];
+        } else {
+            // Clean App Groups if reverse proxy was previously configured but flag is now off
+            [self clearSharedReverseProxySettings];
+        }
 	}
 
 	return self;
@@ -93,19 +105,96 @@
 }
 
 - (NSString *)baseUrl {
+    @synchronized (self) {
+        if (_reverseProxyUrl) {
+            return _reverseProxyUrl;
+        }
+    }
 	return [PWPreferences preferences].baseUrl;
 }
 
-- (void)setReverseProxyUrl:(NSString *)url {
-    [self setUsingReverseProxy:YES];
-    [PWPreferences preferences].baseUrl = url;
+- (void)setReverseProxyUrl:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers {
+    if (!url || url.length == 0) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"setReverseProxy() ignored: URL must not be nil or empty"];
+        return;
+    }
+    if (![url hasPrefix:@"https://"] && ![url hasPrefix:@"http://"]) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"setReverseProxy() ignored: URL must start with https:// or http://"];
+        return;
+    }
+    NSURL *parsed = [NSURL URLWithString:url];
+    if (!parsed) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"setReverseProxy() ignored: malformed URL"];
+        return;
+    }
+    if (![url hasSuffix:@"/"]) {
+        url = [url stringByAppendingString:@"/"];
+    }
+    @synchronized (self) {
+        _reverseProxyUrl = [url copy];
+        _customHeaders = headers ? [headers copy] : @{};
+    }
+
+    // Save to App Groups for Notification Service Extension (messageDeliveryEvent)
+    [self saveSharedReverseProxyUrl:url headers:headers];
+
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Reverse proxy configured: %@", url]];
 }
 
-- (void)disableReverseProxy {
-    [self setUsingReverseProxy:NO];
+#pragma mark - App Groups (for NSE)
+
+- (void)saveSharedReverseProxyUrl:(NSString *)url headers:(NSDictionary *)headers {
+    NSString *appGroupsName = [[PWConfig config] appGroupsName];
+    if (!appGroupsName || appGroupsName.length == 0) {
+        return;
+    }
+    NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroupsName];
+    [sharedDefaults setObject:url forKey:kPWSharedReverseProxyURLKey];
+    [sharedDefaults setObject:headers forKey:kPWSharedCustomHeadersKey];
+}
+
+- (void)clearSharedReverseProxySettings {
+    NSString *appGroupsName = [[PWConfig config] appGroupsName];
+    if (!appGroupsName || appGroupsName.length == 0) {
+        return;
+    }
+    NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroupsName];
+    [sharedDefaults removeObjectForKey:kPWSharedReverseProxyURLKey];
+    [sharedDefaults removeObjectForKey:kPWSharedCustomHeadersKey];
+}
+
+- (void)loadReverseProxyFromAppGroups {
+    NSString *appGroupsName = [[PWConfig config] appGroupsName];
+    if (!appGroupsName || appGroupsName.length == 0) {
+        return;
+    }
+    NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroupsName];
+    NSString *sharedProxyUrl = [sharedDefaults stringForKey:kPWSharedReverseProxyURLKey];
+    NSDictionary *sharedHeaders = [sharedDefaults objectForKey:kPWSharedCustomHeadersKey];
+
+    if (sharedProxyUrl && sharedProxyUrl.length > 0) {
+        @synchronized (self) {
+            _reverseProxyUrl = [sharedProxyUrl copy];
+            _customHeaders = [sharedHeaders isKindOfClass:[NSDictionary class]] ? [sharedHeaders copy] : @{};
+        }
+    }
 }
 
 - (void)sendRequest:(PWRequest *)request completion:(void (^)(NSError *error))completion {
+    // Block requests when reverse proxy is required but not configured
+    if ([PWConfig config].allowReverseProxy) {
+        @synchronized (self) {
+            if (!_reverseProxyUrl) {
+                NSString *errorStr = @"Request blocked: Pushwoosh_ALLOW_REVERSE_PROXY is enabled but setReverseProxy() was not called. All requests are blocked until reverse proxy URL is set.";
+                [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:errorStr];
+                if (completion) {
+                    completion([PWUtils pushwooshError:errorStr]);
+                }
+                return;
+            }
+        }
+    }
+
     // Use gRPC automatically when module is linked and supports this method
     if ([self isGRPCAvailable] && [self grpcSupportsMethod:request.methodName]) {
         [self sendRequestViaGRPC:request completion:completion];
@@ -178,7 +267,7 @@
 
             // Handle base_url switch
             NSString *newBaseUrl = response[@"base_url"];
-            if ([newBaseUrl isKindOfClass:[NSString class]] && !wSelf.usingReverseProxy) {
+            if ([newBaseUrl isKindOfClass:[NSString class]]) {
                 [PWPreferences preferences].baseUrl = newBaseUrl;
             }
 
@@ -243,7 +332,7 @@
         }
         return;
     }
-    
+
     if ([request isKindOfClass:[PWCachedRequest class]] && ![self isNeedToRetryAfterAppOpenedWith:request]) {
         [self sendRequestWithDelay:[self remainDelayTime:request] forRequest:request];
         return;
@@ -258,7 +347,11 @@
 #endif
     
     //request part
-    NSString *requestUrl = [[self baseUrl] stringByAppendingString:[request methodName]];
+    NSString *base = [self baseUrl];
+    if (![base hasSuffix:@"/"]) {
+        base = [base stringByAppendingString:@"/"];
+    }
+    NSString *requestUrl = [base stringByAppendingString:[request methodName]];
 
     [request setStartTime:[[NSDate date] timeIntervalSince1970]];
 
@@ -440,11 +533,26 @@
 - (NSMutableURLRequest *)prepareRequest:(NSString *)requestUrl jsonRequestData:(NSString *)jsonRequestData {
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:requestUrl]];
     [urlRequest setHTTPMethod:@"POST"];
-    [urlRequest addValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
-    NSString *apiToken = [self getApiToken] ?: [self getConfigApiToken];
-    [urlRequest addValue:[NSString stringWithFormat:@"Token %@", apiToken] forHTTPHeaderField:@"Authorization"];
     [urlRequest setHTTPBody:[jsonRequestData dataUsingEncoding:NSUTF8StringEncoding]];
-    
+
+    // Custom headers first, so SDK headers cannot be overridden
+    NSDictionary<NSString *, NSString *> *headers;
+    NSString *proxyUrl;
+    @synchronized (self) {
+        headers = [_customHeaders copy];
+        proxyUrl = _reverseProxyUrl;
+    }
+    if (proxyUrl) {
+        for (NSString *key in headers) {
+            [urlRequest setValue:headers[key] forHTTPHeaderField:key];
+        }
+    }
+
+    // SDK headers last — always take precedence
+    [urlRequest setValue:@"application/json; charset=utf-8" forHTTPHeaderField:@"Content-Type"];
+    NSString *apiToken = [self getApiToken] ?: [self getConfigApiToken];
+    [urlRequest setValue:[NSString stringWithFormat:@"Token %@", apiToken] forHTTPHeaderField:@"Authorization"];
+
     return urlRequest;
 }
 
@@ -487,11 +595,15 @@
 			}
 		} else {
 			// honor base url switch
-			if (jsonResult[@"status_code"] == nil) {
+            BOOL isUsingProxy;
+            @synchronized (self) {
+                isUsingProxy = (_reverseProxyUrl != nil);
+            }
+			if (jsonResult[@"status_code"] == nil && !isUsingProxy) {
 				[PWPreferences preferences].baseUrl = [PWPreferences preferences].defaultBaseUrl;
 			}
 			NSString *newBaseUrl = jsonResult[@"base_url"];
-            if ([newBaseUrl isKindOfClass:[NSString class]] && !self.usingReverseProxy) {
+            if ([newBaseUrl isKindOfClass:[NSString class]] && !isUsingProxy) {
 				[PWPreferences preferences].baseUrl = newBaseUrl;
 			}
             

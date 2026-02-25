@@ -41,8 +41,7 @@
 
 - (void)registerTestDevice;
 
-- (void)setReverseProxy:(NSString *)url;
-- (void)disableReverseProxy;
+- (void)setReverseProxy:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers;
 
 - (void)registerSmsNumber:(NSString *)number;
 - (void)registerWhatsappNumber:(NSString *)number;
