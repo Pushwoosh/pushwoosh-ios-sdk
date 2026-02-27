@@ -37,6 +37,10 @@
 
 @implementation Pushwoosh
 
+- (NSDictionary *)launchNotification {
+    return [PWManagerBridge shared].launchNotification;
+}
+
 + (Class<PWLiveActivities>)LiveActivities {
     [self ensureInitialized];
     let pushwooshLiveActivities = NSClassFromString(@"PushwooshLiveActivitiesImplementationSetup");

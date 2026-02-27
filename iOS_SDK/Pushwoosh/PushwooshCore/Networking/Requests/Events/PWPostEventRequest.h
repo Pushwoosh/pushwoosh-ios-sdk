@@ -16,5 +16,6 @@
 //response
 @property (nonatomic, readonly, strong) NSString *resultCode;
 @property (nonatomic, readonly, strong) NSDictionary *richMedia;
+@property (nonatomic, readonly, strong) NSString *messageHash;
 
 @end

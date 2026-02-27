@@ -12,7 +12,7 @@
 
 @property (nonatomic, strong) NSString *resultCode;
 @property (nonatomic, strong) NSDictionary *richMedia;
-
+@property (nonatomic, strong) NSString *messageHash;
 
 @end
 
@@ -80,6 +80,7 @@
 
 - (void)parseResponse:(NSDictionary *)response {
 	_resultCode = [response pw_stringForKey:@"code"];
+    _messageHash = [response pw_stringForKey:@"message_hash"];
     
     if ([_resultCode length] == 0) {
         if ([response objectForKey:@"richmedia"]){

@@ -487,6 +487,9 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (BOOL)handlePushAccepted:(NSDictionary *)userInfo onStart:(BOOL)onStart {
+    if (onStart) {
+        [PWManagerBridge shared].launchNotification = userInfo;
+    }
     [self processUserInfo:userInfo];
     [self dispatchActionInboxPushIfNeeded:userInfo];
     

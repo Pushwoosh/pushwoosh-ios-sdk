@@ -364,11 +364,21 @@ BOOL _replacement_didFinishLaunchingWithOptions(id self, SEL _cmd, UIApplication
         }
     }
     
+    // Initialize SDK early (like the old [PushNotificationManager pushManager] did)
+    // to set up UNUserNotificationCenter delegate before didReceiveNotificationResponse: is called.
+    // Using NSClassFromString to avoid circular dependency between PushwooshCore and PushwooshFramework.
+    Class pushwooshClass = NSClassFromString(@"Pushwoosh");
+    if (pushwooshClass && [pushwooshClass respondsToSelector:@selector(sharedInstance)]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [pushwooshClass performSelector:@selector(sharedInstance)];
+#pragma clang diagnostic pop
+    }
+
     if (![UNUserNotificationCenter currentNotificationCenter].delegate) {
-        //this function will also handle UIApplicationLaunchOptionsLocationKey
         [[PWManagerBridge shared] handlePushReceived:launchOptions];
     }
-    
+
     return result;
 }
 

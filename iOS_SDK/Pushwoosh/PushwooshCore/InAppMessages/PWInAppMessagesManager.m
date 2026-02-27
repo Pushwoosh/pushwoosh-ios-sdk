@@ -61,6 +61,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 @property (nonatomic, strong) PWRequestManager *requestManager;
 @property (nonatomic) NSString *trackingAppCode;
+@property (nonatomic) NSString *postEventMessageHash;
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 @property (nonatomic) PWRichMediaView *richMediaView;
@@ -183,7 +184,9 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 #elif TARGET_OS_IOS || TARGET_OS_OSX
         if (!error && resource)
             dispatch_async(dispatch_get_main_queue(), ^{
-                PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourceInApp resource:resource];
+                NSDictionary *payload = self.postEventMessageHash.length > 0 ? @{@"p": self.postEventMessageHash} : nil;
+                PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourceInApp resource:resource pushPayload:payload];
+                self.postEventMessageHash = nil;
                 [self richMediaTypeWith:richMedia resource:resource];
             });
 #endif
@@ -261,6 +264,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
             completion(nil, error);
             return;
         }
+        wself.postEventMessageHash = request.messageHash;
 #if TARGET_OS_IOS || TARGET_OS_OSX
         if ([request.resultCode length] != 0) {
             [self setPostEventInAppCode:request.resultCode];
