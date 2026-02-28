@@ -68,9 +68,10 @@
     _listEmptyMessage = NSLocalizedString(@"There are currently no messages in Inbox.",);
     _listErrorMessage = NSLocalizedString(@"It seems something went wrong. Please try again later!",);
     
-    _unreadImage = [UIImage imageNamed:@"unread" inBundle:[NSBundle pwi_bundleForClass:self.class] compatibleWithTraitCollection:nil];
-    _listErrorImage = [UIImage imageNamed:@"errorMessage" inBundle:[NSBundle pwi_bundleForClass:self.class] compatibleWithTraitCollection:nil];
-    _listEmptyImage = [UIImage imageNamed:@"noMessage" inBundle:[NSBundle pwi_bundleForClass:self.class] compatibleWithTraitCollection:nil];
+    NSBundle *resourceBundle = [NSBundle pwi_bundleForClass:self.class];
+    _unreadImage = [self.class pwi_safeImageNamed:@"unread" inBundle:resourceBundle];
+    _listErrorImage = [self.class pwi_safeImageNamed:@"errorMessage" inBundle:resourceBundle];
+    _listEmptyImage = [self.class pwi_safeImageNamed:@"noMessage" inBundle:resourceBundle];
     
     [self updateAccentColor];
 }
@@ -152,9 +153,19 @@
         }
     }];
     
-    _defaultImageIcon = [UIImage imageNamed:[NSBundle mainBundle].infoDictionary[@"CFBundleIcons"][@"CFBundlePrimaryIcon"][@"CFBundleIconName"]];
+    NSString *appIconName = [NSBundle mainBundle].infoDictionary[@"CFBundleIcons"][@"CFBundlePrimaryIcon"][@"CFBundleIconName"];
+    _defaultImageIcon = appIconName ? [UIImage imageNamed:appIconName] : nil;
     if (!_defaultImageIcon) {
-        _defaultImageIcon = [UIImage imageNamed:@"inbox_icon" inBundle:[NSBundle pwi_bundleForClass:self.class] compatibleWithTraitCollection:nil];
+        _defaultImageIcon = [self.class pwi_safeImageNamed:@"inbox_icon" inBundle:[NSBundle pwi_bundleForClass:self.class]];
+    }
+}
+
++ (UIImage *)pwi_safeImageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
+    if (!name || !bundle) return nil;
+    @try {
+        return [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];
+    } @catch (NSException *exception) {
+        return nil;
     }
 }
 
