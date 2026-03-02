@@ -267,4 +267,14 @@
     }
 }
 
+#pragma mark - Additional Authorization Options
+
++ (void)setAdditionalAuthorizationOptions:(UNAuthorizationOptions)options {
+    [PWManagerBridge shared].additionalAuthorizationOptions = options;
+}
+
++ (UNAuthorizationOptions)getAdditionalAuthorizationOptions {
+    return [PWManagerBridge shared].additionalAuthorizationOptions;
+}
+
 @end

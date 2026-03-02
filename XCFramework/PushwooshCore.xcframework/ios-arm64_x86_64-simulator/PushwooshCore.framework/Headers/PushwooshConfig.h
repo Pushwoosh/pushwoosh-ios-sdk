@@ -3458,4 +3458,114 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  */
 + (void)addNotificationCenterDelegate:(id<UNUserNotificationCenterDelegate> _Nonnull)delegate NS_SWIFT_NAME(addNotificationCenterDelegate(_:));
 
+#pragma mark - Additional Authorization Options
+
+/**
+ Sets additional notification authorization options beyond the SDK defaults.
+
+ @discussion
+ When calling ``registerForPushNotifications``, the SDK requests these permissions by default:
+ - `UNAuthorizationOptionBadge`
+ - `UNAuthorizationOptionSound`
+ - `UNAuthorizationOptionAlert`
+ - `UNAuthorizationOptionCarPlay`
+
+ Use this method to request additional capabilities on top of the defaults.
+ The options you set here are combined (bitwise OR) with the default options
+ before being passed to `UNUserNotificationCenter.requestAuthorizationWithOptions:`.
+
+ Must be called **before** ``registerForPushNotifications``.
+
+ ## Available Options
+
+ - `UNAuthorizationOptionProvisional` (iOS 12+) — Delivers notifications quietly to the Notification Center
+   without showing a permission dialog. The user sees notifications silently and can then choose to keep or disable them.
+   Use this for a "soft opt-in" strategy to avoid users declining the permission prompt upfront.
+
+ - `UNAuthorizationOptionCriticalAlert` (iOS 12+) — Allows notifications that bypass Do Not Disturb and the mute switch.
+   Requires a special entitlement from Apple (must be approved via Apple Developer portal).
+   Intended for medical, health, safety, and public security apps.
+
+ - `UNAuthorizationOptionProvidesAppNotificationSettings` (iOS 12+) — Adds a "Configure in App" button
+   to the system notification settings for your app. When tapped, iOS calls
+   `userNotificationCenter:openSettingsForNotification:` on your `UNUserNotificationCenterDelegate`.
+   Use ``addNotificationCenterDelegate:`` to register your delegate and handle this callback.
+
+ - `UNAuthorizationOptionAnnouncement` (iOS 13+) — Allows Siri to automatically read out notifications
+   through AirPods and compatible headphones.
+
+ @param options The additional `UNAuthorizationOptions` to request.
+
+ ## Example — Provisional (Soft Opt-In)
+
+ ```swift
+ func application(_ application: UIApplication,
+                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+     if #available(iOS 12.0, *) {
+         Pushwoosh.configure.setAdditionalAuthorizationOptions([.provisional])
+     }
+
+     Pushwoosh.configure.registerForPushNotifications()
+
+     return true
+ }
+ ```
+
+ ## Example — In-App Notification Settings Button
+
+ ```swift
+ func application(_ application: UIApplication,
+                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+     if #available(iOS 12.0, *) {
+         Pushwoosh.configure.setAdditionalAuthorizationOptions([.providesAppNotificationSettings])
+     }
+
+     Pushwoosh.configure.addNotificationCenterDelegate(self)
+     Pushwoosh.configure.registerForPushNotifications()
+
+     return true
+ }
+
+ // Called when user taps "Configure in App" in system notification settings
+ func userNotificationCenter(_ center: UNUserNotificationCenter,
+                             openSettingsFor notification: UNNotification?) {
+     // Navigate to your in-app notification settings screen
+ }
+ ```
+
+ ## Example — Combining Multiple Options
+
+ ```swift
+ if #available(iOS 12.0, *) {
+     Pushwoosh.configure.setAdditionalAuthorizationOptions([.provisional, .providesAppNotificationSettings])
+ }
+ ```
+
+ Objective-C:
+
+ ```objc
+ if (@available(iOS 12.0, *)) {
+     [Pushwoosh.configure setAdditionalAuthorizationOptions:UNAuthorizationOptionProvisional | UNAuthorizationOptionProvidesAppNotificationSettings];
+ }
+
+ [Pushwoosh.configure registerForPushNotifications];
+ ```
+
+ @see getAdditionalAuthorizationOptions
+ @see addNotificationCenterDelegate:
+ @see registerForPushNotifications
+ */
++ (void)setAdditionalAuthorizationOptions:(UNAuthorizationOptions)options;
+
+/**
+ Retrieves the current additional authorization options.
+
+ @return The additional `UNAuthorizationOptions` that have been set, or 0 if none were configured.
+
+ @see setAdditionalAuthorizationOptions:
+ */
++ (UNAuthorizationOptions)getAdditionalAuthorizationOptions;
+
 @end
