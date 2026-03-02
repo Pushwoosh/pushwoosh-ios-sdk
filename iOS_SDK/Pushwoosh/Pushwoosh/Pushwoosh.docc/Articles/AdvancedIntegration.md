@@ -115,14 +115,13 @@ If you need to implement custom notification handling alongside Pushwoosh, you c
 @TabNavigator {
     @Tab("Swift") {
         ```swift
-        Pushwoosh.sharedInstance().notificationCenterDelegateProxy.add(myDelegate)
+        Pushwoosh.configure.addNotificationCenterDelegate(myDelegate)
         ```
     }
 
     @Tab("Objective-C") {
         ```objc
-        [[Pushwoosh sharedInstance].notificationCenterDelegateProxy
-            addNotificationCenterDelegate:myDelegate];
+        [Pushwoosh.configure addNotificationCenterDelegate:myDelegate];
         ```
     }
 }

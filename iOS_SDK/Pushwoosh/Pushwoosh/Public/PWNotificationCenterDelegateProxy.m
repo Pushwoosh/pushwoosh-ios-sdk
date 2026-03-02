@@ -20,7 +20,7 @@
 - (instancetype)initWithNotificationManager:(PWPushNotificationsManager *)manager {
     _delegates = [NSMutableArray new];
     _defaultNotificationCenterDelegate = [[PWUserNotificationCenterDelegate alloc] initWithNotificationManager:manager];
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
     if ([UNUserNotificationCenter class]) {
         UNUserNotificationCenter.currentNotificationCenter.delegate = self;
     }
@@ -32,7 +32,7 @@
     
     return self;
 }
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
 - (void)addNotificationCenterDelegate:(id<UNUserNotificationCenterDelegate>)delegate {
     [_delegates addObject:delegate];
 }

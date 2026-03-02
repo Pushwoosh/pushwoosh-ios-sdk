@@ -120,8 +120,23 @@
 
 + (instancetype)createDefaultStyle {
     PWIInboxStyle *style = [self new];
-    style.backgroundColor = [UIApplication sharedApplication].keyWindow.rootViewController.view.backgroundColor ?: [UIColor whiteColor];
-    UIColor *accentColor = [UIApplication sharedApplication].keyWindow.tintColor;
+    UIWindow *keyWindow = nil;
+    if (@available(iOS 15.0, *)) {
+        for (UIWindowScene *scene in [UIApplication sharedApplication].connectedScenes) {
+            if (scene.activationState == UISceneActivationStateForegroundActive) {
+                keyWindow = scene.keyWindow;
+                break;
+            }
+        }
+    }
+    if (!keyWindow) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+        keyWindow = [UIApplication sharedApplication].keyWindow;
+#pragma clang diagnostic pop
+    }
+    style.backgroundColor = keyWindow.rootViewController.view.backgroundColor ?: [UIColor whiteColor];
+    UIColor *accentColor = keyWindow.tintColor;
     if (!accentColor) {
         accentColor = [UIColor colorWithRed:9.0f / 255.0f green:105.f / 255.0 blue:150.f / 255.0 alpha:1.0];
     }
@@ -162,11 +177,20 @@
 
 + (UIImage *)pwi_safeImageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
     if (!name || !bundle) return nil;
-    @try {
-        return [UIImage imageNamed:name inBundle:bundle compatibleWithTraitCollection:nil];
-    } @catch (NSException *exception) {
-        return nil;
+
+    NSInteger screenScale = (NSInteger)lroundf([UIScreen mainScreen].scale);
+    for (NSInteger scale = screenScale; scale >= 1; scale--) {
+        NSString *scaledName = (scale > 1) ? [NSString stringWithFormat:@"%@@%ldx", name, (long)scale] : name;
+        NSString *path = [bundle pathForResource:scaledName ofType:@"png"];
+        if (path) {
+            NSData *data = [NSData dataWithContentsOfFile:path];
+            if (data) {
+                return [UIImage imageWithData:data scale:(CGFloat)scale];
+            }
+        }
     }
+
+    return nil;
 }
 
 - (void)setupDateFrommater:(PWIDateFormatterBlock)block {

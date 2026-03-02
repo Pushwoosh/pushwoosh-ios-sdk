@@ -11,13 +11,16 @@
 @implementation UIImage (PWITintColor)
 
 - (UIImage *)pwi_imageWithTintColor:(UIColor *)color {
-    UIImage *image = [self imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate];
-    UIGraphicsBeginImageContextWithOptions(self.size, NO, image.scale);
-    [color set];
-    [image drawInRect:CGRectMake(0, 0, self.size.width, image.size.height)];
-    image = UIGraphicsGetImageFromCurrentImageContext();
-    UIGraphicsEndImageContext();
-    return image;
+    if (!color || self.size.width <= 0 || self.size.height <= 0) return self;
+
+    UIGraphicsImageRendererFormat *format = [UIGraphicsImageRendererFormat defaultFormat];
+    format.scale = self.scale;
+    UIGraphicsImageRenderer *renderer = [[UIGraphicsImageRenderer alloc] initWithSize:self.size format:format];
+
+    return [renderer imageWithActions:^(UIGraphicsImageRendererContext *rendererContext) {
+        [color set];
+        [[self imageWithRenderingMode:UIImageRenderingModeAlwaysTemplate] drawInRect:CGRectMake(0, 0, self.size.width, self.size.height)];
+    }];
 }
 
 @end

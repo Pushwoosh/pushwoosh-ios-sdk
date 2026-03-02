@@ -259,4 +259,12 @@
     return [[PWManagerBridge shared] getCustomPushData:pushNotification];
 }
 
+#pragma mark - Notification Center Delegate
+
++ (void)addNotificationCenterDelegate:(id<UNUserNotificationCenterDelegate>)delegate {
+    if ([PWManagerBridge shared].addNotificationCenterDelegateBlock) {
+        [PWManagerBridge shared].addNotificationCenterDelegateBlock(delegate);
+    }
+}
+
 @end

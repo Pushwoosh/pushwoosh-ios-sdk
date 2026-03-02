@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import <UserNotifications/UserNotifications.h>
 #import <PushwooshCore/PWPreferences.h>
 
 @protocol PWMessagingDelegate;
@@ -3389,5 +3390,72 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  ```
  */
 + (Class _Nonnull)configure;
+
+/**
+ Adds a custom ``UNUserNotificationCenterDelegate`` to the Pushwoosh notification center delegate proxy.
+
+ @discussion
+ Use this method to register your own ``UNUserNotificationCenterDelegate`` alongside Pushwoosh's built-in delegate.
+ Pushwoosh uses a delegate proxy to forward notification center callbacks to all registered delegates,
+ enabling multiple components to respond to notification events without conflicts.
+
+ This is the recommended way to handle notification center events when using Pushwoosh SDK 7.0+,
+ as it avoids conflicts with Pushwoosh's own notification handling.
+
+ Typical use cases:
+ - Integrating multiple push notification SDKs
+ - Adding custom notification handling logic (e.g., analytics, local notifications)
+ - Implementing custom notification actions
+
+ @param delegate The delegate object that conforms to ``UNUserNotificationCenterDelegate`` protocol. Must not be nil.
+
+ ## Examples
+
+ Register AppDelegate as a notification delegate:
+
+ ```swift
+ func application(_ application: UIApplication,
+                  didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+     Pushwoosh.configure.addNotificationCenterDelegate(self)
+     return true
+ }
+ ```
+
+ Register a dedicated notification handler:
+
+ ```swift
+ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
+
+     func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                 willPresent notification: UNNotification,
+                                 withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+         if !PWMessage.isPushwooshMessage(notification.request.content.userInfo) {
+             completionHandler([.banner, .sound])
+         }
+     }
+
+     func userNotificationCenter(_ center: UNUserNotificationCenter,
+                                 didReceive response: UNNotificationResponse,
+                                 withCompletionHandler completionHandler: @escaping () -> Void) {
+         if !PWMessage.isPushwooshMessage(response.notification.request.content.userInfo) {
+             // Handle your custom notification
+             completionHandler()
+         }
+     }
+ }
+
+ let handler = NotificationHandler()
+ Pushwoosh.configure.addNotificationCenterDelegate(handler)
+ ```
+
+ Objective-C:
+
+ ```objc
+ [Pushwoosh.configure addNotificationCenterDelegate:self];
+ ```
+
+ - Note: Use ``PWMessage/isPushwooshMessage:`` to distinguish Pushwoosh notifications from your own and handle only non-Pushwoosh notifications in your custom delegate.
+ */
++ (void)addNotificationCenterDelegate:(id<UNUserNotificationCenterDelegate> _Nonnull)delegate NS_SWIFT_NAME(addNotificationCenterDelegate(_:));
 
 @end

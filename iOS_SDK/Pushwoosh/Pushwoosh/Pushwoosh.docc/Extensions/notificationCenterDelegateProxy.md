@@ -41,7 +41,7 @@ class NotificationHandler: NSObject, UNUserNotificationCenterDelegate {
 
 // Register with proxy
 let handler = NotificationHandler()
-Pushwoosh.configure.notificationCenterDelegateProxy.addDelegate(handler)
+Pushwoosh.configure.addNotificationCenterDelegate(handler)
 ```
 
 ## See Also

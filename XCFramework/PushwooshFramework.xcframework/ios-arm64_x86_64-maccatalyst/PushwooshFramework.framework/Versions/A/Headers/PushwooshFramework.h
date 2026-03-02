@@ -586,7 +586,25 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 @property (nonatomic, copy, readonly) NSDictionary * _Nullable launchNotification;
 
 /**
- Proxy contains UNUserNotificationCenterDelegate objects.
+ Proxy that manages ``UNUserNotificationCenterDelegate`` objects.
+
+ Allows multiple objects to receive ``UNUserNotificationCenterDelegate`` callbacks alongside Pushwoosh's default handling.
+
+ Use this when integrating multiple push notification SDKs, adding custom notification handling logic, or implementing notification actions.
+
+ The proxy forwards all delegate methods to registered delegates, enabling multiple components to respond to notification events without conflicts.
+
+ ## Example
+
+ ```swift
+ Pushwoosh.sharedInstance().notificationCenterDelegateProxy?.add(myDelegate)
+ ```
+
+ - Note: For SDK 7.0+, use ``Pushwoosh.configure.addNotificationCenterDelegate(_:)`` instead.
+
+ ```swift
+ Pushwoosh.configure.addNotificationCenterDelegate(myDelegate)
+ ```
 */
 @property (nonatomic, readonly) PWNotificationCenterDelegateProxy * _Nullable notificationCenterDelegateProxy;
 

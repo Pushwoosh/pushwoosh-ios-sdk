@@ -249,7 +249,6 @@
 		4649F4F11ED5534200D3D90C /* PWJSInterfaceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4649F4ED1ED5534200D3D90C /* PWJSInterfaceTest.m */; };
 		4649F4F21ED5534200D3D90C /* PWRequestManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4649F4EE1ED5534200D3D90C /* PWRequestManagerTest.m */; };
 		4649F4F31ED5534200D3D90C /* PWResourceTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4649F4EF1ED5534200D3D90C /* PWResourceTest.m */; };
-		AK00000126021000PROXY01 /* PWReverseProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AK00000126021000PROXY00 /* PWReverseProxyTest.m */; };
 		46B0CBFAFD612942017551E9 /* PWSystemCommandHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = FEEBB197F41609F7D6B368D9 /* PWSystemCommandHandler.h */; };
 		46FA9E441C7DB92800741A11 /* libstdc++.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FA9E431C7DB92800741A11 /* libstdc++.tbd */; };
 		46FA9E461C7DB92D00741A11 /* libz.tbd in Frameworks */ = {isa = PBXBuildFile; fileRef = 46FA9E451C7DB92D00741A11 /* libz.tbd */; };
@@ -375,8 +374,8 @@
 		95D94139A3EEA9731A091D5D /* PWTriggerInAppActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 887CB6962C2E88991CDA43CF /* PWTriggerInAppActionRequest.m */; };
 		95F7562F4F53C98C64E1CB2C /* PWSetLogLevelCommandHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B463525B0EAE8FA7572820E /* PWSetLogLevelCommandHandler.h */; };
 		963EA33183D62A9F414BAB9A /* PWReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = A4B9EA51E220DC6BC4974B1A /* PWReachability.h */; };
-		9703585F27A2793100DEA758 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		9703586227A2796400DEA758 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		9703585F27A2793100DEA758 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		9703586227A2796400DEA758 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		972C9AA827F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 972C9AA727F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m */; };
 		9762CEA9277B17B9003196C1 /* PWTestPurchaseRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9762CEA8277B17B9003196C1 /* PWTestPurchaseRuntime.m */; };
 		976302C427DA21180029240E /* PWInboxMessageInternalTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 976302C327DA21180029240E /* PWInboxMessageInternalTest.m */; };
@@ -416,6 +415,7 @@
 		AFB0024B29F7EA440083A3E6 /* OCHamcrest.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFB0024A29F7EA440083A3E6 /* OCHamcrest.xcframework */; };
 		AFB0024F29F7EBB50083A3E6 /* OCMockito.xcframework in Frameworks */ = {isa = PBXBuildFile; fileRef = AFB0024E29F7EBB50083A3E6 /* OCMockito.xcframework */; };
 		AFB0025129F7ED5A0083A3E6 /* PWPreferencesTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AFB0025029F7ED5A0083A3E6 /* PWPreferencesTest.m */; };
+		AK00000126021000PROXY01 /* PWReverseProxyTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AK00000126021000PROXY00 /* PWReverseProxyTest.m */; };
 		B07A692127A1AC9FA2EE179D /* PWShowLoading.m in Sources */ = {isa = PBXBuildFile; fileRef = A5AF77A5F664295246BBBFD2 /* PWShowLoading.m */; };
 		B130D8EB308F37C13BD97934 /* PWGetTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = C02031ED2FBA7D1D2DAD5199 /* PWGetTagsRequest.m */; };
 		B1BF9B34EE1926AD87447B11 /* PWCachedRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CF45487D3F8DD84B95019DD5 /* PWCachedRequest.m */; };
@@ -961,7 +961,6 @@
 		4649F4ED1ED5534200D3D90C /* PWJSInterfaceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWJSInterfaceTest.m; path = PushwooshTests/PWJSInterfaceTest.m; sourceTree = SOURCE_ROOT; };
 		4649F4EE1ED5534200D3D90C /* PWRequestManagerTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWRequestManagerTest.m; path = PushwooshTests/PWRequestManagerTest.m; sourceTree = SOURCE_ROOT; };
 		4649F4EF1ED5534200D3D90C /* PWResourceTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWResourceTest.m; path = PushwooshTests/PWResourceTest.m; sourceTree = SOURCE_ROOT; };
-		AK00000126021000PROXY00 /* PWReverseProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWReverseProxyTest.m; path = PushwooshTests/PWReverseProxyTest.m; sourceTree = SOURCE_ROOT; };
 		467EB9371DFEC23A00506823 /* PushwooshFramework.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshFramework.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		467F61F21EB87F3300548315 /* Pushwoosh.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pushwoosh.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		46AE9EFDCD14B8D72080E3A6 /* PWUtils+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PWUtils+Internal.h"; sourceTree = "<group>"; };
@@ -1123,6 +1122,7 @@
 		AFB0024C29F7EAA00083A3E6 /* OCHamcrest.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OCHamcrest.xcframework; path = OCMockito/OCHamcrest.xcframework; sourceTree = "<group>"; };
 		AFB0024E29F7EBB50083A3E6 /* OCMockito.xcframework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.xcframework; name = OCMockito.xcframework; path = OCMockito/OCMockito.xcframework; sourceTree = "<group>"; };
 		AFB0025029F7ED5A0083A3E6 /* PWPreferencesTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWPreferencesTest.m; sourceTree = "<group>"; };
+		AK00000126021000PROXY00 /* PWReverseProxyTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PWReverseProxyTest.m; path = PushwooshTests/PWReverseProxyTest.m; sourceTree = SOURCE_ROOT; };
 		B11203AECD4A33F098B0BBEB /* PWInteractionDisabledView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInteractionDisabledView.h; sourceTree = "<group>"; };
 		B2C3D4E5F678901234567890 /* PWModalRichMedia.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWModalRichMedia.m; sourceTree = "<group>"; };
 		B2C3D4E5F678901234567891 /* PWLegacyRichMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWLegacyRichMediaTest.m; path = RichMedia/PWLegacyRichMediaTest.m; sourceTree = "<group>"; };
@@ -1456,7 +1456,7 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		0867D691FE84028FC02AAC07 /* PushNotificationManager */ = {
+		0867D691FE84028FC02AAC07 = {
 			isa = PBXGroup;
 			children = (
 				5D12C21523F54365009A655A /* Pushwoosh */,
@@ -3677,7 +3677,7 @@
 				Base,
 				en,
 			);
-			mainGroup = 0867D691FE84028FC02AAC07 /* PushNotificationManager */;
+			mainGroup = 0867D691FE84028FC02AAC07;
 			packageReferences = (
 				51DF175EB8782A0DD2791BDB /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 			);
@@ -4150,12 +4150,12 @@
 				4649F4E01ED5531B00D3D90C /* PWPostEventTest.m in Sources */,
 				449CAA05287725BD00B4EEEF /* PWRegisterEmailUserTest.m in Sources */,
 				449CAA252877272B00B4EEEF /* PWConfigurationTest.m in Sources */,
-				9703585F27A2793100DEA758 /* (null) in Sources */,
+				9703585F27A2793100DEA758 /* BuildFile in Sources */,
 				5D84AD142153A846005D7432 /* PWBundleMock.m in Sources */,
 				4649F4CD1ED5523F00D3D90C /* PWRegisterDeviceRequestTest.m in Sources */,
 				976302C927DA540B0029240E /* PWInboxServiceTest.m in Sources */,
 				449CAA282877274F00B4EEEF /* PushwooshTest.m in Sources */,
-				9703586227A2796400DEA758 /* (null) in Sources */,
+				9703586227A2796400DEA758 /* BuildFile in Sources */,
 				449CAA22287726ED00B4EEEF /* PWRegisterTestDeviceRequestTest.m in Sources */,
 				44378CC628BE347300175DE2 /* PWInAppPurchaseHelperTest.m in Sources */,
 				5D84AD112153A04E005D7432 /* PWConfigTest.m in Sources */,

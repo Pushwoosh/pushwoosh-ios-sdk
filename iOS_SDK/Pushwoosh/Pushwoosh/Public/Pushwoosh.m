@@ -212,6 +212,13 @@ static dispatch_once_t ensureInitializedOncePredicate;
 
         if (![PWConfig config].isUsingPluginForPushHandling) {
             _notificationCenterDelegateProxy = [[PWNotificationCenterDelegateProxy alloc] initWithNotificationManager:self.pushNotificationManager];
+
+#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
+            __weak PWNotificationCenterDelegateProxy *weakProxy = _notificationCenterDelegateProxy;
+            [PWManagerBridge shared].addNotificationCenterDelegateBlock = ^(id<UNUserNotificationCenterDelegate> delegate) {
+                [weakProxy addNotificationCenterDelegate:delegate];
+            };
+#endif
         }
         
     }
@@ -500,6 +507,7 @@ static dispatch_once_t ensureInitializedOncePredicate;
 #pragma mark - Teardown
 
 + (void)destroy {
+    [PWManagerBridge shared].addNotificationCenterDelegateBlock = nil;
     pushwooshOncePredicate = 0;
     pushwooshInstance = nil;
 }

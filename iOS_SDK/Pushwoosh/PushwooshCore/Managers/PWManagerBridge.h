@@ -45,6 +45,7 @@
 
 @property (nonatomic, copy) void (^setEmailBlock)(NSString *email);
 @property (nonatomic, copy) void (^sendTransactionsBlock)(NSArray *transactions);
+@property (nonatomic, copy) void (^addNotificationCenterDelegateBlock)(id<UNUserNotificationCenterDelegate> delegate);
 
 @property (nonatomic, strong) Class<PWInboxBridge> inboxBridge;
 
