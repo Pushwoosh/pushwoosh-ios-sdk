@@ -168,11 +168,41 @@
         }
     }];
     
-    NSString *appIconName = [NSBundle mainBundle].infoDictionary[@"CFBundleIcons"][@"CFBundlePrimaryIcon"][@"CFBundleIconName"];
-    _defaultImageIcon = appIconName ? [UIImage imageNamed:appIconName] : nil;
+    _defaultImageIcon = [self.class pwi_appIconImage];
     if (!_defaultImageIcon) {
         _defaultImageIcon = [self.class pwi_safeImageNamed:@"inbox_icon" inBundle:[NSBundle pwi_bundleForClass:self.class]];
     }
+}
+
++ (UIImage *)pwi_appIconImage {
+    NSDictionary *primaryIcon = [NSBundle mainBundle].infoDictionary[@"CFBundleIcons"][@"CFBundlePrimaryIcon"];
+    NSArray<NSString *> *iconFiles = primaryIcon[@"CFBundleIconFiles"];
+    NSString *iconName = iconFiles.lastObject;
+    if (!iconName) {
+        iconName = primaryIcon[@"CFBundleIconName"];
+    }
+    if (!iconName) return nil;
+
+    // Try loading as loose PNG file first (safe, bypasses Asset Catalog)
+    NSInteger screenScale = (NSInteger)lroundf([UIScreen mainScreen].scale);
+    for (NSInteger scale = screenScale; scale >= 1; scale--) {
+        NSString *scaledName = (scale > 1) ? [NSString stringWithFormat:@"%@@%ldx", iconName, (long)scale] : iconName;
+        NSString *path = [[NSBundle mainBundle] pathForResource:scaledName ofType:@"png"];
+        if (path) {
+            NSData *data = [NSData dataWithContentsOfFile:path];
+            if (data) {
+                return [UIImage imageWithData:data scale:(CGFloat)scale];
+            }
+        }
+    }
+
+    // Fallback: load from Asset Catalog, but only if the name is not a color set
+    // [UIImage imageNamed:] crashes when the name matches a color set in the Asset Catalog
+    if (![UIColor colorNamed:iconName]) {
+        return [UIImage imageNamed:iconName];
+    }
+
+    return nil;
 }
 
 + (UIImage *)pwi_safeImageNamed:(NSString *)name inBundle:(NSBundle *)bundle {
