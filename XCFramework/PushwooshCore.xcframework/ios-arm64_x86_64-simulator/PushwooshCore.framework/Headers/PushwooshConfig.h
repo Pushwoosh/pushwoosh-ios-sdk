@@ -3458,6 +3458,48 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  */
 + (void)addNotificationCenterDelegate:(id<UNUserNotificationCenterDelegate> _Nonnull)delegate NS_SWIFT_NAME(addNotificationCenterDelegate(_:));
 
+#pragma mark - Launch Notification
+
+/**
+ Returns push notification payload if the app was started in response to a push notification, or `nil` otherwise.
+
+ @discussion
+ Use this method to retrieve the notification data that caused the app to launch from a terminated state.
+ This is useful for handling deep links or navigation based on the push content.
+
+ The value is set when the app is cold-started by tapping a push notification and remains available
+ for the lifetime of the process. If the app was already running (foreground or background),
+ the value is `nil` — use ``PWMessagingDelegate`` callbacks instead.
+
+ Must be called **after** the SDK has finished initialization (e.g., in `applicationDidBecomeActive:` or later).
+
+ ## Example
+
+ ```swift
+ func applicationDidBecomeActive(_ application: UIApplication) {
+     if let launchNotification = Pushwoosh.configure.getLaunchNotification() {
+         print("App launched from push: \(launchNotification)")
+     }
+ }
+ ```
+
+ Objective-C:
+
+ ```objc
+ - (void)applicationDidBecomeActive:(UIApplication *)application {
+     NSDictionary *launchNotification = [Pushwoosh.configure getLaunchNotification];
+     if (launchNotification) {
+         NSLog(@"App launched from push: %@", launchNotification);
+     }
+ }
+ ```
+
+ @return The push notification payload dictionary, or `nil` if the app was not launched from a push notification.
+
+ @see PWMessagingDelegate
+ */
++ (NSDictionary *_Nullable)getLaunchNotification NS_SWIFT_NAME(launchNotification());
+
 #pragma mark - Additional Authorization Options
 
 /**

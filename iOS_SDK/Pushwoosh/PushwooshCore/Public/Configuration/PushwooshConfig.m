@@ -267,6 +267,12 @@
     }
 }
 
+#pragma mark - Launch Notification
+
++ (NSDictionary *)getLaunchNotification {
+    return [PWManagerBridge shared].launchNotification;
+}
+
 #pragma mark - Additional Authorization Options
 
 + (void)setAdditionalAuthorizationOptions:(UNAuthorizationOptions)options {

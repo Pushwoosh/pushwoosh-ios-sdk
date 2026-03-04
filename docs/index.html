@@ -3,96 +3,1340 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Pushwoosh iOS SDK Documentation</title>
+    <title>Pushwoosh iOS SDK — Documentation</title>
+    <meta name="description" content="API reference and integration guides for Pushwoosh iOS SDK modules.">
     <style>
+        @import url('https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500&family=DM+Sans:ital,opsz,wght@0,9..40,300;0,9..40,400;0,9..40,500;0,9..40,600;0,9..40,700;1,9..40,400&display=swap');
+
+        :root {
+            --pw-blue: #005ABE;
+            --pw-green: #00E6A0;
+            --pw-green-dim: #00CC8E;
+            --surface: #ffffff;
+            --surface-raised: #f8f9fb;
+            --surface-overlay: rgba(255,255,255,0.72);
+            --text-primary: #0f1419;
+            --text-secondary: #536471;
+            --text-tertiary: #8899a6;
+            --border: #e1e8ed;
+            --border-hover: #c4cfd6;
+            --glow: rgba(0, 230, 160, 0.12);
+            --code-bg: #0f1923;
+            --code-text: #e2e8f0;
+            --card-shadow: 0 1px 3px rgba(0,0,0,0.04), 0 6px 16px rgba(0,0,0,0.04);
+            --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.06), 0 12px 28px rgba(0,0,0,0.08);
+            --hero-gradient: linear-gradient(160deg, #f0faf6 0%, #f5f8ff 40%, #fafbff 100%);
+            --dot-color: rgba(0, 90, 190, 0.06);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            :root {
+                --surface: #0d1117;
+                --surface-raised: #161b22;
+                --surface-overlay: rgba(13,17,23,0.80);
+                --text-primary: #e6edf3;
+                --text-secondary: #8b949e;
+                --text-tertiary: #6e7681;
+                --border: #21262d;
+                --border-hover: #363b42;
+                --glow: rgba(0, 230, 160, 0.08);
+                --code-bg: #010409;
+                --code-text: #c9d1d9;
+                --card-shadow: 0 1px 3px rgba(0,0,0,0.2), 0 8px 24px rgba(0,0,0,0.15);
+                --card-shadow-hover: 0 4px 12px rgba(0,0,0,0.25), 0 16px 40px rgba(0,0,0,0.25);
+                --hero-gradient: linear-gradient(160deg, #0d1a14 0%, #0d1320 40%, #0d1117 100%);
+                --dot-color: rgba(0, 230, 160, 0.04);
+            }
+        }
+
+        *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+
+        html { scroll-behavior: smooth; }
+
         body {
-            font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
-            max-width: 900px;
-            margin: 50px auto;
-            padding: 20px;
+            font-family: 'DM Sans', -apple-system, BlinkMacSystemFont, sans-serif;
+            background: var(--surface);
+            color: var(--text-primary);
             line-height: 1.6;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
         }
-        h1 {
-            color: #1d1d1f;
-            margin-bottom: 30px;
+
+        /* ─── HERO ─── */
+        .hero {
+            position: relative;
+            padding: 80px 32px 72px;
+            background: var(--hero-gradient);
+            overflow: hidden;
         }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background-image: radial-gradient(var(--dot-color) 1px, transparent 1px);
+            background-size: 24px 24px;
+            mask-image: linear-gradient(to bottom, black 60%, transparent);
+            -webkit-mask-image: linear-gradient(to bottom, black 60%, transparent);
+        }
+
+        .hero-inner {
+            max-width: 960px;
+            margin: 0 auto;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 6px 14px 6px 8px;
+            background: var(--surface-overlay);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: 100px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            margin-bottom: 28px;
+            animation: fadeSlideUp 0.6s ease-out both;
+        }
+
+        .hero-badge .dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--pw-green);
+            box-shadow: 0 0 8px var(--pw-green);
+        }
+
+        .hero-logo {
+            display: flex;
+            align-items: center;
+            gap: 16px;
+            margin-bottom: 20px;
+            animation: fadeSlideUp 0.6s ease-out 0.08s both;
+        }
+
+        .hero-logo .logo-img {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            object-fit: cover;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.15);
+        }
+
+        .hero-logo h1 {
+            font-size: 32px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: var(--text-primary);
+        }
+
+        .hero-logo h1 span {
+            font-weight: 400;
+            color: var(--text-secondary);
+        }
+
+        .hero-desc {
+            font-size: 17px;
+            color: var(--text-secondary);
+            max-width: 540px;
+            line-height: 1.65;
+            animation: fadeSlideUp 0.6s ease-out 0.16s both;
+        }
+
+        .hero-links {
+            display: flex;
+            gap: 12px;
+            margin-top: 28px;
+            flex-wrap: wrap;
+            animation: fadeSlideUp 0.6s ease-out 0.24s both;
+        }
+
+        .hero-links a {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+            padding: 10px 18px;
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+            text-decoration: none;
+            transition: all 0.2s ease;
+        }
+
+        .hero-links .btn-primary {
+            background: var(--pw-blue);
+            color: #fff;
+        }
+        .hero-links .btn-primary:hover {
+            background: #0068d6;
+            box-shadow: 0 4px 16px rgba(0,90,190,0.3);
+            transform: translateY(-1px);
+        }
+
+        .hero-links .btn-ghost {
+            background: var(--surface-overlay);
+            backdrop-filter: blur(8px);
+            -webkit-backdrop-filter: blur(8px);
+            border: 1px solid var(--border);
+            color: var(--text-primary);
+        }
+        .hero-links .btn-ghost:hover {
+            border-color: var(--border-hover);
+            background: var(--surface-raised);
+            transform: translateY(-1px);
+        }
+
+        .hero-links svg {
+            width: 16px;
+            height: 16px;
+            flex-shrink: 0;
+        }
+
+        /* ─── LAYOUT ─── */
+        .content-wrapper {
+            max-width: 1120px;
+            margin: 0 auto;
+            display: flex;
+            gap: 0;
+            position: relative;
+        }
+
+        .content {
+            flex: 1;
+            min-width: 0;
+            max-width: 960px;
+            padding: 56px 32px 80px;
+        }
+
+        /* ─── PAGE NAV ─── */
+        .page-nav {
+            width: 160px;
+            flex-shrink: 0;
+            position: sticky;
+            top: 32px;
+            align-self: flex-start;
+            padding: 56px 0 0 0;
+            margin-right: 16px;
+        }
+
+        .page-nav-title {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 12px;
+            padding-left: 12px;
+        }
+
+        .page-nav-link {
+            display: block;
+            padding: 6px 12px;
+            font-size: 13px;
+            color: var(--text-tertiary);
+            text-decoration: none;
+            border-left: 2px solid transparent;
+            transition: all 0.2s ease;
+            line-height: 1.4;
+        }
+
+        .page-nav-link:hover {
+            color: var(--text-secondary);
+        }
+
+        .page-nav-link.active {
+            color: var(--pw-blue);
+            border-left-color: var(--pw-blue);
+            font-weight: 500;
+        }
+
+        @media (max-width: 900px) {
+            .page-nav { display: none; }
+            .content-wrapper { display: block; }
+        }
+
+        /* ─── SECTION HEADERS ─── */
+        .section-label {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 12px;
+            font-weight: 600;
+            letter-spacing: 0.08em;
+            text-transform: uppercase;
+            color: var(--text-tertiary);
+            margin-bottom: 20px;
+        }
+
+        .section-label::after {
+            content: '';
+            flex: 1;
+            height: 1px;
+            background: var(--border);
+        }
+
+        /* ─── MODULE GRID ─── */
         .modules {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
-            gap: 20px;
-            margin-top: 30px;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 16px;
+            margin-bottom: 56px;
         }
+
         .module {
-            border: 1px solid #d2d2d7;
-            border-radius: 12px;
-            padding: 20px;
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            padding: 22px 24px;
+            border-radius: 14px;
+            border: 1px solid var(--border);
+            background: var(--surface);
             text-decoration: none;
-            color: #1d1d1f;
-            transition: all 0.2s;
+            color: var(--text-primary);
+            transition: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+            box-shadow: var(--card-shadow);
+            animation: fadeSlideUp 0.5s ease-out both;
         }
+
+        .module:nth-child(1) { animation-delay: 0.05s; }
+        .module:nth-child(2) { animation-delay: 0.10s; }
+        .module:nth-child(3) { animation-delay: 0.15s; }
+        .module:nth-child(4) { animation-delay: 0.20s; }
+        .module:nth-child(5) { animation-delay: 0.25s; }
+        .module:nth-child(6) { animation-delay: 0.30s; }
+        .module:nth-child(7) { animation-delay: 0.35s; }
+        .module:nth-child(8) { animation-delay: 0.40s; }
+        .module:nth-child(9) { animation-delay: 0.45s; }
+
         .module:hover {
-            border-color: #0071e3;
-            box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+            border-color: var(--border-hover);
+            box-shadow: var(--card-shadow-hover);
+            transform: translateY(-3px);
         }
+
+        .module::before {
+            content: '';
+            position: absolute;
+            top: 0; left: 0; right: 0;
+            height: 3px;
+            border-radius: 14px 14px 0 0;
+            opacity: 0;
+            transition: opacity 0.25s ease;
+        }
+
+        .module:hover::before { opacity: 1; }
+
+        .module.core::before { background: linear-gradient(90deg, var(--pw-green), var(--pw-green-dim)); }
+        .module.optional::before { background: linear-gradient(90deg, var(--pw-blue), #3d9bff); }
+
+        .module-icon {
+            width: 36px;
+            height: 36px;
+            border-radius: 9px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            flex-shrink: 0;
+        }
+
+        .core .module-icon {
+            background: linear-gradient(135deg, rgba(0,230,160,0.12), rgba(0,230,160,0.05));
+            color: var(--pw-green-dim);
+        }
+
+        .optional .module-icon {
+            background: linear-gradient(135deg, rgba(0,90,190,0.12), rgba(0,90,190,0.05));
+            color: var(--pw-blue);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .core .module-icon {
+                background: linear-gradient(135deg, rgba(0,230,160,0.15), rgba(0,230,160,0.06));
+            }
+            .optional .module-icon {
+                background: linear-gradient(135deg, rgba(0,120,255,0.18), rgba(0,120,255,0.06));
+            }
+        }
+
         .module h3 {
-            margin: 0 0 10px 0;
-            color: #0071e3;
+            font-size: 15px;
+            font-weight: 600;
+            letter-spacing: -0.2px;
         }
+
         .module p {
-            margin: 0;
-            color: #86868b;
-            font-size: 14px;
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.5;
         }
-        .core { border-left: 4px solid #34c759; }
-        .optional { border-left: 4px solid #0071e3; }
+
+        .module .arrow {
+            position: absolute;
+            top: 24px;
+            right: 20px;
+            width: 20px;
+            height: 20px;
+            color: var(--text-tertiary);
+            opacity: 0;
+            transform: translateX(-4px);
+            transition: all 0.25s ease;
+        }
+
+        .module:hover .arrow {
+            opacity: 1;
+            transform: translateX(0);
+        }
+
+        /* ─── QUICK START ─── */
+        .quickstart {
+            margin-bottom: 56px;
+        }
+
+        .steps {
+            display: flex;
+            flex-direction: column;
+            gap: 24px;
+        }
+
+        .step {
+            display: flex;
+            gap: 20px;
+            animation: fadeSlideUp 0.5s ease-out both;
+        }
+
+        .step-number {
+            width: 32px;
+            height: 32px;
+            border-radius: 50%;
+            background: linear-gradient(135deg, var(--pw-blue), #0070d6);
+            color: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            font-weight: 600;
+            flex-shrink: 0;
+            margin-top: 2px;
+        }
+
+        .step-content {
+            flex: 1;
+            min-width: 0;
+        }
+
+        .step-content h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 12px;
+            letter-spacing: -0.2px;
+        }
+
+        .step-tabs {
+            display: flex;
+            gap: 4px;
+            margin-bottom: 12px;
+            background: var(--surface-raised);
+            border: 1px solid var(--border);
+            border-radius: 8px;
+            padding: 3px;
+            width: fit-content;
+        }
+
+        .step-tab {
+            padding: 5px 14px;
+            border: none;
+            background: transparent;
+            border-radius: 6px;
+            font-size: 13px;
+            font-weight: 500;
+            color: var(--text-secondary);
+            cursor: pointer;
+            font-family: inherit;
+            transition: all 0.2s ease;
+        }
+
+        .step-tab.active {
+            background: var(--surface);
+            color: var(--text-primary);
+            box-shadow: 0 1px 3px rgba(0,0,0,0.08);
+        }
+
+        .step-tab:hover:not(.active) {
+            color: var(--text-primary);
+        }
+
+        .step-panel {
+            display: none;
+        }
+
+        .step-panel.active {
+            display: block;
+        }
+
+        .capability-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+        }
+
+        .capability-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            padding: 10px 14px;
+            background: var(--surface-raised);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            font-size: 14px;
+            font-weight: 500;
+        }
+
+        .check-icon {
+            width: 18px;
+            height: 18px;
+            color: var(--pw-green-dim);
+            flex-shrink: 0;
+        }
+
+        /* ─── AI SECTION ─── */
+        .ai-section {
+            margin-bottom: 56px;
+        }
+
+        .ai-banner {
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            box-shadow: var(--card-shadow);
+            animation: fadeSlideUp 0.5s ease-out 0.48s both;
+        }
+
+        .ai-banner-inner {
+            display: flex;
+            align-items: flex-start;
+            gap: 16px;
+            padding: 24px 24px 20px;
+        }
+
+        .ai-icon {
+            width: 40px;
+            height: 40px;
+            border-radius: 10px;
+            background: linear-gradient(135deg, rgba(168,85,247,0.12), rgba(168,85,247,0.05));
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .ai-icon svg {
+            width: 22px;
+            height: 22px;
+            color: #a855f7;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .ai-icon {
+                background: linear-gradient(135deg, rgba(168,85,247,0.18), rgba(168,85,247,0.06));
+            }
+        }
+
+        .ai-text h4 {
+            font-size: 16px;
+            font-weight: 600;
+            margin-bottom: 4px;
+            letter-spacing: -0.2px;
+        }
+
+        .ai-text p {
+            font-size: 14px;
+            color: var(--text-secondary);
+            line-height: 1.5;
+        }
+
+        .ai-text strong {
+            color: var(--text-primary);
+            font-weight: 600;
+        }
+
+        .ai-setup {
+            padding: 0 24px 24px;
+        }
+
+        .ai-how {
+            margin-bottom: 4px;
+        }
+
+        .ai-how-title {
+            font-size: 13px;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin-bottom: 6px;
+        }
+
+        .ai-how-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            line-height: 1.55;
+            margin-bottom: 12px;
+        }
+
+        .ai-supported {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .ai-tool-chip {
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 12px;
+            font-weight: 500;
+            background: rgba(168,85,247,0.08);
+            border: 1px solid rgba(168,85,247,0.18);
+            color: #a855f7;
+        }
+
+        .ai-tool-more {
+            background: transparent;
+            border-color: var(--border);
+            color: var(--text-tertiary);
+            font-weight: 400;
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .ai-tool-chip {
+                background: rgba(168,85,247,0.12);
+                border-color: rgba(168,85,247,0.22);
+            }
+        }
+
+        .ai-divider {
+            height: 1px;
+            background: var(--border);
+            margin: 20px 0;
+        }
+
+        .ai-step-desc {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 8px;
+        }
+
+        .ai-prompt-list {
+            display: flex;
+            flex-direction: column;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .ai-prompt-item {
+            display: flex;
+            align-items: baseline;
+            gap: 12px;
+            padding: 10px 14px;
+            background: var(--surface-raised);
+            border: 1px solid var(--border);
+            border-radius: 9px;
+            font-size: 13px;
+        }
+
+        .ai-prompt-num {
+            width: 20px;
+            height: 20px;
+            border-radius: 50%;
+            background: rgba(168,85,247,0.1);
+            color: #a855f7;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 11px;
+            font-weight: 600;
+            flex-shrink: 0;
+        }
+
+        .ai-prompt-text {
+            color: var(--text-secondary);
+            font-style: italic;
+        }
+
+        .ai-features {
+            display: flex;
+            flex-direction: column;
+            gap: 6px;
+            margin-top: 10px;
+        }
+
+        .ai-feature {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-size: 13px;
+            color: var(--text-secondary);
+        }
+
+        .ai-feature .check-icon {
+            color: #a855f7;
+        }
+
+        .spm-instructions {}
+
+        .spm-repo {
+            font-size: 13px;
+            color: var(--text-secondary);
+            margin-bottom: 10px;
+        }
+
+        .fw-group {
+            margin-bottom: 12px;
+        }
+
+        .fw-group:last-child { margin-bottom: 0; }
+
+        .fw-label {
+            font-size: 11px;
+            font-weight: 600;
+            letter-spacing: 0.06em;
+            text-transform: uppercase;
+            margin-bottom: 8px;
+        }
+
+        .fw-label.required { color: var(--pw-green-dim); }
+        .fw-label.optional { color: var(--text-tertiary); }
+
+        .fw-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .fw-chip {
+            display: inline-flex;
+            align-items: center;
+            padding: 5px 12px;
+            border-radius: 7px;
+            font-size: 13px;
+            font-weight: 500;
+            font-family: 'JetBrains Mono', monospace;
+            border: 1px solid var(--border);
+        }
+
+        .fw-chip.required {
+            background: rgba(0, 230, 160, 0.08);
+            border-color: rgba(0, 230, 160, 0.25);
+            color: var(--pw-green-dim);
+        }
+
+        .fw-chip.optional {
+            background: var(--surface-raised);
+            color: var(--text-secondary);
+        }
+
+        @media (prefers-color-scheme: dark) {
+            .fw-chip.required {
+                background: rgba(0, 230, 160, 0.1);
+                border-color: rgba(0, 230, 160, 0.2);
+            }
+        }
+
+        @media (max-width: 640px) {
+            .step { gap: 14px; }
+            .step-number { width: 28px; height: 28px; font-size: 12px; }
+        }
+
+        .code-window {
+            border-radius: 12px;
+            overflow: hidden;
+            border: 1px solid var(--border);
+            box-shadow: var(--card-shadow);
+            animation: fadeSlideUp 0.5s ease-out 0.5s both;
+        }
+
+        .code-titlebar {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            padding: 12px 16px;
+            background: var(--surface-raised);
+            border-bottom: 1px solid var(--border);
+        }
+
+        .code-titlebar .dots {
+            display: flex;
+            gap: 6px;
+        }
+
+        .code-titlebar .dots span {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+        }
+
+        .code-titlebar .dots span:nth-child(1) { background: #ff5f57; }
+        .code-titlebar .dots span:nth-child(2) { background: #ffbd2e; }
+        .code-titlebar .dots span:nth-child(3) { background: #28c840; }
+
+        .code-titlebar .filename {
+            flex: 1;
+            text-align: center;
+            font-size: 12px;
+            font-weight: 500;
+            color: var(--text-tertiary);
+            font-family: 'JetBrains Mono', monospace;
+        }
+
+        .code-body {
+            padding: 20px 24px;
+            background: var(--code-bg);
+            overflow-x: auto;
+        }
+
+        .code-body pre {
+            font-family: 'JetBrains Mono', monospace;
+            font-size: 13px;
+            line-height: 1.7;
+            color: var(--code-text);
+            margin: 0;
+        }
+
+        .code-body .kw { color: #ff7b72; }
+        .code-body .fn { color: #d2a8ff; }
+        .code-body .ty { color: #79c0ff; }
+        .code-body .st { color: #a5d6ff; }
+        .code-body .cm { color: #6e7681; font-style: italic; }
+        .code-body .pr { color: #ffa657; }
+        .code-body .dt { color: #7ee787; }
+
+        /* ─── FOOTER ─── */
+        .footer {
+            border-top: 1px solid var(--border);
+            padding: 32px 32px;
+            text-align: center;
+        }
+
+        .footer p {
+            font-size: 13px;
+            color: var(--text-tertiary);
+        }
+
+        .footer a {
+            color: var(--text-secondary);
+            text-decoration: none;
+        }
+
+        .footer a:hover {
+            color: var(--pw-blue);
+        }
+
+        /* ─── ANIMATIONS ─── */
+        @keyframes fadeSlideUp {
+            from {
+                opacity: 0;
+                transform: translateY(16px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        /* ─── RESPONSIVE ─── */
+        @media (max-width: 640px) {
+            .hero { padding: 56px 20px 48px; }
+            .content { padding: 40px 20px 60px; }
+            .hero-logo h1 { font-size: 26px; }
+            .hero-desc { font-size: 15px; }
+            .modules { grid-template-columns: 1fr; gap: 12px; }
+            .hero-links { flex-direction: column; }
+            .hero-links a { justify-content: center; }
+        }
     </style>
 </head>
 <body>
-    <h1>Pushwoosh iOS SDK Documentation</h1>
-    <p>Select a module to view its documentation:</p>
 
-    <div class="modules">
+    <section class="hero">
+        <div class="hero-inner">
+            <div class="hero-badge">
+                <span class="dot"></span>
+                iOS &middot; iPadOS &middot; macOS &middot; tvOS
+            </div>
 
-        <a href="PushwooshCore/documentation/pushwooshcore/" class="module core">
+            <div class="hero-logo">
+                <img src="pushwoosh_logo.jpeg" alt="Pushwoosh" class="logo-img">
+                <h1>Pushwoosh <span>iOS SDK</span></h1>
+            </div>
+
+            <p class="hero-desc">
+                Complete API reference and integration guides for push notifications on Apple platforms.
+            </p>
+
+            <div class="hero-links">
+                <a href="https://github.com/Pushwoosh/pushwoosh-ios-sdk" class="btn-primary" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 16 16" fill="currentColor"><path d="M8 0C3.58 0 0 3.58 0 8c0 3.54 2.29 6.53 5.47 7.59.4.07.55-.17.55-.38 0-.19-.01-.82-.01-1.49-2.01.37-2.53-.49-2.69-.94-.09-.23-.48-.94-.82-1.13-.28-.15-.68-.52-.01-.53.63-.01 1.08.58 1.23.82.72 1.21 1.87.87 2.33.66.07-.52.28-.87.51-1.07-1.78-.2-3.64-.89-3.64-3.95 0-.87.31-1.59.82-2.15-.08-.2-.36-1.02.08-2.12 0 0 .67-.21 2.2.82.64-.18 1.32-.27 2-.27.68 0 1.36.09 2 .27 1.53-1.04 2.2-.82 2.2-.82.44 1.1.16 1.92.08 2.12.51.56.82 1.27.82 2.15 0 3.07-1.87 3.75-3.65 3.95.29.25.54.73.54 1.48 0 1.07-.01 1.93-.01 2.2 0 .21.15.46.55.38A8.013 8.013 0 0016 8c0-4.42-3.58-8-8-8z"/></svg>
+                    GitHub
+                </a>
+                <a href="https://cocoapods.org/pods/PushwooshXCFramework" class="btn-ghost" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="currentColor" style="width:14px;height:14px"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                    CocoaPods
+                </a>
+                <a href="https://docs.pushwoosh.com/platform-docs/pushwoosh-sdk/ios" class="btn-ghost" target="_blank" rel="noopener">
+                    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" style="width:15px;height:15px"><path d="M2 3h6a4 4 0 0 1 4 4v14a3 3 0 0 0-3-3H2z"/><path d="M22 3h-6a4 4 0 0 0-4 4v14a3 3 0 0 1 3-3h7z"/></svg>
+                    Guides
+                </a>
+            </div>
+        </div>
+    </section>
+
+    <div class="content-wrapper">
+    <main class="content">
+        <div class="section-label" id="section-modules">Modules</div>
+
+        <div class="modules">
+
+        <a href="PushwooshCore/documentation/pushwooshcore/" class="module core" data-icon="cpu">
+            <div class="module-icon" data-icon="cpu"></div>
             <h3>PushwooshCore</h3>
             <p>Core SDK functionality and shared components</p>
         </a>
 
-        <a href="PushwooshForegroundPush/documentation/pushwooshforegroundpush/" class="module optional">
+        <a href="PushwooshForegroundPush/documentation/pushwooshforegroundpush/" class="module optional" data-icon="app">
+            <div class="module-icon" data-icon="app"></div>
             <h3>PushwooshForegroundPush</h3>
             <p>Foreground push notification handling</p>
         </a>
 
-        <a href="PushwooshGRPC/documentation/pushwooshgrpc/" class="module optional">
+        <a href="PushwooshGRPC/documentation/pushwooshgrpc/" class="module optional" data-icon="bolt">
+            <div class="module-icon" data-icon="bolt"></div>
             <h3>PushwooshGRPC</h3>
             <p>Optional gRPC transport for improved performance</p>
         </a>
 
-        <a href="PushwooshKeychain/documentation/pushwooshkeychain/" class="module optional">
+        <a href="PushwooshKeychain/documentation/pushwooshkeychain/" class="module optional" data-icon="lock">
+            <div class="module-icon" data-icon="lock"></div>
             <h3>PushwooshKeychain</h3>
             <p>Persistent device identification across app reinstalls</p>
         </a>
 
-        <a href="PushwooshLiveActivities/documentation/pushwooshliveactivities/" class="module optional">
+        <a href="PushwooshLiveActivities/documentation/pushwooshliveactivities/" class="module optional" data-icon="activity">
+            <div class="module-icon" data-icon="activity"></div>
             <h3>PushwooshLiveActivities</h3>
             <p>Live Activities support for iOS 16.1+</p>
         </a>
 
-        <a href="PushwooshTVOS/documentation/pushwooshtvos/" class="module optional">
+        <a href="PushwooshTVOS/documentation/pushwooshtvos/" class="module optional" data-icon="tv">
+            <div class="module-icon" data-icon="tv"></div>
             <h3>PushwooshTVOS</h3>
             <p>Push notifications for Apple TV</p>
         </a>
 
-        <a href="PushwooshVoIP/documentation/pushwooshvoip/" class="module optional">
+        <a href="PushwooshVoIP/documentation/pushwooshvoip/" class="module optional" data-icon="phone">
+            <div class="module-icon" data-icon="phone"></div>
             <h3>PushwooshVoIP</h3>
             <p>VoIP push notifications and CallKit integration</p>
         </a>
 
-        <a href="PushwooshiOS/documentation/pushwooshframework/" class="module core">
+        <a href="PushwooshiOS/documentation/pushwooshframework/" class="module core" data-icon="bell">
+            <div class="module-icon" data-icon="bell"></div>
             <h3>Pushwoosh</h3>
             <p>Push notification SDK for iOS applications</p>
         </a>
 
+        </div>
+
+        <div class="ai-section">
+            <div class="section-label" id="section-ai">AI-Assisted Integration</div>
+            <div class="ai-banner">
+                <div class="ai-banner-inner">
+                    <div class="ai-icon">
+                        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 2a4 4 0 0 1 4 4v1a1 1 0 0 0 1 1h1a4 4 0 0 1 0 8h-1a1 1 0 0 0-1 1v1a4 4 0 0 1-8 0v-1a1 1 0 0 0-1-1H6a4 4 0 0 1 0-8h1a1 1 0 0 0 1-1V6a4 4 0 0 1 4-4z"/><circle cx="12" cy="12" r="2"/></svg>
+                    </div>
+                    <div class="ai-text">
+                        <h4>Use with AI coding assistants</h4>
+                        <p>Instead of reading docs manually, let your AI assistant access the latest Pushwoosh iOS SDK documentation, code snippets, and API reference directly during the conversation via <strong>Context7 MCP</strong> server.</p>
+                    </div>
+                </div>
+                <div class="ai-setup" data-tab-group="ai">
+                    <div class="ai-how">
+                        <div class="ai-how-title">How it works</div>
+                        <p class="ai-how-desc">Context7 is an MCP server that delivers up-to-date library documentation to AI assistants. Instead of relying on potentially outdated training data, the assistant fetches the latest docs in real time.</p>
+                        <div class="ai-supported">
+                            <span class="ai-tool-chip">Claude Code</span>
+                            <span class="ai-tool-chip">Cursor</span>
+                            <span class="ai-tool-chip">Windsurf</span>
+                            <span class="ai-tool-chip">Cline</span>
+                            <span class="ai-tool-chip ai-tool-more">+ any MCP-compatible tool</span>
+                        </div>
+                    </div>
+
+                    <div class="ai-divider"></div>
+
+                    <div class="ai-how-title">Setup</div>
+                    <div class="step-tabs" style="margin-top:12px">
+                        <button class="step-tab active" data-target="ai-claude">Claude Code</button>
+                        <button class="step-tab" data-target="ai-cursor">Cursor / Windsurf</button>
+                    </div>
+                    <div class="step-panel active" id="ai-claude">
+                        <p class="ai-step-desc">Run in terminal:</p>
+                        <div class="code-window">
+                            <div class="code-body" style="padding:12px 16px">
+<pre><span class="fn">claude</span> mcp add context7 -- npx -y <span class="st">@upstash/context7-mcp@latest</span></pre>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="step-panel" id="ai-cursor">
+                        <p class="ai-step-desc">Add to your MCP configuration file:</p>
+                        <div class="code-window">
+                            <div class="code-titlebar">
+                                <div class="dots"><span></span><span></span><span></span></div>
+                                <span class="filename">.cursor/mcp.json</span>
+                                <span style="width:42px"></span>
+                            </div>
+                            <div class="code-body">
+<pre>{
+  <span class="st">"mcpServers"</span>: {
+    <span class="st">"context7"</span>: {
+      <span class="st">"command"</span>: <span class="st">"npx"</span>,
+      <span class="st">"args"</span>: [<span class="st">"-y"</span>, <span class="st">"@upstash/context7-mcp@latest"</span>]
+    }
+  }
+}</pre>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="ai-divider"></div>
+
+                    <div class="ai-how-title">Example prompts</div>
+                    <div class="ai-prompt-list">
+                        <div class="ai-prompt-item">
+                            <span class="ai-prompt-num">1</span>
+                            <span class="ai-prompt-text">"Integrate Pushwoosh iOS SDK into my project using SPM and configure Info.plist"</span>
+                        </div>
+                        <div class="ai-prompt-item">
+                            <span class="ai-prompt-num">2</span>
+                            <span class="ai-prompt-text">"Implement PWMessagingDelegate to handle push notification callbacks"</span>
+                        </div>
+                        <div class="ai-prompt-item">
+                            <span class="ai-prompt-num">3</span>
+                            <span class="ai-prompt-text">"Set up user segmentation with tags for targeted push notifications"</span>
+                        </div>
+                    </div>
+
+                    <div class="ai-divider"></div>
+
+                    <div class="ai-how-title">What the AI assistant gets</div>
+                    <div class="ai-features">
+                        <div class="ai-feature">
+                            <svg viewBox="0 0 20 20" fill="currentColor" class="check-icon"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Installation instructions &mdash; SPM and CocoaPods setup
+                        </div>
+                        <div class="ai-feature">
+                            <svg viewBox="0 0 20 20" fill="currentColor" class="check-icon"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Complete API reference documentation
+                        </div>
+                        <div class="ai-feature">
+                            <svg viewBox="0 0 20 20" fill="currentColor" class="check-icon"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Swift and Objective-C code examples
+                        </div>
+                        <div class="ai-feature">
+                            <svg viewBox="0 0 20 20" fill="currentColor" class="check-icon"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Module-specific integration guides
+                        </div>
+                        <div class="ai-feature">
+                            <svg viewBox="0 0 20 20" fill="currentColor" class="check-icon"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                            Configuration details &mdash; Info.plist, entitlements, capabilities
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <div class="quickstart">
+            <div class="section-label" id="section-quickstart">Quick Start</div>
+
+            <div class="steps">
+                <div class="step" style="animation-delay:0.50s">
+                    <div class="step-number">1</div>
+                    <div class="step-content">
+                        <h4>Install the SDK</h4>
+                        <div class="step-tabs">
+                            <button class="step-tab active" data-target="install-spm">SPM</button>
+                            <button class="step-tab" data-target="install-cocoapods">CocoaPods</button>
+                        </div>
+                        <div class="step-panel active" id="install-spm">
+                            <div class="spm-instructions">
+                                <p class="spm-repo">Xcode &rarr; File &rarr; Add Package Dependencies &rarr; enter URL:</p>
+                                <div class="code-window" style="margin-bottom:16px">
+                                    <div class="code-body" style="padding:12px 16px">
+<pre><span class="st">https://github.com/Pushwoosh/Pushwoosh-XCFramework</span></pre>
+                                    </div>
+                                </div>
+                                <div class="fw-group">
+                                    <div class="fw-label required">Required</div>
+                                    <div class="fw-list">
+                                        <span class="fw-chip required">PushwooshFramework</span>
+                                        <span class="fw-chip required">PushwooshCore</span>
+                                        <span class="fw-chip required">PushwooshBridge</span>
+                                    </div>
+                                </div>
+                                <div class="fw-group">
+                                    <div class="fw-label optional">Optional</div>
+                                    <div class="fw-list">
+                                        <span class="fw-chip optional">PushwooshLiveActivities</span>
+                                        <span class="fw-chip optional">PushwooshVoIP</span>
+                                        <span class="fw-chip optional">PushwooshForegroundPush</span>
+                                        <span class="fw-chip optional">PushwooshKeychain</span>
+                                        <span class="fw-chip optional">PushwooshGRPC</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-panel" id="install-cocoapods">
+                            <div class="code-window">
+                                <div class="code-titlebar">
+                                    <div class="dots"><span></span><span></span><span></span></div>
+                                    <span class="filename">Podfile</span>
+                                    <span style="width:42px"></span>
+                                </div>
+                                <div class="code-body">
+<pre><span class="fn">pod</span> <span class="st">'PushwooshXCFramework'</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step" style="animation-delay:0.55s">
+                    <div class="step-number">2</div>
+                    <div class="step-content">
+                        <h4>Configure Info.plist</h4>
+                        <div class="code-window">
+                            <div class="code-titlebar">
+                                <div class="dots"><span></span><span></span><span></span></div>
+                                <span class="filename">Info.plist</span>
+                                <span style="width:42px"></span>
+                            </div>
+                            <div class="code-body">
+<pre><span class="kw">&lt;key&gt;</span><span class="ty">Pushwoosh_APPID</span><span class="kw">&lt;/key&gt;</span>
+<span class="kw">&lt;string&gt;</span><span class="st">XXXXX-XXXXX</span><span class="kw">&lt;/string&gt;</span>
+<span class="kw">&lt;key&gt;</span><span class="ty">Pushwoosh_API_TOKEN</span><span class="kw">&lt;/key&gt;</span>
+<span class="kw">&lt;string&gt;</span><span class="st">YOUR-DEVICE-API-TOKEN</span><span class="kw">&lt;/string&gt;</span></pre>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step" style="animation-delay:0.60s">
+                    <div class="step-number">3</div>
+                    <div class="step-content">
+                        <h4>Enable Capabilities</h4>
+                        <div class="capability-list">
+                            <div class="capability-item">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="check-icon"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                Push Notifications
+                            </div>
+                            <div class="capability-item">
+                                <svg viewBox="0 0 20 20" fill="currentColor" class="check-icon"><path fill-rule="evenodd" d="M16.707 5.293a1 1 0 010 1.414l-8 8a1 1 0 01-1.414 0l-4-4a1 1 0 011.414-1.414L8 12.586l7.293-7.293a1 1 0 011.414 0z" clip-rule="evenodd"/></svg>
+                                Background Modes &rarr; Remote notifications
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="step" style="animation-delay:0.65s">
+                    <div class="step-number">4</div>
+                    <div class="step-content">
+                        <h4>Initialize SDK</h4>
+                        <div class="step-tabs">
+                            <button class="step-tab active" data-target="init-swift">Swift</button>
+                            <button class="step-tab" data-target="init-objc">Objective-C</button>
+                        </div>
+                        <div class="step-panel active" id="init-swift">
+                            <div class="code-window">
+                                <div class="code-titlebar">
+                                    <div class="dots"><span></span><span></span><span></span></div>
+                                    <span class="filename">AppDelegate.swift</span>
+                                    <span style="width:42px"></span>
+                                </div>
+                                <div class="code-body">
+<pre><span class="kw">import</span> <span class="ty">PushwooshFramework</span>
+
+<span class="kw">class</span> <span class="ty">AppDelegate</span>: <span class="ty">NSObject</span>, <span class="ty">UIApplicationDelegate</span>, <span class="ty">PWMessagingDelegate</span> {
+
+    <span class="kw">func</span> <span class="fn">application</span>(<span class="pr">_</span> application: <span class="ty">UIApplication</span>,
+        didFinishLaunchingWithOptions launchOptions:
+            [<span class="ty">UIApplication</span>.<span class="ty">LaunchOptionsKey</span>: <span class="ty">Any</span>]?) -> <span class="ty">Bool</span> {
+
+        <span class="ty">Pushwoosh</span>.<span class="pr">configure</span>.<span class="fn">setDelegate</span>(<span class="kw">self</span>)
+        <span class="ty">Pushwoosh</span>.<span class="pr">configure</span>.<span class="fn">registerForPushNotifications</span>()
+
+        <span class="kw">return</span> <span class="dt">true</span>
+    }
+
+    <span class="kw">func</span> <span class="fn">application</span>(<span class="pr">_</span> application: <span class="ty">UIApplication</span>,
+        didRegisterForRemoteNotificationsWithDeviceToken deviceToken: <span class="ty">Data</span>) {
+        <span class="ty">Pushwoosh</span>.<span class="pr">configure</span>.<span class="fn">handlePushRegistration</span>(deviceToken)
+    }
+
+    <span class="cm">// Called when a push is received</span>
+    <span class="kw">func</span> <span class="fn">pushwoosh</span>(<span class="pr">_</span> pushwoosh: <span class="ty">Pushwoosh</span>,
+        onMessageReceived message: <span class="ty">PWMessage</span>) {
+        <span class="fn">print</span>(<span class="st">"Received: </span>\(message.<span class="pr">payload</span>)<span class="st">"</span>)
+    }
+
+    <span class="cm">// Called when a push is tapped</span>
+    <span class="kw">func</span> <span class="fn">pushwoosh</span>(<span class="pr">_</span> pushwoosh: <span class="ty">Pushwoosh</span>,
+        onMessageOpened message: <span class="ty">PWMessage</span>) {
+        <span class="fn">print</span>(<span class="st">"Opened: </span>\(message.<span class="pr">payload</span>)<span class="st">"</span>)
+    }
+}</pre>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="step-panel" id="init-objc">
+                            <div class="code-window">
+                                <div class="code-titlebar">
+                                    <div class="dots"><span></span><span></span><span></span></div>
+                                    <span class="filename">AppDelegate.m</span>
+                                    <span style="width:42px"></span>
+                                </div>
+                                <div class="code-body">
+<pre><span class="kw">#import</span> <span class="st">&lt;PushwooshFramework/PushwooshFramework.h&gt;</span>
+
+<span class="kw">@interface</span> <span class="ty">AppDelegate</span> () &lt;<span class="ty">PWMessagingDelegate</span>&gt;
+<span class="kw">@end</span>
+
+<span class="kw">@implementation</span> <span class="ty">AppDelegate</span>
+
+- (<span class="ty">BOOL</span>)<span class="fn">application</span>:(<span class="ty">UIApplication</span> *)application
+    didFinishLaunchingWithOptions:(<span class="ty">NSDictionary</span> *)launchOptions {
+
+    [<span class="ty">Pushwoosh</span>.<span class="pr">configure</span> <span class="fn">setDelegate</span>:<span class="kw">self</span>];
+    [<span class="ty">Pushwoosh</span>.<span class="pr">configure</span> <span class="fn">registerForPushNotifications</span>];
+
+    <span class="kw">return</span> <span class="dt">YES</span>;
+}
+
+- (<span class="kw">void</span>)<span class="fn">application</span>:(<span class="ty">UIApplication</span> *)application
+    didRegisterForRemoteNotificationsWithDeviceToken:(<span class="ty">NSData</span> *)deviceToken {
+    [<span class="ty">Pushwoosh</span>.<span class="pr">configure</span> <span class="fn">handlePushRegistration</span>:deviceToken];
+}
+
+- (<span class="kw">void</span>)<span class="fn">pushwoosh</span>:(<span class="ty">Pushwoosh</span> *)pushwoosh
+    onMessageReceived:(<span class="ty">PWMessage</span> *)message {
+    <span class="fn">NSLog</span>(<span class="st">@"Received: %@"</span>, message.<span class="pr">payload</span>);
+}
+
+- (<span class="kw">void</span>)<span class="fn">pushwoosh</span>:(<span class="ty">Pushwoosh</span> *)pushwoosh
+    onMessageOpened:(<span class="ty">PWMessage</span> *)message {
+    <span class="fn">NSLog</span>(<span class="st">@"Opened: %@"</span>, message.<span class="pr">payload</span>);
+}
+
+<span class="kw">@end</span></pre>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <nav class="page-nav">
+        <div class="page-nav-title">On this page</div>
+        <a href="#section-modules" class="page-nav-link active" data-section="section-modules">Modules</a>
+        <a href="#section-ai" class="page-nav-link" data-section="section-ai">AI-Assisted Integration</a>
+        <a href="#section-quickstart" class="page-nav-link" data-section="section-quickstart">Quick Start</a>
+    </nav>
     </div>
+
+    <footer class="footer">
+        <p><a href="https://www.pushwoosh.com" target="_blank" rel="noopener">Pushwoosh</a> &middot; Built with Apple DocC</p>
+    </footer>
+
+    <script>
+        // Inject SVG icons into module cards
+        const icons = {
+            bell: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M18 8A6 6 0 0 0 6 8c0 7-3 9-3 9h18s-3-2-3-9"/><path d="M13.73 21a2 2 0 0 1-3.46 0"/></svg>',
+            cpu: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="16" rx="2"/><rect x="9" y="9" width="6" height="6"/><line x1="9" y1="1" x2="9" y2="4"/><line x1="15" y1="1" x2="15" y2="4"/><line x1="9" y1="20" x2="9" y2="23"/><line x1="15" y1="20" x2="15" y2="23"/><line x1="20" y1="9" x2="23" y2="9"/><line x1="20" y1="14" x2="23" y2="14"/><line x1="1" y1="9" x2="4" y2="9"/><line x1="1" y1="14" x2="4" y2="14"/></svg>',
+            link: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/><path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/></svg>',
+            phone: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07 19.5 19.5 0 0 1-6-6 19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 4.11 2h3a2 2 0 0 1 2 1.72 12.84 12.84 0 0 0 .7 2.81 2 2 0 0 1-.45 2.11L8.09 9.91a16 16 0 0 0 6 6l1.27-1.27a2 2 0 0 1 2.11-.45 12.84 12.84 0 0 0 2.81.7A2 2 0 0 1 22 16.92z"/></svg>',
+            tv: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="2" y="7" width="20" height="15" rx="2" ry="2"/><polyline points="17 2 12 7 7 2"/></svg>',
+            activity: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg>',
+            app: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="2" ry="2"/><line x1="3" y1="9" x2="21" y2="9"/><line x1="9" y1="21" x2="9" y2="9"/></svg>',
+            lock: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="11" width="18" height="11" rx="2" ry="2"/><path d="M7 11V7a5 5 0 0 1 10 0v4"/></svg>',
+            bolt: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>',
+            doc: '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/></svg>'
+        };
+
+        const arrowSvg = '<svg class="arrow" viewBox="0 0 20 20" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="10" x2="15" y2="10"/><polyline points="11 6 15 10 11 14"/></svg>';
+
+        document.querySelectorAll('.module-icon').forEach(el => {
+            const key = el.getAttribute('data-icon') || 'doc';
+            el.innerHTML = icons[key] || icons.doc;
+        });
+
+        document.querySelectorAll('.module').forEach(el => {
+            el.insertAdjacentHTML('beforeend', arrowSvg);
+        });
+
+        // Scroll spy for page nav
+        const navLinks = document.querySelectorAll('.page-nav-link');
+        const sections = Array.from(navLinks).map(link => ({
+            link,
+            target: document.getElementById(link.dataset.section)
+        })).filter(s => s.target);
+
+        function updateNav() {
+            const scrollY = window.scrollY + 100;
+            let current = sections[0];
+            for (const s of sections) {
+                if (s.target.offsetTop <= scrollY) current = s;
+            }
+            navLinks.forEach(l => l.classList.remove('active'));
+            if (current) current.link.classList.add('active');
+        }
+
+        window.addEventListener('scroll', updateNav, { passive: true });
+        updateNav();
+
+        // Smooth scroll for nav links
+        navLinks.forEach(link => {
+            link.addEventListener('click', e => {
+                e.preventDefault();
+                const target = document.getElementById(link.dataset.section);
+                if (target) {
+                    window.scrollTo({ top: target.offsetTop - 24, behavior: 'smooth' });
+                }
+            });
+        });
+
+        // Tab switching — find the nearest container with both tabs and panels
+        document.querySelectorAll('.step-tab').forEach(tab => {
+            tab.addEventListener('click', () => {
+                const container = tab.closest('.step-content') || tab.closest('.ai-setup');
+                if (!container) return;
+                // Only reset tabs within the same tab group (siblings)
+                const tabBar = tab.closest('.step-tabs');
+                tabBar.querySelectorAll('.step-tab').forEach(t => t.classList.remove('active'));
+                // Find all panels that are siblings of this tab group
+                container.querySelectorAll('.step-panel').forEach(p => {
+                    // Only toggle panels that belong to tabs in this tab bar
+                    const panelTab = tabBar.querySelector('[data-target="' + p.id + '"]');
+                    if (panelTab) p.classList.remove('active');
+                });
+                tab.classList.add('active');
+                document.getElementById(tab.dataset.target).classList.add('active');
+            });
+        });
+    </script>
+
 </body>
 </html>
