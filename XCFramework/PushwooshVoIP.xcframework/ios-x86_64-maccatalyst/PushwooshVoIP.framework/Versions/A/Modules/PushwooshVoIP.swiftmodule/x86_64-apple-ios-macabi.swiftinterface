@@ -20,6 +20,9 @@ import _SwiftConcurrencyShims
     @objc set
   }
   @objc public static func voip() -> Swift.AnyClass
+  @objc public static func configureVoIP()
+  @objc public static func setRingtone(_ ringtoneSound: Swift.String?)
+  @available(*, deprecated, message: "VoIP is auto-initialized. Use setRingtone() instead.")
   @objc public static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
   @objc public static func setVoIPToken(_ token: Foundation.Data)
   @objc public static func setIncomingCallTimeout(_ timeout: Foundation.TimeInterval)
@@ -49,6 +52,8 @@ extension PushwooshBridge.PWVoIP {
   public static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
   @available(iOS 14.0, *)
   public static func setVoIPToken(_ token: Foundation.Data)
+  @available(iOS 14.0, *)
+  public static func setRingtone(_ ringtoneSound: Swift.String)
   @available(iOS 14.0, *)
   public static func setIncomingCallTimeout(_ timeout: Foundation.TimeInterval)
 }

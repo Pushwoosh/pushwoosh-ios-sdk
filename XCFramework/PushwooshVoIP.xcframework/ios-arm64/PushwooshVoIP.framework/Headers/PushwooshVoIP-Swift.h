@@ -650,8 +650,13 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, weak) id _Nullable delegate;)
 + (void)setDelegate:(id _Nullable)newValue;
 /// Returns the VoIP implementation class.
 + (Class _Nonnull)voip SWIFT_WARN_UNUSED_RESULT;
-/// Initializes the VoIP module with CallKit configuration.
-+ (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
++ (void)configureVoIP;
+/// Sets custom ringtone for incoming VoIP calls. Persisted across app launches.
+/// Pass nil or empty string to reset to system default ringtone.
++ (void)setRingtone:(NSString * _Nullable)ringtoneSound;
+/// Deprecated: VoIP is now auto-initialized via earlyInitialize().
+/// Use setRingtone() to customize the ringtone sound.
++ (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes SWIFT_DEPRECATED_MSG("VoIP is auto-initialized. Use setRingtone() instead.");
 /// Sets the VoIP push token manually.
 + (void)setVoIPToken:(NSData * _Nonnull)token;
 + (void)setIncomingCallTimeout:(NSTimeInterval)timeout;

@@ -59,6 +59,16 @@ public extension PWVoIP {
         PushwooshVoIPImplementation.setVoIPToken(token)
     }
 
+    /// Sets custom ringtone sound for incoming VoIP calls.
+    /// Call this at any time; the new ringtone takes effect on the next incoming call.
+    ///
+    /// - Parameter ringtoneSound: The name of the ringtone sound file (e.g., "ring.caf").
+    ///                           The file must be included in your app bundle.
+    @available(iOS 14.0, *)
+    static func setRingtone(_ ringtoneSound: String) {
+        PushwooshVoIPImplementation.setRingtone(ringtoneSound)
+    }
+
     /// Sets the timeout duration for incoming call notifications.
     ///
     /// Configures how long the incoming call UI remains active before automatically timing out.

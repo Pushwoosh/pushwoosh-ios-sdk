@@ -69,11 +69,20 @@ BOOL dynamicDidFinishLaunchingAutoTest(id self, SEL _cmd, id application, id lau
 
 BOOL _replacement_didFinishLaunchingWithOptionsExtensionRequest(id self, SEL _cmd, UIApplication *application, NSDictionary *launchOptions) {
     ((BOOL(*)(id, SEL, UIApplication *, NSDictionary *))pw_original_didFinishLaunchingWithOptionsExtension)(self, _cmd, application, launchOptions);
-    
+
     BOOL result = YES;
 
     [[PWAppLifecycleTrackingManager sharedManager] startTracking];
-    
+
+    // VoIP initialization — create PKPushRegistry and CXProvider
+    Class voipClass = NSClassFromString(@"PushwooshVoIPImplementation");
+    if (voipClass && [voipClass respondsToSelector:@selector(configureVoIP)]) {
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
+        [voipClass performSelector:@selector(configureVoIP)];
+#pragma clang diagnostic pop
+    }
+
     return result;
 }
 

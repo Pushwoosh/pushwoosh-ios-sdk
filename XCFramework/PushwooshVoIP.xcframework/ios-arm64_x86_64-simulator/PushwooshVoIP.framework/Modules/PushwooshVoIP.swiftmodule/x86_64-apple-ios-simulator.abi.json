@@ -278,6 +278,67 @@
           },
           {
             "kind": "Function",
+            "name": "configureVoIP",
+            "printedName": "configureVoIP()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cm)configureVoIP",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC09configurebC0yyFZ",
+            "moduleName": "PushwooshVoIP",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setRingtone",
+            "printedName": "setRingtone(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cm)setRingtone:",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC11setRingtoneyySSSgFZ",
+            "moduleName": "PushwooshVoIP",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "initializeVoIP",
             "printedName": "initializeVoIP(_:ringtoneSound:handleTypes:)",
             "children": [
@@ -310,11 +371,13 @@
             "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC010initializebC0_13ringtoneSound11handleTypesySb_SSSitFZ",
             "moduleName": "PushwooshVoIP",
             "static": true,
+            "deprecated": true,
             "objc_name": "initializeVoIP:ringtoneSound:handleTypes:",
             "declAttributes": [
               "Final",
               "ObjC",
               "AccessControl",
+              "Available",
               "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
@@ -2951,6 +3014,38 @@
           },
           {
             "kind": "Function",
+            "name": "setRingtone",
+            "printedName": "setRingtone(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge6PWVoIPP0a2VoD0E11setRingtoneyySSFZ",
+            "mangledName": "$s15PushwooshBridge6PWVoIPP0a2VoD0E11setRingtoneyySSFZ",
+            "moduleName": "PushwooshVoIP",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
+            "static": true,
+            "intro_iOS": "14.0",
+            "declAttributes": [
+              "Available",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "setIncomingCallTimeout",
             "printedName": "setIncomingCallTimeout(_:)",
             "children": [
@@ -3007,37 +3102,44 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "Dictionary",
-      "offset": 1622,
+      "offset": 1899,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "Dictionary",
-      "offset": 1676,
+      "offset": 1953,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "FloatLiteral",
-      "offset": 1733,
+      "offset": 2010,
       "length": 4,
       "value": "30.0"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "Dictionary",
-      "offset": 1805,
+      "offset": 2082,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "StringLiteral",
-      "offset": 1919,
+      "offset": 2196,
       "length": 25,
       "value": "\"com.pushwoosh.voip.sync\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
+      "kind": "StringLiteral",
+      "offset": 2638,
+      "length": 23,
+      "value": "\"PushwooshVoIPRingtone\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/Message Struct\/PWVoIPMessage.swift",

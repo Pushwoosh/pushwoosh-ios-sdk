@@ -29,6 +29,12 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         set {
             if let delegate = newValue as? (NSObjectProtocol & PWVoIPCallDelegate) {
                 shared._delegate = delegate
+                if let controller = shared.callController {
+                    delegate.returnedCallController?(controller)
+                }
+                if let provider = shared.callKitProvider {
+                    delegate.returnedProvider?(provider)
+                }
             } else if newValue != nil {
                 PushwooshLog.pushwooshLog(.PW_LL_ERROR,
                                           className: self,
@@ -62,33 +68,70 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         return PushwooshVoIPImplementation.self
     }
 
-    // MARK: - Initialization (VoIP, CallKit)
-    /// Initializes the VoIP module with CallKit configuration.
+    // MARK: - VoIP Configuration
+    /// Creates PKPushRegistry, CXProvider and CXCallController with default configuration.
+    /// Called automatically from swizzled didFinishLaunchingWithOptions.
+    private static let ringtoneKey = "PushwooshVoIPRingtone"
+
     @objc
-    public static func initializeVoIP(_ supportVideo: Bool,
-                                      ringtoneSound: String,
-                                      handleTypes: Int) {
+    public static func configureVoIP() {
+        guard shared.callKitProvider == nil else { return }
+
         let config = CXProviderConfiguration()
-        config.supportsVideo = supportVideo
         config.maximumCallGroups = 1
         config.maximumCallsPerCallGroup = 1
-        config.ringtoneSound = ringtoneSound
-        config.supportedHandleTypes = handleTypes.toCXSetHandleType
+        if let savedRingtone = UserDefaults.standard.string(forKey: ringtoneKey) {
+            config.ringtoneSound = savedRingtone
+        }
 
         let provider = CXProvider(configuration: config)
         provider.setDelegate(shared, queue: nil)
         shared.callKitProvider = provider
 
-        let controller = CXCallController()
-        shared.callController = controller
+        shared.callController = CXCallController()
 
         let registry = PKPushRegistry(queue: DispatchQueue.main)
         registry.delegate = shared
         registry.desiredPushTypes = [.voIP]
         shared.voipRegistry = registry
 
-        PushwooshVoIPImplementation.delegate?.returnedCallController(controller)
-        PushwooshVoIPImplementation.delegate?.returnedProvider(provider)
+        // If delegate was set before configureVoIP, deliver provider/controller now
+        if let delegate = shared._delegate {
+            delegate.returnedCallController?(shared.callController!)
+            delegate.returnedProvider?(shared.callKitProvider!)
+        }
+    }
+
+    // MARK: - Ringtone Configuration
+    /// Sets custom ringtone for incoming VoIP calls. Persisted across app launches.
+    /// Pass nil or empty string to reset to system default ringtone.
+    @objc
+    public static func setRingtone(_ ringtoneSound: String?) {
+        let newValue = (ringtoneSound?.isEmpty == false) ? ringtoneSound : nil
+        let current = UserDefaults.standard.string(forKey: ringtoneKey)
+        guard current != newValue else { return }
+
+        if let newValue = newValue {
+            UserDefaults.standard.set(newValue, forKey: ringtoneKey)
+        } else {
+            UserDefaults.standard.removeObject(forKey: ringtoneKey)
+        }
+
+        guard let provider = shared.callKitProvider else { return }
+        let config = provider.configuration
+        config.ringtoneSound = newValue
+        provider.configuration = config
+    }
+
+    // MARK: - Initialization (VoIP, CallKit) [Deprecated]
+    /// Deprecated: VoIP is now auto-initialized via earlyInitialize().
+    /// Use setRingtone() to customize the ringtone sound.
+    @available(*, deprecated, message: "VoIP is auto-initialized. Use setRingtone() instead.")
+    @objc
+    public static func initializeVoIP(_ supportVideo: Bool,
+                                      ringtoneSound: String,
+                                      handleTypes: Int) {
+        setRingtone(ringtoneSound)
     }
 
     /// Sets the VoIP push token manually.
