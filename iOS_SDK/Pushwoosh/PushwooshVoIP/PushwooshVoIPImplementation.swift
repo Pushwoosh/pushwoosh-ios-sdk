@@ -35,6 +35,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
                 if let provider = shared.callKitProvider {
                     delegate.returnedProvider?(provider)
                 }
+                replayPendingDelegateCalls()
             } else if newValue != nil {
                 PushwooshLog.pushwooshLog(.PW_LL_ERROR,
                                           className: self,
@@ -47,6 +48,8 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     }
 
     private weak var _delegate: PWVoIPCallDelegate?
+
+    private var pendingDelegateCalls: [() -> Void] = []
 
     private var voipRegistry: PKPushRegistry?
     private var callKitProvider: CXProvider?
@@ -66,6 +69,34 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     @objc
     public static func voip() -> AnyClass {
         return PushwooshVoIPImplementation.self
+    }
+
+    // MARK: - Delegate Buffering
+
+    /// Calls the delegate immediately if set, otherwise buffers the call for replay.
+    private static func callDelegate(_ block: @escaping (PWVoIPCallDelegate) -> Void) {
+        shared.syncQueue.async {
+            if let delegate = shared._delegate {
+                block(delegate)
+            } else {
+                shared.pendingDelegateCalls.append {
+                    if let delegate = shared._delegate {
+                        block(delegate)
+                    }
+                }
+            }
+        }
+    }
+
+    /// Replays all buffered delegate calls. Called when delegate is set.
+    private static func replayPendingDelegateCalls() {
+        shared.syncQueue.async {
+            let pending = shared.pendingDelegateCalls
+            shared.pendingDelegateCalls.removeAll()
+            for call in pending {
+                call()
+            }
+        }
     }
 
     // MARK: - VoIP Configuration
@@ -194,7 +225,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
             self.pushMessageDict[uuidString] = voipWithUUID
         }
 
-        PushwooshVoIPImplementation.delegate?.voipDidReceiveIncomingCall(payload: voipWithUUID)
+        PushwooshVoIPImplementation.callDelegate { $0.voipDidReceiveIncomingCall(payload: voipWithUUID) }
 
         guard let provider = callKitProvider else {
             PushwooshLog.pushwooshLog(.PW_LL_ERROR,
@@ -211,7 +242,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
             }
 
             if let error = error {
-                PushwooshVoIPImplementation.delegate?.voipDidFailToReportIncomingCall?(error: error)
+                PushwooshVoIPImplementation.callDelegate { $0.voipDidFailToReportIncomingCall?(error: error) }
             } else {
                 self.startTimeoutTimer(for: uuidString)
 
@@ -225,7 +256,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
                     }
                 }
 
-                PushwooshVoIPImplementation.delegate?.voipDidReportIncomingCallSuccessfully?(voipMessage: voipWithUUID)
+                PushwooshVoIPImplementation.callDelegate { $0.voipDidReportIncomingCallSuccessfully?(voipMessage: voipWithUUID) }
             }
 
             completion()
@@ -397,12 +428,14 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
                                   className: self,
                                   message: message)
         
-        if let delegate = PushwooshVoIPImplementation.delegate {
-            if let error = error {
+        if let error = error {
+            PushwooshVoIPImplementation.callDelegate { delegate in
                 if delegate.responds(to: #selector(PWVoIPCallDelegate.voipDidFailToRegisterToken(error:))) {
                     delegate.voipDidFailToRegisterToken?(error: error)
                 }
-            } else {
+            }
+        } else {
+            PushwooshVoIPImplementation.callDelegate { delegate in
                 if delegate.responds(to: #selector(PWVoIPCallDelegate.voipDidRegisterTokenSuccessfully)) {
                     delegate.voipDidRegisterTokenSuccessfully?()
                 }

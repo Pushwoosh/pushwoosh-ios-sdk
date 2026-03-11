@@ -18,7 +18,7 @@
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		mW2PYY1Mu75XgrpaEMsoXLRCCrw=
+		2xRVsSUdCokrUzyei0MQeX1nLIo=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -34,11 +34,11 @@
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		1e/BZmG+YTVVBRCvpsARecfHcwc=
+		UlTZ2yQMJnLyx8eWFZHUncEly6g=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		mW2PYY1Mu75XgrpaEMsoXLRCCrw=
+		2xRVsSUdCokrUzyei0MQeX1nLIo=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		Zn7xSpc7Ps3DQ2VxDW2M7aMfubE=
+		1U1f2PX+Q/KGlj8HqAuXARs3nGo=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -85,7 +85,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			v84ErXodnE1Qm7cdlrHMuO3sVuKJHqK9p3x6CGQDt5w=
+			0pQMnNnRT19X2qPTuYH0OyEt8takqe879Zgi2RbXePU=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
@@ -113,14 +113,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			EfK9I/vn21DhAxpzAcGAfXTmohSHEz5WiWKEoE1SvqU=
+			gQ9rFJt7Zi7xO9ut7FnS8ye8saSEO7IIjDs7pmLYvEg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			v84ErXodnE1Qm7cdlrHMuO3sVuKJHqK9p3x6CGQDt5w=
+			0pQMnNnRT19X2qPTuYH0OyEt8takqe879Zgi2RbXePU=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
@@ -148,7 +148,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Z+SFInVkN2rpfMCdWEQYILYqtbMCIMZ0QszuyAW00xI=
+			LYD6CCIt01uO5C8II883O7rrAse3osHU7feuD8fH6KM=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

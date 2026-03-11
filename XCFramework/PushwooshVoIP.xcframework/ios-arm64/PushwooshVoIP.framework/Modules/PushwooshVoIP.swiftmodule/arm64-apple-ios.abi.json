@@ -3101,43 +3101,50 @@
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
+      "kind": "Array",
+      "offset": 1748,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "Dictionary",
-      "offset": 1899,
+      "offset": 2001,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "Dictionary",
-      "offset": 1953,
+      "offset": 2055,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "FloatLiteral",
-      "offset": 2010,
+      "offset": 2112,
       "length": 4,
       "value": "30.0"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "Dictionary",
-      "offset": 2082,
+      "offset": 2184,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "StringLiteral",
-      "offset": 2196,
+      "offset": 2298,
       "length": 25,
       "value": "\"com.pushwoosh.voip.sync\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "StringLiteral",
-      "offset": 2638,
+      "offset": 3661,
       "length": 23,
       "value": "\"PushwooshVoIPRingtone\""
     },
