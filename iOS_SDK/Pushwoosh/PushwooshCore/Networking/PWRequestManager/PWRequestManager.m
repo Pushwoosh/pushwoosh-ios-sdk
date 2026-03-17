@@ -16,6 +16,7 @@
 #import "PWCachedRequest.h"
 #import "PWServerCommunicationManager.h"
 #import "PushwooshLog.h"
+#import "PWSdkStateProvider.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 #import "PWRequestsCacheManager.h"
@@ -59,15 +60,13 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 		_sendTagsCompletions = [NSMutableArray new];
 		_customHeaders = @{};
 
-        // Try to load gRPC transport class
-        // gRPC is used automatically when PushwooshGRPC module is linked
         _grpcTransportClass = NSClassFromString(@"PushwooshGRPC.PushwooshGRPCImplementation");
 
         if ([PWConfig config].allowReverseProxy) {
-            [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Pushwoosh_ALLOW_REVERSE_PROXY is enabled. All requests will be blocked until setReverseProxy() is called."];
+            [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Pushwoosh_ALLOW_REVERSE_PROXY is enabled. All requests will be queued until setReverseProxy() is called."];
         } else {
-            // Clean App Groups if reverse proxy was previously configured but flag is now off
             [self clearSharedReverseProxySettings];
+            [[PWSdkStateProvider sharedInstance] setReady];
         }
 	}
 
@@ -135,10 +134,13 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
         _customHeaders = headers ? [headers copy] : @{};
     }
 
-    // Save to App Groups for Notification Service Extension (messageDeliveryEvent)
     [self saveSharedReverseProxyUrl:url headers:headers];
 
     [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Reverse proxy configured: %@", url]];
+
+    if ([PWConfig config].allowReverseProxy) {
+        [[PWSdkStateProvider sharedInstance] setReady];
+    }
 }
 
 #pragma mark - App Groups (for NSE)
@@ -177,22 +179,19 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
             _reverseProxyUrl = [sharedProxyUrl copy];
             _customHeaders = [sharedHeaders isKindOfClass:[NSDictionary class]] ? [sharedHeaders copy] : @{};
         }
+        if ([PWConfig config].allowReverseProxy) {
+            [[PWSdkStateProvider sharedInstance] setReady];
+        }
     }
 }
 
 - (void)sendRequest:(PWRequest *)request completion:(void (^)(NSError *error))completion {
-    // Block requests when reverse proxy is required but not configured
-    if ([PWConfig config].allowReverseProxy) {
-        @synchronized (self) {
-            if (!_reverseProxyUrl) {
-                NSString *errorStr = @"Request blocked: Pushwoosh_ALLOW_REVERSE_PROXY is enabled but setReverseProxy() was not called. All requests are blocked until reverse proxy URL is set.";
-                [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:errorStr];
-                if (completion) {
-                    completion([PWUtils pushwooshError:errorStr]);
-                }
-                return;
-            }
-        }
+    if ([PWConfig config].allowReverseProxy && ![[PWSdkStateProvider sharedInstance] isReady]) {
+        __weak typeof(self) wSelf = self;
+        [[PWSdkStateProvider sharedInstance] executeOrQueue:^{
+            [wSelf sendRequest:request completion:completion];
+        }];
+        return;
     }
 
     // Use gRPC automatically when module is linked and supports this method
