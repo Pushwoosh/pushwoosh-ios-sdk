@@ -124,7 +124,11 @@
 }
 
 + (NSString *)generateIdentifier {
-    return [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    NSString *vendorId = [[[UIDevice currentDevice] identifierForVendor] UUIDString];
+    if ([vendorId isEqualToString:@"00000000-0000-0000-0000-000000000000"]) {
+        return [[NSUUID new] UUIDString];
+    }
+    return vendorId;
 }
 
 + (void)showAlertWithTitle:(NSString *)title message:(NSString *)message {
