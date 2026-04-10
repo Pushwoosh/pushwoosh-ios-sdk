@@ -204,6 +204,7 @@
 		449CAA1C287726C100B4EEEF /* PWRegisterUserRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA1A287726C100B4EEEF /* PWRegisterUserRequestTest.m */; };
 		449CAA21287726ED00B4EEEF /* PWUnregisterDeviceRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA1F287726ED00B4EEEF /* PWUnregisterDeviceRequestTest.m */; };
 		449CAA22287726ED00B4EEEF /* PWRegisterTestDeviceRequestTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA20287726ED00B4EEEF /* PWRegisterTestDeviceRequestTest.m */; };
+		D0485AB30C266AC2EFD17C8D /* PWKnockPatternDetectorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6BD66C2B258113D420DCF5AB /* PWKnockPatternDetectorTest.m */; };
 		449CAA252877272B00B4EEEF /* PWConfigurationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA242877272B00B4EEEF /* PWConfigurationTest.m */; };
 		449CAA282877274F00B4EEEF /* PushwooshTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA272877274F00B4EEEF /* PushwooshTest.m */; };
 		449CAA2D287C3A1B00B4EEEF /* PWInAppMessagesManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 449CAA2C287C3A1B00B4EEEF /* PWInAppMessagesManagerTest.m */; };
@@ -373,6 +374,8 @@
 		8F449FD4E47019A14D4A4817 /* PWDataManager.ios.m in Sources */ = {isa = PBXBuildFile; fileRef = 4C9BFA29AEDEFA03CB7F69CC /* PWDataManager.ios.m */; };
 		8F79A88ED3BFEBEB1B2F91E5 /* PWMessage+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 5974901DD0EB945F8502B17F /* PWMessage+Internal.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		901330528E7631C0A9FC9E55 /* PWPlatformModule.h in Headers */ = {isa = PBXBuildFile; fileRef = 32C597601EF1A0B0087530CD /* PWPlatformModule.h */; };
+		0534FED337A0830ECA92934A /* PWKnockPatternDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ACCD753677D2C4EE1D2ACE9 /* PWKnockPatternDetector.h */; };
+		B89C97A74A68F2D8786C59BC /* PWKnockPatternDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 88273FF3A977136F348CAEA2 /* PWKnockPatternDetector.m */; };
 		91B69092847EE965E5A46011 /* PWInboxService.m in Sources */ = {isa = PBXBuildFile; fileRef = 63B0AD03DC411D956CD5A578 /* PWInboxService.m */; };
 		93C9B3E189B720308606CA0D /* PWRichMediaManager.m in Sources */ = {isa = PBXBuildFile; fileRef = C25369D4F2C577A6B5CAA46B /* PWRichMediaManager.m */; };
 		95D94139A3EEA9731A091D5D /* PWTriggerInAppActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 887CB6962C2E88991CDA43CF /* PWTriggerInAppActionRequest.m */; };
@@ -924,6 +927,7 @@
 		449CAA1A287726C100B4EEEF /* PWRegisterUserRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWRegisterUserRequestTest.m; sourceTree = "<group>"; };
 		449CAA1F287726ED00B4EEEF /* PWUnregisterDeviceRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWUnregisterDeviceRequestTest.m; sourceTree = "<group>"; };
 		449CAA20287726ED00B4EEEF /* PWRegisterTestDeviceRequestTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWRegisterTestDeviceRequestTest.m; sourceTree = "<group>"; };
+		6BD66C2B258113D420DCF5AB /* PWKnockPatternDetectorTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWKnockPatternDetectorTest.m; sourceTree = "<group>"; };
 		449CAA242877272B00B4EEEF /* PWConfigurationTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWConfigurationTest.m; sourceTree = "<group>"; };
 		449CAA272877274F00B4EEEF /* PushwooshTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushwooshTest.m; sourceTree = "<group>"; };
 		449CAA2C287C3A1B00B4EEEF /* PWInAppMessagesManagerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInAppMessagesManagerTest.m; sourceTree = "<group>"; };
@@ -1036,6 +1040,8 @@
 		5F1E12D3A26046B18479C894 /* PWCoreUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWCoreUtils.h; sourceTree = "<group>"; };
 		605D32D79447004D195F1D27 /* PWGetResourcesRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWGetResourcesRequest.m; sourceTree = "<group>"; };
 		610F153FEC9D79B573F45FF5 /* PWPlatformModule.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWPlatformModule.m; sourceTree = "<group>"; };
+		6ACCD753677D2C4EE1D2ACE9 /* PWKnockPatternDetector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWKnockPatternDetector.h; sourceTree = "<group>"; };
+		88273FF3A977136F348CAEA2 /* PWKnockPatternDetector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWKnockPatternDetector.m; sourceTree = "<group>"; };
 		611137153F0C87C313957411 /* PWModalWindowConfiguration.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWModalWindowConfiguration.h; sourceTree = "<group>"; };
 		61DED8C48AD676B8C2A66AC6 /* PWPushNotificationsManager.common.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWPushNotificationsManager.common.m; sourceTree = "<group>"; };
 		62665D4A22BE834D308EBAF1 /* PWRequestsCacheManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWRequestsCacheManager.h; sourceTree = "<group>"; };
@@ -1528,6 +1534,8 @@
 				C321900C4FA3F721457185FF /* PWNotificationCategoryBuilder.m */,
 				610F153FEC9D79B573F45FF5 /* PWPlatformModule.m */,
 				7D378EE277A0653882799479 /* PWNotificationManagerCompat.m */,
+				6ACCD753677D2C4EE1D2ACE9 /* PWKnockPatternDetector.h */,
+				88273FF3A977136F348CAEA2 /* PWKnockPatternDetector.m */,
 			);
 			path = Registration;
 			sourceTree = "<group>";
@@ -2012,6 +2020,7 @@
 			isa = PBXGroup;
 			children = (
 				449CAA20287726ED00B4EEEF /* PWRegisterTestDeviceRequestTest.m */,
+				6BD66C2B258113D420DCF5AB /* PWKnockPatternDetectorTest.m */,
 				449CAA1F287726ED00B4EEEF /* PWUnregisterDeviceRequestTest.m */,
 			);
 			name = Registration;
@@ -3102,6 +3111,7 @@
 				A11FA2FE603FC880B58124E4 /* PWRequest.h in Headers */,
 				68FB01C7BFF90FD515DFA27B /* PWInteractivePush.h in Headers */,
 				901330528E7631C0A9FC9E55 /* PWPlatformModule.h in Headers */,
+				0534FED337A0830ECA92934A /* PWKnockPatternDetector.h in Headers */,
 				EA4538D8D360E356E0E266BB /* PWNotificationCategoryBuilder.h in Headers */,
 				0D61DE78A22319D707E35D19 /* PWNotificationManagerCompat.h in Headers */,
 				AF72D4A629017AADF9569B27 /* PWNotificationManagerCompattvOS.h in Headers */,
@@ -3967,6 +3977,7 @@
 				5386D10B616A118738264DF0 /* PWNotificationManagerCompattvOS.m in Sources */,
 				4A5BDFC0826E4F8539F36D94 /* PWNotificationCategoryBuilder.m in Sources */,
 				ED79BADFE1326CFE2327B7A8 /* PWPlatformModule.m in Sources */,
+				B89C97A74A68F2D8786C59BC /* PWKnockPatternDetector.m in Sources */,
 				DE2129C69F8C4BE531ABBF62 /* PWNotificationManagerCompat.m in Sources */,
 				3946C39BC939BCA80060A55D /* PWUserNotificationCenterDelegate.m in Sources */,
 				1726880913E92E473E967766 /* PWPushNotificationsManager.common.m in Sources */,
@@ -4175,6 +4186,7 @@
 				449CAA282877274F00B4EEEF /* PushwooshTest.m in Sources */,
 				9703586227A2796400DEA758 /* BuildFile in Sources */,
 				449CAA22287726ED00B4EEEF /* PWRegisterTestDeviceRequestTest.m in Sources */,
+				D0485AB30C266AC2EFD17C8D /* PWKnockPatternDetectorTest.m in Sources */,
 				44378CC628BE347300175DE2 /* PWInAppPurchaseHelperTest.m in Sources */,
 				5D84AD112153A04E005D7432 /* PWConfigTest.m in Sources */,
 				449CAA1B287726C100B4EEEF /* PWMergeUserRequestTest.m in Sources */,

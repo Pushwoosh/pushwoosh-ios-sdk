@@ -18,6 +18,9 @@
 #import "PWPlatformModule.h"
 #import "PWNotificationManagerCompat.h"
 #import "PWAppLifecycleTrackingManager.h"
+#if TARGET_OS_IOS
+#import "PWKnockPatternDetector.h"
+#endif
 
 #if !__has_feature(objc_arc)
 #error "ARC is required to compile Pushwoosh SDK"
@@ -73,6 +76,9 @@ BOOL _replacement_didFinishLaunchingWithOptionsExtensionRequest(id self, SEL _cm
     BOOL result = YES;
 
     [[PWAppLifecycleTrackingManager sharedManager] startTracking];
+#if TARGET_OS_IOS
+    [[PWKnockPatternDetector sharedDetector] startDetection];
+#endif
 
     // VoIP initialization — create PKPushRegistry and CXProvider
     Class voipClass = NSClassFromString(@"PushwooshVoIPImplementation");
