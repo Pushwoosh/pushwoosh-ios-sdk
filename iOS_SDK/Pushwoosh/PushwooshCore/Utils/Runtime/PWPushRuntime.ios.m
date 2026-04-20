@@ -20,6 +20,7 @@
 #import "PWAppLifecycleTrackingManager.h"
 #if TARGET_OS_IOS
 #import "PWKnockPatternDetector.h"
+#import "PWIdleDetector.h"
 #endif
 
 #if !__has_feature(objc_arc)
@@ -78,6 +79,9 @@ BOOL _replacement_didFinishLaunchingWithOptionsExtensionRequest(id self, SEL _cm
     [[PWAppLifecycleTrackingManager sharedManager] startTracking];
 #if TARGET_OS_IOS
     [[PWKnockPatternDetector sharedDetector] startDetection];
+    if ([PWConfig config].idleTimeoutSeconds > 0) {
+        [[PWIdleDetector sharedDetector] startTracking];
+    }
 #endif
 
     // VoIP initialization — create PKPushRegistry and CXProvider

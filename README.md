@@ -1,8 +1,6 @@
 <p align="center">
-  <img src="pushwoosh.svg" alt="Pushwoosh" width="300">
+  <img src="pushwoosh.png" alt="Pushwoosh iOS SDK">
 </p>
-
-<h1 align="center">Pushwoosh iOS SDK</h1>
 
 <p align="center">
   <a href="https://www.apple.com/ios/"><img src="https://img.shields.io/badge/platform-iOS%20%7C%20iPadOS%20%7C%20tvOS%20%7C%20Mac%20Catalyst-lightgrey.svg?style=flat-square" alt="Platform"></a>

@@ -32,6 +32,10 @@
 #import "PWScreenTrackingManager.h"
 #endif
 
+#if TARGET_OS_IOS
+#import "PWIdleDetector.h"
+#endif
+
 @interface PWDataManagerCommon()
 
 // @Inject
@@ -66,6 +70,11 @@
     [PWAppLifecycleTrackingManager sharedManager].defaultAppClosedAllowed = YES;
     [PWAppLifecycleTrackingManager sharedManager].defaultAppOpenAllowed = YES;
     [PWScreenTrackingManager sharedManager].defaultScreenOpenAllowed = YES;
+#if TARGET_OS_IOS
+    if ([PWConfig config].idleTimeoutSeconds > 0) {
+        [PWIdleDetector sharedDetector].defaultIdleTrackingAllowed = YES;
+    }
+#endif
 }
 
 - (void)addServerCommunicationStartedObserver {

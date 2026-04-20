@@ -128,6 +128,17 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
 @property (nonatomic, assign, readonly) BOOL isCollectingLifecycleEventsAllowed;
 
 /**
+ key: Pushwoosh_IDLE_TIMEOUT_SECONDS
+ type: integer
+ value: Idle threshold in seconds for PW_UserIdle event. Minimum enforced to 30 seconds;
+        values below 30 are clamped to 30 with a warning log.
+        Default (key absent): 0 — idle detection disabled. Set the key explicitly to enable.
+        Set to 0 or negative to disable idle detection entirely.
+        Also forced to 0 when Pushwoosh_ALLOW_COLLECTING_EVENTS is NO.
+ */
+@property (nonatomic, assign, readonly) NSInteger idleTimeoutSeconds;
+
+/**
  key: Pushwoosh_LOG_LEVEL
  type: string
  value: Pushwoosh SDK logging level (NONE, ERROR, WARNING, INFO, DEBUG, VERBOSE)

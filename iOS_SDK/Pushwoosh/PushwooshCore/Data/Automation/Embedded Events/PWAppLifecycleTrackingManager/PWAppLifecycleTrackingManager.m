@@ -40,6 +40,8 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 @property (nonatomic) BOOL initialDefaultOpenEventSent;
 @property (nonatomic) BOOL applicationDidBecomeActive;
 @property (nonatomic) BOOL serverCommunicationEnabled;
+@property (nonatomic, strong, readwrite) NSDate *foregroundTimestamp;
+@property (nonatomic, assign, readwrite) NSTimeInterval foregroundMonotonicTimestamp;
 
 @end
 
@@ -91,6 +93,8 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
             [[PWManagerBridge shared].dataManager sendAppOpenWithCompletion:nil];
         });
 
+        _foregroundTimestamp = [NSDate date];
+        _foregroundMonotonicTimestamp = [NSProcessInfo processInfo].systemUptime;
         _appInForeground = YES;
 
         if (_defaultAppOpenAllowed == YES) {
@@ -100,7 +104,7 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationOpen) name:PW_NOTIFICATION_DID_BECOME_ACTIVE object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(onApplicationClosed) name:PW_NOTIFICATION_DID_ENTER_BACKGROUND object:nil];
-    
+
     // wait until server communication is allowed before sending appOpen
     if (![[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
         [self addServerCommunicationStartedObserver];
@@ -123,6 +127,8 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 
 - (void)onApplicationOpen {
     _applicationDidBecomeActive = YES;
+    _foregroundTimestamp = [NSDate date];
+    _foregroundMonotonicTimestamp = [NSProcessInfo processInfo].systemUptime;
     [self sendAppOpen];
 }
 
@@ -132,11 +138,11 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
     }
     if (!_appInForeground) {
         _appInForeground = YES;
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
             [[PWManagerBridge shared].dataManager sendAppOpenWithCompletion:nil];
         });
-        
+
         if (_defaultAppOpenAllowed == YES) {
             [self sendDefaultEvent: defaultApplicationOpenedEvent];
         }
@@ -154,9 +160,9 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 - (void)onApplicationClosed {
     _appInForeground = NO;
 
-    if (_defaultAppClosedAllowed == YES) {
-        [self sendDefaultEvent: defaultApplicationClosedEvent];
-    }
+    if (_defaultAppClosedAllowed == NO) return;
+
+    [self sendDefaultEvent:defaultApplicationClosedEvent];
 }
 
 - (void)setDefaultAppOpenAllowed:(BOOL)defaultAppOpenAllowed {

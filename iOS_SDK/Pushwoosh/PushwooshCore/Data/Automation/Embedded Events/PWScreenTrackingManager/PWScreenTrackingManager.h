@@ -16,6 +16,7 @@ FOUNDATION_EXPORT NSString * const defaultScreenOpenEvent;
 @interface PWScreenTrackingManager : NSObject
 
 @property (nonatomic) BOOL defaultScreenOpenAllowed;
+@property (nonatomic, copy, readonly, nullable) NSString *currentScreenName;
 
 + (instancetype)sharedManager;
 

@@ -18,6 +18,8 @@ FOUNDATION_EXPORT NSString * const defaultApplicationClosedEvent;
 
 @property (nonatomic) BOOL defaultAppOpenAllowed;
 @property (nonatomic) BOOL defaultAppClosedAllowed;
+@property (nonatomic, strong, readonly, nullable) NSDate *foregroundTimestamp;
+@property (nonatomic, assign, readonly) NSTimeInterval foregroundMonotonicTimestamp;
 
 + (instancetype)sharedManager;
 

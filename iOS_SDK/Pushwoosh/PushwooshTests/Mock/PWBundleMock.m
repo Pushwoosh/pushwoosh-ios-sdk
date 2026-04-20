@@ -15,6 +15,10 @@
         return @(_sendPushStatIfAlertsDisabled);
     } else if ([key isEqualToString:@"Pushwoosh_PURCHASE_TRACKING_ENABLED"]) {
         return @(_sendPurchaseTrackingEnabled);
+    } else if ([key isEqualToString:@"Pushwoosh_IDLE_TIMEOUT_SECONDS"]) {
+        return _idleTimeoutSeconds;
+    } else if ([key isEqualToString:@"Pushwoosh_ALLOW_COLLECTING_EVENTS"] && _allowCollectingEventsSet) {
+        return @(_allowCollectingEvents);
     } else {
         return [[NSBundle mainBundle] objectForInfoDictionaryKey:key];
     }
