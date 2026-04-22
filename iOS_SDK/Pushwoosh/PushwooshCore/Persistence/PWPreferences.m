@@ -10,6 +10,7 @@
 #import "PWConfig.h"
 #import "PWUtils.h"
 #import "Constants.h"
+#import "PWSdkStateProvider.h"
 #import <PushwooshCore/PushwooshLog.h>
 
 #if TARGET_OS_IOS
@@ -529,6 +530,20 @@ static BOOL _isInitializing = NO;
 
     [[NSUserDefaults standardUserDefaults] setObject:appCode forKey:KeyAppId];
     [[NSUserDefaults standardUserDefaults] synchronize];
+
+    NSString *appGroupsName = [[PWConfig config] appGroupsName];
+    if (appGroupsName.length > 0) {
+        NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:appGroupsName];
+        if (appCode.length > 0) {
+            [shared setObject:appCode forKey:KeyAppId];
+        } else {
+            [shared removeObjectForKey:KeyAppId];
+        }
+    }
+
+    if (appCode.length > 0) {
+        [[NSNotificationCenter defaultCenter] postNotificationName:kPWAppCodeUpdatedNotification object:nil];
+    }
 }
 
 - (NSString *)appCode {
@@ -586,9 +601,23 @@ static BOOL _isInitializing = NO;
         return userDefaultsAppCode;
     } else if (infoPlistAppCode) {
         return infoPlistAppCode;
-    } else {
-        return @"";
     }
+
+    NSString *sharedAppCode = [self readSharedAppCode];
+    if (sharedAppCode.length > 0) {
+        return sharedAppCode;
+    }
+    return @"";
+}
+
++ (NSString *)readSharedAppCode {
+    NSString *appGroupsName = [[PWConfig config] appGroupsName];
+    if (appGroupsName.length == 0) {
+        return nil;
+    }
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:appGroupsName];
+    NSString *value = [shared objectForKey:KeyAppId];
+    return [value isKindOfClass:[NSString class]] ? value : nil;
 }
 
 - (BOOL)hasAppCode {

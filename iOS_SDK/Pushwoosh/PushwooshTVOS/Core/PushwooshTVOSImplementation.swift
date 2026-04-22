@@ -53,7 +53,7 @@ public class PushwooshTVOSImplementation: NSObject {
     @objc(shared)
     public static let shared = PushwooshTVOSImplementation()
 
-    private var appCode: String?
+    internal var appCode: String?
     private var deviceToken: String?
 
     private let apiClient = PWTVOSAPIClient()

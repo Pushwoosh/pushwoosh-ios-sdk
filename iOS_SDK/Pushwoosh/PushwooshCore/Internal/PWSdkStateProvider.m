@@ -8,6 +8,8 @@
 #import "PWSdkStateProvider.h"
 #import "PushwooshLog.h"
 
+NSNotificationName const kPWAppCodeUpdatedNotification = @"com.pushwoosh.sdk.appCodeUpdated";
+
 @interface PWSdkStateProvider ()
 
 @property (nonatomic) PWSdkState currentState;

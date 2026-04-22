@@ -17,11 +17,16 @@ final class VoipNetworkManagerTests: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
+        PWPreferences.preferencesInstance().appCode = "TEST-VOIP-APP"
+        let ready = XCTestExpectation(description: "sdk ready")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { ready.fulfill() }
+        wait(for: [ready], timeout: 1.0)
         networkManager = VoipNetworkManager.shared
     }
 
     override func tearDownWithError() throws {
         networkManager = nil
+        PWPreferences.preferencesInstance().appCode = ""
         try super.tearDownWithError()
     }
 

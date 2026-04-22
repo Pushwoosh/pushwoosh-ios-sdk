@@ -41,6 +41,7 @@
 @property (nonatomic, strong) NSMutableArray *sendTagsCompletions;
 @property (nonatomic, copy) NSString *reverseProxyUrl;
 @property (nonatomic, copy) NSDictionary<NSString *, NSString *> *customHeaders;
+@property (nonatomic, assign) BOOL firstQueueWarningEmitted;
 
 // gRPC transport class (dynamically loaded)
 @property (nonatomic, strong) Class grpcTransportClass;
@@ -62,15 +63,92 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 
         _grpcTransportClass = NSClassFromString(@"PushwooshGRPC.PushwooshGRPCImplementation");
 
+        [self seedAppCodeFromInfoPlistIfNeeded];
+
         if ([PWConfig config].allowReverseProxy) {
             [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Pushwoosh_ALLOW_REVERSE_PROXY is enabled. All requests will be queued until setReverseProxy() is called."];
         } else {
             [self clearSharedReverseProxySettings];
-            [[PWSdkStateProvider sharedInstance] setReady];
         }
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onAppCodeUpdatedNotification:)
+                                                     name:kPWAppCodeUpdatedNotification
+                                                   object:nil];
+
+        [self evaluateReadiness];
 	}
 
 	return self;
+}
+
+- (void)dealloc {
+    [[NSNotificationCenter defaultCenter] removeObserver:self];
+}
+
+- (void)seedAppCodeFromInfoPlistIfNeeded {
+    NSString *currentAppCode = [PWPreferences preferences].appCode;
+    if (currentAppCode.length > 0) {
+        return;
+    }
+    NSString *infoPlistAppCode = [PWConfig config].appId;
+    if (infoPlistAppCode.length > 0) {
+        [PWPreferences preferences].appCode = infoPlistAppCode;
+    }
+}
+
+- (BOOL)isReadyForNetwork {
+    NSString *appCode = [PWPreferences preferences].appCode;
+    if (appCode.length == 0) {
+        return NO;
+    }
+    if ([PWConfig config].allowReverseProxy) {
+        BOOL hasProxy;
+        @synchronized (self) {
+            hasProxy = (_reverseProxyUrl.length > 0);
+        }
+        if (!hasProxy) {
+            return NO;
+        }
+    }
+    return YES;
+}
+
+- (void)evaluateReadiness {
+    if ([self isReadyForNetwork]) {
+        [[PWSdkStateProvider sharedInstance] setReady];
+    }
+}
+
+- (void)onAppCodeUpdatedNotification:(NSNotification *)notification {
+    __weak typeof(self) wSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [wSelf evaluateReadiness];
+    });
+}
+
+- (void)logFirstQueueWarnIfNeeded:(PWRequest *)request {
+    BOOL shouldWarn = NO;
+    NSString *reason = nil;
+    @synchronized (self) {
+        if (!_firstQueueWarningEmitted) {
+            _firstQueueWarningEmitted = YES;
+            shouldWarn = YES;
+            if ([PWPreferences preferences].appCode.length == 0) {
+                reason = @"app_code is not set. Call Pushwoosh.configure.setAppCode() or set Pushwoosh_APPID in Info.plist.";
+            } else {
+                reason = @"reverse proxy URL is not set. Call Pushwoosh.configure.setReverseProxy().";
+            }
+        }
+    }
+    if (shouldWarn) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:self
+                           message:[NSString stringWithFormat:@"Pushwoosh SDK is not ready yet - %@ Requests will be queued until the SDK is ready.", reason]];
+    }
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG
+                     className:self
+                       message:[NSString stringWithFormat:@"Queuing %@ until SDK is ready.", request.methodName]];
 }
 
 - (BOOL)isGRPCAvailable {
@@ -139,7 +217,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Reverse proxy configured: %@", url]];
 
     if ([PWConfig config].allowReverseProxy) {
-        [[PWSdkStateProvider sharedInstance] setReady];
+        [self evaluateReadiness];
     }
 }
 
@@ -180,13 +258,14 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
             _customHeaders = [sharedHeaders isKindOfClass:[NSDictionary class]] ? [sharedHeaders copy] : @{};
         }
         if ([PWConfig config].allowReverseProxy) {
-            [[PWSdkStateProvider sharedInstance] setReady];
+            [self evaluateReadiness];
         }
     }
 }
 
 - (void)sendRequest:(PWRequest *)request completion:(void (^)(NSError *error))completion {
-    if ([PWConfig config].allowReverseProxy && ![[PWSdkStateProvider sharedInstance] isReady]) {
+    if (![[PWSdkStateProvider sharedInstance] isReady]) {
+        [self logFirstQueueWarnIfNeeded:request];
         __weak typeof(self) wSelf = self;
         [[PWSdkStateProvider sharedInstance] executeOrQueue:^{
             [wSelf sendRequest:request completion:completion];

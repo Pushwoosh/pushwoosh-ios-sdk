@@ -9,11 +9,16 @@
 #import "PushwooshConfig.h"
 #import <PushwooshCore/PWManagerBridge.h>
 #import <PushwooshCore/PWInAppManager.h>
+#import <PushwooshCore/PWSdkStateProvider.h>
 
 @implementation PushwooshConfig
 
 + (Class)configure {
     return self;
+}
+
++ (void)executeOrQueue:(dispatch_block_t)block {
+    [[PWSdkStateProvider sharedInstance] executeOrQueue:block];
 }
 
 + (void)setAppCode:(NSString *)appCode {
@@ -57,27 +62,39 @@
 }
 
 + (void)setTags:(NSDictionary *)tags {
-    [[PWManagerBridge shared] setTags:tags];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] setTags:tags];
+    }];
 }
 
 + (void)loadTags:(void (^)(NSDictionary *tags))successBlock error:(void (^)(NSError *error))errorBlock {
-    [[PWManagerBridge shared] loadTags:successBlock error:errorBlock];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] loadTags:successBlock error:errorBlock];
+    }];
 }
 
 + (void)registerForPushNotifications {
-    [[PWManagerBridge shared] registerForPushNotifications];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] registerForPushNotifications];
+    }];
 }
 
 + (void)unregisterForPushNotifications:(void (^)(NSError *error))completion {
-    [[PWManagerBridge shared] unregisterForPushNotificationsWithCompletion:completion];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] unregisterForPushNotificationsWithCompletion:completion];
+    }];
 }
 
 + (void)setEmail:(NSString *)email {
-    [[PWManagerBridge shared] setEmail:email];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] setEmail:email];
+    }];
 }
 
 + (void)setUserId:(NSString *)userId {
-    [[PWManagerBridge shared].inAppManager setUserId:userId];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared].inAppManager setUserId:userId];
+    }];
 }
 
 + (NSString *)getUserId {
@@ -138,79 +155,113 @@
 #pragma mark - Tags with Completion
 
 + (void)setTags:(NSDictionary *)tags completion:(void (^)(NSError *error))completion {
-    [[PWManagerBridge shared] setTags:tags withCompletion:completion];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] setTags:tags withCompletion:completion];
+    }];
 }
 
 + (void)setEmailTags:(NSDictionary *)tags forEmail:(NSString *)email {
-    [[PWManagerBridge shared] setEmailTags:tags forEmail:email];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] setEmailTags:tags forEmail:email];
+    }];
 }
 
 + (void)setEmailTags:(NSDictionary *)tags forEmail:(NSString *)email completion:(void (^)(NSError *error))completion {
-    [[PWManagerBridge shared] setEmailTags:tags forEmail:email withCompletion:completion];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] setEmailTags:tags forEmail:email withCompletion:completion];
+    }];
 }
 
 + (void)getTags:(PushwooshGetTagsHandler)successHandler onFailure:(PushwooshErrorHandler)errorHandler {
-    [[PWManagerBridge shared] loadTags:successHandler error:errorHandler];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] loadTags:successHandler error:errorHandler];
+    }];
 }
 
 #pragma mark - Registration with Completion
 
 + (void)registerForPushNotificationsWithCompletion:(PushwooshRegistrationHandler)completion {
-    [[PWManagerBridge shared] registerForPushNotificationsWithCompletion:completion];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] registerForPushNotificationsWithCompletion:completion];
+    }];
 }
 
 + (void)registerForPushNotificationsWith:(NSDictionary *)tags {
-    [[PWManagerBridge shared] registerForPushNotificationsWith:tags];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] registerForPushNotificationsWith:tags];
+    }];
 }
 
 + (void)registerForPushNotificationsWith:(NSDictionary *)tags completion:(PushwooshRegistrationHandler)completion {
-    [[PWManagerBridge shared] registerForPushNotificationsWith:tags completion:completion];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] registerForPushNotificationsWith:tags completion:completion];
+    }];
 }
 
 #pragma mark - SMS and WhatsApp
 
 + (void)registerSmsNumber:(NSString *)number {
-    [[PWManagerBridge shared] registerSmsNumber:number];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] registerSmsNumber:number];
+    }];
 }
 
 + (void)registerWhatsappNumber:(NSString *)number {
-    [[PWManagerBridge shared] registerWhatsappNumber:number];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] registerWhatsappNumber:number];
+    }];
 }
 
 #pragma mark - Email with Completion
 
 + (void)setEmail:(NSString *)email completion:(void (^)(NSError *error))completion {
-    [[PWManagerBridge shared] setEmails:@[email] completion:completion];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] setEmails:@[email] completion:completion];
+    }];
 }
 
 + (void)setEmails:(NSArray *)emails {
-    [[PWManagerBridge shared] setEmails:emails];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] setEmails:emails];
+    }];
 }
 
 + (void)setEmails:(NSArray *)emails completion:(void (^)(NSError *error))completion {
-    [[PWManagerBridge shared] setEmails:emails completion:completion];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] setEmails:emails completion:completion];
+    }];
 }
 
 #pragma mark - User Management
 
 + (void)setUserId:(NSString *)userId completion:(void (^)(NSError *error))completion {
-    [[PWManagerBridge shared] setUserId:userId completion:completion];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] setUserId:userId completion:completion];
+    }];
 }
 
 + (void)setUser:(NSString *)userId emails:(NSArray *)emails {
-    [[PWManagerBridge shared] setUser:userId emails:emails];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] setUser:userId emails:emails];
+    }];
 }
 
 + (void)setUser:(NSString *)userId emails:(NSArray *)emails completion:(void (^)(NSError *error))completion {
-    [[PWManagerBridge shared] setUser:userId emails:emails completion:completion];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] setUser:userId emails:emails completion:completion];
+    }];
 }
 
 + (void)setUser:(NSString *)userId email:(NSString *)email completion:(void (^)(NSError *error))completion {
-    [[PWManagerBridge shared] setUser:userId email:email completion:completion];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] setUser:userId email:email completion:completion];
+    }];
 }
 
 + (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void (^)(NSError *error))completion {
-    [[PWManagerBridge shared] mergeUserId:oldUserId to:newUserId doMerge:doMerge completion:completion];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] mergeUserId:oldUserId to:newUserId doMerge:doMerge completion:completion];
+    }];
 }
 
 #pragma mark - Reverse Proxy
@@ -222,7 +273,9 @@
 #pragma mark - Badge
 
 + (void)sendBadges:(NSInteger)badge {
-    [[PWManagerBridge shared] sendBadges:badge];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] sendBadges:badge];
+    }];
 }
 
 #pragma mark - URL Handling
@@ -237,11 +290,15 @@
 
 #if TARGET_OS_IOS
 + (void)sendSKPaymentTransactions:(NSArray *)transactions {
-    [[PWManagerBridge shared] sendSKPaymentTransactions:transactions];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] sendSKPaymentTransactions:transactions];
+    }];
 }
 
 + (void)sendPurchase:(NSString *)productIdentifier withPrice:(NSDecimalNumber *)price currencyCode:(NSString *)currencyCode andDate:(NSDate *)date {
-    [[PWManagerBridge shared] sendPurchase:productIdentifier withPrice:price currencyCode:currencyCode andDate:date];
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] sendPurchase:productIdentifier withPrice:price currencyCode:currencyCode andDate:date];
+    }];
 }
 #endif
 

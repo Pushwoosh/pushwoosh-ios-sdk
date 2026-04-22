@@ -18,8 +18,11 @@
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, copy) NSString *reverseProxyUrl;
 @property (nonatomic, copy) NSDictionary<NSString *, NSString *> *customHeaders;
+@property (nonatomic, assign) BOOL firstQueueWarningEmitted;
 
 - (void)sendRequestInternal:(PWRequest *)request completion:(void (^)(NSError *error))completion;
+- (BOOL)isReadyForNetwork;
+- (void)evaluateReadiness;
 
 @end
 
@@ -37,6 +40,7 @@
 @interface PWRequestManagerStateTest : XCTestCase
 
 @property (nonatomic, strong) id mockConfig;
+@property (nonatomic, copy) NSString *savedAppCode;
 
 @end
 
@@ -44,6 +48,8 @@
 
 - (void)setUp {
     [super setUp];
+    _savedAppCode = [PWPreferences preferences].appCode;
+    [PWPreferences preferences].appCode = @"TEST-APPCODE-STATE";
     [[PWSdkStateProvider sharedInstance] resetForTesting];
 }
 
@@ -52,6 +58,7 @@
     [_mockConfig stopMocking];
     _mockConfig = nil;
     [PWPreferences preferences].baseUrl = [[PWPreferences preferences] defaultBaseUrl];
+    [PWPreferences preferences].appCode = _savedAppCode ?: @"";
     [super tearDown];
 }
 
@@ -501,6 +508,190 @@
 
     [self waitForExpectationsWithTimeout:5 handler:nil];
     XCTAssertEqualObjects(capturedHeaders[@"X-Auth"], @"secret");
+}
+
+#pragma mark - Scenario: Composite gate on appCode
+
+/// Verifies that sendRequest queues when appCode is empty and allowReverseProxy=NO.
+- (void)testSendRequest_queuesWhenAppCodeEmpty_andNoReverseProxy {
+    [PWPreferences preferences].appCode = @"";
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:NO];
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+
+    XCTAssertFalse([[PWSdkStateProvider sharedInstance] isReady]);
+    XCTAssertEqual([PWSdkStateProvider sharedInstance].taskQueue.count, 1);
+}
+
+/// Verifies that sendRequest queues when both appCode is empty and allowReverseProxy=YES.
+- (void)testSendRequest_queuesWhenAppCodeEmpty_withAllowReverseProxy {
+    [PWPreferences preferences].appCode = @"";
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+
+    XCTAssertFalse([[PWSdkStateProvider sharedInstance] isReady]);
+    XCTAssertEqual([PWSdkStateProvider sharedInstance].taskQueue.count, 1);
+}
+
+/// Verifies that setting appCode flushes queued requests when allowReverseProxy=NO.
+- (void)testSetAppCode_flushesQueuedRequests_whenNoReverseProxy {
+    [PWPreferences preferences].appCode = @"";
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:NO];
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"flush"];
+    __block int completionCount = 0;
+
+    id mockSession = OCMPartialMock(manager.session);
+    OCMStub([mockSession dataTaskWithRequest:OCMOCK_ANY completionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        void(^handler)(NSData *, NSURLResponse *, NSError *);
+        [invocation getArgument:&handler atIndex:3];
+
+        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
+        NSString *body = @"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null}";
+        handler([body dataUsingEncoding:NSUTF8StringEncoding], response, nil);
+    }).andReturn(nil);
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) { completionCount++; }];
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) { completionCount++; if (completionCount == 2) [expectation fulfill]; }];
+
+    XCTAssertEqual(completionCount, 0);
+
+    [PWPreferences preferences].appCode = @"APPCODE-VIA-SET";
+
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+    XCTAssertEqual(completionCount, 2);
+    XCTAssertEqual([PWSdkStateProvider sharedInstance].taskQueue.count, 0);
+}
+
+/// Verifies that setting only appCode does not flush when reverse proxy URL is still missing.
+- (void)testSetAppCode_doesNotFlush_whenAllowReverseProxyAndNoProxyUrl {
+    [PWPreferences preferences].appCode = @"";
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
+
+    __block BOOL completionCalled = NO;
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) { completionCalled = YES; }];
+
+    [PWPreferences preferences].appCode = @"APPCODE-ONLY";
+
+    [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.3]];
+
+    XCTAssertFalse([[PWSdkStateProvider sharedInstance] isReady]);
+    XCTAssertFalse(completionCalled);
+    XCTAssertEqual([PWSdkStateProvider sharedInstance].taskQueue.count, 1);
+}
+
+/// Verifies that setting only reverse proxy URL does not flush when appCode is still empty.
+- (void)testSetReverseProxy_doesNotFlush_whenAppCodeStillEmpty {
+    [PWPreferences preferences].appCode = @"";
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
+
+    __block BOOL completionCalled = NO;
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) { completionCalled = YES; }];
+
+    [manager setReverseProxyUrl:@"https://proxy.example.com" headers:nil];
+
+    XCTAssertFalse([[PWSdkStateProvider sharedInstance] isReady]);
+    XCTAssertFalse(completionCalled);
+    XCTAssertEqual([PWSdkStateProvider sharedInstance].taskQueue.count, 1);
+}
+
+/// Verifies that when appCode is set first and reverse proxy is set second, flush happens on the second call.
+- (void)testSetAppCode_thenSetReverseProxy_flushesOnSecondCall {
+    [PWPreferences preferences].appCode = @"";
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"flush after both set"];
+    __block int completionCount = 0;
+
+    id mockSession = OCMPartialMock(manager.session);
+    OCMStub([mockSession dataTaskWithRequest:OCMOCK_ANY completionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        void(^handler)(NSData *, NSURLResponse *, NSError *);
+        [invocation getArgument:&handler atIndex:3];
+
+        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
+        NSString *body = @"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null}";
+        handler([body dataUsingEncoding:NSUTF8StringEncoding], response, nil);
+    }).andReturn(nil);
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) { completionCount++; [expectation fulfill]; }];
+
+    [PWPreferences preferences].appCode = @"COMPOSITE-APPCODE";
+    [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.2]];
+    XCTAssertFalse([[PWSdkStateProvider sharedInstance] isReady]);
+    XCTAssertEqual(completionCount, 0);
+
+    [manager setReverseProxyUrl:@"https://proxy.example.com" headers:nil];
+
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+    XCTAssertTrue([[PWSdkStateProvider sharedInstance] isReady]);
+    XCTAssertEqual(completionCount, 1);
+}
+
+/// Verifies that when reverse proxy is set first and appCode is set second, flush happens on the second call.
+- (void)testSetReverseProxy_thenSetAppCode_flushesOnSecondCall {
+    [PWPreferences preferences].appCode = @"";
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"flush after both set"];
+    __block int completionCount = 0;
+
+    id mockSession = OCMPartialMock(manager.session);
+    OCMStub([mockSession dataTaskWithRequest:OCMOCK_ANY completionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        void(^handler)(NSData *, NSURLResponse *, NSError *);
+        [invocation getArgument:&handler atIndex:3];
+
+        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
+        NSString *body = @"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null}";
+        handler([body dataUsingEncoding:NSUTF8StringEncoding], response, nil);
+    }).andReturn(nil);
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) { completionCount++; [expectation fulfill]; }];
+
+    [manager setReverseProxyUrl:@"https://proxy.example.com" headers:nil];
+    XCTAssertFalse([[PWSdkStateProvider sharedInstance] isReady]);
+    XCTAssertEqual(completionCount, 0);
+
+    [PWPreferences preferences].appCode = @"COMPOSITE-APPCODE-2";
+
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+    XCTAssertTrue([[PWSdkStateProvider sharedInstance] isReady]);
+    XCTAssertEqual(completionCount, 1);
+}
+
+/// Verifies that init sets Ready immediately when appCode is already in preferences and allowReverseProxy=NO.
+- (void)testInit_appCodeAlreadyInPrefs_andNoReverseProxy_setsReadyImmediately {
+    [PWPreferences preferences].appCode = @"BOOT-APPCODE";
+    [self createManagerWithAllowReverseProxy:NO];
+
+    XCTAssertEqual([PWSdkStateProvider sharedInstance].currentState, PWSdkStateReady);
+    XCTAssertTrue([[PWSdkStateProvider sharedInstance] isReady]);
+}
+
+/// Verifies that the first-queue warning is emitted only once per PWRequestManager instance.
+- (void)testFirstQueueWarn_emittedOnlyOnce {
+    [PWPreferences preferences].appCode = @"";
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:NO];
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+
+    XCTAssertTrue(manager.firstQueueWarningEmitted);
+    XCTAssertEqual([PWSdkStateProvider sharedInstance].taskQueue.count, 3);
+}
+
+/// Verifies that setting appCode to an empty string does not transition state to Ready.
+- (void)testSetAppCode_emptyString_doesNotTransition {
+    [PWPreferences preferences].appCode = @"";
+    [self createManagerWithAllowReverseProxy:NO];
+
+    [PWPreferences preferences].appCode = @"";
+
+    [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.2]];
+
+    XCTAssertEqual([PWSdkStateProvider sharedInstance].currentState, PWSdkStateInitializing);
+    XCTAssertFalse([[PWSdkStateProvider sharedInstance] isReady]);
 }
 
 @end

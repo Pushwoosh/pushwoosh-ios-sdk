@@ -9,11 +9,16 @@
 #import "PWRequestsCacheManager.h"
 #import "PWCachedRequest.h"
 #import "PWConfig.h"
+#import "PWSdkStateProvider.h"
 
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
 #import <objc/runtime.h>
+
+@interface PWSdkStateProvider (Test)
+- (void)resetForTesting;
+@end
 
 @interface PWRequestManager (Test)
 
@@ -81,13 +86,20 @@ static id _mockNSBundle;
 - (void)setUp {
     [super setUp];
 	[[PWNetworkModule module] inject:self];
-	
+
 	[NSURLSession setUp];
+
+    if ([PWPreferences preferences].appCode.length == 0) {
+        [PWPreferences preferences].appCode = @"TEST-APPCODE-REQMGR";
+    }
+    [[PWSdkStateProvider sharedInstance] resetForTesting];
+    [[PWSdkStateProvider sharedInstance] setReady];
 }
 
 - (void)tearDown {
     [NSURLSession tearDown];
 	[PWPreferences preferences].baseUrl = [[PWPreferences preferences] defaultBaseUrl];
+    [[PWSdkStateProvider sharedInstance] resetForTesting];
     [super tearDown];
 }
 

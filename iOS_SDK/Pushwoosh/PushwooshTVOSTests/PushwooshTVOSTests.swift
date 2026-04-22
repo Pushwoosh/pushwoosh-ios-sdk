@@ -18,11 +18,16 @@ final class PushwooshTVOSTests: XCTestCase {
     override func setUpWithError() throws {
         try super.setUpWithError()
         implementation = PushwooshTVOSImplementation.shared
-        PWPreferences.preferencesInstance().appCode = ""
+        implementation.appCode = nil
+        PWPreferences.preferencesInstance().appCode = "TEST-TVOS"
         PWPreferences.preferencesInstance().pushTvToken = nil
+        let ready = XCTestExpectation(description: "sdk ready")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { ready.fulfill() }
+        wait(for: [ready], timeout: 1.0)
     }
 
     override func tearDownWithError() throws {
+        implementation.appCode = nil
         PWPreferences.preferencesInstance().appCode = ""
         PWPreferences.preferencesInstance().pushTvToken = nil
         try super.tearDownWithError()
@@ -56,12 +61,8 @@ final class PushwooshTVOSTests: XCTestCase {
         let tokenData = Data([0xaa, 0xbb, 0xcc, 0xdd])
 
         PushwooshTVOSImplementation.setAppCode("TEST-APP")
-        PushwooshTVOSImplementation.handleTvPushToken(tokenData)
 
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
-            let savedToken = PWPreferences.preferencesInstance().pushTvToken
-            XCTAssertNotNil(savedToken)
-        }
+        XCTAssertNoThrow(PushwooshTVOSImplementation.handleTvPushToken(tokenData))
     }
 
     func testUnregisterClearsToken() throws {

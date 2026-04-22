@@ -15,6 +15,8 @@ typedef NS_ENUM(NSInteger, PWSdkState) {
 
 NS_ASSUME_NONNULL_BEGIN
 
+FOUNDATION_EXPORT NSNotificationName const kPWAppCodeUpdatedNotification;
+
 @interface PWSdkStateProvider : NSObject
 
 + (instancetype)sharedInstance;

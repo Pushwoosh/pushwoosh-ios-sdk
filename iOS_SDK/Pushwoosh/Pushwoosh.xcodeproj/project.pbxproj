@@ -455,6 +455,7 @@
 		C750593F9A06320514072794 /* device_service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E448A198116BB9C515E32A /* device_service.pb.swift */; };
 		C7B71D887FE708C182CA4586 /* PWRichMediaManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A05D12875B14916AA3A23B /* PWRichMediaManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C91A54ED17990346B626BFD3 /* PWUtils.common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C75C1F0DC16F0A3FAD7495F /* PWUtils.common.m */; };
+		CC2EF0F126F10D6F5C8DBCF1 /* PushwooshConfigGateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 862C94B23AA09B022B9AB057 /* PushwooshConfigGateTest.m */; };
 		CC2F6D2AD96A1E1D6B5F6C2A /* PWRichMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E71BEE0F83AFA83D08311BFA /* PWRichMediaTest.m */; };
 		CC4244895550257591B6AD6F /* PWInteractionDisabledWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4CC80B0A467FFC7362E279 /* PWInteractionDisabledWindow.h */; };
 		CD62A24FCC8F912DF90E2250 /* NSDate+PWDateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D4774C7DC9FD651DE80EED /* NSDate+PWDateUtils.m */; };
@@ -1095,6 +1096,7 @@
 		81F4279FC84C97FB67D6025F /* PWPushRuntime.ios.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWPushRuntime.ios.m; sourceTree = "<group>"; };
 		82A06FE56B2CCA009297B5B2 /* unzip.cpp */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.cpp.cpp; path = unzip.cpp; sourceTree = "<group>"; };
 		843BDA5BA14FE9E2141781D3 /* PWModalWindowSettings.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWModalWindowSettings.m; sourceTree = "<group>"; };
+		862C94B23AA09B022B9AB057 /* PushwooshConfigGateTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PushwooshConfigGateTest.m; path = PushwooshTests/PushwooshConfigGateTest.m; sourceTree = SOURCE_ROOT; };
 		86A2CD014E6319596B433044 /* PWInAppMessagesManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInAppMessagesManager.h; sourceTree = "<group>"; };
 		88273FF3A977136F348CAEA2 /* PWKnockPatternDetector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWKnockPatternDetector.m; sourceTree = "<group>"; };
 		882A09B7102AD82AE2BDFD2D /* PWAppLifecycleTrackingManagerTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWAppLifecycleTrackingManagerTest.m; sourceTree = "<group>"; };
@@ -2336,6 +2338,7 @@
 				3616F1BA272D375A25348A9A /* PWRequestManagerStateTest.m */,
 				EB6F77136079F1C6310A0188 /* PWIdleDetectorTest.m */,
 				882A09B7102AD82AE2BDFD2D /* PWAppLifecycleTrackingManagerTest.m */,
+				862C94B23AA09B022B9AB057 /* PushwooshConfigGateTest.m */,
 			);
 			path = PushwooshTests;
 			sourceTree = "<group>";
@@ -4224,6 +4227,7 @@
 				D80FC0F68662C9C948B36738 /* PWModalWindowSettingsTest.m in Sources */,
 				28DCB954528CDA3B1CD9B885 /* PWSdkStateProviderTest.m in Sources */,
 				7AE3308985BE35140F1876E4 /* PWRequestManagerStateTest.m in Sources */,
+				CC2EF0F126F10D6F5C8DBCF1 /* PushwooshConfigGateTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4464,7 +4468,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = "";
@@ -4496,7 +4500,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 8.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = "";
@@ -4557,7 +4561,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				PRODUCT_NAME = PushwooshFramework;
 				WRAPPER_EXTENSION = framework;
@@ -4580,7 +4584,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				PRODUCT_NAME = PushwooshFramework;
 				WRAPPER_EXTENSION = framework;
@@ -4648,7 +4652,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4732,7 +4736,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4816,7 +4820,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4900,7 +4904,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -4987,7 +4991,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5071,7 +5075,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5351,7 +5355,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5430,7 +5434,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5513,7 +5517,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting_Files/Pushwoosh.iOS.dynamic-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5594,7 +5598,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting_Files/Pushwoosh.iOS.dynamic-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5785,7 +5789,7 @@
 					"$(PROJECT_DIR)/usr/include",
 				);
 				INFOPLIST_FILE = PushwooshTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5851,7 +5855,7 @@
 					"$(PROJECT_DIR)/usr/include",
 				);
 				INFOPLIST_FILE = PushwooshTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -6125,7 +6129,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6224,7 +6228,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6305,7 +6309,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6725,7 +6729,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 12.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",

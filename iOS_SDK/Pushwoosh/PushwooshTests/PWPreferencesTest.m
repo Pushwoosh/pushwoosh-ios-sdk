@@ -84,10 +84,56 @@
     OCMStub([mockConfig appGroupsName]).andReturn(nil);
     id mockNSUserDefaults = OCMPartialMock([NSUserDefaults standardUserDefaults]);
     OCMExpect([mockNSUserDefaults setObject:mockUserId forKey:kUserId]);
-    
+
     [_settings setUserId:mockUserId];
-    
+
     OCMVerifyAll(mockNSUserDefaults);
+}
+
+#pragma mark - SDK-796 Android parity — appCode sharing via App Groups
+
+/// Verifies that setAppCode writes to the shared App Groups suite when appGroupsName is configured.
+- (void)testSetAppCode_writesToAppGroupsSharedSuite {
+    NSString *appGroupName = @"group.com.pushwoosh.test.appcode-parity";
+    NSString *appCode = @"ABCDE-12345";
+    id mockConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockConfig appGroupsName]).andReturn(appGroupName);
+
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:appGroupName];
+    [shared removeObjectForKey:@"Pushwoosh_APPID"];
+
+    [_settings setAppCode:appCode];
+
+    XCTAssertEqualObjects([shared objectForKey:@"Pushwoosh_APPID"], appCode);
+
+    [shared removeObjectForKey:@"Pushwoosh_APPID"];
+    [mockConfig stopMocking];
+}
+
+/// Verifies that setAppCode with empty string removes the value from the shared App Groups suite.
+- (void)testSetAppCode_emptyStringRemovesFromSharedSuite {
+    NSString *appGroupName = @"group.com.pushwoosh.test.appcode-parity";
+    id mockConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockConfig appGroupsName]).andReturn(appGroupName);
+
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:appGroupName];
+    [shared setObject:@"STALE-VALUE" forKey:@"Pushwoosh_APPID"];
+
+    [_settings setAppCode:@""];
+
+    XCTAssertNil([shared objectForKey:@"Pushwoosh_APPID"]);
+
+    [mockConfig stopMocking];
+}
+
+/// Verifies that setAppCode does NOT touch the shared suite when appGroupsName is not configured.
+- (void)testSetAppCode_noAppGroups_doesNotWriteSharedSuite {
+    id mockConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockConfig appGroupsName]).andReturn(nil);
+
+    XCTAssertNoThrow([_settings setAppCode:@"NO-GROUPS"]);
+
+    [mockConfig stopMocking];
 }
 
 @end

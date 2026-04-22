@@ -17,11 +17,16 @@ final class PWTVOSAPIClientTests: XCTestCase {
 
     override func setUpWithError() throws {
         try super.setUpWithError()
+        PWPreferences.preferencesInstance().appCode = "TEST-TVOS-APP"
+        let ready = XCTestExpectation(description: "sdk ready")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { ready.fulfill() }
+        wait(for: [ready], timeout: 1.0)
         apiClient = PWTVOSAPIClient()
     }
 
     override func tearDownWithError() throws {
         apiClient = nil
+        PWPreferences.preferencesInstance().appCode = ""
         try super.tearDownWithError()
     }
 

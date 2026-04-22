@@ -5,7 +5,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PushwooshXCFramework"
-  s.version      = "7.0.35"
+  s.version      = "7.0.36"
   s.summary      = "Push notifications library by Pushwoosh."
 
   s.description  = "Push notifications iOS library by Pushwoosh - cross platform push notifications service. " \
@@ -20,7 +20,7 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
   s.default_subspec = 'Core'
-  s.ios.deployment_target = "11.0"
+  s.ios.deployment_target = "13.0"
   s.tvos.deployment_target = "12.0"
 
   # Core Subspec

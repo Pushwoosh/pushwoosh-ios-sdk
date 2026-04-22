@@ -30,7 +30,7 @@
 		</data>
 		<key>Frameworks/PushwooshCore.framework/PushwooshCore</key>
 		<data>
-		jWpXw2L9yI4LLFaUjvJ7uUZhMBc=
+		zwm/L3Jyty0GglxqtlAcgNHiZNU=
 		</data>
 		<key>Frameworks/PushwooshCore.framework/_CodeSignature/CodeResources</key>
 		<data>
@@ -66,7 +66,7 @@
 		</data>
 		<key>Modules/PushwooshTVOS.swiftmodule/arm64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		qjo1Zi7MgYZuc+x83yiDgwjuwqw=
+		oQz0xcOFZkDfWbRJhVSh8R18UGU=
 		</data>
 		<key>Modules/PushwooshTVOS.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
 		<data>
@@ -86,7 +86,7 @@
 		</data>
 		<key>Modules/PushwooshTVOS.swiftmodule/x86_64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		Ou/+nPD2cVJTqYXwx0b+8QvRDag=
+		VSpuwHy9KVKK9b+YpBpi6zQEu30=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -145,7 +145,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TD8hy5edNDvO6ogiR7wY4FAzZn3q6j55fGeYT8osS40=
+			heAtbXIBmsEw5psJBk68run5tt9hiTggHbMYN5c0DX4=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshCore.framework/_CodeSignature/CodeResources</key>
@@ -201,7 +201,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			k9tUaV5Lz8qSgJDp/FK/moy7F/xElXYucO/brbCOM58=
+			sE+wUvXKhn4x+uP7qwl5vzg/aCxxjki1XE443wgZwoI=
 			</data>
 		</dict>
 		<key>Modules/PushwooshTVOS.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
@@ -236,7 +236,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SV5tfUI6L+iUWEAiMYQCXbWH6uJhGuwBdh9mW41kbHY=
+			+FPSkqPrKBoUNclVzIDy9uW7/JNEW53qG5zvPS0v8XA=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
