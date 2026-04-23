@@ -114,6 +114,13 @@ static dispatch_once_t inAppStorageOncePred;
 
 - (void)synchronize:(void(^)(NSError *error))completion {
     if (self.isUpdating) {
+        if (completion) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                [self.listeners addObject:^{
+                    completion(nil);
+                }];
+            }];
+        }
         return;
     }
 
