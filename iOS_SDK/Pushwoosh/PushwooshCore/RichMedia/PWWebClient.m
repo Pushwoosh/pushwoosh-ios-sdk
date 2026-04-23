@@ -155,6 +155,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 }
 
 - (void)reloadWebView {
+    if (_webView.URL != nil) return;
     [_webView reload];
 }
 

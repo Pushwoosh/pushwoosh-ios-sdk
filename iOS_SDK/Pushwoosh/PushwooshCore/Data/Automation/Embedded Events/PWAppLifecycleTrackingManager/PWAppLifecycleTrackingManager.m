@@ -97,7 +97,8 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
         _foregroundMonotonicTimestamp = [NSProcessInfo processInfo].systemUptime;
         _appInForeground = YES;
 
-        if (_defaultAppOpenAllowed == YES) {
+        if (_defaultAppOpenAllowed == YES && !_initialDefaultOpenEventSent) {
+            [self sendDefaultEvent:defaultApplicationOpenedEvent];
             _initialDefaultOpenEventSent = YES;
         }
     }
