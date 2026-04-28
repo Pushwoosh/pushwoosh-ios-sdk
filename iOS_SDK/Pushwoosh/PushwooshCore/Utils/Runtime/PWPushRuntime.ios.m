@@ -21,6 +21,7 @@
 #if TARGET_OS_IOS
 #import "PWKnockPatternDetector.h"
 #import "PWIdleDetector.h"
+#import "PWApplicationExitDetector.h"
 #endif
 
 #if !__has_feature(objc_arc)
@@ -81,6 +82,9 @@ BOOL _replacement_didFinishLaunchingWithOptionsExtensionRequest(id self, SEL _cm
     [[PWKnockPatternDetector sharedDetector] startDetection];
     if ([PWConfig config].idleTimeoutSeconds > 0) {
         [[PWIdleDetector sharedDetector] startTracking];
+    }
+    if ([PWConfig config].applicationExitTimeoutSeconds > 0) {
+        [[PWApplicationExitDetector sharedDetector] startTracking];
     }
 #endif
 

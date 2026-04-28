@@ -15,6 +15,9 @@
 #import "PWPreferences.h"
 #import "PWUtils.h"
 #import "PWSystemCommandDispatcher.h"
+#import "PWScreenTrackingManager.h"
+
+static NSTimeInterval const kPWApplicationMinimizedDebounce = 1.0;
 
 #if TARGET_OS_IOS || TARGET_OS_TV
 #import <UIKit/UIKit.h>
@@ -47,6 +50,20 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 
 @implementation PWAppLifecycleTrackingManager {
     id _communicationStartedHandler;
+    dispatch_block_t _pendingMinimizedBlock;
+    BOOL _minimizedPending;
+#if TARGET_OS_IOS
+    UIBackgroundTaskIdentifier _minimizedBgTask;
+#endif
+}
+
+- (instancetype)init {
+    if (self = [super init]) {
+#if TARGET_OS_IOS
+        _minimizedBgTask = UIBackgroundTaskInvalid;
+#endif
+    }
+    return self;
 }
 
 + (instancetype)sharedManager {
@@ -127,6 +144,15 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 }
 
 - (void)onApplicationOpen {
+    if (_minimizedPending) {
+        [self cancelMinimizedBlock];
+        [PWScreenTrackingManager sharedManager].suppressScreenOpened = YES;
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [PWScreenTrackingManager sharedManager].suppressScreenOpened = NO;
+        });
+        return;
+    }
+
     _applicationDidBecomeActive = YES;
     _foregroundTimestamp = [NSDate date];
     _foregroundMonotonicTimestamp = [NSProcessInfo processInfo].systemUptime;
@@ -146,6 +172,7 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 
         if (_defaultAppOpenAllowed == YES) {
             [self sendDefaultEvent: defaultApplicationOpenedEvent];
+            [[PWScreenTrackingManager sharedManager] emitScreenOpenForCurrentScreen];
         }
     }
 }
@@ -163,7 +190,68 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 
     if (_defaultAppClosedAllowed == NO) return;
 
+    [self cancelMinimizedBlock];
+    _minimizedPending = YES;
+
+    [self beginMinimizedBackgroundTask];
+
+    __weak typeof(self) weakSelf = self;
+    _pendingMinimizedBlock = dispatch_block_create(0, ^{
+        [weakSelf fireMinimizedEvent];
+    });
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kPWApplicationMinimizedDebounce * NSEC_PER_SEC)),
+                   dispatch_get_main_queue(),
+                   _pendingMinimizedBlock);
+}
+
+- (void)fireMinimizedEvent {
+    if (!_minimizedPending) return;
+    _minimizedPending = NO;
+    _pendingMinimizedBlock = nil;
     [self sendDefaultEvent:defaultApplicationClosedEvent];
+    [self endMinimizedBackgroundTask];
+}
+
+- (void)cancelMinimizedBlock {
+    if (_pendingMinimizedBlock) {
+        dispatch_block_cancel(_pendingMinimizedBlock);
+        _pendingMinimizedBlock = nil;
+    }
+    _minimizedPending = NO;
+    [self endMinimizedBackgroundTask];
+}
+
+- (void)beginMinimizedBackgroundTask {
+#if TARGET_OS_IOS
+    if (_minimizedBgTask != UIBackgroundTaskInvalid) return;
+
+    __weak typeof(self) weakSelf = self;
+    _minimizedBgTask = [[UIApplication sharedApplication] beginBackgroundTaskWithName:@"PWApplicationMinimized"
+                                                                    expirationHandler:^{
+        [weakSelf onMinimizedBackgroundTaskExpired];
+    }];
+#endif
+}
+
+- (void)onMinimizedBackgroundTaskExpired {
+#if TARGET_OS_IOS
+    if (_pendingMinimizedBlock) {
+        dispatch_block_cancel(_pendingMinimizedBlock);
+        _pendingMinimizedBlock = nil;
+    }
+    _minimizedPending = NO;
+    [self endMinimizedBackgroundTask];
+#endif
+}
+
+- (void)endMinimizedBackgroundTask {
+#if TARGET_OS_IOS
+    if (_minimizedBgTask != UIBackgroundTaskInvalid) {
+        [[UIApplication sharedApplication] endBackgroundTask:_minimizedBgTask];
+        _minimizedBgTask = UIBackgroundTaskInvalid;
+    }
+#endif
 }
 
 - (void)setDefaultAppOpenAllowed:(BOOL)defaultAppOpenAllowed {

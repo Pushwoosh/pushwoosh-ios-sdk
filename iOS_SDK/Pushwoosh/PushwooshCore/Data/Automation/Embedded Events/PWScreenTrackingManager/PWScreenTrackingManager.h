@@ -17,8 +17,11 @@ FOUNDATION_EXPORT NSString * const defaultScreenOpenEvent;
 
 @property (nonatomic) BOOL defaultScreenOpenAllowed;
 @property (nonatomic, copy, readonly, nullable) NSString *currentScreenName;
+@property (nonatomic, assign) BOOL suppressScreenOpened;
 
 + (instancetype)sharedManager;
+
+- (void)emitScreenOpenForCurrentScreen;
 
 @end
 

@@ -23,6 +23,7 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
 @property (nonatomic, assign, readwrite) BOOL allowCollectingDeviceModel;
 @property (nonatomic, assign, readwrite) BOOL isCollectingLifecycleEventsAllowed;
 @property (nonatomic, assign, readwrite) NSInteger idleTimeoutSeconds;
+@property (nonatomic, assign, readwrite) NSInteger applicationExitTimeoutSeconds;
 @property (nonatomic, assign, readwrite) PUSHWOOSH_LOG_LEVEL logLevel;
 @property (nonatomic, readwrite) BOOL sendPushStatIfAlertsDisabled;
 @property (nonatomic, assign, readwrite) BOOL acceptedDeepLinkForSilentPush;
@@ -112,6 +113,7 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
         }
 
         self.idleTimeoutSeconds = [self resolveIdleTimeoutSeconds];
+        self.applicationExitTimeoutSeconds = [self resolveApplicationExitTimeoutSeconds];
 
 		NSString *logLevelString = [bundle objectForInfoDictionaryKey:@"Pushwoosh_LOG_LEVEL"];
 
@@ -224,6 +226,46 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
                                message:message];
         });
         return kMinIdleTimeoutSeconds;
+    }
+    return value;
+}
+
+- (NSInteger)resolveApplicationExitTimeoutSeconds {
+    static NSInteger const kMinApplicationExitTimeoutSeconds = 10;
+    static NSInteger const kMaxApplicationExitTimeoutSeconds = 30;
+
+    if (!self.isCollectingLifecycleEventsAllowed) {
+        return 0;
+    }
+
+    NSNumber *raw = [_bundle objectForInfoDictionaryKey:@"Pushwoosh_APPLICATION_EXIT_TIMEOUT_SECONDS"];
+    if (!raw) {
+        return 0;
+    }
+
+    NSInteger value = [raw integerValue];
+    if (value <= 0) {
+        return 0;
+    }
+    if (value < kMinApplicationExitTimeoutSeconds) {
+        NSString *message = [NSString stringWithFormat:@"Application exit timeout %lds is below minimum (%lds). Using %lds.",
+                             (long)value, (long)kMinApplicationExitTimeoutSeconds, (long)kMinApplicationExitTimeoutSeconds];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [PushwooshLog pushwooshLog:PW_LL_WARN
+                             className:[PWConfig class]
+                               message:message];
+        });
+        return kMinApplicationExitTimeoutSeconds;
+    }
+    if (value > kMaxApplicationExitTimeoutSeconds) {
+        NSString *message = [NSString stringWithFormat:@"Application exit timeout %lds is above maximum (%lds). Using %lds.",
+                             (long)value, (long)kMaxApplicationExitTimeoutSeconds, (long)kMaxApplicationExitTimeoutSeconds];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [PushwooshLog pushwooshLog:PW_LL_WARN
+                             className:[PWConfig class]
+                               message:message];
+        });
+        return kMaxApplicationExitTimeoutSeconds;
     }
     return value;
 }

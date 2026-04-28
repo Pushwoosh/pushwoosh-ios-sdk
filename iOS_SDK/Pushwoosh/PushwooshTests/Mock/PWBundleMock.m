@@ -17,6 +17,8 @@
         return @(_sendPurchaseTrackingEnabled);
     } else if ([key isEqualToString:@"Pushwoosh_IDLE_TIMEOUT_SECONDS"]) {
         return _idleTimeoutSeconds;
+    } else if ([key isEqualToString:@"Pushwoosh_APPLICATION_EXIT_TIMEOUT_SECONDS"]) {
+        return _applicationExitTimeoutSeconds;
     } else if ([key isEqualToString:@"Pushwoosh_ALLOW_COLLECTING_EVENTS"] && _allowCollectingEventsSet) {
         return @(_allowCollectingEvents);
     } else {

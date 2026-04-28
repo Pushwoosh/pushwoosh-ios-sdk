@@ -13,6 +13,7 @@
 @property (nonatomic) BOOL sendPushStatIfAlertsDisabled;
 @property (nonatomic) BOOL sendPurchaseTrackingEnabled;
 @property (nonatomic, strong, nullable) NSNumber *idleTimeoutSeconds;
+@property (nonatomic, strong, nullable) NSNumber *applicationExitTimeoutSeconds;
 @property (nonatomic) BOOL allowCollectingEventsSet;
 @property (nonatomic) BOOL allowCollectingEvents;
 

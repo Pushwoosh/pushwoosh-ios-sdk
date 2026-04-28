@@ -404,6 +404,9 @@
 		9F11AFF2BAA9325B15AA9E8E /* PWInAppMessagesManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 86A2CD014E6319596B433044 /* PWInAppMessagesManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A0A79169F81D06BBD8C8ED5E /* PWNotificationManagerCompatUserNotifications.h in Headers */ = {isa = PBXBuildFile; fileRef = 68AB808CF84CC6EFCC9AEAAC /* PWNotificationManagerCompatUserNotifications.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A0C26F351D7BDA66F7961339 /* PWIdleDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = 488B59CB5638330FC644591B /* PWIdleDetector.m */; };
+		A0E1B7C400000005A0E1B7C4 /* PWApplicationExitDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E1B7C400000001A0E1B7C4 /* PWApplicationExitDetector.h */; };
+		A0E1B7C400000006A0E1B7C4 /* PWApplicationExitDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E1B7C400000002A0E1B7C4 /* PWApplicationExitDetector.m */; };
+		A0E1B7C400000007A0E1B7C4 /* PWApplicationExitDetectorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E1B7C400000004A0E1B7C4 /* PWApplicationExitDetectorTest.m */; };
 		A11FA2FE603FC880B58124E4 /* PWRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = CB897EDF2E9F20DEE44A4339 /* PWRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A16741A9D073F88457A4C12B /* PWSendPurchaseRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 80ADD3F86EB9D3A3976EE9ED /* PWSendPurchaseRequest.h */; };
 		A2156D0BDCEC98AA61B19028 /* PWMessageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BDF1A84BA1FA641FF3DFBA7 /* PWMessageViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -1127,6 +1130,9 @@
 		9C4EB122D46B12151518293B /* PWPushRuntime.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWPushRuntime.h; sourceTree = "<group>"; };
 		9F0F7A879506025CBE4E167A /* PWPreferences.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWPreferences.m; sourceTree = "<group>"; };
 		9F98FB58CBD6BA22BC4D8372 /* PWUtilsMobile.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWUtilsMobile.h; sourceTree = "<group>"; };
+		A0E1B7C400000001A0E1B7C4 /* PWApplicationExitDetector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWApplicationExitDetector.h; sourceTree = "<group>"; };
+		A0E1B7C400000002A0E1B7C4 /* PWApplicationExitDetector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWApplicationExitDetector.m; sourceTree = "<group>"; };
+		A0E1B7C400000004A0E1B7C4 /* PWApplicationExitDetectorTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWApplicationExitDetectorTest.m; sourceTree = "<group>"; };
 		A14FF04F84CE2E7D2BBAD438 /* PWUtils.ios.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWUtils.ios.m; sourceTree = "<group>"; };
 		A1B2C3D4E5F6789012345678 /* PWModalRichMedia.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWModalRichMedia.h; sourceTree = "<group>"; };
 		A1B2C3D4E5F6789012345679 /* PWModalRichMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWModalRichMediaTest.m; path = RichMedia/PWModalRichMediaTest.m; sourceTree = "<group>"; };
@@ -2337,6 +2343,7 @@
 				24459617E1F45719E58C9697 /* PWSdkStateProviderTest.m */,
 				3616F1BA272D375A25348A9A /* PWRequestManagerStateTest.m */,
 				EB6F77136079F1C6310A0188 /* PWIdleDetectorTest.m */,
+				A0E1B7C400000004A0E1B7C4 /* PWApplicationExitDetectorTest.m */,
 				882A09B7102AD82AE2BDFD2D /* PWAppLifecycleTrackingManagerTest.m */,
 				862C94B23AA09B022B9AB057 /* PushwooshConfigGateTest.m */,
 			);
@@ -2592,6 +2599,7 @@
 				74C3E04E0C8F95CF9914CBB9 /* PWScreenTrackingManager */,
 				17EAA014B46028E6A19B2CDA /* PWAppLifecycleTrackingManager */,
 				E0835C955064D34F68DC314F /* PWIdleDetector */,
+				A0E1B7C400000003A0E1B7C4 /* PWApplicationExitDetector */,
 			);
 			path = "Embedded Events";
 			sourceTree = "<group>";
@@ -2677,6 +2685,15 @@
 				90ED0A7E6D735AA50E71821E /* PWModalWindowSettingsTest.m */,
 			);
 			name = ModalWindow;
+			sourceTree = "<group>";
+		};
+		A0E1B7C400000003A0E1B7C4 /* PWApplicationExitDetector */ = {
+			isa = PBXGroup;
+			children = (
+				A0E1B7C400000001A0E1B7C4 /* PWApplicationExitDetector.h */,
+				A0E1B7C400000002A0E1B7C4 /* PWApplicationExitDetector.m */,
+			);
+			path = PWApplicationExitDetector;
 			sourceTree = "<group>";
 		};
 		A4CA0FE7ECFAC5F8B44A6152 /* Remote Page */ = {
@@ -3136,6 +3153,7 @@
 				901330528E7631C0A9FC9E55 /* PWPlatformModule.h in Headers */,
 				0534FED337A0830ECA92934A /* PWKnockPatternDetector.h in Headers */,
 				0960B6FB17B5442D93793A03 /* PWIdleDetector.h in Headers */,
+				A0E1B7C400000005A0E1B7C4 /* PWApplicationExitDetector.h in Headers */,
 				EA4538D8D360E356E0E266BB /* PWNotificationCategoryBuilder.h in Headers */,
 				0D61DE78A22319D707E35D19 /* PWNotificationManagerCompat.h in Headers */,
 				AF72D4A629017AADF9569B27 /* PWNotificationManagerCompattvOS.h in Headers */,
@@ -4003,6 +4021,7 @@
 				ED79BADFE1326CFE2327B7A8 /* PWPlatformModule.m in Sources */,
 				B89C97A74A68F2D8786C59BC /* PWKnockPatternDetector.m in Sources */,
 				A0C26F351D7BDA66F7961339 /* PWIdleDetector.m in Sources */,
+				A0E1B7C400000006A0E1B7C4 /* PWApplicationExitDetector.m in Sources */,
 				DE2129C69F8C4BE531ABBF62 /* PWNotificationManagerCompat.m in Sources */,
 				3946C39BC939BCA80060A55D /* PWUserNotificationCenterDelegate.m in Sources */,
 				1726880913E92E473E967766 /* PWPushNotificationsManager.common.m in Sources */,
@@ -4213,6 +4232,7 @@
 				449CAA22287726ED00B4EEEF /* PWRegisterTestDeviceRequestTest.m in Sources */,
 				D0485AB30C266AC2EFD17C8D /* PWKnockPatternDetectorTest.m in Sources */,
 				C0E12DAB5AE177161329C74C /* PWIdleDetectorTest.m in Sources */,
+				A0E1B7C400000007A0E1B7C4 /* PWApplicationExitDetectorTest.m in Sources */,
 				3B763094AFF90C4C4BDD1BEA /* PWAppLifecycleTrackingManagerTest.m in Sources */,
 				44378CC628BE347300175DE2 /* PWInAppPurchaseHelperTest.m in Sources */,
 				5D84AD112153A04E005D7432 /* PWConfigTest.m in Sources */,

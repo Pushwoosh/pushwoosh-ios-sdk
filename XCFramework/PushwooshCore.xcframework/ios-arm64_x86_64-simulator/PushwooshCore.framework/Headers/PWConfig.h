@@ -139,6 +139,17 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
 @property (nonatomic, assign, readonly) NSInteger idleTimeoutSeconds;
 
 /**
+ key: Pushwoosh_APPLICATION_EXIT_TIMEOUT_SECONDS
+ type: integer
+ value: Timeout (seconds) before PW_ApplicationExit fires after backgrounding.
+        Range [10, 30]. Values outside the range are clamped with a warning log.
+        Default (key absent or <= 0): 0 — feature disabled.
+        Also forced to 0 when Pushwoosh_ALLOW_COLLECTING_EVENTS is NO.
+        Note: event is lost if the OS terminates the process before the timer fires.
+ */
+@property (nonatomic, assign, readonly) NSInteger applicationExitTimeoutSeconds;
+
+/**
  key: Pushwoosh_LOG_LEVEL
  type: string
  value: Pushwoosh SDK logging level (NONE, ERROR, WARNING, INFO, DEBUG, VERBOSE)

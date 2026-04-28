@@ -151,4 +151,77 @@
     XCTAssertEqual(0, _config.idleTimeoutSeconds);
 }
 
+/// Verifies that application exit timeout is disabled when key is absent.
+- (void)testApplicationExitTimeoutKeyAbsentDisablesTracking {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(0, _config.applicationExitTimeoutSeconds);
+}
+
+/// Verifies that application exit timeout uses configured value when within range.
+- (void)testApplicationExitTimeoutValidValuePassesThrough {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.applicationExitTimeoutSeconds = @20;
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(20, _config.applicationExitTimeoutSeconds);
+}
+
+/// Verifies that minimum boundary value (10) passes through unclamped.
+- (void)testApplicationExitTimeoutMinBoundaryPassesThrough {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.applicationExitTimeoutSeconds = @10;
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(10, _config.applicationExitTimeoutSeconds);
+}
+
+/// Verifies that maximum boundary value (30) passes through unclamped.
+- (void)testApplicationExitTimeoutMaxBoundaryPassesThrough {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.applicationExitTimeoutSeconds = @30;
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(30, _config.applicationExitTimeoutSeconds);
+}
+
+/// Verifies that values below the 10s minimum are clamped up to 10.
+- (void)testApplicationExitTimeoutBelowMinimumIsClamped {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.applicationExitTimeoutSeconds = @5;
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(10, _config.applicationExitTimeoutSeconds);
+}
+
+/// Verifies that values above the 30s maximum are clamped down to 30.
+- (void)testApplicationExitTimeoutAboveMaximumIsClamped {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.applicationExitTimeoutSeconds = @60;
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(30, _config.applicationExitTimeoutSeconds);
+}
+
+/// Verifies that explicit zero disables exit detection.
+- (void)testApplicationExitTimeoutZeroDisablesTracking {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.applicationExitTimeoutSeconds = @0;
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(0, _config.applicationExitTimeoutSeconds);
+}
+
+/// Verifies that negative values disable exit detection.
+- (void)testApplicationExitTimeoutNegativeDisablesTracking {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.applicationExitTimeoutSeconds = @(-3);
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(0, _config.applicationExitTimeoutSeconds);
+}
+
+/// Verifies that exit timeout is forced to 0 when lifecycle events collection is disabled.
+- (void)testApplicationExitTimeoutIsZeroWhenCollectingEventsDisabled {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.allowCollectingEventsSet = YES;
+    bundleMock.allowCollectingEvents = NO;
+    bundleMock.applicationExitTimeoutSeconds = @15;
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(0, _config.applicationExitTimeoutSeconds);
+}
+
 @end

@@ -105,9 +105,16 @@ void _replacement_viewDidAppear(UIViewController * self, SEL _cmd, BOOL animated
     ((void(*)(id,SEL,BOOL))pw_original_viewDidAppear_Imp)(self, _cmd, animated);
 
     if (!pw_isSystemUIKitViewController(self)) {
+        if ([PWScreenTrackingManager sharedManager].suppressScreenOpened) {
+            return;
+        }
         if (![PWScreenTrackingManager sharedManager].isWaitingToSendEvent) {
 
             dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kScreenOpenedEventDelay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+                if ([PWScreenTrackingManager sharedManager].suppressScreenOpened) {
+                    [PWScreenTrackingManager sharedManager].isWaitingToSendEvent = NO;
+                    return;
+                }
                 @try {
                     NSString *screenName = pw_screenNameForViewController(self);
 
@@ -139,6 +146,19 @@ void _replacement_viewDidAppear(UIViewController * self, SEL _cmd, BOOL animated
 - (void)swizzle_viewDidAppear {
     Method originalMethod = class_getInstanceMethod([UIViewController class], @selector(viewDidAppear:));
     pw_original_viewDidAppear_Imp = method_setImplementation(originalMethod, (IMP)_replacement_viewDidAppear);
+}
+
+- (void)emitScreenOpenForCurrentScreen {
+    if (!_defaultScreenOpenAllowed) return;
+    if (_suppressScreenOpened) return;
+    if (_currentScreenName.length == 0) return;
+
+    NSDictionary *attrs = @{
+        @"device_type": @1,
+        @"screen_name": _currentScreenName,
+        @"application_version": [PWUtils appVersion],
+    };
+    [[[PWManagerBridge shared] inAppManager] postEvent:defaultScreenOpenEvent withAttributes:attrs];
 }
 
 @end
