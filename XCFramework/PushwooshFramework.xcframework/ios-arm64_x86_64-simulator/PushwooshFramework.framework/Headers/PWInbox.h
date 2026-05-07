@@ -7,6 +7,7 @@
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
 #import <PushwooshCore/PWInboxTypes.h>
+#import <PushwooshCore/PWInboxBridge.h>
 
 /**
  The notification arriving on the Inbox messages renewal
@@ -18,7 +19,12 @@ FOUNDATION_EXPORT NSString * const PWInboxMessagesDidUpdateNotification;
  */
 FOUNDATION_EXPORT NSString * const PWInboxMessagesDidReceiveInPushNotification;
 
-@interface PWInbox : NSObject
+/// Conforms to `PWInboxBridge` so optional Swift modules
+/// (e.g. `PushwooshInboxKit`) can reach the storage-backed inbox API
+/// through `PWManagerBridge.shared.inboxBridge as? PWInboxBridge.Type`.
+/// Without the formal conformance the Swift cast returns `nil` at runtime
+/// and every bridge call silently no-ops — mutations never reach disk.
+@interface PWInbox : NSObject <PWInboxBridge>
 
 - (instancetype)init NS_UNAVAILABLE;
 
@@ -58,18 +64,40 @@ FOUNDATION_EXPORT NSString * const PWInboxMessagesDidReceiveInPushNotification;
 + (void)readMessagesWithCodes:(NSArray<NSString *> *)codes;
 
 /**
+ Marks every currently-stored unread inbox message as read in a single call.
+ Convenience over filtering the result of `loadMessagesWithCompletion:` and
+ calling `readMessagesWithCodes:` yourself.
+ */
++ (void)markAllMessagesAsRead;
+
+/**
+ Returns a single inbox message identified by its code without loading the
+ entire feed. Reads from the local `PWInboxStorage` cache. Returns `nil` if
+ the message has not been seen yet, has been deleted, or has expired.
+
+ @param code of the inboxMessage
+ */
++ (nullable id<PWInboxMessageProtocol>)messageForCode:(NSString *)code;
+
+/**
  Call this method, when the user clicks on the InboxMessageProtocol and the message’s action is performed
- 
+
  @param code of the inboxMessage that the user tapped
  */
 + (void)performActionForMessageWithCode:(NSString *)code;
 
 /**
  Call this method, when the user deletes the list of InboxMessageProtocol manually
- 
+
  @param codes of the list of InboxMessageProtocol.code that the user deleted
  */
 + (void)deleteMessagesWithCodes:(NSArray<NSString *> *)codes;
+
+/**
+ Deletes every read inbox message in one call. Useful for "Clear read"
+ affordances. Unread and pinned-but-unread messages are preserved.
+ */
++ (void)deleteAllReadMessages;
 
 /**
  Subscribe for messages arriving with push notifications. @warning You need to unsubscribe by calling the removeObserver method, if you don't want to receive notifications

@@ -10,8 +10,54 @@
 #import <PushwooshCore/PWManagerBridge.h>
 #import <PushwooshCore/PWInAppManager.h>
 #import <PushwooshCore/PWSdkStateProvider.h>
+#import <PushwooshCore/PushwooshLog.h>
 
 @implementation PushwooshConfig
+
++ (NSString *)trim:(NSString *)value {
+    if (![value isKindOfClass:[NSString class]]) {
+        return nil;
+    }
+    NSString *trimmed = [value stringByTrimmingCharactersInSet:
+                         [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return trimmed.length > 0 ? trimmed : nil;
+}
+
++ (NSString *)validateAndTrim:(NSString *)value forSelector:(SEL)selector {
+    if (value == nil) {
+        return nil;
+    }
+    NSString *trimmed = [self trim:value];
+    if (trimmed == nil) {
+        [self logIgnoredForSelector:selector];
+    }
+    return trimmed;
+}
+
++ (NSArray<NSString *> *)trimEmails:(NSArray *)emails forSelector:(SEL)selector {
+    if (emails == nil) {
+        return nil;
+    }
+    NSMutableArray<NSString *> *result = [NSMutableArray arrayWithCapacity:emails.count];
+    for (id entry in emails) {
+        NSString *trimmed = [self trim:entry];
+        if (trimmed != nil) {
+            [result addObject:trimmed];
+        }
+    }
+    if (result.count == 0) {
+        [self logIgnoredForSelector:selector];
+        return nil;
+    }
+    return [result copy];
+}
+
++ (void)logIgnoredForSelector:(SEL)selector {
+    [PushwooshLog pushwooshLog:PW_LL_WARN
+                     className:[PushwooshConfig class]
+                       message:[NSString stringWithFormat:@"%@ ignored: empty or whitespace-only value",
+                                NSStringFromSelector(selector)]];
+}
 
 + (Class)configure {
     return self;
@@ -22,7 +68,9 @@
 }
 
 + (void)setAppCode:(NSString *)appCode {
-    [[PWPreferences preferences] setAppCode:appCode];
+    NSString *value = [self validateAndTrim:appCode forSelector:_cmd];
+    if (appCode != nil && value == nil) return;
+    [[PWPreferences preferences] setAppCode:value];
 }
 
 + (NSString *)getAppCode {
@@ -34,7 +82,9 @@
 }
 
 + (void)setApiToken:(NSString *)apiToken {
-    [[PWPreferences preferences] setApiToken:apiToken];
+    NSString *value = [self validateAndTrim:apiToken forSelector:_cmd];
+    if (apiToken != nil && value == nil) return;
+    [[PWPreferences preferences] setApiToken:value];
 }
 
 + (NSString *)getApiToken {
@@ -86,14 +136,18 @@
 }
 
 + (void)setEmail:(NSString *)email {
+    NSString *value = [self validateAndTrim:email forSelector:_cmd];
+    if (email != nil && value == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared] setEmail:email];
+        [[PWManagerBridge shared] setEmail:value];
     }];
 }
 
 + (void)setUserId:(NSString *)userId {
+    NSString *value = [self validateAndTrim:userId forSelector:_cmd];
+    if (userId != nil && value == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared].inAppManager setUserId:userId];
+        [[PWManagerBridge shared].inAppManager setUserId:value];
     }];
 }
 
@@ -102,7 +156,7 @@
 }
 
 + (void)setLanguage:(NSString *)language {
-    [[PWPreferences preferences] setLanguage:language];
+    [[PWPreferences preferences] setLanguage:[self trim:language]];
 }
 
 + (NSString *)getLanguage {
@@ -201,73 +255,103 @@
 #pragma mark - SMS and WhatsApp
 
 + (void)registerSmsNumber:(NSString *)number {
+    NSString *value = [self validateAndTrim:number forSelector:_cmd];
+    if (number != nil && value == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared] registerSmsNumber:number];
+        [[PWManagerBridge shared] registerSmsNumber:value];
     }];
 }
 
 + (void)registerWhatsappNumber:(NSString *)number {
+    NSString *value = [self validateAndTrim:number forSelector:_cmd];
+    if (number != nil && value == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared] registerWhatsappNumber:number];
+        [[PWManagerBridge shared] registerWhatsappNumber:value];
     }];
 }
 
 #pragma mark - Email with Completion
 
 + (void)setEmail:(NSString *)email completion:(void (^)(NSError *error))completion {
+    NSString *value = [self validateAndTrim:email forSelector:_cmd];
+    if (email != nil && value == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared] setEmails:@[email] completion:completion];
+        [[PWManagerBridge shared] setEmails:@[value] completion:completion];
     }];
 }
 
 + (void)setEmails:(NSArray *)emails {
+    NSArray<NSString *> *trimmed = [self trimEmails:emails forSelector:_cmd];
+    if (emails != nil && trimmed == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared] setEmails:emails];
+        [[PWManagerBridge shared] setEmails:trimmed];
     }];
 }
 
 + (void)setEmails:(NSArray *)emails completion:(void (^)(NSError *error))completion {
+    NSArray<NSString *> *trimmed = [self trimEmails:emails forSelector:_cmd];
+    if (emails != nil && trimmed == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared] setEmails:emails completion:completion];
+        [[PWManagerBridge shared] setEmails:trimmed completion:completion];
     }];
 }
 
 #pragma mark - User Management
 
 + (void)setUserId:(NSString *)userId completion:(void (^)(NSError *error))completion {
+    NSString *value = [self validateAndTrim:userId forSelector:_cmd];
+    if (userId != nil && value == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared] setUserId:userId completion:completion];
+        [[PWManagerBridge shared] setUserId:value completion:completion];
     }];
 }
 
 + (void)setUser:(NSString *)userId emails:(NSArray *)emails {
+    NSString *userIdValue = [self validateAndTrim:userId forSelector:_cmd];
+    if (userId != nil && userIdValue == nil) return;
+    NSArray<NSString *> *emailsValue = [self trimEmails:emails forSelector:_cmd];
+    if (emails != nil && emailsValue == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared] setUser:userId emails:emails];
+        [[PWManagerBridge shared] setUser:userIdValue emails:emailsValue];
     }];
 }
 
 + (void)setUser:(NSString *)userId emails:(NSArray *)emails completion:(void (^)(NSError *error))completion {
+    NSString *userIdValue = [self validateAndTrim:userId forSelector:_cmd];
+    if (userId != nil && userIdValue == nil) return;
+    NSArray<NSString *> *emailsValue = [self trimEmails:emails forSelector:_cmd];
+    if (emails != nil && emailsValue == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared] setUser:userId emails:emails completion:completion];
+        [[PWManagerBridge shared] setUser:userIdValue emails:emailsValue completion:completion];
     }];
 }
 
 + (void)setUser:(NSString *)userId email:(NSString *)email completion:(void (^)(NSError *error))completion {
+    NSString *userIdValue = [self validateAndTrim:userId forSelector:_cmd];
+    if (userId != nil && userIdValue == nil) return;
+    NSString *emailValue = [self validateAndTrim:email forSelector:_cmd];
+    if (email != nil && emailValue == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared] setUser:userId email:email completion:completion];
+        [[PWManagerBridge shared] setUser:userIdValue email:emailValue completion:completion];
     }];
 }
 
 + (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void (^)(NSError *error))completion {
+    NSString *oldValue = [self validateAndTrim:oldUserId forSelector:_cmd];
+    if (oldUserId != nil && oldValue == nil) return;
+    NSString *newValue = [self validateAndTrim:newUserId forSelector:_cmd];
+    if (newUserId != nil && newValue == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared] mergeUserId:oldUserId to:newUserId doMerge:doMerge completion:completion];
+        [[PWManagerBridge shared] mergeUserId:oldValue to:newValue doMerge:doMerge completion:completion];
     }];
 }
 
 #pragma mark - Reverse Proxy
 
 + (void)setReverseProxy:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers {
-    [[PWManagerBridge shared] setReverseProxy:url headers:headers];
+    NSString *value = [self validateAndTrim:url forSelector:_cmd];
+    if (url != nil && value == nil) return;
+    [[PWManagerBridge shared] setReverseProxy:value headers:headers];
 }
 
 #pragma mark - Badge

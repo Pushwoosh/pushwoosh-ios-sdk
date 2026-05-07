@@ -51,6 +51,16 @@
     }
 }
 
++ (Class<PWInboxKit>)InboxKit {
+    [self ensureInitialized];
+    let pushwooshInboxKit = NSClassFromString(@"PushwooshInboxKitImplementation");
+    if (pushwooshInboxKit != nil) {
+        return [pushwooshInboxKit performSelector:@selector(inboxKit)];
+    } else {
+        return [PWInboxKitStub inboxKit];
+    }
+}
+
 + (Class<PWDebug>)debug {
     return [PushwooshLog debug];
 }

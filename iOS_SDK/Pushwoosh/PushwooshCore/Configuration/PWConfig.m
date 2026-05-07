@@ -46,22 +46,32 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
 
 @implementation PWConfig
 
+- (NSString *)trimmedStringForKey:(NSString *)key {
+    id raw = [_bundle objectForInfoDictionaryKey:key];
+    if (![raw isKindOfClass:[NSString class]]) {
+        return nil;
+    }
+    NSString *trimmed = [(NSString *)raw stringByTrimmingCharactersInSet:
+                         [NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    return trimmed.length > 0 ? trimmed : nil;
+}
+
 - (instancetype)initWithBundle:(NSBundle *)bundle {
 	self = [super init];
 	if (self) {
         _bundle = bundle;
 
-		self.appId = [bundle objectForInfoDictionaryKey:@"Pushwoosh_APPID"];
+		self.appId = [self trimmedStringForKey:@"Pushwoosh_APPID"];
 
-        self.apiToken = [bundle objectForInfoDictionaryKey:@"PW_API_TOKEN"];
-        
-        self.pushwooshApiToken = [bundle objectForInfoDictionaryKey:@"Pushwoosh_API_TOKEN"];
+        self.apiToken = [self trimmedStringForKey:@"PW_API_TOKEN"];
 
-		self.appIdDev = [bundle objectForInfoDictionaryKey:@"Pushwoosh_APPID_Dev"];
+        self.pushwooshApiToken = [self trimmedStringForKey:@"Pushwoosh_API_TOKEN"];
 
-		self.appName = [bundle objectForInfoDictionaryKey:@"Pushwoosh_APPNAME"];
-        
-        self.appGroupsName = [bundle objectForInfoDictionaryKey:@"PW_APP_GROUPS_NAME"];
+		self.appIdDev = [self trimmedStringForKey:@"Pushwoosh_APPID_Dev"];
+
+		self.appName = [self trimmedStringForKey:@"Pushwoosh_APPNAME"];
+
+        self.appGroupsName = [self trimmedStringForKey:@"PW_APP_GROUPS_NAME"];
         
         self.isUsingPluginForPushHandling = [self getBoolean:@"Pushwoosh_PLUGIN_NOTIFICATION_HANDLER" default:NO];
 
@@ -69,9 +79,9 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
 
         self.sendPushStatIfAlertsDisabled = [self getBoolean:@"Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED" default:NO];
 
-        [self styleRichMediaTypeFromString:[bundle objectForInfoDictionaryKey:@"Pushwoosh_RICH_MEDIA_STYLE"]];
+        [self styleRichMediaTypeFromString:[self trimmedStringForKey:@"Pushwoosh_RICH_MEDIA_STYLE"]];
 
-		self.requestUrl = [bundle objectForInfoDictionaryKey:@"Pushwoosh_BASEURL"];
+		self.requestUrl = [self trimmedStringForKey:@"Pushwoosh_BASEURL"];
 
 		self.selfTestEnabled = [self getBoolean:@"Pushwoosh_SDK_SELF_TEST_ENABLE" default:NO];
 
@@ -115,7 +125,7 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
         self.idleTimeoutSeconds = [self resolveIdleTimeoutSeconds];
         self.applicationExitTimeoutSeconds = [self resolveApplicationExitTimeoutSeconds];
 
-		NSString *logLevelString = [bundle objectForInfoDictionaryKey:@"Pushwoosh_LOG_LEVEL"];
+		NSString *logLevelString = [self trimmedStringForKey:@"Pushwoosh_LOG_LEVEL"];
 
 		if (!logLevelString) {
 			// default log level
@@ -143,7 +153,7 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
 
         // gRPC configuration
         self.preferGRPC = [self getBoolean:@"Pushwoosh_PREFER_GRPC" default:NO];
-        self.grpcHost = [bundle objectForInfoDictionaryKey:@"Pushwoosh_GRPC_HOST"] ?: @"grpc.pushwoosh.com";
+        self.grpcHost = [self trimmedStringForKey:@"Pushwoosh_GRPC_HOST"] ?: @"grpc.pushwoosh.com";
 
         NSNumber *grpcPortNum = [bundle objectForInfoDictionaryKey:@"Pushwoosh_GRPC_PORT"];
         self.grpcPort = grpcPortNum ? [grpcPortNum integerValue] : 443;

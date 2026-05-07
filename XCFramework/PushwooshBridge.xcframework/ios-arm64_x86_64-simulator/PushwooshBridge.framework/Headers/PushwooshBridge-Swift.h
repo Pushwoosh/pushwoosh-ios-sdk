@@ -432,6 +432,29 @@ typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
   PWForegroundPushStyleStyle1 = 0,
 };
 
+
+/// Protocol bridging the optional <code>PushwooshInboxKit</code> module to the umbrella SDK.
+/// The host SDK (<code>PushwooshFramework</code>) discovers <code>PushwooshInboxKit</code> at runtime
+/// through <code>NSClassFromString("PushwooshInboxKitImplementation")</code>. The bridge
+/// protocol intentionally exposes only a class-level factory — the public UI
+/// surface (<code>PushwooshInboxKitViewController</code>, <code>PushwooshInboxKitAttributes</code>)
+/// is consumed directly from the <code>PushwooshInboxKit</code> module by the host app.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge10PWInboxKit_")
+@protocol PWInboxKit
+/// Returns the implementation class. Used as a marker to confirm the
+/// optional module is linked.
++ (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+/// Default no-op implementation of <code>PWInboxKit</code> used when the
+/// <code>PushwooshInboxKit</code> optional module is not linked.
+SWIFT_CLASS("_TtC15PushwooshBridge14PWInboxKitStub")
+@interface PWInboxKitStub : NSObject <PWInboxKit>
++ (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
 @class NSString;
 
 /// Protocol for managing persistent HWID storage using Keychain.
@@ -1491,6 +1514,29 @@ typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
 /// Standard push notification style with icon, title, and message.
   PWForegroundPushStyleStyle1 = 0,
 };
+
+
+/// Protocol bridging the optional <code>PushwooshInboxKit</code> module to the umbrella SDK.
+/// The host SDK (<code>PushwooshFramework</code>) discovers <code>PushwooshInboxKit</code> at runtime
+/// through <code>NSClassFromString("PushwooshInboxKitImplementation")</code>. The bridge
+/// protocol intentionally exposes only a class-level factory — the public UI
+/// surface (<code>PushwooshInboxKitViewController</code>, <code>PushwooshInboxKitAttributes</code>)
+/// is consumed directly from the <code>PushwooshInboxKit</code> module by the host app.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge10PWInboxKit_")
+@protocol PWInboxKit
+/// Returns the implementation class. Used as a marker to confirm the
+/// optional module is linked.
++ (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
+@end
+
+
+/// Default no-op implementation of <code>PWInboxKit</code> used when the
+/// <code>PushwooshInboxKit</code> optional module is not linked.
+SWIFT_CLASS("_TtC15PushwooshBridge14PWInboxKitStub")
+@interface PWInboxKitStub : NSObject <PWInboxKit>
++ (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
 
 @class NSString;
 

@@ -16,6 +16,8 @@
 #import <PushwooshCore/PWInboxUpdateStatusRequest.h>
 #import <PushwooshCore/PWNetworkModule.h>
 #import <PushwooshCore/PWInboxMessageInternal+Status.h>
+#import <PushwooshCore/PWManagerBridge.h>
+#import <PushwooshCore/PWInboxBridge.h>
 #import "Pushwoosh+Internal.h"
 
 NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpdateNotification.com.pushwoosh.inbox";
@@ -34,6 +36,26 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
 @end
 
 @implementation PWInbox
+
++ (void)load {
+    /*
+     Register PWInbox as the inbox bridge backend used by PushwooshCore's
+     notification dispatcher. Without this assignment the property on
+     [PWManagerBridge shared] stays nil at runtime, which silently breaks
+     the realtime push-driven inbox update path:
+
+       PWPushNotificationsManager -> dispatchInboxPushIfNeeded
+         -> [nil isInboxPushNotification:] returns NO
+         -> addInboxMessageFromPushNotification: never invoked
+         -> PWInboxMessagesDidReceiveInPushNotification never posted
+         -> observers (PushwooshInboxKitViewController, PushwooshInboxUI)
+            miss the update and only refresh on the next manual reload.
+
+     +load is the safest registration site - it runs at process launch
+     before any APNS push can be delivered.
+     */
+    [PWManagerBridge shared].inboxBridge = (Class<PWInboxBridge>)self;
+}
 
 + (instancetype)sharedInstance {
     static dispatch_once_t once;
@@ -275,6 +297,45 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
     [PWInbox sendNotificationWithMessagesAdded:nil messagesDeleted:nil messagesUpdated:messages];
 }
 
++ (void)markAllMessagesAsRead {
+    NSArray<PWInboxMessageInternal *> *all = [[PWInbox sharedInstance].storage getAllMessages];
+    NSMutableArray<NSString *> *unreadCodes = [NSMutableArray new];
+    for (PWInboxMessageInternal *message in all) {
+        if (!message.isRead && message.code) {
+            [unreadCodes addObject:message.code];
+        }
+    }
+    if (unreadCodes.count == 0) {
+        return;
+    }
+    [PWInbox readMessagesWithCodes:unreadCodes];
+}
+
++ (id<PWInboxMessageProtocol>)messageForCode:(NSString *)code {
+    if (code.length == 0) {
+        return nil;
+    }
+    PWInboxMessageInternal *message = [[PWInbox sharedInstance].storage messageForCode:code];
+    if (!message || message.deleted || message.isExpired) {
+        return nil;
+    }
+    return message;
+}
+
++ (void)deleteAllReadMessages {
+    NSArray<PWInboxMessageInternal *> *all = [[PWInbox sharedInstance].storage getAllMessages];
+    NSMutableArray<NSString *> *readCodes = [NSMutableArray new];
+    for (PWInboxMessageInternal *message in all) {
+        if (message.isRead && message.code) {
+            [readCodes addObject:message.code];
+        }
+    }
+    if (readCodes.count == 0) {
+        return;
+    }
+    [PWInbox deleteMessagesWithCodes:readCodes];
+}
+
 + (void)deleteMessagesWithCodes:(NSArray<NSString *> *)codes {
     NSArray<PWInboxMessageInternal *> *messages = [[PWInbox sharedInstance].storage updateStatus:PWInboxMessageStatusDeleted withInboxMessageCodes:codes];
 #if TARGET_OS_IOS
@@ -363,12 +424,13 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
 
 + (void)updateInboxForNewUserId:(void (^)(NSUInteger messagesCount))completion {
     [PWInbox loadMessagesWithCompletion:^(NSArray<NSObject<PWInboxMessageProtocol> *> *messages, NSError *error) {
-        if (!error || messages != nil)
+        if (error) {
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"updateInboxForNewUserId failed: %@", error.localizedDescription]];
+        }
+        if (completion) {
             completion(messages.count);
-        else
-            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Messages array is equail nil or something went wrong with error: %@", error.localizedDescription]];
+        }
     }];
-    
 }
 
 @end

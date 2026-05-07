@@ -1,0 +1,11 @@
+framework module PushwooshInboxKit {
+  umbrella header "PushwooshInboxKit.h"
+  export *
+
+  module * { export * }
+}
+
+module PushwooshInboxKit.Swift {
+  header "PushwooshInboxKit-Swift.h"
+  requires objc
+}

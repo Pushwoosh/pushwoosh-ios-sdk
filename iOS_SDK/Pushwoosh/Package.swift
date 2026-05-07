@@ -18,6 +18,11 @@ let package = Package(
             name: "PushwooshGRPC",
             targets: ["PushwooshGRPC"]
         ),
+        // Optional inbox UI module
+        .library(
+            name: "PushwooshInboxKit",
+            targets: ["PushwooshInboxKit"]
+        ),
     ],
     dependencies: [
         // SwiftProtobuf for protobuf serialization
@@ -36,6 +41,10 @@ let package = Package(
         .binaryTarget(
             name: "PushwooshBridge",
             path: "XCFrameworks/PushwooshBridge.xcframework"
+        ),
+        .binaryTarget(
+            name: "PushwooshInboxKit",
+            path: "XCFrameworks/PushwooshInboxKit.xcframework"
         ),
         // Wrapper target for main SDK
         .target(

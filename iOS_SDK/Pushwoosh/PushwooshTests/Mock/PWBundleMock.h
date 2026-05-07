@@ -17,4 +17,17 @@
 @property (nonatomic) BOOL allowCollectingEventsSet;
 @property (nonatomic) BOOL allowCollectingEvents;
 
+@property (nonatomic, copy, nullable) NSString *appId;
+@property (nonatomic, copy, nullable) NSString *apiToken;
+@property (nonatomic, copy, nullable) NSString *pushwooshApiToken;
+@property (nonatomic, copy, nullable) NSString *appIdDev;
+@property (nonatomic, copy, nullable) NSString *appName;
+@property (nonatomic, copy, nullable) NSString *appGroupsName;
+@property (nonatomic, copy, nullable) NSString *requestUrl;
+@property (nonatomic, copy, nullable) NSString *grpcHost;
+@property (nonatomic, copy, nullable) NSString *logLevel;
+@property (nonatomic, copy, nullable) NSString *richMediaStyle;
+
+@property (nonatomic, strong, nullable) id appIdRaw;
+
 @end

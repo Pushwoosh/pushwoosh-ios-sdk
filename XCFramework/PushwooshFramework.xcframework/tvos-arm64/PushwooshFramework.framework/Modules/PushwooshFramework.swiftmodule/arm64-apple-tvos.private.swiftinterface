@@ -32,6 +32,24 @@ extension PushwooshFramework.Pushwoosh {
     get
   }
 }
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+extension PushwooshFramework.PWInbox {
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func loadMessages() async throws -> [any PushwooshCore.PWInboxMessageProtocol]
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func unreadMessagesCount() async throws -> Swift.Int
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func messagesCount() async throws -> Swift.Int
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func messagesWithNoActionPerformedCount() async throws -> Swift.Int
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func resyncInboxForNewUserId() async -> Swift.UInt
+  #endif
+}
 extension PushwooshCore.PushwooshConfig {
   public static var delegate: (any PushwooshFramework.PWMessagingDelegate)? {
     get

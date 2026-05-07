@@ -5,7 +5,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PushwooshXCFramework"
-  s.version      = "7.0.39"
+  s.version      = "7.0.40"
   s.summary      = "Push notifications library by Pushwoosh."
 
   s.description  = "Push notifications iOS library by Pushwoosh - cross platform push notifications service. " \
@@ -51,6 +51,15 @@ Pod::Spec.new do |s|
     activities.dependency 'PushwooshXCFramework/PushwooshBridge'
     activities.ios.vendored_frameworks = 'XCFramework/PushwooshLiveActivities.xcframework'
     activities.tvos.vendored_frameworks = 'XCFramework/PushwooshLiveActivities.xcframework'
+  end
+
+  # PushwooshInboxKit subspec (optional)
+  s.subspec 'PushwooshInboxKit' do |inboxkit|
+    inboxkit.dependency 'PushwooshXCFramework/PushwooshCore'
+    inboxkit.dependency 'PushwooshXCFramework/PushwooshBridge'
+    inboxkit.frameworks = 'UIKit'
+    inboxkit.ios.deployment_target = "13.0"
+    inboxkit.ios.vendored_frameworks = 'XCFramework/PushwooshInboxKit.xcframework'
   end
 
   # PushwooshVoIP subspec (optional)

@@ -268,6 +268,81 @@ public extension PWLegacyRichMedia {
 }
 #endif
 
+// MARK: - PWInbox async/await
+
+/// Modern Swift wrappers around the completion-based `PWInbox` API.
+/// The original completion methods stay untouched so existing integrators
+/// keep working — these `async` variants just bridge to them.
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+public extension PWInbox {
+
+    /// Loads every inbox message currently visible to the user (cached +
+    /// freshly merged from the server). Maps the completion-based
+    /// `loadMessagesWithCompletion(_:)` into an async throwing call.
+    static func loadMessages() async throws -> [PWInboxMessageProtocol] {
+        try await withCheckedThrowingContinuation { continuation in
+            PWInbox.loadMessages { messages, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: messages ?? [])
+                }
+            }
+        }
+    }
+
+    /// Returns the count of unread messages. Async wrapper around
+    /// `unreadMessagesCountWithCompletion(_:)`.
+    static func unreadMessagesCount() async throws -> Int {
+        try await withCheckedThrowingContinuation { continuation in
+            PWInbox.unreadMessagesCount { count, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: count)
+                }
+            }
+        }
+    }
+
+    /// Returns the total number of stored messages.
+    static func messagesCount() async throws -> Int {
+        try await withCheckedThrowingContinuation { continuation in
+            PWInbox.messagesCount { count, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: count)
+                }
+            }
+        }
+    }
+
+    /// Returns the count of messages whose action has not yet been performed.
+    static func messagesWithNoActionPerformedCount() async throws -> Int {
+        try await withCheckedThrowingContinuation { continuation in
+            PWInbox.messagesWithNoActionPerformedCount { count, error in
+                if let error = error {
+                    continuation.resume(throwing: error)
+                } else {
+                    continuation.resume(returning: count)
+                }
+            }
+        }
+    }
+
+    /// Re-syncs the inbox after the user identity changes. Returns the new
+    /// message count once the sync completes. No throwing variant — the
+    /// underlying API does not surface errors.
+    static func resyncInboxForNewUserId() async -> UInt {
+        await withCheckedContinuation { continuation in
+            PWInbox.updateInbox(forNewUserId: { count in
+                continuation.resume(returning: count)
+            })
+        }
+    }
+}
+
 public extension PushwooshConfig {
 
     /// The delegate that receives push notification events.

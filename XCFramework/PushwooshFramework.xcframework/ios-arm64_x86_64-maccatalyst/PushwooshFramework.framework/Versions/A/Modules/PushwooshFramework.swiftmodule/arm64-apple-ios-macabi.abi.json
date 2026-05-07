@@ -1188,6 +1188,211 @@
       },
       {
         "kind": "TypeDecl",
+        "name": "PWInbox",
+        "printedName": "PWInbox",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "loadMessages",
+            "printedName": "loadMessages()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[any PushwooshCore.PWInboxMessageProtocol]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInboxMessageProtocol",
+                    "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                    "usr": "c:objc(pl)PWInboxMessageProtocol"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:So7PWInboxC18PushwooshFrameworkE12loadMessagesSaySo0A15MessageProtocol_pGyYaKFZ",
+            "mangledName": "$sSo7PWInboxC18PushwooshFrameworkE12loadMessagesSaySo0A15MessageProtocol_pGyYaKFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "unreadMessagesCount",
+            "printedName": "unreadMessagesCount()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:So7PWInboxC18PushwooshFrameworkE19unreadMessagesCountSiyYaKFZ",
+            "mangledName": "$sSo7PWInboxC18PushwooshFrameworkE19unreadMessagesCountSiyYaKFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "messagesCount",
+            "printedName": "messagesCount()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:So7PWInboxC18PushwooshFrameworkE13messagesCountSiyYaKFZ",
+            "mangledName": "$sSo7PWInboxC18PushwooshFrameworkE13messagesCountSiyYaKFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "messagesWithNoActionPerformedCount",
+            "printedName": "messagesWithNoActionPerformedCount()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:So7PWInboxC18PushwooshFrameworkE34messagesWithNoActionPerformedCountSiyYaKFZ",
+            "mangledName": "$sSo7PWInboxC18PushwooshFrameworkE34messagesWithNoActionPerformedCountSiyYaKFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "resyncInboxForNewUserId",
+            "printedName": "resyncInboxForNewUserId()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt",
+                "printedName": "Swift.UInt",
+                "usr": "s:Su"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:So7PWInboxC18PushwooshFrameworkE23resyncInboxForNewUserIdSuyYaFZ",
+            "mangledName": "$sSo7PWInboxC18PushwooshFrameworkE23resyncInboxForNewUserIdSuyYaFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:objc(cs)PWInbox",
+        "moduleName": "PushwooshFramework",
+        "isOpen": true,
+        "objc_name": "PWInbox",
+        "declAttributes": [
+          "ObjC",
+          "Dynamic"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
         "name": "PushwooshConfig",
         "printedName": "PushwooshConfig",
         "children": [

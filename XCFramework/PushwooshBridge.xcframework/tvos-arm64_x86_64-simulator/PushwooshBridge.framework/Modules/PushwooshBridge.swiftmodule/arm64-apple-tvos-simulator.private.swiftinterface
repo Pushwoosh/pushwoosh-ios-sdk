@@ -222,6 +222,14 @@ import _SwiftConcurrencyShims
   @objc override dynamic public init()
   @objc deinit
 }
+@objc public protocol PWInboxKit {
+  @objc static func inboxKit() -> Swift.AnyClass
+}
+@objc @_inheritsConvenienceInitializers public class PWInboxKitStub : ObjectiveC.NSObject, PushwooshBridge.PWInboxKit {
+  @objc public static func inboxKit() -> Swift.AnyClass
+  @objc override dynamic public init()
+  @objc deinit
+}
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Equatable {}
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Hashable {}
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.RawRepresentable {}

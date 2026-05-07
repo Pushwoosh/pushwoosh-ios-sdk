@@ -269,6 +269,9 @@
 #import <PushwooshCore/PushwooshConfig.h>
 #import <PushwooshCore/PWPreferences.h>
 
+#import "PWInbox.h"
+#import "PWNotificationExtensionManager.h"
+
 #if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
 
 #import <UserNotifications/UserNotifications.h>
@@ -281,11 +284,11 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"7.0.39"
+#define PUSHWOOSH_VERSION @"7.0.40"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy, PushwooshConfig;
-@protocol PWLiveActivities, PWVoIP, PWForegroundPush, PWTVoS, PWDebug, PWMedia, PWKeychain;
+@protocol PWLiveActivities, PWVoIP, PWForegroundPush, PWTVoS, PWDebug, PWMedia, PWKeychain, PWInboxKit;
 
 
 typedef void (^PushwooshRegistrationHandler)(NSString * _Nullable token, NSError * _Nullable error);
@@ -520,6 +523,9 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
 #pragma mark - Live Activity
 + (Class<PWLiveActivities>_Nonnull)LiveActivities NS_REFINED_FOR_SWIFT;
+
+#pragma mark - Inbox UI (PushwooshInboxKit)
++ (Class<PWInboxKit>_Nonnull)InboxKit NS_REFINED_FOR_SWIFT;
 
 #pragma mark - Logging
 + (Class<PWDebug>_Nonnull)debug NS_REFINED_FOR_SWIFT;

@@ -32,6 +32,7 @@
 [![PushwooshCore Documentation](https://img.shields.io/badge/docs-PushwooshCore-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshCore/documentation/pushwooshcore/)
 [![PushwooshVoIP Documentation](https://img.shields.io/badge/docs-PushwooshVoIP-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshVoIP/documentation/pushwooshvoip/)
 [![PushwooshLiveActivities Documentation](https://img.shields.io/badge/docs-PushwooshLiveActivities-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshLiveActivities/documentation/pushwooshliveactivities/)
+[![PushwooshInboxKit Documentation](https://img.shields.io/badge/docs-PushwooshInboxKit-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshInboxKit/documentation/pushwooshinboxkit/)
 [![PushwooshTVOS Documentation](https://img.shields.io/badge/docs-PushwooshTVOS-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshTVOS/documentation/pushwooshtvos/)
 [![PushwooshForegroundPush Documentation](https://img.shields.io/badge/docs-PushwooshForegroundPush-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshForegroundPush/documentation/pushwooshforegroundpush/)
 [![PushwooshKeychain Documentation](https://img.shields.io/badge/docs-PushwooshKeychain-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshKeychain/documentation/pushwooshkeychain/)
@@ -49,6 +50,7 @@
 ### Advanced Modules
 - **VoIP Push Notifications** - CallKit integration for VoIP apps
 - **Live Activities** - iOS 16.1+ Live Activities with push updates
+- **InboxKit** - Modern UIKit inbox UI with banner / captioned / classic cards, inline CTAs and pinning
 - **tvOS Support** - Push notifications and Rich Media for Apple TV
 - **Foreground Push** - Custom foreground notifications with animations and effects
 
@@ -69,6 +71,7 @@ Select the modules you need in your target's **Frameworks, Libraries, and Embedd
 - `PushwooshCore` - Core functionality **(required)**
 - `PushwooshBridge` - Bridge module **(required)**
 - `PushwooshLiveActivities` - Live Activities support *(optional)*
+- `PushwooshInboxKit` - Modern UIKit inbox UI *(optional)*
 - `PushwooshVoIP` - VoIP push notifications *(optional)*
 - `PushwooshTVOS` - tvOS support *(optional)*
 - `PushwooshForegroundPush` - Custom foreground notifications *(optional)*
@@ -87,6 +90,7 @@ pod 'PushwooshXCFramework'
 
 # Optional modules
 pod 'PushwooshXCFramework/PushwooshLiveActivities'
+pod 'PushwooshXCFramework/PushwooshInboxKit'
 pod 'PushwooshXCFramework/PushwooshVoIP'
 pod 'PushwooshXCFramework/PushwooshTVOS'
 pod 'PushwooshXCFramework/PushwooshForegroundPush'
@@ -213,6 +217,11 @@ VoIP push notifications with CallKit integration.
 Live Activities support with push-to-start (iOS 17.2+) and real-time updates.
 
 **Requirements:** iOS 16.1+ | WidgetKit | ActivityKit
+
+### [PushwooshInboxKit](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshInboxKit/documentation/pushwooshinboxkit/)
+Modern UIKit inbox UI with three default cells (Banner / Captioned / Classic), inline CTA buttons, pinning, and code- or server-driven cell selection.
+
+**Requirements:** iOS 13.0+ | UIKit
 
 ### [PushwooshTVOS](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshTVOS/documentation/pushwooshtvos/)
 Push notifications and Rich Media HTML for Apple TV.
