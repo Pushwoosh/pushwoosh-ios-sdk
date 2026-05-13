@@ -425,7 +425,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 #endif
     
     //request part
-    NSString *base = [self baseUrl];
+    NSString *base = [request baseUrl] ?: [self baseUrl];
     if (![base hasSuffix:@"/"]) {
         base = [base stringByAppendingString:@"/"];
     }
@@ -449,7 +449,9 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     }
 
     NSString *requestString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
-    NSString *requestData =  [NSString stringWithFormat:@"{\"request\":%@}", requestString];
+    NSString *requestData = [request shouldWrapRequest]
+        ? [NSString stringWithFormat:@"{\"request\":%@}", requestString]
+        : requestString;
 
     NSMutableURLRequest *urlRequest = [self prepareRequest:requestUrl jsonRequestData:requestData];
 

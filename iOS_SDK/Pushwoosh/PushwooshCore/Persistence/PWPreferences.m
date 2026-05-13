@@ -38,6 +38,7 @@ static NSString *const KeyRegistrationEverOccured = @"PWRegistrationEverOccured"
 static NSString *const KeyLanguage = @"Pushwoosh_Language";
 static NSString *const KeyIsLoggerAvailable = @"Logger_available";
 static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_enabled";
+static NSString *const KeyAdvertisingId = @"PWAdvertisingId";
 
 /// Flag to prevent recursive calls during singleton initialization
 static BOOL _isInitializing = NO;
@@ -69,6 +70,7 @@ static BOOL _isInitializing = NO;
 @synthesize language = _language;
 @synthesize isServerCommunicationEnabled = _isServerCommunicationEnabled;
 @synthesize customTags = _customTags;
+@synthesize advertisingId = _advertisingId;
 
 + (BOOL)isInitializing {
     return _isInitializing;
@@ -157,6 +159,8 @@ static BOOL _isInitializing = NO;
         }
 
         _showForegroundNotifications = [PWConfig config].showAlert;
+
+        _advertisingId = [[NSUserDefaults standardUserDefaults] objectForKey:KeyAdvertisingId];
     }
 
     _isInitializing = NO;
@@ -185,6 +189,7 @@ static BOOL _isInitializing = NO;
     _lastRegTime = nil;
     _lastRegisterUserDate = nil;
     _categories = nil;
+    [self setAdvertisingId:nil];
 }
 
 + (void)resetCache {
@@ -193,6 +198,7 @@ static BOOL _isInitializing = NO;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyLastSendAttrDate];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyLastRegisterUserDate];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyPushwooshCategories];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyAdvertisingId];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -455,6 +461,25 @@ static BOOL _isInitializing = NO;
     @synchronized(_lock) {
         return [_customTags copy];
     }
+}
+
+- (NSString *)advertisingId {
+    @synchronized(_lock) {
+        return [_advertisingId copy];
+    }
+}
+
+- (void)setAdvertisingId:(NSString *)advertisingId {
+    @synchronized(_lock) {
+        _advertisingId = [advertisingId copy];
+    }
+
+    if (advertisingId) {
+        [[NSUserDefaults standardUserDefaults] setObject:advertisingId forKey:KeyAdvertisingId];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyAdvertisingId];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 + (NSString *)readAppName {

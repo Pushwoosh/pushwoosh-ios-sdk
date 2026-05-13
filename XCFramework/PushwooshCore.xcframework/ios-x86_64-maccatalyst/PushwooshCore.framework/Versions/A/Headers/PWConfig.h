@@ -218,6 +218,13 @@ value: If YES, Deep Links received in silent pushes will be processed automatica
  */
 @property (nonatomic, assign, readonly) BOOL allowReverseProxy;
 
+/**
+ key: Pushwoosh_TRACKING_URL
+ type: string
+ value: Custom tracking endpoint URL for advertising ID requests. Default is https://tracking.svc-nue.pushwoosh.com/api/v2/device-api/
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *trackingUrl;
+
 - (instancetype)initWithBundle:(NSBundle *)bundle;
 
 @end

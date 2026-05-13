@@ -34,6 +34,7 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
 @property (nonatomic, readwrite) BOOL isUsingPluginForPushHandling;
 
 @property (nonatomic, assign, readwrite) BOOL allowReverseProxy;
+@property (nonatomic, copy, readwrite) NSString *trackingUrl;
 
 // gRPC configuration
 @property (nonatomic, assign, readwrite) BOOL preferGRPC;
@@ -150,6 +151,8 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
         self.lazyInitialization = [self getBoolean:@"Pushwoosh_LAZY_INITIALIZATION" default:NO];
 
         self.allowReverseProxy = [self getBoolean:@"Pushwoosh_ALLOW_REVERSE_PROXY" default:NO];
+
+        self.trackingUrl = [self trimmedStringForKey:@"Pushwoosh_TRACKING_URL"];
 
         // gRPC configuration
         self.preferGRPC = [self getBoolean:@"Pushwoosh_PREFER_GRPC" default:NO];

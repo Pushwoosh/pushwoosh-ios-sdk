@@ -1,7 +1,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PushwooshInboxUI"
-  s.version      = "7.0.40"
+  s.version      = "7.0.41"
   s.summary      = "Pushwoosh Inbox UI library by Pushwoosh."
   s.platform     = :ios
   s.ios.deployment_target  = '13.0'

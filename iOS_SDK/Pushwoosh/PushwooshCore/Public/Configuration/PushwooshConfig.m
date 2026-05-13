@@ -9,6 +9,10 @@
 #import "PushwooshConfig.h"
 #import <PushwooshCore/PWManagerBridge.h>
 #import <PushwooshCore/PWInAppManager.h>
+#import "PWSetAdvertisingIdRequest.h"
+#import "PWNetworkModule.h"
+#import "PWServerCommunicationManager.h"
+#import "PWConfig.h"
 #import <PushwooshCore/PWSdkStateProvider.h>
 #import <PushwooshCore/PushwooshLog.h>
 
@@ -343,6 +347,42 @@
     if (newUserId != nil && newValue == nil) return;
     [self executeOrQueue:^{
         [[PWManagerBridge shared] mergeUserId:oldValue to:newValue doMerge:doMerge completion:completion];
+    }];
+}
+
+#pragma mark - Advertising
+
+static NSString *const kZeroAdvertisingId = @"00000000-0000-0000-0000-000000000000";
+
++ (void)setAdvertisingId:(NSString *)advertisingId {
+    if (advertisingId.length == 0 || [kZeroAdvertisingId caseInsensitiveCompare:advertisingId] == NSOrderedSame) {
+        advertisingId = nil;
+    }
+
+    if (![[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Communication with Pushwoosh is disabled. To send the request you have to enable the server communication using method startServerCommunication of Pushwoosh class."];
+        return;
+    }
+
+    PWPreferences *prefs = [PWPreferences preferences];
+    NSString *lastSent = prefs.advertisingId;
+
+    if (!advertisingId && (!lastSent || lastSent.length == 0)) {
+        return;
+    }
+    if (advertisingId && [advertisingId isEqualToString:lastSent]) {
+        return;
+    }
+
+    NSString *normalized = advertisingId;
+    [self executeOrQueue:^{
+        PWSetAdvertisingIdRequest *request = [[PWSetAdvertisingIdRequest alloc] init];
+        request.advertisingId = normalized;
+        [[PWNetworkModule module].requestManager sendRequest:request completion:^(NSError *error) {
+            if (!error) {
+                [prefs setAdvertisingId:normalized];
+            }
+        }];
     }];
 }
 

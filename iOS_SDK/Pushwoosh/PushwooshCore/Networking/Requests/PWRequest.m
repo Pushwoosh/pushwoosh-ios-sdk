@@ -24,6 +24,14 @@
 	return @"";
 }
 
+- (NSString *)baseUrl {
+	return nil;
+}
+
+- (BOOL)shouldWrapRequest {
+	return YES;
+}
+
 - (NSString *)requestIdentifier {
     return [NSString stringWithFormat:@"%ld", self.hash];
 }

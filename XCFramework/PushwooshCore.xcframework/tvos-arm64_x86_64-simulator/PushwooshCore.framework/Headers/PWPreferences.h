@@ -60,6 +60,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy) NSDictionary *customTags;
 
+@property (copy, nullable) NSString *advertisingId;
+
 - (BOOL)hasAppCode;
 - (NSString *)defaultBaseUrl;
 

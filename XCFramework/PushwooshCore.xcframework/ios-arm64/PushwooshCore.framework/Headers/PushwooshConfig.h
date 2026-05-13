@@ -341,6 +341,78 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  */
 + (NSString *_Nullable)getPushToken;
 
+#pragma mark - Advertising
+
+/**
+ Sets the advertising identifier (IDFA) for the device.
+
+ @discussion
+ The SDK does not collect IDFA automatically. The integrator is responsible for
+ requesting user consent via `ATTrackingManager.requestTrackingAuthorization` and
+ passing the resulting identifier to the SDK.
+
+ Pass `nil`, an empty string, or the zero UUID
+ (`"00000000-0000-0000-0000-000000000000"`) to clear the identifier on the backend.
+ The zero UUID is what `ASIdentifierManager.advertisingIdentifier` returns when
+ tracking is denied or restricted — the SDK normalizes it to `nil` automatically.
+
+ Behavior:
+ - Fire-and-forget: no completion handler. The SDK retries on transient failures.
+ - Deduplicated: repeated calls with the same value do not produce additional
+   network requests.
+ - The value is persisted locally only after a successful send and read back on
+   subsequent launches for the dedupe check.
+
+ By default the IDFA is sent to `https://tracking.svc-nue.pushwoosh.com/api/v2/device-api/setMADID`.
+ You can override the tracking endpoint via the `Pushwoosh_TRACKING_URL`
+ Info.plist key (useful for on-premise deployments and integration testing).
+
+ ## App Store submission requirement
+
+ Apple requires that any tracking domain be declared in the **integrator's**
+ app-level `PrivacyInfo.xcprivacy`:
+
+ ```xml
+ <key>NSPrivacyTracking</key>
+ <true/>
+ <key>NSPrivacyTrackingDomains</key>
+ <array>
+     <string>tracking.svc-nue.pushwoosh.com</string>
+ </array>
+ ```
+
+ If you override `Pushwoosh_TRACKING_URL`, list **your** host instead. Apps that
+ ship without this declaration will be blocked by iOS on non-authorized devices
+ and may face App Store review issues.
+
+ You must also add `NSUserTrackingUsageDescription` to `Info.plist` — it is the
+ text displayed in the ATT consent prompt.
+
+ @param advertisingId The advertising identifier string, or `nil` to clear it.
+
+ ## Example
+
+ ```swift
+ import AppTrackingTransparency
+ import AdSupport
+
+ ATTrackingManager.requestTrackingAuthorization { status in
+     if status == .authorized {
+         let idfa = ASIdentifierManager.shared().advertisingIdentifier.uuidString
+         Pushwoosh.configure.setAdvertisingId(idfa)
+     }
+ }
+ ```
+
+ To clear:
+
+ ```swift
+ Pushwoosh.configure.setAdvertisingId(nil)
+ ```
+
+ */
++ (void)setAdvertisingId:(NSString *_Nullable)advertisingId;
+
 #pragma mark - Server Communication Control
 
 /**

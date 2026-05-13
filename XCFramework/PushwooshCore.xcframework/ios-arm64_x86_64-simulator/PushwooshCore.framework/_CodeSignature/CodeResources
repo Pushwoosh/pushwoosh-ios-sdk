@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/PWConfig.h</key>
 		<data>
-		C93vIS7LHGOVoekvDw7ZR4AUUWY=
+		3zcvETCB3s0yLeLs9d3gCaMwkKI=
 		</data>
 		<key>Headers/PWCoreUtils.h</key>
 		<data>
@@ -102,11 +102,11 @@
 		</data>
 		<key>Headers/PWPreferences.h</key>
 		<data>
-		PHaOV2BFzbz2vLGiGLJcjsA911c=
+		N5tWaZf0dwbS7PP/VdWDOVMtGDU=
 		</data>
 		<key>Headers/PWRequest.h</key>
 		<data>
-		pHB4ri+pwRg4zxEk/LKJZWJHGnU=
+		SfTnExiYQ7n3q2Q90ymCKo3ZQGM=
 		</data>
 		<key>Headers/PWRequestManager.h</key>
 		<data>
@@ -134,11 +134,11 @@
 		</data>
 		<key>Headers/PushwooshConfig.h</key>
 		<data>
-		bMdgoE8mQhfZyqBOa8UwrlvD5YA=
+		vH61zwpAnXuZkNA5OS8AtrDACVk=
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		08EoyPo3MjAGazuyrrkM3s/EJOg=
+		plitsKa2h3Ur0gh+KNRymBxyH3c=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -319,7 +319,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			P7H65vB0NcfgccTbbDHtAJQdOpUe3U8TohuZIdoJcUA=
+			1EIFRzPLKq7TOTixRVY+cdCtOrS4xkyfuQAySQCdf1M=
 			</data>
 		</dict>
 		<key>Headers/PWCoreUtils.h</key>
@@ -459,14 +459,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			hSrOlCvsTQZzgPEt5bZs2b9ixKkgQzUXR9mPWJtzZrs=
+			LXTSOCgqVd4VRyMzsf9exVCd3dwcVW5TrxrUZhtKw0w=
 			</data>
 		</dict>
 		<key>Headers/PWRequest.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			n5YQUpbq29ceJ41DdJlWPlhDs9Nj9Zsl0lF8mjp7FL4=
+			JZXPeagfTNnAwkff/tNOrYVGyxkK5Y9DkkD7LK3XsaA=
 			</data>
 		</dict>
 		<key>Headers/PWRequestManager.h</key>
@@ -515,14 +515,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tWeaNTHd64vn8mgbwGuHGK5B/KDSz04WhUDC7Kgb5u4=
+			lT7rcVS/dYZaNvBbAIWoGS5RtalOFQUnRlDlrRvBKxs=
 			</data>
 		</dict>
 		<key>Headers/PushwooshCore.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			BGa+Lo6FRNtcquhcSbYZockU+LjZB3UjevkILh8ZY84=
+			HnGe1QJR0b1KZ8PycQQGBTaoGqEZlI4ek+D5Dxg1uJA=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>

@@ -23,6 +23,8 @@
 - (NSString *)methodName;
 - (NSDictionary *)requestDictionary;
 - (NSString *)requestIdentifier;
+- (NSString *)baseUrl;
+- (BOOL)shouldWrapRequest;
 
 - (NSMutableDictionary *)baseDictionary;
 - (void)parseResponse:(NSDictionary *)response;
