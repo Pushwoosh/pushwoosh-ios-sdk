@@ -45,8 +45,18 @@
 @end
 
 
-/*
- `PWRichMediaManager` class offers access to the singleton-instance of the manager responsible for Rich Media presentation.
+/**
+ `PWRichMediaManager` is the singleton entry point for all rich media presentation.
+
+ ## Single delegate-gate invariant
+
+ `presentRichMedia:` is the only place where `PWRichMediaPresentingDelegate.shouldPresentRichMedia:`
+ is checked. All upstream paths — push (`PWInAppMessagesManager.presentRichMediaFromPush:`),
+ postEvent (`PWInAppMessagesManager.postEvent:`), and the public manual APIs
+ (`PWModalRichMedia.presentRichMedia:`, `PWLegacyRichMedia.presentRichMedia:`) — must
+ route through this method. Downstream classes (`PWModalWindow`, `PWMessageViewController`,
+ `PWModalWindowConfiguration`) do NOT re-check the delegate; they assume the gate
+ already approved the presentation.
  */
 @interface PWRichMediaManager : NSObject
 
@@ -71,6 +81,8 @@
 
 /**
  Presents the rich media object.
+ Skips presentation when the delegate's
+ richMediaManager:shouldPresentRichMedia: returns NO.
  */
 - (void)presentRichMedia:(PWRichMedia *)richMedia;
 

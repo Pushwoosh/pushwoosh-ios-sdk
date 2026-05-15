@@ -18,20 +18,19 @@ extern NSString * const PWInboxMessagesDidUpdateNotification;
 #import "PWConfig.h"
 #import "PWNetworkModule.h"
 #import <PushwooshCore/PWManagerBridge.h>
+#import <PushwooshCore/PWRichMediaManager.h>
 #import <PushwooshCore/PWInboxBridge.h>
 #import "PWDataManager.h"
 #import "PWRichMedia+Internal.h"
 #import "PWRegisterEmail.h"
 #import "PWRegisterEmailUser.h"
 #import "PWRichMediaView.h"
-#import "PWModalWindow.h"
 #import "PWInteractionDisabledWindow.h"
 #import "PWInteractionDisabledView.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 #import "PWTriggerInAppActionRequest.h"
 #import "PWRichMediaActionRequest.h"
-#import "PWMessageViewController.h"
 #import "PWPushManagerJSBridge.h"
 #import "PWShowLoading.h"
 #import "PWResource.h"
@@ -65,7 +64,6 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 @property (nonatomic) PWRichMediaView *richMediaView;
-@property (nonatomic) PWModalWindow *modalWindow;
 @property (nonatomic) NSString *richMediaCode;
 @property (nonatomic) NSString *inAppCode;
 @property (nonatomic) NSString *postEventInAppCode;
@@ -611,34 +609,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 }
 
 - (void)richMediaTypeWith:(PWRichMedia *)richMedia resource:(PWResource *)resource {
-    UIWindow *window = [self keyWindow];
-    _modalWindow = [[PWModalWindow alloc] initWithFrame:CGRectMake(0, 0, window.bounds.size.width, 0)];
-    
-    switch ([[PWConfig config] richMediaStyle]) {
-        case PWRichMediaStyleTypeModal:
-            [_modalWindow createModalWindowWith:resource
-                                      richMedia:richMedia
-                                    modalWindow:_modalWindow
-                                         window:window];
-            break;
-        case PWRichMediaStyleTypeLegacy:
-        case PWRichMediaStyleTypeDefault:
-            [PWMessageViewController presentWithRichMedia:richMedia];
-            break;
-        default:
-            [PWMessageViewController presentWithRichMedia:richMedia];
-            break;
-    }
-}
-
-- (UIWindow *)keyWindow {
-    NSArray<UIWindow *> *windows = [[UIApplication sharedApplication] windows];
-    for (UIWindow *window in windows) {
-        if (window.isKeyWindow) {
-            return window;
-        }
-    }
-    return nil;
+    [[[PWManagerBridge shared] richMediaManager] presentRichMedia:richMedia];
 }
 
 #endif

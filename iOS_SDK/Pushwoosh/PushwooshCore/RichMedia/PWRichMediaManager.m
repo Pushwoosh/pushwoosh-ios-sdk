@@ -34,6 +34,10 @@
 }
 
 - (void)presentRichMedia:(PWRichMedia *)richMedia {
+    if (![self shouldPresentRichMedia:richMedia]) {
+        return;
+    }
+
     switch ([[PWConfig config] richMediaStyle]) {
         case PWRichMediaStyleTypeModal:
             [[PWModalWindowConfiguration shared] presentModalWindow:richMedia];
@@ -46,6 +50,13 @@
             break;
     }
 
+}
+
+- (BOOL)shouldPresentRichMedia:(PWRichMedia *)richMedia {
+    if ([self.delegate respondsToSelector:@selector(richMediaManager:shouldPresentRichMedia:)]) {
+        return [self.delegate richMediaManager:self shouldPresentRichMedia:richMedia];
+    }
+    return YES;
 }
 
 @end

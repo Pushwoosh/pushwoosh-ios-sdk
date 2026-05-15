@@ -55,8 +55,8 @@
 		0612A74E0F2A92DE942EE7BD /* GRPCResponseConvertersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD715738D80586C9699FE7C /* GRPCResponseConvertersTests.swift */; };
 		0646F04FDF0CC9AB30A6732F /* PWNotificationAppSettings_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C34847005E8ACA1451BAAD56 /* PWNotificationAppSettings_Private.h */; };
 		08C59AE0E8A7211AC67C4DD2 /* PWInteractionDisabledView.m in Sources */ = {isa = PBXBuildFile; fileRef = A949405A76CBDC59020B0E14 /* PWInteractionDisabledView.m */; };
-		097F025741BA2B7CF54613B0 /* PWSetAdvertisingIdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF33C90C4E65B0224FCA8BE /* PWSetAdvertisingIdRequest.m */; };
 		0960B6FB17B5442D93793A03 /* PWIdleDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = E6C1014BE7B29F5F248CB6B7 /* PWIdleDetector.h */; };
+		097F025741BA2B7CF54613B0 /* PWSetAdvertisingIdRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 0DF33C90C4E65B0224FCA8BE /* PWSetAdvertisingIdRequest.m */; };
 		0A0627D031BE86F730AD6588 /* Constants.h in Headers */ = {isa = PBXBuildFile; fileRef = 6D9BABD65F8B19DCC19F8F9A /* Constants.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		0BB385F706934C31D3337E15 /* PWKeychainHelper.swift in Sources */ = {isa = PBXBuildFile; fileRef = D49F01189535419F826E583C /* PWKeychainHelper.swift */; };
 		0D61DE78A22319D707E35D19 /* PWNotificationManagerCompat.h in Headers */ = {isa = PBXBuildFile; fileRef = C1C9954DD7A006F0F99489F3 /* PWNotificationManagerCompat.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -394,8 +394,8 @@
 		95F7562F4F53C98C64E1CB2C /* PWSetLogLevelCommandHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B463525B0EAE8FA7572820E /* PWSetLogLevelCommandHandler.h */; };
 		963EA33183D62A9F414BAB9A /* PWReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = A4B9EA51E220DC6BC4974B1A /* PWReachability.h */; };
 		96B149E062C8E910D2B63EFB /* PushwooshInboxKitViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4896244362D9B18D2048BAF1 /* PushwooshInboxKitViewControllerTest.swift */; };
-		9703585F27A2793100DEA758 /* (null) in Sources */ = {isa = PBXBuildFile; };
-		9703586227A2796400DEA758 /* (null) in Sources */ = {isa = PBXBuildFile; };
+		9703585F27A2793100DEA758 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
+		9703586227A2796400DEA758 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		972C9AA827F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 972C9AA727F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m */; };
 		9762CEA9277B17B9003196C1 /* PWTestPurchaseRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = 9762CEA8277B17B9003196C1 /* PWTestPurchaseRuntime.m */; };
 		976302C427DA21180029240E /* PWInboxMessageInternalTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 976302C327DA21180029240E /* PWInboxMessageInternalTest.m */; };
@@ -423,11 +423,15 @@
 		A0E1B7C400000005A0E1B7C4 /* PWApplicationExitDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = A0E1B7C400000001A0E1B7C4 /* PWApplicationExitDetector.h */; };
 		A0E1B7C400000006A0E1B7C4 /* PWApplicationExitDetector.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E1B7C400000002A0E1B7C4 /* PWApplicationExitDetector.m */; };
 		A0E1B7C400000007A0E1B7C4 /* PWApplicationExitDetectorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A0E1B7C400000004A0E1B7C4 /* PWApplicationExitDetectorTest.m */; };
+		A11A11A11A11A11A11A11A11 /* PushwooshInboxBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A12A12A12A12A12A12A12 /* PushwooshInboxBannerCell.swift */; };
 		A11FA2FE603FC880B58124E4 /* PWRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = CB897EDF2E9F20DEE44A4339 /* PWRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A16741A9D073F88457A4C12B /* PWSendPurchaseRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 80ADD3F86EB9D3A3976EE9ED /* PWSendPurchaseRequest.h */; };
 		A2156D0BDCEC98AA61B19028 /* PWMessageViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 4BDF1A84BA1FA641FF3DFBA7 /* PWMessageViewController.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		A21A21A21A21A21A21A21A21 /* PushwooshInboxCaptionedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22A22A22A22A22A22A22A22 /* PushwooshInboxCaptionedCell.swift */; };
 		A28DD8AD0E878B1DBA0C47F6 /* NSDictionary+PWDictUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = 3444A85641B784BAE97411C8 /* NSDictionary+PWDictUtils.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		A2F66592F564E525E8A8F0A4 /* PWPushwooshJSBridge.m in Sources */ = {isa = PBXBuildFile; fileRef = 02638F96D9572AA361C95675 /* PWPushwooshJSBridge.m */; };
+		A31A31A31A31A31A31A31A31 /* PushwooshInboxClassicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32A32A32A32A32A32A32A32 /* PushwooshInboxClassicCell.swift */; };
+		A40A40A40A40A40A40A40A40 /* PushwooshInboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41A41A41A41A41A41A41A41 /* PushwooshInboxButton.swift */; };
 		A4135DD9ECF411B6C40B0EE0 /* PWRichMediaConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = 0383E68147C07E7982EAE46A /* PWRichMediaConfig.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A459046B34FD3BB85873CAAC /* PushwooshInboxKitImplementationSetup.swift in Sources */ = {isa = PBXBuildFile; fileRef = D60CE841D7C38933006130CE /* PushwooshInboxKitImplementationSetup.swift */; };
 		A6E1E0B5A76B208AC2389A00 /* PWCombinedSetTagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = F01AEED9CB071503E6BB2A54 /* PWCombinedSetTagsRequest.m */; };
@@ -543,15 +547,12 @@
 		E2FA808F3348CED19B75B763 /* PWSystemCommandDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = E541D7F1C9FD549CAA6B7309 /* PWSystemCommandDispatcher.h */; };
 		E574051EB38C3445F5289A6E /* PWUtils+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AE9EFDCD14B8D72080E3A6 /* PWUtils+Internal.h */; };
 		E5F6789012345678901AB2C3 /* PWModalRichMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6789012345678 /* PWModalRichMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		D1D2D3D4D5D6D7D8D9DADBDC /* PWRichMediaManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E1E2E3E4E5E6E7E8E9EAEBEC /* PWRichMediaManagerTest.m */; };
 		E5F6789012345678901AB2C4 /* PWModalRichMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6789012345679 /* PWModalRichMediaTest.m */; };
 		E64C4C018D1792DF872420E2 /* PWLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCEDFFD0E105B1C251C402E /* PWLiveActivityRequest.m */; };
 		E6C78CBC2A51ECF4D63B6E06 /* PWMessageDeliveryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D9585520866B07334AADBCC7 /* PWMessageDeliveryRequest.m */; };
 		E751D05A4D810F920E626FDA /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB867A8D79C49DEB33E43D7 /* InboxDataSource.swift */; };
 		E91376C66B8611071FEAEB27 /* PushwooshInboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2EFDB24B6DA563CC792276 /* PushwooshInboxCell.swift */; };
-		A11A11A11A11A11A11A11A11 /* PushwooshInboxBannerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A12A12A12A12A12A12A12A12 /* PushwooshInboxBannerCell.swift */; };
-		A40A40A40A40A40A40A40A40 /* PushwooshInboxButton.swift in Sources */ = {isa = PBXBuildFile; fileRef = A41A41A41A41A41A41A41A41 /* PushwooshInboxButton.swift */; };
-		A21A21A21A21A21A21A21A21 /* PushwooshInboxCaptionedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22A22A22A22A22A22A22A22 /* PushwooshInboxCaptionedCell.swift */; };
-		A31A31A31A31A31A31A31A31 /* PushwooshInboxClassicCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = A32A32A32A32A32A32A32A32 /* PushwooshInboxClassicCell.swift */; };
 		E988A236BE35BE6F0F7187E3 /* PWRichMediaActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AFFB17C939911BF73DC1545 /* PWRichMediaActionRequest.m */; };
 		EA4538D8D360E356E0E266BB /* PWNotificationCategoryBuilder.h in Headers */ = {isa = PBXBuildFile; fileRef = 88A26E71DF5C55ED6BB7395B /* PWNotificationCategoryBuilder.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		EBCA3FD0CEE6EB86E5AF085F /* PWPushManagerJSBridge.h in Headers */ = {isa = PBXBuildFile; fileRef = 25FC14F8EFA36FCD2537DC5E /* PWPushManagerJSBridge.h */; };
@@ -1196,10 +1197,15 @@
 		A0E1B7C400000001A0E1B7C4 /* PWApplicationExitDetector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWApplicationExitDetector.h; sourceTree = "<group>"; };
 		A0E1B7C400000002A0E1B7C4 /* PWApplicationExitDetector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWApplicationExitDetector.m; sourceTree = "<group>"; };
 		A0E1B7C400000004A0E1B7C4 /* PWApplicationExitDetectorTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWApplicationExitDetectorTest.m; sourceTree = "<group>"; };
+		A12A12A12A12A12A12A12A12 /* PushwooshInboxBannerCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshInboxBannerCell.swift; sourceTree = "<group>"; };
 		A14FF04F84CE2E7D2BBAD438 /* PWUtils.ios.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWUtils.ios.m; sourceTree = "<group>"; };
 		A1B2C3D4E5F6789012345678 /* PWModalRichMedia.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWModalRichMedia.h; sourceTree = "<group>"; };
 		A1B2C3D4E5F6789012345679 /* PWModalRichMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWModalRichMediaTest.m; path = RichMedia/PWModalRichMediaTest.m; sourceTree = "<group>"; };
+		E1E2E3E4E5E6E7E8E9EAEBEC /* PWRichMediaManagerTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWRichMediaManagerTest.m; path = RichMedia/PWRichMediaManagerTest.m; sourceTree = "<group>"; };
+		A22A22A22A22A22A22A22A22 /* PushwooshInboxCaptionedCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshInboxCaptionedCell.swift; sourceTree = "<group>"; };
 		A2B1407DF0180FEF7CF2681D /* NSDictionary+PWDictUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+PWDictUtils.m"; sourceTree = "<group>"; };
+		A32A32A32A32A32A32A32A32 /* PushwooshInboxClassicCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshInboxClassicCell.swift; sourceTree = "<group>"; };
+		A41A41A41A41A41A41A41A41 /* PushwooshInboxButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshInboxButton.swift; sourceTree = "<group>"; };
 		A45A5125F2D71AEAABD7CEE4 /* PWPushNotificationsManager+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PWPushNotificationsManager+Internal.h"; sourceTree = "<group>"; };
 		A4B9EA51E220DC6BC4974B1A /* PWReachability.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWReachability.h; sourceTree = "<group>"; };
 		A5AF77A5F664295246BBBFD2 /* PWShowLoading.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWShowLoading.m; sourceTree = "<group>"; };
@@ -1312,10 +1318,6 @@
 		EC31EF46980BB4BEA9867A3B /* PWRichMediaTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWRichMediaTypes.h; sourceTree = "<group>"; };
 		EDDF056126B3E7E7ED8C70EB /* PWRegisterEmail.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWRegisterEmail.h; sourceTree = "<group>"; };
 		EE2EFDB24B6DA563CC792276 /* PushwooshInboxCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshInboxCell.swift; sourceTree = "<group>"; };
-		A12A12A12A12A12A12A12A12 /* PushwooshInboxBannerCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshInboxBannerCell.swift; sourceTree = "<group>"; };
-		A41A41A41A41A41A41A41A41 /* PushwooshInboxButton.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshInboxButton.swift; sourceTree = "<group>"; };
-		A22A22A22A22A22A22A22A22 /* PushwooshInboxCaptionedCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshInboxCaptionedCell.swift; sourceTree = "<group>"; };
-		A32A32A32A32A32A32A32A32 /* PushwooshInboxClassicCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshInboxClassicCell.swift; sourceTree = "<group>"; };
 		EE82B39D405D0E277D2FEF96 /* PWAppOpenRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWAppOpenRequest.h; sourceTree = "<group>"; };
 		EED9413E71126F748F0DC476 /* PWPurchaseRuntime.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWPurchaseRuntime.m; sourceTree = "<group>"; };
 		EF34D4F650FC70EC561A17AE /* PWPushNotificationsManager.ios.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWPushNotificationsManager.ios.m; sourceTree = "<group>"; };
@@ -1579,7 +1581,7 @@
 			path = Managers;
 			sourceTree = "<group>";
 		};
-		0867D691FE84028FC02AAC07 /* PushNotificationManager */ = {
+		0867D691FE84028FC02AAC07 = {
 			isa = PBXGroup;
 			children = (
 				5D12C21523F54365009A655A /* Pushwoosh */,
@@ -3130,6 +3132,7 @@
 			children = (
 				E71BEE0F83AFA83D08311BFA /* PWRichMediaTest.m */,
 				A1B2C3D4E5F6789012345679 /* PWModalRichMediaTest.m */,
+				E1E2E3E4E5E6E7E8E9EAEBEC /* PWRichMediaManagerTest.m */,
 				B2C3D4E5F678901234567891 /* PWLegacyRichMediaTest.m */,
 				C3D4E5F6789012345678901B /* PWMediaTest.m */,
 			);
@@ -3933,7 +3936,7 @@
 				Base,
 				en,
 			);
-			mainGroup = 0867D691FE84028FC02AAC07 /* PushNotificationManager */;
+			mainGroup = 0867D691FE84028FC02AAC07;
 			packageReferences = (
 				51DF175EB8782A0DD2791BDB /* XCRemoteSwiftPackageReference "swift-protobuf" */,
 			);
@@ -4423,12 +4426,12 @@
 				4649F4E01ED5531B00D3D90C /* PWPostEventTest.m in Sources */,
 				449CAA05287725BD00B4EEEF /* PWRegisterEmailUserTest.m in Sources */,
 				449CAA252877272B00B4EEEF /* PWConfigurationTest.m in Sources */,
-				9703585F27A2793100DEA758 /* (null) in Sources */,
+				9703585F27A2793100DEA758 /* BuildFile in Sources */,
 				5D84AD142153A846005D7432 /* PWBundleMock.m in Sources */,
 				4649F4CD1ED5523F00D3D90C /* PWRegisterDeviceRequestTest.m in Sources */,
 				976302C927DA540B0029240E /* PWInboxServiceTest.m in Sources */,
 				449CAA282877274F00B4EEEF /* PushwooshTest.m in Sources */,
-				9703586227A2796400DEA758 /* (null) in Sources */,
+				9703586227A2796400DEA758 /* BuildFile in Sources */,
 				449CAA22287726ED00B4EEEF /* PWRegisterTestDeviceRequestTest.m in Sources */,
 				D0485AB30C266AC2EFD17C8D /* PWKnockPatternDetectorTest.m in Sources */,
 				C0E12DAB5AE177161329C74C /* PWIdleDetectorTest.m in Sources */,
@@ -4442,6 +4445,7 @@
 				42457E852A47B85ABD924C96 /* PWCachedRequestTest.m in Sources */,
 				CC2F6D2AD96A1E1D6B5F6C2A /* PWRichMediaTest.m in Sources */,
 				E5F6789012345678901AB2C4 /* PWModalRichMediaTest.m in Sources */,
+				D1D2D3D4D5D6D7D8D9DADBDC /* PWRichMediaManagerTest.m in Sources */,
 				F6789012345678901AB2C3D5 /* PWLegacyRichMediaTest.m in Sources */,
 				789012345678901AB2C3D4E6 /* PWMediaTest.m in Sources */,
 				D80FC0F68662C9C948B36738 /* PWModalWindowSettingsTest.m in Sources */,

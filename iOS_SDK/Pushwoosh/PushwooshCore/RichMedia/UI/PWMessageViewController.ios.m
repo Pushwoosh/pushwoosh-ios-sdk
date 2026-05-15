@@ -45,13 +45,7 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
 }
 
 + (void)presentWithRichMedia:(PWRichMedia *)richMedia completion:(void (^)(BOOL success))completion {
-    BOOL shouldShow = YES;
-    
-    if ([[[PWManagerBridge shared] richMediaManager].delegate respondsToSelector:@selector(richMediaManager:shouldPresentRichMedia:)]) {
-        shouldShow = [[[PWManagerBridge shared] richMediaManager].delegate richMediaManager:[[PWManagerBridge shared] richMediaManager] shouldPresentRichMedia:richMedia];
-    }
-    
-    if (!richMedia.resource.locked && shouldShow) {
+    if (!richMedia.resource.locked) {
         UIWindow *presentedWindow = [self presentedWindow];
         
         PWMessageViewController *viewController = [[self alloc] initWithRichMedia:richMedia

@@ -65,6 +65,10 @@ NS_ASSUME_NONNULL_BEGIN
 /**
  Presents the modal window with the specified rich media content.
 
+ WARNING: This entry point bypasses `PWRichMediaPresentingDelegate.shouldPresentRichMedia:`.
+ Prefer `[Pushwoosh.media.modalRichMedia presentRichMedia:]` — it routes through
+ `PWRichMediaManager.presentRichMedia:` where the delegate gate is enforced.
+
  @param richMedia The rich media content that will be displayed inside the modal window.
  */
 - (void)presentModalWindow:(PWRichMedia *)richMedia;

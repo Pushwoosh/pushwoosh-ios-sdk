@@ -234,13 +234,7 @@ static NSTimeInterval timeInterval = 0;
     self.richMediaView.userInteractionEnabled = YES;
     self.richMediaView.exclusiveTouch = YES;
         
-    BOOL shouldShow = YES;
-    
-    if ([[[PWManagerBridge shared] richMediaManager].delegate respondsToSelector:@selector(richMediaManager:shouldPresentRichMedia:)]) {
-        shouldShow = [[[PWManagerBridge shared] richMediaManager].delegate richMediaManager:[[PWManagerBridge shared] richMediaManager] shouldPresentRichMedia:_richMedia];
-    }
-    
-    if (!_richMedia.resource.locked && shouldShow) {
+    if (!_richMedia.resource.locked) {
         __weak typeof(self) weakSelf = self;
         
         self.richMediaView.closeActionBlock = ^{
