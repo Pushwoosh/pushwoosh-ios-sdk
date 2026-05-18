@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/Constants.h</key>
 		<data>
-		eAYmHBao37vmcg+nKY6b2WYPpxk=
+		WeXWJepv2+G5xAEVdQw6cpEcwkw=
 		</data>
 		<key>Headers/NSDictionary+PWDictUtils.h</key>
 		<data>
@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/PWConfig.h</key>
 		<data>
-		3zcvETCB3s0yLeLs9d3gCaMwkKI=
+		fG6A340fVro5nRaXJlj9jwpavZc=
 		</data>
 		<key>Headers/PWCoreUtils.h</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Headers/PWInboxBridge.h</key>
 		<data>
-		lv4uopCgIjxGUsNRiV4NTEfBKqc=
+		xgTZ0eK+W7TOigRk57S4Qsk0dBU=
 		</data>
 		<key>Headers/PWInboxMessageInternal+Status.h</key>
 		<data>
@@ -102,7 +102,7 @@
 		</data>
 		<key>Headers/PWPreferences.h</key>
 		<data>
-		N5tWaZf0dwbS7PP/VdWDOVMtGDU=
+		Dr9+f8PWRHz/w/JmIqR9bwkqWkk=
 		</data>
 		<key>Headers/PWRequest.h</key>
 		<data>
@@ -138,7 +138,7 @@
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		iN5mH9Q9GmU/48juBeUOTdIJcCI=
+		Kvz/9vIFstGxj4XjWMhxKcHEt5A=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -291,7 +291,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			GekeIJWV5jdde7LxVr/5wwCfYQtiws+drNcIywoOp2o=
+			A38SxrORmuiEJCoP4KYs31mngix+yy9FHO5eu3RVhK8=
 			</data>
 		</dict>
 		<key>Headers/NSDictionary+PWDictUtils.h</key>
@@ -319,7 +319,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1EIFRzPLKq7TOTixRVY+cdCtOrS4xkyfuQAySQCdf1M=
+			kjvAbmCB4kWz4XfSn8Q5l+OvU8849pxAv3zwExbMyEI=
 			</data>
 		</dict>
 		<key>Headers/PWCoreUtils.h</key>
@@ -340,7 +340,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			mvPTwewCidRwb1FaeTI2yGYUl6PIU36zzvYngCt8ssk=
+			lI3IFDN4XOxZk3Krjh4zihY8GUSinjVXPZ5JEOzd2Wk=
 			</data>
 		</dict>
 		<key>Headers/PWInboxMessageInternal+Status.h</key>
@@ -459,7 +459,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LXTSOCgqVd4VRyMzsf9exVCd3dwcVW5TrxrUZhtKw0w=
+			+39GMFZWl3cDbztEFhd8mWTCtlW81hS4o60RDNUxzM8=
 			</data>
 		</dict>
 		<key>Headers/PWRequest.h</key>
@@ -522,7 +522,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			S3C8qsUcj84ydqZUrZYSMsxzZBxQHyS7jY3UYzFXp/w=
+			AqjJxTBVADvU14q6mVZ0YBf3t8xhQVfd83ER1HQ7AsM=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>

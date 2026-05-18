@@ -16,8 +16,7 @@ import PushwooshCore
 /// The bridge guarantees every mutation goes through `PWInboxStorage` so
 /// deleted / read / action flags persist across app restarts even when the
 /// network request has not yet been acknowledged. Going through the bridge
-/// also fires the legacy `PWInboxMessagesDidUpdateNotification` so co-existing
-/// observers (e.g. the older `PushwooshInboxUI` module, host-app subscribers)
+/// also fires `PWInboxMessagesDidUpdateNotification` so host-app subscribers
 /// stay in sync with mutations that originated in `PushwooshInboxKit`.
 class PWInboxFacade {
 

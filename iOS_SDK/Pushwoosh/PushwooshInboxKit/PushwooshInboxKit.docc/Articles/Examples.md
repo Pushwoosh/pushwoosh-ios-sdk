@@ -47,3 +47,19 @@ extension MyHost: PushwooshInboxKitDelegate {
 var attrs = PushwooshInboxKitAttributes()
 attrs.enableDarkTheme = false
 ```
+
+## Hide the pin indicator while keeping pinned-first sorting
+
+```swift
+var attrs = PushwooshInboxKitAttributes()
+attrs.pinningEnabled = true        // server-pinned messages still float to the top
+attrs.pinIndicatorVisible = false  // but the visual chip / glyph is hidden
+```
+
+Obj-C:
+
+```objc
+[inboxVC setPinIndicatorVisible:NO];
+```
+
+Set `pinningEnabled = false` to disable pinned-first ordering entirely; this also hides the indicator. Use `pinIndicatorVisible = false` when you want the ordering but a cleaner look.

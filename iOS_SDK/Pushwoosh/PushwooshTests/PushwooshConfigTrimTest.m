@@ -63,6 +63,26 @@
     XCTAssertEqualObjects(@"FIRST-APPID", [PushwooshConfig getAppCode]);
 }
 
+/// SDK-814: Verifies that dotted app code is rejected and previous canonical value is preserved.
+- (void)testSetAppCodeDottedIsRejected {
+    [PushwooshConfig setAppCode:@"FIRST-APPID"];
+    [PushwooshConfig setAppCode:@"XXXXX-XXXXX.legacy"];
+    XCTAssertEqualObjects(@"FIRST-APPID", [PushwooshConfig getAppCode]);
+}
+
+/// SDK-814: Verifies that dotted app code with surrounding whitespace is trimmed then rejected.
+- (void)testSetAppCodeDottedTrimmedIsRejected {
+    [PushwooshConfig setAppCode:@"FIRST-APPID"];
+    [PushwooshConfig setAppCode:@"  XXXXX-XXXXX.legacy  \n"];
+    XCTAssertEqualObjects(@"FIRST-APPID", [PushwooshConfig getAppCode]);
+}
+
+/// SDK-814: Sanity check — canonical app code is still accepted (no false positives on dot rejection).
+- (void)testSetAppCodeCanonicalAcceptedSanityCheck {
+    [PushwooshConfig setAppCode:@"XXXXX-XXXXX"];
+    XCTAssertEqualObjects(@"XXXXX-XXXXX", [PushwooshConfig getAppCode]);
+}
+
 /// Verifies that nil app code is forwarded to PWPreferences (existing semantics).
 - (void)testSetAppCodeNilIsAccepted {
     OCMExpect([_mockPreferences setAppCode:nil]);

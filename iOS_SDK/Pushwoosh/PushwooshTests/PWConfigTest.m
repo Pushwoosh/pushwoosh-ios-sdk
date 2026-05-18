@@ -404,4 +404,30 @@
     XCTAssertEqualObjects(@"grpc.staging.pushwoosh.com", _config.grpcHost);
 }
 
+#pragma mark - SDK-814: reject dotted Pushwoosh_APPID / Pushwoosh_APPID_Dev
+
+/// SDK-814: Verifies that Pushwoosh_APPID containing '.' is rejected at Info.plist read.
+- (void)testAppIdWithDotIsRejected {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.appId = @"XXXXX-XXXXX.legacy";
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertNil(_config.appId);
+}
+
+/// SDK-814: Verifies that Pushwoosh_APPID_Dev containing '.' is rejected at Info.plist read.
+- (void)testAppIdDevWithDotIsRejected {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.appIdDev = @"DEV-XXXXX.legacy";
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertNil(_config.appIdDev);
+}
+
+/// SDK-814: Sanity check — canonical Pushwoosh_APPID flows through unchanged.
+- (void)testAppIdCanonicalAccepted {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.appId = @"XXXXX-XXXXX";
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqualObjects(@"XXXXX-XXXXX", _config.appId);
+}
+
 @end

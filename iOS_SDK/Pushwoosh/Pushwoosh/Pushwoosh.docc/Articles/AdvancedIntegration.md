@@ -239,7 +239,7 @@ The SDK supports multiple configuration options through `Info.plist` keys.
 
 | Key | Type | Description | Default |
 |-----|------|-------------|---------|
-| `Pushwoosh_BASEURL` | String | Overrides the Pushwoosh server base URL | https://cp.pushwoosh.com/json/1.3/ |
+| `Pushwoosh_BASEURL` | String | Overrides the Pushwoosh server base URL | `https://<APPID>.api.pushwoosh.com/json/1.3/` (auto-built from `Pushwoosh_APPID`) |
 | `Pushwoosh_ALLOW_SERVER_COMMUNICATION` | Boolean | Allows SDK to send network requests to Pushwoosh | YES |
 
 ### Data Collection Settings

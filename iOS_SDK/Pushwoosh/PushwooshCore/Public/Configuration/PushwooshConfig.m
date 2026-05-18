@@ -74,6 +74,12 @@
 + (void)setAppCode:(NSString *)appCode {
     NSString *value = [self validateAndTrim:appCode forSelector:_cmd];
     if (appCode != nil && value == nil) return;
+    if (value != nil && [value rangeOfString:@"."].location != NSNotFound) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:[PushwooshConfig class]
+                           message:@"setAppCode: ignored — Application id format with '.' is deprecated. Please contact Pushwoosh support."];
+        return;
+    }
     [[PWPreferences preferences] setAppCode:value];
 }
 

@@ -7,6 +7,7 @@
 //
 
 #import "PushwooshLog.h"
+#import "PWConfig.h"
 
 @implementation PushwooshLog
 
@@ -25,11 +26,12 @@ void pushwoosh_Log(id object, PUSHWOOSH_LOG_LEVEL logLevel, NSString *format, ..
         return;
     }
 
-    // Get log level safely: if PWPreferences is initializing, use default level
-    // to prevent recursive dispatch_once deadlock
+    // Use default level when either singleton is mid-initialization — otherwise
+    // a log emitted from inside +[PWConfig config] or +[PWPreferences preferences]
+    // would re-enter the same dispatch_once and deadlock (SIGTRAP).
     PUSHWOOSH_LOG_LEVEL currentLevel;
-    if ([PWPreferences isInitializing]) {
-        currentLevel = PW_LL_INFO; // Default level during init
+    if ([PWConfig isInitializing] || [PWPreferences isInitializing]) {
+        currentLevel = PW_LL_INFO;
     } else {
         currentLevel = [PWPreferences preferences].logLevel;
     }

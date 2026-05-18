@@ -13,6 +13,11 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
 
 + (PWConfig *)config;
 
+/// YES while `+config`'s singleton initializer is executing. Used by `pushwoosh_Log`
+/// to avoid re-entering `[PWConfig config]` (which would dispatch_once-deadlock) when
+/// `-initWithBundle:` emits a log itself.
++ (BOOL)isInitializing;
+
 /**
  key: Pushwoosh_APPID
  type: string

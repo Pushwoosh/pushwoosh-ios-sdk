@@ -26,7 +26,7 @@ static const NSInteger kMaxDescriptionLength = 64;
     NSTimeInterval _timestamps[6];
     NSInteger _index;
     NSInteger _count;
-    BOOL _initialLaunchSkipped;
+    BOOL _sawRealBackground;
     PWKnockClockBlock _clock;
 }
 
@@ -46,26 +46,29 @@ static const NSInteger kMaxDescriptionLength = 64;
 - (instancetype)initWithClock:(PWKnockClockBlock)clock {
     if (self = [super init]) {
         _clock = clock ?: ^{ return [[NSDate date] timeIntervalSince1970]; };
-        _initialLaunchSkipped = (clock != nil);
     }
     return self;
 }
 
 - (void)startDetection {
-    [[NSNotificationCenter defaultCenter] removeObserver:self
-                                                    name:UIApplicationDidBecomeActiveNotification
-                                                  object:nil];
-    [[NSNotificationCenter defaultCenter] addObserver:self
-                                             selector:@selector(onForeground)
-                                                 name:UIApplicationDidBecomeActiveNotification
-                                               object:nil];
+    NSNotificationCenter *nc = [NSNotificationCenter defaultCenter];
+    [nc removeObserver:self name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [nc removeObserver:self name:UIApplicationDidBecomeActiveNotification object:nil];
+    [nc addObserver:self selector:@selector(onBackground)
+               name:UIApplicationDidEnterBackgroundNotification object:nil];
+    [nc addObserver:self selector:@selector(onForeground)
+               name:UIApplicationDidBecomeActiveNotification object:nil];
+}
+
+- (void)onBackground {
+    _sawRealBackground = YES;
 }
 
 - (void)onForeground {
-    if (!_initialLaunchSkipped) {
-        _initialLaunchSkipped = YES;
+    if (!_sawRealBackground) {
         return;
     }
+    _sawRealBackground = NO;
 
     NSTimeInterval now = _clock();
     _timestamps[_index] = now;

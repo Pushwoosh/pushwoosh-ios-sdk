@@ -48,8 +48,8 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
          -> [nil isInboxPushNotification:] returns NO
          -> addInboxMessageFromPushNotification: never invoked
          -> PWInboxMessagesDidReceiveInPushNotification never posted
-         -> observers (PushwooshInboxKitViewController, PushwooshInboxUI)
-            miss the update and only refresh on the next manual reload.
+         -> observers (PushwooshInboxKitViewController) miss the update
+            and only refresh on the next manual reload.
 
      +load is the safest registration site - it runs at process launch
      before any APNS push can be delivered.

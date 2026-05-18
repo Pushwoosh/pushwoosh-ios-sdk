@@ -400,6 +400,7 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 - (void)setSwipeToDeleteEnabled:(BOOL)enabled;
 - (void)setEnableDarkTheme:(BOOL)enabled;
 - (void)setPinningEnabled:(BOOL)enabled;
+- (void)setPinIndicatorVisible:(BOOL)visible;
 - (void)setInlineButtonsEnabled:(BOOL)enabled;
 /// Forces every message to render with the named cell kind. Pass <code>nil</code>
 /// (or an unknown name) to revert to the server-driven resolver.
@@ -850,6 +851,7 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 - (void)setSwipeToDeleteEnabled:(BOOL)enabled;
 - (void)setEnableDarkTheme:(BOOL)enabled;
 - (void)setPinningEnabled:(BOOL)enabled;
+- (void)setPinIndicatorVisible:(BOOL)visible;
 - (void)setInlineButtonsEnabled:(BOOL)enabled;
 /// Forces every message to render with the named cell kind. Pass <code>nil</code>
 /// (or an unknown name) to revert to the server-driven resolver.

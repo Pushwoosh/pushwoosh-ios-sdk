@@ -231,8 +231,8 @@ open class PushwooshInboxClassicCell: PushwooshInboxCell {
         unreadIndicatorView.isHidden = message.isRead
 
         let isPinned = attributes.pinningEnabled && PushwooshInboxKitAttributes.isPinned(message)
-        pinIndicatorView.isHidden = !isPinned
-        if isPinned {
+        pinIndicatorView.isHidden = !isPinned || !attributes.pinIndicatorVisible
+        if isPinned && attributes.pinIndicatorVisible {
             pinIndicatorView.tintColor = style.pinIndicatorColor
             if let custom = style.pinIndicatorImage {
                 pinIndicatorView.image = custom

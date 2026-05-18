@@ -54,6 +54,7 @@ public class PushwooshInboxKitViewController: UIViewController {
     private var refreshControl: UIRefreshControl?
     private var didLogUnknownKindFallback = false
     private var lastError: Error?
+    private var sawRealBackground = false
 
     @objc public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.attributes = PushwooshInboxKitAttributes()
@@ -116,13 +117,25 @@ public class PushwooshInboxKitViewController: UIViewController {
         )
         NotificationCenter.default.addObserver(
             self,
+            selector: #selector(handleAppDidEnterBackground),
+            name: UIApplication.didEnterBackgroundNotification,
+            object: nil
+        )
+        NotificationCenter.default.addObserver(
+            self,
             selector: #selector(handleAppDidBecomeActive),
             name: UIApplication.didBecomeActiveNotification,
             object: nil
         )
     }
 
+    @objc private func handleAppDidEnterBackground() {
+        sawRealBackground = true
+    }
+
     @objc private func handleAppDidBecomeActive() {
+        guard sawRealBackground else { return }
+        sawRealBackground = false
         DispatchQueue.main.async { [weak self] in
             self?.reloadData()
         }
@@ -279,6 +292,10 @@ public class PushwooshInboxKitViewController: UIViewController {
 
     @objc public func setPinningEnabled(_ enabled: Bool) {
         attributes.pinningEnabled = enabled
+    }
+
+    @objc public func setPinIndicatorVisible(_ visible: Bool) {
+        attributes.pinIndicatorVisible = visible
     }
 
     @objc public func setInlineButtonsEnabled(_ enabled: Bool) {

@@ -17,9 +17,6 @@ existing `PWInbox` data layer in `PushwooshCore` and adds:
 - Obj-C-friendly setters so existing Obj-C apps can integrate without
   bridging headers.
 
-The module is **recommended over the legacy `PushwooshInboxUI`** for new
-integrations. Existing customers may stay on the legacy module indefinitely.
-
 ## Topics
 
 ### Getting Started

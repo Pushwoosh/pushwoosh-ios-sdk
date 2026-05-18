@@ -24,6 +24,8 @@
 
 @property (nonatomic, strong) NSURLSession *session;
 
+- (NSString *)baseUrl;
+- (void)setReverseProxyUrl:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers;
 - (NSMutableURLRequest *)prepareRequest:(NSString *)requestUrl jsonRequestData:(NSString *)jsonRequestData;
 - (void)sendRequestInternal:(PWRequest *)request completion:(void (^)(NSError *error))completion;
 - (void)processResponse:(NSHTTPURLResponse *)httpResponse responseData:(NSData *)responseData request:(PWRequest *)request url:(NSString *)requestUrl requestData:(NSString *)requestData error:(NSError **)outError;
@@ -98,7 +100,10 @@ static id _mockNSBundle;
 
 - (void)tearDown {
     [NSURLSession tearDown];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 	[PWPreferences preferences].baseUrl = [[PWPreferences preferences] defaultBaseUrl];
+#pragma clang diagnostic pop
     [[PWSdkStateProvider sharedInstance] resetForTesting];
     [super tearDown];
 }
@@ -397,8 +402,46 @@ static id _mockNSBundle;
     OCMStub([mockNSDate timeIntervalSince1970]).andReturn(5);
     
     [_requestManager sendRequestInternal:cachedRequest completion:^(NSError *error) {}];
-    
+
     XCTAssertEqual(remainTime, [_requestManager initialTime:cachedRequest]);
+}
+
+#pragma mark - SDK-814: request-blocking guard
+
+/// SDK-814: Verifies that sendRequestInternal blocks the request with a "Base URL is not configured yet" error when baseUrl is empty and no reverse proxy is set.
+- (void)testMakeRequestBlocksWhenBaseUrlNotConfigured {
+    id mockPrefs = OCMPartialMock([PWPreferences preferences]);
+    OCMStub([mockPrefs baseUrl]).andReturn(nil);
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"blocked"];
+    PWAppOpenRequest *request = [PWAppOpenRequest new];
+
+    [_requestManager sendRequestInternal:request completion:^(NSError *error) {
+        XCTAssertNotNil(error);
+        XCTAssertTrue([error.localizedDescription containsString:@"Base URL is not configured yet"], @"Expected blocked-error message, got: %@", error.localizedDescription);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    [mockPrefs stopMocking];
+}
+
+/// SDK-814: Verifies that the reverse proxy URL is independent of prefs.baseUrl funneling — set proxy + clear KeyBaseUrl, baseUrl reader returns the proxy URL not the underlying preferences value.
+- (void)testSetReverseProxyStillWorksAfterUpdateBaseUrlFunnel {
+    NSString *priorBaseUrl = [[[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_BASEURL"] copy];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Pushwoosh_BASEURL"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    [_requestManager setReverseProxyUrl:@"https://proxy-only.example.com" headers:nil];
+
+    XCTAssertEqualObjects([_requestManager baseUrl], @"https://proxy-only.example.com/");
+
+    @synchronized (_requestManager) {
+        [_requestManager setValue:nil forKey:@"reverseProxyUrl"];
+    }
+    if (priorBaseUrl) {
+        [[NSUserDefaults standardUserDefaults] setObject:priorBaseUrl forKey:@"Pushwoosh_BASEURL"];
+    }
 }
 
 @end

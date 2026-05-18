@@ -136,6 +136,45 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
         XCTAssertEqual(facade.readCalls.count, 0)
     }
 
+    /// Verifies that the inbox refreshes after a real background → active cycle.
+    func testInboxRefreshesAfterRealBackgroundCycle() {
+        let initial = facade.loadCallCount
+        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        let exp = expectation(description: "reload")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { exp.fulfill() }
+        wait(for: [exp], timeout: 1.0)
+        XCTAssertGreaterThan(facade.loadCallCount, initial)
+    }
+
+    /// Verifies that DidBecomeActive without a preceding DidEnterBackground (Control Center / Face ID / system overlay) does NOT reload the inbox.
+    func testInboxDoesNotRefreshOnDidBecomeActiveWithoutBackground() {
+        let initial = facade.loadCallCount
+        for _ in 0..<6 {
+            NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        }
+        let exp = expectation(description: "no reload")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { exp.fulfill() }
+        wait(for: [exp], timeout: 1.0)
+        XCTAssertEqual(facade.loadCallCount, initial)
+    }
+
+    /// Verifies that the background flag is single-use: after one background+active reload, a second active without background does not reload again.
+    func testInboxBackgroundFlagIsSingleUse() {
+        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        let exp1 = expectation(description: "first reload")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) { exp1.fulfill() }
+        wait(for: [exp1], timeout: 1.0)
+        let afterFirst = facade.loadCallCount
+
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        let exp2 = expectation(description: "no second reload")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { exp2.fulfill() }
+        wait(for: [exp2], timeout: 1.0)
+        XCTAssertEqual(facade.loadCallCount, afterFirst)
+    }
+
     /// Verifies that the inbox refreshes when the update notification fires.
     /// `scheduleInboxRefresh` debounces by 1.5s on the first call to give the
     /// server time to sync after APNS delivery, so we wait past that window.
@@ -177,6 +216,39 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
         XCTAssertFalse(sut.attributes.automaticReadOnDisappear)
         XCTAssertFalse(sut.attributes.swipeToDeleteEnabled)
         XCTAssertFalse(sut.attributes.enableDarkTheme)
+    }
+
+    /// Verifies that the pin chip is visible by default on a pinned message.
+    func testPinIndicatorVisibleTrueShowsChipOnPinnedMessage() {
+        let m = FakeMessage(code: "p")
+        m.actionParams = ["pinned": true]
+        facade.outcome = .success([m])
+        sut.attributes.forceCellKind = .classic
+        loadAndWait()
+        sut.tableView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+        sut.tableView.layoutIfNeeded()
+        guard let cell = sut.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? PushwooshInboxClassicCell else {
+            return XCTFail("Expected PushwooshInboxClassicCell")
+        }
+        XCTAssertFalse(cell.pinIndicatorView.isHidden)
+    }
+
+    /// Verifies that toggling pinIndicatorVisible=false hides the chip while pinningEnabled (sorting) remains active.
+    func testPinIndicatorVisibleFalseHidesChipButKeepsPinningEnabled() {
+        sut.setPinIndicatorVisible(false)
+        let m = FakeMessage(code: "p")
+        m.actionParams = ["pinned": true]
+        facade.outcome = .success([m])
+        sut.attributes.forceCellKind = .classic
+        loadAndWait()
+        sut.tableView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
+        sut.tableView.layoutIfNeeded()
+        guard let cell = sut.tableView.cellForRow(at: IndexPath(row: 0, section: 0)) as? PushwooshInboxClassicCell else {
+            return XCTFail("Expected PushwooshInboxClassicCell")
+        }
+        XCTAssertTrue(cell.pinIndicatorView.isHidden)
+        XCTAssertTrue(sut.attributes.pinningEnabled)
+        XCTAssertFalse(sut.attributes.pinIndicatorVisible)
     }
 
     // MARK: - Helpers

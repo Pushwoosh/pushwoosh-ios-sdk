@@ -38,7 +38,21 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy) NSArray *categories;
 
-@property (copy) NSString *baseUrl;
+@property (copy, readonly, nullable) NSString *baseUrl;
+
+/**
+ * Persists a new base URL after normalization (trim, scheme check, force trailing `/`).
+ * Single entry point for all base-URL writers (response.base_url, set_base_url system command,
+ * setAppCode:-derived default, integrator-set custom URL).
+ *
+ * @param rawUrl raw URL string from any source; may be nil.
+ * @return the normalized URL on accept, or nil if the input was empty / malformed / failed validation.
+ *         On nil return, the previously persisted base URL is preserved.
+ */
+- (nullable NSString *)updateBaseUrl:(nullable NSString *)rawUrl;
+
+/// Deprecated. Use `-updateBaseUrl:` so the value is normalized and de-duplicated.
+- (void)setBaseUrl:(nullable NSString *)baseUrl __attribute__((deprecated("Use -updateBaseUrl: instead.")));
 
 @property (nonatomic) BOOL isLoggerActive;
 
@@ -63,7 +77,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (copy, nullable) NSString *advertisingId;
 
 - (BOOL)hasAppCode;
-- (NSString *)defaultBaseUrl;
+- (nullable NSString *)defaultBaseUrl;
 
 - (void)saveCurrentHWIDtoUserDefaults;
 

@@ -59,7 +59,7 @@
     self.originalNotificationManager = [PWPlatformModule module].notificationManagerCompat;
     [PWPlatformModule module].notificationManagerCompat = mock([PWNotificationManagerCompat class]);
     
-    [PushNotificationManager initializeWithAppCode:@"4FC89B6D14A655.46488481" appName:@"UnitTest"];
+    [PushNotificationManager initializeWithAppCode:@"4FC89B6D14A655-46488481" appName:@"UnitTest"];
     self.pushManager = [PushNotificationManager pushManager];
     self.purchaseManager = [[PWPurchaseManager alloc] init];
 }

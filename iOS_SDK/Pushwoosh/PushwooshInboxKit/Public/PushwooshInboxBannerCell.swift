@@ -142,8 +142,8 @@ open class PushwooshInboxBannerCell: PushwooshInboxCell {
 
         // Pin chip is image-friendly white-on-glass; only the glyph reacts to style.
         let isPinned = attributes.pinningEnabled && PushwooshInboxKitAttributes.isPinned(message)
-        pinChip.isHidden = !isPinned
-        if isPinned {
+        pinChip.isHidden = !isPinned || !attributes.pinIndicatorVisible
+        if isPinned && attributes.pinIndicatorVisible {
             if let custom = style.pinIndicatorImage {
                 pinIndicatorView.image = custom
             } else if #available(iOS 13.0, *) {

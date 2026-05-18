@@ -54,6 +54,13 @@ public struct PushwooshInboxKitAttributes {
         }
     }
 
+    /// When `true`, the pin indicator (chip / glyph) is rendered on pinned
+    /// messages. When `false`, the indicator is hidden but pinned-first
+    /// sorting is preserved (still controlled by ``pinningEnabled``).
+    /// Useful when integrators want the ordering behaviour without the
+    /// visual chip.
+    public var pinIndicatorVisible: Bool = true
+
     /// When `true`, cells render up to N inline CTA buttons parsed from
     /// `actionParams["buttons"]`. Disable to ignore the server-supplied
     /// buttons regardless of payload.

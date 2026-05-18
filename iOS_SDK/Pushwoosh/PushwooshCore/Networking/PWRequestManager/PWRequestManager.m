@@ -346,7 +346,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
             // Handle base_url switch
             NSString *newBaseUrl = response[@"base_url"];
             if ([newBaseUrl isKindOfClass:[NSString class]]) {
-                [PWPreferences preferences].baseUrl = newBaseUrl;
+                [[PWPreferences preferences] updateBaseUrl:newBaseUrl];
             }
 
             if (completion) {
@@ -426,6 +426,17 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     
     //request part
     NSString *base = [request baseUrl] ?: [self baseUrl];
+    if (base.length == 0) {
+        NSString *errorStr = [NSString stringWithFormat:@"Base URL is not configured yet. Request blocked: %@", request.methodName];
+        [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:errorStr];
+        if (completion) {
+            completion([PWUtils pushwooshError:errorStr]);
+        }
+#if TARGET_OS_IOS
+        [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
+#endif
+        return;
+    }
     if (![base hasSuffix:@"/"]) {
         base = [base stringByAppendingString:@"/"];
     }
@@ -680,11 +691,14 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
                 isUsingProxy = (_reverseProxyUrl != nil);
             }
 			if (jsonResult[@"status_code"] == nil && !isUsingProxy) {
-				[PWPreferences preferences].baseUrl = [PWPreferences preferences].defaultBaseUrl;
+				NSString *defaultUrl = [[PWPreferences preferences] defaultBaseUrl];
+				if (defaultUrl.length > 0) {
+					[[PWPreferences preferences] updateBaseUrl:defaultUrl];
+				}
 			}
 			NSString *newBaseUrl = jsonResult[@"base_url"];
             if ([newBaseUrl isKindOfClass:[NSString class]] && !isUsingProxy) {
-				[PWPreferences preferences].baseUrl = newBaseUrl;
+				[[PWPreferences preferences] updateBaseUrl:newBaseUrl];
 			}
             
 			// check status

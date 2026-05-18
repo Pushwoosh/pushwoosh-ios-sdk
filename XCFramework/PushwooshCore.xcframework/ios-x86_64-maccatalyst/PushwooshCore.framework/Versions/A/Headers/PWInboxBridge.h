@@ -11,8 +11,8 @@
 @protocol PWInboxMessageProtocol;
 
 /// Bridge protocol exposing the inbox backend (PushwooshFramework's `PWInbox`)
-/// to optional UI modules (`PushwooshInboxUI`, `PushwooshInboxKit`) without a
-/// hard compile-time dependency on `PushwooshFramework`.
+/// to the optional UI module `PushwooshInboxKit` without a hard compile-time
+/// dependency on `PushwooshFramework`.
 ///
 /// Conforming class must route every mutation through the canonical
 /// `PWInboxStorage` so the deleted/read flags survive across launches.

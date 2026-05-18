@@ -4,6 +4,11 @@
 static NSString * const kPWRichMediaStyleModalKey = @"PWRichMediaStyleModal";
 static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresentationStyle";
 
+/// Flag to prevent recursive dispatch_once entry during +config initialization.
+/// Set inside -initWithBundle: so that any pushwoosh_Log emitted from the initializer
+/// (e.g. invalid appCode/log-level warnings) does not re-call [PWConfig config].
+static BOOL _isInitializing = NO;
+
 @interface PWConfig ()
 
 @property (nonatomic, copy, readwrite) NSString *appId;
@@ -60,15 +65,29 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
 - (instancetype)initWithBundle:(NSBundle *)bundle {
 	self = [super init];
 	if (self) {
+        _isInitializing = YES;
+
         _bundle = bundle;
 
 		self.appId = [self trimmedStringForKey:@"Pushwoosh_APPID"];
+        if (self.appId != nil && [self.appId rangeOfString:@"."].location != NSNotFound) {
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:[PWConfig class]
+                               message:@"Pushwoosh_APPID ignored — Application id format with '.' is deprecated. Please contact Pushwoosh support."];
+            self.appId = nil;
+        }
 
         self.apiToken = [self trimmedStringForKey:@"PW_API_TOKEN"];
 
         self.pushwooshApiToken = [self trimmedStringForKey:@"Pushwoosh_API_TOKEN"];
 
 		self.appIdDev = [self trimmedStringForKey:@"Pushwoosh_APPID_Dev"];
+        if (self.appIdDev != nil && [self.appIdDev rangeOfString:@"."].location != NSNotFound) {
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:[PWConfig class]
+                               message:@"Pushwoosh_APPID_Dev ignored — Application id format with '.' is deprecated. Please contact Pushwoosh support."];
+            self.appIdDev = nil;
+        }
 
 		self.appName = [self trimmedStringForKey:@"Pushwoosh_APPNAME"];
 
@@ -160,9 +179,15 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
 
         NSNumber *grpcPortNum = [bundle objectForInfoDictionaryKey:@"Pushwoosh_GRPC_PORT"];
         self.grpcPort = grpcPortNum ? [grpcPortNum integerValue] : 443;
+
+        _isInitializing = NO;
 	}
 
 	return self;
+}
+
++ (BOOL)isInitializing {
+    return _isInitializing;
 }
 
 - (void)styleRichMediaTypeFromString:(NSString *)style {

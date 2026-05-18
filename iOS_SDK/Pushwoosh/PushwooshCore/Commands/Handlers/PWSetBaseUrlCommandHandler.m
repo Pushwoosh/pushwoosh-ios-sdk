@@ -31,29 +31,16 @@ static NSString *const kPWValueKey = @"value";
         return NO;
     }
 
-    if (![self isValidUrl:baseUrl]) {
-        [PushwooshLog pushwooshLog:PW_LL_ERROR
-                         className:self
-                           message:[NSString stringWithFormat:@"Invalid URL: %@", baseUrl]];
+    NSString *accepted = [[PWPreferences preferences] updateBaseUrl:baseUrl];
+    if (accepted == nil) {
         return NO;
     }
-
-    // Persist to preferences (NSUserDefaults) - all network requests read from here
-    [PWPreferences preferences].baseUrl = baseUrl;
 
     [PushwooshLog pushwooshLog:PW_LL_INFO
                      className:self
-                       message:[NSString stringWithFormat:@"Base URL set to: %@", baseUrl]];
+                       message:[NSString stringWithFormat:@"Base URL set to: %@", accepted]];
 
     return YES;
-}
-
-- (BOOL)isValidUrl:(NSString *)url {
-    if (![url hasPrefix:@"https://"] && ![url hasPrefix:@"http://"]) {
-        return NO;
-    }
-    NSURL *nsUrl = [NSURL URLWithString:url];
-    return nsUrl != nil;
 }
 
 #pragma mark - Private Methods

@@ -54,7 +54,7 @@
     self.inAppManager = [PWInAppManager new];
     
     self.pushManager = [PushNotificationManager pushManager];
-    [PushNotificationManager initializeWithAppCode:@"4FC89B6D14A655.46488481" appName:@"UnitTest"];
+    [PushNotificationManager initializeWithAppCode:@"4FC89B6D14A655-46488481" appName:@"UnitTest"];
     
 }
 

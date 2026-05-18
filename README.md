@@ -96,7 +96,6 @@ pod 'PushwooshXCFramework/PushwooshTVOS'
 pod 'PushwooshXCFramework/PushwooshForegroundPush'
 pod 'PushwooshXCFramework/PushwooshKeychain'
 pod 'PushwooshXCFramework/PushwooshGRPC'
-pod 'PushwooshInboxUIXCFramework'
 ```
 
 Then run:

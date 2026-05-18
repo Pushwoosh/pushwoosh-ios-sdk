@@ -7,7 +7,6 @@
 #ifndef PushNotificationManager_Constants_h
 #define PushNotificationManager_Constants_h
 
-#define kBaseDefaultURLOld @"https://cp.pushwoosh.com/json/1.3/"
 #define kBaseDefaultURLFormat @"https://%@.api.pushwoosh.com/json/1.3/"
 #define kServiceHtmlContentFormatUrl @"https://%@/content/%@"
 #define kNotificationAuthorizationStatusUpdated @"KeyNotificationAuthorizationStatusUpdated"

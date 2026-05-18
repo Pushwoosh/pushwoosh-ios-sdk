@@ -36,6 +36,7 @@ public struct PushwooshInboxKitAttributes {
     get
     set
   }
+  public var pinIndicatorVisible: Swift.Bool
   public var inlineButtonsEnabled: Swift.Bool
   public var forceCellKind: PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind?
   public var cells: [Swift.String : PushwooshInboxKit.PushwooshInboxCell.Type]
@@ -133,6 +134,7 @@ extension PushwooshInboxKit.PushwooshInboxKitDelegate {
   @objc @_Concurrency.MainActor(unsafe) public func setSwipeToDeleteEnabled(_ enabled: Swift.Bool)
   @objc @_Concurrency.MainActor(unsafe) public func setEnableDarkTheme(_ enabled: Swift.Bool)
   @objc @_Concurrency.MainActor(unsafe) public func setPinningEnabled(_ enabled: Swift.Bool)
+  @objc @_Concurrency.MainActor(unsafe) public func setPinIndicatorVisible(_ visible: Swift.Bool)
   @objc @_Concurrency.MainActor(unsafe) public func setInlineButtonsEnabled(_ enabled: Swift.Bool)
   @objc @_Concurrency.MainActor(unsafe) public func setForceCellKind(_ rawValue: Swift.String?)
   @objc @_Concurrency.MainActor(unsafe) public func setButtonBackgroundColor(_ color: UIKit.UIColor)

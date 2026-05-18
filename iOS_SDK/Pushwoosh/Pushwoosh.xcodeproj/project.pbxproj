@@ -496,6 +496,7 @@
 		D09444B883691F529D22A9B0 /* PWInboxKitStubTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E0BCE1C60C1D903B5B6F0355 /* PWInboxKitStubTest.swift */; };
 		D0C99C90B17E26B49CFA892E /* PWModalWindow.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB061A7144DE9E9983015E3 /* PWModalWindow.m */; };
 		D1627DB46FAB44349BA2476B /* PushwooshConfigTrimTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 56A869C6A3204349BFF12764 /* PushwooshConfigTrimTest.m */; };
+		2C62CF0DB33850837B0030F0 /* PWSetBaseUrlCommandHandlerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 3F8CCAE3BE9DFF5FC1278624 /* PWSetBaseUrlCommandHandlerTest.m */; };
 		D1D3B972C9A35E11BC8F3BCF /* PWPushRuntime.ios.h in Headers */ = {isa = PBXBuildFile; fileRef = 347EAF01A954D6154A323BC8 /* PWPushRuntime.ios.h */; };
 		D2BC34B33F2427677E26127D /* PWRegisterUserRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 4F592B68617B34D5A2949139 /* PWRegisterUserRequest.m */; };
 		D3AB84909E79A93988D9D7ED /* PWPushRuntime.ios.m in Sources */ = {isa = PBXBuildFile; fileRef = 81F4279FC84C97FB67D6025F /* PWPushRuntime.ios.m */; };
@@ -1065,6 +1066,7 @@
 		564F4AAF58CEFC18F223708F /* PWInteractionDisabledWindow.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInteractionDisabledWindow.m; sourceTree = "<group>"; };
 		565ED799E2724023A765DBB3 /* PWMedia.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWMedia.m; sourceTree = "<group>"; };
 		56A869C6A3204349BFF12764 /* PushwooshConfigTrimTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PushwooshConfigTrimTest.m; path = PushwooshTests/PushwooshConfigTrimTest.m; sourceTree = SOURCE_ROOT; };
+		3F8CCAE3BE9DFF5FC1278624 /* PWSetBaseUrlCommandHandlerTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWSetBaseUrlCommandHandlerTest.m; path = PushwooshTests/PWSetBaseUrlCommandHandlerTest.m; sourceTree = SOURCE_ROOT; };
 		58327EEB11D5BB8576A2521A /* PWEnvironmentDetector.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWEnvironmentDetector.swift; sourceTree = "<group>"; };
 		5848AC06BD1779B33A2932DE /* PWInAppStorage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInAppStorage.m; sourceTree = "<group>"; };
 		58D4774C7DC9FD651DE80EED /* NSDate+PWDateUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSDate+PWDateUtils.m"; sourceTree = "<group>"; };
@@ -2455,6 +2457,7 @@
 				882A09B7102AD82AE2BDFD2D /* PWAppLifecycleTrackingManagerTest.m */,
 				862C94B23AA09B022B9AB057 /* PushwooshConfigGateTest.m */,
 				56A869C6A3204349BFF12764 /* PushwooshConfigTrimTest.m */,
+				3F8CCAE3BE9DFF5FC1278624 /* PWSetBaseUrlCommandHandlerTest.m */,
 				FAE4DA3B9B6A10AAA9637356 /* PushwooshInboxKit */,
 			);
 			path = PushwooshTests;
@@ -4454,6 +4457,7 @@
 				2ED8E9F8DCDAA7D9497DE55B /* PWAdvertisingIdTest.m in Sources */,
 				CC2EF0F126F10D6F5C8DBCF1 /* PushwooshConfigGateTest.m in Sources */,
 				D1627DB46FAB44349BA2476B /* PushwooshConfigTrimTest.m in Sources */,
+				2C62CF0DB33850837B0030F0 /* PWSetBaseUrlCommandHandlerTest.m in Sources */,
 				9D9FC4F36E14E011EE53D38A /* PushwooshInboxKitAttributesTest.swift in Sources */,
 				96B149E062C8E910D2B63EFB /* PushwooshInboxKitViewControllerTest.swift in Sources */,
 				D09444B883691F529D22A9B0 /* PWInboxKitStubTest.swift in Sources */,

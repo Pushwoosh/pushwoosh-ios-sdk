@@ -136,7 +136,7 @@ static BOOL _isInitializing = NO;
 
         _categories = [[NSUserDefaults standardUserDefaults] objectForKey:KeyPushwooshCategories];
         _logLevel = [PWPreferences readLogLevel];
-        _baseUrl = [self readBaseUrl];
+        _baseUrl = nil;
 
         _isLoggerActive = [[NSUserDefaults standardUserDefaults] boolForKey:KeyIsLoggerAvailable];
 
@@ -185,7 +185,7 @@ static BOOL _isInitializing = NO;
 #endif
 
     [self.class resetCache];
-    _baseUrl = [self readBaseUrl];
+    _baseUrl = nil;
     _lastRegTime = nil;
     _lastRegisterUserDate = nil;
     _categories = nil;
@@ -376,17 +376,79 @@ static BOOL _isInitializing = NO;
 
 - (NSString *)baseUrl {
     @synchronized(_lock) {
+        if (_baseUrl == nil) {
+            _baseUrl = [[self readBaseUrl] copy];
+        }
         return _baseUrl;
     }
 }
 
 - (void)setBaseUrl:(NSString *)baseUrl {
-    @synchronized(_lock) {
-        _baseUrl = [baseUrl copy];
+    [self updateBaseUrl:baseUrl];
+}
+
+- (NSString *)updateBaseUrl:(NSString *)rawUrl {
+    NSString *normalized = [self.class normalizeBaseUrl:rawUrl];
+    if (normalized == nil) {
+        return nil;
     }
 
-    [[NSUserDefaults standardUserDefaults] setObject:baseUrl forKey:KeyBaseUrl];
-    [[NSUserDefaults standardUserDefaults] synchronize];
+    BOOL didWrite = NO;
+    @synchronized(_lock) {
+        if (![_baseUrl isEqualToString:normalized]) {
+            _baseUrl = [normalized copy];
+            [[NSUserDefaults standardUserDefaults] setObject:normalized forKey:KeyBaseUrl];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            didWrite = YES;
+        }
+    }
+    if (didWrite) {
+        [PushwooshLog pushwooshLog:PW_LL_INFO
+                         className:[PWPreferences class]
+                           message:[NSString stringWithFormat:@"Update base URL: %@", normalized]];
+    }
+    return normalized;
+}
+
++ (NSString *)normalizeBaseUrl:(NSString *)rawUrl {
+    if (rawUrl.length == 0) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:[PWPreferences class]
+                           message:@"Reject base URL: empty value"];
+        return nil;
+    }
+
+    NSString *trimmed = [rawUrl stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if (trimmed.length == 0) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:[PWPreferences class]
+                           message:@"Reject base URL: whitespace-only value"];
+        return nil;
+    }
+
+    if ([trimmed rangeOfCharacterFromSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]].location != NSNotFound) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:[PWPreferences class]
+                           message:[NSString stringWithFormat:@"Reject base URL: contains whitespace: %@", rawUrl]];
+        return nil;
+    }
+
+    if (![trimmed hasPrefix:@"https://"] && ![trimmed hasPrefix:@"http://"]) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:[PWPreferences class]
+                           message:[NSString stringWithFormat:@"Reject base URL: scheme must be http(s)://: %@", rawUrl]];
+        return nil;
+    }
+
+    NSURL *parsed = [NSURL URLWithString:trimmed];
+    if (parsed == nil || parsed.host.length == 0) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:[PWPreferences class]
+                           message:[NSString stringWithFormat:@"Reject base URL: malformed URL: %@", rawUrl]];
+        return nil;
+    }
+
+    return [trimmed hasSuffix:@"/"] ? trimmed : [trimmed stringByAppendingString:@"/"];
 }
 
 - (BOOL)isLoggerActive {
@@ -501,31 +563,43 @@ static BOOL _isInitializing = NO;
 }
 
 - (NSString *)readBaseUrl {
-    NSString *serviceAddressUrl = [[NSUserDefaults standardUserDefaults] objectForKey:KeyBaseUrl];
+    NSString *persisted = [[NSUserDefaults standardUserDefaults] objectForKey:KeyBaseUrl];
 
-    if (!serviceAddressUrl) {
-        serviceAddressUrl = [self defaultBaseUrl];
+    if (persisted.length > 0) {
+        NSURL *parsed = [NSURL URLWithString:persisted];
+        if ([parsed.host isEqualToString:@"cp.pushwoosh.com"]) {
+            [PushwooshLog pushwooshLog:PW_LL_INFO
+                             className:[PWPreferences class]
+                               message:@"Discarding persisted legacy base URL (cp.pushwoosh.com)"];
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyBaseUrl];
+            [[NSUserDefaults standardUserDefaults] synchronize];
+            persisted = nil;
+        }
     }
 
-    return serviceAddressUrl;
+    if (persisted.length == 0) {
+        return [self defaultBaseUrl];
+    }
+    return persisted;
 }
 
 - (NSString *)defaultBaseUrl {
     NSString *serviceAddressUrl = [PWConfig config].requestUrl;
-
-    if (!serviceAddressUrl) {
-        NSString *appCode = _appCode;
-        if (!appCode) {
-            appCode = [self.class readAppId];
-        }
-        if (appCode.length == 0 || [appCode rangeOfString:@"."].location != NSNotFound) {
-            serviceAddressUrl = kBaseDefaultURLOld;
-        } else {
-            serviceAddressUrl = [NSString stringWithFormat:kBaseDefaultURLFormat, appCode];
-        }
+    if (serviceAddressUrl.length > 0) {
+        return serviceAddressUrl;
     }
 
-    return serviceAddressUrl;
+    NSString *appCode;
+    @synchronized(_lock) {
+        appCode = [_appCode copy];
+    }
+    if (appCode == nil) {
+        appCode = [self.class readAppId];
+    }
+    if (appCode.length == 0 || [appCode rangeOfString:@"."].location != NSNotFound) {
+        return nil;
+    }
+    return [NSString stringWithFormat:kBaseDefaultURLFormat, appCode];
 }
 
 + (unsigned int)readLogLevel {
@@ -545,6 +619,13 @@ static BOOL _isInitializing = NO;
 #pragma mark - AppCode
 
 - (void)setAppCode:(NSString *)appCode {
+    if (appCode != nil && [appCode rangeOfString:@"."].location != NSNotFound) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:[PWPreferences class]
+                           message:@"Application id format with '.' is deprecated. Please contact Pushwoosh support."];
+        return;
+    }
+
     @synchronized(_lock) {
         _appCode = [appCode copy];
 
@@ -563,6 +644,22 @@ static BOOL _isInitializing = NO;
             [shared setObject:appCode forKey:KeyAppId];
         } else {
             [shared removeObjectForKey:KeyAppId];
+        }
+    }
+
+    NSString *appCodeSnapshot;
+    NSString *currentBaseUrl;
+    @synchronized(_lock) {
+        appCodeSnapshot = [_appCode copy];
+        currentBaseUrl = [_baseUrl copy];
+    }
+    if (appCodeSnapshot.length > 0 && currentBaseUrl.length == 0) {
+        NSString *defaultUrl = [self defaultBaseUrl];
+        if (defaultUrl.length > 0) {
+            NSString *persisted = [[NSUserDefaults standardUserDefaults] objectForKey:KeyBaseUrl];
+            if (persisted.length == 0) {
+                [self updateBaseUrl:defaultUrl];
+            }
         }
     }
 

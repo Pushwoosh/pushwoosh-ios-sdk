@@ -48,10 +48,12 @@
     PWInAppMessagesManager *manager = [[PWInAppMessagesManager alloc] init];
     id mockPWPreference = OCMPartialMock([PWPreferences preferences]);
     OCMStub([mockPWPreference userId]).andReturn(nil);
-    
+
     [manager setUserId:userId completion:^(NSError *error) {}];
-    
+
     XCTAssertNil([PWPreferences preferences].userId);
+
+    [mockPWPreference stopMocking];
 }
 
 - (void)testRegisterEmailUserWithUserNotNil {

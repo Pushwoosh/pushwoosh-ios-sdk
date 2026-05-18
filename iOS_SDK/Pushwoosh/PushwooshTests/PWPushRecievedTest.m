@@ -78,7 +78,7 @@
 
     self.mockNotificationDelegate = [PWPushNotificationDelegateMock new];
 
-    [PushNotificationManager initializeWithAppCode:@"4FC89B6D14A655.46488481" appName:@"UnitTest"];
+    [PushNotificationManager initializeWithAppCode:@"4FC89B6D14A655-46488481" appName:@"UnitTest"];
     self.pushManager = [PushNotificationManager pushManager];
     [PushNotificationManager pushManager].delegate = self.mockNotificationDelegate;
 }
