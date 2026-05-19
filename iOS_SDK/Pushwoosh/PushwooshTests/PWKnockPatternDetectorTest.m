@@ -7,6 +7,7 @@
 #import <UIKit/UIKit.h>
 #import <OCMock/OCMock.h>
 #import "PWKnockPatternDetector.h"
+#import "PWPreferences.h"
 
 @interface PWKnockPatternDetector (Test)
 
@@ -15,6 +16,8 @@
 - (NSString *)buildDescription;
 - (void)onBackground;
 - (void)onForeground;
+- (BOOL)isInCooldown;
+- (void)armCooldown;
 
 @end
 
@@ -25,13 +28,27 @@
 @implementation PWKnockPatternDetectorTest {
     __block NSTimeInterval _fakeTime;
     PWKnockPatternDetector *_detector;
+    id _bundleMock;
 }
 
 - (void)setUp {
+    [super setUp];
+    [[PWPreferences preferences] setLastKnockTriggerTimestamp:0];
+    [[NSUserDefaults standardUserDefaults]
+        removeObjectForKey:@"PWKnockPatternDetectorLastTriggerTimestamp"];
     _fakeTime = 1000;
     _detector = [[PWKnockPatternDetector alloc] initWithClock:^{
         return _fakeTime;
     }];
+}
+
+- (void)tearDown {
+    [_bundleMock stopMocking];
+    _bundleMock = nil;
+    [[PWPreferences preferences] setLastKnockTriggerTimestamp:0];
+    [[NSUserDefaults standardUserDefaults]
+        removeObjectForKey:@"PWKnockPatternDetectorLastTriggerTimestamp"];
+    [super tearDown];
 }
 
 /// Emulates one real background→foreground cycle on the detector under test.
@@ -94,8 +111,8 @@
     [detectorMock stopMocking];
 }
 
-/// Verifies that the pattern can trigger again after a reset.
-- (void)testRepeatableTrigger {
+/// Verifies that the pattern fires again after the cooldown elapses (3601s gap).
+- (void)testRepeatableTriggerAfterCooldown {
     __block int triggerCount = 0;
     id detectorMock = OCMPartialMock(_detector);
     OCMStub([detectorMock performKnockAction]).andDo(^(NSInvocation *inv) {
@@ -107,7 +124,7 @@
         [self emulateKnockOn:_detector];
     }
 
-    _fakeTime += 60;
+    _fakeTime += 3601;
 
     for (int i = 0; i < 6; i++) {
         _fakeTime += 1;
@@ -136,13 +153,26 @@
     [detectorMock stopMocking];
 }
 
-/// Verifies that buildDescription returns correct format.
+/// Verifies that buildDescription returns the bundle id only, with no date suffix and respecting the 64-char cap.
 - (void)testBuildDescriptionFormat {
     NSString *desc = [_detector buildDescription];
+    NSString *expected = [[NSBundle mainBundle] bundleIdentifier] ?: @"";
 
-    XCTAssertTrue(desc.length > 0);
+    XCTAssertEqualObjects(desc, expected);
     XCTAssertTrue(desc.length <= 64);
-    XCTAssertTrue([desc containsString:@"|"]);
+    XCTAssertFalse([desc containsString:@" | "]);
+}
+
+/// Verifies that buildDescription truncates a bundle id longer than 64 characters.
+- (void)testBuildDescriptionTruncatesLongBundleId {
+    NSString *longBundleId = [@"" stringByPaddingToLength:100 withString:@"a" startingAtIndex:0];
+    _bundleMock = OCMPartialMock([NSBundle mainBundle]);
+    OCMStub([_bundleMock bundleIdentifier]).andReturn(longBundleId);
+
+    NSString *desc = [_detector buildDescription];
+
+    XCTAssertEqual(desc.length, 64);
+    XCTAssertEqualObjects(desc, [longBundleId substringToIndex:64]);
 }
 
 /// Verifies that 6 knocks just over 30 seconds does not trigger.
@@ -220,6 +250,143 @@
         [_detector onForeground];
     }
 
+    [detectorMock stopMocking];
+}
+
+/// Verifies that the cooldown blocks a second pattern match within an hour of the first.
+- (void)testCooldownBlocksSecondTriggerWithinAnHour {
+    __block int triggerCount = 0;
+    id detectorMock = OCMPartialMock(_detector);
+    OCMStub([detectorMock performKnockAction]).andDo(^(NSInvocation *inv) {
+        triggerCount++;
+    });
+
+    for (int i = 0; i < 6; i++) {
+        _fakeTime += 1;
+        [self emulateKnockOn:_detector];
+    }
+
+    _fakeTime += 1800; // 30 minutes — still within cooldown
+
+    for (int i = 0; i < 6; i++) {
+        _fakeTime += 1;
+        [self emulateKnockOn:_detector];
+    }
+
+    XCTAssertEqual(triggerCount, 1);
+    [detectorMock stopMocking];
+}
+
+/// Verifies that the cooldown expires after one hour and the next pattern match triggers again.
+- (void)testCooldownExpiresAfterOneHour {
+    __block int triggerCount = 0;
+    id detectorMock = OCMPartialMock(_detector);
+    OCMStub([detectorMock performKnockAction]).andDo(^(NSInvocation *inv) {
+        triggerCount++;
+    });
+
+    for (int i = 0; i < 6; i++) {
+        _fakeTime += 1;
+        [self emulateKnockOn:_detector];
+    }
+
+    _fakeTime += 3601;
+
+    for (int i = 0; i < 6; i++) {
+        _fakeTime += 1;
+        [self emulateKnockOn:_detector];
+    }
+
+    XCTAssertEqual(triggerCount, 2);
+    [detectorMock stopMocking];
+}
+
+/// Verifies the strict `<` cooldown comparison: at delta = 3599s (just below the 3600s threshold) the second match is still blocked.
+- (void)testCooldownJustBelow3600sIsStillBlocked {
+    __block int triggerCount = 0;
+    id detectorMock = OCMPartialMock(_detector);
+    OCMStub([detectorMock performKnockAction]).andDo(^(NSInvocation *inv) {
+        triggerCount++;
+    });
+
+    for (int i = 0; i < 6; i++) {
+        _fakeTime += 1;
+        [self emulateKnockOn:_detector];
+    }
+    NSTimeInterval firstTriggerTime = _fakeTime;
+
+    _fakeTime = firstTriggerTime + 3593;
+
+    for (int i = 0; i < 6; i++) {
+        _fakeTime += 1;
+        [self emulateKnockOn:_detector];
+    }
+
+    XCTAssertEqual(triggerCount, 1);
+    [detectorMock stopMocking];
+}
+
+/// Verifies the strict `<` cooldown comparison: at delta = 3600s exactly the gate is expired, so the second match goes through.
+- (void)testCooldownAtExact3600sAllowsRetrigger {
+    __block int triggerCount = 0;
+    id detectorMock = OCMPartialMock(_detector);
+    OCMStub([detectorMock performKnockAction]).andDo(^(NSInvocation *inv) {
+        triggerCount++;
+    });
+
+    for (int i = 0; i < 6; i++) {
+        _fakeTime += 1;
+        [self emulateKnockOn:_detector];
+    }
+    NSTimeInterval firstTriggerTime = _fakeTime;
+
+    _fakeTime = firstTriggerTime + 3594;
+
+    for (int i = 0; i < 6; i++) {
+        _fakeTime += 1;
+        [self emulateKnockOn:_detector];
+    }
+
+    XCTAssertEqual(triggerCount, 2);
+    [detectorMock stopMocking];
+}
+
+/// Verifies that a backwards clock jump is treated as expired cooldown so the next pattern match goes through.
+- (void)testCooldownTreatsBackwardsClockAsExpired {
+    __block int triggerCount = 0;
+    id detectorMock = OCMPartialMock(_detector);
+    OCMStub([detectorMock performKnockAction]).andDo(^(NSInvocation *inv) {
+        triggerCount++;
+    });
+
+    _fakeTime = 5000;
+    [_detector armCooldown];
+
+    _fakeTime = 3000;
+    for (int i = 0; i < 6; i++) {
+        _fakeTime += 1;
+        [self emulateKnockOn:_detector];
+    }
+
+    XCTAssertEqual(triggerCount, 1);
+    [detectorMock stopMocking];
+}
+
+/// Verifies that cooldown is armed on pattern match before the network call (the persisted timestamp matches the 6th-knock clock).
+- (void)testCooldownIsArmedOnPatternMatchNotOnNetworkSuccess {
+    id detectorMock = OCMPartialMock(_detector);
+    OCMStub([detectorMock performKnockAction]).andDo(^(NSInvocation *inv) {
+        // no-op — explicitly skip the network call to prove arming is independent of it
+    });
+
+    NSTimeInterval lastKnockTime = 0;
+    for (int i = 0; i < 6; i++) {
+        _fakeTime += 1;
+        lastKnockTime = _fakeTime;
+        [self emulateKnockOn:_detector];
+    }
+
+    XCTAssertEqual([PWPreferences preferences].lastKnockTriggerTimestamp, lastKnockTime);
     [detectorMock stopMocking];
 }
 

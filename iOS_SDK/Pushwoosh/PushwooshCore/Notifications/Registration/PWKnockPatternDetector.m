@@ -21,6 +21,7 @@
 static const NSInteger kRequiredKnocks = 6;
 static const NSTimeInterval kWindowSeconds = 30.0;
 static const NSInteger kMaxDescriptionLength = 64;
+static const NSTimeInterval kCooldownSeconds = 3600.0;
 
 @implementation PWKnockPatternDetector {
     NSTimeInterval _timestamps[6];
@@ -82,8 +83,26 @@ static const NSInteger kMaxDescriptionLength = 64;
     NSTimeInterval oldest = _timestamps[_index];
     if (now - oldest <= kWindowSeconds) {
         [self reset];
+        if ([self isInCooldown]) {
+            [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:
+             @"Knock pattern matched but cooldown is active; skipping"];
+            return;
+        }
+        [self armCooldown];
         [self performKnockAction];
     }
+}
+
+- (BOOL)isInCooldown {
+    NSTimeInterval last = [PWPreferences preferences].lastKnockTriggerTimestamp;
+    NSTimeInterval now = _clock();
+    if (last <= 0) return NO;
+    if (now < last) return NO;
+    return (now - last) < kCooldownSeconds;
+}
+
+- (void)armCooldown {
+    [PWPreferences preferences].lastKnockTriggerTimestamp = _clock();
 }
 
 - (void)reset {
@@ -114,6 +133,7 @@ static const NSInteger kMaxDescriptionLength = 64;
 - (void)createTestDevice {
     PWRegisterTestDeviceRequest *request = [[PWRegisterTestDeviceRequest alloc] init];
     request.token = [PWPreferences preferences].pushToken;
+    request.autoCreated = YES;
 
     BOOL collectModel = [PWConfig config].allowCollectingDeviceModel;
     request.name = collectModel ? [PWUtils deviceName] : @"iOS Device";
@@ -137,26 +157,11 @@ static const NSInteger kMaxDescriptionLength = 64;
 }
 
 - (NSString *)buildDescription {
-    NSMutableString *desc = [NSMutableString string];
-
-    NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier];
-    if (bundleId) {
-        [desc appendString:bundleId];
+    NSString *bundleId = [[NSBundle mainBundle] bundleIdentifier] ?: @"";
+    if (bundleId.length > kMaxDescriptionLength) {
+        return [bundleId substringToIndex:kMaxDescriptionLength];
     }
-
-    if (desc.length > 0) {
-        [desc appendString:@" | "];
-    }
-
-    NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
-    formatter.dateFormat = @"dd.MM.yy HH:mm";
-    formatter.locale = [[NSLocale alloc] initWithLocaleIdentifier:@"en_US"];
-    [desc appendString:[formatter stringFromDate:[NSDate date]]];
-
-    if (desc.length > kMaxDescriptionLength) {
-        return [desc substringToIndex:kMaxDescriptionLength];
-    }
-    return [desc copy];
+    return bundleId;
 }
 
 - (void)dealloc {

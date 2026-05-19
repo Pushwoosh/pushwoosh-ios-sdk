@@ -39,6 +39,7 @@ static NSString *const KeyLanguage = @"Pushwoosh_Language";
 static NSString *const KeyIsLoggerAvailable = @"Logger_available";
 static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_enabled";
 static NSString *const KeyAdvertisingId = @"PWAdvertisingId";
+static NSString *const KeyLastKnockTriggerTimestamp = @"PWKnockPatternDetectorLastTriggerTimestamp";
 
 /// Flag to prevent recursive calls during singleton initialization
 static BOOL _isInitializing = NO;
@@ -71,6 +72,7 @@ static BOOL _isInitializing = NO;
 @synthesize isServerCommunicationEnabled = _isServerCommunicationEnabled;
 @synthesize customTags = _customTags;
 @synthesize advertisingId = _advertisingId;
+@synthesize lastKnockTriggerTimestamp = _lastKnockTriggerTimestamp;
 
 + (BOOL)isInitializing {
     return _isInitializing;
@@ -161,6 +163,8 @@ static BOOL _isInitializing = NO;
         _showForegroundNotifications = [PWConfig config].showAlert;
 
         _advertisingId = [[NSUserDefaults standardUserDefaults] objectForKey:KeyAdvertisingId];
+
+        _lastKnockTriggerTimestamp = [[NSUserDefaults standardUserDefaults] doubleForKey:KeyLastKnockTriggerTimestamp];
     }
 
     _isInitializing = NO;
@@ -199,6 +203,7 @@ static BOOL _isInitializing = NO;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyLastRegisterUserDate];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyPushwooshCategories];
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyAdvertisingId];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyLastKnockTriggerTimestamp];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
@@ -541,6 +546,21 @@ static BOOL _isInitializing = NO;
     } else {
         [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyAdvertisingId];
     }
+    [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+- (NSTimeInterval)lastKnockTriggerTimestamp {
+    @synchronized(_lock) {
+        return _lastKnockTriggerTimestamp;
+    }
+}
+
+- (void)setLastKnockTriggerTimestamp:(NSTimeInterval)lastKnockTriggerTimestamp {
+    @synchronized(_lock) {
+        _lastKnockTriggerTimestamp = lastKnockTriggerTimestamp;
+    }
+
+    [[NSUserDefaults standardUserDefaults] setDouble:lastKnockTriggerTimestamp forKey:KeyLastKnockTriggerTimestamp];
     [[NSUserDefaults standardUserDefaults] synchronize];
 }
 

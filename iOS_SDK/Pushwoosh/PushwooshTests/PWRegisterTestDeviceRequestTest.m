@@ -48,4 +48,20 @@
     [self.request parseResponse:@{}];
 }
 
+/// Verifies that auto_created is serialised as @NO when the flag is not set.
+- (void)testAutoCreatedFlagFalseByDefault {
+    NSDictionary *parameters = [self.request requestDictionary];
+
+    XCTAssertEqualObjects(parameters[@"auto_created"], @NO);
+}
+
+/// Verifies that auto_created is serialised as @YES when the flag is set.
+- (void)testAutoCreatedFlagTrueWhenSet {
+    self.request.autoCreated = YES;
+
+    NSDictionary *parameters = [self.request requestDictionary];
+
+    XCTAssertEqualObjects(parameters[@"auto_created"], @YES);
+}
+
 @end

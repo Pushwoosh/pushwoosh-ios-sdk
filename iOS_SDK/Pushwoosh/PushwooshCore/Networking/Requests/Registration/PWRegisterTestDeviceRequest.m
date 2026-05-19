@@ -22,6 +22,7 @@
 	dict[@"name"] = _name;
 	dict[@"description"] = _desc;
     dict[@"device_type"] = @1;
+    dict[@"auto_created"] = @(_autoCreated);
 
 	return dict;
 }

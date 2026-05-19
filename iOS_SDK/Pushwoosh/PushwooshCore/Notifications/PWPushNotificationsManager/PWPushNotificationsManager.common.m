@@ -578,6 +578,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     request.token = [PWPreferences preferences].pushToken;
     request.name = [PWUtils deviceName];
     request.desc = @"Imported from the app";
+    request.autoCreated = NO;
     
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {

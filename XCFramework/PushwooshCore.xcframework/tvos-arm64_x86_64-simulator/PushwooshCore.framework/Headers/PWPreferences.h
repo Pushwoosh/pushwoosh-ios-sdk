@@ -76,6 +76,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (copy, nullable) NSString *advertisingId;
 
+@property (nonatomic) NSTimeInterval lastKnockTriggerTimestamp;
+
 - (BOOL)hasAppCode;
 - (nullable NSString *)defaultBaseUrl;
 

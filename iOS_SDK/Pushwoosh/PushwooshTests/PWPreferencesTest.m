@@ -18,6 +18,7 @@
 @property (copy) NSString *userId;
 
 + (NSString *)readAppId;
++ (void)resetCache;
 
 @end
 
@@ -443,6 +444,33 @@
         [[NSUserDefaults standardUserDefaults] setObject:savedInfoPlistAppId forKey:@"Pushwoosh_INFO_PLIST_APPID"];
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - SDK-816: lastKnockTriggerTimestamp persistence
+
+/// SDK-816: Verifies that lastKnockTriggerTimestamp is persisted across PWPreferences instances.
+- (void)testLastKnockTriggerTimestampRoundTrip {
+    NSTimeInterval saved = [_settings lastKnockTriggerTimestamp];
+
+    NSTimeInterval value = 1234567.89;
+    [_settings setLastKnockTriggerTimestamp:value];
+
+    PWPreferences *fresh = [[PWPreferences alloc] init];
+
+    XCTAssertEqualWithAccuracy([fresh lastKnockTriggerTimestamp], value, 0.001);
+
+    [_settings setLastKnockTriggerTimestamp:saved];
+}
+
+/// SDK-816: Verifies that +resetCache wipes the knock cooldown timestamp (ADR-3 contract).
+- (void)testResetCacheClearsLastKnockTriggerTimestamp {
+    [_settings setLastKnockTriggerTimestamp:1234567.89];
+    XCTAssertEqualWithAccuracy([_settings lastKnockTriggerTimestamp], 1234567.89, 0.001);
+
+    [PWPreferences resetCache];
+
+    PWPreferences *fresh = [[PWPreferences alloc] init];
+    XCTAssertEqualWithAccuracy([fresh lastKnockTriggerTimestamp], 0.0, 0.001);
 }
 
 @end
