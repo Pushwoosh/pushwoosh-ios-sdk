@@ -18,6 +18,7 @@
 #import <PushwooshCore/PWManagerBridge.h>
 #import <PushwooshCore/PushwooshConfig.h>
 #import <PushwooshCore/PWConfig.h>
+#import "PWModuleResolution.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 #import <PushwooshCore/PWVersionTracking.h>
@@ -43,22 +44,12 @@
 
 + (Class<PWLiveActivities>)LiveActivities {
     [self ensureInitialized];
-    let pushwooshLiveActivities = NSClassFromString(@"PushwooshLiveActivitiesImplementationSetup");
-    if (pushwooshLiveActivities != nil) {
-        return [pushwooshLiveActivities performSelector:@selector(liveActivities)];
-    } else {
-        return [PWStubLiveActivities liveActivities];
-    }
+    return (Class<PWLiveActivities>)[PushwooshModuleRegistry classForIdentifier:PWModuleIdentifierLiveActivities];
 }
 
 + (Class<PWInboxKit>)InboxKit {
     [self ensureInitialized];
-    let pushwooshInboxKit = NSClassFromString(@"PushwooshInboxKitImplementation");
-    if (pushwooshInboxKit != nil) {
-        return [pushwooshInboxKit performSelector:@selector(inboxKit)];
-    } else {
-        return [PWInboxKitStub inboxKit];
-    }
+    return (Class<PWInboxKit>)[PushwooshModuleRegistry classForIdentifier:PWModuleIdentifierInboxKit];
 }
 
 + (Class<PWDebug>)debug {
@@ -67,42 +58,22 @@
 
 + (Class<PWVoIP>)VoIP {
     [self ensureInitialized];
-    let pushwooshVoIP = NSClassFromString(@"PushwooshVoIPImplementation");
-    if (pushwooshVoIP != nil) {
-        return [pushwooshVoIP performSelector:@selector(voip)];
-    } else {
-        return [PWVoIPStub voip];
-    }
+    return (Class<PWVoIP>)[PushwooshModuleRegistry classForIdentifier:PWModuleIdentifierVoIP];
 }
 
 + (Class<PWForegroundPush>)ForegroundPush {
     [self ensureInitialized];
-    let pushwooshForeground = NSClassFromString(@"PushwooshForegroundPushImplementation");
-    if (pushwooshForeground != nil) {
-        return [pushwooshForeground performSelector:@selector(foregroundPush)];
-    } else {
-        return [PWForegroundPushStub foregroundPush];
-    }
+    return (Class<PWForegroundPush>)[PushwooshModuleRegistry classForIdentifier:PWModuleIdentifierForegroundPush];
 }
 
 + (Class<PWTVoS>)TVoS {
     [self ensureInitialized];
-    let pushwooshTVOS = NSClassFromString(@"PushwooshTVOSImplementation");
-    if (pushwooshTVOS != nil) {
-        return [pushwooshTVOS performSelector:@selector(tvos)];
-    } else {
-        return [PWTVoSStub tvos];
-    }
+    return (Class<PWTVoS>)[PushwooshModuleRegistry classForIdentifier:PWModuleIdentifierTVoS];
 }
 
 + (Class<PWKeychain>)Keychain {
     [self ensureInitialized];
-    let pushwooshKeychain = NSClassFromString(@"PushwooshKeychainImplementation");
-    if (pushwooshKeychain != nil) {
-        return [pushwooshKeychain performSelector:@selector(keychain)];
-    } else {
-        return [PWKeychainStub keychain];
-    }
+    return (Class<PWKeychain>)[PushwooshModuleRegistry classForIdentifier:PWModuleIdentifierKeychain];
 }
 
 #if TARGET_OS_IOS
@@ -195,7 +166,7 @@ static dispatch_once_t ensureInitializedOncePredicate;
         }
 #endif
         
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
         [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Will show foreground notifications: %d", self.showPushnotificationAlert]];
 #endif
 
@@ -223,7 +194,7 @@ static dispatch_once_t ensureInitializedOncePredicate;
         if (![PWConfig config].isUsingPluginForPushHandling) {
             _notificationCenterDelegateProxy = [[PWNotificationCenterDelegateProxy alloc] initWithNotificationManager:self.pushNotificationManager];
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_TV
             __weak PWNotificationCenterDelegateProxy *weakProxy = _notificationCenterDelegateProxy;
             [PWManagerBridge shared].addNotificationCenterDelegateBlock = ^(id<UNUserNotificationCenterDelegate> delegate) {
                 [weakProxy addNotificationCenterDelegate:delegate];
@@ -472,7 +443,7 @@ static dispatch_once_t ensureInitializedOncePredicate;
     [self.inAppManager mergeUserId:oldUserId to:newUserId doMerge:doMerge completion:completion];
 }
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 - (BOOL)handleOpenURL:(NSURL *)url {
     return [PWUtils handleURL:url];
 }
@@ -520,6 +491,12 @@ static dispatch_once_t ensureInitializedOncePredicate;
     [PWManagerBridge shared].addNotificationCenterDelegateBlock = nil;
     pushwooshOncePredicate = 0;
     pushwooshInstance = nil;
+}
+
+#pragma mark - Test seams
+
++ (void)_resetEnsureInitializedForTesting {
+    ensureInitializedOncePredicate = 0;
 }
 
 @end

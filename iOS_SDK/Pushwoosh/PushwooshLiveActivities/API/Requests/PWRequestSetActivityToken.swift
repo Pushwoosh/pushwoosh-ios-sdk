@@ -12,12 +12,12 @@ import PushwooshCore
 
 class PWRequestSetActivityToken: PWRequest, PWCoreSetLiveActivityTokenRequest {
     var parameters: ActivityRequestParameters
-    
+
     init(parameters: ActivityRequestParameters) {
         self.parameters = parameters
         super.init()
     }
-    
+
     func prepareForExecution() -> Bool {
         guard let token = parameters.token, !token.isEmpty else {
             PushwooshLog.pushwooshLog(.PW_LL_ERROR, className: self, message: "Error: Start live activity token is missing or empty.")
@@ -39,7 +39,7 @@ class PWRequestSetActivityToken: PWRequest, PWCoreSetLiveActivityTokenRequest {
             return [:]
         }
         dict["activity_token"] = parameters.token
-        dict["activity_id"] = parameters.activityId!.isEmpty ? "" : parameters.activityId
+        dict["activity_id"] = parameters.activityId ?? ""
         return dict as? [AnyHashable : Any] ?? [:]
     }
 }

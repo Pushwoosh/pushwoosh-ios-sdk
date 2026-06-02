@@ -622,6 +622,17 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) PushwooshTVO
 + (Class _Nonnull)tvos SWIFT_WARN_UNUSED_RESULT;
 @end
 
+@protocol PWTVoSInAppHandler;
+
+SWIFT_AVAILABILITY(tvos,introduced=11.0)
+@interface PushwooshTVOSImplementation (SWIFT_EXTENSION(PushwooshTVOS))
+/// Singleton back-channel adapter used by <code>PWInAppMessagesManager</code> to
+/// dispatch in-app resources to the tvOS rich-media manager without
+/// reflection.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) id <PWTVoSInAppHandler> _Nonnull inAppBackchannel;)
++ (id <PWTVoSInAppHandler> _Nonnull)inAppBackchannel SWIFT_WARN_UNUSED_RESULT;
+@end
+
 #endif
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -1252,6 +1263,17 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) PushwooshTVO
 ///
 + (void)setRichMediaGetTagsHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
 + (Class _Nonnull)tvos SWIFT_WARN_UNUSED_RESULT;
+@end
+
+@protocol PWTVoSInAppHandler;
+
+SWIFT_AVAILABILITY(tvos,introduced=11.0)
+@interface PushwooshTVOSImplementation (SWIFT_EXTENSION(PushwooshTVOS))
+/// Singleton back-channel adapter used by <code>PWInAppMessagesManager</code> to
+/// dispatch in-app resources to the tvOS rich-media manager without
+/// reflection.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) id <PWTVoSInAppHandler> _Nonnull inAppBackchannel;)
++ (id <PWTVoSInAppHandler> _Nonnull)inAppBackchannel SWIFT_WARN_UNUSED_RESULT;
 @end
 
 #endif

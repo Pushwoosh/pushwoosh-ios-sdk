@@ -74,14 +74,21 @@ typedef NS_ENUM(NSInteger, PWInboxMessageSourceType) {
 }
 
 - (NSDictionary *)parseString:(NSString *)string {
-    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding]
+    if (string.length == 0) {
+        return nil;
+    }
+    NSData *data = [string dataUsingEncoding:NSUTF8StringEncoding];
+    if (data == nil) {
+        return nil;
+    }
+    NSDictionary *result = [NSJSONSerialization JSONObjectWithData:data
                                                              options:NSJSONReadingMutableContainers
                                                                error:nil];
-    
+
     if (![result isKindOfClass:[NSDictionary class]]) {
         return nil;
     }
-    
+
     return result;
 }
 
@@ -201,7 +208,17 @@ typedef NS_ENUM(NSInteger, PWInboxMessageSourceType) {
     _inboxHash = [aDecoder decodeObjectOfClass:NSString.class forKey:@"inboxHash"];
     _sortOrder = [aDecoder decodeObjectOfClass:NSString.class forKey:@"sortOrder"];
     _expirationDate = [aDecoder decodeObjectOfClass:NSDate.class forKey:@"expirationDate"];
-    _actionParams = [aDecoder decodeObjectOfClass:NSDictionary.class forKey:@"actionParams"];
+    NSSet *actionParamsClasses = [NSSet setWithObjects:
+                                  [NSDictionary class],
+                                  [NSMutableDictionary class],
+                                  [NSArray class],
+                                  [NSMutableArray class],
+                                  [NSString class],
+                                  [NSNumber class],
+                                  [NSNull class],
+                                  [NSData class],
+                                  nil];
+    _actionParams = [aDecoder decodeObjectOfClasses:actionParamsClasses forKey:@"actionParams"];
     _status = [aDecoder decodeIntegerForKey:@"status"];
     
     return self;

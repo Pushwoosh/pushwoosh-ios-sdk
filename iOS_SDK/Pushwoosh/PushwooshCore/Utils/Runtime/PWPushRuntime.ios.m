@@ -18,6 +18,7 @@
 #import "PWPlatformModule.h"
 #import "PWNotificationManagerCompat.h"
 #import "PWAppLifecycleTrackingManager.h"
+#import "PWModuleResolution.h"
 #if TARGET_OS_IOS
 #import "PWKnockPatternDetector.h"
 #import "PWIdleDetector.h"
@@ -88,14 +89,9 @@ BOOL _replacement_didFinishLaunchingWithOptionsExtensionRequest(id self, SEL _cm
     }
 #endif
 
-    // VoIP initialization — create PKPushRegistry and CXProvider
-    Class voipClass = NSClassFromString(@"PushwooshVoIPImplementation");
-    if (voipClass && [voipClass respondsToSelector:@selector(configureVoIP)]) {
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        [voipClass performSelector:@selector(configureVoIP)];
-#pragma clang diagnostic pop
-    }
+    id<PWVoIPConfigureHandler> voipHandler =
+        [PushwooshModuleRegistry handlerForIdentifier:PWModuleIdentifierVoIP];
+    [voipHandler configureVoIP];
 
     return result;
 }

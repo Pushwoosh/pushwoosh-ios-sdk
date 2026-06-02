@@ -1,11 +1,3 @@
-//
-//  PWPushRecievedTest.m
-//  PushNotificationManager
-//
-//  Created by etkachenko on 12/16/16.
-//  Copyright © 2016 Pushwoosh. All rights reserved.
-//
-
 #import "PWRequestManagerMock.h"
 #import "PWNetworkModule.h"
 #import "PWTestUtils.h"
@@ -32,19 +24,12 @@
 @interface PWPushRecievedTest : XCTestCase
 
 @property PushNotificationManager *pushManager;
-
 @property (nonatomic, strong) PWRequestManager *originalRequestManager;
-
 @property (nonatomic, strong) PWRequestManagerMock *mockRequestManager;
-
 @property (nonatomic, strong) PWPushNotificationDelegateMock *mockNotificationDelegate;
-
 @property (nonatomic, strong) PWNotificationManagerCompat *originalNotificationManager;
-
 @property (nonatomic, strong) PWNotificationManagerCompat *mockNotificationManager;
-
 @property (nonatomic, strong) Class originalCategoryBuilder;
-
 @property (nonatomic, strong) id mockUIApplication;
 
 @end
@@ -97,73 +82,60 @@
     [super tearDown];
 }
 
-////- (BOOL)handlePushReceived:(NSDictionary *)userInfo part
-
-//tests method returns NO if userInfo is not NSDictionary
-
+/// Verifies that handlePushReceived returns NO when userInfo is not an NSDictionary.
 - (void)testHandlePushReceivedNotNSDictinary {
+    NSArray *userInfo = @[@"1", @"2", @"3"];
 
-    //Precondition:
-    NSArray *userInfo = [NSArray arrayWithObjects:@"1", @"2", @"3", nil];
- //   NSDictionary *userInfo = @{ @"!aps" : @{ @"alert" : @"push message", @"badge" : @3, @"sound" : @"sound.mp3" }, @"p" : @"42"};
+    BOOL methodResult = [self.pushManager handlePushReceived:(NSDictionary *)userInfo];
 
-    //Steps:
-    BOOL methodResult = [self.pushManager handlePushReceived:userInfo];
-    
-    //Postcondition:
     XCTAssertFalse(methodResult);
 }
 
-//tests method returns NO if userInfo has no @"aps" dictionary enclosed
+/// Verifies that handlePushReceived returns NO when userInfo has no "aps" key.
 - (void)testHandlePushReceivedApsDictionary {
-    
-    //Precondition:
     NSDictionary *userInfo = @{ @"!aps" : @{ @"alert" : @"push message", @"badge" : @3, @"sound" : @"sound.mp3" }, @"p" : @"42"};
 
-    //Steps:
     BOOL methodResult = [self.pushManager handlePushReceived:userInfo];
-    
-    //Postcondition:
+
     XCTAssertFalse(methodResult);
 }
 
-//tests method sends correct request if userInfo has hash enclosed
+/// Verifies that handlePushReceived sends a PWPushStatRequest carrying the hash from the userInfo "p" key when alerts are disabled.
 - (void)testHandlePushReceivedHash {
     [PushNotificationManager pushManager].showPushnotificationAlert = NO;
-    
-    //Precondition:
+
     id mockPWConfigPartial = OCMPartialMock([PWConfig config]);
     OCMStub([mockPWConfigPartial sendPushStatIfAlertsDisabled]).andReturn(YES);
-    XCTestExpectation *requestExpectation = [self expectationWithDescription:@"mainQueueExpectation"];
+    XCTestExpectation *requestExpectation = [self expectationWithDescription:@"pushStat sent"];
     NSDictionary *userInfo = @{ @"aps" : @{ @"alert" : @"push message", @"badge" : @3, @"sound" : @"sound.mp3" }, @"p" : @"42", @"pw_msg" : @"1"};
     __block PWRequest *pushStatRequest = nil;
-    
+
     self.mockRequestManager.onSendRequest = ^(PWRequest *request) {
         if ([request isKindOfClass:[PWPushStatRequest class]]) {
             pushStatRequest = request;
             [requestExpectation fulfill];
         }
     };
-    
-    //Steps:
+
     [self.pushManager handlePushReceived:userInfo];
     [self waitForExpectationsWithTimeout:3 handler:nil];
 
-    //Postcondition:
-    XCTAssertEqual(pushStatRequest.requestDictionary[@"hash"], userInfo[@"p"]);
+    XCTAssertEqualObjects(pushStatRequest.requestDictionary[@"hash"], userInfo[@"p"]);
+
+    [mockPWConfigPartial stopMocking];
 }
-//tests method sends correct request if userInfo has nil hash
+
+/// Verifies that handlePushReceived still sends a PWPushStatRequest when the userInfo has no "p" key, with a nil hash field.
 - (void)testHandlePushReceivedNilHash {
     [PushNotificationManager pushManager].showPushnotificationAlert = NO;
-    
-    //Precondition:
+
     id mockPWConfigPartial = OCMPartialMock([PWConfig config]);
     OCMStub([mockPWConfigPartial sendPushStatIfAlertsDisabled]).andReturn(YES);
-    XCTestExpectation *requestExpectation = [self expectationWithDescription:@"mainQueueExpectation"];
+    XCTestExpectation *requestExpectation = [self expectationWithDescription:@"pushStat sent"];
     NSDictionary *userInfo = @{ @"aps" : @{ @"alert" : @"push message", @"badge" : @3, @"sound" : @"sound.mp3"}, @"pw_msg" : @"1"};
     __block PWRequest *pushStatRequest = nil;
-    __block BOOL requestSent;
-    
+    __block BOOL requestSent = NO;
+
     self.mockRequestManager.onSendRequest = ^(PWRequest *request) {
         if ([request isKindOfClass:[PWPushStatRequest class]]) {
             pushStatRequest = request;
@@ -171,131 +143,89 @@
             [requestExpectation fulfill];
         }
     };
-    
-    //Steps:
+
     [self.pushManager handlePushReceived:userInfo];
     [self waitForExpectationsWithTimeout:3 handler:nil];
 
-    //Postcondition:
-    XCTAssertEqual(pushStatRequest.requestDictionary[@"hash"], nil);
+    XCTAssertNil(pushStatRequest.requestDictionary[@"hash"]);
     XCTAssertTrue(requestSent);
+
+    [mockPWConfigPartial stopMocking];
 }
 
-//tests method calls delegate for onPushReceived:withNotification:onStart: method
+/// Verifies that handlePushReceived invokes the delegate's onPushReceived:withNotification:onStart: callback.
 - (void)testHandlePushReceivedOnPushReceivedCalled {
-    
-    //Precondition:
     NSDictionary *userInfo = @{ @"aps" : @{ @"alert" : @"push message", @"badge" : @3, @"sound" : @"sound.mp3"}, @"pw_msg" : @"1"};
-    
-    //Steps:
+
     BOOL methodResults = [self.pushManager handlePushReceived:userInfo];
-    
-    //Postcondition:
+
     [verify(self.mockNotificationDelegate.mock) onPushReceived:self.pushManager withNotification:userInfo onStart:NO];
     XCTAssertTrue(methodResults);
 }
 
-////- (NSDictionary *)getApnPayload:(NSDictionary *)pushNotification part
-
-//tests method returns NSDictionary with object for key @"aps"
+/// Verifies that getApnPayload extracts the "aps" subdictionary from a push notification dictionary.
 - (void)testGetApnPayload {
-    
-    //Precondition:
     NSDictionary *pushNotification = @{ @"aps" : @{ @"alert" : @{ @"body" : @"push message"}}, @"pw_msg" : @"1"};
 
-    //Steps:
     id methodResult = [self.pushManager getApnPayload:pushNotification];
-    
-    //Postcondition:
+
     XCTAssertTrue([methodResult isKindOfClass:[NSDictionary class]]);
     XCTAssertEqualObjects(methodResult, pushNotification[@"aps"]);
 }
 
-////- (NSString *)getCustomPushData:(NSDictionary *)pushNotification part
-
-//tests method returns NSString with object for key @"u"
+/// Verifies that getCustomPushData returns the raw NSString value from the "u" key.
 - (void)testGetApnPayloadGetCustomPushData {
-    
-    //Precondition:
     NSDictionary *pushNotification = @{ @"aps" : @{ @"alert" : @{ @"body" : @"push message"}}, @"u" : @"custom data", @"pw_msg" : @"1"};
 
-    //Steps:
     id methodResult = [self.pushManager getCustomPushData:pushNotification];
-    
-    //Postcondition:
+
     XCTAssertTrue([methodResult isKindOfClass:[NSString class]]);
     XCTAssertEqualObjects(methodResult, pushNotification[@"u"]);
 }
 
-//tests method returns nil if custom data string is null
+/// Verifies that getCustomPushData returns nil when the "u" key holds NSNull.
 - (void)testGetApnPayloadGetCustomPushDataNull {
-	
-	//Precondition:
-	NSDictionary *pushNotification = @{ @"aps" : @{ @"alert" : @{ @"body" : @"push message"}}, @"u" : [NSNull null], @"pw_msg" : @"1"};
-	
-	//Steps:
-	id methodResult = [self.pushManager getCustomPushData:pushNotification];
-	
-	//Postcondition:
-	XCTAssertNil(methodResult);
-}
+    NSDictionary *pushNotification = @{ @"aps" : @{ @"alert" : @{ @"body" : @"push message"}}, @"u" : [NSNull null], @"pw_msg" : @"1"};
 
+    id methodResult = [self.pushManager getCustomPushData:pushNotification];
 
-////- (NSDictionary *)getCustomPushDataAsNSDict:(NSDictionary *)pushNotification part
-
-//tests method returns nil if custom data string is nil
-- (void)testGetApnPayloadNilCustomPushDataAsNSDict {
-    
-    //Precondition:
-    NSDictionary *pushNotification = @{ @"aps" : @{ @"alert" : @{ @"body" : @"push message"}}, @"pw_msg" : @"1"};
-    
-    //Steps:
-    id methodResult = [self.pushManager getCustomPushDataAsNSDict:pushNotification];
-    
-    //Postcondition:
     XCTAssertNil(methodResult);
 }
 
-//tests method returns nil if custom data string is null
+/// Verifies that getCustomPushDataAsNSDict returns nil when the "u" key is missing.
+- (void)testGetApnPayloadNilCustomPushDataAsNSDict {
+    NSDictionary *pushNotification = @{ @"aps" : @{ @"alert" : @{ @"body" : @"push message"}}, @"pw_msg" : @"1"};
+
+    id methodResult = [self.pushManager getCustomPushDataAsNSDict:pushNotification];
+
+    XCTAssertNil(methodResult);
+}
+
+/// Verifies that getCustomPushDataAsNSDict returns nil when the "u" key holds NSNull.
 - (void)testGetApnPayloadNullCustomPushDataAsNSDict {
-	
-	//Precondition:
-	NSDictionary *pushNotification = @{ @"aps" : @{ @"alert" : @{ @"body" : @"push message"}}, @"u" : [NSNull null], @"pw_msg" : @"1"};
-	
-	//Steps:
-	id methodResult = [self.pushManager getCustomPushDataAsNSDict:pushNotification];
-	
-	//Postcondition:
-	XCTAssertNil(methodResult);
+    NSDictionary *pushNotification = @{ @"aps" : @{ @"alert" : @{ @"body" : @"push message"}}, @"u" : [NSNull null], @"pw_msg" : @"1"};
+
+    id methodResult = [self.pushManager getCustomPushDataAsNSDict:pushNotification];
+
+    XCTAssertNil(methodResult);
 }
 
-//tests method returns nil if custom data string is nil
+/// Verifies that getCustomPushDataAsNSDict returns nil when "u" parses to a JSON array (not an object).
 - (void)testGetApnPayloadArrayCustomPushDataAsNSDict {
-	
-	//Precondition:
-	NSDictionary *pushNotification = @{ @"aps" : @{ @"alert" : @{ @"body" : @"push message"}}, @"u" : @"[1, \"b\"]", @"pw_msg" : @"1"};
-	
-	//Steps:
-	id methodResult = [self.pushManager getCustomPushDataAsNSDict:pushNotification];
-	
-	//Postcondition:
-	XCTAssertNil(methodResult);
+    NSDictionary *pushNotification = @{ @"aps" : @{ @"alert" : @{ @"body" : @"push message"}}, @"u" : @"[1, \"b\"]", @"pw_msg" : @"1"};
+
+    id methodResult = [self.pushManager getCustomPushDataAsNSDict:pushNotification];
+
+    XCTAssertNil(methodResult);
 }
 
-
-//tests method returns NSDictionary with customData dictionary
+/// Verifies that getCustomPushDataAsNSDict parses a JSON object from the "u" key into an NSDictionary.
 - (void)testGetApnPayloadGetCustomPushDataAsNSDict {
-    
-    //Precondition:
     NSDictionary *pushNotification = @{ @"aps" : @{ @"alert" : @{ @"body" : @"push message"}}, @"u" : @"{\"r\":30, \"g\":144, \"b\":255}"};
 
-    //Steps:
     id methodResult = [self.pushManager getCustomPushDataAsNSDict:pushNotification];
-    
-    //Postcondition:
 
     XCTAssertTrue([methodResult isKindOfClass:[NSDictionary class]]);
-
     XCTAssertEqualObjects(methodResult[@"r"], @30);
     XCTAssertEqualObjects(methodResult[@"g"], @144);
     XCTAssertEqualObjects(methodResult[@"b"], @255);

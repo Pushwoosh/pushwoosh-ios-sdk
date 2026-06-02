@@ -56,49 +56,38 @@
     [PWTestUtils tearDown];
 }
 
-////+ (PushNotificationManager *)pushManager part
+/// Verifies that pushManager returns the same singleton instance across repeated calls.
+- (void)testPushManagerReturnsSameSingleton {
+    PushNotificationManager *first = [PushNotificationManager pushManager];
+    PushNotificationManager *second = [PushNotificationManager pushManager];
 
-//tests method creates PushNotificationManager object
-- (void)testPushManager { //
-    
-    //Precondition:
-    
-    
-    //Steps:
-    id pushManager = [PushNotificationManager pushManager];
-    
-    
-    //Postcondition:
-    
-     XCTAssertTrue([pushManager isKindOfClass:[PushNotificationManager class]]);
+    XCTAssertNotNil(first);
+    XCTAssertEqual(first, second);
 }
 
-////+ (void)initializeWithAppCode:(NSString *)appCode appName:(NSString *)appName part
-
-//tests method creates object with correct appCode and appName
+/// Verifies that initializeWithAppCode:appName: stores the provided appCode on the shared instance.
 - (void)testInitializeWithAppCode {
-    
-    //Precondition:
-    PushNotificationManager *pushManager = [PushNotificationManager pushManager];
-    
-    //Steps:
     [PushNotificationManager initializeWithAppCode:@"testString1" appName:@"testString2"];
-    
-    
-    //Postcondition:
-    XCTAssertEqualObjects(pushManager.appCode, @"testString1");
+
+    XCTAssertEqualObjects([PushNotificationManager pushManager].appCode, @"testString1");
 }
 
+/// Verifies that PWUtils.getStatusesMask returns the mocked value when sendDevTokenToServer triggers a status check.
 - (void)testLastStatusMaskIsEqualToPreviousValue {
     id mockPWSettings = OCMPartialMock([PWPreferences preferences]);
     OCMStub([mockPWSettings lastStatusMask]).andReturn(3);
     id mockPWUtils = OCMClassMock([PWUtils class]);
     OCMStub([mockPWUtils getStatusesMask]).andReturn(5);
-    
+
     [self.pushNotificationsManagerCommon sendDevTokenToServer:@"fake_token" triggerCallbacks:YES];
-    
+
     XCTAssertEqual([PWUtils getStatusesMask], 5);
+
+    [mockPWSettings stopMocking];
+    [mockPWUtils stopMocking];
 }
+
+/// Verifies that sendDevTokenToServer with triggerCallbacks:NO does NOT invoke sendTokenToDelegate when token/status are unchanged.
 - (void)testSendTokenToDelegateNotCalled {
     NSDate *date = [NSDate date];
     id mockPushManager = OCMPartialMock(self.pushNotificationsManagerCommon);
@@ -113,6 +102,10 @@
     [self.pushNotificationsManagerCommon sendDevTokenToServer:@"fake_token" triggerCallbacks:NO];
 
     OCMVerifyAll(mockPushManager);
+
+    [mockPushManager stopMocking];
+    [mockPWUtils stopMocking];
+    [mockPWPreferences stopMocking];
 }
 
 @end

@@ -28,7 +28,7 @@
 	return self;
 }
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
     if ([self isRemoteNotification:notification] && [PWMessage isPushwooshMessage:notification.request.content.userInfo]) {

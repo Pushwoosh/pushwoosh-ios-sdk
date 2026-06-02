@@ -183,8 +183,6 @@ extension AnyCodable: Equatable {
         case is (NSNull, NSNull), is (Void, Void):
             return true
 #endif
-        case is (Void, Void):
-            return true
         case let (lhs as Bool, rhs as Bool):
             return lhs == rhs
         case let (lhs as Int, rhs as Int):
@@ -221,8 +219,6 @@ extension AnyCodable: Equatable {
             return NSDictionary(dictionary: lhs) == NSDictionary(dictionary: rhs)
         case let (lhs as [Any], rhs as [Any]):
             return NSArray(array: lhs) == NSArray(array: rhs)
-        case is (NSNull, NSNull):
-            return true
         default:
             return false
         }

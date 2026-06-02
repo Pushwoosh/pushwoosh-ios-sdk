@@ -82,8 +82,22 @@
  *		}));
  */
 - (void)postEvent:(NSString *)blob {
+	if (blob.length == 0) {
+		[PushwooshLog pushwooshLog:PW_LL_WARN
+						 className:self
+						   message:@"postEvent called with empty or nil argument"];
+		return;
+	}
+
 	NSError *jsonError;
 	NSData *objectData = [blob dataUsingEncoding:NSUTF8StringEncoding];
+	if (objectData == nil) {
+		[PushwooshLog pushwooshLog:PW_LL_WARN
+						 className:self
+						   message:@"postEvent failed to encode argument to UTF8 data"];
+		return;
+	}
+
 	NSDictionary *blobDict = [NSJSONSerialization JSONObjectWithData:objectData
 															 options:NSJSONReadingMutableContainers
 															   error:&jsonError];
@@ -166,8 +180,22 @@
  *	pushManager.sendTags(JSON.stringify(tags));
  */
 - (void)sendTags:(NSString *)serializedTags {
+	if (serializedTags.length == 0) {
+		[PushwooshLog pushwooshLog:PW_LL_WARN
+						 className:self
+						   message:@"sendTags called with empty or nil argument"];
+		return;
+	}
+
 	NSError *jsonError;
 	NSData *objectData = [serializedTags dataUsingEncoding:NSUTF8StringEncoding];
+	if (objectData == nil) {
+		[PushwooshLog pushwooshLog:PW_LL_WARN
+						 className:self
+						   message:@"sendTags failed to encode argument to UTF8 data"];
+		return;
+	}
+
 	NSDictionary *tags = [NSJSONSerialization JSONObjectWithData:objectData
 														 options:NSJSONReadingMutableContainers
 														   error:&jsonError];
@@ -175,7 +203,7 @@
 	if (jsonError) {
         [PushwooshLog pushwooshLog:PW_LL_ERROR
                          className:self
-                           message:[NSString stringWithFormat:@"Invalid postEvent argument %@", [jsonError localizedDescription]]];
+                           message:[NSString stringWithFormat:@"Invalid sendTags argument %@", [jsonError localizedDescription]]];
 		return;
 	}
 

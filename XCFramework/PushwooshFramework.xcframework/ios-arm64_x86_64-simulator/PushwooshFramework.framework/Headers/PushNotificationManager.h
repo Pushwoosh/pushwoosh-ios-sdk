@@ -18,7 +18,7 @@
 
 @class PushNotificationManager;
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 
 #import <UserNotifications/UserNotifications.h>
 
@@ -148,7 +148,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 - (void)onInAppDisplayed:(NSString *)code __attribute__((deprecated("Use PWRichMediaPresentingDelegate protocol from PWRichMediaManager.h")));
 
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 /**
  The method will be called on the delegate when the application is launched in response to the user's request to view in-app notification settings.
  Add UNAuthorizationOptionProvidesAppNotificationSettings as an option in [PushNotificationManager pushManager].additionalAuthorizationOptions to add a button to inline notification settings view and the notification settings view in Settings.
@@ -257,7 +257,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
  */
 @property (nonatomic, weak) NSObject<PushNotificationDelegate> *delegate;
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 
 /**
  Show push notifications alert when push notification is received while the app is running, default is `YES`
@@ -276,7 +276,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
  */
 @property (nonatomic, copy, readonly) NSDictionary *launchNotification;
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 
 /**
  Returns UNUserNotificationCenterDelegate that handles foreground push notifications on iOS10

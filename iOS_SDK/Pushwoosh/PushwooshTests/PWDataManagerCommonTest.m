@@ -1,11 +1,3 @@
-//
-//  PWDataManager.m
-//  PushwooshTests
-//
-//  Created by André Kis on 24.07.24.
-//  Copyright © 2024 Pushwoosh. All rights reserved.
-//
-
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
@@ -14,67 +6,63 @@
 #import "PWAppLifecycleTrackingManager.h"
 #import "PWNetworkModule.h"
 
-@interface PWDataManagerCommonTest : XCTestCase
-
-@end
-
 @interface PWDataManagerCommon (TESTS)
 
 - (void)defaultEvents;
 
 @end
 
+@interface PWDataManagerCommonTest : XCTestCase
+
+@end
+
 @implementation PWDataManagerCommonTest
 
-- (void)setUp {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-}
-
-- (void)testInitializationWithoutSendingEvents {
+/// Verifies that init schedules defaultEvents on the operation queue when isCollectingLifecycleEventsAllowed is YES.
+- (void)testInitCallsDefaultEventsWhenLifecycleEventsAllowed {
     id mockNetworkModule = OCMClassMock([PWNetworkModule class]);
-    id mockConfig = OCMClassMock([PWConfig class]);
     OCMStub([mockNetworkModule module]).andReturn(mockNetworkModule);
-    OCMExpect([mockNetworkModule inject:[OCMArg any]]);
+    id mockConfig = OCMClassMock([PWConfig class]);
     OCMStub([mockConfig config]).andReturn(mockConfig);
     OCMStub([mockConfig isCollectingLifecycleEventsAllowed]).andReturn(YES);
-    id mockManager = OCMPartialMock([[PWDataManagerCommon alloc] init]);
-    
-    XCTestExpectation *expectation = [self expectationWithDescription:@"defaultEvents should be called if info.plist flag equal true"];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+
+    PWDataManagerCommon *manager = [[PWDataManagerCommon alloc] init];
+    id mockManager = OCMPartialMock(manager);
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"defaultEvents called asynchronously"];
+    OCMStub([mockManager defaultEvents]).andDo(^(NSInvocation *invocation) {
         [expectation fulfill];
     });
-    
+
     [self waitForExpectations:@[expectation] timeout:2];
-    
-    OCMVerify([mockManager defaultEvents]);
-    
+
     [mockNetworkModule stopMocking];
     [mockConfig stopMocking];
     [mockManager stopMocking];
 }
 
-- (void)testInitializationWithoutSendingEventsByDefault {
+/// Verifies that init does NOT call defaultEvents when isCollectingLifecycleEventsAllowed is NO.
+- (void)testInitSkipsDefaultEventsWhenLifecycleEventsDisallowed {
     id mockNetworkModule = OCMClassMock([PWNetworkModule class]);
     OCMStub([mockNetworkModule module]).andReturn(mockNetworkModule);
-    OCMExpect([mockNetworkModule inject:[OCMArg any]]);
-    id mockManager = OCMPartialMock([[PWDataManagerCommon alloc] init]);
-    
-    XCTestExpectation *expectation = [self expectationWithDescription:@"defaultEvents should be called by default"];
-    
-    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-        [expectation fulfill];
-    });
-    
-    [self waitForExpectations:@[expectation] timeout:2];
-    
-    OCMVerify([mockManager defaultEvents]);
-    
+    id mockConfig = OCMClassMock([PWConfig class]);
+    OCMStub([mockConfig config]).andReturn(mockConfig);
+    OCMStub([mockConfig isCollectingLifecycleEventsAllowed]).andReturn(NO);
+
+    PWDataManagerCommon *manager = [[PWDataManagerCommon alloc] init];
+    id mockManager = OCMPartialMock(manager);
+    OCMReject([mockManager defaultEvents]);
+
+    XCTestExpectation *settle = [self expectationWithDescription:@"operation queue drained"];
+    [[NSOperationQueue currentQueue] addOperationWithBlock:^{
+        [settle fulfill];
+    }];
+    [self waitForExpectations:@[settle] timeout:2];
+
+    OCMVerifyAll(mockManager);
+
     [mockNetworkModule stopMocking];
+    [mockConfig stopMocking];
     [mockManager stopMocking];
 }
 

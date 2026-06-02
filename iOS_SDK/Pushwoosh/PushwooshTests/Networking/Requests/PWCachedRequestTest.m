@@ -143,4 +143,13 @@
     [request stopMocking];
 }
 
+// NSSecureCoding archive/unarchive round-trip coverage lives in
+// PWRequestsCacheManagerTest.testSavedQueueIsReloadedWithNestedArrayAndDictPayload,
+// which exercises the same encode/decode path through a real save-to-disk + load
+// cycle (production execution path). Duplicating that here as direct archive
+// calls would require working around an OCMClassMock side effect in this
+// fixture's setUp (the class mock on PWRequest leaves a metaclass proxy that
+// the secure-coding encoder cannot resolve when walking the PWCachedRequest
+// graph), and the existing disk round-trip is already the more realistic test.
+
 @end

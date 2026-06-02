@@ -18,7 +18,7 @@
 		</data>
 		<key>Headers/PushNotificationManager.h</key>
 		<data>
-		jmrDmO4SZQ2XUTCuYAR6OFypYbE=
+		Gk4SWFflVaipsVSnoVpHMz3DG/k=
 		</data>
 		<key>Headers/PushwooshFramework-Swift.h</key>
 		<data>
@@ -26,11 +26,11 @@
 		</data>
 		<key>Headers/PushwooshFramework.h</key>
 		<data>
-		3A6m+m+xfZbG8CVsKdg08HEI0hc=
+		5gu1A0cDJmeHer+Xxu2JdPgTIOw=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		1knWqSYIhxkT8IbrKwBMJc5hRos=
+		Ngvk8T2HUGleCFlF07/tdU5PTBI=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		h32JlLl3lk6WxNdjtIxKVHJ+W5M=
+		a5ISjiPdpC4TGcRLTNDPpTn95AI=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
 		<data>
@@ -70,7 +70,7 @@
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		MLsAm43+zW8OzsqEHTAuemj5PRA=
+		4an9+mkb/FL1ESQlIjR4kTVyXsQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -108,7 +108,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5TSA9gcztuVQTom1L5nxryJ9CuBbjgDe7r2qKVJXgOc=
+			LLM/ctyn8S2bmBUgcXMTs9Zyod+Rcgw4vLNR8O3iyOc=
 			</data>
 		</dict>
 		<key>Headers/PushwooshFramework-Swift.h</key>
@@ -122,7 +122,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8iohQ61WxZ+oTRGvbrOwRk4rSDXqhIjbiC5kAg9KeRg=
+			io7GoxF0u8tHHmxUrNQTTa5YQ80S4Zdp3itZIsNKdNY=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
@@ -157,7 +157,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5mGmUZH/CQoSV7ex3mRTOI9smJ3mQ43MMqz2U1ia0jQ=
+			0WtnlkLZmE7jbDBfdLBx6HHWyvqOnuY3lHqfkpKw3X8=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
@@ -192,7 +192,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			NFpHSb6k6mhazyBZlG1SDO9WnGDYqH0c0k3bx8w+qXk=
+			hbCWSmbuFOTvo295PfMmURc623jAIAAW2bfF/jDB/+g=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

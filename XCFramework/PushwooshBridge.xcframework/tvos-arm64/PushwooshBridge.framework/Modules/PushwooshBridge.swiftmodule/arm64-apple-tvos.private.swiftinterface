@@ -117,60 +117,20 @@ import _SwiftConcurrencyShims
   @objc static func stopLiveActivity(completion: @escaping ((any Swift.Error)?) -> Swift.Void)
   @objc static func stopLiveActivity(activityId: Swift.String)
   @objc static func stopLiveActivity(activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc @available(iOS 16.1, *)
+  static func defaultSetup()
+  @objc @available(iOS 16.1, *)
+  static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
+  @objc @available(iOS 16.1, *)
+  static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], completion: @escaping ((any Swift.Error)?) -> Swift.Void)
 }
-@_inheritsConvenienceInitializers @objc public class PWTVoSStub : ObjectiveC.NSObject, PushwooshBridge.PWTVoS {
-  @objc public static func setAppCode(_ appCode: Swift.String)
-  @objc public static func registerForTvPushNotifications()
-  @objc public static func registerForTvPushNotifications(withToken token: Foundation.Data, completion: (((any Swift.Error)?) -> Swift.Void)?)
-  @objc public static func unregisterForTvPushNotifications(completion: (((any Swift.Error)?) -> Swift.Void)?)
-  @objc public static func handleTvPushToken(_ deviceToken: Foundation.Data)
-  @objc public static func handleTvPushRegistrationFailure(_ error: any Swift.Error)
-  @objc public static func handleTvPushReceived(userInfo: [Swift.AnyHashable : Any], completionHandler: @escaping (UIKit.UIBackgroundFetchResult) -> Swift.Void)
-  @objc public static func handleTVOSPush(userInfo: [Swift.AnyHashable : Any]) -> Swift.Bool
-  @objc public static func configureRichMediaWith(position: PushwooshBridge.PWTVOSRichMediaPosition, presentAnimation: PushwooshBridge.PWTVOSRichMediaPresentAnimation, dismissAnimation: PushwooshBridge.PWTVOSRichMediaDismissAnimation = .none)
-  @objc public static func configureCloseButton(_ show: Swift.Bool)
-  @objc public static func setRichMediaGetTagsHandler(_ handler: @escaping ([Swift.AnyHashable : Any]) -> Swift.Void)
-  @objc public static func tvos() -> Swift.AnyClass
-  @objc override dynamic public init()
-  @objc deinit
-}
-@_inheritsConvenienceInitializers @objc public class PWForegroundPushStub : ObjectiveC.NSObject, PushwooshBridge.PWForegroundPush {
-  @objc public static var gradientColors: [UIKit.UIColor]?
-  @objc public static var backgroundColor: UIKit.UIColor?
-  @objc public static var usePushAnimation: Swift.Bool
-  @objc public static var titlePushColor: UIKit.UIColor?
-  @objc public static var messagePushColor: UIKit.UIColor?
-  @objc public static var titlePushFont: UIKit.UIFont?
-  @objc public static var messagePushFont: UIKit.UIFont?
-  @objc public static var useLiquidView: Swift.Bool
-  @objc public static var didTapForegroundPush: (([Swift.AnyHashable : Any]) -> Swift.Void)?
-  @objc public static func showForegroundPush(userInfo: [Swift.AnyHashable : Any])
-  @objc public static func foregroundPush() -> Swift.AnyClass
-  @objc public static func foregroundNotificationWith(style: PushwooshBridge.PWForegroundPushStyle, duration: Swift.Int, vibration: PushwooshBridge.PWForegroundPushHapticFeedback, disappearedPushAnimation: PushwooshBridge.PWForegroundPushDisappearedAnimation)
-  @objc override dynamic public init()
-  @objc deinit
-}
-@_inheritsConvenienceInitializers @objc public class PWVoIPStub : ObjectiveC.NSObject, PushwooshBridge.PWVoIP {
-  @objc public static var delegate: Swift.AnyObject?
-  @objc public static func voip() -> Swift.AnyClass
-  @objc public static func setVoIPToken(_ token: Foundation.Data)
-  @objc public static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
-  @objc public static func setIncomingCallTimeout(_ timeout: Foundation.TimeInterval)
-  @objc override dynamic public init()
-  @objc deinit
-}
-@objc @_inheritsConvenienceInitializers public class PWStubLiveActivities : ObjectiveC.NSObject, PushwooshBridge.PWLiveActivities {
-  @objc public static func liveActivities() -> Swift.AnyClass
-  @objc public static func sendPushToStartLiveActivity(token: Swift.String)
-  @objc public static func sendPushToStartLiveActivity(token: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
-  @objc public static func startLiveActivity(token: Swift.String, activityId: Swift.String)
-  @objc public static func startLiveActivity(token: Swift.String, activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
-  @objc public static func stopLiveActivity()
-  @objc public static func stopLiveActivity(completion: @escaping ((any Swift.Error)?) -> Swift.Void)
-  @objc public static func stopLiveActivity(activityId: Swift.String)
-  @objc public static func stopLiveActivity(activityId: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
-  @objc override dynamic public init()
-  @objc deinit
+extension PushwooshBridge.PWLiveActivities {
+  @available(iOS 16.1, *)
+  public static func defaultSetup()
+  @available(iOS 16.1, *)
+  public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
+  @available(iOS 16.1, *)
+  public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], completion: @escaping ((any Swift.Error)?) -> Swift.Void)
 }
 @objc public protocol PWTransport {
   @objc static func sendRequest(_ request: PushwooshCore.PWRequest, completion: @escaping (Foundation.NSDictionary?, (any Swift.Error)?) -> Swift.Void)
@@ -209,26 +169,18 @@ import _SwiftConcurrencyShims
   @objc static func getPersistentHWID() -> Swift.String?
   @objc static func clearPersistentHWID()
 }
-@_inheritsConvenienceInitializers @objc public class PWKeychainStub : ObjectiveC.NSObject, PushwooshBridge.PWKeychain {
-  @objc public static func keychain() -> Swift.AnyClass
-  @objc public static var isEnabled: Swift.Bool {
-    @objc get
-  }
-  @objc public static var currentEnvironment: PushwooshBridge.PWAppEnvironment {
-    @objc get
-  }
-  @objc public static func getPersistentHWID() -> Swift.String?
-  @objc public static func clearPersistentHWID()
-  @objc override dynamic public init()
-  @objc deinit
-}
 @objc public protocol PWInboxKit {
   @objc static func inboxKit() -> Swift.AnyClass
 }
-@objc @_inheritsConvenienceInitializers public class PWInboxKitStub : ObjectiveC.NSObject, PushwooshBridge.PWInboxKit {
-  @objc public static func inboxKit() -> Swift.AnyClass
-  @objc override dynamic public init()
-  @objc deinit
+@objc public protocol PWKeychainPersistentHWIDProvider {
+  @objc var isPersistentHWIDEnabled: Swift.Bool { get }
+  @objc func persistentHWID() -> Swift.String?
+}
+@objc public protocol PWVoIPConfigureHandler {
+  @objc func configureVoIP()
+}
+@objc public protocol PWTVoSInAppHandler {
+  @objc func handleInAppResource(_ resource: Any)
 }
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Equatable {}
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Hashable {}

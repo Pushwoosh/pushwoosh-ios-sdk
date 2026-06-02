@@ -20,7 +20,7 @@
 - (instancetype)initWithNotificationManager:(PWPushNotificationsManager *)manager {
     _delegates = [NSMutableArray new];
     _defaultNotificationCenterDelegate = [[PWUserNotificationCenterDelegate alloc] initWithNotificationManager:manager];
-#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_TV
     if ([UNUserNotificationCenter class]) {
         UNUserNotificationCenter.currentNotificationCenter.delegate = self;
     }
@@ -32,13 +32,13 @@
     
     return self;
 }
-#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_TV
 - (void)addNotificationCenterDelegate:(id<UNUserNotificationCenterDelegate>)delegate {
     [_delegates addObject:delegate];
 }
 #endif
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center willPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
     if ([PWMessage isPushwooshMessage:notification.request.content.userInfo]) {
         [_defaultNotificationCenterDelegate userNotificationCenter:center willPresentNotification:notification withCompletionHandler:completionHandler];

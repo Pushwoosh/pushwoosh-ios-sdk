@@ -7,7 +7,6 @@ import PushwooshBridge
 import PushwooshCore
 @_exported import PushwooshLiveActivities
 import Swift
-import UIKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
@@ -50,6 +49,8 @@ extension PushwooshBridge.PWLiveActivities {
   public static func defaultSetup()
   @available(iOS 16.1, *)
   public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
+  @available(iOS 16.1, *)
+  public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], completion: @escaping ((any Swift.Error)?) -> Swift.Void)
 }
 public struct DefaultLiveActivityAttributes : PushwooshLiveActivities.PushwooshLiveActivityAttributes {
   public var data: [Swift.String : PushwooshLiveActivities.AnyCodable]
@@ -80,12 +81,9 @@ public struct DefaultLiveActivityAttributes : PushwooshLiveActivities.PushwooshL
   @objc public static func liveActivities() -> Swift.AnyClass
   @available(iOS 16.1, *)
   public static func configureLiveActivity<Attributes>(_ activityType: Attributes.Type) where Attributes : PushwooshLiveActivities.PushwooshLiveActivityAttributes
-  @available(iOS 16.1, *)
   @objc public static func defaultSetup()
-  @available(iOS 16.1, *)
   @objc public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
-  @available(iOS 17.2, *)
-  public static func setPushToStartToken<Attributes>(_ activityType: Attributes.Type, withToken: Swift.String) where Attributes : ActivityKit.ActivityAttributes
+  @objc public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], completion: @escaping ((any Swift.Error)?) -> Swift.Void)
   @objc override dynamic public init()
   @objc deinit
 }

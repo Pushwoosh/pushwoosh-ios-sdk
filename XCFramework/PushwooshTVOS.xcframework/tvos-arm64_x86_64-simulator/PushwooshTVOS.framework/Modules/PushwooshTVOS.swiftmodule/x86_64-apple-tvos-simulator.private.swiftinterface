@@ -59,3 +59,7 @@ extension PushwooshBridge.PWTVoS {
   @objc override dynamic public init()
   @objc deinit
 }
+@available(tvOS 11.0, *)
+extension PushwooshTVOS.PushwooshTVOSImplementation {
+  @objc public static let inAppBackchannel: any PushwooshBridge.PWTVoSInAppHandler
+}

@@ -272,7 +272,7 @@
 #import "PWInbox.h"
 #import "PWNotificationExtensionManager.h"
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_TV
 
 #import <UserNotifications/UserNotifications.h>
 
@@ -284,7 +284,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"7.0.44"
+#define PUSHWOOSH_VERSION @"7.0.45"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy, PushwooshConfig;
@@ -568,7 +568,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 @property (nonatomic, weak) NSObject<PWPurchaseDelegate> * _Nullable purchaseDelegate;
 #endif
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_TV
 
 /**
  Show push notifications alert when push notification is received while the app is running, default is `YES`
@@ -577,7 +577,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
 #endif
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 
 /**
  Authorization options in addition to UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionCarPlay.
@@ -1288,7 +1288,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  @param url Deep Link URL
 */
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 - (BOOL)handleOpenURL:(NSURL * _Nonnull)url;
 #endif
 
@@ -1311,9 +1311,9 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  */
 
 - (void)sendPushToStartLiveActivityToken:(NSString *_Nullable)token
-__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed in a future release. Use Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: ) instead.")));
+__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: ) instead.")));
 - (void)sendPushToStartLiveActivityToken:(NSString *_Nullable)token completion:(void (^ _Nullable)(NSError * _Nullable))completion
-__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed in a future release. Use Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: , completion: ) instead.")));;
+__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: , completion: ) instead.")));;
 
 /**
  Sends live activity token to the server.
@@ -1342,12 +1342,12 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
  */
 - (void)startLiveActivityWithToken:(NSString * _Nonnull)token
                         activityId:(NSString * _Nullable)activityId 
-__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed in a future release. Use Pushwoosh.LiveActivities.startLiveActivity(token: , activityId: ) instead.")));
+__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use Pushwoosh.LiveActivities.startLiveActivity(token: , activityId: ) instead.")));
 ;
 - (void)startLiveActivityWithToken:(NSString * _Nonnull)token 
                         activityId:(NSString * _Nullable)activityId
                         completion:(void (^ _Nullable)(NSError * _Nullable error))completion
-__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed in a future release. Use startLiveActivity(token: , activityId: , completion: ) instead.")));
+__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use startLiveActivity(token: , activityId: , completion: ) instead.")));
 ;
 
 /**
@@ -1365,22 +1365,22 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
  ```
  */
 - (void)stopLiveActivity
-__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed in a future release. Use Pushwoosh.LiveActivities.stopLiveActivity() instead.")));
+__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use Pushwoosh.LiveActivities.stopLiveActivity() instead.")));
 
 - (void)stopLiveActivityWithCompletion:(void (^ _Nullable)(NSError * _Nullable error))completion
-__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed in a future release. Use Pushwoosh.LiveActivities.stopLiveActivity(completion: ) instead.")));
+__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use Pushwoosh.LiveActivities.stopLiveActivity(completion: ) instead.")));
 
 - (void)stopLiveActivityWith:(NSString *_Nullable)activityId
-__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed in a future release. Use Pushwoosh.LiveActivities.stopLiveActivity(activityId: ) instead.")));
+__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use Pushwoosh.LiveActivities.stopLiveActivity(activityId: ) instead.")));
 - (void)stopLiveActivityWith:(NSString *_Nullable)activityId completion:(void (^ _Nullable)(NSError * _Nullable error))completion
-__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed in a future release. Use Pushwoosh.LiveActivities.stopLiveActivity(activityId: , completion: ) instead.")));
+__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use Pushwoosh.LiveActivities.stopLiveActivity(activityId: , completion: ) instead.")));
 
 @end
 
 /**
 `PWNotificationCenterDelegateProxy` class handles notifications on iOS 10 and forwards methods of UNUserNotificationCenterDelegate to all added delegates.
 */
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 @interface PWNotificationCenterDelegateProxy : NSObject <UNUserNotificationCenterDelegate>
 /**
  Returns UNUserNotificationCenterDelegate that handles foreground push notifications on iOS10

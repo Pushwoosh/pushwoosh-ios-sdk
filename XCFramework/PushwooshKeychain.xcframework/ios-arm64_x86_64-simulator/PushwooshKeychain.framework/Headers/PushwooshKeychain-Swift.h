@@ -299,6 +299,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 #if defined(__OBJC__)
+@protocol PWKeychainPersistentHWIDProvider;
 @class NSString;
 
 /// Implementation of persistent HWID storage using iOS Keychain.
@@ -309,6 +310,11 @@ SWIFT_CLASS_NAMED("PushwooshKeychainImplementation") SWIFT_AVAILABILITY(ios,intr
 /// Shared singleton instance.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) PushwooshKeychainImplementation * _Nonnull shared;)
 + (PushwooshKeychainImplementation * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+/// Singleton back-channel adapter used by <code>PWPreferences</code> to retrieve the
+/// persistent HWID without reflection. Registered with
+/// <code>PushwooshModuleRegistry</code> by <code>PushwooshKeychainLoader</code>.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) id <PWKeychainPersistentHWIDProvider> _Nonnull backchannelProvider;)
++ (id <PWKeychainPersistentHWIDProvider> _Nonnull)backchannelProvider SWIFT_WARN_UNUSED_RESULT;
 /// Returns the Keychain implementation class.
 + (Class _Nonnull)keychain SWIFT_WARN_UNUSED_RESULT;
 /// Indicates whether persistent HWID storage is enabled.
@@ -647,6 +653,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 #if defined(__OBJC__)
+@protocol PWKeychainPersistentHWIDProvider;
 @class NSString;
 
 /// Implementation of persistent HWID storage using iOS Keychain.
@@ -657,6 +664,11 @@ SWIFT_CLASS_NAMED("PushwooshKeychainImplementation") SWIFT_AVAILABILITY(ios,intr
 /// Shared singleton instance.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) PushwooshKeychainImplementation * _Nonnull shared;)
 + (PushwooshKeychainImplementation * _Nonnull)shared SWIFT_WARN_UNUSED_RESULT;
+/// Singleton back-channel adapter used by <code>PWPreferences</code> to retrieve the
+/// persistent HWID without reflection. Registered with
+/// <code>PushwooshModuleRegistry</code> by <code>PushwooshKeychainLoader</code>.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) id <PWKeychainPersistentHWIDProvider> _Nonnull backchannelProvider;)
++ (id <PWKeychainPersistentHWIDProvider> _Nonnull)backchannelProvider SWIFT_WARN_UNUSED_RESULT;
 /// Returns the Keychain implementation class.
 + (Class _Nonnull)keychain SWIFT_WARN_UNUSED_RESULT;
 /// Indicates whether persistent HWID storage is enabled.

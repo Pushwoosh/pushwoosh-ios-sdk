@@ -7,6 +7,7 @@
 //
 
 #import "PWManagerBridge.h"
+#import <PushwooshCore/PushwooshCore.h>
 #import "PushwooshLog.h"
 #import "PWPreferences.h"
 #import "PWDataManager.h"
@@ -265,7 +266,7 @@ NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpda
 
 #pragma mark - URL Handling
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 - (BOOL)handleOpenURL:(NSURL *)url {
     return [PWUtils handleURL:url];
 }
@@ -288,7 +289,7 @@ NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpda
 }
 
 + (NSString *)version {
-    return @"7.0.6";
+    return PUSHWOOSH_VERSION;
 }
 
 @end

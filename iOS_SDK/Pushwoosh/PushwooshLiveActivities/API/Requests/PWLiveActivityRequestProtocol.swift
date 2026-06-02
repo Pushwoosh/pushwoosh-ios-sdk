@@ -12,18 +12,15 @@ import PushwooshCore
 
 protocol PWCoreSetLiveActivityTokenRequest: PWRequest {
     var parameters: ActivityRequestParameters { get }
-    
+
     func prepareForExecution() -> Bool
 }
-
-protocol PWCoreSetPushToStartTokenRequest: PWCoreSetLiveActivityTokenRequest {}
-protocol PWCoreStopLiveActivityRequest: PWCoreSetLiveActivityTokenRequest {}
 
 struct ActivityRequestParameters {
     var activityId: String?
     var token: String?
     var pushToStartToken: String?
-    
+
     init(activityId: String? = nil, token: String? = nil, pushToStartToken: String? = nil) {
         self.activityId = activityId
         self.token = token

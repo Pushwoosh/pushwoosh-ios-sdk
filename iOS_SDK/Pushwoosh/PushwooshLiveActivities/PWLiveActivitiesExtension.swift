@@ -95,6 +95,9 @@ public extension PWLiveActivities {
     /// This approach is particularly useful for scenarios where:
     /// - You have only one Live Activity widget in the app
     /// - You're using a cross-platform framework and want to avoid creating native bindings
+    ///
+    /// > Important: Available on iOS 16.1+. Obj-C / plugin callers are additionally
+    /// > protected by a runtime guard — calling on iOS < 16.1 is a logged no-op.
     @available(iOS 16.1, *)
     static func defaultSetup() {
         PushwooshLiveActivitiesImplementationSetup.defaultSetup()
@@ -106,9 +109,25 @@ public extension PWLiveActivities {
     ///   - activityId: Unique identifier for this activity instance.
     ///   - attributes: Static attributes dictionary.
     ///   - content: Initial content state dictionary.
+    ///
+    /// > Important: Available on iOS 16.1+. Obj-C / plugin callers are additionally
+    /// > protected by a runtime guard — calling on iOS < 16.1 is a logged no-op.
     @available(iOS 16.1, *)
     static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any]) {
         PushwooshLiveActivitiesImplementationSetup.defaultStart(activityId, attributes: attributes, content: content)
+    }
+
+    /// Starts a Live Activity using default attributes with a completion handler.
+    ///
+    /// - Parameters:
+    ///   - activityId: Unique identifier for this activity instance.
+    ///   - attributes: Static attributes dictionary.
+    ///   - content: Initial content state dictionary.
+    ///   - completion: Completion handler called with `nil` on success or an `Error` if the
+    ///     OS version is below 16.1 or `Activity.request()` throws.
+    @available(iOS 16.1, *)
+    static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any], completion: @escaping (Error?) -> Void) {
+        PushwooshLiveActivitiesImplementationSetup.defaultStart(activityId, attributes: attributes, content: content, completion: completion)
     }
 }
 #endif

@@ -1,6 +1,7 @@
 
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
+#import <objc/message.h>
 
 #import "PWPushwooshJSBridge.h"
 #import "PushNotificationManager.h"
@@ -197,6 +198,32 @@
 	[_jsInterface performSelector:@selector(sendTags:) withObject:tags];
 	NSArray *expected = @[];
 	XCTAssertTrue([self.lastTags[@"EmptyArrayTag"] isEqualToArray:expected]);
+}
+
+/// Verifies that sendTags with nil argument does not crash and does not call setTags.
+- (void)testSendTagsWithNilArgument {
+	XCTAssertNoThrow([_jsInterface performSelector:@selector(sendTags:) withObject:nil]);
+	XCTAssertNil(self.lastTags);
+}
+
+/// Verifies that sendTags with empty string argument does not crash and does not call setTags.
+- (void)testSendTagsWithEmptyStringArgument {
+	XCTAssertNoThrow([_jsInterface performSelector:@selector(sendTags:) withObject:@""]);
+	XCTAssertNil(self.lastTags);
+}
+
+/// Verifies that postEvent with nil attributes argument does not crash and triggers error callback.
+- (void)testPostEventWithNilAttributes {
+	XCTAssertNoThrow(((void(*)(id, SEL, id, id, id, id))objc_msgSend)(_jsInterface,
+		@selector(postEvent::::), @"testEvent", (NSString *)nil, nil, nil));
+	XCTAssertNil(self.lastEvent);
+}
+
+/// Verifies that postEvent with empty string attributes does not crash and triggers error callback.
+- (void)testPostEventWithEmptyAttributes {
+	XCTAssertNoThrow(((void(*)(id, SEL, id, id, id, id))objc_msgSend)(_jsInterface,
+		@selector(postEvent::::), @"testEvent", @"", nil, nil));
+	XCTAssertNil(self.lastEvent);
 }
 
 // PushManager proxy methods

@@ -10,27 +10,27 @@
 import Foundation
 import PushwooshCore
 
-class PWRequestSetPushToStartToken: PWRequest, PWCoreSetLiveActivityTokenRequest, PWCoreSetPushToStartTokenRequest {
-    
+class PWRequestSetPushToStartToken: PWRequest, PWCoreSetLiveActivityTokenRequest {
+
     var parameters: ActivityRequestParameters
-    
+
     init(parameters: ActivityRequestParameters) {
         self.parameters = parameters
         super.init()
     }
-    
+
     func prepareForExecution() -> Bool {
-        guard let pushToStartToken = parameters.pushToStartToken, !pushToStartToken.isEmpty else {
+        guard let token = parameters.pushToStartToken, !token.isEmpty else {
             PushwooshLog.pushwooshLog(.PW_LL_ERROR, className: self, message: "Error: Push to start token is missing or empty.")
             return false
         }
 
         PushwooshLog.pushwooshLog(.PW_LL_DEBUG,
                                   className: self,
-                                  message: "Preparing request with push to start token: \(pushToStartToken)")
+                                  message: "Preparing request with push to start token.")
         return true
     }
-    
+
     override func methodName() -> String {
         return "setActivityPushToStartToken"
     }

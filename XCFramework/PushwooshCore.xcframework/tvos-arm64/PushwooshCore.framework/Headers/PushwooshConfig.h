@@ -2934,7 +2934,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
 #pragma mark - URL Handling
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 /**
  Processes deep link URLs for Pushwoosh SDK functionality.
 
@@ -3248,7 +3248,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  - Support ticket information
  - Analytics tracking
 
- @return The SDK version string in semantic versioning format (e.g., "7.0.6").
+ @return The SDK version string in semantic versioning format (e.g., "7.0.0").
 
  ## Example
 

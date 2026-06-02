@@ -95,6 +95,7 @@ static BOOL isBackground;
 
 @property (nonatomic) PWPushNotificationsManagerCommon *pushManager;
 @property (nonatomic) PWBundleMock *bundleMock;
+@property (nonatomic, strong) id originalDataManager;
 
 @end
 
@@ -106,12 +107,12 @@ static BOOL isBackground;
     _bundleMock.sendPushStatIfAlertsDisabled = YES;
     PWConfig *config = [[PWConfig alloc] initWithBundle:_bundleMock];
     _pushManager = [[PWPushNotificationsManagerCommon alloc] initWithConfig:config];
+    _originalDataManager = (id)[Pushwoosh sharedInstance].dataManager;
     [Pushwoosh sharedInstance].dataManager = [PWMockDataManager new];
 }
 
 - (void)tearDown {
-    [Pushwoosh sharedInstance].dataManager.pushStatCount = 0;
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [Pushwoosh sharedInstance].dataManager = _originalDataManager;
     [super tearDown];
 }
 
@@ -168,25 +169,25 @@ static BOOL isBackground;
     XCTAssertEqual([Pushwoosh sharedInstance].dataManager.pushStatCount, 1);
 }
 
+/// Verifies that handlePushRegistrationString persists the dev token onto the shared Pushwoosh instance.
 - (void)testSendDevTokenToServerWithoutErrorRequest {
     NSString *devToken = @"123198akjshdjkahds19ajhklsnnaskjdkas981023981hjasdasdasdaksjda";
     PWPushNotificationsManagerCommon *notificationManager = [[PWPushNotificationsManagerCommon alloc] init];
     id mockPWRequestManager = OCMPartialMock([notificationManager requestManager]);
-    id mockNSDate = OCMClassMock([NSDate class]);
-    OCMStub([mockNSDate date]).andReturn(mockNSDate);
-    OCMStub([mockNSDate timeIntervalSinceDate:OCMOCK_ANY]).andReturn(1000);
-    [mockNSDate stopMocking];
     OCMStub([mockPWRequestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
         void(^handler)(NSError *error);
         [invocation getArgument:&handler atIndex:3];
         handler(nil);
     });
-    
+
     [notificationManager handlePushRegistrationString:devToken];
-    
-    XCTAssertEqual(devToken, [[Pushwoosh sharedInstance] getPushToken]);
+
+    XCTAssertEqualObjects(devToken, [[Pushwoosh sharedInstance] getPushToken]);
+
+    [mockPWRequestManager stopMocking];
 }
 
+/// Verifies that unregisterForPushNotificationsWithCompletion clears the persisted push token.
 - (void)testUnregisterDeviceWithCompletion {
     PWPushNotificationsManagerCommon *notificationManager = [[PWPushNotificationsManagerCommon alloc] init];
     id mockPWRequestManager = OCMPartialMock([notificationManager requestManager]);
@@ -195,10 +196,12 @@ static BOOL isBackground;
         [invocation getArgument:&handler atIndex:3];
         handler(nil);
     });
-    
+
     [notificationManager unregisterForPushNotificationsWithCompletion:^(NSError *error) {}];
-    
+
     XCTAssertNil([[Pushwoosh sharedInstance] getPushToken]);
+
+    [mockPWRequestManager stopMocking];
 }
 
 @end

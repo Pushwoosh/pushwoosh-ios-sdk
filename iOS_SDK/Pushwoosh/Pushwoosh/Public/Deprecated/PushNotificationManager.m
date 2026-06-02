@@ -237,7 +237,7 @@ static dispatch_once_t pushManagerOncePredicate;
 
 #pragma mark - Data
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 - (void)setShowPushnotificationAlert:(BOOL)showPushnotificationAlert {
     [Pushwoosh sharedInstance].showPushnotificationAlert = showPushnotificationAlert;
 }

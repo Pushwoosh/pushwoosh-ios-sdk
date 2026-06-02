@@ -14,7 +14,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		4Qc/V00iafIYUQei/zCzAaZiwS8=
+		E3bHjCOeMXYI1DTRXJeMdAjm9LQ=
 		</data>
 		<key>Modules/PushwooshInboxKit.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Modules/PushwooshInboxKit.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		0aOl9urrEnszUEp18UYgIMUNuOw=
+		YujCaTlGLeSsW+XxxAlV7a1ullM=
 		</data>
 		<key>Modules/PushwooshInboxKit.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/PushwooshInboxKit.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		3PO6T4WdX59KyJoBM9cG3QUa87M=
+		tspVTrw2CzFxauvM8fKcTsUA20w=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -113,7 +113,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			T/CprAphe9M6VGQi660QhDSsTeOme+a/7q7q7kIECtw=
+			abkIeRi9W1I4kb5uVnwiCjTy9JO7j/nGskLCfgigvo8=
 			</data>
 		</dict>
 		<key>Modules/PushwooshInboxKit.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
@@ -148,7 +148,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qQMSx2l4bNFUtzpBk2eFM0kXiDVJOILVwrFyOuSYrsM=
+			ueW+O0vr7JX0vmbWPEaxqfHO/Z/YOSG8jIlT3lUM9o0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -390,42 +390,6 @@ typedef SWIFT_ENUM(NSInteger, PWForegroundPushHapticFeedback, open) {
   PWForegroundPushHapticFeedbackNotification = 6,
 };
 
-
-SWIFT_CLASS("_TtC15PushwooshBridge20PWForegroundPushStub")
-@interface PWForegroundPushStub : NSObject <PWForegroundPush>
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSArray<UIColor *> * _Nullable gradientColors;)
-+ (NSArray<UIColor *> * _Nullable)gradientColors SWIFT_WARN_UNUSED_RESULT;
-+ (void)setGradientColors:(NSArray<UIColor *> * _Nullable)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable backgroundColor;)
-+ (UIColor * _Nullable)backgroundColor SWIFT_WARN_UNUSED_RESULT;
-+ (void)setBackgroundColor:(UIColor * _Nullable)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL usePushAnimation;)
-+ (BOOL)usePushAnimation SWIFT_WARN_UNUSED_RESULT;
-+ (void)setUsePushAnimation:(BOOL)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable titlePushColor;)
-+ (UIColor * _Nullable)titlePushColor SWIFT_WARN_UNUSED_RESULT;
-+ (void)setTitlePushColor:(UIColor * _Nullable)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable messagePushColor;)
-+ (UIColor * _Nullable)messagePushColor SWIFT_WARN_UNUSED_RESULT;
-+ (void)setMessagePushColor:(UIColor * _Nullable)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable titlePushFont;)
-+ (UIFont * _Nullable)titlePushFont SWIFT_WARN_UNUSED_RESULT;
-+ (void)setTitlePushFont:(UIFont * _Nullable)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable messagePushFont;)
-+ (UIFont * _Nullable)messagePushFont SWIFT_WARN_UNUSED_RESULT;
-+ (void)setMessagePushFont:(UIFont * _Nullable)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL useLiquidView;)
-+ (BOOL)useLiquidView SWIFT_WARN_UNUSED_RESULT;
-+ (void)setUseLiquidView:(BOOL)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable didTapForegroundPush)(NSDictionary * _Nonnull);)
-+ (void (^ _Nullable)(NSDictionary * _Nonnull))didTapForegroundPush SWIFT_WARN_UNUSED_RESULT;
-+ (void)setDidTapForegroundPush:(void (^ _Nullable)(NSDictionary * _Nonnull))value;
-+ (void)showForegroundPushWithUserInfo:(NSDictionary * _Nonnull)userInfo;
-+ (Class _Nonnull)foregroundPush SWIFT_WARN_UNUSED_RESULT;
-+ (void)foregroundNotificationWithStyle:(enum PWForegroundPushStyle)style duration:(NSInteger)duration vibration:(enum PWForegroundPushHapticFeedback)vibration disappearedPushAnimation:(enum PWForegroundPushDisappearedAnimation)disappearedPushAnimation;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
 /// Visual style template for the foreground push notification.
 typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
 /// Standard push notification style with icon, title, and message.
@@ -434,25 +398,17 @@ typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
 
 
 /// Protocol bridging the optional <code>PushwooshInboxKit</code> module to the umbrella SDK.
-/// The host SDK (<code>PushwooshFramework</code>) discovers <code>PushwooshInboxKit</code> at runtime
-/// through <code>NSClassFromString("PushwooshInboxKitImplementation")</code>. The bridge
-/// protocol intentionally exposes only a class-level factory — the public UI
-/// surface (<code>PushwooshInboxKitViewController</code>, <code>PushwooshInboxKitAttributes</code>)
-/// is consumed directly from the <code>PushwooshInboxKit</code> module by the host app.
+/// The host SDK discovers <code>PushwooshInboxKit</code> at runtime through
+/// <code>PushwooshModuleRegistry</code> — <code>PushwooshInboxKitLoader.+load</code> registers the
+/// implementation class at image load. The bridge protocol intentionally
+/// exposes only a class-level factory — the public UI surface
+/// (<code>PushwooshInboxKitViewController</code>, <code>PushwooshInboxKitAttributes</code>) is
+/// consumed directly from the <code>PushwooshInboxKit</code> module by the host app.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge10PWInboxKit_")
 @protocol PWInboxKit
 /// Returns the implementation class. Used as a marker to confirm the
 /// optional module is linked.
 + (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-/// Default no-op implementation of <code>PWInboxKit</code> used when the
-/// <code>PushwooshInboxKit</code> optional module is not linked.
-SWIFT_CLASS("_TtC15PushwooshBridge14PWInboxKitStub")
-@interface PWInboxKitStub : NSObject <PWInboxKit>
-+ (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class NSString;
@@ -528,19 +484,20 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) enum PWAppEnvironmen
 @end
 
 
-/// Stub implementation for PWKeychain protocol.
-/// This stub is used when the PushwooshKeychain module is not linked.
-/// All methods return safe default values and print informational messages.
-SWIFT_CLASS("_TtC15PushwooshBridge14PWKeychainStub")
-@interface PWKeychainStub : NSObject <PWKeychain>
-+ (Class _Nonnull)keychain SWIFT_WARN_UNUSED_RESULT;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isEnabled;)
-+ (BOOL)isEnabled SWIFT_WARN_UNUSED_RESULT;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) enum PWAppEnvironment currentEnvironment;)
-+ (enum PWAppEnvironment)currentEnvironment SWIFT_WARN_UNUSED_RESULT;
-+ (NSString * _Nullable)getPersistentHWID SWIFT_WARN_UNUSED_RESULT;
-+ (void)clearPersistentHWID;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+/// Back-channel protocol that lets <code>PushwooshCore</code> resolve the persistent
+/// HWID stored by the optional <code>PushwooshKeychain</code> module without
+/// reflection.
+/// The keychain module registers an instance conforming to this protocol via
+/// <code>PushwooshModuleRegistry.registerHandler(_:forIdentifier:)</code> at load time.
+/// <code>PWPreferences</code> looks the handler up and forwards <code>getPersistentHWIDIfAvailable</code>
+/// through it. When the module is not linked the handler is <code>nil</code> and the
+/// caller falls back to its default behaviour.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge32PWKeychainPersistentHWIDProvider_")
+@protocol PWKeychainPersistentHWIDProvider
+/// <code>true</code> when persistent HWID storage is active in the current build.
+@property (nonatomic, readonly) BOOL isPersistentHWIDEnabled;
+/// Returns the HWID stored in the keychain, or <code>nil</code> when unavailable.
+- (NSString * _Nullable)persistentHWID SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -654,21 +611,66 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWLiveActivities_")
 /// \param completion Completion handler called when the request finishes.
 ///
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-@end
-
-
-SWIFT_CLASS("_TtC15PushwooshBridge20PWStubLiveActivities")
-@interface PWStubLiveActivities : NSObject <PWLiveActivities>
-+ (Class _Nonnull)liveActivities SWIFT_WARN_UNUSED_RESULT;
-+ (void)sendPushToStartLiveActivityWithToken:(NSString * _Nonnull)token;
-+ (void)sendPushToStartLiveActivityWithToken:(NSString * _Nonnull)token completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-+ (void)startLiveActivityWithToken:(NSString * _Nonnull)token activityId:(NSString * _Nonnull)activityId;
-+ (void)startLiveActivityWithToken:(NSString * _Nonnull)token activityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-+ (void)stopLiveActivity;
-+ (void)stopLiveActivityWithCompletion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-+ (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId;
-+ (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+/// Configures Live Activities with default Pushwoosh-managed attributes.
+/// Registers the bundled <code>DefaultLiveActivityAttributes</code> type with Pushwoosh so that
+/// push-to-start tokens and per-activity tokens flow automatically, without the integrator
+/// having to declare a custom <code>ActivityAttributes</code> struct.
+/// <h2>Example</h2>
+/// \code
+/// if #available(iOS 16.1, *) {
+///     Pushwoosh.LiveActivities.defaultSetup()
+/// }
+///
+/// \endcode<blockquote>
+/// Important: Available on iOS 16.1+. Call once during app launch. Repeat calls are no-ops.
+/// Obj-C / plugin callers (RN, Flutter, etc.) are additionally protected by a runtime
+/// availability guard inside the implementation — calling on iOS < 16.1 is a logged no-op.
+///
+/// </blockquote>
++ (void)defaultSetup SWIFT_AVAILABILITY(ios,introduced=16.1);
+/// Starts a Live Activity using the default Pushwoosh-managed attributes.
+/// Constructs a <code>DefaultLiveActivityAttributes</code> instance from the supplied dictionaries
+/// and requests a new activity. Use this when you do not need a custom attributes/state struct.
+/// <h2>Example</h2>
+/// \code
+/// if #available(iOS 16.1, *) {
+///     Pushwoosh.LiveActivities.defaultStart(
+///         "order_123",
+///         attributes: ["orderName": "Pizza"],
+///         content: ["status": "Preparing"]
+///     )
+/// }
+///
+/// \endcode<blockquote>
+/// Important: Available on iOS 16.1+. Must be paired with <code>defaultSetup()</code> called earlier in the launch path.
+/// Obj-C / plugin callers are additionally protected by a runtime availability guard
+/// inside the implementation — calling on iOS < 16.1 is a logged no-op.
+///
+/// </blockquote>
+/// \param activityId Unique identifier for this activity instance used for targeting updates.
+///
+/// \param attributes Static attribute dictionary that does not change across the activity lifetime.
+///
+/// \param content Initial dynamic content-state dictionary rendered by the widget.
+///
++ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content SWIFT_AVAILABILITY(ios,introduced=16.1);
+/// Starts a Live Activity using the default Pushwoosh-managed attributes with completion handler.
+/// <blockquote>
+/// Important: Available on iOS 16.1+. Obj-C / plugin callers are additionally protected
+/// by a runtime availability guard — calling on iOS < 16.1 invokes the completion with
+/// an <code>Error</code> describing the unsupported OS version.
+///
+/// </blockquote>
+/// \param activityId Unique identifier for this activity instance used for targeting updates.
+///
+/// \param attributes Static attribute dictionary that does not change across the activity lifetime.
+///
+/// \param content Initial dynamic content-state dictionary rendered by the widget.
+///
+/// \param completion Completion handler called with <code>nil</code> on success or an <code>Error</code> if the
+/// OS version is below 16.1 or <code>Activity.request()</code> throws.
+///
++ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content completion:(void (^ _Nonnull)(NSError * _Nullable))completion SWIFT_AVAILABILITY(ios,introduced=16.1);
 @end
 
 /// Animation types for dismissing rich media content on tvOS.
@@ -916,24 +918,17 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWTVoS_")
 @end
 
 
-/// Stub implementation of PWTVoS protocol.
-/// This class is used when the PushwooshTVOS module is not linked to the project.
-/// All methods provide no-op implementations and print warning messages.
-SWIFT_CLASS("_TtC15PushwooshBridge10PWTVoSStub")
-@interface PWTVoSStub : NSObject <PWTVoS>
-+ (void)setAppCode:(NSString * _Nonnull)appCode;
-+ (void)registerForTvPushNotifications;
-+ (void)registerForTvPushNotificationsWithToken:(NSData * _Nonnull)token completion:(void (^ _Nullable)(NSError * _Nullable))completion;
-+ (void)unregisterForTvPushNotificationsWithCompletion:(void (^ _Nullable)(NSError * _Nullable))completion;
-+ (void)handleTvPushToken:(NSData * _Nonnull)deviceToken;
-+ (void)handleTvPushRegistrationFailure:(NSError * _Nonnull)error;
-+ (void)handleTvPushReceivedWithUserInfo:(NSDictionary * _Nonnull)userInfo completionHandler:(void (^ _Nonnull)(UIBackgroundFetchResult))completionHandler;
-+ (BOOL)handleTVOSPushWithUserInfo:(NSDictionary * _Nonnull)userInfo SWIFT_WARN_UNUSED_RESULT;
-+ (void)configureRichMediaWithPosition:(enum PWTVOSRichMediaPosition)position presentAnimation:(enum PWTVOSRichMediaPresentAnimation)presentAnimation dismissAnimation:(enum PWTVOSRichMediaDismissAnimation)dismissAnimation;
-+ (void)configureCloseButton:(BOOL)show;
-+ (void)setRichMediaGetTagsHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
-+ (Class _Nonnull)tvos SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+/// Back-channel protocol that lets <code>PWInAppMessagesManager</code> dispatch
+/// in-app resources to the optional <code>PushwooshTVOS</code> module without a
+/// four-hop <code>performSelector</code> chain.
+/// The tvOS module registers a handler conforming to this protocol via
+/// <code>PushwooshModuleRegistry.registerHandler(_:forIdentifier:)</code> at load time.
+/// Core forwards in-app resources through <code>handleInAppResource(_:)</code>; when the
+/// module is not linked the handler is <code>nil</code> and the message is a no-op.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge18PWTVoSInAppHandler_")
+@protocol PWTVoSInAppHandler
+/// Hands an opaque in-app resource off to the tvOS rich-media manager.
+- (void)handleInAppResource:(id _Nonnull)resource;
 @end
 
 @class PWRequest;
@@ -1061,16 +1056,16 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;
 @end
 
 
-SWIFT_CLASS("_TtC15PushwooshBridge10PWVoIPStub")
-@interface PWVoIPStub : NSObject <PWVoIP>
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;)
-+ (id _Nullable)delegate SWIFT_WARN_UNUSED_RESULT;
-+ (void)setDelegate:(id _Nullable)value;
-+ (Class _Nonnull)voip SWIFT_WARN_UNUSED_RESULT;
-+ (void)setVoIPToken:(NSData * _Nonnull)token;
-+ (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
-+ (void)setIncomingCallTimeout:(NSTimeInterval)timeout;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+/// Back-channel protocol that lets <code>PWPushRuntime</code> trigger VoIP setup without
+/// reflecting on <code>PushwooshVoIPImplementation</code>.
+/// The VoIP module registers a handler conforming to this protocol via
+/// <code>PushwooshModuleRegistry.registerHandler(_:forIdentifier:)</code> at load time.
+/// Core sends <code>configureVoIP()</code> through the handler; when the module is not
+/// linked the handler is <code>nil</code> and the message is a no-op.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge22PWVoIPConfigureHandler_")
+@protocol PWVoIPConfigureHandler
+/// Performs the VoIP module’s first-time configuration.
+- (void)configureVoIP;
 @end
 
 #endif
@@ -1473,42 +1468,6 @@ typedef SWIFT_ENUM(NSInteger, PWForegroundPushHapticFeedback, open) {
   PWForegroundPushHapticFeedbackNotification = 6,
 };
 
-
-SWIFT_CLASS("_TtC15PushwooshBridge20PWForegroundPushStub")
-@interface PWForegroundPushStub : NSObject <PWForegroundPush>
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) NSArray<UIColor *> * _Nullable gradientColors;)
-+ (NSArray<UIColor *> * _Nullable)gradientColors SWIFT_WARN_UNUSED_RESULT;
-+ (void)setGradientColors:(NSArray<UIColor *> * _Nullable)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable backgroundColor;)
-+ (UIColor * _Nullable)backgroundColor SWIFT_WARN_UNUSED_RESULT;
-+ (void)setBackgroundColor:(UIColor * _Nullable)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL usePushAnimation;)
-+ (BOOL)usePushAnimation SWIFT_WARN_UNUSED_RESULT;
-+ (void)setUsePushAnimation:(BOOL)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable titlePushColor;)
-+ (UIColor * _Nullable)titlePushColor SWIFT_WARN_UNUSED_RESULT;
-+ (void)setTitlePushColor:(UIColor * _Nullable)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIColor * _Nullable messagePushColor;)
-+ (UIColor * _Nullable)messagePushColor SWIFT_WARN_UNUSED_RESULT;
-+ (void)setMessagePushColor:(UIColor * _Nullable)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable titlePushFont;)
-+ (UIFont * _Nullable)titlePushFont SWIFT_WARN_UNUSED_RESULT;
-+ (void)setTitlePushFont:(UIFont * _Nullable)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) UIFont * _Nullable messagePushFont;)
-+ (UIFont * _Nullable)messagePushFont SWIFT_WARN_UNUSED_RESULT;
-+ (void)setMessagePushFont:(UIFont * _Nullable)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL useLiquidView;)
-+ (BOOL)useLiquidView SWIFT_WARN_UNUSED_RESULT;
-+ (void)setUseLiquidView:(BOOL)value;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, copy) void (^ _Nullable didTapForegroundPush)(NSDictionary * _Nonnull);)
-+ (void (^ _Nullable)(NSDictionary * _Nonnull))didTapForegroundPush SWIFT_WARN_UNUSED_RESULT;
-+ (void)setDidTapForegroundPush:(void (^ _Nullable)(NSDictionary * _Nonnull))value;
-+ (void)showForegroundPushWithUserInfo:(NSDictionary * _Nonnull)userInfo;
-+ (Class _Nonnull)foregroundPush SWIFT_WARN_UNUSED_RESULT;
-+ (void)foregroundNotificationWithStyle:(enum PWForegroundPushStyle)style duration:(NSInteger)duration vibration:(enum PWForegroundPushHapticFeedback)vibration disappearedPushAnimation:(enum PWForegroundPushDisappearedAnimation)disappearedPushAnimation;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
-@end
-
 /// Visual style template for the foreground push notification.
 typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
 /// Standard push notification style with icon, title, and message.
@@ -1517,25 +1476,17 @@ typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
 
 
 /// Protocol bridging the optional <code>PushwooshInboxKit</code> module to the umbrella SDK.
-/// The host SDK (<code>PushwooshFramework</code>) discovers <code>PushwooshInboxKit</code> at runtime
-/// through <code>NSClassFromString("PushwooshInboxKitImplementation")</code>. The bridge
-/// protocol intentionally exposes only a class-level factory — the public UI
-/// surface (<code>PushwooshInboxKitViewController</code>, <code>PushwooshInboxKitAttributes</code>)
-/// is consumed directly from the <code>PushwooshInboxKit</code> module by the host app.
+/// The host SDK discovers <code>PushwooshInboxKit</code> at runtime through
+/// <code>PushwooshModuleRegistry</code> — <code>PushwooshInboxKitLoader.+load</code> registers the
+/// implementation class at image load. The bridge protocol intentionally
+/// exposes only a class-level factory — the public UI surface
+/// (<code>PushwooshInboxKitViewController</code>, <code>PushwooshInboxKitAttributes</code>) is
+/// consumed directly from the <code>PushwooshInboxKit</code> module by the host app.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge10PWInboxKit_")
 @protocol PWInboxKit
 /// Returns the implementation class. Used as a marker to confirm the
 /// optional module is linked.
 + (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
-@end
-
-
-/// Default no-op implementation of <code>PWInboxKit</code> used when the
-/// <code>PushwooshInboxKit</code> optional module is not linked.
-SWIFT_CLASS("_TtC15PushwooshBridge14PWInboxKitStub")
-@interface PWInboxKitStub : NSObject <PWInboxKit>
-+ (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
 @class NSString;
@@ -1611,19 +1562,20 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) enum PWAppEnvironmen
 @end
 
 
-/// Stub implementation for PWKeychain protocol.
-/// This stub is used when the PushwooshKeychain module is not linked.
-/// All methods return safe default values and print informational messages.
-SWIFT_CLASS("_TtC15PushwooshBridge14PWKeychainStub")
-@interface PWKeychainStub : NSObject <PWKeychain>
-+ (Class _Nonnull)keychain SWIFT_WARN_UNUSED_RESULT;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isEnabled;)
-+ (BOOL)isEnabled SWIFT_WARN_UNUSED_RESULT;
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) enum PWAppEnvironment currentEnvironment;)
-+ (enum PWAppEnvironment)currentEnvironment SWIFT_WARN_UNUSED_RESULT;
-+ (NSString * _Nullable)getPersistentHWID SWIFT_WARN_UNUSED_RESULT;
-+ (void)clearPersistentHWID;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+/// Back-channel protocol that lets <code>PushwooshCore</code> resolve the persistent
+/// HWID stored by the optional <code>PushwooshKeychain</code> module without
+/// reflection.
+/// The keychain module registers an instance conforming to this protocol via
+/// <code>PushwooshModuleRegistry.registerHandler(_:forIdentifier:)</code> at load time.
+/// <code>PWPreferences</code> looks the handler up and forwards <code>getPersistentHWIDIfAvailable</code>
+/// through it. When the module is not linked the handler is <code>nil</code> and the
+/// caller falls back to its default behaviour.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge32PWKeychainPersistentHWIDProvider_")
+@protocol PWKeychainPersistentHWIDProvider
+/// <code>true</code> when persistent HWID storage is active in the current build.
+@property (nonatomic, readonly) BOOL isPersistentHWIDEnabled;
+/// Returns the HWID stored in the keychain, or <code>nil</code> when unavailable.
+- (NSString * _Nullable)persistentHWID SWIFT_WARN_UNUSED_RESULT;
 @end
 
 
@@ -1737,21 +1689,66 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWLiveActivities_")
 /// \param completion Completion handler called when the request finishes.
 ///
 + (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-@end
-
-
-SWIFT_CLASS("_TtC15PushwooshBridge20PWStubLiveActivities")
-@interface PWStubLiveActivities : NSObject <PWLiveActivities>
-+ (Class _Nonnull)liveActivities SWIFT_WARN_UNUSED_RESULT;
-+ (void)sendPushToStartLiveActivityWithToken:(NSString * _Nonnull)token;
-+ (void)sendPushToStartLiveActivityWithToken:(NSString * _Nonnull)token completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-+ (void)startLiveActivityWithToken:(NSString * _Nonnull)token activityId:(NSString * _Nonnull)activityId;
-+ (void)startLiveActivityWithToken:(NSString * _Nonnull)token activityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-+ (void)stopLiveActivity;
-+ (void)stopLiveActivityWithCompletion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-+ (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId;
-+ (void)stopLiveActivityWithActivityId:(NSString * _Nonnull)activityId completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+/// Configures Live Activities with default Pushwoosh-managed attributes.
+/// Registers the bundled <code>DefaultLiveActivityAttributes</code> type with Pushwoosh so that
+/// push-to-start tokens and per-activity tokens flow automatically, without the integrator
+/// having to declare a custom <code>ActivityAttributes</code> struct.
+/// <h2>Example</h2>
+/// \code
+/// if #available(iOS 16.1, *) {
+///     Pushwoosh.LiveActivities.defaultSetup()
+/// }
+///
+/// \endcode<blockquote>
+/// Important: Available on iOS 16.1+. Call once during app launch. Repeat calls are no-ops.
+/// Obj-C / plugin callers (RN, Flutter, etc.) are additionally protected by a runtime
+/// availability guard inside the implementation — calling on iOS < 16.1 is a logged no-op.
+///
+/// </blockquote>
++ (void)defaultSetup SWIFT_AVAILABILITY(ios,introduced=16.1);
+/// Starts a Live Activity using the default Pushwoosh-managed attributes.
+/// Constructs a <code>DefaultLiveActivityAttributes</code> instance from the supplied dictionaries
+/// and requests a new activity. Use this when you do not need a custom attributes/state struct.
+/// <h2>Example</h2>
+/// \code
+/// if #available(iOS 16.1, *) {
+///     Pushwoosh.LiveActivities.defaultStart(
+///         "order_123",
+///         attributes: ["orderName": "Pizza"],
+///         content: ["status": "Preparing"]
+///     )
+/// }
+///
+/// \endcode<blockquote>
+/// Important: Available on iOS 16.1+. Must be paired with <code>defaultSetup()</code> called earlier in the launch path.
+/// Obj-C / plugin callers are additionally protected by a runtime availability guard
+/// inside the implementation — calling on iOS < 16.1 is a logged no-op.
+///
+/// </blockquote>
+/// \param activityId Unique identifier for this activity instance used for targeting updates.
+///
+/// \param attributes Static attribute dictionary that does not change across the activity lifetime.
+///
+/// \param content Initial dynamic content-state dictionary rendered by the widget.
+///
++ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content SWIFT_AVAILABILITY(ios,introduced=16.1);
+/// Starts a Live Activity using the default Pushwoosh-managed attributes with completion handler.
+/// <blockquote>
+/// Important: Available on iOS 16.1+. Obj-C / plugin callers are additionally protected
+/// by a runtime availability guard — calling on iOS < 16.1 invokes the completion with
+/// an <code>Error</code> describing the unsupported OS version.
+///
+/// </blockquote>
+/// \param activityId Unique identifier for this activity instance used for targeting updates.
+///
+/// \param attributes Static attribute dictionary that does not change across the activity lifetime.
+///
+/// \param content Initial dynamic content-state dictionary rendered by the widget.
+///
+/// \param completion Completion handler called with <code>nil</code> on success or an <code>Error</code> if the
+/// OS version is below 16.1 or <code>Activity.request()</code> throws.
+///
++ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content completion:(void (^ _Nonnull)(NSError * _Nullable))completion SWIFT_AVAILABILITY(ios,introduced=16.1);
 @end
 
 /// Animation types for dismissing rich media content on tvOS.
@@ -1999,24 +1996,17 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge6PWTVoS_")
 @end
 
 
-/// Stub implementation of PWTVoS protocol.
-/// This class is used when the PushwooshTVOS module is not linked to the project.
-/// All methods provide no-op implementations and print warning messages.
-SWIFT_CLASS("_TtC15PushwooshBridge10PWTVoSStub")
-@interface PWTVoSStub : NSObject <PWTVoS>
-+ (void)setAppCode:(NSString * _Nonnull)appCode;
-+ (void)registerForTvPushNotifications;
-+ (void)registerForTvPushNotificationsWithToken:(NSData * _Nonnull)token completion:(void (^ _Nullable)(NSError * _Nullable))completion;
-+ (void)unregisterForTvPushNotificationsWithCompletion:(void (^ _Nullable)(NSError * _Nullable))completion;
-+ (void)handleTvPushToken:(NSData * _Nonnull)deviceToken;
-+ (void)handleTvPushRegistrationFailure:(NSError * _Nonnull)error;
-+ (void)handleTvPushReceivedWithUserInfo:(NSDictionary * _Nonnull)userInfo completionHandler:(void (^ _Nonnull)(UIBackgroundFetchResult))completionHandler;
-+ (BOOL)handleTVOSPushWithUserInfo:(NSDictionary * _Nonnull)userInfo SWIFT_WARN_UNUSED_RESULT;
-+ (void)configureRichMediaWithPosition:(enum PWTVOSRichMediaPosition)position presentAnimation:(enum PWTVOSRichMediaPresentAnimation)presentAnimation dismissAnimation:(enum PWTVOSRichMediaDismissAnimation)dismissAnimation;
-+ (void)configureCloseButton:(BOOL)show;
-+ (void)setRichMediaGetTagsHandler:(void (^ _Nonnull)(NSDictionary * _Nonnull))handler;
-+ (Class _Nonnull)tvos SWIFT_WARN_UNUSED_RESULT;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+/// Back-channel protocol that lets <code>PWInAppMessagesManager</code> dispatch
+/// in-app resources to the optional <code>PushwooshTVOS</code> module without a
+/// four-hop <code>performSelector</code> chain.
+/// The tvOS module registers a handler conforming to this protocol via
+/// <code>PushwooshModuleRegistry.registerHandler(_:forIdentifier:)</code> at load time.
+/// Core forwards in-app resources through <code>handleInAppResource(_:)</code>; when the
+/// module is not linked the handler is <code>nil</code> and the message is a no-op.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge18PWTVoSInAppHandler_")
+@protocol PWTVoSInAppHandler
+/// Hands an opaque in-app resource off to the tvOS rich-media manager.
+- (void)handleInAppResource:(id _Nonnull)resource;
 @end
 
 @class PWRequest;
@@ -2144,16 +2134,16 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;
 @end
 
 
-SWIFT_CLASS("_TtC15PushwooshBridge10PWVoIPStub")
-@interface PWVoIPStub : NSObject <PWVoIP>
-SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;)
-+ (id _Nullable)delegate SWIFT_WARN_UNUSED_RESULT;
-+ (void)setDelegate:(id _Nullable)value;
-+ (Class _Nonnull)voip SWIFT_WARN_UNUSED_RESULT;
-+ (void)setVoIPToken:(NSData * _Nonnull)token;
-+ (void)initializeVoIP:(BOOL)supportVideo ringtoneSound:(NSString * _Nonnull)ringtoneSound handleTypes:(NSInteger)handleTypes;
-+ (void)setIncomingCallTimeout:(NSTimeInterval)timeout;
-- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+/// Back-channel protocol that lets <code>PWPushRuntime</code> trigger VoIP setup without
+/// reflecting on <code>PushwooshVoIPImplementation</code>.
+/// The VoIP module registers a handler conforming to this protocol via
+/// <code>PushwooshModuleRegistry.registerHandler(_:forIdentifier:)</code> at load time.
+/// Core sends <code>configureVoIP()</code> through the handler; when the module is not
+/// linked the handler is <code>nil</code> and the message is a no-op.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge22PWVoIPConfigureHandler_")
+@protocol PWVoIPConfigureHandler
+/// Performs the VoIP module’s first-time configuration.
+- (void)configureVoIP;
 @end
 
 #endif

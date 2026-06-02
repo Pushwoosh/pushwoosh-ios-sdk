@@ -72,11 +72,25 @@
                 NSURL *url = [NSURL fileURLWithPath:cachePath];
                 NSData *data = [NSData dataWithContentsOfURL:url];
 
-                NSSet *set = [NSSet setWithObjects:[PWCachedRequest class], [NSMutableArray class], [NSURL class], nil];
-                NSError *error = nil;
-                _requestsQueue = [NSKeyedUnarchiver unarchivedObjectOfClasses:set fromData:data error:&error];
-                if (error) {
-                    [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Deserialization failed: %@", error.localizedDescription]];
+                if (data.length > 0) {
+                    NSSet *set = [NSSet setWithObjects:
+                                  [PWCachedRequest class],
+                                  [NSMutableArray class],
+                                  [NSArray class],
+                                  [NSMutableDictionary class],
+                                  [NSDictionary class],
+                                  [NSString class],
+                                  [NSNumber class],
+                                  [NSDate class],
+                                  [NSNull class],
+                                  [NSData class],
+                                  [NSURL class],
+                                  nil];
+                    NSError *error = nil;
+                    _requestsQueue = [NSKeyedUnarchiver unarchivedObjectOfClasses:set fromData:data error:&error];
+                    if (error) {
+                        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Deserialization failed: %@", error.localizedDescription]];
+                    }
                 }
             }
         }

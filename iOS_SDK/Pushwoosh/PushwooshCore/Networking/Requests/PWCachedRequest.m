@@ -34,7 +34,18 @@
 - (instancetype)initWithCoder:(NSCoder *)aDecoder {
     if (self = [super init]) {
         _methodName = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"methodName"];
-        _requestDictionary = [aDecoder decodeObjectOfClass:[NSDictionary class] forKey:@"requestDictionary"];
+        NSSet *requestDictionaryClasses = [NSSet setWithObjects:
+                                           [NSDictionary class],
+                                           [NSMutableDictionary class],
+                                           [NSArray class],
+                                           [NSMutableArray class],
+                                           [NSString class],
+                                           [NSNumber class],
+                                           [NSDate class],
+                                           [NSNull class],
+                                           [NSData class],
+                                           nil];
+        _requestDictionary = [aDecoder decodeObjectOfClasses:requestDictionaryClasses forKey:@"requestDictionary"];
         _requestIdentifier = [aDecoder decodeObjectOfClass:[NSString class] forKey:@"requestIdentifier"];
     }
     return self;

@@ -61,12 +61,28 @@
  *		}));
  */
 - (void)postEvent:(NSString *)event :(NSString*)attributesStr :(PWEasyJSWKDataFunction*)successCallback :(PWEasyJSWKDataFunction*)errorCallback {
+	if (attributesStr.length == 0) {
+		[PushwooshLog pushwooshLog:PW_LL_WARN
+						 className:self
+						   message:@"postEvent called with empty or nil attributes argument"];
+		[errorCallback executeWithParam:@"Invalid postEvent argument: attributes is nil or empty"];
+		return;
+	}
+
 	NSError *jsonError;
 	NSData *attributesData = [attributesStr dataUsingEncoding:NSUTF8StringEncoding];
+	if (attributesData == nil) {
+		[PushwooshLog pushwooshLog:PW_LL_WARN
+						 className:self
+						   message:@"postEvent failed to encode attributes argument to UTF8 data"];
+		[errorCallback executeWithParam:@"Invalid postEvent argument: failed to encode to UTF8"];
+		return;
+	}
+
 	NSDictionary *attributes = [NSJSONSerialization JSONObjectWithData:attributesData
 															 options:NSJSONReadingMutableContainers
 															   error:&jsonError];
-	
+
 	if (jsonError) {
         [PushwooshLog pushwooshLog:PW_LL_ERROR
                          className:self
@@ -118,19 +134,33 @@
  *	});
  */
 - (void)sendTags:(NSString *)serializedTags {
+	if (serializedTags.length == 0) {
+		[PushwooshLog pushwooshLog:PW_LL_WARN
+						 className:self
+						   message:@"sendTags called with empty or nil argument"];
+		return;
+	}
+
 	NSError *jsonError;
 	NSData *objectData = [serializedTags dataUsingEncoding:NSUTF8StringEncoding];
+	if (objectData == nil) {
+		[PushwooshLog pushwooshLog:PW_LL_WARN
+						 className:self
+						   message:@"sendTags failed to encode argument to UTF8 data"];
+		return;
+	}
+
 	NSDictionary *tags = [NSJSONSerialization JSONObjectWithData:objectData
 														 options:NSJSONReadingMutableContainers
 														   error:&jsonError];
-	
+
 	if (jsonError) {
         [PushwooshLog pushwooshLog:PW_LL_ERROR
                          className:self
                            message:[NSString stringWithFormat:@"Invalid sendTags argument %@", [jsonError localizedDescription]]];
 		return;
 	}
-	
+
 	[[PWManagerBridge shared] setTags:tags];
 }
 

@@ -128,4 +128,92 @@ public protocol PWLiveActivities {
     ///   - activityId: The unique identifier of the activity that ended.
     ///   - completion: Completion handler called when the request finishes.
     static func stopLiveActivity(activityId: String, completion: @escaping (Error?) -> Void)
+
+    /// Configures Live Activities with default Pushwoosh-managed attributes.
+    ///
+    /// Registers the bundled `DefaultLiveActivityAttributes` type with Pushwoosh so that
+    /// push-to-start tokens and per-activity tokens flow automatically, without the integrator
+    /// having to declare a custom `ActivityAttributes` struct.
+    ///
+    /// ## Example
+    ///
+    /// ```swift
+    /// if #available(iOS 16.1, *) {
+    ///     Pushwoosh.LiveActivities.defaultSetup()
+    /// }
+    /// ```
+    ///
+    /// > Important: Available on iOS 16.1+. Call once during app launch. Repeat calls are no-ops.
+    /// > Obj-C / plugin callers (RN, Flutter, etc.) are additionally protected by a runtime
+    /// > availability guard inside the implementation — calling on iOS < 16.1 is a logged no-op.
+    @available(iOS 16.1, *)
+    static func defaultSetup()
+
+    /// Starts a Live Activity using the default Pushwoosh-managed attributes.
+    ///
+    /// Constructs a `DefaultLiveActivityAttributes` instance from the supplied dictionaries
+    /// and requests a new activity. Use this when you do not need a custom attributes/state struct.
+    ///
+    /// - Parameters:
+    ///   - activityId: Unique identifier for this activity instance used for targeting updates.
+    ///   - attributes: Static attribute dictionary that does not change across the activity lifetime.
+    ///   - content: Initial dynamic content-state dictionary rendered by the widget.
+    ///
+    /// ## Example
+    ///
+    /// ```swift
+    /// if #available(iOS 16.1, *) {
+    ///     Pushwoosh.LiveActivities.defaultStart(
+    ///         "order_123",
+    ///         attributes: ["orderName": "Pizza"],
+    ///         content: ["status": "Preparing"]
+    ///     )
+    /// }
+    /// ```
+    ///
+    /// > Important: Available on iOS 16.1+. Must be paired with `defaultSetup()` called earlier in the launch path.
+    /// > Obj-C / plugin callers are additionally protected by a runtime availability guard
+    /// > inside the implementation — calling on iOS < 16.1 is a logged no-op.
+    @available(iOS 16.1, *)
+    static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any])
+
+    /// Starts a Live Activity using the default Pushwoosh-managed attributes with completion handler.
+    ///
+    /// - Parameters:
+    ///   - activityId: Unique identifier for this activity instance used for targeting updates.
+    ///   - attributes: Static attribute dictionary that does not change across the activity lifetime.
+    ///   - content: Initial dynamic content-state dictionary rendered by the widget.
+    ///   - completion: Completion handler called with `nil` on success or an `Error` if the
+    ///     OS version is below 16.1 or `Activity.request()` throws.
+    ///
+    /// > Important: Available on iOS 16.1+. Obj-C / plugin callers are additionally protected
+    /// > by a runtime availability guard — calling on iOS < 16.1 invokes the completion with
+    /// > an `Error` describing the unsupported OS version.
+    @available(iOS 16.1, *)
+    static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any], completion: @escaping (Error?) -> Void)
+}
+
+// Default no-op fallbacks for external conformers (custom mocks / test doubles).
+// The concrete `PushwooshLiveActivitiesImplementationSetup` overrides these —
+// when the module is not linked, `PushwooshModuleRegistry` returns
+// `PWMissingModule` which forwards all selectors to a logged no-op. These
+// defaults exist only so that future external conformers don't break
+// source-compatibility when new requirements land on the protocol.
+//
+// `defaultStart(...:completion:)` returns an explicit error so an integrator's custom conformer
+// that forgets to override doesn't silently report success — surfacing the gap to the caller.
+public extension PWLiveActivities {
+    @available(iOS 16.1, *)
+    static func defaultSetup() { }
+    @available(iOS 16.1, *)
+    static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any]) { }
+    @available(iOS 16.1, *)
+    static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any], completion: @escaping (Error?) -> Void) {
+        let error = NSError(
+            domain: "pushwoosh",
+            code: -2,
+            userInfo: [NSLocalizedDescriptionKey:
+                "defaultStart(_:attributes:content:completion:) is not implemented by this PWLiveActivities conformer."])
+        completion(error)
+    }
 }

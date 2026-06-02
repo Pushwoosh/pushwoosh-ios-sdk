@@ -63,6 +63,8 @@
 }
 
 - (void)tearDown {
+    [self.mockWebView stopMocking];
+    [self.mockFrame stopMocking];
     self.listener = nil;
     self.testInterface = nil;
     self.mockWebView = nil;

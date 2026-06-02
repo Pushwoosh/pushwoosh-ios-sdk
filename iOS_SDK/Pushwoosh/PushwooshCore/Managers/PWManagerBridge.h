@@ -118,7 +118,7 @@
 
 #pragma mark - URL Handling
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 - (BOOL)handleOpenURL:(NSURL *)url;
 #endif
 

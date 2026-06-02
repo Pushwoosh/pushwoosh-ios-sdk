@@ -170,13 +170,6 @@ void heavy_operation_impl(const char *function) {
 + (void)applicationOpenURL:(NSURL *)url {
 }
 
-#if TARGET_OS_WATCH
-
-+ (void)openUrl:(NSURL *)url {
-    //
-}
-
-#else
 //This method is added to work with shorten urls
 //According to ios 6, if user isn't logged in appstore, then when safari opens itunes url system will ask permission to run appstore.
 //But still if application open appstore url, system will open it without any alerts.
@@ -224,8 +217,6 @@ void heavy_operation_impl(const char *function) {
 		[self applicationOpenURL:url];
 	});
 }
-
-#endif
 
 + (void)swizzle:(Class)cls fromSelector:(SEL)fromChange toSelector:(SEL)toChange implementation:(IMP)impl typeEncoding:(const char *)typesEncoding {
 	Method method = nil;

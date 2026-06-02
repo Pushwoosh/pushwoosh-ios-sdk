@@ -14,6 +14,7 @@ import _SwiftConcurrencyShims
 @_inheritsConvenienceInitializers @available(iOS 12.0, *)
 @objc(PushwooshKeychainImplementation) public class PushwooshKeychainImplementation : ObjectiveC.NSObject, PushwooshBridge.PWKeychain {
   @objc(shared) public static let shared: PushwooshKeychain.PushwooshKeychainImplementation
+  @objc public static let backchannelProvider: any PushwooshBridge.PWKeychainPersistentHWIDProvider
   @objc public static func keychain() -> Swift.AnyClass
   @objc public static var isEnabled: Swift.Bool {
     @objc get

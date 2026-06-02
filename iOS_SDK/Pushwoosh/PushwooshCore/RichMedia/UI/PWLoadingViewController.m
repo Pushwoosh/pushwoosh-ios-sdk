@@ -6,7 +6,7 @@
 //  Copyright © 2017 Pushwoosh. All rights reserved.
 //
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 
 #import "PWLoadingViewController.h"
 #import "PWRichMediaManager.h"

@@ -120,6 +120,60 @@
             ]
           },
           {
+            "kind": "Var",
+            "name": "backchannelProvider",
+            "printedName": "backchannelProvider",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWKeychainPersistentHWIDProvider",
+                "printedName": "any PushwooshBridge.PWKeychainPersistentHWIDProvider",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWKeychainPersistentHWIDProvider"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation(cpy)backchannelProvider",
+            "mangledName": "$s17PushwooshKeychain0aB14ImplementationC19backchannelProvider0A6Bridge32PWKeychainPersistentHWIDProvider_pvpZ",
+            "moduleName": "PushwooshKeychain",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWKeychainPersistentHWIDProvider",
+                    "printedName": "any PushwooshBridge.PWKeychainPersistentHWIDProvider",
+                    "usr": "c:@M@PushwooshBridge@objc(pl)PWKeychainPersistentHWIDProvider"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation(cm)backchannelProvider",
+                "mangledName": "$s17PushwooshKeychain0aB14ImplementationC19backchannelProvider0A6Bridge32PWKeychainPersistentHWIDProvider_pvgZ",
+                "moduleName": "PushwooshKeychain",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
             "kind": "Function",
             "name": "keychain",
             "printedName": "keychain()",

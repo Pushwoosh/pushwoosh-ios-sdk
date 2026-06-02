@@ -45,6 +45,7 @@
     // Put teardown code here. This method is called after the invocation of each test method in the class.
 }
 
+/// Verifies that when appGroupsName is empty, PWPreferences reads PWInAppUserId from standardUserDefaults.
 - (void)testAppGroupsNameIsEmpty {
     id mockConfig = OCMPartialMock([PWConfig config]);
     OCMStub([mockConfig appGroupsName]).andReturn(nil);
@@ -54,10 +55,13 @@
     _settings = [[PWPreferences alloc] init];
 
     OCMVerifyAll(mockNSUserDefaults);
-    XCTAssertEqual([_settings userId], @"someUserID");
+    XCTAssertEqualObjects([_settings userId], @"someUserID");
+
     [mockNSUserDefaults stopMocking];
+    [mockConfig stopMocking];
 }
 
+/// Verifies that an existing userId stored in standardUserDefaults is preserved when migrating to an App Group.
 - (void)testUserUpdatedSDKAndChangeUserDefaultsToAppGroups {
     NSString *appGroupName = @"someAppGroup";
     NSString *prevSavedUserId = @"prevSavedUserId";
@@ -68,23 +72,30 @@
 
     _settings = [[PWPreferences alloc] init];
 
-    XCTAssertEqual([_settings userId], prevSavedUserId);
+    XCTAssertEqualObjects([_settings userId], prevSavedUserId);
+
     [mockNSUserDefaults stopMocking];
+    [mockConfig stopMocking];
 }
 
+/// Verifies that when appGroupsName is configured, PWPreferences initializes NSUserDefaults via initWithSuiteName:.
 - (void)testUserIdFromSuiteName {
     NSString *appGroupName = @"someAppGroup";
     id mockConfig = OCMPartialMock([PWConfig config]);
     OCMStub([mockConfig appGroupsName]).andReturn(appGroupName);
-    id mockNSUSerDefaults = OCMClassMock([NSUserDefaults class]);
-    OCMStub([mockNSUSerDefaults alloc]).andReturn(mockNSUSerDefaults);
-    OCMStub([mockNSUSerDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockNSUSerDefaults);
+    id mockNSUserDefaults = OCMClassMock([NSUserDefaults class]);
+    OCMStub([mockNSUserDefaults alloc]).andReturn(mockNSUserDefaults);
+    OCMExpect([mockNSUserDefaults initWithSuiteName:appGroupName]).andReturn(mockNSUserDefaults);
 
     _settings = [[PWPreferences alloc] init];
 
-    OCMVerifyAll(mockNSUSerDefaults);
+    OCMVerifyAll(mockNSUserDefaults);
+
+    [mockNSUserDefaults stopMocking];
+    [mockConfig stopMocking];
 }
 
+/// Verifies that setUserId persists the value to standardUserDefaults under the PWInAppUserId key when no App Group is configured.
 - (void)testSetUserIdAppGroupNameNil {
     NSString *kUserId = @"PWInAppUserId";
     NSString *mockUserId = @"mockUserId";
@@ -96,6 +107,9 @@
     [_settings setUserId:mockUserId];
 
     OCMVerifyAll(mockNSUserDefaults);
+
+    [mockNSUserDefaults stopMocking];
+    [mockConfig stopMocking];
 }
 
 #pragma mark - SDK-796 Android parity — appCode sharing via App Groups

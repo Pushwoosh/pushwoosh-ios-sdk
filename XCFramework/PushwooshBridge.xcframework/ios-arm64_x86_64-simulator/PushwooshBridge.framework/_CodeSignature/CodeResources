@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/PushwooshBridge-Swift.h</key>
 		<data>
-		c82UrIQUmbtwwNsmpixzXCWXPpY=
+		h2rTcJtil5gzhR0AvC+QZsACoQ8=
 		</data>
 		<key>Headers/PushwooshBridge.h</key>
 		<data>
@@ -14,47 +14,47 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		JO0bUP6+F1XBdh4xuTPDhufjbHQ=
+		YDwBzB6huJa0gHLPYSfVtymcCPo=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		rrzswJwpSwEFS/nSuN6O7OPzEKs=
+		o1JTSGGaLtHLF60SVqASjgy1YYw=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		mFXmbIlFgyVmCa5+RNtTLL/c3Lc=
+		4YUcp49FC054aeeloD+hZZ8L1DY=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		u1YhgIrpvxq2xHmzcMAACpA4kEc=
+		Q3jHK4VUdoRbABpG0lwBmQD4VcU=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		mFXmbIlFgyVmCa5+RNtTLL/c3Lc=
+		4YUcp49FC054aeeloD+hZZ8L1DY=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		I43R0ftX2yM2KYMqpRoxIPyR50E=
+		Z1GrjPzAY5LXFhzKte4+NL/Ld5g=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		rrzswJwpSwEFS/nSuN6O7OPzEKs=
+		o1JTSGGaLtHLF60SVqASjgy1YYw=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		PNVxI2WToB2JF/Cu+alQbfY03YI=
+		neU+xJXNMPAZiuhn+gmUrkqjPkM=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		7hF3EkGno/+eVIAcm+FH+2B1+h4=
+		Ayl1vq2Anj2bzZWSiNfx7fEWJ/4=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		PNVxI2WToB2JF/Cu+alQbfY03YI=
+		neU+xJXNMPAZiuhn+gmUrkqjPkM=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		7II5qHzglPQVmNqbgU+DNRTEkh8=
+		T/bi8Kh1ivHNPhDXajqD64L637M=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -71,7 +71,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			BBZeQ9xiZ2QJ1/TXefYnvwBJhZHFAHT4+sdyy6OQH9Y=
+			cbJ3rLXLjFJKKXvVWVZBbgfKmK9NibOJ5ue+OuV3jbU=
 			</data>
 		</dict>
 		<key>Headers/PushwooshBridge.h</key>
@@ -85,70 +85,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			MF71tciR3UDeKW6+nrbtquUUjgY5ZX3fG8TK6azobm8=
+			cDH6iAkTX8SXZ4DAI/O0fxKLKI9FZnXz/6qWIYkoeaw=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			kfK/qvEIohcSKAowYWEV3ElKU3zyieA5DCaW7fg4LMQ=
+			Qon4g7mlgWK6uVZTOfKmQYI+Il6srAtcbiQGIMMK93A=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			GJI8pc4udCua6lIxC7CbDbz5TveuKlhuFq7rRpPbSzQ=
+			g9c6HABtpqunvjRdVoNHGkrM3TwN91LBbWHeQhqc9EA=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			kfK/qvEIohcSKAowYWEV3ElKU3zyieA5DCaW7fg4LMQ=
+			Qon4g7mlgWK6uVZTOfKmQYI+Il6srAtcbiQGIMMK93A=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			NEEqTiIhI9ZwXx28bfZZL/afrtu/48aX2QQ6rGjFYBU=
+			tx/pWbEeLFGHfLAoLMkQVPa86PCubE96YoZsBZmVCME=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			MF71tciR3UDeKW6+nrbtquUUjgY5ZX3fG8TK6azobm8=
+			cDH6iAkTX8SXZ4DAI/O0fxKLKI9FZnXz/6qWIYkoeaw=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1TbwWTtNJWGWwiWfj9C/PwJTbaYfNCiBV6cxcy4wRyU=
+			X/rhRSCMnxoBB9hmPWV8pQJxbyAvjyYE2gwhvNE8ZIw=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			WInRIg86S+4RhJOUwQWiumsU4kgy9qyfVcAAKSPOG4s=
+			LFnhgc/mMn9UI4h1xbaifXk5wX4RUXZmMv75z6ijvHE=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1TbwWTtNJWGWwiWfj9C/PwJTbaYfNCiBV6cxcy4wRyU=
+			X/rhRSCMnxoBB9hmPWV8pQJxbyAvjyYE2gwhvNE8ZIw=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			Bm7H3GE73mt5PriVRl5bZq/wzMW1Pwp8vN4CRExkdLw=
+			NLOqkFMZZLjZPqwcMCfLLuvxi0uvrRcYZZeR74KeNQE=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

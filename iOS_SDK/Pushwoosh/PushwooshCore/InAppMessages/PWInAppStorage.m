@@ -37,16 +37,27 @@ static NSString *const KeyInAppSavedResources = @"InAppSavedResources";
 		NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:KeyInAppSavedResources];
         _listeners = [NSMutableArray new];
 
-		if (data) {
+		if (data.length > 0) {
             if (TARGET_OS_IOS || TARGET_OS_TV) {
-                NSSet *set = [NSSet setWithObjects:[PWResource class], [NSString class], [NSDictionary class], nil];
+                NSSet *set = [NSSet setWithObjects:
+                              [PWResource class],
+                              [NSMutableDictionary class],
+                              [NSDictionary class],
+                              [NSMutableArray class],
+                              [NSArray class],
+                              [NSString class],
+                              [NSNumber class],
+                              [NSDate class],
+                              [NSNull class],
+                              nil];
                 NSError *error = nil;
                 _resources = [NSKeyedUnarchiver unarchivedObjectOfClasses:set fromData:data error:&error];
                 if (error) {
                     [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Deserialization failed: %@", error.localizedDescription]];
                 }
             }
-		} else {
+		}
+		if (!_resources) {
 			_resources = @{};
 		}
 	}

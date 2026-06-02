@@ -101,6 +101,10 @@ extension PushwooshBridge.PWVoIP {
   public init(rawPayload: [Swift.AnyHashable : Any])
   @objc deinit
 }
+@available(iOS 14.0, *)
+extension PushwooshVoIP.PushwooshVoIPImplementation {
+  @objc public static let configureBackchannel: any PushwooshBridge.PWVoIPConfigureHandler
+}
 extension PushwooshVoIP.PWVoIPHandleType : Swift.Equatable {}
 extension PushwooshVoIP.PWVoIPHandleType : Swift.Hashable {}
 extension PushwooshVoIP.PWVoIPHandleType : Swift.RawRepresentable {}

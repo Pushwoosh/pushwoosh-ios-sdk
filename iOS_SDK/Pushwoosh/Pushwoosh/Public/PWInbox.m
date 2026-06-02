@@ -73,7 +73,7 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
         // At the moment of UIApplicationWillEnterForegroundNotification socket may not be ready yet and request may fail
         // So we use UIApplicationDidBecomeActiveNotification
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(wentForeground) name:
-#if TARGET_OS_IOS || TARGET_OS_WATCH || TARGET_OS_TV
+#if TARGET_OS_IOS || TARGET_OS_TV
          UIApplicationDidBecomeActiveNotification
 #elif TARGET_OS_OSX
          NSApplicationDidBecomeActiveNotification

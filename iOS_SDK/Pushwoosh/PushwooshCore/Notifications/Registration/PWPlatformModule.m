@@ -15,9 +15,6 @@
 #import "PWNotificationManagerCompattvOS.h"
 #elif TARGET_OS_OSX
 #import "PWNotificationManagerCompatmacOS.h"
-#elif TARGET_OS_WATCH
-#import "PWNotificationManagerCompatwatchOS.h"
-#import "PWNotificationCategoryBuilderwatchOS.h"
 #endif
 
 #import <UserNotifications/UNUserNotificationCenter.h>
@@ -39,8 +36,6 @@
 		_notificationManagerCompat = [PWNotificationManagerCompattvOS new];
 #elif TARGET_OS_OSX
 		_notificationManagerCompat = [PWNotificationManagerCompatmacOS new];
-#elif TARGET_OS_WATCH
-        _notificationManagerCompat = [PWNotificationManagerCompatwatchOS new];
 #endif
 
 #if TARGET_OS_IOS
@@ -50,8 +45,6 @@
 		else {
 			_NotificationCategoryBuilder = [PWNotificationCategoryBuilder class];
 		}
-#elif TARGET_OS_WATCH
-        _NotificationCategoryBuilder = [PWNotificationCategoryBuilderwatchOS class];
 #endif
 	}
 	return self;

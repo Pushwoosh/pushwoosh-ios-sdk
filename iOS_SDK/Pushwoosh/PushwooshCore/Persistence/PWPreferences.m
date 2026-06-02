@@ -11,6 +11,7 @@
 #import "PWUtils.h"
 #import "Constants.h"
 #import "PWSdkStateProvider.h"
+#import "PWModuleResolution.h"
 #import <PushwooshCore/PushwooshLog.h>
 
 #if TARGET_OS_IOS
@@ -808,40 +809,12 @@ static BOOL _isInitializing = NO;
 #pragma mark - Keychain Persistent HWID
 
 - (NSString *)getPersistentHWIDIfAvailable {
-    Class keychainClass = NSClassFromString(@"PushwooshKeychainImplementation");
-    if (keychainClass == nil) {
+    id<PWKeychainPersistentHWIDProvider> provider =
+        [PushwooshModuleRegistry handlerForIdentifier:PWModuleIdentifierKeychain];
+    if (!provider || !provider.isPersistentHWIDEnabled) {
         return nil;
     }
-
-    SEL isEnabledSelector = NSSelectorFromString(@"isEnabled");
-    if (![keychainClass respondsToSelector:isEnabledSelector]) {
-        return nil;
-    }
-
-    NSMethodSignature *signature = [keychainClass methodSignatureForSelector:isEnabledSelector];
-    NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-    [invocation setSelector:isEnabledSelector];
-    [invocation setTarget:keychainClass];
-    [invocation invoke];
-
-    BOOL isEnabled = NO;
-    [invocation getReturnValue:&isEnabled];
-
-    if (!isEnabled) {
-        return nil;
-    }
-
-    SEL getPersistentHWIDSelector = NSSelectorFromString(@"getPersistentHWID");
-    if (![keychainClass respondsToSelector:getPersistentHWIDSelector]) {
-        return nil;
-    }
-
-#pragma clang diagnostic push
-#pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-    NSString *persistentHWID = [keychainClass performSelector:getPersistentHWIDSelector];
-#pragma clang diagnostic pop
-
-    return persistentHWID;
+    return [provider persistentHWID];
 }
 
 @end

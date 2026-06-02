@@ -34,27 +34,6 @@
       },
       {
         "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "PushwooshLiveActivities"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "PushwooshLiveActivities"
-      },
-      {
-        "kind": "Import",
-        "name": "PushwooshCore",
-        "printedName": "PushwooshCore",
-        "declKind": "Import",
-        "moduleName": "PushwooshLiveActivities"
-      },
-      {
-        "kind": "Import",
         "name": "Foundation",
         "printedName": "Foundation",
         "declKind": "Import",
@@ -1666,8 +1645,7 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl",
-              "RawDocComment"
+              "AccessControl"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1723,8 +1701,7 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl",
-              "RawDocComment"
+              "AccessControl"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1760,8 +1737,7 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl",
-              "RawDocComment"
+              "AccessControl"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1823,8 +1799,7 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl",
-              "RawDocComment"
+              "AccessControl"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1848,8 +1823,7 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl",
-              "RawDocComment"
+              "AccessControl"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1899,8 +1873,7 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl",
-              "RawDocComment"
+              "AccessControl"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1930,8 +1903,7 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl",
-              "RawDocComment"
+              "AccessControl"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -1987,8 +1959,7 @@
             "declAttributes": [
               "Final",
               "ObjC",
-              "AccessControl",
-              "RawDocComment"
+              "AccessControl"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -2077,12 +2048,11 @@
             "mangledName": "$s23PushwooshLiveActivities0abC19ImplementationSetupC07defaultE0yyFZ",
             "moduleName": "PushwooshLiveActivities",
             "static": true,
-            "intro_iOS": "16.1",
+            "objc_name": "defaultSetup",
             "declAttributes": [
               "Final",
-              "AccessControl",
-              "Available",
               "ObjC",
+              "AccessControl",
               "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
@@ -2147,20 +2117,18 @@
             "mangledName": "$s23PushwooshLiveActivities0abC19ImplementationSetupC12defaultStart_10attributes7contentySS_SDySSypGAGtFZ",
             "moduleName": "PushwooshLiveActivities",
             "static": true,
-            "intro_iOS": "16.1",
+            "objc_name": "defaultStart:attributes:content:",
             "declAttributes": [
               "Final",
-              "AccessControl",
-              "Available",
               "ObjC",
-              "RawDocComment"
+              "AccessControl"
             ],
             "funcSelfKind": "NonMutating"
           },
           {
             "kind": "Function",
-            "name": "setPushToStartToken",
-            "printedName": "setPushToStartToken(_:withToken:)",
+            "name": "defaultStart",
+            "printedName": "defaultStart(_:attributes:content:completion:)",
             "children": [
               {
                 "kind": "TypeNominal",
@@ -2169,35 +2137,85 @@
               },
               {
                 "kind": "TypeNominal",
-                "name": "Metatype",
-                "printedName": "τ_0_0.Type",
-                "children": [
-                  {
-                    "kind": "TypeNominal",
-                    "name": "GenericTypeParam",
-                    "printedName": "τ_0_0"
-                  }
-                ]
-              },
-              {
-                "kind": "TypeNominal",
                 "name": "String",
                 "printedName": "Swift.String",
                 "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "((any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
               }
             ],
             "declKind": "Func",
-            "usr": "s:23PushwooshLiveActivities0abC19ImplementationSetupC19setPushToStartToken_04withJ0yxm_SSt11ActivityKit0L10AttributesRzlFZ",
-            "mangledName": "$s23PushwooshLiveActivities0abC19ImplementationSetupC19setPushToStartToken_04withJ0yxm_SSt11ActivityKit0L10AttributesRzlFZ",
+            "usr": "c:@M@PushwooshLiveActivities@objc(cs)PushwooshLiveActivitiesImplementationSetup(cm)defaultStart:attributes:content:completion:",
+            "mangledName": "$s23PushwooshLiveActivities0abC19ImplementationSetupC12defaultStart_10attributes7content10completionySS_SDySSypGAHys5Error_pSgctFZ",
             "moduleName": "PushwooshLiveActivities",
-            "genericSig": "<τ_0_0 where τ_0_0 : ActivityKit.ActivityAttributes>",
-            "sugared_genericSig": "<Attributes where Attributes : ActivityKit.ActivityAttributes>",
             "static": true,
-            "intro_iOS": "17.2",
+            "objc_name": "defaultStart:attributes:content:completion:",
             "declAttributes": [
               "Final",
-              "AccessControl",
-              "Available"
+              "ObjC",
+              "AccessControl"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -3830,6 +3848,102 @@
             ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "defaultStart",
+            "printedName": "defaultStart(_:attributes:content:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "((any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge16PWLiveActivitiesP0a4LiveD0E12defaultStart_10attributes7content10completionySS_SDySSypGAIys5Error_pSgctFZ",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP0a4LiveD0E12defaultStart_10attributes7content10completionySS_SDySSypGAIys5Error_pSgctFZ",
+            "moduleName": "PushwooshLiveActivities",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
+            "static": true,
+            "intro_iOS": "16.1",
+            "declAttributes": [
+              "Available",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
           }
         ],
         "declKind": "Protocol",
@@ -3867,6 +3981,27 @@
       "offset": 260,
       "length": 25,
       "value": "\"PushwooshLiveActivities.PWRequestStopLiveActivity\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "kind": "Array",
+      "offset": 635,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "kind": "Dictionary",
+      "offset": 714,
+      "length": 3,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "kind": "Dictionary",
+      "offset": 791,
+      "length": 3,
+      "value": "[]"
     }
   ]
 }

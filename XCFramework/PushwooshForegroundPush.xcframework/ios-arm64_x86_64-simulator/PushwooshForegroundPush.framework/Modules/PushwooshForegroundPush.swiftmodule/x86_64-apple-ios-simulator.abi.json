@@ -16,30 +16,6 @@
       },
       {
         "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "PushwooshForegroundPush"
-      },
-      {
-        "kind": "Import",
-        "name": "PushwooshBridge",
-        "printedName": "PushwooshBridge",
-        "declKind": "Import",
-        "moduleName": "PushwooshForegroundPush"
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "PushwooshForegroundPush",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
         "name": "PushwooshCore",
         "printedName": "PushwooshCore",
         "declKind": "Import",
@@ -121,23 +97,6 @@
           "ObjC",
           "RawDocComment"
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "PushwooshForegroundPush",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "PushwooshForegroundPush"
       },
       {
         "kind": "Import",
@@ -1704,23 +1663,6 @@
             "mangledName": "$ss28CustomDebugStringConvertibleP"
           }
         ]
-      },
-      {
-        "kind": "Import",
-        "name": "Foundation",
-        "printedName": "Foundation",
-        "declKind": "Import",
-        "moduleName": "PushwooshForegroundPush",
-        "declAttributes": [
-          "RawDocComment"
-        ]
-      },
-      {
-        "kind": "Import",
-        "name": "UIKit",
-        "printedName": "UIKit",
-        "declKind": "Import",
-        "moduleName": "PushwooshForegroundPush"
       },
       {
         "kind": "TypeDecl",

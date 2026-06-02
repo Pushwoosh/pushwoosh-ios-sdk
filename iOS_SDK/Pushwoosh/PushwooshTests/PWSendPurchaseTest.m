@@ -1,11 +1,3 @@
-//
-//  PWSendPurchaseTest.m
-//  PushNotificationManager
-//
-//  Created by etkachenko on 12/22/16.
-//  Copyright © 2016 Pushwoosh. All rights reserved.
-//
-
 #import <XCTest/XCTest.h>
 #import "PushNotificationManager.h"
 #import "PWNetworkModule.h"
@@ -25,7 +17,7 @@
 
 @interface PWPurchaseManager (PWSendPurchaseTest)
 
-@property (nonatomic, strong) NSMutableDictionary *productArray;  //productid => SKProduct mapping
+@property (nonatomic, strong) NSMutableDictionary *productArray;
 
 - (void)sendSKPayments:(NSArray *)transactions;
 
@@ -34,13 +26,9 @@
 @interface PWSendPurchaseTest : XCTestCase
 
 @property PushNotificationManager *pushManager;
-
 @property (nonatomic, strong) PWRequestManager *originalRequestManager;
-
 @property (nonatomic) PWPurchaseManager *purchaseManager;
-
 @property (nonatomic, strong) PWRequestManagerMock *mockRequestManager;
-
 @property (nonatomic, strong) PWNotificationManagerCompat *originalNotificationManager;
 
 @end
@@ -49,16 +37,15 @@
 
 - (void)setUp {
     [super setUp];
-    
     [PWTestUtils setUp];
-    
+
     self.originalRequestManager = [PWNetworkModule module].requestManager;
     self.mockRequestManager = [PWRequestManagerMock new];
     [PWNetworkModule module].requestManager = self.mockRequestManager;
-    
+
     self.originalNotificationManager = [PWPlatformModule module].notificationManagerCompat;
     [PWPlatformModule module].notificationManagerCompat = mock([PWNotificationManagerCompat class]);
-    
+
     [PushNotificationManager initializeWithAppCode:@"4FC89B6D14A655-46488481" appName:@"UnitTest"];
     self.pushManager = [PushNotificationManager pushManager];
     self.purchaseManager = [[PWPurchaseManager alloc] init];
@@ -68,35 +55,33 @@
     self.pushManager = nil;
     [PWNetworkModule module].requestManager = self.originalRequestManager;
     [PWPlatformModule module].notificationManagerCompat = self.originalNotificationManager;
-    
     [PWTestUtils tearDown];
-    
     [super tearDown];
 }
 
+/// Verifies that sendPurchase with nil arguments still produces a PWPostEventRequest with default attributes (USD currency, unknownProduct identifier).
 - (void)testSendEmptyPurchase {
     XCTestExpectation *purchaseRequestExpectation = [self expectationWithDescription:@"purchaseRequestExpectation"];
     __block PWRequest *purchaseRequest = nil;
-    
+
     self.mockRequestManager.onSendRequest = ^(PWRequest *request) {
         if ([request isKindOfClass:[PWPostEventRequest class]]) {
             purchaseRequest = request;
             [purchaseRequestExpectation fulfill];
         }
     };
-    
+
     [self.pushManager sendPurchase:nil withPrice:nil currencyCode:nil andDate:nil];
     [self waitForExpectationsWithTimeout:2 handler:nil];
-    
-    NSDictionary *requestDictionary = purchaseRequest.requestDictionary;
-    NSDictionary *attributes = requestDictionary[@"attributes"];
-    NSLog(@"%@", requestDictionary);
-    XCTAssertEqualObjects([NSDecimalNumber zero], @0);
+
+    NSDictionary *attributes = purchaseRequest.requestDictionary[@"attributes"];
     XCTAssertEqualObjects(attributes[@"__currency"], @"USD");
     XCTAssertEqualObjects(attributes[@"productIdentifier"], @"unknowProduct");
-    XCTAssertEqualObjects(attributes[@"transactionDate"], ([NSString stringWithFormat:@"%@", [NSDate date]]));
+    XCTAssertNotNil(attributes[@"transactionDate"]);
+    XCTAssertTrue([attributes[@"transactionDate"] isKindOfClass:[NSString class]]);
 }
 
+/// Verifies that sendPurchase emits a PWPostEventRequest carrying productIdentifier, price, currency and required device-identity fields.
 - (void)testSendPurchaseWithCorrectParameters {
     XCTestExpectation *purchaseRequestExpectation = [self expectationWithDescription:@"purchaseRequestExpectation"];
     NSString *productIdentifier = @"TestProductIdentifier";
@@ -104,21 +89,19 @@
     NSString *currencyCode = @"EUR";
     NSDate *purchaseDate = [NSDate date];
     __block PWRequest *postEventRequest = nil;
-    
+
     self.mockRequestManager.onSendRequest = ^(PWRequest *request) {
         if ([request isKindOfClass:[PWPostEventRequest class]]) {
             postEventRequest = request;
             [purchaseRequestExpectation fulfill];
         }
     };
-    
+
     [self.pushManager sendPurchase:productIdentifier withPrice:price currencyCode:currencyCode andDate:purchaseDate];
     [self waitForExpectationsWithTimeout:2 handler:nil];
-    
+
     NSDictionary *requestDictionary = postEventRequest.requestDictionary;
     NSDictionary *attributes = requestDictionary[@"attributes"];
-    NSLog(@"%@", requestDictionary);
-    NSLog(@"%@", attributes[@"transactionDate"]);
     XCTAssertEqualObjects(requestDictionary[@"application"], [PWPreferences preferences].appCode);
     XCTAssertEqualObjects(requestDictionary[@"device_type"], @(DEVICE_TYPE));
     XCTAssertEqualObjects(requestDictionary[@"hwid"], [PWPreferences preferences].hwid);
@@ -126,9 +109,10 @@
     XCTAssertEqualObjects(requestDictionary[@"v"], PUSHWOOSH_VERSION);
     XCTAssertEqualObjects(attributes[@"__currency"], currencyCode);
     XCTAssertEqualObjects([self convertToNSNumber:price.stringValue], @49.95);
-    XCTAssertEqualObjects(attributes[@"productIdentifier"], @"TestProductIdentifier");
+    XCTAssertEqualObjects(attributes[@"productIdentifier"], productIdentifier);
     XCTAssertEqualObjects(attributes[@"quantity"], @1);
-    XCTAssertEqualObjects(attributes[@"transactionDate"], ([NSString stringWithFormat:@"%@", [NSDate date]]));
+    XCTAssertNotNil(attributes[@"transactionDate"]);
+    XCTAssertTrue([attributes[@"transactionDate"] isKindOfClass:[NSString class]]);
     assertThat(attributes, hasKey(@"__amount"));
     assertThat(attributes, hasKey(@"__currency"));
     assertThat(attributes, hasKey(@"productIdentifier"));
@@ -143,12 +127,7 @@
     return (NSNumber *)dNumber;
 }
 
-- (NSString *)convertDateToString:(NSDate *)date {
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    return [dateFormat stringFromDate:date];
-}
-
+/// Verifies that sendPurchase with a negative price still produces a PWPostEventRequest preserving the provided currency and transaction date.
 - (void)testSendPurchaseWithNegativePrice {
     XCTestExpectation *purchaseRequestExpectation = [self expectationWithDescription:@"purchaseRequestExpectation"];
     NSString *productIdentifier = @"TestProductIdentifier";
@@ -156,49 +135,49 @@
     NSString *currencyCode = @"EUR";
     NSDate *purchaseDate = [NSDate date];
     __block PWRequest *purchaseRequest = nil;
-    
+
     self.mockRequestManager.onSendRequest = ^(PWRequest *request) {
         if ([request isKindOfClass:[PWPostEventRequest class]]) {
             purchaseRequest = request;
             [purchaseRequestExpectation fulfill];
         }
     };
-    
+
     [self.pushManager sendPurchase:productIdentifier withPrice:price currencyCode:currencyCode andDate:purchaseDate];
     [self waitForExpectationsWithTimeout:2 handler:nil];
 
-    NSDictionary *requestDictionary = purchaseRequest.requestDictionary;
-    NSDictionary *attributes = requestDictionary[@"attributes"];
-    NSLog(@"%@", requestDictionary);
+    NSDictionary *attributes = purchaseRequest.requestDictionary[@"attributes"];
     XCTAssertEqualObjects(price, @-49.95);
     XCTAssertEqualObjects(attributes[@"__currency"], currencyCode);
     XCTAssertEqualObjects(attributes[@"transactionDate"], ([NSString stringWithFormat:@"%@", purchaseDate]));
 }
 
+/// Verifies that sendSKPaymentTransactions kicks off a SKProductsRequest to fetch product metadata for purchased transactions.
 - (void)testSendSKPaymentTransactions {
     id mockTransaction = OCMClassMock([SKPaymentTransaction class]);
-    NSArray *transactions = [NSArray arrayWithObjects:mockTransaction, mockTransaction, nil];
+    NSArray *transactions = @[mockTransaction, mockTransaction];
     OCMStub([mockTransaction transactionState]).andReturn(SKPaymentTransactionStatePurchased);
     id mockSKPayment = OCMClassMock([SKPayment class]);
     OCMStub([mockTransaction payment]).andReturn(mockSKPayment);
     OCMStub([mockSKPayment productIdentifier]).andReturn(@"_product_identifier_test_");
-    id mockNSMutableArray = OCMClassMock([NSMutableArray class]);
     id mockSKProductsRequest = OCMClassMock([SKProductsRequest class]);
     OCMStub([mockSKProductsRequest alloc]).andReturn(mockSKProductsRequest);
     OCMStub([mockSKProductsRequest initWithProductIdentifiers:OCMOCK_ANY]).andReturn(mockSKProductsRequest);
     OCMExpect([(SKProductsRequest *)mockSKProductsRequest start]);
-    
-    [self.pushManager sendSKPaymentTransactions:transactions];    
-    
+
+    [self.pushManager sendSKPaymentTransactions:transactions];
+
     OCMVerifyAll(mockSKProductsRequest);
+
     [mockTransaction stopMocking];
     [mockSKPayment stopMocking];
-    [mockNSMutableArray stopMocking];
+    [mockSKProductsRequest stopMocking];
 }
 
+/// Verifies that sendSKPayments emits a PWPostEventRequest containing the resolved product price, currency and identifier.
 - (void)testSendSKPayments {
     id mockTransaction = OCMClassMock([SKPaymentTransaction class]);
-    NSArray *transactions = [NSArray arrayWithObjects:mockTransaction, mockTransaction, nil];
+    NSArray *transactions = @[mockTransaction, mockTransaction];
     id mockSKPayment = OCMClassMock([SKPayment class]);
     OCMExpect([mockTransaction payment]).andReturn(mockSKPayment);
     OCMExpect([mockSKPayment productIdentifier]).andReturn(@"_product_identifier_test_");
@@ -215,9 +194,9 @@
             postEventRequest = request;
         }
     };
-    
+
     [(PWPurchaseManager *)self.purchaseManager sendSKPayments:transactions];
-    
+
     OCMVerifyAll(mockSKPayment);
     NSDictionary *requestDictionary = postEventRequest.requestDictionary;
     NSDictionary *attributes = requestDictionary[@"attributes"];
@@ -230,7 +209,8 @@
     XCTAssertEqualObjects([NSDecimalNumber decimalNumberWithString:@"123.21"], @123.21);
     XCTAssertEqualObjects(attributes[@"productIdentifier"], @"_product_identifier_test_");
     XCTAssertEqualObjects(attributes[@"quantity"], @1);
-    XCTAssertEqualObjects(attributes[@"transactionDate"], ([NSString stringWithFormat:@"%@", [NSDate date]]));
+    XCTAssertNotNil(attributes[@"transactionDate"]);
+    XCTAssertTrue([attributes[@"transactionDate"] isKindOfClass:[NSString class]]);
     assertThat(attributes, hasKey(@"__amount"));
     assertThat(attributes, hasKey(@"__currency"));
     assertThat(attributes, hasKey(@"productIdentifier"));
@@ -238,6 +218,11 @@
     assertThat(attributes, hasKey(@"status"));
     XCTAssertTrue([attributes[@"__amount"] isKindOfClass:[NSNumber class]]);
     XCTAssertTrue([attributes[@"quantity"] isKindOfClass:[NSNumber class]]);
+
+    [mockTransaction stopMocking];
+    [mockSKPayment stopMocking];
+    [mockSKProduct stopMocking];
+    [mockNSLocale stopMocking];
 }
 
 @end

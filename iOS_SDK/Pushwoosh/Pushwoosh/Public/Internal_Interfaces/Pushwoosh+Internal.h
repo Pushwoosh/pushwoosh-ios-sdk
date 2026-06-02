@@ -44,5 +44,9 @@
 
 + (void)destroy;
 
+/// Test seam — resets the `+ensureInitialized` `dispatch_once` predicate so unit
+/// tests can re-exercise the app-code resolution path. NOT for production use.
++ (void)_resetEnsureInitializedForTesting;
+
 @end
 

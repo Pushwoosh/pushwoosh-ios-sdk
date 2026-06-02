@@ -1,11 +1,3 @@
-//
-//  PWConfig.m
-//  PushwooshTests
-//
-//  Created by Fectum on 20/09/2018.
-//  Copyright © 2018 Pushwoosh. All rights reserved.
-//
-
 #import <XCTest/XCTest.h>
 #import "PWConfig.h"
 #import "PWBundleMock.h"
@@ -18,40 +10,32 @@
 
 @implementation PWConfigTest
 
-- (void)setUp {
-    [super setUp];
-    
-    // Put setup code here. This method is called before the invocation of each test method in the class.
-}
-
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-    [super tearDown];
-}
-
+/// Verifies that sendPushStatIfAlertsDisabled reads back NO from the Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED Info.plist key.
 - (void)testSendPushStatIfAlertsDisabledNo {
     PWBundleMock *bundleMock = (id)[PWBundleMock new];
     bundleMock.sendPushStatIfAlertsDisabled = NO;
 
     _config = [[PWConfig alloc] initWithBundle:bundleMock];
-    BOOL result = _config.sendPushStatIfAlertsDisabled;
-    XCTAssertEqual(NO, result);
+
+    XCTAssertFalse(_config.sendPushStatIfAlertsDisabled);
 }
 
+/// Verifies that sendPushStatIfAlertsDisabled reads back YES from the Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED Info.plist key.
 - (void)testSendPushStatIfAlertsDisabledYes {
     PWBundleMock *bundleMock = (id)[PWBundleMock new];
     bundleMock.sendPushStatIfAlertsDisabled = YES;
     _config = [[PWConfig alloc] initWithBundle:bundleMock];
-    BOOL result = _config.sendPushStatIfAlertsDisabled;
-    XCTAssertEqual(YES, result);
+
+    XCTAssertTrue(_config.sendPushStatIfAlertsDisabled);
 }
 
+/// Verifies that sendPurchaseTrackingEnabled reads back YES from the Pushwoosh_PURCHASE_TRACKING_ENABLED Info.plist key.
 - (void)testSendPurchaseTrackingEnabled {
     PWBundleMock *bundleMock = (id)[PWBundleMock new];
     bundleMock.sendPurchaseTrackingEnabled = YES;
     _config = [[PWConfig alloc] initWithBundle:bundleMock];
-    BOOL result = _config.sendPurchaseTrackingEnabled;
-    XCTAssertEqual(YES, result);
+
+    XCTAssertTrue(_config.sendPurchaseTrackingEnabled);
 }
 
 /// Verifies that idle tracking is disabled when no timeout key is configured (Android parity).

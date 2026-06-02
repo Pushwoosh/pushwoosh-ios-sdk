@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/PushwooshVoIP-Swift.h</key>
 		<data>
-		JHYa0EI22k2bUYo/X3P5ZdcIOW0=
+		2BVNMBJcYsD8lJE9NVpbBQB4G4I=
 		</data>
 		<key>Headers/PushwooshVoIP.h</key>
 		<data>
@@ -14,47 +14,47 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		auRhrQhNsjZ1tE+75xUpgxpuC8U=
+		ji7QvhS+IlJum2ekI/FOOhCbPRI=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		2xRVsSUdCokrUzyei0MQeX1nLIo=
+		4FhtCWpirj8Genjd3LY6I58XWFg=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		DDRXirq5K1r2MUG0sFGl93uHe10=
+		GH1LIlSHJQvBsW0W91osBcZRu+c=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		4OTm7P0MWguujZOTiZcG99ZYIUU=
+		beeyeMBXInCNESdNqviz8NooGFo=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		DDRXirq5K1r2MUG0sFGl93uHe10=
+		GH1LIlSHJQvBsW0W91osBcZRu+c=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		mfnF2GBE86ncDAs1qRUdVVa0rs0=
+		T91ilE+Lj44TPzjxQ/ozGtaz0d8=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		2xRVsSUdCokrUzyei0MQeX1nLIo=
+		4FhtCWpirj8Genjd3LY6I58XWFg=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
-		SS/gsUUpA36a7ZHVLKW0uN71iTY=
+		ywMLJlFrP3j+K2MLdS1Rg1uVNco=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		tD754ttkAXIU6kF4L5t6bEo8W9k=
+		xW6MX03xaW13rbyV3rjRIKeib78=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
-		SS/gsUUpA36a7ZHVLKW0uN71iTY=
+		ywMLJlFrP3j+K2MLdS1Rg1uVNco=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		BbqHkhIPiLpCLvuxwwm+WW/8Acs=
+		h1TIvwiC6E/crUlaCUu0Tc+HMnY=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -71,7 +71,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			wvbi06pTY3HTW3FIH7Cb/BDa2FPphZFiRB8Mm9APfdE=
+			Z3931IM/JUNwJh18tHaHzUgpIQw4mXXBU0MIvFw+tCI=
 			</data>
 		</dict>
 		<key>Headers/PushwooshVoIP.h</key>
@@ -85,70 +85,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			0pQMnNnRT19X2qPTuYH0OyEt8takqe879Zgi2RbXePU=
+			MaARvn8nXZ6Z35aY2qgmxO2hYveGni9bpjkS7WR5kX4=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			kxu2I8FuNxtilHZq7vJb7ElZl5PfrvWRajt0A0jUYZI=
+			uxu/HvePxmgTjvOprbH2VQecc9+P+Z5RVaOUYh752m0=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			EqeVz+PZrLXZCgjZrWIDuy1P/qbSbSmsPNoUXkc4LOs=
+			8TveBef6GufDxq5q8b32esqYgojKsp9Or7ddrqNZ9pI=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			kxu2I8FuNxtilHZq7vJb7ElZl5PfrvWRajt0A0jUYZI=
+			uxu/HvePxmgTjvOprbH2VQecc9+P+Z5RVaOUYh752m0=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1mY3JK/Pau46xt1TwKKWGDcYXSmZNIDiqLLpMGDikIc=
+			Fk9emgwkvAuMfwf2/AdLes32HSEl8DR757pg5udf5YA=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			0pQMnNnRT19X2qPTuYH0OyEt8takqe879Zgi2RbXePU=
+			MaARvn8nXZ6Z35aY2qgmxO2hYveGni9bpjkS7WR5kX4=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			unw/HQiRN/xlqzgq1VUxq1/u2ffVo/cdeqwEeMEQgoI=
+			wu5nvWAATE60KktDzivVwZsHe2ROnJCtS18BmtEHnDg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			u6N9fyBTeNjDMprdCtaCtmRkcEFjkDXhSTQlElrqrDQ=
+			B4P61eEgErYzxXbAFc4YR4a1I8AaRtmSTzgCiBJa8xc=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			unw/HQiRN/xlqzgq1VUxq1/u2ffVo/cdeqwEeMEQgoI=
+			wu5nvWAATE60KktDzivVwZsHe2ROnJCtS18BmtEHnDg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			039xPMlv4VnenxgB2SlbuTjcp2xfmepR1wdFCNREeLQ=
+			HsIRlEG6EsjaD+cSzvBR0L2JKD7pyPlQ/xWjDlcvW8E=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

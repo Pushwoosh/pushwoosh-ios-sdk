@@ -18,6 +18,8 @@
 
 static NSString* PUSHWOOSH_JS = @"window.pushwoosh = {\
 postEvent: function(event, attributes, successCallback, errorCallback) {\
+	/* TODO(SDK-XXX): typo 'attribtes' leaks a global and never assigns 'attributes'; */\
+	/* postEvent() called with no attributes sends nil to native. Pre-existing, separate ticket. */\
 	if (!attributes) {\
 		attribtes = {};\
 	}\
@@ -323,7 +325,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 #pragma mark WKWebViewNavigationDelegate
 
 - (void)webView:(PWEasyJSWKWebView *)webView didStartProvisionalNavigation:(WKNavigation *)navigation {
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
     for (NSString* name in _javascriptInterfaces) {
         NSObject<PWJavaScriptInterface> *jsInterface = _javascriptInterfaces[name];
         if ([jsInterface respondsToSelector:@selector(onWebViewStartLoad:)]) {
@@ -335,7 +337,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"webViewDidFinishLoad"];
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
     for (NSString* name in _javascriptInterfaces) {
         NSObject<PWJavaScriptInterface> *jsInterface = _javascriptInterfaces[name];
         if ([jsInterface respondsToSelector:@selector(onWebViewFinishLoad:)]) {
@@ -379,7 +381,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
     if (navigationAction.navigationType == WKNavigationTypeLinkActivated || navigationAction.navigationType == WKNavigationTypeFormSubmitted) {
         
         BOOL isPushwooshURLScheme = [navigationAction.request.URL.scheme isEqualToString:@"pushwoosh"];
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
         if (![[UIApplication sharedApplication] canOpenURL:navigationAction.request.URL] && !isPushwooshURLScheme) {
             decisionHandler(WKNavigationActionPolicyCancel);
             return;
@@ -423,7 +425,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 }
 
 - (void)close {
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 	for (NSString* name in _javascriptInterfaces) {
 		NSObject<PWJavaScriptInterface> *jsInterface = _javascriptInterfaces[name];
 		if ([jsInterface respondsToSelector:@selector(onWebViewStartClose:)]) {

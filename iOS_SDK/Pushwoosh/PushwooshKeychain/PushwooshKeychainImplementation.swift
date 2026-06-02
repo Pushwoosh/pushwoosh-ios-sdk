@@ -25,6 +25,12 @@ public class PushwooshKeychainImplementation: NSObject, PWKeychain {
     @objc(shared)
     public static let shared = PushwooshKeychainImplementation()
 
+    /// Singleton back-channel adapter used by `PWPreferences` to retrieve the
+    /// persistent HWID without reflection. Registered with
+    /// `PushwooshModuleRegistry` by `PushwooshKeychainLoader`.
+    @objc
+    public static let backchannelProvider: PWKeychainPersistentHWIDProvider = PushwooshKeychainBackchannel()
+
     /// Cached environment to avoid repeated detection.
     private static var cachedEnvironment: PWAppEnvironment?
 
@@ -136,5 +142,25 @@ public class PushwooshKeychainImplementation: NSObject, PWKeychain {
         }
         #endif
         return UUID().uuidString
+    }
+}
+
+/// Back-channel adapter conforming to `PWKeychainPersistentHWIDProvider`.
+///
+/// Vended as a singleton via `PushwooshKeychainImplementation.backchannelProvider`
+/// and registered with `PushwooshModuleRegistry` at module load. `PWPreferences`
+/// looks the handler up and forwards `getPersistentHWIDIfAvailable` through it
+/// without touching the implementation class directly.
+@available(iOS 12.0, *)
+@objc(PushwooshKeychainBackchannel)
+final class PushwooshKeychainBackchannel: NSObject, PWKeychainPersistentHWIDProvider {
+    @objc
+    var isPersistentHWIDEnabled: Bool {
+        return PushwooshKeychainImplementation.isEnabled
+    }
+
+    @objc
+    func persistentHWID() -> String? {
+        return PushwooshKeychainImplementation.getPersistentHWID()
     }
 }

@@ -1,11 +1,3 @@
-//
-//  PWHashDecoderTest.m
-//  PushwooshTests
-//
-//  Created by André Kis on 29.10.24.
-//  Copyright © 2024 Pushwoosh. All rights reserved.
-//
-
 #import <XCTest/XCTest.h>
 #import "PWHashDecoder.h"
 #import "PWAlphabetUtils.h"
@@ -16,7 +8,7 @@
 
 @end
 
-@interface PWHashDecoder(TEST)
+@interface PWHashDecoder (TEST)
 
 - (NSString *)prependZerosIfNeeded:(BOOL)isFirstPart hexNumber:(NSString *)hexNumber;
 - (NSString *)decodeMessageCode:(NSString *)messageCode;
@@ -26,77 +18,66 @@
 @implementation PWHashDecoderTest
 
 - (void)setUp {
-    // Put setup code here. This method is called before the invocation of each test method in the class.
+    [super setUp];
     self.hashDecoder = [[PWHashDecoder alloc] init];
     [PWAlphabetUtils initialize];
 }
 
-- (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
-}
+#pragma mark - prependZerosIfNeeded:hexNumber:
 
-#pragma mark - Tests for prependZerosIfNeeded:hexNumber:
-#pragma mark -
-
+/// Verifies that a hex number already at first-part length is returned unchanged.
 - (void)testPrependZerosIfNeededWhenNoPaddingIsRequired {
-    NSString *result = [self.hashDecoder prependZerosIfNeeded:YES hexNumber:@"1234"];
-    
-    XCTAssertEqualObjects(result, @"1234", @"Should return the hex number as is when no padding is required.");
+    XCTAssertEqualObjects([self.hashDecoder prependZerosIfNeeded:YES hexNumber:@"1234"], @"1234");
 }
 
+/// Verifies that a short hex number is left-padded with zeros to reach the first-part length.
 - (void)testPrependZerosIfNeededWhenPaddingIsRequiredForFirstPart {
-    NSString *result = [self.hashDecoder prependZerosIfNeeded:YES hexNumber:@"12"];
-    
-    XCTAssertEqualObjects(result, @"0012", @"Should prepend zeros to reach first part length.");
+    XCTAssertEqualObjects([self.hashDecoder prependZerosIfNeeded:YES hexNumber:@"12"], @"0012");
 }
 
+/// Verifies that an other-part hex number is left-padded with zeros to reach the other-part length.
 - (void)testPrependZerosIfNeededWhenPaddingIsRequiredForOtherPart {
-    NSString *result = [self.hashDecoder prependZerosIfNeeded:NO hexNumber:@"12345"];
-    
-    XCTAssertEqualObjects(result, @"00012345", @"Should prepend zeros to reach other part length.");
+    XCTAssertEqualObjects([self.hashDecoder prependZerosIfNeeded:NO hexNumber:@"12345"], @"00012345");
 }
 
-#pragma mark - Tests for decodeMessageCode:
-#pragma mark -
+#pragma mark - decodeMessageCode:
 
+/// Verifies that a single-part code (no dash) is returned unchanged.
 - (void)testDecodeMessageCodeWithSinglePart {
-    NSString *result = [self.hashDecoder decodeMessageCode:@"abcd"];
-    
-    XCTAssertEqualObjects(result, @"abcd", @"Should return the input as is for single-part message code.");
+    XCTAssertEqualObjects([self.hashDecoder decodeMessageCode:@"abcd"], @"abcd");
 }
 
+/// Verifies that a multi-part code "a-1" is uppercased and each part padded to its segment length.
 - (void)testDecodeMessageCodeWithMultipleParts {
-    NSString *result = [self.hashDecoder decodeMessageCode:@"a-1"];
-
-    XCTAssertEqualObjects(result, @"000A-00000001", @"Should decode multiple parts and prepend zeros as needed.");
+    XCTAssertEqualObjects([self.hashDecoder decodeMessageCode:@"a-1"], @"000A-00000001");
 }
 
-#pragma mark - Tests for parseMessageHash:
-#pragma mark -
+#pragma mark - parseMessageHash:
 
+/// Verifies that an unrecognized hash format resets messageCode/messageId/campaignId to zero values.
 - (void)testParseMessageHashWithInvalidHash {
     [self.hashDecoder parseMessageHash:@"invalid_hash"];
-    
-    XCTAssertEqualObjects(self.hashDecoder.messageCode, @"", @"Invalid hash should reset messageCode.");
-    XCTAssertEqual(self.hashDecoder.messageId, 0, @"Invalid hash should reset messageId.");
-    XCTAssertEqual(self.hashDecoder.campaignId, 0, @"Invalid hash should reset campaignId.");
+
+    XCTAssertEqualObjects(self.hashDecoder.messageCode, @"");
+    XCTAssertEqual(self.hashDecoder.messageId, 0);
+    XCTAssertEqual(self.hashDecoder.campaignId, 0);
 }
 
+/// Verifies that a "_<campaign>_<message>_<code>" hash parses campaignId and messageId from the base-62 segments.
 - (void)testParseMessageHashWithValidHash {
-    NSString *validHash = @"_1_2_ab-cd";
-    
-    [self.hashDecoder parseMessageHash:validHash];
+    [self.hashDecoder parseMessageHash:@"_1_2_ab-cd"];
 
-    XCTAssertEqual(self.hashDecoder.campaignId, 1, @"Parsed campaignId should match expected value.");
-    XCTAssertEqual(self.hashDecoder.messageId, 2, @"Parsed messageId should match expected value.");
+    XCTAssertEqual(self.hashDecoder.campaignId, 1);
+    XCTAssertEqual(self.hashDecoder.messageId, 2);
 }
 
+/// Verifies that a hash shorter than the expected layout resets messageCode/messageId/campaignId to zero values.
 - (void)testParseMessageHashWithShortHash {
     [self.hashDecoder parseMessageHash:@"short"];
-    
-    XCTAssertEqualObjects(self.hashDecoder.messageCode, @"", @"Short hash should reset messageCode.");
-    XCTAssertEqual(self.hashDecoder.messageId, 0, @"Short hash should reset messageId.");
-    XCTAssertEqual(self.hashDecoder.campaignId, 0, @"Short hash should reset campaignId.");
+
+    XCTAssertEqualObjects(self.hashDecoder.messageCode, @"");
+    XCTAssertEqual(self.hashDecoder.messageId, 0);
+    XCTAssertEqual(self.hashDecoder.campaignId, 0);
 }
 
 @end

@@ -6,6 +6,7 @@
 
 #if TARGET_OS_IOS || TARGET_OS_TV
 #import "PWInAppMessagesManager.h"
+#import "PWModuleResolution.h"
 
 extern NSString * const PWInboxMessagesDidUpdateNotification;
 
@@ -158,25 +159,9 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 #if TARGET_OS_TV
         if (!error && resource) {
             dispatch_async(dispatch_get_main_queue(), ^{
-                Class tvosImplClass = NSClassFromString(@"PushwooshTVOSImplementation");
-                if (tvosImplClass) {
-                    SEL sharedSelector = NSSelectorFromString(@"shared");
-                    if ([tvosImplClass respondsToSelector:sharedSelector]) {
-                        #pragma clang diagnostic push
-                        #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-                        id sharedInstance = [tvosImplClass performSelector:sharedSelector];
-
-                        SEL richMediaManagerSelector = NSSelectorFromString(@"richMediaManager");
-                        if ([sharedInstance respondsToSelector:richMediaManagerSelector]) {
-                            id tvosManager = [sharedInstance performSelector:richMediaManagerSelector];
-                            SEL handleSelector = NSSelectorFromString(@"handleInAppResource:");
-                            if ([tvosManager respondsToSelector:handleSelector]) {
-                                [tvosManager performSelector:handleSelector withObject:resource];
-                            }
-                        }
-                        #pragma clang diagnostic pop
-                    }
-                }
+                id<PWTVoSInAppHandler> tvosHandler =
+                    [PushwooshModuleRegistry handlerForIdentifier:PWModuleIdentifierTVoS];
+                [tvosHandler handleInAppResource:resource];
             });
         }
 #elif TARGET_OS_IOS || TARGET_OS_OSX

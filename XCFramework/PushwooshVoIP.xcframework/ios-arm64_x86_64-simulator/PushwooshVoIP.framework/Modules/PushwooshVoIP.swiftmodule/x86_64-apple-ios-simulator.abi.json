@@ -936,6 +936,62 @@
               "Override"
             ],
             "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "configureBackchannel",
+            "printedName": "configureBackchannel",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWVoIPConfigureHandler",
+                "printedName": "any PushwooshBridge.PWVoIPConfigureHandler",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWVoIPConfigureHandler"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@CM@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cpy)configureBackchannel",
+            "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC20configureBackchannel0A6Bridge22PWVoIPConfigureHandler_pvpZ",
+            "moduleName": "PushwooshVoIP",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWVoIPConfigureHandler",
+                    "printedName": "any PushwooshBridge.PWVoIPConfigureHandler",
+                    "usr": "c:@M@PushwooshBridge@objc(pl)PWVoIPConfigureHandler"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@CM@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation(cm)configureBackchannel",
+                "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC20configureBackchannel0A6Bridge22PWVoIPConfigureHandler_pvgZ",
+                "moduleName": "PushwooshVoIP",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC",
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
           }
         ],
         "declKind": "Class",
@@ -2806,6 +2862,23 @@
         "kind": "Import",
         "name": "PushwooshCore",
         "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP"
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshVoIP",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshBridge",
+        "printedName": "PushwooshBridge",
         "declKind": "Import",
         "moduleName": "PushwooshVoIP"
       },

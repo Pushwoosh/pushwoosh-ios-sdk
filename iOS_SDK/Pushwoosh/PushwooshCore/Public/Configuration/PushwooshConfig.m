@@ -410,7 +410,7 @@ static NSString *const kZeroAdvertisingId = @"00000000-0000-0000-0000-0000000000
 
 #pragma mark - URL Handling
 
-#if TARGET_OS_IOS || TARGET_OS_WATCH
+#if TARGET_OS_IOS
 + (BOOL)handleOpenURL:(NSURL *)url {
     return [[PWManagerBridge shared] handleOpenURL:url];
 }

@@ -156,24 +156,26 @@ static id _mockNSBundle;
 	[self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
+/// Verifies that getApiToken returns the modern pushwooshApiToken value from PWConfig.
 - (void)testPushwooshApiTokenAvailable {
     NSString *pushwooshApiToken = @"qwertyuiopasdfghjklzxcvbnm_new";
-    id mockNSBundle = OCMPartialMock([PWConfig config]);
-    OCMStub([mockNSBundle pushwooshApiToken]).andReturn(pushwooshApiToken);
-    
-    [_requestManager getApiToken];
-    
-    XCTAssertEqual(pushwooshApiToken, [_requestManager getApiToken]);
+    id mockConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockConfig pushwooshApiToken]).andReturn(pushwooshApiToken);
+
+    XCTAssertEqualObjects(pushwooshApiToken, [_requestManager getApiToken]);
+
+    [mockConfig stopMocking];
 }
 
+/// Verifies that getApiToken returns the legacy apiToken value from PWConfig when modern token is absent.
 - (void)testPwApiTokenAvailable {
     NSString *pwApiToken = @"qwertyuiopasdfghjklzxcvbnm_old";
-    id mockNSBundle = OCMPartialMock([PWConfig config]);
-    OCMStub([mockNSBundle apiToken]).andReturn(pwApiToken);
-    
-    [_requestManager getApiToken];
-    
-    XCTAssertEqual(pwApiToken, [_requestManager getApiToken]);
+    id mockConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockConfig apiToken]).andReturn(pwApiToken);
+
+    XCTAssertEqualObjects(pwApiToken, [_requestManager getApiToken]);
+
+    [mockConfig stopMocking];
 }
 
 - (void)testNoHttpResponse {
@@ -289,6 +291,7 @@ static id _mockNSBundle;
 	[self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
+/// Verifies that a cacheable request returning a 500 status code is persisted into the PWRequestsCacheManager.
 - (void)testCacheFailedRequest {
     NSString *methodName = @"applicationOpen";
     NSInteger statusCode = 500;
@@ -309,12 +312,18 @@ static id _mockNSBundle;
     OCMStub([mockHTTPResponse statusCode]).andReturn(statusCode);
     OCMStub([mockRequest cacheable]).andReturn(YES);
     OCMExpect([mockPWRequestsCacheManager cacheRequest:OCMOCK_ANY]);
-    
+
     [_requestManager sendRequestInternal:request completion:^(NSError *error) {}];
-    
+
     OCMVerifyAll(mockPWRequestsCacheManager);
+
+    [mockPWRequestsCacheManager stopMocking];
+    [mockRequest stopMocking];
+    [mockSession stopMocking];
+    [mockHTTPResponse stopMocking];
 }
 
+/// Verifies that a cached request that succeeds on retry is removed from the PWRequestsCacheManager.
 - (void)testRequestDeletedAfterSuccessRetry {
     NSInteger statusCode = 200;
     double delay = 10.f;
@@ -341,12 +350,20 @@ static id _mockNSBundle;
     OCMStub([mockHTTPResponse statusCode]).andReturn(statusCode);
     id mockPWRequestsCacheManager = OCMPartialMock([PWRequestsCacheManager sharedInstance]);
     OCMExpect([mockPWRequestsCacheManager deleteCachedRequest:cachedRequest]);
-    
+
     [_requestManager sendRequestInternal:cachedRequest completion:^(NSError *error) {}];
-    
+
     OCMVerifyAll(mockPWRequestsCacheManager);
+
+    [mockCachedRequest stopMocking];
+    [mockNSUserDefaults stopMocking];
+    [mockNSDate stopMocking];
+    [mockSession stopMocking];
+    [mockHTTPResponse stopMocking];
+    [mockPWRequestsCacheManager stopMocking];
 }
 
+/// Verifies that when a retry attempt is required, the retry counter is incremented on the cached request.
 - (void)testIncreaseRetryCount {
     NSInteger statusCode = 500;
     NSString *methodName = @"applicationOpen";
@@ -368,10 +385,15 @@ static id _mockNSBundle;
     OCMStub([mockHTTPResponse statusCode]).andReturn(statusCode);
     OCMStub([mockPWRequestManager retryCountWith:OCMOCK_ANY]).andReturn(2);
     OCMExpect([mockPWRequestManager increaseRequestCounter:OCMOCK_ANY]);
-    
+
     [_requestManager sendRequestInternal:cachedRequest completion:^(NSError *error) {}];
-    
+
     OCMVerify([mockPWRequestManager increaseRequestCounter:OCMOCK_ANY]);
+
+    [mockPWRequestManager stopMocking];
+    [mockCachedRequest stopMocking];
+    [mockSession stopMocking];
+    [mockHTTPResponse stopMocking];
 }
 
 - (void)testHeaderAuthExist {
@@ -391,6 +413,7 @@ static id _mockNSBundle;
     [mockPWConfig stopMocking];
 }
 
+/// Verifies that initialTime for a cached request reads back the persisted retry delay from NSUserDefaults.
 - (void)testCheckCurrectCulculateDelay {
     double remainTime = 5.f;
     PWCachedRequest *cachedRequest = [[PWCachedRequest alloc] init];
@@ -400,10 +423,13 @@ static id _mockNSBundle;
     id mockNSDate = OCMClassMock([NSDate class]);
     OCMStub([mockNSDate date]).andReturn(mockNSDate);
     OCMStub([mockNSDate timeIntervalSince1970]).andReturn(5);
-    
+
     [_requestManager sendRequestInternal:cachedRequest completion:^(NSError *error) {}];
 
     XCTAssertEqual(remainTime, [_requestManager initialTime:cachedRequest]);
+
+    [mockNSUserDefaults stopMocking];
+    [mockNSDate stopMocking];
 }
 
 #pragma mark - SDK-814: request-blocking guard

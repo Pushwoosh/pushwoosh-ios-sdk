@@ -676,6 +676,16 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, weak) id _Nullable delegate;)
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 
+@protocol PWVoIPConfigureHandler;
+
+SWIFT_AVAILABILITY(ios,introduced=14.0)
+@interface PushwooshVoIPImplementation (SWIFT_EXTENSION(PushwooshVoIP))
+/// Singleton back-channel adapter used by <code>PWPushRuntime</code> to trigger
+/// VoIP configuration without reflection.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) id <PWVoIPConfigureHandler> _Nonnull configureBackchannel;)
++ (id <PWVoIPConfigureHandler> _Nonnull)configureBackchannel SWIFT_WARN_UNUSED_RESULT;
+@end
+
 #endif
 #if __has_attribute(external_source_symbol)
 # pragma clang attribute pop
@@ -1360,6 +1370,16 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, weak) id _Nullable delegate;)
 - (void)providerDidReset:(CXProvider * _Nonnull)provider;
 - (void)providerDidBegin:(CXProvider * _Nonnull)provider;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@protocol PWVoIPConfigureHandler;
+
+SWIFT_AVAILABILITY(ios,introduced=14.0)
+@interface PushwooshVoIPImplementation (SWIFT_EXTENSION(PushwooshVoIP))
+/// Singleton back-channel adapter used by <code>PWPushRuntime</code> to trigger
+/// VoIP configuration without reflection.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) id <PWVoIPConfigureHandler> _Nonnull configureBackchannel;)
++ (id <PWVoIPConfigureHandler> _Nonnull)configureBackchannel SWIFT_WARN_UNUSED_RESULT;
 @end
 
 #endif

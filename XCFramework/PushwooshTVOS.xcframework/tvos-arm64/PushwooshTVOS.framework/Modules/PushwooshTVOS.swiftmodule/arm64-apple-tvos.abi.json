@@ -756,6 +756,62 @@
               "ObjC"
             ],
             "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Var",
+            "name": "inAppBackchannel",
+            "printedName": "inAppBackchannel",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWTVoSInAppHandler",
+                "printedName": "any PushwooshBridge.PWTVoSInAppHandler",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWTVoSInAppHandler"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@CM@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cpy)inAppBackchannel",
+            "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC16inAppBackchannel0A6Bridge08PWTVoSInE7Handler_pvpZ",
+            "moduleName": "PushwooshTVOS",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWTVoSInAppHandler",
+                    "printedName": "any PushwooshBridge.PWTVoSInAppHandler",
+                    "usr": "c:@M@PushwooshBridge@objc(pl)PWTVoSInAppHandler"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@CM@PushwooshTVOS@objc(cs)PushwooshTVOSImplementation(cm)inAppBackchannel",
+                "mangledName": "$s13PushwooshTVOS0A18TVOSImplementationC16inAppBackchannel0A6Bridge08PWTVoSInE7Handler_pvgZ",
+                "moduleName": "PushwooshTVOS",
+                "static": true,
+                "implicit": true,
+                "declAttributes": [
+                  "ObjC",
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
           }
         ],
         "declKind": "Class",
@@ -1560,6 +1616,30 @@
             "mangledName": "$ss28CustomDebugStringConvertibleP"
           }
         ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshBridge",
+        "printedName": "PushwooshBridge",
+        "declKind": "Import",
+        "moduleName": "PushwooshTVOS"
       },
       {
         "kind": "TypeDecl",

@@ -70,8 +70,8 @@
         NSURL *url = [NSURL fileURLWithPath:self.tagsCacheFile];
         NSData *data = [NSData dataWithContentsOfURL:url];
 
-        if (data) {
-            NSSet *set = [NSSet setWithObjects:[NSDictionary class], [NSString class], [NSNumber class], [NSArray class], [NSDate class], [NSNull class], nil];
+        if (data.length > 0) {
+            NSSet *set = [NSSet setWithObjects:[NSDictionary class], [NSMutableDictionary class], [NSArray class], [NSMutableArray class], [NSString class], [NSNumber class], [NSDate class], [NSNull class], nil];
             NSError *error = nil;
             tags = [NSKeyedUnarchiver unarchivedObjectOfClasses:set fromData:data error:&error];
             if (error) {
@@ -123,8 +123,8 @@
         NSURL *url = [NSURL fileURLWithPath:self.emailTagsCacheFile];
         NSData *data = [NSData dataWithContentsOfURL:url];
 
-        if (data) {
-            NSSet *set = [NSSet setWithObjects:[NSDictionary class], [NSString class], [NSNumber class], [NSArray class], [NSDate class], [NSNull class], nil];
+        if (data.length > 0) {
+            NSSet *set = [NSSet setWithObjects:[NSDictionary class], [NSMutableDictionary class], [NSArray class], [NSMutableArray class], [NSString class], [NSNumber class], [NSDate class], [NSNull class], nil];
             NSError *error = nil;
             tags = [NSKeyedUnarchiver unarchivedObjectOfClasses:set fromData:data error:&error];
             if (error) {

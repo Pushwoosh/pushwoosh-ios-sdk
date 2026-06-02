@@ -243,12 +243,24 @@
     NSURL *url = [NSURL fileURLWithPath:path];
     NSData *data = [NSData dataWithContentsOfURL:url];
 
-    if (data == nil) {
+    if (data.length == 0) {
         return nil;
     }
 
+    NSSet *allowedClasses = [NSSet setWithObjects:
+                             [NSMutableDictionary class],
+                             [NSDictionary class],
+                             [NSMutableArray class],
+                             [NSArray class],
+                             [NSString class],
+                             [NSDate class],
+                             [NSNumber class],
+                             [NSNull class],
+                             [NSData class],
+                             [PWInboxMessageInternal class],
+                             nil];
     NSError *error = nil;
-    NSMutableDictionary *dict = [NSKeyedUnarchiver unarchivedObjectOfClass:[NSMutableDictionary class] fromData:data error:&error];
+    NSMutableDictionary *dict = [NSKeyedUnarchiver unarchivedObjectOfClasses:allowedClasses fromData:data error:&error];
     if (error != nil) {
         [PushwooshLog pushwooshLog:PW_LL_ERROR
                          className:self
