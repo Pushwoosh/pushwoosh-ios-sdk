@@ -23,6 +23,11 @@ let package = Package(
             name: "PushwooshInboxKit",
             targets: ["PushwooshInboxKit"]
         ),
+        // Optional push stories UI module (notification content extension)
+        .library(
+            name: "PushwooshNotificationUI",
+            targets: ["PushwooshNotificationUI"]
+        ),
     ],
     dependencies: [
         // SwiftProtobuf for protobuf serialization
@@ -45,6 +50,10 @@ let package = Package(
         .binaryTarget(
             name: "PushwooshInboxKit",
             path: "XCFrameworks/PushwooshInboxKit.xcframework"
+        ),
+        .binaryTarget(
+            name: "PushwooshNotificationUI",
+            path: "XCFrameworks/PushwooshNotificationUI.xcframework"
         ),
         // Wrapper target for main SDK
         .target(

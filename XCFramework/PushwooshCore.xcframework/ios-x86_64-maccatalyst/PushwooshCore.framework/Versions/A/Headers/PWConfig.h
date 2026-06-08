@@ -77,13 +77,6 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
 @property (nonatomic, copy, readonly) NSString *requestUrl;
 
 /**
- key: Pushwoosh_SDK_SELF_TEST_ENABLE
- type: boolean
- value: internal setting for testing pushes in simulator
- */
-@property (nonatomic, assign, readonly) BOOL selfTestEnabled;
-
-/**
  key: Pushwoosh_AUTO
  type: boolean
  value: deprecated setting for autointegration

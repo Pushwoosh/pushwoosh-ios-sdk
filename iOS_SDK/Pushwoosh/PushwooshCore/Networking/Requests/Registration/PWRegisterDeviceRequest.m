@@ -16,10 +16,6 @@
 #import "PWInteractivePush.h"
 #endif
 
-#if !__has_feature(objc_arc)
-#error "ARC is required to compile Pushwoosh SDK"
-#endif
-
 typedef NS_ENUM(NSInteger, PWPlatform) {
     iOS = 1,
     SMS = 18,
@@ -31,13 +27,6 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 @end
 
 @implementation PWRegisterDeviceRequest
-
-- (instancetype)init {
-    if (self = [super init]) {
-        self.cacheable = YES;
-    }
-    return self;
-}
 
 - (NSString *)methodName {
 	return @"registerDevice";

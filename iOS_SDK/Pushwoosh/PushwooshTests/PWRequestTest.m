@@ -19,6 +19,7 @@
 @property (nonatomic) BOOL usePreviousHWID;
 
 - (NSMutableDictionary *)baseDictionary;
+- (void)setRequestIdentifier:(NSString *)requestIdentifier;
 
 @end
 
@@ -98,14 +99,12 @@
     XCTAssertEqualObjects(methodName, @"");
 }
 
-- (void)testRequestIdentifierReturnsHashString {
+- (void)testRequestIdentifierIsStableAcrossCalls {
     NSString *identifier = [self.request requestIdentifier];
 
     XCTAssertNotNil(identifier);
     XCTAssertTrue(identifier.length > 0);
-
-    NSString *expectedIdentifier = [NSString stringWithFormat:@"%ld", self.request.hash];
-    XCTAssertEqualObjects(identifier, expectedIdentifier);
+    XCTAssertEqualObjects(identifier, [self.request requestIdentifier]);
 }
 
 - (void)testRequestIdentifierIsUnique {
@@ -116,6 +115,19 @@
     NSString *identifier2 = [request2 requestIdentifier];
 
     XCTAssertNotEqualObjects(identifier1, identifier2);
+}
+
+- (void)testRequestIdentifierIsValidUUIDFormat {
+    NSString *identifier = [self.request requestIdentifier];
+
+    XCTAssertEqual(identifier.length, 36);
+    XCTAssertNotNil([[NSUUID alloc] initWithUUIDString:identifier]);
+}
+
+- (void)testRequestIdentifierRespectsPresetValue {
+    self.request.requestIdentifier = @"preset-identifier-123";
+
+    XCTAssertEqualObjects([self.request requestIdentifier], @"preset-identifier-123");
 }
 
 - (void)testRequestDictionaryReturnsNil {

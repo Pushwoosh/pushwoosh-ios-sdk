@@ -129,9 +129,9 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     if (!_communicationStartedHandler) {
         _communicationStartedHandler = [[NSNotificationCenter defaultCenter] addObserverForName:kPWServerCommunicationStarted object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
             
-            [[NSNotificationCenter defaultCenter] removeObserver:_communicationStartedHandler];
-            _communicationStartedHandler = nil;
-            
+            [[NSNotificationCenter defaultCenter] removeObserver:self->_communicationStartedHandler];
+            self->_communicationStartedHandler = nil;
+
             [self sendInitRequests];
         }];
     }

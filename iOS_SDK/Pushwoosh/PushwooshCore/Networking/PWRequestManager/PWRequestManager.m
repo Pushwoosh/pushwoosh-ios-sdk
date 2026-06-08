@@ -13,17 +13,17 @@
 #import "PWPreferences.h"
 #import "PWUtils.h"
 #import <PushwooshCore/PWManagerBridge.h>
-#import "PWCachedRequest.h"
 #import "PWServerCommunicationManager.h"
 #import "PushwooshLog.h"
 #import "PWSdkStateProvider.h"
+#import "PWRetryQueue.h"
+#import "PWRetryPolicy.h"
+#import "PWRetryEntry.h"
+#import "PWRetryQueueStorage.h"
+#import "PWReplayRequest.h"
 
-#if TARGET_OS_IOS || TARGET_OS_OSX
-#import "PWRequestsCacheManager.h"
-#endif
-
-#if !__has_feature(objc_arc)
-#error "ARC is required to compile Pushwoosh SDK"
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
+#import "PWReachability.h"
 #endif
 
 @protocol PWGRPCTransport <NSObject>
@@ -32,9 +32,10 @@
 + (NSString *)transportName;
 @end
 
-@interface PWRequestManager ()
+@interface PWRequestManager () <PWRetryTransport>
 
 @property (nonatomic, strong) NSURLSession *session;
+@property (nonatomic, strong) NSURLSession *retrySession;
 
 @property (nonatomic, strong) NSObject *sendTagsLock;
 @property (nonatomic, strong) PWCombinedSetTagsRequest *combinedRequest;
@@ -45,6 +46,12 @@
 
 // gRPC transport class (dynamically loaded)
 @property (nonatomic, strong) Class grpcTransportClass;
+
+@property (nonatomic, strong) PWRetryQueue *retryQueue;
+@property (nonatomic, strong) PWRetryPolicy *retryPolicy;
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
+@property (nonatomic, strong) PWReachability *reachability;
+#endif
 
 @end
 
@@ -57,6 +64,11 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 	if (self = [super init]) {
 		NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
 		_session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+
+		NSURLSessionConfiguration *retryConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
+		retryConfiguration.timeoutIntervalForRequest = 80;
+		retryConfiguration.timeoutIntervalForResource = 80;
+		_retrySession = [NSURLSession sessionWithConfiguration:retryConfiguration delegate:nil delegateQueue:nil];
 		_sendTagsLock = [NSObject new];
 		_sendTagsCompletions = [NSMutableArray new];
 		_customHeaders = @{};
@@ -76,10 +88,36 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
                                                      name:kPWAppCodeUpdatedNotification
                                                    object:nil];
 
+#if TARGET_OS_IOS || TARGET_OS_OSX
+        _retryPolicy = [PWRetryPolicy new];
+        _retryQueue = [[PWRetryQueue alloc] initWithTransport:self
+                                                       policy:_retryPolicy
+                                                      storage:[PWRetryQueueStorage defaultStorage]];
+        [self startReachability];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onServerCommunicationStarted:)
+                                                     name:kPWServerCommunicationStarted
+                                                   object:nil];
+#endif
+
         [self evaluateReadiness];
 	}
 
 	return self;
+}
+
+- (void)startReachability {
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
+    _reachability = [PWReachability reachabilityForInternetConnection];
+    __weak typeof(self) wSelf = self;
+    _reachability.reachableBlock = ^(PWReachability *reachability) {
+        if (reachability.currentReachabilityStatus != NotReachable) {
+            [wSelf.retryQueue onNetworkReachable];
+        }
+    };
+    [_reachability startNotifier];
+#endif
 }
 
 - (void)dealloc {
@@ -117,6 +155,9 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 - (void)evaluateReadiness {
     if ([self isReadyForNetwork]) {
         [[PWSdkStateProvider sharedInstance] setReady];
+#if TARGET_OS_IOS || TARGET_OS_OSX
+        [_retryQueue flush];
+#endif
     }
 }
 
@@ -125,6 +166,10 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     dispatch_async(dispatch_get_main_queue(), ^{
         [wSelf evaluateReadiness];
     });
+}
+
+- (void)onServerCommunicationStarted:(NSNotification *)notification {
+    [_retryQueue flush];
 }
 
 - (void)logFirstQueueWarnIfNeeded:(PWRequest *)request {
@@ -331,6 +376,11 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
             if (request.httpCode != 200) {
                 NSString *statusMessage = response[@"status_message"];
                 NSError *statusError = [PWUtils pushwooshError:statusMessage ?: @"gRPC request failed"];
+#if TARGET_OS_IOS || TARGET_OS_OSX
+                if (request.cacheable && [wSelf.retryPolicy shouldRetryStatusCode:request.httpCode error:statusError]) {
+                    [wSelf.retryQueue enqueueRequest:request];
+                }
+#endif
                 if (completion) {
                     completion(statusError);
                 }
@@ -364,8 +414,27 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     }
 }
 
-- (void)sendRetryRequest:(PWRequest *)request {
-    [self sendRequestInternal:request completion:nil];
+#pragma mark - PWRetryTransport
+
+- (void)sendRetryEntry:(PWRetryEntry *)entry completion:(void (^)(NSInteger statusCode, NSError *error))completion {
+    if (![[PWSdkStateProvider sharedInstance] isReady]) {
+        if (completion) {
+            completion(0, [PWUtils pushwooshErrorWithCode:PWErrorRequestNotReady description:@"SDK not ready; retry deferred"]);
+        }
+        return;
+    }
+
+    PWReplayRequest *request = [[PWReplayRequest alloc] initWithMethodName:entry.methodName
+                                                        requestDictionary:entry.requestDictionary
+                                                        requestIdentifier:entry.requestIdentifier
+                                                        shouldWrapRequest:entry.shouldWrapRequest
+                                                                  baseUrl:entry.baseUrl];
+    request.retryCount = (NSInteger)(entry.attemptCount + 1);
+    [self sendRequestInternal:request completion:^(NSError *error) {
+        if (completion) {
+            completion(request.httpCode, error);
+        }
+    }];
 }
 
 - (void)sendTags:(PWSetTagsRequest *)request completion:(void (^)(NSError *error))completion {
@@ -411,11 +480,6 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
         return;
     }
 
-    if ([request isKindOfClass:[PWCachedRequest class]] && ![self isNeedToRetryAfterAppOpenedWith:request]) {
-        [self sendRequestWithDelay:[self remainDelayTime:request] forRequest:request];
-        return;
-    }
-    
     __weak typeof (self) wSelf = self;
 #if TARGET_OS_IOS
     __block NSInteger backgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
@@ -430,7 +494,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
         NSString *errorStr = [NSString stringWithFormat:@"Base URL is not configured yet. Request blocked: %@", request.methodName];
         [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:errorStr];
         if (completion) {
-            completion([PWUtils pushwooshError:errorStr]);
+            completion([PWUtils pushwooshErrorWithCode:PWErrorRequestNotReady description:errorStr]);
         }
 #if TARGET_OS_IOS
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
@@ -477,52 +541,29 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 #endif
         return;
     }
-    
-    if ([request isKindOfClass:[PWCachedRequest class]] && [self retryCountWith:request]) {
-        NSInteger retryCount = [self retryCountWith:request];
-        
-        if (retryCount >= 0) {
-            [PushwooshLog pushwooshLog:PW_LL_DEBUG
-                             className:self
-                               message:[NSString stringWithFormat:@"Retry count for request %@: %ld", request.methodName, (long)retryCount]];
-            [urlRequest addValue:[NSString stringWithFormat:@"%ld", [self retryCountWith:request]] forHTTPHeaderField:@"X-Retry-Count"];
-        }
+
+    if (request.retryCount > 0) {
+        [urlRequest setValue:[NSString stringWithFormat:@"%ld", (long)request.retryCount] forHTTPHeaderField:@"X-Retry-Count"];
     }
-    
-    NSURLSessionDataTask *postDataTask = [_session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+
+    NSURLSession *session = request.retryCount > 0 ? _retrySession : _session;
+    NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
-        if (([wSelf needToRetry:httpResponse.statusCode] || error) && [wSelf retryCountWith:request] <= 2) {
-            
-            if (request.cacheable) {
-                [[PWRequestsCacheManager sharedInstance] cacheRequest:request];
+        if (request.cacheable && [wSelf.retryPolicy shouldRetryStatusCode:httpResponse.statusCode error:error]) {
+            request.httpCode = httpResponse.statusCode;
+            [wSelf.retryQueue enqueueRequest:request];
 
-                [wSelf saveRequestTime:request];
+            if (completion) {
+                NSError *reportedError = error ?: [PWUtils pushwooshError:[NSString stringWithFormat:@"Request %@ failed with status code %ld and was queued for retry", request.methodName, (long)httpResponse.statusCode]];
+                completion(reportedError);
+            }
 
 #if TARGET_OS_IOS
-                [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
+            [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
 #endif
-                return;
-            }
-
-            if ([request isKindOfClass:[PWCachedRequest class]]) {
-                [wSelf increaseRequestCounter:request];
-                [wSelf saveRequestTime:request];
-
-                [wSelf sendRequestWithDelay:[wSelf calculateRetryDelayWith:request] forRequest:request];
-
-#if TARGET_OS_IOS
-                [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
-#endif
-                return;
-            }
-        } else {
-            // Success - reset retry counter and delete cached request
-            if ([request isKindOfClass:[PWCachedRequest class]]) {
-                [wSelf resetRequestCounter:request];
-                [[PWRequestsCacheManager sharedInstance] deleteCachedRequest:request];
-            }
+            return;
         }
 #endif
                 
@@ -538,87 +579,6 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 	];
 
 	[postDataTask resume];
-}
-
-- (void)saveRequestTime:(PWRequest *)request {
-    [[NSUserDefaults standardUserDefaults] setDouble:[[NSDate date] timeIntervalSince1970]
-                                              forKey:[NSString stringWithFormat:@"%@%@", kPrefixDate, request.requestIdentifier]];
-}
-
-- (void)increaseRequestCounter:(PWRequest *)request {
-    NSUInteger count = [[NSUserDefaults standardUserDefaults] integerForKey:request.requestIdentifier];
-    [[NSUserDefaults standardUserDefaults] setInteger:(count + 1) forKey:request.requestIdentifier];
-}
-
-- (void)resetRequestCounter:(PWRequest *)request {
-    if (request.requestIdentifier) {
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:request.requestIdentifier];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@", kPrefixDelay, request.requestIdentifier]];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@", kPrefixDate, request.requestIdentifier]];
-        [[NSUserDefaults standardUserDefaults] removeObjectForKey:[NSString stringWithFormat:@"%@%@", kPrefixRemainDelay, request.requestIdentifier]];
-    }
-}
-
-- (NSUInteger)retryCountWith:(PWRequest *)request {
-    if (request.requestIdentifier) {
-        return [[NSUserDefaults standardUserDefaults] integerForKey:request.requestIdentifier];
-    } else {
-        // delete cached request
-        return 3;
-    }
-}
-
-- (void)sendRequestWithDelay:(double)delay forRequest:(PWRequest *)request {
-    __weak typeof (self) wSelf = self;
-    
-    NSTimeInterval delayInSeconds = delay;
-    dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
-    dispatch_after(popTime, dispatch_get_main_queue(), ^(void) {
-        [wSelf sendRetryRequest:request];
-    });
-}
-
-- (BOOL)isNeedToRetryAfterAppOpenedWith:(PWRequest *)request {
-    double savedDelay = [[NSUserDefaults standardUserDefaults]
-                         doubleForKey:[NSString stringWithFormat:@"%@%@", kPrefixDelay, request.requestIdentifier]];
-    double requestTime = [[NSUserDefaults standardUserDefaults]
-                          doubleForKey:[NSString stringWithFormat:@"%@%@", kPrefixDate, request.requestIdentifier]];
-    double currentTime = [[NSDate date] timeIntervalSince1970];
-    
-    if (currentTime > requestTime + savedDelay) {
-        return YES;
-    } else {
-        double timeRemain = savedDelay - (currentTime - requestTime);
-        [[NSUserDefaults standardUserDefaults] setDouble:timeRemain forKey:[NSString stringWithFormat:@"%@%@", kPrefixRemainDelay, request.requestIdentifier]];
-        return NO;
-    }
-}
-
-- (double)calculateRetryDelayWith:(PWRequest *)request {
-    double initialTime = [self initialTime:request];
-    
-    if (initialTime == 0) {
-        initialTime = 25.f;
-        [[NSUserDefaults standardUserDefaults] setDouble:(initialTime * log2(initialTime))
-                                                  forKey:[NSString stringWithFormat:@"%@%@", kPrefixDelay, request.requestIdentifier]];
-    } else {
-        [[NSUserDefaults standardUserDefaults] setDouble:(initialTime * log2(initialTime))
-                                                  forKey:[NSString stringWithFormat:@"%@%@", kPrefixDelay, request.requestIdentifier]];
-    }
-
-    return initialTime * log2(initialTime);
-}
-
-- (double)initialTime:(PWRequest *)request {
-    return [[NSUserDefaults standardUserDefaults] doubleForKey:[NSString stringWithFormat:@"%@%@", kPrefixDelay, request.requestIdentifier]];
-}
-
-- (double)remainDelayTime:(PWRequest *)request {
-    return [[NSUserDefaults standardUserDefaults] doubleForKey:[NSString stringWithFormat:@"%@%@", kPrefixRemainDelay, request.requestIdentifier]];
-}
-
-- (BOOL)needToRetry:(NSInteger)statusCode {
-    return statusCode >= 499 && statusCode < 600;
 }
 
 - (NSMutableURLRequest *)prepareRequest:(NSString *)requestUrl jsonRequestData:(NSString *)jsonRequestData {

@@ -1,0 +1,11 @@
+framework module PushwooshNotificationUI {
+  umbrella header "PushwooshNotificationUI.h"
+  export *
+
+  module * { export * }
+}
+
+module PushwooshNotificationUI.Swift {
+  header "PushwooshNotificationUI-Swift.h"
+  requires objc
+}

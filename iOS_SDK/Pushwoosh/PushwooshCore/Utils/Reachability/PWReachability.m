@@ -92,12 +92,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     {
         id reachability = [[self alloc] initWithReachabilityRef:ref];
 
-#if __has_feature(objc_arc)
         return reachability;
-#else
-        return [reachability autorelease];
-#endif
-
     }
     
     return nil;
@@ -110,11 +105,7 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
     {
         id reachability = [[self alloc] initWithReachabilityRef:ref];
         
-#if __has_feature(objc_arc)
         return reachability;
-#else
-        return [reachability autorelease];
-#endif
     }
     
     return nil;
@@ -166,12 +157,6 @@ static void TMReachabilityCallback(SCNetworkReachabilityRef target, SCNetworkRea
         CFRelease(self.reachabilityRef);
         self.reachabilityRef = nil;
     }
-    
-#if !(__has_feature(objc_arc))
-    [super dealloc];
-#endif
-
-    
 }
 
 #pragma mark - notifier methods

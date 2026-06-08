@@ -19,7 +19,6 @@ static BOOL _isInitializing = NO;
 @property (nonatomic, copy, readwrite) NSString *appGroupsName;
 @property (nonatomic, assign, readwrite) BOOL showAlert;
 @property (nonatomic, copy, readwrite) NSString *requestUrl;
-@property (nonatomic, assign, readwrite) BOOL selfTestEnabled;
 @property (nonatomic, assign, readwrite) BOOL useRuntime;
 @property (nonatomic, assign, readwrite) BOOL allowServerCommunication;
 @property (nonatomic, assign, readwrite) BOOL allowCollectingDeviceData;
@@ -102,8 +101,6 @@ static BOOL _isInitializing = NO;
         [self styleRichMediaTypeFromString:[self trimmedStringForKey:@"Pushwoosh_RICH_MEDIA_STYLE"]];
 
 		self.requestUrl = [self trimmedStringForKey:@"Pushwoosh_BASEURL"];
-
-		self.selfTestEnabled = [self getBoolean:@"Pushwoosh_SDK_SELF_TEST_ENABLE" default:NO];
 
 		self.useRuntime = [self getBoolean:@"Pushwoosh_AUTO" default:NO];
         

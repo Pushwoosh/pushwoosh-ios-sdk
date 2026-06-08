@@ -11,6 +11,8 @@
 #import "PWPreferences.h"
 #import "PWRequestManager.h"
 #import "PWNetworkModule.h"
+#import "PWSessionRetrySender.h"
+#import "PWRetryPolicy.h"
 #import "PWRegisterDeviceRequest.h"
 #import "PWUnregisterDeviceRequest.h"
 #import <PushwooshCore/PWManagerBridge.h>
@@ -45,6 +47,8 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 // @Inject
 @property (nonatomic, strong) PWRequestManager *requestManager;
 
+@property (nonatomic, strong) PWSessionRetrySender *sessionRetry;
+
 // @Inject
 @property (nonatomic, strong) PWNotificationManagerCompat *notificationManagerCompat;
 
@@ -72,6 +76,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     if (self = [super init]) {
         [[PWNetworkModule module] inject:self];
         [[PWPlatformModule module] inject:self];
+        _sessionRetry = [[PWSessionRetrySender alloc] initWithRequestManager:_requestManager policy:[PWRetryPolicy new]];
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationStatusSyncCompleted:) name:kNotificationAuthorizationStatusUpdated object:nil];
 
         [[PWPreferences preferences] addObserver:self forKeyPath:@"appCode" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:nil];
@@ -225,8 +230,8 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     [PWPreferences preferences].lastStatusMask = [PWUtils getStatusesMask];
     [PWPreferences preferences].lastRegTime = [NSDate date];
 
-    [_requestManager sendRequest:[self requestParameters:deviceID platform:iOS] completion:^(NSError *error) {
-        
+    [_sessionRetry sendWithRetry:[self requestParameters:deviceID platform:iOS] completion:^(NSError *error) {
+
         [[PWPreferences preferences] setCustomTags:nil];
         
         if (error == nil) {
@@ -597,7 +602,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (void)registerNumber:(NSString *)number forPlatform:(PWPlatform)platform {
-    [_requestManager sendRequest:[self requestParameters:number platform:platform] completion:^(NSError *error) {
+    [_sessionRetry sendWithRetry:[self requestParameters:number platform:platform] completion:^(NSError *error) {
         [[PWPreferences preferences] setCustomTags:nil];
         
         if (error == nil) {

@@ -22,7 +22,6 @@
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 #import <PushwooshCore/PWVersionTracking.h>
-#import <PushwooshCore/PWRequestsCacheManager.h>
 #import <PushwooshCore/PWRichMediaManager.h>
 #endif
 
@@ -154,7 +153,6 @@ static dispatch_once_t ensureInitializedOncePredicate;
 #if TARGET_OS_IOS || TARGET_OS_OSX
         self.purchaseManager = [PWPurchaseManager new];
         self.richPushManager = [PWRichPushManager new];
-        [PWRequestsCacheManager sharedInstance];
 #endif
         
 #if TARGET_OS_IOS

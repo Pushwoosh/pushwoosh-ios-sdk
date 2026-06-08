@@ -25,12 +25,7 @@
 #import "PWApplicationExitDetector.h"
 #endif
 
-#if !__has_feature(objc_arc)
-#error "ARC is required to compile Pushwoosh SDK"
-#endif
-
 static IMP pw_original_setApplicationIconBadgeNumber_Imp;
-static IMP pw_original_registerForRemoteNotifications_Imp;
 static IMP pw_original_didReceiveRemoteNotification_Imp;
 static IMP pw_original_didRegisterForRemoteNotificationWithDeviceToken_Imp;
 static IMP pw_original_didFailToRegisterForRemoteNotificationsWithError_Imp;
@@ -46,7 +41,6 @@ static IMP pw_original_didFinishLaunchingWithOptions;
 
 - (id)getPushwooshDelegate;
 - (BOOL)pushwooshUseRuntimeMagic;  //use runtime to handle default push notifications callbacks (used in plugins)
-- (BOOL)application:(UIApplication *)application pw_didFinishLaunchingWithOptionsAutoTest:(NSDictionary *)launchOptions;
 
 #if TARGET_OS_IOS
 - (BOOL)application:(UIApplication *)application pw_didRegisterUserNotificationSettings:(UIUserNotificationSettings *)settings;
@@ -57,21 +51,6 @@ static IMP pw_original_didFinishLaunchingWithOptions;
 @end
 
 @implementation UIApplication (Pushwoosh)
-
-#if TARGET_OS_IOS
-BOOL dynamicDidFinishLaunchingAutoTest(id self, SEL _cmd, id application, id launchOptions) {
-    if ([PWPushRuntime isSelfTestEnabled]) {
-        NSMutableDictionary *launchOpts = [NSMutableDictionary new];
-        NSMutableDictionary *apsDict = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"Alert!", @"alert", @"sound", @"default", nil];
-        NSMutableDictionary *startPush = [NSMutableDictionary dictionaryWithObjectsAndKeys:apsDict, @"aps", @"0", @"p", nil];
-
-        launchOpts[UIApplicationLaunchOptionsRemoteNotificationKey] = startPush;
-        launchOptions = launchOpts;
-    }
-
-    return [self application:application pw_didFinishLaunchingWithOptionsAutoTest:launchOptions];
-}
-#endif
 
 BOOL _replacement_didFinishLaunchingWithOptionsExtensionRequest(id self, SEL _cmd, UIApplication *application, NSDictionary *launchOptions) {
     ((BOOL(*)(id, SEL, UIApplication *, NSDictionary *))pw_original_didFinishLaunchingWithOptionsExtension)(self, _cmd, application, launchOptions);
@@ -271,16 +250,6 @@ static BOOL openURLSwizzled = NO;
         
     //override runtime functions only if requested (used in plugins or by user decision)
     if (![[UIApplication sharedApplication] respondsToSelector:@selector(pushwooshUseRuntimeMagic)] && !useRuntime) {
-#if TARGET_OS_IOS
-        if ([PWPushRuntime isSelfTestEnabled]) {
-            [PWUtils swizzle:[delegate class]
-                  fromSelector:@selector(application:didFinishLaunchingWithOptions:)
-                    toSelector:@selector(application:pw_didFinishLaunchingWithOptionsAutoTest:)
-                implementation:(IMP)dynamicDidFinishLaunchingAutoTest
-                  typeEncoding:"v@:::"];
-        }
-#endif
-
         [self pw_swizzleOpenURLMethods:[delegate class]];
 
         [self pw_setDelegate:proxy ? : delegate];
@@ -306,16 +275,6 @@ static BOOL openURLSwizzled = NO;
     [self swizzle_didReceiveRemoteNotificationWithFetchBlock:delegateClass];
     
     [self pw_swizzleOpenURLMethods:delegateClass];
-
-#if TARGET_OS_IOS
-    if ([PWPushRuntime isSelfTestEnabled]) {
-        [PWUtils swizzle:delegateClass
-            fromSelector:@selector(application:didFinishLaunchingWithOptions:)
-              toSelector:@selector(application:pw_didFinishLaunchingWithOptionsAutoTest:)
-          implementation:(IMP)dynamicDidFinishLaunchingAutoTest
-            typeEncoding:"v@:::"];
-    }
-#endif
 
     [self pw_setDelegate:proxy ? : delegate];
 }
@@ -436,11 +395,6 @@ void _replacement_setApplicationIconBadgeNumber(UIApplication * self, SEL _cmd, 
     method_exchangeImplementations(class_getInstanceMethod(self, @selector(setDelegate:)), class_getInstanceMethod(self, @selector(pw_setDelegate:)));
 
     NSLog(@"Pushwoosh: Initializing application runtime");
-
-    if ([PWPushRuntime isSelfTestEnabled]) {
-        //register for push notifications does not work on simulator, swizzle it
-        [self.class swizzle_registerForRemoteNotifications];
-    }
 }
 
 - (void)swizzle_didRegisterForRemoteNotificationsWithDeviceToken:(Class)delegateClass {
@@ -456,23 +410,6 @@ void _replacement_setApplicationIconBadgeNumber(UIApplication * self, SEL _cmd, 
 + (void)swizzle_setApplicationIconBadgeNumber {
     Method originalMethod = class_getInstanceMethod([UIApplication class], @selector(setApplicationIconBadgeNumber:));
     pw_original_setApplicationIconBadgeNumber_Imp = method_setImplementation(originalMethod, (IMP)_replacement_setApplicationIconBadgeNumber);
-}
-
-+ (void)swizzle_registerForRemoteNotifications {
-    Method originalMethod = class_getInstanceMethod(self, @selector(registerForRemoteNotifications));
-    pw_original_registerForRemoteNotifications_Imp = method_setImplementation(originalMethod, (IMP)_replacement_registerForRemoteNotifications);
-}
-
-void _replacement_registerForRemoteNotifications(UIApplication * self, SEL _cmd) {
-    if (![PWUtils isSimulator]) {
-        ((void(*)(id, SEL))pw_original_registerForRemoteNotifications_Imp)(self, _cmd);
-        return;
-    }
-    
-    //simulate fake token
-    NSString *fakeToken = @"1234567890abcdef1234567890abcdef";
-    NSData *data = [fakeToken dataUsingEncoding:NSUTF8StringEncoding];
-    [[UIApplication sharedApplication].delegate application:[UIApplication sharedApplication] didRegisterForRemoteNotificationsWithDeviceToken:data];
 }
 
 @end
@@ -507,10 +444,6 @@ BOOL dynamicDidRegisterUserNotificationSettings(id self, SEL _cmd, id applicatio
     });
 }
 #endif
-
-+ (BOOL)isSelfTestEnabled {
-    return [PWConfig config].selfTestEnabled && [PWUtils isSimulator];
-}
 
 @end
 

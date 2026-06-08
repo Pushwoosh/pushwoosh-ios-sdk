@@ -1,0 +1,1824 @@
+{
+  "ABIRoot": {
+    "kind": "Root",
+    "name": "TopLevel",
+    "printedName": "TopLevel",
+    "children": [
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshNotificationUI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "StoryPage",
+        "printedName": "StoryPage",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "defaultDuration",
+            "printedName": "defaultDuration",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI9StoryPageV15defaultDurationSdvpZ",
+            "mangledName": "$s23PushwooshNotificationUI9StoryPageV15defaultDurationSdvpZ",
+            "moduleName": "PushwooshNotificationUI",
+            "static": true,
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV15defaultDurationSdvgZ",
+                "mangledName": "$s23PushwooshNotificationUI9StoryPageV15defaultDurationSdvgZ",
+                "moduleName": "PushwooshNotificationUI",
+                "static": true,
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "imageURL",
+            "printedName": "imageURL",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI9StoryPageV8imageURL10Foundation0G0Vvp",
+            "mangledName": "$s23PushwooshNotificationUI9StoryPageV8imageURL10Foundation0G0Vvp",
+            "moduleName": "PushwooshNotificationUI",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV8imageURL10Foundation0G0Vvg",
+                "mangledName": "$s23PushwooshNotificationUI9StoryPageV8imageURL10Foundation0G0Vvg",
+                "moduleName": "PushwooshNotificationUI",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "duration",
+            "printedName": "duration",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Double",
+                "printedName": "Swift.Double",
+                "usr": "s:Sd"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI9StoryPageV8durationSdvp",
+            "mangledName": "$s23PushwooshNotificationUI9StoryPageV8durationSdvp",
+            "moduleName": "PushwooshNotificationUI",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Double",
+                    "printedName": "Swift.Double",
+                    "usr": "s:Sd"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV8durationSdvg",
+                "mangledName": "$s23PushwooshNotificationUI9StoryPageV8durationSdvg",
+                "moduleName": "PushwooshNotificationUI",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "link",
+            "printedName": "link",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.URL?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI9StoryPageV4link10Foundation3URLVSgvp",
+            "mangledName": "$s23PushwooshNotificationUI9StoryPageV4link10Foundation3URLVSgvp",
+            "moduleName": "PushwooshNotificationUI",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.URL?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "URL",
+                        "printedName": "Foundation.URL",
+                        "usr": "s:10Foundation3URLV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV4link10Foundation3URLVSgvg",
+                "mangledName": "$s23PushwooshNotificationUI9StoryPageV4link10Foundation3URLVSgvg",
+                "moduleName": "PushwooshNotificationUI",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "buttonTitle",
+            "printedName": "buttonTitle",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI9StoryPageV11buttonTitleSSSgvp",
+            "mangledName": "$s23PushwooshNotificationUI9StoryPageV11buttonTitleSSSgvp",
+            "moduleName": "PushwooshNotificationUI",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV11buttonTitleSSSgvg",
+                "mangledName": "$s23PushwooshNotificationUI9StoryPageV11buttonTitleSSSgvg",
+                "moduleName": "PushwooshNotificationUI",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "title",
+            "printedName": "title",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI9StoryPageV5titleSSSgvp",
+            "mangledName": "$s23PushwooshNotificationUI9StoryPageV5titleSSSgvp",
+            "moduleName": "PushwooshNotificationUI",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV5titleSSSgvg",
+                "mangledName": "$s23PushwooshNotificationUI9StoryPageV5titleSSSgvg",
+                "moduleName": "PushwooshNotificationUI",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "subtitle",
+            "printedName": "subtitle",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI9StoryPageV8subtitleSSSgvp",
+            "mangledName": "$s23PushwooshNotificationUI9StoryPageV8subtitleSSSgvp",
+            "moduleName": "PushwooshNotificationUI",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV8subtitleSSSgvg",
+                "mangledName": "$s23PushwooshNotificationUI9StoryPageV8subtitleSSSgvg",
+                "moduleName": "PushwooshNotificationUI",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "==",
+            "printedName": "==(_:_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "StoryPage",
+                "printedName": "PushwooshNotificationUI.StoryPage",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "StoryPage",
+                "printedName": "PushwooshNotificationUI.StoryPage",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI9StoryPageV2eeoiySbAC_ACtFZ",
+            "mangledName": "$s23PushwooshNotificationUI9StoryPageV2eeoiySbAC_ACtFZ",
+            "moduleName": "PushwooshNotificationUI",
+            "static": true,
+            "implicit": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:23PushwooshNotificationUI9StoryPageV",
+        "mangledName": "$s23PushwooshNotificationUI9StoryPageV",
+        "moduleName": "PushwooshNotificationUI",
+        "declAttributes": [
+          "AccessControl"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshNotificationUI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshNotificationUI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshNotificationUI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "ImageIO",
+        "printedName": "ImageIO",
+        "declKind": "Import",
+        "moduleName": "PushwooshNotificationUI"
+      },
+      {
+        "kind": "Import",
+        "name": "CryptoKit",
+        "printedName": "CryptoKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshNotificationUI"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshStoriesMediaPrefetcher",
+        "printedName": "PushwooshStoriesMediaPrefetcher",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "prefetch",
+            "printedName": "prefetch(userInfo:appGroupIdentifier:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.AnyHashable : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AnyHashable",
+                    "printedName": "Swift.AnyHashable",
+                    "usr": "s:s11AnyHashableV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "() -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI0A22StoriesMediaPrefetcherO8prefetch8userInfo18appGroupIdentifier10completionySDys11AnyHashableVypG_SSyyctFZ",
+            "mangledName": "$s23PushwooshNotificationUI0A22StoriesMediaPrefetcherO8prefetch8userInfo18appGroupIdentifier10completionySDys11AnyHashableVypG_SSyyctFZ",
+            "moduleName": "PushwooshNotificationUI",
+            "static": true,
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "s:23PushwooshNotificationUI0A22StoriesMediaPrefetcherO",
+        "mangledName": "$s23PushwooshNotificationUI0A22StoriesMediaPrefetcherO",
+        "moduleName": "PushwooshNotificationUI",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshNotificationUI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshNotificationUI",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UserNotifications",
+        "printedName": "UserNotifications",
+        "declKind": "Import",
+        "moduleName": "PushwooshNotificationUI"
+      },
+      {
+        "kind": "Import",
+        "name": "UserNotificationsUI",
+        "printedName": "UserNotificationsUI",
+        "declKind": "Import",
+        "moduleName": "PushwooshNotificationUI"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshStoriesViewController",
+        "printedName": "PushwooshStoriesViewController",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "storiesDelegate",
+            "printedName": "storiesDelegate",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "WeakStorage",
+                "printedName": "(any PushwooshNotificationUI.PushwooshStoriesDelegate)?"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC15storiesDelegateAA0adH0_pSgvp",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC15storiesDelegateAA0adH0_pSgvp",
+            "moduleName": "PushwooshNotificationUI",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "Custom",
+              "ReferenceOwnership",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "ownership": 1,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any PushwooshNotificationUI.PushwooshStoriesDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PushwooshStoriesDelegate",
+                        "printedName": "any PushwooshNotificationUI.PushwooshStoriesDelegate",
+                        "usr": "s:23PushwooshNotificationUI0A15StoriesDelegateP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC15storiesDelegateAA0adH0_pSgvg",
+                "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC15storiesDelegateAA0adH0_pSgvg",
+                "moduleName": "PushwooshNotificationUI",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any PushwooshNotificationUI.PushwooshStoriesDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PushwooshStoriesDelegate",
+                        "printedName": "any PushwooshNotificationUI.PushwooshStoriesDelegate",
+                        "usr": "s:23PushwooshNotificationUI0A15StoriesDelegateP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC15storiesDelegateAA0adH0_pSgvs",
+                "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC15storiesDelegateAA0adH0_pSgvs",
+                "moduleName": "PushwooshNotificationUI",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC15storiesDelegateAA0adH0_pSgvM",
+                "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC15storiesDelegateAA0adH0_pSgvM",
+                "moduleName": "PushwooshNotificationUI",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "appGroupIdentifier",
+            "printedName": "appGroupIdentifier",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC18appGroupIdentifierSSSgvp",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC18appGroupIdentifierSSSgvp",
+            "moduleName": "PushwooshNotificationUI",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC18appGroupIdentifierSSSgvg",
+                "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC18appGroupIdentifierSSSgvg",
+                "moduleName": "PushwooshNotificationUI",
+                "isOpen": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "storyAspectRatio",
+            "printedName": "storyAspectRatio",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "CGFloat",
+                "printedName": "CoreGraphics.CGFloat",
+                "usr": "s:14CoreFoundation7CGFloatV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC16storyAspectRatio14CoreFoundation7CGFloatVvp",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC16storyAspectRatio12CoreGraphics7CGFloatVvp",
+            "moduleName": "PushwooshNotificationUI",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "CGFloat",
+                    "printedName": "CoreGraphics.CGFloat",
+                    "usr": "s:14CoreFoundation7CGFloatV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC16storyAspectRatio14CoreFoundation7CGFloatVvg",
+                "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC16storyAspectRatio12CoreGraphics7CGFloatVvg",
+                "moduleName": "PushwooshNotificationUI",
+                "isOpen": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "hapticsEnabled",
+            "printedName": "hapticsEnabled",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC14hapticsEnabledSbvp",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC14hapticsEnabledSbvp",
+            "moduleName": "PushwooshNotificationUI",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC14hapticsEnabledSbvg",
+                "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC14hapticsEnabledSbvg",
+                "moduleName": "PushwooshNotificationUI",
+                "isOpen": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "longPressToPauseEnabled",
+            "printedName": "longPressToPauseEnabled",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC23longPressToPauseEnabledSbvp",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC23longPressToPauseEnabledSbvp",
+            "moduleName": "PushwooshNotificationUI",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC23longPressToPauseEnabledSbvg",
+                "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC23longPressToPauseEnabledSbvg",
+                "moduleName": "PushwooshNotificationUI",
+                "isOpen": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "crossfadesBetweenPages",
+            "printedName": "crossfadesBetweenPages",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC22crossfadesBetweenPagesSbvp",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC22crossfadesBetweenPagesSbvp",
+            "moduleName": "PushwooshNotificationUI",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC22crossfadesBetweenPagesSbvg",
+                "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC22crossfadesBetweenPagesSbvg",
+                "moduleName": "PushwooshNotificationUI",
+                "isOpen": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "loopsAfterLastPage",
+            "printedName": "loopsAfterLastPage",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC18loopsAfterLastPageSbvp",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC18loopsAfterLastPageSbvp",
+            "moduleName": "PushwooshNotificationUI",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC18loopsAfterLastPageSbvg",
+                "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC18loopsAfterLastPageSbvg",
+                "moduleName": "PushwooshNotificationUI",
+                "isOpen": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "viewDidLoad",
+            "printedName": "viewDidLoad()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController(im)viewDidLoad",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC11viewDidLoadyyF",
+            "moduleName": "PushwooshNotificationUI",
+            "overriding": true,
+            "isOpen": true,
+            "objc_name": "viewDidLoad",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "viewWillDisappear",
+            "printedName": "viewWillDisappear(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController(im)viewWillDisappear:",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC17viewWillDisappearyySbF",
+            "moduleName": "PushwooshNotificationUI",
+            "overriding": true,
+            "isOpen": true,
+            "objc_name": "viewWillDisappear:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "didReceive",
+            "printedName": "didReceive(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UNNotification",
+                "printedName": "UserNotifications.UNNotification",
+                "usr": "c:objc(cs)UNNotification"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController(im)didReceiveNotification:",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC10didReceiveyySo14UNNotificationCF",
+            "moduleName": "PushwooshNotificationUI",
+            "isOpen": true,
+            "objc_name": "didReceiveNotification:",
+            "declAttributes": [
+              "ObjC",
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "showDefaultContent",
+            "printedName": "showDefaultContent(for:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UNNotification",
+                "printedName": "UserNotifications.UNNotification",
+                "usr": "c:objc(cs)UNNotification"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI0A21StoriesViewControllerC18showDefaultContent3forySo14UNNotificationC_tF",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC18showDefaultContent3forySo14UNNotificationC_tF",
+            "moduleName": "PushwooshNotificationUI",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(nibName:bundle:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshStoriesViewController",
+                "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController",
+                "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.Bundle?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bundle",
+                    "printedName": "Foundation.Bundle",
+                    "usr": "c:objc(cs)NSBundle"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController(im)initWithNibName:bundle:",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC7nibName6bundleACSSSg_So8NSBundleCSgtcfc",
+            "moduleName": "PushwooshNotificationUI",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "initWithNibName:bundle:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(coder:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshStoriesViewController",
+                    "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController",
+                    "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController(im)initWithCoder:",
+            "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC5coderACSgSo7NSCoderC_tcfc",
+            "moduleName": "PushwooshNotificationUI",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "initWithCoder:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Required"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController",
+        "mangledName": "$s23PushwooshNotificationUI0A21StoriesViewControllerC",
+        "moduleName": "PushwooshNotificationUI",
+        "isOpen": true,
+        "declAttributes": [
+          "Custom",
+          "AccessControl",
+          "RawDocComment",
+          "ObjC"
+        ],
+        "superclassUsr": "c:objc(cs)UIViewController",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "UIKit.UIViewController",
+          "UIKit.UIResponder",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshStoriesDelegate",
+        "printedName": "PushwooshStoriesDelegate",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "storiesViewController",
+            "printedName": "storiesViewController(_:didStartWithPageCount:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshStoriesViewController",
+                "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController",
+                "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI0A15StoriesDelegateP21storiesViewController_21didStartWithPageCountyAA0adgH0C_SitF",
+            "mangledName": "$s23PushwooshNotificationUI0A15StoriesDelegateP21storiesViewController_21didStartWithPageCountyAA0adgH0C_SitF",
+            "moduleName": "PushwooshNotificationUI",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "storiesViewController",
+            "printedName": "storiesViewController(_:didShow:at:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshStoriesViewController",
+                "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController",
+                "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "StoryPage",
+                "printedName": "PushwooshNotificationUI.StoryPage",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI0A15StoriesDelegateP21storiesViewController_7didShow2atyAA0adgH0C_AA9StoryPageVSitF",
+            "mangledName": "$s23PushwooshNotificationUI0A15StoriesDelegateP21storiesViewController_7didShow2atyAA0adgH0C_AA9StoryPageVSitF",
+            "moduleName": "PushwooshNotificationUI",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "storiesViewController",
+            "printedName": "storiesViewController(_:didTapActionFor:at:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshStoriesViewController",
+                "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController",
+                "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "StoryPage",
+                "printedName": "PushwooshNotificationUI.StoryPage",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI0A15StoriesDelegateP21storiesViewController_15didTapActionFor2atyAA0adgH0C_AA9StoryPageVSitF",
+            "mangledName": "$s23PushwooshNotificationUI0A15StoriesDelegateP21storiesViewController_15didTapActionFor2atyAA0adgH0C_AA9StoryPageVSitF",
+            "moduleName": "PushwooshNotificationUI",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "storiesViewControllerDidFinish",
+            "printedName": "storiesViewControllerDidFinish(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshStoriesViewController",
+                "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController",
+                "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI0A15StoriesDelegateP30storiesViewControllerDidFinishyyAA0adgH0CF",
+            "mangledName": "$s23PushwooshNotificationUI0A15StoriesDelegateP30storiesViewControllerDidFinishyyAA0adgH0CF",
+            "moduleName": "PushwooshNotificationUI",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "storiesViewControllerDidShowFallback",
+            "printedName": "storiesViewControllerDidShowFallback(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshStoriesViewController",
+                "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController",
+                "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI0A15StoriesDelegateP36storiesViewControllerDidShowFallbackyyAA0adgH0CF",
+            "mangledName": "$s23PushwooshNotificationUI0A15StoriesDelegateP36storiesViewControllerDidShowFallbackyyAA0adgH0CF",
+            "moduleName": "PushwooshNotificationUI",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "storiesViewController",
+            "printedName": "storiesViewController(_:didStartWithPageCount:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshStoriesViewController",
+                "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController",
+                "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI0A15StoriesDelegatePAAE21storiesViewController_21didStartWithPageCountyAA0adgH0C_SitF",
+            "mangledName": "$s23PushwooshNotificationUI0A15StoriesDelegatePAAE21storiesViewController_21didStartWithPageCountyAA0adgH0C_SitF",
+            "moduleName": "PushwooshNotificationUI",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "storiesViewController",
+            "printedName": "storiesViewController(_:didShow:at:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshStoriesViewController",
+                "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController",
+                "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "StoryPage",
+                "printedName": "PushwooshNotificationUI.StoryPage",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI0A15StoriesDelegatePAAE21storiesViewController_7didShow2atyAA0adgH0C_AA9StoryPageVSitF",
+            "mangledName": "$s23PushwooshNotificationUI0A15StoriesDelegatePAAE21storiesViewController_7didShow2atyAA0adgH0C_AA9StoryPageVSitF",
+            "moduleName": "PushwooshNotificationUI",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "storiesViewController",
+            "printedName": "storiesViewController(_:didTapActionFor:at:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshStoriesViewController",
+                "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController",
+                "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "StoryPage",
+                "printedName": "PushwooshNotificationUI.StoryPage",
+                "usr": "s:23PushwooshNotificationUI9StoryPageV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI0A15StoriesDelegatePAAE21storiesViewController_15didTapActionFor2atyAA0adgH0C_AA9StoryPageVSitF",
+            "mangledName": "$s23PushwooshNotificationUI0A15StoriesDelegatePAAE21storiesViewController_15didTapActionFor2atyAA0adgH0C_AA9StoryPageVSitF",
+            "moduleName": "PushwooshNotificationUI",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "storiesViewControllerDidFinish",
+            "printedName": "storiesViewControllerDidFinish(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshStoriesViewController",
+                "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController",
+                "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI0A15StoriesDelegatePAAE30storiesViewControllerDidFinishyyAA0adgH0CF",
+            "mangledName": "$s23PushwooshNotificationUI0A15StoriesDelegatePAAE30storiesViewControllerDidFinishyyAA0adgH0CF",
+            "moduleName": "PushwooshNotificationUI",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "storiesViewControllerDidShowFallback",
+            "printedName": "storiesViewControllerDidShowFallback(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshStoriesViewController",
+                "printedName": "PushwooshNotificationUI.PushwooshStoriesViewController",
+                "usr": "c:@M@PushwooshNotificationUI@objc(cs)PushwooshStoriesViewController"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshNotificationUI0A15StoriesDelegatePAAE36storiesViewControllerDidShowFallbackyyAA0adgH0CF",
+            "mangledName": "$s23PushwooshNotificationUI0A15StoriesDelegatePAAE36storiesViewControllerDidShowFallbackyyAA0adgH0CF",
+            "moduleName": "PushwooshNotificationUI",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshNotificationUI.PushwooshStoriesDelegate>",
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "s:23PushwooshNotificationUI0A15StoriesDelegateP",
+        "mangledName": "$s23PushwooshNotificationUI0A15StoriesDelegateP",
+        "moduleName": "PushwooshNotificationUI",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ]
+      }
+    ],
+    "json_format_version": 8
+  },
+  "ConstValues": [
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPage.swift",
+      "kind": "FloatLiteral",
+      "offset": 248,
+      "length": 3,
+      "value": "5.0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPage.swift",
+      "kind": "IntegerLiteral",
+      "offset": 295,
+      "length": 2,
+      "value": "30"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "kind": "StringLiteral",
+      "offset": 226,
+      "length": 12,
+      "value": "\"pw_stories\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "kind": "StringLiteral",
+      "offset": 273,
+      "length": 7,
+      "value": "\"pages\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "kind": "StringLiteral",
+      "offset": 315,
+      "length": 7,
+      "value": "\"image\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "kind": "StringLiteral",
+      "offset": 360,
+      "length": 10,
+      "value": "\"duration\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "kind": "StringLiteral",
+      "offset": 404,
+      "length": 6,
+      "value": "\"link\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "kind": "StringLiteral",
+      "offset": 451,
+      "length": 14,
+      "value": "\"button_title\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "kind": "StringLiteral",
+      "offset": 500,
+      "length": 7,
+      "value": "\"title\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "kind": "StringLiteral",
+      "offset": 545,
+      "length": 10,
+      "value": "\"subtitle\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "kind": "StringLiteral",
+      "offset": 595,
+      "length": 3,
+      "value": "\"u\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "kind": "StringLiteral",
+      "offset": 636,
+      "length": 10,
+      "value": "\"userdata\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoriesPlayer.swift",
+      "kind": "IntegerLiteral",
+      "offset": 798,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoriesPlayer.swift",
+      "kind": "BooleanLiteral",
+      "offset": 954,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryImageLoader.swift",
+      "kind": "Array",
+      "offset": 332,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryImageLoader.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1270,
+      "length": 4,
+      "value": "1500"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryProgressBarView.swift",
+      "kind": "Array",
+      "offset": 284,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryProgressBarView.swift",
+      "kind": "Array",
+      "offset": 348,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryProgressBarView.swift",
+      "kind": "FloatLiteral",
+      "offset": 414,
+      "length": 3,
+      "value": "0.3"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
+      "kind": "Array",
+      "offset": 1783,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1877,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 1995,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2154,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
+      "kind": "IntegerLiteral",
+      "offset": 2208,
+      "length": 1,
+      "value": "0"
+    }
+  ]
+}

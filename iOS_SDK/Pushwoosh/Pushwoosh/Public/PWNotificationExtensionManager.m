@@ -40,25 +40,36 @@
     return self;
 }
 
-- (void)handleNotificationRequest:(UNNotificationRequest *)request 
+- (void)handleNotificationRequest:(UNNotificationRequest *)request
                     withAppGroups:(NSString * _Nonnull)appGroupsName
                    contentHandler:(void (^ _Nonnull)(UNNotificationContent * _Nonnull))contentHandler {
+#if TARGET_OS_IOS
     UNMutableNotificationContent *bestAttemptContent = [request.content mutableCopy];
-        
-    NSString *group = [[PWConfig config] appGroupsName];
-    if (group && ![group isEqualToString:@""])
+
+    if (![PWMessage isPushwooshMessage:bestAttemptContent.userInfo]) {
+        contentHandler(bestAttemptContent);
         return;
+    }
+
+    NSString *group = [[PWConfig config] appGroupsName];
+    if (group && ![group isEqualToString:@""]) {
+        contentHandler(bestAttemptContent);
+        return;
+    }
 
     dispatch_group_t requestsGroup = dispatch_group_create();
 
     dispatch_group_enter(requestsGroup);
-    [self setUpBadgesWithGroupsName:appGroupsName contentHadler:bestAttemptContent completion:^{
+    [self setUpBadgesWithGroupsName:appGroupsName bestAttemptContent:bestAttemptContent completion:^{
         dispatch_group_leave(requestsGroup);
     }];
-    
+
     dispatch_group_notify(requestsGroup, dispatch_get_main_queue(), ^{
         contentHandler(bestAttemptContent);
     });
+#else
+    contentHandler(request.content);
+#endif
 }
 
 - (void)handleNotificationRequest:(UNNotificationRequest *)request contentHandler:(void (^ _Nonnull)(UNNotificationContent * _Nonnull))contentHandler {
@@ -77,7 +88,7 @@
     dispatch_group_t requestsGroup = dispatch_group_create();
     
     dispatch_group_enter(requestsGroup);
-    [self setUpBadgesWithGroupsName:appGroupsName contentHadler:bestAttemptContent completion:^{
+    [self setUpBadgesWithGroupsName:appGroupsName bestAttemptContent:bestAttemptContent completion:^{
         dispatch_group_leave(requestsGroup);
     }];
     
@@ -101,25 +112,25 @@
 }
 
 - (void)setUpBadgesWithGroupsName:(NSString *)appGroupsName
-                    contentHadler:(UNMutableNotificationContent *)bestAttemptContent
+                    bestAttemptContent:(UNMutableNotificationContent *)bestAttemptContent
                        completion:(dispatch_block_t)completion {
 #if TARGET_OS_IOS
     NSString *key = @"badge_count";
 
-    if (appGroupsName && ![appGroupsName isEqualToString:@""] && [appGroupsName isKindOfClass:[NSString class]]) {
+    if ([appGroupsName isKindOfClass:[NSString class]] && appGroupsName.length > 0) {
         NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:appGroupsName];
         NSInteger savedBadges = [defaults integerForKey:key];
 
         NSString *badges = [[[bestAttemptContent userInfo] pw_dictionaryForKey:@"aps"] pw_stringForKey:@"pw_badge"];
         NSString *sign = @"";
-        
+
         if ([self isBadgeHasSign:badges]) {
             sign = [badges substringToIndex:1];
         }
-        
-        if ((badges && [sign isEqualToString:@""]) || (badges && savedBadges == 0 && [sign isEqualToString:@""])) {
-            [defaults setInteger:[badges intValue] forKey:key];
-            NSInteger count = [defaults integerForKey:key];
+
+        if (badges && [sign isEqualToString:@""]) {
+            NSInteger count = [badges intValue];
+            [defaults setInteger:count forKey:key];
             bestAttemptContent.badge = @(count);
         }
         
@@ -161,7 +172,9 @@
 
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error) {
-            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"messageDeliveryEvent failed"];
+            [PushwooshLog pushwooshLog:PW_LL_WARN
+                             className:self
+                               message:[NSString stringWithFormat:@"messageDeliveryEvent not delivered (will retry if transient): %@", error.localizedDescription]];
         }
 
         if (completion) {
@@ -194,14 +207,14 @@
     
     [[[NSURLSession sharedSession] downloadTaskWithURL:url completionHandler:^(NSURL * _Nullable location, NSURLResponse * _Nullable response, NSError * _Nullable error) {
         if (!error) {
-            NSString *tempDict = NSTemporaryDirectory();
+            NSString *tempDir = NSTemporaryDirectory();
             NSString *attachmentID = [[[NSUUID UUID] UUIDString] stringByAppendingString:[response.URL.absoluteString lastPathComponent]];
             
             if(response.suggestedFilename) {
                 attachmentID = [[[NSUUID UUID] UUIDString] stringByAppendingString:response.suggestedFilename];
             }
             
-            NSString *tempFilePath = [tempDict stringByAppendingPathComponent:attachmentID];
+            NSString *tempFilePath = [tempDir stringByAppendingPathComponent:attachmentID];
             
             if ([[NSFileManager defaultManager] moveItemAtPath:location.path toPath:tempFilePath error:&error]) {
                 UNNotificationAttachment *attachment = [UNNotificationAttachment attachmentWithIdentifier:attachmentID URL:[NSURL fileURLWithPath:tempFilePath] options:nil error:&error];
@@ -231,7 +244,12 @@
 }
 
 - (BOOL)isBadgeHasSign:(NSString *)badges {
-    return ([[badges substringToIndex:1] isEqualToString:@"+"] || [[badges substringToIndex:1] isEqualToString:@"-"]) ? YES : NO;
+    if (badges.length < 1) {
+        return NO;
+    }
+
+    NSString *sign = [badges substringToIndex:1];
+    return [sign isEqualToString:@"+"] || [sign isEqualToString:@"-"];
 }
 
 @end

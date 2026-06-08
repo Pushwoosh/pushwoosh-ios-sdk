@@ -9,12 +9,15 @@
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
 #import <PushwooshCore/PushwooshLog.h>
-#import <PushwooshCore/PWUtilsMobile.h>
+#import <PushwooshCore/PWUtils.common.h>
 
-@interface PWUtils : PWUtilsMobile
+@interface PWUtils : PWUtilsCommon
 
 + (UIButton *)webViewCloseButton;
 
 + (BOOL)handleURL:(NSURL *)url;
+
++ (NSNumber *)startBackgroundTask;
++ (void)stopBackgroundTask:(NSNumber *)taskId;
 
 @end

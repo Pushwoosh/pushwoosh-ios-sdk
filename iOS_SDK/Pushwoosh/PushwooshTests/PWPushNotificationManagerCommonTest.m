@@ -9,7 +9,7 @@
 #import <XCTest/XCTest.h>
 #import "PWPushNotificationsManager.common.h"
 #import "PushNotificationManager.h"
-#import "PWDataManager.common.h"
+#import "PWDataManager.h"
 #import "PushwooshFramework.h"
 #import "PWBundleMock.h"
 #import <OCHamcrest/OCHamcrest.h>
@@ -69,7 +69,7 @@ static BOOL isBackground;
 
 @end
 
-@interface PWMockDataManager : PWDataManagerCommon
+@interface PWMockDataManager : PWDataManager
 
 @property (nonatomic) NSUInteger pushStatCount;
 

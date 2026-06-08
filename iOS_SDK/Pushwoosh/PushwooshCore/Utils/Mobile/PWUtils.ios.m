@@ -133,18 +133,12 @@
 
 + (void)showAlertWithTitle:(NSString *)title message:(NSString *)message {
     UIViewController *rootController = [self findRootViewController];
-    
+
     if (rootController) {
         UIAlertController *alertController = [UIAlertController alertControllerWithTitle:title message:message preferredStyle:UIAlertControllerStyleAlert];
         [alertController addAction:[UIAlertAction actionWithTitle:@"OK" style:UIAlertActionStyleDefault handler:nil]];
         [rootController presentViewController:alertController animated:YES completion:nil];
     }
-#if TARGET_OS_IOS
-    else {
-        UIAlertView *alert = [[UIAlertView alloc] initWithTitle:title message:message delegate:nil cancelButtonTitle:@"OK" otherButtonTitles:nil];
-        [alert performSelectorOnMainThread:@selector(show) withObject:nil waitUntilDone:NO];
-    }
-#endif
 }
 
 + (UIViewController*)findRootViewController {
@@ -155,14 +149,6 @@
         controller = controller.presentedViewController;
     }
     return controller;
-}
-
-+ (BOOL)isSimulator {
-	NSString *deviceName = [[UIDevice currentDevice].model lowercaseString];
-	if ([deviceName rangeOfString:@"simulator"].location != NSNotFound)
-		return true;
-	
-	return false;
 }
 
 #pragma mark - Background
@@ -228,8 +214,51 @@
     if (alertEnabled) {
         statusesMask |= 1 << 2;
     }
-        
+
     return statusesMask;
+}
+
++ (BOOL)getAPSProductionStatus:(BOOL)canShowAlert {
+#if TARGET_OS_SIMULATOR
+    return NO;
+#endif
+
+    NSString *provisioning = [[NSBundle mainBundle] pathForResource:@"embedded.mobileprovision" ofType:nil];
+    if (!provisioning)
+        return YES;
+
+    NSString *contents = [NSString stringWithContentsOfFile:provisioning encoding:NSASCIIStringEncoding error:nil];
+    if (!contents)
+        return YES;
+
+    NSRange start = [contents rangeOfString:@"<?xml"];
+    NSRange end = [contents rangeOfString:@"</plist>"];
+    start.length = end.location + end.length - start.location;
+
+    NSString *profile = [contents substringWithRange:start];
+    if (!profile)
+        return YES;
+
+    NSData *profileData = [profile dataUsingEncoding:NSUTF8StringEncoding];
+    NSError *error = nil;
+    NSPropertyListFormat format;
+    NSDictionary *plist = [NSPropertyListSerialization propertyListWithData:profileData options:NSPropertyListImmutable format:&format error:&error];
+
+    NSDictionary *entitlements = plist[@"Entitlements"];
+
+    NSString *apsGateway = entitlements[@"aps-environment"];
+    if (!apsGateway && canShowAlert) {
+        [self showAlertWithTitle:@"Pushwoosh Error" message:@"Your provisioning profile does not have APS entry. Please make your profile push compatible."];
+    }
+
+    if ([apsGateway isEqualToString:@"development"])
+        return NO;
+
+    return YES;
+}
+
++ (PWReachability *)reachability {
+    return [PWReachability reachabilityForInternetConnection];
 }
 
 @end

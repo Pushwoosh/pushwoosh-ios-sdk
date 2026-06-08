@@ -1,0 +1,69 @@
+// swift-interface-format-version: 1.0
+// swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
+// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PushwooshNotificationUI
+import CryptoKit
+import Foundation
+import ImageIO
+@_exported import PushwooshNotificationUI
+import Swift
+import UIKit
+import UserNotifications
+import UserNotificationsUI
+import _Concurrency
+import _StringProcessing
+import _SwiftConcurrencyShims
+public struct StoryPage : Swift.Equatable {
+  public static let defaultDuration: Swift.Double
+  public let imageURL: Foundation.URL
+  public let duration: Foundation.TimeInterval
+  public let link: Foundation.URL?
+  public let buttonTitle: Swift.String?
+  public let title: Swift.String?
+  public let subtitle: Swift.String?
+  public static func == (a: PushwooshNotificationUI.StoryPage, b: PushwooshNotificationUI.StoryPage) -> Swift.Bool
+}
+public enum PushwooshStoriesMediaPrefetcher {
+  public static func prefetch(userInfo: [Swift.AnyHashable : Any], appGroupIdentifier: Swift.String, completion: @escaping () -> Swift.Void)
+}
+@objc @_inheritsConvenienceInitializers @_Concurrency.MainActor(unsafe) open class PushwooshStoriesViewController : UIKit.UIViewController, UserNotificationsUI.UNNotificationContentExtension {
+  @_Concurrency.MainActor(unsafe) weak public var storiesDelegate: (any PushwooshNotificationUI.PushwooshStoriesDelegate)?
+  @_Concurrency.MainActor(unsafe) open var appGroupIdentifier: Swift.String? {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var storyAspectRatio: CoreFoundation.CGFloat {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var hapticsEnabled: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var longPressToPauseEnabled: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var crossfadesBetweenPages: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) open var loopsAfterLastPage: Swift.Bool {
+    get
+  }
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewDidLoad()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func viewWillDisappear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc open func didReceive(_ notification: UserNotifications.UNNotification)
+  @_Concurrency.MainActor(unsafe) open func showDefaultContent(for notification: UserNotifications.UNNotification)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(nibName nibNameOrNil: Swift.String?, bundle nibBundleOrNil: Foundation.Bundle?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+}
+public protocol PushwooshStoriesDelegate : AnyObject {
+  func storiesViewController(_ controller: PushwooshNotificationUI.PushwooshStoriesViewController, didStartWithPageCount pageCount: Swift.Int)
+  func storiesViewController(_ controller: PushwooshNotificationUI.PushwooshStoriesViewController, didShow page: PushwooshNotificationUI.StoryPage, at index: Swift.Int)
+  func storiesViewController(_ controller: PushwooshNotificationUI.PushwooshStoriesViewController, didTapActionFor page: PushwooshNotificationUI.StoryPage, at index: Swift.Int)
+  func storiesViewControllerDidFinish(_ controller: PushwooshNotificationUI.PushwooshStoriesViewController)
+  func storiesViewControllerDidShowFallback(_ controller: PushwooshNotificationUI.PushwooshStoriesViewController)
+}
+extension PushwooshNotificationUI.PushwooshStoriesDelegate {
+  public func storiesViewController(_ controller: PushwooshNotificationUI.PushwooshStoriesViewController, didStartWithPageCount pageCount: Swift.Int)
+  public func storiesViewController(_ controller: PushwooshNotificationUI.PushwooshStoriesViewController, didShow page: PushwooshNotificationUI.StoryPage, at index: Swift.Int)
+  public func storiesViewController(_ controller: PushwooshNotificationUI.PushwooshStoriesViewController, didTapActionFor page: PushwooshNotificationUI.StoryPage, at index: Swift.Int)
+  public func storiesViewControllerDidFinish(_ controller: PushwooshNotificationUI.PushwooshStoriesViewController)
+  public func storiesViewControllerDidShowFallback(_ controller: PushwooshNotificationUI.PushwooshStoriesViewController)
+}

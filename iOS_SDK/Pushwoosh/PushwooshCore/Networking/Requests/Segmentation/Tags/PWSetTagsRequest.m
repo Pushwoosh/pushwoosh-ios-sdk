@@ -7,10 +7,6 @@
 #import "PWSetTagsRequest.h"
 #import "NSDate+PWDateUtils.h"
 
-#if !__has_feature(objc_arc)
-#error "ARC is required to compile Pushwoosh SDK"
-#endif
-
 @interface PWSetTagsRequest () 
 
 @end

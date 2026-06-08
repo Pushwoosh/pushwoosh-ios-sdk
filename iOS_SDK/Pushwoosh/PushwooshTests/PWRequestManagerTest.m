@@ -5,11 +5,10 @@
 #import "PWNetworkModule.h"
 #import "PWRequest.h"
 #import "PushwooshFramework.h"
-#import "PWGetConfigRequest.h"
-#import "PWRequestsCacheManager.h"
-#import "PWCachedRequest.h"
 #import "PWConfig.h"
 #import "PWSdkStateProvider.h"
+#import "PWRetryQueue.h"
+#import "PWMessageDeliveryRequest.h"
 
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
@@ -23,17 +22,13 @@
 @interface PWRequestManager (Test)
 
 @property (nonatomic, strong) NSURLSession *session;
+@property (nonatomic, strong) PWRetryQueue *retryQueue;
 
 - (NSString *)baseUrl;
 - (void)setReverseProxyUrl:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers;
 - (NSMutableURLRequest *)prepareRequest:(NSString *)requestUrl jsonRequestData:(NSString *)jsonRequestData;
 - (void)sendRequestInternal:(PWRequest *)request completion:(void (^)(NSError *error))completion;
 - (void)processResponse:(NSHTTPURLResponse *)httpResponse responseData:(NSData *)responseData request:(PWRequest *)request url:(NSString *)requestUrl requestData:(NSString *)requestData error:(NSError **)outError;
-- (BOOL)needToRetry:(NSInteger)statusCode;
-- (NSUInteger)increaseRequestCounter:(PWRequest *)request;
-- (double)initialTime:(PWRequest *)request;
-- (BOOL)isNeedToRetryAfterAppOpenedWith:(PWRequest *)request;
-- (NSUInteger)retryCountWith:(PWRequest *)request;
 - (NSString *)getApiToken;
 
 - (void)onRequestError:(PWRequest *)request
@@ -291,111 +286,6 @@ static id _mockNSBundle;
 	[self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
-/// Verifies that a cacheable request returning a 500 status code is persisted into the PWRequestsCacheManager.
-- (void)testCacheFailedRequest {
-    NSString *methodName = @"applicationOpen";
-    NSInteger statusCode = 500;
-    PWRequest *request = [[PWRequest alloc] init];
-    id mockPWRequestsCacheManager = OCMPartialMock([PWRequestsCacheManager sharedInstance]);
-    id mockRequest = OCMPartialMock(request);
-    OCMStub([mockRequest methodName]).andReturn(methodName);
-    OCMStub([mockRequest requestDictionary]).andReturn(@{});
-    id mockSession = OCMPartialMock(_requestManager.session);
-    __block NSURLResponse *response = [[NSURLResponse alloc] init];
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
-    id mockHTTPResponse = OCMPartialMock(httpResponse);
-    OCMStub([mockSession dataTaskWithRequest:OCMOCK_ANY completionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
-        void(^handler)(NSData *data, NSURLResponse *response, NSError *error);
-        [invocation getArgument:&handler atIndex:3];
-        handler(nil, response, nil);
-    });
-    OCMStub([mockHTTPResponse statusCode]).andReturn(statusCode);
-    OCMStub([mockRequest cacheable]).andReturn(YES);
-    OCMExpect([mockPWRequestsCacheManager cacheRequest:OCMOCK_ANY]);
-
-    [_requestManager sendRequestInternal:request completion:^(NSError *error) {}];
-
-    OCMVerifyAll(mockPWRequestsCacheManager);
-
-    [mockPWRequestsCacheManager stopMocking];
-    [mockRequest stopMocking];
-    [mockSession stopMocking];
-    [mockHTTPResponse stopMocking];
-}
-
-/// Verifies that a cached request that succeeds on retry is removed from the PWRequestsCacheManager.
-- (void)testRequestDeletedAfterSuccessRetry {
-    NSInteger statusCode = 200;
-    double delay = 10.f;
-    double currentTime = 1000.f;
-    NSString *methodName = @"applicationOpen";
-    PWCachedRequest *cachedRequest = [[PWCachedRequest alloc] init];
-    id mockCachedRequest = OCMPartialMock(cachedRequest);
-    OCMStub([mockCachedRequest methodName]).andReturn(methodName);
-    OCMStub([mockCachedRequest requestDictionary]).andReturn(cachedRequest.baseDictionary);
-    id mockNSUserDefaults = OCMPartialMock([NSUserDefaults standardUserDefaults]);
-    OCMStub([mockNSUserDefaults doubleForKey:OCMOCK_ANY]).andReturn(delay);
-    id mockNSDate = OCMClassMock([NSDate class]);
-    OCMStub([mockNSDate date]).andReturn(mockNSDate);
-    OCMStub([mockNSDate timeIntervalSince1970]).andReturn(currentTime);
-    id mockSession = OCMPartialMock(_requestManager.session);
-    __block NSURLResponse *response = [[NSURLResponse alloc] init];
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
-    id mockHTTPResponse = OCMPartialMock(httpResponse);
-    OCMStub([mockSession dataTaskWithRequest:OCMOCK_ANY completionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
-        void(^handler)(NSData *data, NSURLResponse *response, NSError *error);
-        [invocation getArgument:&handler atIndex:3];
-        handler(nil, response, nil);
-    });
-    OCMStub([mockHTTPResponse statusCode]).andReturn(statusCode);
-    id mockPWRequestsCacheManager = OCMPartialMock([PWRequestsCacheManager sharedInstance]);
-    OCMExpect([mockPWRequestsCacheManager deleteCachedRequest:cachedRequest]);
-
-    [_requestManager sendRequestInternal:cachedRequest completion:^(NSError *error) {}];
-
-    OCMVerifyAll(mockPWRequestsCacheManager);
-
-    [mockCachedRequest stopMocking];
-    [mockNSUserDefaults stopMocking];
-    [mockNSDate stopMocking];
-    [mockSession stopMocking];
-    [mockHTTPResponse stopMocking];
-    [mockPWRequestsCacheManager stopMocking];
-}
-
-/// Verifies that when a retry attempt is required, the retry counter is incremented on the cached request.
-- (void)testIncreaseRetryCount {
-    NSInteger statusCode = 500;
-    NSString *methodName = @"applicationOpen";
-    id mockPWRequestManager = OCMPartialMock(self.requestManager);
-    OCMStub([mockPWRequestManager isNeedToRetryAfterAppOpenedWith:OCMOCK_ANY]).andReturn(YES);
-    PWCachedRequest *cachedRequest = [[PWCachedRequest alloc] init];
-    id mockCachedRequest = OCMPartialMock(cachedRequest);
-    OCMStub([mockCachedRequest methodName]).andReturn(methodName);
-    OCMStub([mockCachedRequest requestDictionary]).andReturn(cachedRequest.baseDictionary);
-    id mockSession = OCMPartialMock(_requestManager.session);
-    __block NSURLResponse *response = [[NSURLResponse alloc] init];
-    NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
-    id mockHTTPResponse = OCMPartialMock(httpResponse);
-    OCMStub([mockSession dataTaskWithRequest:OCMOCK_ANY completionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
-        void(^handler)(NSData *data, NSURLResponse *response, NSError *error);
-        [invocation getArgument:&handler atIndex:3];
-        handler(nil, response, nil);
-    });
-    OCMStub([mockHTTPResponse statusCode]).andReturn(statusCode);
-    OCMStub([mockPWRequestManager retryCountWith:OCMOCK_ANY]).andReturn(2);
-    OCMExpect([mockPWRequestManager increaseRequestCounter:OCMOCK_ANY]);
-
-    [_requestManager sendRequestInternal:cachedRequest completion:^(NSError *error) {}];
-
-    OCMVerify([mockPWRequestManager increaseRequestCounter:OCMOCK_ANY]);
-
-    [mockPWRequestManager stopMocking];
-    [mockCachedRequest stopMocking];
-    [mockSession stopMocking];
-    [mockHTTPResponse stopMocking];
-}
-
 - (void)testHeaderAuthExist {
     NSString *apiToken = @"somEpusHwooSHtOkenMocK";
     NSString *correctFormat = [NSString stringWithFormat:@"Token %@", apiToken];
@@ -411,25 +301,6 @@ static id _mockNSBundle;
 
     [mockNSMutableURLRequest stopMocking];
     [mockPWConfig stopMocking];
-}
-
-/// Verifies that initialTime for a cached request reads back the persisted retry delay from NSUserDefaults.
-- (void)testCheckCurrectCulculateDelay {
-    double remainTime = 5.f;
-    PWCachedRequest *cachedRequest = [[PWCachedRequest alloc] init];
-    id mockNSUserDefaults = OCMClassMock([NSUserDefaults class]);
-    OCMStub([mockNSUserDefaults standardUserDefaults]).andReturn(mockNSUserDefaults);
-    OCMStub([mockNSUserDefaults doubleForKey:OCMOCK_ANY]).andReturn(5);
-    id mockNSDate = OCMClassMock([NSDate class]);
-    OCMStub([mockNSDate date]).andReturn(mockNSDate);
-    OCMStub([mockNSDate timeIntervalSince1970]).andReturn(5);
-
-    [_requestManager sendRequestInternal:cachedRequest completion:^(NSError *error) {}];
-
-    XCTAssertEqual(remainTime, [_requestManager initialTime:cachedRequest]);
-
-    [mockNSUserDefaults stopMocking];
-    [mockNSDate stopMocking];
 }
 
 #pragma mark - SDK-814: request-blocking guard
@@ -468,6 +339,60 @@ static id _mockNSBundle;
     if (priorBaseUrl) {
         [[NSUserDefaults standardUserDefaults] setObject:priorBaseUrl forKey:@"Pushwoosh_BASEURL"];
     }
+}
+
+/// Verifies the manager-level gate enqueues a cacheable request into the retry queue on a transient (500) failure.
+- (void)testCacheableTransientFailure_enqueuesToRetryQueue {
+    id savedQueue = _requestManager.retryQueue;
+    id mockQueue = OCMClassMock([PWRetryQueue class]);
+    _requestManager.retryQueue = mockQueue;
+    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@"http://example.com"] statusCode:500 HTTPVersion:nil headerFields:nil];
+    [NSURLSession injectResponse:response data:[@"{}" dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+
+    PWMessageDeliveryRequest *request = [PWMessageDeliveryRequest new];
+    XCTestExpectation *exp = [self expectationWithDescription:@"done"];
+    [_requestManager sendRequestInternal:request completion:^(NSError *error) { [exp fulfill]; }];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
+
+    OCMVerify([mockQueue enqueueRequest:request]);
+    _requestManager.retryQueue = savedQueue;
+    [mockQueue stopMocking];
+}
+
+/// Verifies the gate does NOT enqueue a non-cacheable request even on a transient (500) failure.
+- (void)testNonCacheableTransientFailure_doesNotEnqueue {
+    id savedQueue = _requestManager.retryQueue;
+    id mockQueue = OCMClassMock([PWRetryQueue class]);
+    OCMReject([mockQueue enqueueRequest:OCMOCK_ANY]);
+    _requestManager.retryQueue = mockQueue;
+    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@"http://example.com"] statusCode:500 HTTPVersion:nil headerFields:nil];
+    [NSURLSession injectResponse:response data:[@"{}" dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+
+    PWAppOpenRequest *request = [PWAppOpenRequest new];
+    XCTestExpectation *exp = [self expectationWithDescription:@"done"];
+    [_requestManager sendRequestInternal:request completion:^(NSError *error) { [exp fulfill]; }];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
+
+    _requestManager.retryQueue = savedQueue;
+    [mockQueue stopMocking];
+}
+
+/// Verifies the gate does NOT enqueue a cacheable request on a permanent (4xx) failure — only transient codes retry.
+- (void)testCacheablePermanentFailure_doesNotEnqueue {
+    id savedQueue = _requestManager.retryQueue;
+    id mockQueue = OCMClassMock([PWRetryQueue class]);
+    OCMReject([mockQueue enqueueRequest:OCMOCK_ANY]);
+    _requestManager.retryQueue = mockQueue;
+    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@"http://example.com"] statusCode:400 HTTPVersion:nil headerFields:nil];
+    [NSURLSession injectResponse:response data:[@"{}" dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+
+    PWMessageDeliveryRequest *request = [PWMessageDeliveryRequest new];
+    XCTestExpectation *exp = [self expectationWithDescription:@"done"];
+    [_requestManager sendRequestInternal:request completion:^(NSError *error) { [exp fulfill]; }];
+    [self waitForExpectationsWithTimeout:1 handler:nil];
+
+    _requestManager.retryQueue = savedQueue;
+    [mockQueue stopMocking];
 }
 
 @end

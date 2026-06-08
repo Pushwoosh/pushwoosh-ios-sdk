@@ -49,7 +49,6 @@
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED"]).andReturn(@YES);
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_PURCHASE_TRACKING_ENABLED"]).andReturn(@YES);
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_BASEURL"]).andReturn(requestUrl);
-    OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_SDK_SELF_TEST_ENABLE"]).andReturn(@YES);
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_AUTO"]).andReturn(@YES);
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_PURCHASE_TRACKING_ENABLED"]).andReturn(@YES);
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_AUTO_ACCEPT_DEEP_LINK_FOR_SILENT_PUSH"]).andReturn(@YES);
@@ -67,7 +66,6 @@
     XCTAssertTrue(_config.sendPushStatIfAlertsDisabled);
     XCTAssertTrue(_config.sendPurchaseTrackingEnabled);
     XCTAssertEqual(requestUrl, _config.requestUrl);
-    XCTAssertTrue(_config.selfTestEnabled);
     XCTAssertTrue(_config.useRuntime);
     XCTAssertTrue(_config.sendPurchaseTrackingEnabled);
     XCTAssertTrue(_config.acceptedDeepLinkForSilentPush);

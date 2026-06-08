@@ -15,7 +15,8 @@ NS_ERROR_ENUM(PWErrorDomain)
 {
     PWErrorUnknown = -1,
     PWErrorCommunicationDisabled = -2,
-    PWErrorDeviceDataHasBeenRemoved = -3
+    PWErrorDeviceDataHasBeenRemoved = -3,
+    PWErrorRequestNotReady = -4
 };
 
 #define HEAVY_OPERATION() heavy_operation_impl(__FUNCTION__)
@@ -36,8 +37,6 @@ void heavy_operation_impl(const char *function);
 + (NSString *)appVersion;
 
 + (NSString *)bundleId;
-
-+ (NSString *)stringWithVisibleFirstAndLastFourCharacters:(NSString *)inputString;
 
 + (NSString *)preferredLanguage;
 

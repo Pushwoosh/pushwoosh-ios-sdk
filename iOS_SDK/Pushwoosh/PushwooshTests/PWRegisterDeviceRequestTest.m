@@ -7,6 +7,10 @@
 #import "PWNotificationCategoryBuilder.h"
 #import "PushwooshFramework.h"
 #import "PWPushNotificationsManager.common.h"
+#import "PWSessionRetrySender.h"
+#import "PWRetryPolicy.h"
+#import "PWRequestManager.h"
+#import "PWRequest.h"
 
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
@@ -30,6 +34,7 @@
 @interface PWPushNotificationsManagerCommon (TEST)
 
 @property (nonatomic) PWRegisterDeviceRequest *request;
+@property (nonatomic) PWSessionRetrySender *sessionRetry;
 
 @end
 
@@ -65,6 +70,40 @@
 - (void)testMethodName {
     _requestDevice = [PWRegisterDeviceRequest new];
     XCTAssertEqualObjects([_requestDevice methodName], @"registerDevice");
+}
+
+/// Verifies registerDevice is NOT cacheable: it retries in-memory within the session instead of being persisted to the offline queue (Android parity).
+- (void)testRegisterDeviceIsNotCacheable {
+    XCTAssertFalse([[PWRegisterDeviceRequest new] cacheable]);
+}
+
+/// Verifies SMS registration retries in-memory on a transient failure — registerDevice is no longer cacheable, so registerNumber must route through the session retry sender (regression guard).
+- (void)testRegisterSmsNumberRetriesOnTransientFailure {
+    id mockRequestManager = OCMClassMock([PWRequestManager class]);
+    __block int calls = 0;
+    NSError *timeout = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+    OCMStub([mockRequestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        calls++;
+        __unsafe_unretained PWRequest *req = nil;
+        [invocation getArgument:&req atIndex:2];
+        req.httpCode = 0;
+        __unsafe_unretained void (^completion)(NSError *) = nil;
+        [invocation getArgument:&completion atIndex:3];
+        if (completion) completion(timeout);
+    });
+    PWSessionRetrySender *sender = [[PWSessionRetrySender alloc] initWithRequestManager:mockRequestManager
+                                                                                policy:[PWRetryPolicy new]];
+    sender.retryDelaysSeconds = @[@0, @0];
+    _notificationManager.sessionRetry = sender;
+
+    [_notificationManager registerSmsNumber:@"+15551234567"];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"drain"];
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{ [exp fulfill]; });
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    XCTAssertEqual(calls, 3);
+    [mockRequestManager stopMocking];
 }
 
 /// Verifies that an empty response leaves preferences.categories nil/empty.

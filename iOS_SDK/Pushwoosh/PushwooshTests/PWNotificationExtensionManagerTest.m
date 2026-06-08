@@ -148,4 +148,114 @@
     mockUNMutableNotificationContent = nil;
 }
 
+/// Verifies that an empty pw_badge value does not raise NSRangeException and resets the badge to zero.
+- (void)testExtensionWithEmptyBadgeDoesNotCrash {
+    OCMStub([_mockPWNetworkModule inject:OCMOCK_ANY]).andDo(nil);
+    UNNotificationRequest *request = [UNNotificationRequest alloc];
+    id mockUNMutableNotificationContent = OCMPartialMock([UNMutableNotificationContent alloc]);
+    id mockRequest = OCMPartialMock(request);
+    id mockUNNotificationContent = OCMClassMock([UNNotificationContent class]);
+    OCMStub([(UNNotificationRequest *)mockRequest content]).andReturn(mockUNMutableNotificationContent);
+    OCMStub([mockUNMutableNotificationContent mutableCopy]).andReturn(mockUNMutableNotificationContent);
+    void(^block)(UNNotificationContent *content);
+    id mockPWConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockPWConfig appGroupsName]).andReturn(@"group.com.pushwoosh.demoapp_unit_tests");
+    id mockNSUserDefaults = OCMClassMock([NSUserDefaults class]);
+    OCMStub([mockNSUserDefaults alloc]).andReturn(mockNSUserDefaults);
+    OCMStub([mockNSUserDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockNSUserDefaults);
+    OCMStub([mockNSUserDefaults integerForKey:OCMOCK_ANY]).andReturn(0);
+    OCMStub([(UNMutableNotificationContent *)mockUNMutableNotificationContent userInfo]).andReturn((@{@"aps": @{@"pw_badge": @""}, @"pw_msg": @"1"}));
+
+    XCTAssertNoThrow([[PWNotificationExtensionManager sharedManager] handleNotificationRequest:request contentHandler:block]);
+
+    OCMVerify([mockNSUserDefaults setInteger:0 forKey:@"badge_count"]);
+    [mockPWConfig stopMocking];
+    [mockNSUserDefaults stopMocking];
+    [mockUNMutableNotificationContent stopMocking];
+    [mockRequest stopMocking];
+    [mockUNNotificationContent stopMocking];
+    mockUNMutableNotificationContent = nil;
+}
+
+/// Verifies that a non-string pw_badge value (e.g. a number) does not crash the extension.
+- (void)testExtensionWithNonStringBadgeDoesNotCrash {
+    OCMStub([_mockPWNetworkModule inject:OCMOCK_ANY]).andDo(nil);
+    UNNotificationRequest *request = [UNNotificationRequest alloc];
+    id mockUNMutableNotificationContent = OCMPartialMock([UNMutableNotificationContent alloc]);
+    id mockRequest = OCMPartialMock(request);
+    id mockUNNotificationContent = OCMClassMock([UNNotificationContent class]);
+    OCMStub([(UNNotificationRequest *)mockRequest content]).andReturn(mockUNMutableNotificationContent);
+    OCMStub([mockUNMutableNotificationContent mutableCopy]).andReturn(mockUNMutableNotificationContent);
+    void(^block)(UNNotificationContent *content);
+    id mockPWConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockPWConfig appGroupsName]).andReturn(@"group.com.pushwoosh.demoapp_unit_tests");
+    id mockNSUserDefaults = OCMClassMock([NSUserDefaults class]);
+    OCMStub([mockNSUserDefaults alloc]).andReturn(mockNSUserDefaults);
+    OCMStub([mockNSUserDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockNSUserDefaults);
+    OCMStub([mockNSUserDefaults integerForKey:OCMOCK_ANY]).andReturn(0);
+    OCMStub([(UNMutableNotificationContent *)mockUNMutableNotificationContent userInfo]).andReturn((@{@"aps": @{@"pw_badge": @5}, @"pw_msg": @"1"}));
+
+    XCTAssertNoThrow([[PWNotificationExtensionManager sharedManager] handleNotificationRequest:request contentHandler:block]);
+
+    [mockPWConfig stopMocking];
+    [mockNSUserDefaults stopMocking];
+    [mockUNMutableNotificationContent stopMocking];
+    [mockRequest stopMocking];
+    [mockUNNotificationContent stopMocking];
+    mockUNMutableNotificationContent = nil;
+}
+
+/// Verifies that handleNotificationRequest:withAppGroups:contentHandler: calls the contentHandler for a non-Pushwoosh push instead of hanging.
+- (void)testHandleWithAppGroupsCallsContentHandlerForForeignPush {
+    OCMStub([_mockPWNetworkModule inject:OCMOCK_ANY]).andDo(nil);
+    UNNotificationRequest *request = [UNNotificationRequest alloc];
+    id mockUNMutableNotificationContent = OCMPartialMock([UNMutableNotificationContent alloc]);
+    id mockRequest = OCMPartialMock(request);
+    OCMStub([(UNNotificationRequest *)mockRequest content]).andReturn(mockUNMutableNotificationContent);
+    OCMStub([mockUNMutableNotificationContent mutableCopy]).andReturn(mockUNMutableNotificationContent);
+    OCMStub([(UNMutableNotificationContent *)mockUNMutableNotificationContent userInfo]).andReturn((@{@"aps": @{@"alert": @"hi"}}));
+
+    __block BOOL called = NO;
+    void(^block)(UNNotificationContent *content) = ^(UNNotificationContent *content) {
+        called = YES;
+    };
+
+    [[PWNotificationExtensionManager sharedManager] handleNotificationRequest:request
+                                                               withAppGroups:@"group.com.pushwoosh.demoapp_unit_tests"
+                                                              contentHandler:block];
+
+    XCTAssertTrue(called);
+    [mockUNMutableNotificationContent stopMocking];
+    [mockRequest stopMocking];
+    mockUNMutableNotificationContent = nil;
+}
+
+/// Verifies that handleNotificationRequest:withAppGroups:contentHandler: calls the contentHandler on the early return when PWConfig already holds an app groups name.
+- (void)testHandleWithAppGroupsCallsContentHandlerWhenConfigGroupSet {
+    OCMStub([_mockPWNetworkModule inject:OCMOCK_ANY]).andDo(nil);
+    UNNotificationRequest *request = [UNNotificationRequest alloc];
+    id mockUNMutableNotificationContent = OCMPartialMock([UNMutableNotificationContent alloc]);
+    id mockRequest = OCMPartialMock(request);
+    OCMStub([(UNNotificationRequest *)mockRequest content]).andReturn(mockUNMutableNotificationContent);
+    OCMStub([mockUNMutableNotificationContent mutableCopy]).andReturn(mockUNMutableNotificationContent);
+    OCMStub([(UNMutableNotificationContent *)mockUNMutableNotificationContent userInfo]).andReturn((@{@"aps": @{}, @"pw_msg": @"1"}));
+    id mockPWConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockPWConfig appGroupsName]).andReturn(@"group.com.pushwoosh.demoapp_unit_tests");
+
+    __block BOOL called = NO;
+    void(^block)(UNNotificationContent *content) = ^(UNNotificationContent *content) {
+        called = YES;
+    };
+
+    [[PWNotificationExtensionManager sharedManager] handleNotificationRequest:request
+                                                               withAppGroups:@"group.com.example_app"
+                                                              contentHandler:block];
+
+    XCTAssertTrue(called);
+    [mockPWConfig stopMocking];
+    [mockUNMutableNotificationContent stopMocking];
+    [mockRequest stopMocking];
+    mockUNMutableNotificationContent = nil;
+}
+
 @end

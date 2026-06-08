@@ -37,7 +37,7 @@
     if (dict[@"hwid"])
         [dict removeObjectForKey:@"hwid"];
     
-    if (dict[@"content-type"])
+    if (dict[@"device_type"])
         [dict removeObjectForKey:@"device_type"];
     
     return dict;

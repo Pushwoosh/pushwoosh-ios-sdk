@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/PWConfig.h</key>
 		<data>
-		fG6A340fVro5nRaXJlj9jwpavZc=
+		wb3GHP0xEWT15bXN43QAa1aVJUU=
 		</data>
 		<key>Headers/PWCoreUtils.h</key>
 		<data>
@@ -106,7 +106,7 @@
 		</data>
 		<key>Headers/PWRequest.h</key>
 		<data>
-		SfTnExiYQ7n3q2Q90ymCKo3ZQGM=
+		S2pG5H575buL8ap7tUV5wM36Q5Q=
 		</data>
 		<key>Headers/PWRequestManager.h</key>
 		<data>
@@ -138,7 +138,7 @@
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		aV6lw+dwAdK92RdOpE9+rZX5is0=
+		oBAyRV1IxzhJ2mbN0LVfv77qIaY=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -146,7 +146,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Kiosa3Bu/tiSEXIeOjgfF0wfcPY=
+		p2HXo/nCHVTk0ITwhE3OzUS7cBo=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -160,13 +160,9 @@
 		<data>
 		jDV9QASPa0p8ZlLszlY8GlAk9sA=
 		</data>
-		<key>PrivateHeaders/PWDataManager.common.h</key>
-		<data>
-		790OMjJp5MKG7kJbDo2kPDy+vOo=
-		</data>
 		<key>PrivateHeaders/PWDataManager.h</key>
 		<data>
-		pXx5Zd9/OK1zS7xU7FdlS5nzYvY=
+		d/vViSOdq7jP/eQNmCU1TiVSYqQ=
 		</data>
 		<key>PrivateHeaders/PWEasyJSWKWebView.h</key>
 		<data>
@@ -228,10 +224,6 @@
 		<data>
 		FLmZRE+ku7ar3AUsNk/7VZ7uXpc=
 		</data>
-		<key>PrivateHeaders/PWRequestsCacheManager.h</key>
-		<data>
-		htJY0MTO/akRQ6c+U146oe2hW/E=
-		</data>
 		<key>PrivateHeaders/PWResource.h</key>
 		<data>
 		NGaXq3+kE+OKalFsDS8IyDCsQt4=
@@ -262,7 +254,7 @@
 		</data>
 		<key>PrivateHeaders/PWUtils.common.h</key>
 		<data>
-		lVSOGUFW/lQga7zAhAiML3QQzGI=
+		b4d/svFtAWl6RSyoIBbE6tw0NBs=
 		</data>
 		<key>PrivateHeaders/PWUtils.h</key>
 		<data>
@@ -270,11 +262,7 @@
 		</data>
 		<key>PrivateHeaders/PWUtils.ios.h</key>
 		<data>
-		OL5MJZz0DxSt0JFg6DhuT8RyeCQ=
-		</data>
-		<key>PrivateHeaders/PWUtilsMobile.h</key>
-		<data>
-		AV+9/bVnn6AMjL8k83R0qIOtVbk=
+		At7okmdr8LhygRscYFsQL4w8140=
 		</data>
 		<key>PrivateHeaders/PWVersionTracking.h</key>
 		<data>
@@ -319,7 +307,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			kjvAbmCB4kWz4XfSn8Q5l+OvU8849pxAv3zwExbMyEI=
+			1siyadTZU4k7lllFOPeUGcDZ0v/xngLKqk3DmWA1vVQ=
 			</data>
 		</dict>
 		<key>Headers/PWCoreUtils.h</key>
@@ -466,7 +454,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			JZXPeagfTNnAwkff/tNOrYVGyxkK5Y9DkkD7LK3XsaA=
+			AQSbFix0vXM50AXLXp6nqlDnB+KR74i6WkYvXq3zCE4=
 			</data>
 		</dict>
 		<key>Headers/PWRequestManager.h</key>
@@ -522,7 +510,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			bmE4U//Bh9Ld9eyAKY3W2yuYlMIgAptXk7T08A0IooI=
+			N7ST8YEg6c/XPkFJA0nI6RbFhUcNJIhIK5/tBio1Dtw=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -553,18 +541,11 @@
 			YTFei3V8Q4URnJhbDSeAv9bbl3AVtZG67lGJq+p2Jf0=
 			</data>
 		</dict>
-		<key>PrivateHeaders/PWDataManager.common.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			ZCmhCi9pt5rWRFMedvb/BCXeNOYcbb0HqXhcVeZebeY=
-			</data>
-		</dict>
 		<key>PrivateHeaders/PWDataManager.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			cqbLmHPjz9x3S8E81V7Es1optJev0wGI6usCYljBcHM=
+			Ig6mYECuZZGnN4PdkGOuDz+pzX+SpItamIE9z17Fz2M=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWEasyJSWKWebView.h</key>
@@ -672,13 +653,6 @@
 			dVoTJpgRDORW5kXMoTO2qzz285W36p9MSEA3lekUEmc=
 			</data>
 		</dict>
-		<key>PrivateHeaders/PWRequestsCacheManager.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			mKBbWa010eoqWEccgKx2tWTuPGSJseuJDTxn4aarHo0=
-			</data>
-		</dict>
 		<key>PrivateHeaders/PWResource.h</key>
 		<dict>
 			<key>hash2</key>
@@ -732,7 +706,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			o2vnHy2z0XouWZUoCjo9QaRmbToD2XOOuuBPF6RKThA=
+			cF9oUp/WktOl5fb8PVhSNxESuAvdUQKTvf6KDA9pk1s=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWUtils.h</key>
@@ -746,14 +720,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			baE9c8t10fgWZ+iDm5EFoCvRUGl80byVIAc+7efzPc8=
-			</data>
-		</dict>
-		<key>PrivateHeaders/PWUtilsMobile.h</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			f4VxFNYRqP+SKkEsNKcDSOvjawXDRPthg/G7e/6NtEU=
+			Ta0kqaHa/00uxo/RE2ZXTti/2DGCH4r2wHiKYX1mKQQ=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWVersionTracking.h</key>

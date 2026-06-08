@@ -22,10 +22,6 @@
 #import "PWPlatformModule.h"
 #import "PWNotificationManagerCompat.h"
 
-#if !__has_feature(objc_arc)
-#error "ARC is required to compile Pushwoosh SDK"
-#endif
-
 static IMP pw_original_paymentQueue_updatedTransactions_Imp;
 static IMP pw_original_addTransactionObserver_Imp;
 

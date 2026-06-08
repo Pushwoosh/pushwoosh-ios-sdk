@@ -8,16 +8,12 @@
 
 #import "PushwooshCore.h"
 #import "PWRequestManager.h"
+#import "PWNetworkModule.h"
 
 @implementation PushwooshCoreManager
 
-static PWRequestManager *_sharedManager;
-
 + (nonnull PWRequestManager *)sharedManager {
-    if (!_sharedManager) {
-        _sharedManager = [[PWRequestManager alloc] init];
-    }
-    return _sharedManager;
+    return [[PWNetworkModule module] requestManager];
 }
 
 @end

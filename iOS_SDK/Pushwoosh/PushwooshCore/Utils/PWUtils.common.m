@@ -55,49 +55,39 @@ void heavy_operation_impl(const char *function) {
     return [[NSBundle mainBundle] objectForInfoDictionaryKey:@"CFBundleIdentifier"];
 }
 
-+ (NSString *)stringWithVisibleFirstAndLastFourCharacters:(NSString *)inputString {
-    NSUInteger length = inputString.length;
-    
-    if (length <= 8) {
-        return [@"" stringByPaddingToLength:length withString:@"*" startingAtIndex:0];
-    }
-    
-    NSString *firstFour = [inputString substringToIndex:4];
-    NSString *lastFour = [inputString substringFromIndex:length - 4];
-    NSString *maskedMiddle = [@"" stringByPaddingToLength:length - 8 withString:@"*" startingAtIndex:0];
-    
-    return [NSString stringWithFormat:@"%@%@%@", firstFour, maskedMiddle, lastFour];
-}
-
-
 
 + (NSString *)preferredLanguage {
 	NSString *appLocale = @"en";
     if ([PWConfig config].allowCollectingDeviceLocale == NO) {
         return appLocale;
     }
-    
+
 	NSLocale *locale = (NSLocale *)CFBridgingRelease(CFLocaleCopyCurrent());
 	NSString *localeId = [locale localeIdentifier];
 
-	if ([localeId length] > 2)
+	if ([localeId length] > 2) {
 		localeId = [localeId stringByReplacingCharactersInRange:NSMakeRange(2, [localeId length] - 2) withString:@""];
+	}
 
-	appLocale = localeId;
+	if ([localeId length] > 0) {
+		appLocale = localeId;
+	}
 
 	NSArray *languagesArr = (NSArray *)CFBridgingRelease(CFLocaleCopyPreferredLanguages());
 	if ([languagesArr count] > 0) {
-		NSString *value = languagesArr[0];
+		NSString *value = languagesArr.firstObject;
 
-        NSDictionary *languageDictionary = [NSLocale componentsFromLocaleIdentifier:value];
-        NSString *languageCode = [languageDictionary objectForKey:@"kCFLocaleLanguageCodeKey"];
-        NSString *description = [languageDictionary objectForKey:@"kCFLocaleScriptCodeKey"];
-        
-        if ([value length] > 2) {
-            value = description != nil ? [NSString stringWithFormat:@"%@-%@", languageCode, description] : languageCode;
-        }
+		NSDictionary *languageDictionary = [NSLocale componentsFromLocaleIdentifier:value];
+		NSString *languageCode = languageDictionary[NSLocaleLanguageCode];
+		NSString *scriptCode = languageDictionary[NSLocaleScriptCode];
 
-		appLocale = [value copy];
+		if ([value length] > 2 && languageCode != nil) {
+			value = scriptCode != nil ? [NSString stringWithFormat:@"%@-%@", languageCode, scriptCode] : languageCode;
+		}
+
+		if ([value length] > 0) {
+			appLocale = [value copy];
+		}
 	}
 
 	return appLocale;
@@ -170,64 +160,38 @@ void heavy_operation_impl(const char *function) {
 + (void)applicationOpenURL:(NSURL *)url {
 }
 
-//This method is added to work with shorten urls
-//According to ios 6, if user isn't logged in appstore, then when safari opens itunes url system will ask permission to run appstore.
-//But still if application open appstore url, system will open it without any alerts.
+//Shortened urls (bit.ly etc.) are resolved to their final destination before opening.
 + (void)openUrl:(NSURL *)url {
-	//When opening nsurlconnection to some url if it has some redirect, then connection will ask delegate what to do.
-	//Unshort url and open it by usual way.
 	if ([[url scheme] hasPrefix:@"http"] && [self isShortenedUrl:url]) {
-		NSURLConnection *connection = [[NSURLConnection alloc] initWithRequest:[NSMutableURLRequest requestWithURL:url] delegate:self];
-		if (!connection) {
-			return;
-		}
+		NSMutableURLRequest *request = [NSMutableURLRequest requestWithURL:url];
+		request.HTTPMethod = @"HEAD";
+
+		NSURLSessionDataTask *task = [[NSURLSession sharedSession] dataTaskWithRequest:request completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {
+			NSURL *resolvedURL = response.URL ? : url;
+			dispatch_async(dispatch_get_main_queue(), ^{
+				[self applicationOpenURL:resolvedURL];
+			});
+		}];
+		[task resume];
 		return;
 	}
 
-	//If url has cusmtom scheme like facebook:// or itms:// we need to open it directly:
-	//small fix to prevent app freeezes on iOS7
-	//see: http://stackoverflow.com/questions/19356488/openurl-freezes-app-for-over-10-seconds
-	dispatch_async(dispatch_get_main_queue(), ^{
-		[self applicationOpenURL:url];
-	});
-}
-
-+ (NSURLRequest *)connection:(NSURLConnection *)connection willSendRequest:(NSURLRequest *)request
-			redirectResponse:(NSURLResponse *)redirectResponse {
-    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Url: %@", [request URL]]];
-
-	NSURL *url = [request URL];
-	if ([[url scheme] hasPrefix:@"http"] && [self isShortenedUrl:url]) {
-		return request;
-	}
-
-	dispatch_async(dispatch_get_main_queue(), ^{
-		[self applicationOpenURL:url];
-	});
-
-	return nil;
-}
-
-+ (void)connection:(NSURLConnection *)connection didFailWithError:(NSError *)error {
-	NSURL *url = [error userInfo][@"NSErrorFailingURLKey"];
-
-	//maybe itms:// or facebook:// url was shortened, try to open it directly
-	//iOS9 also fails to open http connections
 	dispatch_async(dispatch_get_main_queue(), ^{
 		[self applicationOpenURL:url];
 	});
 }
 
 + (void)swizzle:(Class)cls fromSelector:(SEL)fromChange toSelector:(SEL)toChange implementation:(IMP)impl typeEncoding:(const char *)typesEncoding {
-	Method method = nil;
-	method = class_getInstanceMethod(cls, fromChange);
+	Method method = class_getInstanceMethod(cls, fromChange);
 
 	if (method) {
-		//method exists add a new method and swap with original
-		class_addMethod(cls, toChange, impl, typesEncoding);
-		method_exchangeImplementations(class_getInstanceMethod(cls, fromChange), class_getInstanceMethod(cls, toChange));
+		IMP originalImp = method_getImplementation(method);
+		const char *originalTypes = method_getTypeEncoding(method);
+
+		class_addMethod(cls, toChange, originalImp, originalTypes);
+		class_addMethod(cls, fromChange, originalImp, originalTypes);
+		method_setImplementation(class_getInstanceMethod(cls, fromChange), impl);
 	} else {
-		//just add as orignal method
 		class_addMethod(cls, fromChange, impl, typesEncoding);
 	}
 }

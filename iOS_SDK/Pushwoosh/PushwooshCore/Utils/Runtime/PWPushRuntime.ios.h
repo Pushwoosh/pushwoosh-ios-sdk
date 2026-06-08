@@ -13,6 +13,4 @@
 
 + (void)swizzleNotificationSettingsHandler;
 
-+ (BOOL)isSelfTestEnabled;
-
 @end

@@ -10,9 +10,11 @@
 #import "PWUtils.h"
 #import <PushwooshCore/PushwooshCore.h>
 
-#if !__has_feature(objc_arc)
-#error "ARC is required to compile Pushwoosh SDK"
-#endif
+@interface PWRequest ()
+
+@property (nonatomic, copy) NSString *requestIdentifier;
+
+@end
 
 @implementation PWRequest
 
@@ -33,7 +35,12 @@
 }
 
 - (NSString *)requestIdentifier {
-    return [NSString stringWithFormat:@"%ld", self.hash];
+    @synchronized (self) {
+        if (!_requestIdentifier) {
+            _requestIdentifier = [[NSUUID UUID] UUIDString];
+        }
+        return _requestIdentifier;
+    }
 }
 
 //Please note that all values will be processed as strings

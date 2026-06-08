@@ -11,7 +11,6 @@
 
 #import "PushwooshFramework.h"
 #import "PWPreferences.h"
-#import "PWRequestsCacheManager.h"
 #import "PWInAppManager.h"
 #import "PWConfig.h"
 #import "PWPushNotificationsManager.h"
@@ -44,21 +43,17 @@
 }
 
 - (void)testInitWithApplicationCode {
-    id mockPWRequestsCacheManager = OCMClassMock([PWRequestsCacheManager class]);
-    OCMStub([mockPWRequestsCacheManager sharedInstance]);
     id mockPWInAppManager = OCMClassMock([PWInAppManager class]);
     OCMStub([mockPWInAppManager sharedManager]);
     id mockPWConfig = OCMClassMock([PWConfig class]);
     OCMStub([mockPWConfig config]);
-    
+
     id result = [self.pushwoosh initWithApplicationCode:@"DC533-F5DA4"];
-    
+
     XCTAssert(result);
     XCTAssertEqual([PWPreferences preferences].appCode, @"DC533-F5DA4");
-    OCMVerify([mockPWRequestsCacheManager sharedInstance]);
     OCMVerify([mockPWInAppManager sharedManager]);
     OCMVerify([mockPWConfig config]);
-    [mockPWRequestsCacheManager stopMocking];
     [mockPWInAppManager stopMocking];
     [mockPWConfig stopMocking];
 }

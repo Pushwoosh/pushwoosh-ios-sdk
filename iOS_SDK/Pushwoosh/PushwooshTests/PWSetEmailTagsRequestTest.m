@@ -45,7 +45,7 @@
     assertThat(parameters, hasKey(@"tags"));
     assertThat(parameters, hasKey(@"email"));
     XCTAssertNil(parameters[@"hwid"]);
-    XCTAssertNil(parameters[@"content-type"]);
+    XCTAssertNil(parameters[@"device_type"]);
 }
 
 - (void)testMethodNameIsCorrect {

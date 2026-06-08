@@ -135,9 +135,9 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
     if (!_communicationStartedHandler) {
         _communicationStartedHandler = [[NSNotificationCenter defaultCenter] addObserverForName:kPWServerCommunicationStarted object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
 
-            _serverCommunicationEnabled = YES;
-            [[NSNotificationCenter defaultCenter] removeObserver:_communicationStartedHandler];
-            _communicationStartedHandler = nil;
+            self->_serverCommunicationEnabled = YES;
+            [[NSNotificationCenter defaultCenter] removeObserver:self->_communicationStartedHandler];
+            self->_communicationStartedHandler = nil;
             [self sendAppOpen];
         }];
     }
