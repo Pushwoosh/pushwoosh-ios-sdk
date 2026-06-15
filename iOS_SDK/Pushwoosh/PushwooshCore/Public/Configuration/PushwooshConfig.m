@@ -15,6 +15,9 @@
 #import "PWConfig.h"
 #import <PushwooshCore/PWSdkStateProvider.h>
 #import <PushwooshCore/PushwooshLog.h>
+#if TARGET_OS_IOS
+#import <PushwooshCore/PWPushPrimerBuilder.h>
+#endif
 
 @implementation PushwooshConfig
 
@@ -132,6 +135,12 @@
         [[PWManagerBridge shared] loadTags:successBlock error:errorBlock];
     }];
 }
+
+#if TARGET_OS_IOS
++ (PWPushPrimerBuilder *)pushPrimer {
+    return [PWPushPrimerBuilder new];
+}
+#endif
 
 + (void)registerForPushNotifications {
     [self executeOrQueue:^{

@@ -13,6 +13,7 @@
 @protocol PWMessagingDelegate;
 #if TARGET_OS_IOS
 @protocol PWPurchaseDelegate;
+@class PWPushPrimerBuilder;
 #endif
 
 /**
@@ -3372,6 +3373,29 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see handlePushReceived:
  */
 + (NSString *_Nullable)getCustomPushData:(NSDictionary *_Nonnull)pushNotification;
+
+#if TARGET_OS_IOS
+/**
+ Returns a fresh push primer builder.
+
+ The push primer is a soft in-app dialog shown *before* the iOS system permission prompt.
+ Configure it with the fluent chain and call `present`. The SDK reads the current
+ authorization status and decides whether to show or silently suppress, renders its own
+ native UI, and on accept triggers push registration.
+
+ ```swift
+ Pushwoosh.configure.pushPrimer
+     .title("Stay in the loop")
+     .message("Get notified about deals first")
+     .acceptButton("Enable")
+     .declineButton("Later")
+     .present { outcome in }
+ ```
+
+ @return A new `PWPushPrimerBuilder` instance.
+ */
++ (PWPushPrimerBuilder * _Nonnull)pushPrimer NS_REFINED_FOR_SWIFT;
+#endif
 
 @end
 

@@ -104,6 +104,10 @@
 		<data>
 		83LZO66uIfDxiGJjp8AJEYZR7l0=
 		</data>
+		<key>Headers/PWPushPrimerBuilder.h</key>
+		<data>
+		PidENxgw8WEBUbj09CMc68awvcg=
+		</data>
 		<key>Headers/PWRequest.h</key>
 		<data>
 		S2pG5H575buL8ap7tUV5wM36Q5Q=
@@ -134,11 +138,11 @@
 		</data>
 		<key>Headers/PushwooshConfig.h</key>
 		<data>
-		0Hiz9QqPKBVoDZ2hexydp2qBB7c=
+		Sc1nyoagtp8ppF5RNgOVaDOXvvQ=
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		ja1o6DqiZByDQsxNKPitdIOw7yY=
+		DSKDrIsZ8JyuIX2Mv5ZuctNGc04=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -146,7 +150,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		7NejmTu/wmYvoZUuHF6LCW3j1bk=
+		Sy+D/ovShxMHgrpBuVSgbS8neic=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -223,6 +227,14 @@
 		<key>PrivateHeaders/PWPushNotificationsManager.h</key>
 		<data>
 		FLmZRE+ku7ar3AUsNk/7VZ7uXpc=
+		</data>
+		<key>PrivateHeaders/PWPushPrimerPresenter.h</key>
+		<data>
+		kj+1e3E8VCfB9/y0FUV6XW/B7Vw=
+		</data>
+		<key>PrivateHeaders/PWPushPrimerViewController.h</key>
+		<data>
+		M4w6sVrSMyOZMnNcrrEtJZptBA8=
 		</data>
 		<key>PrivateHeaders/PWResource.h</key>
 		<data>
@@ -450,6 +462,13 @@
 			m858LLGYxFGXTzp3UVurGTc6BC8ByL9UTDMDnpna1gI=
 			</data>
 		</dict>
+		<key>Headers/PWPushPrimerBuilder.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			l8Aq4vb9Oa9hF2HXAfjucJpXteQLZznmciaMaKklF3g=
+			</data>
+		</dict>
 		<key>Headers/PWRequest.h</key>
 		<dict>
 			<key>hash2</key>
@@ -503,14 +522,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/wbpVEhMQWZOTC0tMMlWWPk6UZkFoCHSNt6JKLm64/I=
+			YJRODd9eboiutNW0wzgtQGlPLLVAUwbHuEI718bhc+4=
 			</data>
 		</dict>
 		<key>Headers/PushwooshCore.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			1Qdwee+RbTCEXAzgrLhci10eUR5HgHx9CUILBKLRKxQ=
+			OENSNhFG6UF8ZfAA0WsvPSsiyGI26BtFSoeGF/9swRw=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -651,6 +670,20 @@
 			<key>hash2</key>
 			<data>
 			dVoTJpgRDORW5kXMoTO2qzz285W36p9MSEA3lekUEmc=
+			</data>
+		</dict>
+		<key>PrivateHeaders/PWPushPrimerPresenter.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			+1YyTkpq2nzAXCUrW9VfOj6eoBKdYZ6K87eZbvEkSiA=
+			</data>
+		</dict>
+		<key>PrivateHeaders/PWPushPrimerViewController.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			z0d517MGZGPeq+UL9GfkT+WFmpGm+PpoCjY/W7RtcLU=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWResource.h</key>

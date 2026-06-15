@@ -35,6 +35,11 @@ extension PushwooshFramework.Pushwoosh {
     get
   }
 }
+extension PushwooshCore.PushwooshConfig {
+  public static var pushPrimer: PushwooshCore.PWPushPrimerBuilder {
+    get
+  }
+}
 extension PushwooshCore.PWMedia {
   public static var modalRichMedia: PushwooshCore.PWModalRichMedia.Type {
     get

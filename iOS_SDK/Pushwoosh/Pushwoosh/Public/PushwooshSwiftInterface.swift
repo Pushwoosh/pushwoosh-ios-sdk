@@ -152,6 +152,30 @@ public extension Pushwoosh {
 }
 
 #if os(iOS)
+public extension PushwooshConfig {
+
+    /// Returns a fresh push primer builder.
+    ///
+    /// The push primer is a soft in-app dialog shown *before* the iOS system permission prompt.
+    /// Configure it with the fluent chain and call `present`. The SDK reads the current
+    /// authorization status and decides whether to show or silently suppress, renders its own
+    /// native UI, and on accept triggers push registration.
+    ///
+    /// ```swift
+    /// Pushwoosh.configure.pushPrimer
+    ///     .title("Stay in the loop")
+    ///     .message("Get notified about deals first")
+    ///     .acceptButton("Enable")
+    ///     .declineButton("Later")
+    ///     .present { outcome in /* ... */ }
+    /// ```
+    static var pushPrimer: PWPushPrimerBuilder {
+        return __pushPrimer()
+    }
+}
+#endif
+
+#if os(iOS)
 public extension PWMedia {
 
     /// Provides access to modal Rich Media configuration.
