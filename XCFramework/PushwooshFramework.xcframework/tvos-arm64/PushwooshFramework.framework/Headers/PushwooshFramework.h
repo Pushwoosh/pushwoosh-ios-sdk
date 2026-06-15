@@ -218,30 +218,21 @@
       pod 'PushwooshXCFramework'
     end
     ```
- 4. Replace NotificationService.swift:
+ 4. Replace NotificationService.swift with a subclass of `PushwooshNotificationServiceExtension`.
+    Pushwoosh sends the delivery event, sets the badge, downloads the attachment, and handles
+    the timeout fallback for you:
 
  ```swift
- import UserNotifications
  import PushwooshFramework
 
- class NotificationService: UNNotificationServiceExtension {
-     var contentHandler: ((UNNotificationContent) -> Void)?
-     var bestAttemptContent: UNMutableNotificationContent?
-
-     override func didReceive(_ request: UNNotificationRequest,
-                              withContentHandler contentHandler: @escaping (UNNotificationContent) -> Void) {
-         self.contentHandler = contentHandler
-         bestAttemptContent = request.content.mutableCopy() as? UNMutableNotificationContent
-         PWNotificationExtensionManager.shared().handle(request, contentHandler: contentHandler)
-     }
-
-     override func serviceExtensionTimeWillExpire() {
-         if let contentHandler = contentHandler, let content = bestAttemptContent {
-             contentHandler(content)
-         }
-     }
- }
+ class NotificationService: PushwooshNotificationServiceExtension {}
  ```
+
+ That's it. You can also skip the file entirely and set the extension's
+ `NSExtensionPrincipalClass` to `PushwooshNotificationServiceExtension` in Info.plist.
+
+ To customize the content before it is shown, override `didReceive(_:withContentHandler:)`, call
+ `super` with your own content handler, mutate the content inside it, then forward to the original.
 
  @section troubleshooting Troubleshooting
 
@@ -272,6 +263,10 @@
 #import "PWInbox.h"
 #import "PWNotificationExtensionManager.h"
 
+#if TARGET_OS_IOS
+#import "PushwooshNotificationServiceExtension.h"
+#endif
+
 #if TARGET_OS_IOS || TARGET_OS_TV
 
 #import <UserNotifications/UserNotifications.h>
@@ -284,7 +279,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"7.0.46"
+#define PUSHWOOSH_VERSION @"7.1.0"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy, PushwooshConfig;

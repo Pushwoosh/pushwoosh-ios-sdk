@@ -14,7 +14,7 @@
 		</data>
 		<key>Headers/PWNotificationExtensionManager.h</key>
 		<data>
-		Ek2HCa0O1kWvXD6Ubv74T0jrVyQ=
+		iiaAxfqo9ykUv7EGfKWThOsMrLo=
 		</data>
 		<key>Headers/PushNotificationManager.h</key>
 		<data>
@@ -26,11 +26,15 @@
 		</data>
 		<key>Headers/PushwooshFramework.h</key>
 		<data>
-		+1vxNcyyJUTbnjoaMN9OsgllD5s=
+		arE6zBAPtDuqqyKD2AB41kOk6ws=
+		</data>
+		<key>Headers/PushwooshNotificationServiceExtension.h</key>
+		<data>
+		kfA/rmcs71GN1+iJ0ur0ttB2meY=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		JvQcnbq5He5EZ1GwbDPLF/B2kes=
+		wXEvMExLpwsOz6YYutLshwXPhsY=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
 		<data>
@@ -101,7 +105,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			kfuBSKJKkjryuhoVcuA+6R+mXe25Jqj6/VWlohrLQrI=
+			9C7igdUIAvjvzXJ77MRxhENq7hdR+V6oA1+bCUtA6+8=
 			</data>
 		</dict>
 		<key>Headers/PushNotificationManager.h</key>
@@ -122,7 +126,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			kphY7NGYFlfbdwmWuHOqCj28mZD05qzTuQvhMoy6N7w=
+			c4OWk6Hc27fVSXCRBWwvAV/WKr2gVCwrGUhHxVfpU3I=
+			</data>
+		</dict>
+		<key>Headers/PushwooshNotificationServiceExtension.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			mv1fy9G+ad4Vi7bi38Adm8iTvOKxrVW7xZVl7cqW33M=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>

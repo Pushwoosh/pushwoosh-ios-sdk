@@ -2,6 +2,10 @@
 #import "PWConfig.h"
 #import "PWBundleMock.h"
 
+@interface PWConfig (Test)
+- (instancetype)initWithBundle:(NSBundle *)bundle hostBundle:(NSBundle *)hostBundle;
+@end
+
 @interface PWConfigTest : XCTestCase
 
 @property (nonatomic) PWConfig *config;
@@ -9,6 +13,41 @@
 @end
 
 @implementation PWConfigTest
+
+/// Verifies an extension inherits Pushwoosh_APPID from the host app bundle when its own bundle lacks the key.
+- (void)testAppIdInheritedFromHostBundleWhenMissingInExtension {
+    PWBundleMock *extensionBundle = (id)[PWBundleMock new];
+    PWBundleMock *hostBundle = (id)[PWBundleMock new];
+    hostBundle.appId = @"HOST1-HOST2";
+
+    _config = [[PWConfig alloc] initWithBundle:extensionBundle hostBundle:hostBundle];
+
+    XCTAssertEqualObjects(_config.appId, @"HOST1-HOST2");
+}
+
+/// Verifies the extension's own Pushwoosh_APPID takes precedence over the host app bundle value.
+- (void)testExtensionAppIdOverridesHostBundle {
+    PWBundleMock *extensionBundle = (id)[PWBundleMock new];
+    extensionBundle.appId = @"EXT11-EXT22";
+    PWBundleMock *hostBundle = (id)[PWBundleMock new];
+    hostBundle.appId = @"HOST1-HOST2";
+
+    _config = [[PWConfig alloc] initWithBundle:extensionBundle hostBundle:hostBundle];
+
+    XCTAssertEqualObjects(_config.appId, @"EXT11-EXT22");
+}
+
+/// Verifies a blank (whitespace) Pushwoosh_APPID in the extension is treated as absent and still inherits from the host (e.g. an unresolved $(VAR) placeholder).
+- (void)testBlankExtensionAppIdFallsBackToHostBundle {
+    PWBundleMock *extensionBundle = (id)[PWBundleMock new];
+    extensionBundle.appId = @"   ";
+    PWBundleMock *hostBundle = (id)[PWBundleMock new];
+    hostBundle.appId = @"HOST1-HOST2";
+
+    _config = [[PWConfig alloc] initWithBundle:extensionBundle hostBundle:hostBundle];
+
+    XCTAssertEqualObjects(_config.appId, @"HOST1-HOST2");
+}
 
 /// Verifies that sendPushStatIfAlertsDisabled reads back NO from the Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED Info.plist key.
 - (void)testSendPushStatIfAlertsDisabledNo {

@@ -289,8 +289,14 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 }
 
 - (void)loadReverseProxyFromAppGroups {
-    NSString *appGroupsName = [[PWConfig config] appGroupsName];
-    if (!appGroupsName || appGroupsName.length == 0) {
+    [self loadReverseProxyFromAppGroups:nil];
+}
+
+- (void)loadReverseProxyFromAppGroups:(NSString *)appGroupsName {
+    if (appGroupsName.length == 0) {
+        appGroupsName = [[PWConfig config] appGroupsName];
+    }
+    if (appGroupsName.length == 0) {
         return;
     }
     NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:appGroupsName];
@@ -304,6 +310,16 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
         }
         if ([PWConfig config].allowReverseProxy) {
             [self evaluateReadiness];
+        }
+    } else if ([PWConfig config].allowReverseProxy) {
+        BOOL hasProxy;
+        @synchronized (self) {
+            hasProxy = (_reverseProxyUrl.length > 0);
+        }
+        if (!hasProxy) {
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:[NSString stringWithFormat:@"Reverse proxy is enabled but no proxy URL was found in App Group \"%@\". Network requests — including the message delivery event from the Notification Service Extension — will be held until the host app stores the proxy URL there. Make sure the extension has the App Group capability and the host app has called setReverseProxyUrl.", appGroupsName]];
         }
     }
 }

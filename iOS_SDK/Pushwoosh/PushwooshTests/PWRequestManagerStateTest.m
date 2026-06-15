@@ -10,6 +10,7 @@
 #import "PWConfig.h"
 #import "PWSdkStateProvider.h"
 #import "PWServerCommunicationManager.h"
+#import "PushwooshLog.h"
 
 #pragma mark - Expose private properties for testing
 
@@ -336,6 +337,48 @@
     [manager loadReverseProxyFromAppGroups];
 
     XCTAssertEqual([PWSdkStateProvider sharedInstance].currentState, PWSdkStateInitializing);
+}
+
+/// Verifies an error is logged when reverse proxy is enabled but no proxy URL is available in the App Group.
+- (void)testLoadReverseProxyFromAppGroups_noUrl_logsError {
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
+
+    NSString *testGroupName = @"group.com.pushwoosh.test.proxylog";
+    OCMStub([_mockConfig appGroupsName]).andReturn(testGroupName);
+
+    NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:testGroupName];
+    [sharedDefaults removeObjectForKey:@"PWReverseProxyURL"];
+
+    id logMock = OCMClassMock([PushwooshLog class]);
+    OCMExpect([logMock pushwooshLog:PW_LL_ERROR className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
+        return [msg containsString:@"Reverse proxy is enabled"] && [msg containsString:testGroupName];
+    }]]);
+
+    [manager loadReverseProxyFromAppGroups];
+
+    OCMVerifyAll(logMock);
+    [logMock stopMocking];
+}
+
+/// Verifies the missing-proxy error is NOT logged when a proxy URL is present in the App Group.
+- (void)testLoadReverseProxyFromAppGroups_urlPresent_doesNotLogMissingProxyError {
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
+
+    NSString *testGroupName = @"group.com.pushwoosh.test.proxylog2";
+    OCMStub([_mockConfig appGroupsName]).andReturn(testGroupName);
+
+    NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:testGroupName];
+    [sharedDefaults setObject:@"https://proxy.example.com/" forKey:@"PWReverseProxyURL"];
+
+    id logMock = OCMClassMock([PushwooshLog class]);
+    OCMReject([logMock pushwooshLog:PW_LL_ERROR className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
+        return [msg containsString:@"Reverse proxy is enabled but no proxy URL"];
+    }]]);
+
+    [manager loadReverseProxyFromAppGroups];
+
+    [sharedDefaults removeObjectForKey:@"PWReverseProxyURL"];
+    [logMock stopMocking];
 }
 
 #pragma mark - Scenario: Queued requests flushed via App Groups path

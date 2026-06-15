@@ -47,12 +47,17 @@ static BOOL _isInitializing = NO;
 
 @property (nonatomic) NSBundle *bundle;
 
+/// When the SDK runs inside an app extension (NSE), this is the containing host app bundle, used as
+/// a fallback so `Pushwoosh_*` keys set only in the main target are visible to the extension. nil in
+/// the main app and whenever the host bundle can't be resolved.
+@property (nonatomic) NSBundle *hostBundle;
+
 @end
 
 @implementation PWConfig
 
 - (NSString *)trimmedStringForKey:(NSString *)key {
-    id raw = [_bundle objectForInfoDictionaryKey:key];
+    id raw = [self infoValueForKey:key];
     if (![raw isKindOfClass:[NSString class]]) {
         return nil;
     }
@@ -61,12 +66,59 @@ static BOOL _isInitializing = NO;
     return trimmed.length > 0 ? trimmed : nil;
 }
 
+/// Reads an Info.plist value from the extension's own bundle first, then falls back to the host app
+/// bundle when running inside an app extension. The extension's own value always wins, so a key set
+/// explicitly in the extension Info.plist overrides the host. A nil or blank (empty/whitespace)
+/// string in the extension is treated as absent, so a placeholder like an unresolved `$(VAR)` does
+/// not block inheritance from the host.
+- (id)infoValueForKey:(NSString *)key {
+    id value = [_bundle objectForInfoDictionaryKey:key];
+
+    BOOL blank = (value == nil) ||
+        ([value isKindOfClass:[NSString class]] &&
+         [[(NSString *)value stringByTrimmingCharactersInSet:
+            [NSCharacterSet whitespaceAndNewlineCharacterSet]] length] == 0);
+
+    if (blank && _hostBundle != nil) {
+        value = [_hostBundle objectForInfoDictionaryKey:key];
+    }
+    return value;
+}
+
+/// Resolves the containing host app bundle when `bundle` is an app extension, so the extension can
+/// inherit `Pushwoosh_*` configuration (App ID, App Group name, etc.) set only in the main target.
+/// Gated on the mandatory `NSExtension` Info.plist key, so the main app and unit-test bundles return
+/// nil without touching `bundleURL`. Returns nil when no enclosing `.app` is found.
++ (NSBundle *)hostAppBundleForExtensionBundle:(NSBundle *)bundle {
+    if ([bundle objectForInfoDictionaryKey:@"NSExtension"] == nil) {
+        return nil;
+    }
+
+    NSURL *candidate = [[bundle bundleURL] URLByDeletingLastPathComponent];
+    for (NSInteger depth = 0; depth < 5 && candidate != nil; depth++) {
+        if ([[candidate pathExtension] isEqualToString:@"app"]) {
+            return [NSBundle bundleWithURL:candidate];
+        }
+        NSURL *parent = [candidate URLByDeletingLastPathComponent];
+        if (parent == nil || [parent isEqual:candidate]) {
+            break;
+        }
+        candidate = parent;
+    }
+    return nil;
+}
+
 - (instancetype)initWithBundle:(NSBundle *)bundle {
+    return [self initWithBundle:bundle hostBundle:[PWConfig hostAppBundleForExtensionBundle:bundle]];
+}
+
+- (instancetype)initWithBundle:(NSBundle *)bundle hostBundle:(NSBundle *)hostBundle {
 	self = [super init];
 	if (self) {
         _isInitializing = YES;
 
         _bundle = bundle;
+        _hostBundle = hostBundle;
 
 		self.appId = [self trimmedStringForKey:@"Pushwoosh_APPID"];
         if (self.appId != nil && [self.appId rangeOfString:@"."].location != NSNotFound) {
@@ -174,7 +226,7 @@ static BOOL _isInitializing = NO;
         self.preferGRPC = [self getBoolean:@"Pushwoosh_PREFER_GRPC" default:NO];
         self.grpcHost = [self trimmedStringForKey:@"Pushwoosh_GRPC_HOST"] ?: @"grpc.pushwoosh.com";
 
-        NSNumber *grpcPortNum = [bundle objectForInfoDictionaryKey:@"Pushwoosh_GRPC_PORT"];
+        NSNumber *grpcPortNum = [self infoValueForKey:@"Pushwoosh_GRPC_PORT"];
         self.grpcPort = grpcPortNum ? [grpcPortNum integerValue] : 443;
 
         _isInitializing = NO;
@@ -243,7 +295,7 @@ static BOOL _isInitializing = NO;
         return 0;
     }
 
-    NSNumber *raw = [_bundle objectForInfoDictionaryKey:@"Pushwoosh_IDLE_TIMEOUT_SECONDS"];
+    NSNumber *raw = [self infoValueForKey:@"Pushwoosh_IDLE_TIMEOUT_SECONDS"];
     if (!raw) {
         return 0;
     }
@@ -273,7 +325,7 @@ static BOOL _isInitializing = NO;
         return 0;
     }
 
-    NSNumber *raw = [_bundle objectForInfoDictionaryKey:@"Pushwoosh_APPLICATION_EXIT_TIMEOUT_SECONDS"];
+    NSNumber *raw = [self infoValueForKey:@"Pushwoosh_APPLICATION_EXIT_TIMEOUT_SECONDS"];
     if (!raw) {
         return 0;
     }
@@ -306,7 +358,7 @@ static BOOL _isInitializing = NO;
 }
 
 - (BOOL)getBoolean:(NSString *)key default:(BOOL)defaultValue {
-	NSNumber *booleanObj = [_bundle objectForInfoDictionaryKey:key];
+	NSNumber *booleanObj = [self infoValueForKey:key];
 	if (booleanObj && ([booleanObj isKindOfClass:[NSNumber class]] || [booleanObj isKindOfClass:[NSString class]])) {
 		return [booleanObj boolValue];
 	}

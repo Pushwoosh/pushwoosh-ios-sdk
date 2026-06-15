@@ -23,4 +23,10 @@ typedef void (^PWRequestDownloadCompleteBlock)(NSString *, NSError *);
 - (void)setReverseProxyUrl:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers;
 - (void)loadReverseProxyFromAppGroups;
 
+/// Loads reverse proxy settings shared by the host app from the given App Group suite.
+/// Pass the App Group resolved by the Notification Service Extension (e.g. from
+/// `pushwooshAppGroupsName`) so the read suite matches the one the host app wrote to.
+/// When `appGroupsName` is nil or empty, falls back to `PWConfig.appGroupsName`.
+- (void)loadReverseProxyFromAppGroups:(NSString *)appGroupsName;
+
 @end
