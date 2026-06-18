@@ -72,7 +72,7 @@ open class PushwooshInboxClassicCell: PushwooshInboxCell {
         avatar.translatesAutoresizingMaskIntoConstraints = false
         avatar.layer.cornerRadius = 22
         avatar.layer.masksToBounds = true
-        if #available(iOS 13.0, *) { avatar.layer.cornerCurve = .continuous }
+        avatar.layer.cornerCurve = .continuous
         card.addSubview(avatar)
 
         avatarImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -181,16 +181,16 @@ open class PushwooshInboxClassicCell: PushwooshInboxCell {
     open override func apply(message: PWInboxMessageProtocol, attributes: PushwooshInboxKitAttributes) {
         let style = attributes.style
 
-        card.backgroundColor = style.backgroundColor
+        applyCardSurface(card, style: style, cornerRadius: 18)
         card.layer.cornerRadius = 18
-        if #available(iOS 13.0, *) { card.layer.cornerCurve = .continuous }
-
+        card.layer.cornerCurve = .continuous
         // Avatar — three-tier fallback:
-        //   1. message.imageUrl (server-supplied) — load via shared loader.
+        //   1. resolved image (message.imageUrl or data/u "image") — load via shared loader.
         //   2. App bundle icon — host app's launch icon.
         //   3. First letter of the host app's display name on a tinted circle.
-        let hasMessageImage = !(message.imageUrl?.isEmpty ?? true)
-        if hasMessageImage, let urlString = message.imageUrl {
+        let resolvedImage = PushwooshInboxKitAttributes.resolvedImageURL(from: message)
+        let hasMessageImage = resolvedImage != nil
+        if hasMessageImage, let urlString = resolvedImage {
             MessageImageLoader.shared.load(urlString,
                                            into: avatarImageView,
                                            placeholder: PushwooshInboxClassicCell.appIconImage)
@@ -236,8 +236,7 @@ open class PushwooshInboxClassicCell: PushwooshInboxCell {
             pinIndicatorView.tintColor = style.pinIndicatorColor
             if let custom = style.pinIndicatorImage {
                 pinIndicatorView.image = custom
-            } else if #available(iOS 13.0, *) {
-                let cfg = UIImage.SymbolConfiguration(pointSize: 11, weight: .semibold)
+            } else {                let cfg = UIImage.SymbolConfiguration(pointSize: 11, weight: .semibold)
                 pinIndicatorView.image = UIImage(systemName: "pin.fill", withConfiguration: cfg)
             }
         }

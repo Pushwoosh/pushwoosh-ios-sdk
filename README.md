@@ -37,6 +37,7 @@
 [![PushwooshForegroundPush Documentation](https://img.shields.io/badge/docs-PushwooshForegroundPush-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshForegroundPush/documentation/pushwooshforegroundpush/)
 [![PushwooshKeychain Documentation](https://img.shields.io/badge/docs-PushwooshKeychain-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshKeychain/documentation/pushwooshkeychain/)
 [![PushwooshGRPC Documentation](https://img.shields.io/badge/docs-PushwooshGRPC-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshGRPC/documentation/pushwooshgrpc/)
+[![PushwooshNotificationUI Documentation](https://img.shields.io/badge/docs-PushwooshNotificationUI-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshNotificationUI/documentation/pushwooshnotificationui/)
 
 ## Features
 
@@ -53,6 +54,7 @@
 - **InboxKit** - Modern UIKit inbox UI with banner / captioned / classic cards, inline CTAs and pinning
 - **tvOS Support** - Push notifications and Rich Media for Apple TV
 - **Foreground Push** - Custom foreground notifications with animations and effects
+- **Push Stories** - Full-screen, Instagram-style stories in an expanded notification
 
 ## Installation
 
@@ -77,6 +79,7 @@ Select the modules you need in your target's **Frameworks, Libraries, and Embedd
 - `PushwooshForegroundPush` - Custom foreground notifications *(optional)*
 - `PushwooshKeychain` - Persistent device ID across app reinstalls *(optional)*
 - `PushwooshGRPC` - gRPC transport for improved performance *(optional)*
+- `PushwooshNotificationUI` - Full-screen push stories UI for a Notification Content Extension *(optional)*
 
 ---
 
@@ -96,6 +99,7 @@ pod 'PushwooshXCFramework/PushwooshTVOS'
 pod 'PushwooshXCFramework/PushwooshForegroundPush'
 pod 'PushwooshXCFramework/PushwooshKeychain'
 pod 'PushwooshXCFramework/PushwooshGRPC'
+pod 'PushwooshXCFramework/PushwooshNotificationUI'
 ```
 
 Then run:
@@ -241,6 +245,11 @@ Persistent device identification (HWID) that survives app reinstallation using K
 Optional gRPC transport layer for improved network performance. Automatically falls back to REST if unavailable.
 
 **Requirements:** iOS 13.0+
+
+### [PushwooshNotificationUI](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshNotificationUI/documentation/pushwooshnotificationui/)
+Full-screen, Instagram-style push stories rendered in a Notification Content Extension. Subclass `PushwooshStoriesViewController` and drive it with a `pw_stories` payload.
+
+**Requirements:** iOS 13.0+ | UIKit
 
 ## Support
 

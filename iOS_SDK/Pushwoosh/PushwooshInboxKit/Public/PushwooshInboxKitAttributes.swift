@@ -24,6 +24,9 @@ public struct PushwooshInboxKitAttributes {
         case banner
         case captioned
         case classic
+        case carousel
+        case video
+        case wallet
         case `default`
     }
 
@@ -73,11 +76,14 @@ public struct PushwooshInboxKitAttributes {
 
     /// Mapping of cell-kind identifiers to cell classes.
     ///
-    /// The default registry ships **four entries** matching Braze's content-card
-    /// shapes:
+    /// The default registry ships **seven entries** matching Braze's / CleverTap's
+    /// content-card shapes (`"wallet"` is registered on iOS / Mac Catalyst only):
     /// - `"banner"` → ``PushwooshInboxBannerCell`` — full-bleed image, no text.
     /// - `"captioned"` → ``PushwooshInboxCaptionedCell`` — image on top, title + body below.
     /// - `"classic"` → ``PushwooshInboxClassicCell`` — coloured initial avatar + title + body.
+    /// - `"carousel"` → ``PushwooshInboxCarouselCell`` — swipeable multi-image gallery (slides from `actionParams["carousel"]`).
+    /// - `"video"` → ``PushwooshInboxVideoCell`` — muted autoplay video preview (descriptor from `actionParams["video"]`).
+    /// - `"wallet"` → ``PushwooshInboxWalletCell`` — "Add to Apple Wallet" card (pass from `actionParams["wallet"]`).
     /// - `"default"` → ``PushwooshInboxClassicCell`` — fallback when the resolver returns an unknown kind.
     public var cells: [String: PushwooshInboxCell.Type]
 
@@ -86,8 +92,8 @@ public struct PushwooshInboxKitAttributes {
     ///
     /// The default resolver is **server-driven first**, with a heuristic fallback:
     /// 1. Reads `actionParams["displayType"]` from the inbox message payload.
-    ///    If it equals `"banner"`, `"captioned"`, or `"classic"` (case-insensitive),
-    ///    that kind is used.
+    ///    If it equals `"banner"`, `"captioned"`, `"classic"`, `"carousel"`,
+    ///    `"video"`, or `"wallet"` (case-insensitive), that kind is used.
     /// 2. Otherwise falls back to image/title presence:
     ///    - image + no title → `"banner"`
     ///    - image + title    → `"captioned"`
@@ -119,8 +125,13 @@ public struct PushwooshInboxKitAttributes {
             "banner": PushwooshInboxBannerCell.self,
             "captioned": PushwooshInboxCaptionedCell.self,
             "classic": PushwooshInboxClassicCell.self,
+            "carousel": PushwooshInboxCarouselCell.self,
+            "video": PushwooshInboxVideoCell.self,
             "default": PushwooshInboxClassicCell.self
         ]
+        #if os(iOS)
+        self.cells["wallet"] = PushwooshInboxWalletCell.self
+        #endif
     }
 
     /// Default resolver — reads `actionParams["displayType"]` first, falls back
@@ -130,12 +141,18 @@ public struct PushwooshInboxKitAttributes {
     /// - `banner` and `captioned` both require a non-empty `imageUrl`. If the
     ///   message has no image, the resolver degrades the kind to `classic` so
     ///   we never render an empty image placeholder card.
+    /// - `carousel` requires at least one decodable slide in
+    ///   `actionParams["carousel"]`. With no slides it degrades to `classic`.
+    /// - `video` requires a decodable video descriptor in `actionParams["video"]`.
+    ///   With none it degrades to `classic`.
+    /// - `wallet` requires a decodable pass URL in `actionParams["wallet"]`.
+    ///   With none it degrades to `classic`.
     public static let defaultCellKindResolver: (PWInboxMessageProtocol) -> String = { message in
         let serverType = readDisplayType(from: message)
-        let hasImage = !(message.imageUrl?.isEmpty ?? true)
+        let hasImage = resolvedImageURL(from: message) != nil
 
         let requested: String
-        if let serverType = serverType, ["banner", "captioned", "classic"].contains(serverType) {
+        if let serverType = serverType, ["banner", "captioned", "classic", "carousel", "video", "wallet"].contains(serverType) {
             requested = serverType
         } else {
             switch (hasImage, !(message.title?.isEmpty ?? true)) {
@@ -149,18 +166,35 @@ public struct PushwooshInboxKitAttributes {
         switch requested {
         case "banner", "captioned":
             resolved = hasImage ? requested : "classic"
+        case "carousel":
+            resolved = PushwooshInboxCarouselSlide.decode(from: message).isEmpty ? "classic" : "carousel"
+        case "video":
+            resolved = PushwooshInboxVideoContent.decode(from: message) == nil ? "classic" : "video"
+        case "wallet":
+            resolved = PushwooshInboxWalletPass.decode(from: message) == nil ? "classic" : "wallet"
         default:
             resolved = requested
         }
 
-        let degradedNote = (resolved != requested) ? " (degraded from \(requested) — no imageUrl)" : ""
-        PushwooshLog.pushwooshLog(
-            .PW_LL_INFO,
-            className: "PushwooshInboxKit",
-            message: "Inbox cell resolve — code=\(message.code ?? "?") "
-                   + "displayType=\(serverType ?? "nil") "
-                   + "→ kind=\(resolved)\(degradedNote)"
-        )
+        // Logged only when the requested kind degrades — resolving runs on every cell dequeue, so a
+        // happy-path log here would spam the host app's console. Degradation means a malformed
+        // payload worth surfacing, hence WARN.
+        if resolved != requested {
+            let degradeReason: String
+            switch requested {
+            case "carousel": degradeReason = "no slides"
+            case "video": degradeReason = "no video descriptor"
+            case "wallet": degradeReason = "no pass URL"
+            default: degradeReason = "no imageUrl"
+            }
+            PushwooshLog.pushwooshLog(
+                .PW_LL_WARN,
+                className: "PushwooshInboxKit",
+                message: "Inbox cell degraded — code=\(message.code ?? "?") "
+                       + "displayType=\(serverType ?? "nil") hasImage=\(hasImage) "
+                       + "\(requested)→\(resolved) (\(degradeReason))"
+            )
+        }
 
         return resolved
     }
@@ -243,6 +277,27 @@ public struct PushwooshInboxKitAttributes {
 
         return nil
     }
+
+    /// Resolves the single image URL for a card: `message.imageUrl` first, then `actionParams`
+    /// (`image` at root, or inside `u` as a dict or a JSON-encoded string). Pushwoosh inbox pushes
+    /// deliver custom data — including the image — inside `u`, so cards must look there too.
+    static func resolvedImageURL(from message: PWInboxMessageProtocol) -> String? {
+        if let direct = message.imageUrl, !direct.isEmpty { return direct }
+        guard let params = message.actionParams as NSDictionary? else { return nil }
+        if let img = params["image"] as? String, !img.isEmpty { return img }
+        if let uValue = params["u"] {
+            if let uDict = uValue as? NSDictionary, let img = uDict["image"] as? String, !img.isEmpty {
+                return img
+            }
+            if let uString = uValue as? String,
+               let data = uString.data(using: .utf8),
+               let parsed = (try? JSONSerialization.jsonObject(with: data)) as? NSDictionary,
+               let img = parsed["image"] as? String, !img.isEmpty {
+                return img
+            }
+        }
+        return nil
+    }
 }
 
 extension PushwooshInboxKitAttributes {
@@ -250,6 +305,17 @@ extension PushwooshInboxKitAttributes {
     /// Visual style applied to the controller chrome and the default cell.
     public struct Style {
         public var backgroundColor: UIColor
+
+        /// Background of the inbox page itself (behind the cards). Defaults to the system grouped
+        /// background, which floats the cards on a slightly tinted page; set a solid colour for a
+        /// branded look.
+        public var pageBackgroundColor: UIColor = .systemGroupedBackground
+
+        /// When `true`, cards render with an Apple Liquid Glass background on iOS 26+ (falling back
+        /// to the solid `backgroundColor` on earlier OSes). Opt-in — defaults to `false` so existing
+        /// apps keep their current card surfaces unchanged.
+        public var isLiquidGlass: Bool = false
+
         public var separatorColor: UIColor
         public var titleFont: UIFont
         public var titleColorRead: UIColor
@@ -359,19 +425,18 @@ extension PushwooshInboxKitAttributes {
             )
         }()
 
+        private static let timeOnlyFormatter: DateFormatter = {
+            let f = DateFormatter(); f.dateFormat = "HH:mm"; return f
+        }()
+        private static let monthDayFormatter: DateFormatter = {
+            let f = DateFormatter(); f.dateFormat = "MMM d"; return f
+        }()
+        // Reuses two cached formatters — allocating a DateFormatter per cell render is expensive.
         public static let defaultDateFormatter: (Date) -> String = { date in
             let calendar = Calendar.current
-            if calendar.isDateInToday(date) {
-                let f = DateFormatter()
-                f.dateFormat = "HH:mm"
-                return f.string(from: date)
-            }
-            if calendar.isDateInYesterday(date) {
-                return "Yesterday"
-            }
-            let f = DateFormatter()
-            f.dateFormat = "MMM d"
-            return f.string(from: date)
+            if calendar.isDateInToday(date) { return timeOnlyFormatter.string(from: date) }
+            if calendar.isDateInYesterday(date) { return "Yesterday" }
+            return monthDayFormatter.string(from: date)
         }
     }
 }

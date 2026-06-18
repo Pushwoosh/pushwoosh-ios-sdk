@@ -52,6 +52,14 @@ public protocol PushwooshInboxKitDelegate: AnyObject {
     func inboxKit(_ vc: PushwooshInboxKitViewController,
                   didTapButton button: PushwooshInboxButton,
                   onMessage message: PWInboxMessageProtocol) -> Bool
+
+    /// Invoked when an Apple Wallet pass from a wallet card was successfully added to the user's
+    /// Wallet (the system add-passes sheet finished with the pass present in the library).
+    func inboxKit(_ vc: PushwooshInboxKitViewController, didAddWalletPassFor message: PWInboxMessageProtocol)
+
+    /// Invoked when adding an Apple Wallet pass failed — e.g. the `.pkpass` could not be
+    /// downloaded. `error` carries the underlying network error when available.
+    func inboxKit(_ vc: PushwooshInboxKitViewController, didFailToAddWalletPassFor message: PWInboxMessageProtocol, error: Error?)
 }
 
 public extension PushwooshInboxKitDelegate {
@@ -63,5 +71,7 @@ public extension PushwooshInboxKitDelegate {
     func inboxKit(_ vc: PushwooshInboxKitViewController,
                   didTapButton button: PushwooshInboxButton,
                   onMessage message: PWInboxMessageProtocol) -> Bool { true }
+    func inboxKit(_ vc: PushwooshInboxKitViewController, didAddWalletPassFor message: PWInboxMessageProtocol) {}
+    func inboxKit(_ vc: PushwooshInboxKitViewController, didFailToAddWalletPassFor message: PWInboxMessageProtocol, error: Error?) {}
 }
 #endif

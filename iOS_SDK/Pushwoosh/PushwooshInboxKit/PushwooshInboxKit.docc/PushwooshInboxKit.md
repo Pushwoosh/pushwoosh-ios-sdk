@@ -8,6 +8,9 @@ Modern UIKit inbox UI powered by Pushwoosh.
 navigation flow to render your app's message inbox. It is built on top of the
 existing `PWInbox` data layer in `PushwooshCore` and adds:
 
+- six built-in card kinds — banner, captioned, classic, carousel, video, and
+  Apple Wallet — chosen per message by the server `displayType` field (or forced
+  via code), with graceful fallback to `classic` when a card's media is missing;
 - a value-typed `Attributes` configuration container with cell registry,
   transform pipeline, and visual style;
 - automatic dark-mode reactivity (no per-color setup);
@@ -30,3 +33,15 @@ existing `PWInbox` data layer in `PushwooshCore` and adds:
 - ``PushwooshInboxKitAttributes``
 - ``PushwooshInboxKitDelegate``
 - ``PushwooshInboxCell``
+
+### Rich Cards
+
+- ``PushwooshInboxBannerCell``
+- ``PushwooshInboxCaptionedCell``
+- ``PushwooshInboxClassicCell``
+- ``PushwooshInboxCarouselCell``
+- ``PushwooshInboxVideoCell``
+- ``PushwooshInboxWalletCell``
+- ``PushwooshInboxCarouselSlide``
+- ``PushwooshInboxVideoContent``
+- ``PushwooshInboxWalletPass``

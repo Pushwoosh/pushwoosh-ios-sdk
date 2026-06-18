@@ -1,7 +1,12 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
 // swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PushwooshInboxKit
+import AVFoundation
+import AVKit
+import CoreImage
 import Foundation
+import ImageIO
+import PassKit
 import PushwooshBridge
 import PushwooshCore
 @_exported import PushwooshInboxKit
@@ -21,6 +26,9 @@ public struct PushwooshInboxKitAttributes {
     case banner
     case captioned
     case classic
+    case carousel
+    case video
+    case wallet
     case `default`
     public init?(rawValue: Swift.String)
     public typealias RawValue = Swift.String
@@ -53,6 +61,8 @@ public struct PushwooshInboxKitAttributes {
 extension PushwooshInboxKit.PushwooshInboxKitAttributes {
   public struct Style {
     public var backgroundColor: UIKit.UIColor
+    public var pageBackgroundColor: UIKit.UIColor
+    public var isLiquidGlass: Swift.Bool
     public var separatorColor: UIKit.UIColor
     public var titleFont: UIKit.UIFont
     public var titleColorRead: UIKit.UIColor
@@ -84,6 +94,8 @@ public protocol PushwooshInboxKitDelegate : AnyObject {
   func inboxKit(_ vc: PushwooshInboxKit.PushwooshInboxKitViewController, didRefreshWith messages: [any PushwooshCore.PWInboxMessageProtocol], error: (any Swift.Error)?)
   func inboxKit(didDismiss vc: PushwooshInboxKit.PushwooshInboxKitViewController)
   func inboxKit(_ vc: PushwooshInboxKit.PushwooshInboxKitViewController, didTapButton button: PushwooshInboxKit.PushwooshInboxButton, onMessage message: any PushwooshCore.PWInboxMessageProtocol) -> Swift.Bool
+  func inboxKit(_ vc: PushwooshInboxKit.PushwooshInboxKitViewController, didAddWalletPassFor message: any PushwooshCore.PWInboxMessageProtocol)
+  func inboxKit(_ vc: PushwooshInboxKit.PushwooshInboxKitViewController, didFailToAddWalletPassFor message: any PushwooshCore.PWInboxMessageProtocol, error: (any Swift.Error)?)
 }
 extension PushwooshInboxKit.PushwooshInboxKitDelegate {
   public func inboxKit(_ vc: PushwooshInboxKit.PushwooshInboxKitViewController, willDisplay message: any PushwooshCore.PWInboxMessageProtocol, at indexPath: Foundation.IndexPath)
@@ -92,6 +104,8 @@ extension PushwooshInboxKit.PushwooshInboxKitDelegate {
   public func inboxKit(_ vc: PushwooshInboxKit.PushwooshInboxKitViewController, didRefreshWith messages: [any PushwooshCore.PWInboxMessageProtocol], error: (any Swift.Error)?)
   public func inboxKit(didDismiss vc: PushwooshInboxKit.PushwooshInboxKitViewController)
   public func inboxKit(_ vc: PushwooshInboxKit.PushwooshInboxKitViewController, didTapButton button: PushwooshInboxKit.PushwooshInboxButton, onMessage message: any PushwooshCore.PWInboxMessageProtocol) -> Swift.Bool
+  public func inboxKit(_ vc: PushwooshInboxKit.PushwooshInboxKitViewController, didAddWalletPassFor message: any PushwooshCore.PWInboxMessageProtocol)
+  public func inboxKit(_ vc: PushwooshInboxKit.PushwooshInboxKitViewController, didFailToAddWalletPassFor message: any PushwooshCore.PWInboxMessageProtocol, error: (any Swift.Error)?)
 }
 @_inheritsConvenienceInitializers @objc(PushwooshInboxKitViewController) @_Concurrency.MainActor(unsafe) public class PushwooshInboxKitViewController : UIKit.UIViewController {
   @_Concurrency.MainActor(unsafe) weak public var delegate: (any PushwooshInboxKit.PushwooshInboxKitDelegate)?
@@ -114,6 +128,7 @@ extension PushwooshInboxKit.PushwooshInboxKitDelegate {
   @objc deinit
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidLoad()
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillAppear(_ animated: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidAppear(_ animated: Swift.Bool)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewWillDisappear(_ animated: Swift.Bool)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func viewDidDisappear(_ animated: Swift.Bool)
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
@@ -145,6 +160,7 @@ extension PushwooshInboxKit.PushwooshInboxKitDelegate {
   @objc @_Concurrency.MainActor(unsafe) public func markRead(messages: [any PushwooshCore.PWInboxMessageProtocol])
   @objc @_Concurrency.MainActor(unsafe) public func markAllAsRead()
   @objc @_Concurrency.MainActor(unsafe) public func clearReadMessages()
+  @objc @_Concurrency.MainActor(unsafe) public func deleteAllMessages()
 }
 extension PushwooshInboxKit.PushwooshInboxKitViewController : UIKit.UITableViewDataSource, UIKit.UITableViewDelegate {
   @_Concurrency.MainActor(unsafe) @objc dynamic public func numberOfSections(in tableView: UIKit.UITableView) -> Swift.Int
@@ -153,6 +169,12 @@ extension PushwooshInboxKit.PushwooshInboxKitViewController : UIKit.UITableViewD
   @_Concurrency.MainActor(unsafe) @objc dynamic public func tableView(_ tableView: UIKit.UITableView, willDisplay cell: UIKit.UITableViewCell, forRowAt indexPath: Foundation.IndexPath)
   @_Concurrency.MainActor(unsafe) @objc dynamic public func tableView(_ tableView: UIKit.UITableView, didSelectRowAt indexPath: Foundation.IndexPath)
   @_Concurrency.MainActor(unsafe) @objc dynamic public func tableView(_ tableView: UIKit.UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: Foundation.IndexPath) -> UIKit.UISwipeActionsConfiguration?
+}
+extension PushwooshInboxKit.PushwooshInboxKitViewController : UIKit.UITableViewDataSourcePrefetching {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func tableView(_ tableView: UIKit.UITableView, prefetchRowsAt indexPaths: [Foundation.IndexPath])
+}
+extension PushwooshInboxKit.PushwooshInboxKitViewController : PassKit.PKAddPassesViewControllerDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func addPassesViewControllerDidFinish(_ controller: PassKit.PKAddPassesViewController)
 }
 @_inheritsConvenienceInitializers @objc(PushwooshInboxCell) @_Concurrency.MainActor(unsafe) open class PushwooshInboxCell : UIKit.UITableViewCell {
   @_Concurrency.MainActor(unsafe) final public let messageImageView: UIKit.UIImageView
@@ -166,6 +188,10 @@ extension PushwooshInboxKit.PushwooshInboxKitViewController : UIKit.UITableViewD
   @_Concurrency.MainActor(unsafe) @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
   @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @_Concurrency.MainActor(unsafe) open func applyButtons(_ buttons: [PushwooshInboxKit.PushwooshInboxButton], style: PushwooshInboxKit.PushwooshInboxKitAttributes.Style, traits: UIKit.UITraitCollection? = nil)
+  @_Concurrency.MainActor(unsafe) open func applyCardSurface(_ card: UIKit.UIView, style: PushwooshInboxKit.PushwooshInboxKitAttributes.Style, cornerRadius: CoreFoundation.CGFloat)
+  @_Concurrency.MainActor(unsafe) open func applyGlassBackdrop(in card: UIKit.UIView, imageURL: Swift.String?, style: PushwooshInboxKit.PushwooshInboxKitAttributes.Style, cornerRadius: CoreFoundation.CGFloat)
+  @discardableResult
+  @_Concurrency.MainActor(unsafe) open func installTextGlassPlate(behind textBlock: UIKit.UIView, in card: UIKit.UIView, horizontalInset: CoreFoundation.CGFloat = 5.5, cornerRadius: CoreFoundation.CGFloat = 16) -> UIKit.UIView?
   @_Concurrency.MainActor(unsafe) open func resetInheritedLayout()
   @_Concurrency.MainActor(unsafe) open func apply(message: any PushwooshCore.PWInboxMessageProtocol, attributes: PushwooshInboxKit.PushwooshInboxKitAttributes)
   @_Concurrency.MainActor(unsafe) @objc override dynamic open func prepareForReuse()
@@ -212,6 +238,57 @@ public struct PushwooshInboxButton {
   @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
   @_Concurrency.MainActor(unsafe) override open func apply(message: any PushwooshCore.PWInboxMessageProtocol, attributes: PushwooshInboxKit.PushwooshInboxKitAttributes)
   @_Concurrency.MainActor(unsafe) @objc override dynamic open func prepareForReuse()
+  @objc deinit
+}
+public struct PushwooshInboxCarouselSlide {
+  public let imageUrl: Swift.String
+  public let title: Swift.String?
+  public let url: Foundation.URL?
+  public init(imageUrl: Swift.String, title: Swift.String? = nil, url: Foundation.URL? = nil)
+  public static func decode(from message: any PushwooshCore.PWInboxMessageProtocol) -> [PushwooshInboxKit.PushwooshInboxCarouselSlide]
+}
+@_inheritsConvenienceInitializers @objc(PushwooshInboxCarouselCell) @_Concurrency.MainActor(unsafe) open class PushwooshInboxCarouselCell : PushwooshInboxKit.PushwooshInboxCell {
+  @_Concurrency.MainActor(unsafe) public var onCarouselSlideTap: ((Foundation.URL?) -> Swift.Void)?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) override open func apply(message: any PushwooshCore.PWInboxMessageProtocol, attributes: PushwooshInboxKit.PushwooshInboxKitAttributes)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func prepareForReuse()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func setHighlighted(_ highlighted: Swift.Bool, animated: Swift.Bool)
+  @objc deinit
+}
+extension PushwooshInboxKit.PushwooshInboxCarouselCell : UIKit.UICollectionViewDataSource, UIKit.UICollectionViewDelegate {
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func collectionView(_ collectionView: UIKit.UICollectionView, numberOfItemsInSection section: Swift.Int) -> Swift.Int
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func collectionView(_ collectionView: UIKit.UICollectionView, cellForItemAt indexPath: Foundation.IndexPath) -> UIKit.UICollectionViewCell
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func collectionView(_ collectionView: UIKit.UICollectionView, didSelectItemAt indexPath: Foundation.IndexPath)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func scrollViewDidScroll(_ scrollView: UIKit.UIScrollView)
+}
+public struct PushwooshInboxVideoContent {
+  public let videoURL: Foundation.URL
+  public let posterURL: Swift.String?
+  public init(videoURL: Foundation.URL, posterURL: Swift.String? = nil)
+  public static func decode(from message: any PushwooshCore.PWInboxMessageProtocol) -> PushwooshInboxKit.PushwooshInboxVideoContent?
+}
+@_inheritsConvenienceInitializers @objc(PushwooshInboxVideoCell) @_Concurrency.MainActor(unsafe) open class PushwooshInboxVideoCell : PushwooshInboxKit.PushwooshInboxCell {
+  @_Concurrency.MainActor(unsafe) public var onVideoTap: ((Foundation.URL) -> Swift.Void)?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) override open func apply(message: any PushwooshCore.PWInboxMessageProtocol, attributes: PushwooshInboxKit.PushwooshInboxKitAttributes)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func prepareForReuse()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func setHighlighted(_ highlighted: Swift.Bool, animated: Swift.Bool)
+  @objc deinit
+}
+public struct PushwooshInboxWalletPass {
+  public let passURL: Foundation.URL
+  public init(passURL: Foundation.URL)
+  public static func decode(from message: any PushwooshCore.PWInboxMessageProtocol) -> PushwooshInboxKit.PushwooshInboxWalletPass?
+}
+@_inheritsConvenienceInitializers @objc(PushwooshInboxWalletCell) @_Concurrency.MainActor(unsafe) open class PushwooshInboxWalletCell : PushwooshInboxKit.PushwooshInboxCell {
+  @_Concurrency.MainActor(unsafe) public var onAddToWallet: ((Foundation.URL) -> Swift.Void)?
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(style: UIKit.UITableViewCell.CellStyle, reuseIdentifier: Swift.String?)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @_Concurrency.MainActor(unsafe) override open func apply(message: any PushwooshCore.PWInboxMessageProtocol, attributes: PushwooshInboxKit.PushwooshInboxKitAttributes)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func prepareForReuse()
+  @_Concurrency.MainActor(unsafe) @objc override dynamic open func setHighlighted(_ highlighted: Swift.Bool, animated: Swift.Bool)
   @objc deinit
 }
 extension PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind : Swift.Equatable {}

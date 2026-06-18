@@ -2,6 +2,30 @@
 
 Recipes for the most common configurations.
 
+## Rich cards (server-driven)
+
+Card layout is chosen per message by the dashboard `displayType` Custom Data
+field — no client code beyond instantiating the controller:
+
+- `banner` / `captioned` — hero image + text (fall back to `classic` when the image is missing)
+- `classic` — text + inline CTA buttons
+- `carousel` — swipeable image gallery (`data.carousel[]`, decoded by ``PushwooshInboxCarouselSlide``)
+- `video` — poster + tap-to-play full-screen player (`data.video`, decoded by ``PushwooshInboxVideoContent``)
+- `wallet` — "Add to Apple Wallet" pass (`data.wallet`, decoded by ``PushwooshInboxWalletPass``; iOS only)
+
+Wallet add results are reported on the delegate:
+
+```swift
+extension MyHost: PushwooshInboxKitDelegate {
+    func inboxKit(_ vc: PushwooshInboxKitViewController, didAddWalletPassFor message: PWInboxMessageProtocol) {
+        // pass added to Apple Wallet
+    }
+    func inboxKit(_ vc: PushwooshInboxKitViewController, didFailToAddWalletPassFor message: PWInboxMessageProtocol, error: Error?) {
+        // download / signing / presentation failed
+    }
+}
+```
+
 ## Custom cell registry
 
 ```swift

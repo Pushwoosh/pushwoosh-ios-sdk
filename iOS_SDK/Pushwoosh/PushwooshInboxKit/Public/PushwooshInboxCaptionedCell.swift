@@ -45,6 +45,8 @@ open class PushwooshInboxCaptionedCell: PushwooshInboxCell {
 
         imageHost.translatesAutoresizingMaskIntoConstraints = false
         imageHost.clipsToBounds = true
+        imageHost.layer.cornerRadius = 16
+        imageHost.layer.cornerCurve = .continuous
         card.addSubview(imageHost)
 
         messageImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -55,7 +57,7 @@ open class PushwooshInboxCaptionedCell: PushwooshInboxCell {
         pinChip.translatesAutoresizingMaskIntoConstraints = false
         pinChip.backgroundColor = UIColor.black.withAlphaComponent(0.42)
         pinChip.layer.cornerRadius = 14
-        if #available(iOS 13.0, *) { pinChip.layer.cornerCurve = .continuous }
+        pinChip.layer.cornerCurve = .continuous
         pinChip.isHidden = true
         imageHost.addSubview(pinChip)
 
@@ -108,10 +110,14 @@ open class PushwooshInboxCaptionedCell: PushwooshInboxCell {
             card.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             card.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
 
-            imageHost.topAnchor.constraint(equalTo: card.topAnchor),
-            imageHost.leadingAnchor.constraint(equalTo: card.leadingAnchor),
-            imageHost.trailingAnchor.constraint(equalTo: card.trailingAnchor),
-            imageHost.heightAnchor.constraint(equalToConstant: 178),
+            imageHost.topAnchor.constraint(equalTo: card.topAnchor, constant: 5.5),
+            imageHost.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 5.5),
+            imageHost.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -5.5),
+            {
+                let c = imageHost.heightAnchor.constraint(equalToConstant: 178)
+                c.priority = .required - 1   // yield to UIView-Encapsulated-Layout-Height (self-sizing)
+                return c
+            }(),
 
             messageImageView.topAnchor.constraint(equalTo: imageHost.topAnchor),
             messageImageView.leadingAnchor.constraint(equalTo: imageHost.leadingAnchor),
@@ -148,15 +154,17 @@ open class PushwooshInboxCaptionedCell: PushwooshInboxCell {
             dateLabel.firstBaselineAnchor.constraint(equalTo: titleLabel.firstBaselineAnchor),
             dateLabel.trailingAnchor.constraint(equalTo: titleRow.trailingAnchor)
         ])
+
+        installTextGlassPlate(behind: bodyStack, in: card)
     }
 
     open override func apply(message: PWInboxMessageProtocol, attributes: PushwooshInboxKitAttributes) {
         let style = attributes.style
+        let imageURL = PushwooshInboxKitAttributes.resolvedImageURL(from: message)
 
-        card.backgroundColor = style.backgroundColor
+        applyGlassBackdrop(in: card, imageURL: imageURL, style: style, cornerRadius: 18)
         card.layer.cornerRadius = 18
-        if #available(iOS 13.0, *) { card.layer.cornerCurve = .continuous }
-
+        card.layer.cornerCurve = .continuous
         imageHost.backgroundColor = .secondarySystemFill
 
         titleLabel.text = message.title
@@ -174,18 +182,21 @@ open class PushwooshInboxCaptionedCell: PushwooshInboxCell {
         unreadIndicatorView.backgroundColor = style.unreadBadgeColor
         unreadIndicatorView.isHidden = message.isRead
 
+        // Gate on isLiquidGlass (opt-in) and re-assert visibility after a prepareForReuse hide,
+        // so a recycled cell doesn't lose the glass plate behind its caption.
+        textGlassPlate?.isHidden = !style.isLiquidGlass
+
         let isPinned = attributes.pinningEnabled && PushwooshInboxKitAttributes.isPinned(message)
         pinChip.isHidden = !isPinned || !attributes.pinIndicatorVisible
         if isPinned && attributes.pinIndicatorVisible {
             if let custom = style.pinIndicatorImage {
                 pinIndicatorView.image = custom
-            } else if #available(iOS 13.0, *) {
-                let cfg = UIImage.SymbolConfiguration(pointSize: 13, weight: .semibold)
+            } else {                let cfg = UIImage.SymbolConfiguration(pointSize: 13, weight: .semibold)
                 pinIndicatorView.image = UIImage(systemName: "pin.fill", withConfiguration: cfg)
             }
         }
 
-        if let urlString = message.imageUrl, !urlString.isEmpty {
+        if let urlString = imageURL, !urlString.isEmpty {
             MessageImageLoader.shared.load(urlString, into: messageImageView, placeholder: style.imagePlaceholder)
         } else {
             messageImageView.image = style.imagePlaceholder
@@ -201,6 +212,8 @@ open class PushwooshInboxCaptionedCell: PushwooshInboxCell {
         messageImageView.image = nil
         pinChip.isHidden = true
         buttonsStack.isHidden = true
+        unreadIndicatorView.isHidden = true
+        textGlassPlate?.isHidden = true
     }
 }
 #endif

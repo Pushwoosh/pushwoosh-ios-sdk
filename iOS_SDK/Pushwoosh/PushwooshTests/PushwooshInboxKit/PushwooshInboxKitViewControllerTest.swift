@@ -72,6 +72,25 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
         wait(for: [exp], timeout: 1.0)
     }
 
+    /// Verifies that a refresh failure after content was already loaded keeps the list visible
+    /// instead of blanking it behind the error screen.
+    func testRefreshFailureAfterContentKeepsListVisible() {
+        facade.outcome = .success([FakeMessage(code: "a"), FakeMessage(code: "b")])
+        loadAndWait()
+        XCTAssertFalse(sut.tableView.isHidden)
+
+        facade.outcome = .failure(NSError(domain: "test", code: 1, userInfo: nil))
+        sut.reloadData()
+        let exp = expectation(description: "failed refresh")
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
+            XCTAssertFalse(self.sut.tableView.isHidden)
+            XCTAssertTrue(self.sut.errorStateLabel.isHidden)
+            XCTAssertTrue(self.sut.emptyStateLabel.isHidden)
+            exp.fulfill()
+        }
+        wait(for: [exp], timeout: 1.0)
+    }
+
     /// Verifies that returning false from the delegate suppresses the default tap action.
     func testTapDelegatesToHostFirst() {
         let m = FakeMessage(code: "x")

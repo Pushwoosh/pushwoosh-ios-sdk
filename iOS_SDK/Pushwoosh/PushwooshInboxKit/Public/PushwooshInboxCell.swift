@@ -42,6 +42,14 @@ open class PushwooshInboxCell: UITableViewCell {
     private var imageLeadingConstraint: NSLayoutConstraint?
     private var lastAppliedAttributes: PushwooshInboxKitAttributes?
     private var lastAppliedMessage: PWInboxMessageProtocol?
+    private var cardGlassEffectView: UIVisualEffectView?
+    private var cardGlassBackdropView: UIView?
+    private var cardGlassBlurView: UIVisualEffectView?
+    private var glassBackdropImageView: UIImageView?
+    private var glassBackdropBlur: UIVisualEffectView?
+    private var glassBackdropPlate: UIVisualEffectView?
+    /// Not private: card subclasses (video) toggle its visibility from their own files.
+    var textGlassPlate: UIVisualEffectView?
 
     override public init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: style, reuseIdentifier: reuseIdentifier)
@@ -87,7 +95,25 @@ open class PushwooshInboxCell: UITableViewCell {
             uiButton.setTitle(button.title, for: .normal)
             uiButton.backgroundColor = resolvedBg
             uiButton.layer.cornerRadius = style.buttonCornerRadius
-            if #available(iOS 13.0, *) { uiButton.layer.cornerCurve = .continuous }
+            uiButton.layer.cornerCurve = .continuous
+            // iOS 26: a Liquid Glass surface behind the title instead of a flat fill — the button
+            // shimmers with motion. The button still handles the tap (glass is decorative).
+            if #available(iOS 26.0, *) {
+                let glassFX = UIVisualEffectView(effect: pwInboxGlassEffect())
+                glassFX.translatesAutoresizingMaskIntoConstraints = false
+                glassFX.isUserInteractionEnabled = false
+                glassFX.clipsToBounds = true
+                glassFX.layer.cornerRadius = style.buttonCornerRadius
+                glassFX.layer.cornerCurve = .continuous
+                uiButton.insertSubview(glassFX, at: 0)
+                NSLayoutConstraint.activate([
+                    glassFX.topAnchor.constraint(equalTo: uiButton.topAnchor),
+                    glassFX.leadingAnchor.constraint(equalTo: uiButton.leadingAnchor),
+                    glassFX.trailingAnchor.constraint(equalTo: uiButton.trailingAnchor),
+                    glassFX.bottomAnchor.constraint(equalTo: uiButton.bottomAnchor)
+                ])
+                uiButton.backgroundColor = .clear
+            }
             // No `contentEdgeInsets` — it conflicts with the fixed 34pt height
             // and produces inflated buttons on iOS 15+. Title is centered, the
             // height is explicit.
@@ -98,13 +124,213 @@ open class PushwooshInboxCell: UITableViewCell {
         // Single constraint, reused across bind/unbind — never stacks duplicates.
         if buttonsStackHeight == nil {
             let h = buttonsStack.heightAnchor.constraint(equalToConstant: 34)
-            h.priority = .required
+            h.priority = .required - 1   // yield to UIView-Encapsulated-Layout-Height (self-sizing)
             buttonsStackHeight = h
         }
         buttonsStackHeight?.isActive = true
     }
 
     private var buttonsStackHeight: NSLayoutConstraint?
+
+    /// Applies the card's background surface honoring ``PushwooshInboxKitAttributes/Style/isLiquidGlass``:
+    /// an Apple Liquid Glass effect on iOS 26+, with the solid `backgroundColor` as the fallback.
+    /// Card subclasses call this from `apply(...)` instead of setting `card.backgroundColor` directly.
+    /// A neutral opaque backdrop is inserted behind the glass so it refracts a known colour
+    /// (`backgroundColor`) instead of tinting from whatever image/content the card holds; the glass
+    /// sits above it, behind the card's content, and both are clipped by the card's rounded corners.
+    open func applyCardSurface(_ card: UIView, style: PushwooshInboxKitAttributes.Style, cornerRadius: CGFloat) {
+        if style.isLiquidGlass, #available(iOS 26.0, *) {
+            card.backgroundColor = .clear
+
+            let backdrop: UIView
+            if let existing = cardGlassBackdropView {
+                backdrop = existing
+            } else {
+                backdrop = UIView()
+                backdrop.translatesAutoresizingMaskIntoConstraints = false
+                backdrop.isUserInteractionEnabled = false
+                backdrop.clipsToBounds = true
+                card.insertSubview(backdrop, at: 0)
+                NSLayoutConstraint.activate([
+                    backdrop.topAnchor.constraint(equalTo: card.topAnchor),
+                    backdrop.leadingAnchor.constraint(equalTo: card.leadingAnchor),
+                    backdrop.trailingAnchor.constraint(equalTo: card.trailingAnchor),
+                    backdrop.bottomAnchor.constraint(equalTo: card.bottomAnchor)
+                ])
+                cardGlassBackdropView = backdrop
+            }
+            backdrop.backgroundColor = style.backgroundColor
+            backdrop.layer.cornerRadius = cornerRadius
+            backdrop.layer.cornerCurve = .continuous
+            backdrop.isHidden = false
+
+            // Frosted blur between the backdrop and the Liquid Glass — makes the base look more
+            // matte / diffuse ("milkier"). Tune the mattness via `blur.alpha` or the blur style.
+            let blur: UIVisualEffectView
+            if let existing = cardGlassBlurView {
+                blur = existing
+            } else {
+                blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+                blur.translatesAutoresizingMaskIntoConstraints = false
+                blur.isUserInteractionEnabled = false
+                blur.clipsToBounds = true
+                card.insertSubview(blur, aboveSubview: backdrop)
+                NSLayoutConstraint.activate([
+                    blur.topAnchor.constraint(equalTo: card.topAnchor),
+                    blur.leadingAnchor.constraint(equalTo: card.leadingAnchor),
+                    blur.trailingAnchor.constraint(equalTo: card.trailingAnchor),
+                    blur.bottomAnchor.constraint(equalTo: card.bottomAnchor)
+                ])
+                cardGlassBlurView = blur
+            }
+            blur.layer.cornerRadius = cornerRadius
+            blur.layer.cornerCurve = .continuous
+            blur.alpha = 0.6
+            blur.isHidden = false
+
+            let glass: UIVisualEffectView
+            if let existing = cardGlassEffectView {
+                glass = existing
+            } else {
+                glass = UIVisualEffectView(effect: pwInboxGlassEffect())
+                glass.translatesAutoresizingMaskIntoConstraints = false
+                glass.isUserInteractionEnabled = false
+                glass.clipsToBounds = true
+                card.insertSubview(glass, aboveSubview: blur)
+                NSLayoutConstraint.activate([
+                    glass.topAnchor.constraint(equalTo: card.topAnchor),
+                    glass.leadingAnchor.constraint(equalTo: card.leadingAnchor),
+                    glass.trailingAnchor.constraint(equalTo: card.trailingAnchor),
+                    glass.bottomAnchor.constraint(equalTo: card.bottomAnchor)
+                ])
+                cardGlassEffectView = glass
+            }
+            glass.layer.cornerRadius = cornerRadius
+            glass.layer.cornerCurve = .continuous
+            glass.isHidden = false
+        } else {
+            cardGlassEffectView?.isHidden = true
+            cardGlassBlurView?.isHidden = true
+            cardGlassBackdropView?.isHidden = true
+            card.backgroundColor = style.backgroundColor
+        }
+    }
+
+    /// Like ``applyCardSurface(_:style:cornerRadius:)``, but the glass refracts a blurred copy of the
+    /// message image rather than a flat colour — the carousel "frosted glass over a photo" look,
+    /// reusable by any card. Stack (bottom→top): blurred image → frosted blur → Liquid Glass, all
+    /// filling `card` behind its content. Falls back to the solid background when off / pre-iOS 26 /
+    /// no image. Card content (image blocks, text) sits above and lets the glass show in the gaps.
+    open func applyGlassBackdrop(in card: UIView,
+                                 imageURL: String?,
+                                 style: PushwooshInboxKitAttributes.Style,
+                                 cornerRadius: CGFloat) {
+        guard style.isLiquidGlass, #available(iOS 26.0, *), let urlString = imageURL, !urlString.isEmpty else {
+            glassBackdropImageView?.isHidden = true
+            glassBackdropBlur?.isHidden = true
+            glassBackdropPlate?.isHidden = true
+            card.backgroundColor = style.backgroundColor
+            return
+        }
+        card.backgroundColor = .clear
+
+        let backdrop: UIImageView
+        if let existing = glassBackdropImageView {
+            backdrop = existing
+        } else {
+            backdrop = UIImageView()
+            backdrop.translatesAutoresizingMaskIntoConstraints = false
+            backdrop.contentMode = .scaleAspectFill
+            backdrop.clipsToBounds = true
+            // Never let the backdrop image drive the cell's height.
+            backdrop.setContentHuggingPriority(.defaultLow, for: .vertical)
+            backdrop.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+            card.insertSubview(backdrop, at: 0)
+            NSLayoutConstraint.activate([
+                backdrop.topAnchor.constraint(equalTo: card.topAnchor),
+                backdrop.leadingAnchor.constraint(equalTo: card.leadingAnchor),
+                backdrop.trailingAnchor.constraint(equalTo: card.trailingAnchor),
+                backdrop.bottomAnchor.constraint(equalTo: card.bottomAnchor)
+            ])
+            glassBackdropImageView = backdrop
+        }
+        backdrop.layer.cornerRadius = cornerRadius
+        backdrop.layer.cornerCurve = .continuous
+        backdrop.isHidden = false
+
+        let blur: UIVisualEffectView
+        if let existing = glassBackdropBlur {
+            blur = existing
+        } else {
+            blur = UIVisualEffectView(effect: UIBlurEffect(style: .systemThickMaterial))
+            blur.translatesAutoresizingMaskIntoConstraints = false
+            blur.isUserInteractionEnabled = false
+            blur.clipsToBounds = true
+            card.insertSubview(blur, aboveSubview: backdrop)
+            NSLayoutConstraint.activate([
+                blur.topAnchor.constraint(equalTo: card.topAnchor),
+                blur.leadingAnchor.constraint(equalTo: card.leadingAnchor),
+                blur.trailingAnchor.constraint(equalTo: card.trailingAnchor),
+                blur.bottomAnchor.constraint(equalTo: card.bottomAnchor)
+            ])
+            glassBackdropBlur = blur
+        }
+        blur.layer.cornerRadius = cornerRadius
+        blur.layer.cornerCurve = .continuous
+        blur.isHidden = false
+
+        let plate: UIVisualEffectView
+        if let existing = glassBackdropPlate {
+            plate = existing
+        } else {
+            plate = UIVisualEffectView(effect: pwInboxGlassEffect())
+            plate.translatesAutoresizingMaskIntoConstraints = false
+            plate.isUserInteractionEnabled = false
+            plate.clipsToBounds = true
+            card.insertSubview(plate, aboveSubview: blur)
+            NSLayoutConstraint.activate([
+                plate.topAnchor.constraint(equalTo: card.topAnchor),
+                plate.leadingAnchor.constraint(equalTo: card.leadingAnchor),
+                plate.trailingAnchor.constraint(equalTo: card.trailingAnchor),
+                plate.bottomAnchor.constraint(equalTo: card.bottomAnchor)
+            ])
+            glassBackdropPlate = plate
+        }
+        plate.layer.cornerRadius = cornerRadius
+        plate.layer.cornerCurve = .continuous
+        plate.isHidden = false
+
+        MessageImageLoader.shared.load(urlString, into: backdrop, placeholder: nil)
+    }
+
+    /// Inserts a frosted, semi-transparent Liquid Glass plate behind a text block (iOS 26+), centred
+    /// on `card` with symmetric horizontal insets and top/bottom hugging `textBlock`. Call from the
+    /// cell's layout after `textBlock` is added with its constraints. No-op pre-iOS 26. The returned
+    /// view (stored in `textGlassPlate`) can be hidden by the caller when there's no text.
+    @discardableResult
+    open func installTextGlassPlate(behind textBlock: UIView,
+                                    in card: UIView,
+                                    horizontalInset: CGFloat = 5.5,
+                                    cornerRadius: CGFloat = 16) -> UIView? {
+        guard #available(iOS 26.0, *) else { return nil }
+        guard textGlassPlate == nil else { return textGlassPlate }
+        let plate = UIVisualEffectView(effect: pwInboxGlassEffect())
+        plate.translatesAutoresizingMaskIntoConstraints = false
+        plate.isUserInteractionEnabled = false
+        plate.clipsToBounds = true
+        plate.layer.cornerRadius = cornerRadius
+        plate.layer.cornerCurve = .continuous
+        plate.alpha = 0.45
+        card.insertSubview(plate, belowSubview: textBlock)
+        NSLayoutConstraint.activate([
+            plate.topAnchor.constraint(equalTo: textBlock.topAnchor, constant: -10),
+            plate.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: horizontalInset),
+            plate.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -horizontalInset),
+            plate.bottomAnchor.constraint(equalTo: textBlock.bottomAnchor, constant: 10)
+        ])
+        textGlassPlate = plate
+        return plate
+    }
 
     @objc private func handleInlineButtonTap(_ sender: InboxInlineButton) {
         guard let model = sender.model else { return }
@@ -231,6 +457,12 @@ open class PushwooshInboxCell: UITableViewCell {
         super.prepareForReuse()
         MessageImageLoader.shared.cancelLoad(for: messageImageView)
         messageImageView.image = nil
+        // The glass backdrop also loads an image — cancel + clear it so a recycled cell doesn't
+        // flash the previous message's photo behind the frosted glass before apply() runs.
+        if let backdrop = glassBackdropImageView {
+            MessageImageLoader.shared.cancelLoad(for: backdrop)
+            backdrop.image = nil
+        }
     }
 
     open override func traitCollectionDidChange(_ previousTraitCollection: UITraitCollection?) {
@@ -254,5 +486,33 @@ final class InboxInlineButton: UIButton {
         self.init(type: .system)
         self.model = model
     }
+}
+
+// MARK: - Liquid Glass effect factory
+
+/// A Liquid Glass effect on the iOS 26 SDK (Xcode 26+ toolchain), at runtime on iOS 26+, otherwise a
+/// frosted blur. The compiler guard keeps `UIGlassEffect` — which doesn't exist in older SDKs — out of
+/// the compile on older Xcode (e.g. CI), where the blur fallback is built instead.
+func pwInboxGlassEffect(interactive: Bool = false) -> UIVisualEffect {
+#if compiler(>=6.2)
+    if #available(iOS 26.0, *) {
+        let effect = UIGlassEffect()
+        effect.isInteractive = interactive
+        return effect
+    }
+#endif
+    return UIBlurEffect(style: .systemThinMaterial)
+}
+
+/// A `UIGlassContainerEffect` (glass elements merge within `spacing`) on Xcode 26+/iOS 26+, else blur.
+func pwInboxGlassContainerEffect(spacing: CGFloat) -> UIVisualEffect {
+#if compiler(>=6.2)
+    if #available(iOS 26.0, *) {
+        let effect = UIGlassContainerEffect()
+        effect.spacing = spacing
+        return effect
+    }
+#endif
+    return UIBlurEffect(style: .systemThinMaterial)
 }
 #endif

@@ -331,6 +331,117 @@
               },
               {
                 "kind": "Var",
+                "name": "carousel",
+                "printedName": "carousel",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind.Type) -> PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CellKind",
+                        "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind",
+                        "usr": "s:17PushwooshInboxKit0abC10AttributesV8CellKindO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "CellKind",
+                            "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind",
+                            "usr": "s:17PushwooshInboxKit0abC10AttributesV8CellKindO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:17PushwooshInboxKit0abC10AttributesV8CellKindO8carouselyA2EmF",
+                "mangledName": "$s17PushwooshInboxKit0abC10AttributesV8CellKindO8carouselyA2EmF",
+                "moduleName": "PushwooshInboxKit"
+              },
+              {
+                "kind": "Var",
+                "name": "video",
+                "printedName": "video",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind.Type) -> PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CellKind",
+                        "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind",
+                        "usr": "s:17PushwooshInboxKit0abC10AttributesV8CellKindO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "CellKind",
+                            "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind",
+                            "usr": "s:17PushwooshInboxKit0abC10AttributesV8CellKindO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:17PushwooshInboxKit0abC10AttributesV8CellKindO5videoyA2EmF",
+                "mangledName": "$s17PushwooshInboxKit0abC10AttributesV8CellKindO5videoyA2EmF",
+                "moduleName": "PushwooshInboxKit"
+              },
+              {
+                "kind": "Var",
+                "name": "wallet",
+                "printedName": "wallet",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind.Type) -> PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "CellKind",
+                        "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind",
+                        "usr": "s:17PushwooshInboxKit0abC10AttributesV8CellKindO"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Metatype",
+                        "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind.Type",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "CellKind",
+                            "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes.CellKind",
+                            "usr": "s:17PushwooshInboxKit0abC10AttributesV8CellKindO"
+                          }
+                        ]
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "EnumElement",
+                "usr": "s:17PushwooshInboxKit0abC10AttributesV8CellKindO6walletyA2EmF",
+                "mangledName": "$s17PushwooshInboxKit0abC10AttributesV8CellKindO6walletyA2EmF",
+                "moduleName": "PushwooshInboxKit"
+              },
+              {
+                "kind": "Var",
                 "name": "default",
                 "printedName": "default",
                 "children": [
@@ -2183,6 +2294,180 @@
                     "declKind": "Accessor",
                     "usr": "s:17PushwooshInboxKit0abC10AttributesV5StyleV15backgroundColorSo7UIColorCvM",
                     "mangledName": "$s17PushwooshInboxKit0abC10AttributesV5StyleV15backgroundColorSo7UIColorCvM",
+                    "moduleName": "PushwooshInboxKit",
+                    "implicit": true,
+                    "accessorKind": "_modify"
+                  }
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "pageBackgroundColor",
+                "printedName": "pageBackgroundColor",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIColor",
+                    "printedName": "UIKit.UIColor",
+                    "usr": "c:objc(cs)UIColor"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:17PushwooshInboxKit0abC10AttributesV5StyleV19pageBackgroundColorSo7UIColorCvp",
+                "mangledName": "$s17PushwooshInboxKit0abC10AttributesV5StyleV19pageBackgroundColorSo7UIColorCvp",
+                "moduleName": "PushwooshInboxKit",
+                "declAttributes": [
+                  "HasInitialValue",
+                  "HasStorage",
+                  "AccessControl",
+                  "RawDocComment"
+                ],
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:17PushwooshInboxKit0abC10AttributesV5StyleV19pageBackgroundColorSo7UIColorCvg",
+                    "mangledName": "$s17PushwooshInboxKit0abC10AttributesV5StyleV19pageBackgroundColorSo7UIColorCvg",
+                    "moduleName": "PushwooshInboxKit",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Set",
+                    "printedName": "Set()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "UIColor",
+                        "printedName": "UIKit.UIColor",
+                        "usr": "c:objc(cs)UIColor"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:17PushwooshInboxKit0abC10AttributesV5StyleV19pageBackgroundColorSo7UIColorCvs",
+                    "mangledName": "$s17PushwooshInboxKit0abC10AttributesV5StyleV19pageBackgroundColorSo7UIColorCvs",
+                    "moduleName": "PushwooshInboxKit",
+                    "implicit": true,
+                    "accessorKind": "set"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Modify",
+                    "printedName": "Modify()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:17PushwooshInboxKit0abC10AttributesV5StyleV19pageBackgroundColorSo7UIColorCvM",
+                    "mangledName": "$s17PushwooshInboxKit0abC10AttributesV5StyleV19pageBackgroundColorSo7UIColorCvM",
+                    "moduleName": "PushwooshInboxKit",
+                    "implicit": true,
+                    "accessorKind": "_modify"
+                  }
+                ]
+              },
+              {
+                "kind": "Var",
+                "name": "isLiquidGlass",
+                "printedName": "isLiquidGlass",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Var",
+                "usr": "s:17PushwooshInboxKit0abC10AttributesV5StyleV13isLiquidGlassSbvp",
+                "mangledName": "$s17PushwooshInboxKit0abC10AttributesV5StyleV13isLiquidGlassSbvp",
+                "moduleName": "PushwooshInboxKit",
+                "declAttributes": [
+                  "HasInitialValue",
+                  "HasStorage",
+                  "AccessControl",
+                  "RawDocComment"
+                ],
+                "hasStorage": true,
+                "accessors": [
+                  {
+                    "kind": "Accessor",
+                    "name": "Get",
+                    "printedName": "Get()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Bool",
+                        "printedName": "Swift.Bool",
+                        "usr": "s:Sb"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:17PushwooshInboxKit0abC10AttributesV5StyleV13isLiquidGlassSbvg",
+                    "mangledName": "$s17PushwooshInboxKit0abC10AttributesV5StyleV13isLiquidGlassSbvg",
+                    "moduleName": "PushwooshInboxKit",
+                    "implicit": true,
+                    "accessorKind": "get"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Set",
+                    "printedName": "Set()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Bool",
+                        "printedName": "Swift.Bool",
+                        "usr": "s:Sb"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:17PushwooshInboxKit0abC10AttributesV5StyleV13isLiquidGlassSbvs",
+                    "mangledName": "$s17PushwooshInboxKit0abC10AttributesV5StyleV13isLiquidGlassSbvs",
+                    "moduleName": "PushwooshInboxKit",
+                    "implicit": true,
+                    "accessorKind": "set"
+                  },
+                  {
+                    "kind": "Accessor",
+                    "name": "Modify",
+                    "printedName": "Modify()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      }
+                    ],
+                    "declKind": "Accessor",
+                    "usr": "s:17PushwooshInboxKit0abC10AttributesV5StyleV13isLiquidGlassSbvM",
+                    "mangledName": "$s17PushwooshInboxKit0abC10AttributesV5StyleV13isLiquidGlassSbvM",
                     "moduleName": "PushwooshInboxKit",
                     "implicit": true,
                     "accessorKind": "_modify"
@@ -4152,7 +4437,8 @@
                 "declAttributes": [
                   "HasInitialValue",
                   "HasStorage",
-                  "AccessControl"
+                  "AccessControl",
+                  "RawDocComment"
                 ],
                 "isLet": true,
                 "hasStorage": true,
@@ -4482,6 +4768,92 @@
           {
             "kind": "Function",
             "name": "inboxKit",
+            "printedName": "inboxKit(_:didAddWalletPassFor:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxKitViewController",
+                "printedName": "PushwooshInboxKit.PushwooshInboxKitViewController",
+                "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxKitViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWInboxMessageProtocol",
+                "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                "usr": "c:objc(pl)PWInboxMessageProtocol"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0abC8DelegateP05inboxC0_19didAddWalletPassForyAA0abC14ViewControllerC_So22PWInboxMessageProtocol_ptF",
+            "mangledName": "$s17PushwooshInboxKit0abC8DelegateP05inboxC0_19didAddWalletPassForyAA0abC14ViewControllerC_So22PWInboxMessageProtocol_ptF",
+            "moduleName": "PushwooshInboxKit",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshInboxKit.PushwooshInboxKitDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshInboxKit.PushwooshInboxKitDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "inboxKit",
+            "printedName": "inboxKit(_:didFailToAddWalletPassFor:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxKitViewController",
+                "printedName": "PushwooshInboxKit.PushwooshInboxKitViewController",
+                "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxKitViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWInboxMessageProtocol",
+                "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                "usr": "c:objc(pl)PWInboxMessageProtocol"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any Swift.Error)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "any Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0abC8DelegateP05inboxC0_25didFailToAddWalletPassFor5erroryAA0abC14ViewControllerC_So22PWInboxMessageProtocol_ps5Error_pSgtF",
+            "mangledName": "$s17PushwooshInboxKit0abC8DelegateP05inboxC0_25didFailToAddWalletPassFor5erroryAA0abC14ViewControllerC_So22PWInboxMessageProtocol_ps5Error_pSgtF",
+            "moduleName": "PushwooshInboxKit",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshInboxKit.PushwooshInboxKitDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshInboxKit.PushwooshInboxKitDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "inboxKit",
             "printedName": "inboxKit(_:willDisplay:at:)",
             "children": [
               {
@@ -4701,6 +5073,84 @@
             "sugared_genericSig": "<Self where Self : PushwooshInboxKit.PushwooshInboxKitDelegate>",
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "inboxKit",
+            "printedName": "inboxKit(_:didAddWalletPassFor:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxKitViewController",
+                "printedName": "PushwooshInboxKit.PushwooshInboxKitViewController",
+                "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxKitViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWInboxMessageProtocol",
+                "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                "usr": "c:objc(pl)PWInboxMessageProtocol"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0abC8DelegatePAAE05inboxC0_19didAddWalletPassForyAA0abC14ViewControllerC_So22PWInboxMessageProtocol_ptF",
+            "mangledName": "$s17PushwooshInboxKit0abC8DelegatePAAE05inboxC0_19didAddWalletPassForyAA0abC14ViewControllerC_So22PWInboxMessageProtocol_ptF",
+            "moduleName": "PushwooshInboxKit",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshInboxKit.PushwooshInboxKitDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshInboxKit.PushwooshInboxKitDelegate>",
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "inboxKit",
+            "printedName": "inboxKit(_:didFailToAddWalletPassFor:error:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxKitViewController",
+                "printedName": "PushwooshInboxKit.PushwooshInboxKitViewController",
+                "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxKitViewController"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWInboxMessageProtocol",
+                "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                "usr": "c:objc(pl)PWInboxMessageProtocol"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any Swift.Error)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Error",
+                    "printedName": "any Swift.Error",
+                    "usr": "s:s5ErrorP"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0abC8DelegatePAAE05inboxC0_25didFailToAddWalletPassFor5erroryAA0abC14ViewControllerC_So22PWInboxMessageProtocol_ps5Error_pSgtF",
+            "mangledName": "$s17PushwooshInboxKit0abC8DelegatePAAE05inboxC0_25didFailToAddWalletPassFor5erroryAA0abC14ViewControllerC_So22PWInboxMessageProtocol_ps5Error_pSgtF",
+            "moduleName": "PushwooshInboxKit",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshInboxKit.PushwooshInboxKitDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshInboxKit.PushwooshInboxKitDelegate>",
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
           }
         ],
         "declKind": "Protocol",
@@ -4718,6 +5168,27 @@
         "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "AVFoundation",
+        "printedName": "AVFoundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "AVKit",
+        "printedName": "AVKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "PassKit",
+        "printedName": "PassKit",
         "declKind": "Import",
         "moduleName": "PushwooshInboxKit"
       },
@@ -5232,6 +5703,38 @@
             "moduleName": "PushwooshInboxKit",
             "overriding": true,
             "objc_name": "viewWillAppear:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "viewDidAppear",
+            "printedName": "viewDidAppear(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxKitViewController(im)viewDidAppear:",
+            "mangledName": "$s17PushwooshInboxKit0abC14ViewControllerC13viewDidAppearyySbF",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "objc_name": "viewDidAppear:",
             "declAttributes": [
               "Dynamic",
               "ObjC",
@@ -6086,6 +6589,29 @@
           },
           {
             "kind": "Function",
+            "name": "deleteAllMessages",
+            "printedName": "deleteAllMessages()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxKitViewController(im)deleteAllMessages",
+            "mangledName": "$s17PushwooshInboxKit0abC14ViewControllerC17deleteAllMessagesyyF",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "Custom",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
             "name": "numberOfSections",
             "printedName": "numberOfSections(in:)",
             "children": [
@@ -6309,6 +6835,83 @@
             "mangledName": "$s17PushwooshInboxKit0abC14ViewControllerC05tableD0_41trailingSwipeActionsConfigurationForRowAtSo07UISwipeiJ0CSgSo07UITableD0C_10Foundation9IndexPathVtF",
             "moduleName": "PushwooshInboxKit",
             "objc_name": "tableView:trailingSwipeActionsConfigurationForRowAtIndexPath:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "tableView",
+            "printedName": "tableView(_:prefetchRowsAt:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UITableView",
+                "printedName": "UIKit.UITableView",
+                "usr": "c:objc(cs)UITableView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Foundation.IndexPath]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "IndexPath",
+                    "printedName": "Foundation.IndexPath",
+                    "usr": "s:10Foundation9IndexPathV"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@PushwooshInboxKit@objc(cs)PushwooshInboxKitViewController(im)tableView:prefetchRowsAtIndexPaths:",
+            "mangledName": "$s17PushwooshInboxKit0abC14ViewControllerC05tableD0_14prefetchRowsAtySo07UITableD0C_Say10Foundation9IndexPathVGtF",
+            "moduleName": "PushwooshInboxKit",
+            "objc_name": "tableView:prefetchRowsAtIndexPaths:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "addPassesViewControllerDidFinish",
+            "printedName": "addPassesViewControllerDidFinish(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PKAddPassesViewController",
+                "printedName": "PassKit.PKAddPassesViewController",
+                "usr": "c:objc(cs)PKAddPassesViewController"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@PushwooshInboxKit@objc(cs)PushwooshInboxKitViewController(im)addPassesViewControllerDidFinish:",
+            "mangledName": "$s17PushwooshInboxKit0abC14ViewControllerC09addPassesdE9DidFinishyySo05PKAddgdE0CF",
+            "moduleName": "PushwooshInboxKit",
+            "objc_name": "addPassesViewControllerDidFinish:",
             "declAttributes": [
               "Dynamic",
               "ObjC",
@@ -7057,6 +7660,161 @@
             "declAttributes": [
               "Custom",
               "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "applyCardSurface",
+            "printedName": "applyCardSurface(_:style:cornerRadius:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIView",
+                "printedName": "UIKit.UIView",
+                "usr": "c:objc(cs)UIView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Style",
+                "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes.Style",
+                "usr": "s:17PushwooshInboxKit0abC10AttributesV5StyleV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CGFloat",
+                "printedName": "CoreGraphics.CGFloat",
+                "usr": "s:14CoreFoundation7CGFloatV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0aB4CellC16applyCardSurface_5style12cornerRadiusySo6UIViewC_AA0abC10AttributesV5StyleV14CoreFoundation7CGFloatVtF",
+            "mangledName": "$s17PushwooshInboxKit0aB4CellC16applyCardSurface_5style12cornerRadiusySo6UIViewC_AA0abC10AttributesV5StyleV12CoreGraphics7CGFloatVtF",
+            "moduleName": "PushwooshInboxKit",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "applyGlassBackdrop",
+            "printedName": "applyGlassBackdrop(in:imageURL:style:cornerRadius:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIView",
+                "printedName": "UIKit.UIView",
+                "usr": "c:objc(cs)UIView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Style",
+                "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes.Style",
+                "usr": "s:17PushwooshInboxKit0abC10AttributesV5StyleV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CGFloat",
+                "printedName": "CoreGraphics.CGFloat",
+                "usr": "s:14CoreFoundation7CGFloatV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0aB4CellC18applyGlassBackdrop2in8imageURL5style12cornerRadiusySo6UIViewC_SSSgAA0abC10AttributesV5StyleV14CoreFoundation7CGFloatVtF",
+            "mangledName": "$s17PushwooshInboxKit0aB4CellC18applyGlassBackdrop2in8imageURL5style12cornerRadiusySo6UIViewC_SSSgAA0abC10AttributesV5StyleV12CoreGraphics7CGFloatVtF",
+            "moduleName": "PushwooshInboxKit",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "installTextGlassPlate",
+            "printedName": "installTextGlassPlate(behind:in:horizontalInset:cornerRadius:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIView?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIView",
+                    "printedName": "UIKit.UIView",
+                    "usr": "c:objc(cs)UIView"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIView",
+                "printedName": "UIKit.UIView",
+                "usr": "c:objc(cs)UIView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIView",
+                "printedName": "UIKit.UIView",
+                "usr": "c:objc(cs)UIView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CGFloat",
+                "printedName": "CoreGraphics.CGFloat",
+                "hasDefaultArg": true,
+                "usr": "s:14CoreFoundation7CGFloatV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CGFloat",
+                "printedName": "CoreGraphics.CGFloat",
+                "hasDefaultArg": true,
+                "usr": "s:14CoreFoundation7CGFloatV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0aB4CellC21installTextGlassPlate6behind2in15horizontalInset12cornerRadiusSo6UIViewCSgAJ_AJ14CoreFoundation7CGFloatVANtF",
+            "mangledName": "$s17PushwooshInboxKit0aB4CellC21installTextGlassPlate6behind2in15horizontalInset12cornerRadiusSo6UIViewCSgAJ_AJ12CoreGraphics7CGFloatVANtF",
+            "moduleName": "PushwooshInboxKit",
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "AccessControl",
+              "DiscardableResult",
               "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
@@ -8788,9 +9546,2196 @@
         "moduleName": "PushwooshInboxKit"
       },
       {
+        "kind": "TypeDecl",
+        "name": "PushwooshInboxCarouselSlide",
+        "printedName": "PushwooshInboxCarouselSlide",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "imageUrl",
+            "printedName": "imageUrl",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:17PushwooshInboxKit0aB13CarouselSlideV8imageUrlSSvp",
+            "mangledName": "$s17PushwooshInboxKit0aB13CarouselSlideV8imageUrlSSvp",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB13CarouselSlideV8imageUrlSSvg",
+                "mangledName": "$s17PushwooshInboxKit0aB13CarouselSlideV8imageUrlSSvg",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "title",
+            "printedName": "title",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:17PushwooshInboxKit0aB13CarouselSlideV5titleSSSgvp",
+            "mangledName": "$s17PushwooshInboxKit0aB13CarouselSlideV5titleSSSgvp",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB13CarouselSlideV5titleSSSgvg",
+                "mangledName": "$s17PushwooshInboxKit0aB13CarouselSlideV5titleSSSgvg",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "url",
+            "printedName": "url",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.URL?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:17PushwooshInboxKit0aB13CarouselSlideV3url10Foundation3URLVSgvp",
+            "mangledName": "$s17PushwooshInboxKit0aB13CarouselSlideV3url10Foundation3URLVSgvp",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.URL?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "URL",
+                        "printedName": "Foundation.URL",
+                        "usr": "s:10Foundation3URLV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB13CarouselSlideV3url10Foundation3URLVSgvg",
+                "mangledName": "$s17PushwooshInboxKit0aB13CarouselSlideV3url10Foundation3URLVSgvg",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(imageUrl:title:url:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxCarouselSlide",
+                "printedName": "PushwooshInboxKit.PushwooshInboxCarouselSlide",
+                "usr": "s:17PushwooshInboxKit0aB13CarouselSlideV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.URL?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:17PushwooshInboxKit0aB13CarouselSlideV8imageUrl5title3urlACSS_SSSg10Foundation3URLVSgtcfc",
+            "mangledName": "$s17PushwooshInboxKit0aB13CarouselSlideV8imageUrl5title3urlACSS_SSSg10Foundation3URLVSgtcfc",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "decode",
+            "printedName": "decode(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[PushwooshInboxKit.PushwooshInboxCarouselSlide]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshInboxCarouselSlide",
+                    "printedName": "PushwooshInboxKit.PushwooshInboxCarouselSlide",
+                    "usr": "s:17PushwooshInboxKit0aB13CarouselSlideV"
+                  }
+                ],
+                "usr": "s:Sa"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWInboxMessageProtocol",
+                "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                "usr": "c:objc(pl)PWInboxMessageProtocol"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0aB13CarouselSlideV6decode4fromSayACGSo22PWInboxMessageProtocol_p_tFZ",
+            "mangledName": "$s17PushwooshInboxKit0aB13CarouselSlideV6decode4fromSayACGSo22PWInboxMessageProtocol_p_tFZ",
+            "moduleName": "PushwooshInboxKit",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:17PushwooshInboxKit0aB13CarouselSlideV",
+        "mangledName": "$s17PushwooshInboxKit0aB13CarouselSlideV",
+        "moduleName": "PushwooshInboxKit",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ]
+      },
+      {
         "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshInboxCarouselCell",
+        "printedName": "PushwooshInboxCarouselCell",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "onCarouselSlideTap",
+            "printedName": "onCarouselSlideTap",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "((Foundation.URL?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Foundation.URL?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "Foundation.URL?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "URL",
+                            "printedName": "Foundation.URL",
+                            "usr": "s:10Foundation3URLV"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:17PushwooshInboxKit0aB12CarouselCellC02onD8SlideTapy10Foundation3URLVSgcSgvp",
+            "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC02onD8SlideTapy10Foundation3URLVSgcSgvp",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "((Foundation.URL?) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(Foundation.URL?) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Optional",
+                            "printedName": "Foundation.URL?",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "URL",
+                                "printedName": "Foundation.URL",
+                                "usr": "s:10Foundation3URLV"
+                              }
+                            ],
+                            "usr": "s:Sq"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB12CarouselCellC02onD8SlideTapy10Foundation3URLVSgcSgvg",
+                "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC02onD8SlideTapy10Foundation3URLVSgcSgvg",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "((Foundation.URL?) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(Foundation.URL?) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Optional",
+                            "printedName": "Foundation.URL?",
+                            "children": [
+                              {
+                                "kind": "TypeNominal",
+                                "name": "URL",
+                                "printedName": "Foundation.URL",
+                                "usr": "s:10Foundation3URLV"
+                              }
+                            ],
+                            "usr": "s:Sq"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB12CarouselCellC02onD8SlideTapy10Foundation3URLVSgcSgvs",
+                "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC02onD8SlideTapy10Foundation3URLVSgcSgvs",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB12CarouselCellC02onD8SlideTapy10Foundation3URLVSgcSgvM",
+                "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC02onD8SlideTapy10Foundation3URLVSgcSgvM",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(style:reuseIdentifier:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxCarouselCell",
+                "printedName": "PushwooshInboxKit.PushwooshInboxCarouselCell",
+                "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxCarouselCell"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CellStyle",
+                "printedName": "UIKit.UITableViewCell.CellStyle",
+                "usr": "c:@E@UITableViewCellStyle"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxCarouselCell(im)initWithStyle:reuseIdentifier:",
+            "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC5style15reuseIdentifierACSo011UITableViewE5StyleV_SSSgtcfc",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "objc_name": "initWithStyle:reuseIdentifier:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(coder:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshInboxKit.PushwooshInboxCarouselCell?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshInboxCarouselCell",
+                    "printedName": "PushwooshInboxKit.PushwooshInboxCarouselCell",
+                    "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxCarouselCell"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxCarouselCell(im)initWithCoder:",
+            "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC5coderACSgSo7NSCoderC_tcfc",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "objc_name": "initWithCoder:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Required",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "apply",
+            "printedName": "apply(message:attributes:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWInboxMessageProtocol",
+                "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                "usr": "c:objc(pl)PWInboxMessageProtocol"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxKitAttributes",
+                "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes",
+                "usr": "s:17PushwooshInboxKit0abC10AttributesV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0aB12CarouselCellC5apply7message10attributesySo22PWInboxMessageProtocol_p_AA0abC10AttributesVtF",
+            "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC5apply7message10attributesySo22PWInboxMessageProtocol_p_AA0abC10AttributesVtF",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "prepareForReuse",
+            "printedName": "prepareForReuse()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxCarouselCell(im)prepareForReuse",
+            "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC15prepareForReuseyyF",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "isOpen": true,
+            "objc_name": "prepareForReuse",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setHighlighted",
+            "printedName": "setHighlighted(_:animated:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxCarouselCell(im)setHighlighted:animated:",
+            "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC14setHighlighted_8animatedySb_SbtF",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "isOpen": true,
+            "objc_name": "setHighlighted:animated:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "collectionView",
+            "printedName": "collectionView(_:numberOfItemsInSection:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UICollectionView",
+                "printedName": "UIKit.UICollectionView",
+                "usr": "c:objc(cs)UICollectionView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@PushwooshInboxKit@objc(cs)PushwooshInboxCarouselCell(im)collectionView:numberOfItemsInSection:",
+            "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC14collectionView_22numberOfItemsInSectionSiSo012UICollectionG0C_SitF",
+            "moduleName": "PushwooshInboxKit",
+            "objc_name": "collectionView:numberOfItemsInSection:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "collectionView",
+            "printedName": "collectionView(_:cellForItemAt:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UICollectionViewCell",
+                "printedName": "UIKit.UICollectionViewCell",
+                "usr": "c:objc(cs)UICollectionViewCell"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UICollectionView",
+                "printedName": "UIKit.UICollectionView",
+                "usr": "c:objc(cs)UICollectionView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "IndexPath",
+                "printedName": "Foundation.IndexPath",
+                "usr": "s:10Foundation9IndexPathV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@PushwooshInboxKit@objc(cs)PushwooshInboxCarouselCell(im)collectionView:cellForItemAtIndexPath:",
+            "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC14collectionView_13cellForItemAtSo012UICollectiongE0CSo0lG0C_10Foundation9IndexPathVtF",
+            "moduleName": "PushwooshInboxKit",
+            "objc_name": "collectionView:cellForItemAtIndexPath:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "collectionView",
+            "printedName": "collectionView(_:didSelectItemAt:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UICollectionView",
+                "printedName": "UIKit.UICollectionView",
+                "usr": "c:objc(cs)UICollectionView"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "IndexPath",
+                "printedName": "Foundation.IndexPath",
+                "usr": "s:10Foundation9IndexPathV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@PushwooshInboxKit@objc(cs)PushwooshInboxCarouselCell(im)collectionView:didSelectItemAtIndexPath:",
+            "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC14collectionView_15didSelectItemAtySo012UICollectionG0C_10Foundation9IndexPathVtF",
+            "moduleName": "PushwooshInboxKit",
+            "objc_name": "collectionView:didSelectItemAtIndexPath:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "scrollViewDidScroll",
+            "printedName": "scrollViewDidScroll(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "UIScrollView",
+                "printedName": "UIKit.UIScrollView",
+                "usr": "c:objc(cs)UIScrollView"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@CM@PushwooshInboxKit@objc(cs)PushwooshInboxCarouselCell(im)scrollViewDidScroll:",
+            "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC19scrollViewDidScrollyySo08UIScrollG0CF",
+            "moduleName": "PushwooshInboxKit",
+            "objc_name": "scrollViewDidScroll:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "AccessControl"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxCarouselCell",
+        "mangledName": "$s17PushwooshInboxKit0aB12CarouselCellC",
+        "moduleName": "PushwooshInboxKit",
+        "isOpen": true,
+        "objc_name": "PushwooshInboxCarouselCell",
+        "declAttributes": [
+          "Custom",
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxCell",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "PushwooshInboxKit.PushwooshInboxCell",
+          "UIKit.UITableViewCell",
+          "UIKit.UIView",
+          "UIKit.UIResponder",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "__DefaultCustomPlaygroundQuickLookable",
+            "printedName": "__DefaultCustomPlaygroundQuickLookable",
+            "usr": "s:s38__DefaultCustomPlaygroundQuickLookableP",
+            "mangledName": "$ss38__DefaultCustomPlaygroundQuickLookableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshInboxVideoContent",
+        "printedName": "PushwooshInboxVideoContent",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "videoURL",
+            "printedName": "videoURL",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:17PushwooshInboxKit0aB12VideoContentV8videoURL10Foundation0G0Vvp",
+            "mangledName": "$s17PushwooshInboxKit0aB12VideoContentV8videoURL10Foundation0G0Vvp",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB12VideoContentV8videoURL10Foundation0G0Vvg",
+                "mangledName": "$s17PushwooshInboxKit0aB12VideoContentV8videoURL10Foundation0G0Vvg",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "posterURL",
+            "printedName": "posterURL",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:17PushwooshInboxKit0aB12VideoContentV9posterURLSSSgvp",
+            "mangledName": "$s17PushwooshInboxKit0aB12VideoContentV9posterURLSSSgvp",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB12VideoContentV9posterURLSSSgvg",
+                "mangledName": "$s17PushwooshInboxKit0aB12VideoContentV9posterURLSSSgvg",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(videoURL:posterURL:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxVideoContent",
+                "printedName": "PushwooshInboxKit.PushwooshInboxVideoContent",
+                "usr": "s:17PushwooshInboxKit0aB12VideoContentV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "hasDefaultArg": true,
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:17PushwooshInboxKit0aB12VideoContentV8videoURL06posterG0AC10Foundation0G0V_SSSgtcfc",
+            "mangledName": "$s17PushwooshInboxKit0aB12VideoContentV8videoURL06posterG0AC10Foundation0G0V_SSSgtcfc",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "decode",
+            "printedName": "decode(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshInboxKit.PushwooshInboxVideoContent?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshInboxVideoContent",
+                    "printedName": "PushwooshInboxKit.PushwooshInboxVideoContent",
+                    "usr": "s:17PushwooshInboxKit0aB12VideoContentV"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWInboxMessageProtocol",
+                "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                "usr": "c:objc(pl)PWInboxMessageProtocol"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0aB12VideoContentV6decode4fromACSgSo22PWInboxMessageProtocol_p_tFZ",
+            "mangledName": "$s17PushwooshInboxKit0aB12VideoContentV6decode4fromACSgSo22PWInboxMessageProtocol_p_tFZ",
+            "moduleName": "PushwooshInboxKit",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:17PushwooshInboxKit0aB12VideoContentV",
+        "mangledName": "$s17PushwooshInboxKit0aB12VideoContentV",
+        "moduleName": "PushwooshInboxKit",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshInboxVideoCell",
+        "printedName": "PushwooshInboxVideoCell",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "onVideoTap",
+            "printedName": "onVideoTap",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "((Foundation.URL) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Foundation.URL) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "URL",
+                        "printedName": "Foundation.URL",
+                        "usr": "s:10Foundation3URLV"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:17PushwooshInboxKit0aB9VideoCellC02onD3Tapy10Foundation3URLVcSgvp",
+            "mangledName": "$s17PushwooshInboxKit0aB9VideoCellC02onD3Tapy10Foundation3URLVcSgvp",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "((Foundation.URL) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(Foundation.URL) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "URL",
+                            "printedName": "Foundation.URL",
+                            "usr": "s:10Foundation3URLV"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB9VideoCellC02onD3Tapy10Foundation3URLVcSgvg",
+                "mangledName": "$s17PushwooshInboxKit0aB9VideoCellC02onD3Tapy10Foundation3URLVcSgvg",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "((Foundation.URL) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(Foundation.URL) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "URL",
+                            "printedName": "Foundation.URL",
+                            "usr": "s:10Foundation3URLV"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB9VideoCellC02onD3Tapy10Foundation3URLVcSgvs",
+                "mangledName": "$s17PushwooshInboxKit0aB9VideoCellC02onD3Tapy10Foundation3URLVcSgvs",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB9VideoCellC02onD3Tapy10Foundation3URLVcSgvM",
+                "mangledName": "$s17PushwooshInboxKit0aB9VideoCellC02onD3Tapy10Foundation3URLVcSgvM",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(style:reuseIdentifier:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxVideoCell",
+                "printedName": "PushwooshInboxKit.PushwooshInboxVideoCell",
+                "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxVideoCell"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CellStyle",
+                "printedName": "UIKit.UITableViewCell.CellStyle",
+                "usr": "c:@E@UITableViewCellStyle"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxVideoCell(im)initWithStyle:reuseIdentifier:",
+            "mangledName": "$s17PushwooshInboxKit0aB9VideoCellC5style15reuseIdentifierACSo011UITableViewE5StyleV_SSSgtcfc",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "objc_name": "initWithStyle:reuseIdentifier:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(coder:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshInboxKit.PushwooshInboxVideoCell?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshInboxVideoCell",
+                    "printedName": "PushwooshInboxKit.PushwooshInboxVideoCell",
+                    "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxVideoCell"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxVideoCell(im)initWithCoder:",
+            "mangledName": "$s17PushwooshInboxKit0aB9VideoCellC5coderACSgSo7NSCoderC_tcfc",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "objc_name": "initWithCoder:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Required",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "apply",
+            "printedName": "apply(message:attributes:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWInboxMessageProtocol",
+                "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                "usr": "c:objc(pl)PWInboxMessageProtocol"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxKitAttributes",
+                "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes",
+                "usr": "s:17PushwooshInboxKit0abC10AttributesV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0aB9VideoCellC5apply7message10attributesySo22PWInboxMessageProtocol_p_AA0abC10AttributesVtF",
+            "mangledName": "$s17PushwooshInboxKit0aB9VideoCellC5apply7message10attributesySo22PWInboxMessageProtocol_p_AA0abC10AttributesVtF",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "prepareForReuse",
+            "printedName": "prepareForReuse()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxVideoCell(im)prepareForReuse",
+            "mangledName": "$s17PushwooshInboxKit0aB9VideoCellC15prepareForReuseyyF",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "isOpen": true,
+            "objc_name": "prepareForReuse",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setHighlighted",
+            "printedName": "setHighlighted(_:animated:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxVideoCell(im)setHighlighted:animated:",
+            "mangledName": "$s17PushwooshInboxKit0aB9VideoCellC14setHighlighted_8animatedySb_SbtF",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "isOpen": true,
+            "objc_name": "setHighlighted:animated:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxVideoCell",
+        "mangledName": "$s17PushwooshInboxKit0aB9VideoCellC",
+        "moduleName": "PushwooshInboxKit",
+        "isOpen": true,
+        "objc_name": "PushwooshInboxVideoCell",
+        "declAttributes": [
+          "Custom",
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxCell",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "PushwooshInboxKit.PushwooshInboxCell",
+          "UIKit.UITableViewCell",
+          "UIKit.UIView",
+          "UIKit.UIResponder",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "__DefaultCustomPlaygroundQuickLookable",
+            "printedName": "__DefaultCustomPlaygroundQuickLookable",
+            "usr": "s:s38__DefaultCustomPlaygroundQuickLookableP",
+            "mangledName": "$ss38__DefaultCustomPlaygroundQuickLookableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshInboxWalletPass",
+        "printedName": "PushwooshInboxWalletPass",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "passURL",
+            "printedName": "passURL",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:17PushwooshInboxKit0aB10WalletPassV7passURL10Foundation0G0Vvp",
+            "mangledName": "$s17PushwooshInboxKit0aB10WalletPassV7passURL10Foundation0G0Vvp",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "HasStorage",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "URL",
+                    "printedName": "Foundation.URL",
+                    "usr": "s:10Foundation3URLV"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB10WalletPassV7passURL10Foundation0G0Vvg",
+                "mangledName": "$s17PushwooshInboxKit0aB10WalletPassV7passURL10Foundation0G0Vvg",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(passURL:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxWalletPass",
+                "printedName": "PushwooshInboxKit.PushwooshInboxWalletPass",
+                "usr": "s:17PushwooshInboxKit0aB10WalletPassV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "URL",
+                "printedName": "Foundation.URL",
+                "usr": "s:10Foundation3URLV"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:17PushwooshInboxKit0aB10WalletPassV7passURLAC10Foundation0G0V_tcfc",
+            "mangledName": "$s17PushwooshInboxKit0aB10WalletPassV7passURLAC10Foundation0G0V_tcfc",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "decode",
+            "printedName": "decode(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshInboxKit.PushwooshInboxWalletPass?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshInboxWalletPass",
+                    "printedName": "PushwooshInboxKit.PushwooshInboxWalletPass",
+                    "usr": "s:17PushwooshInboxKit0aB10WalletPassV"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWInboxMessageProtocol",
+                "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                "usr": "c:objc(pl)PWInboxMessageProtocol"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0aB10WalletPassV6decode4fromACSgSo22PWInboxMessageProtocol_p_tFZ",
+            "mangledName": "$s17PushwooshInboxKit0aB10WalletPassV6decode4fromACSgSo22PWInboxMessageProtocol_p_tFZ",
+            "moduleName": "PushwooshInboxKit",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Struct",
+        "usr": "s:17PushwooshInboxKit0aB10WalletPassV",
+        "mangledName": "$s17PushwooshInboxKit0aB10WalletPassV",
+        "moduleName": "PushwooshInboxKit",
+        "declAttributes": [
+          "AccessControl",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "PassKit",
+        "printedName": "PassKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshInboxWalletCell",
+        "printedName": "PushwooshInboxWalletCell",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "onAddToWallet",
+            "printedName": "onAddToWallet",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "((Foundation.URL) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "(Foundation.URL) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "URL",
+                        "printedName": "Foundation.URL",
+                        "usr": "s:10Foundation3URLV"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:17PushwooshInboxKit0aB10WalletCellC07onAddToD0y10Foundation3URLVcSgvp",
+            "mangledName": "$s17PushwooshInboxKit0aB10WalletCellC07onAddToD0y10Foundation3URLVcSgvp",
+            "moduleName": "PushwooshInboxKit",
+            "declAttributes": [
+              "HasInitialValue",
+              "HasStorage",
+              "Custom",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "((Foundation.URL) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(Foundation.URL) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "URL",
+                            "printedName": "Foundation.URL",
+                            "usr": "s:10Foundation3URLV"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB10WalletCellC07onAddToD0y10Foundation3URLVcSgvg",
+                "mangledName": "$s17PushwooshInboxKit0aB10WalletCellC07onAddToD0y10Foundation3URLVcSgvg",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "((Foundation.URL) -> ())?",
+                    "children": [
+                      {
+                        "kind": "TypeFunc",
+                        "name": "Function",
+                        "printedName": "(Foundation.URL) -> ()",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Void",
+                            "printedName": "()"
+                          },
+                          {
+                            "kind": "TypeNominal",
+                            "name": "URL",
+                            "printedName": "Foundation.URL",
+                            "usr": "s:10Foundation3URLV"
+                          }
+                        ]
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB10WalletCellC07onAddToD0y10Foundation3URLVcSgvs",
+                "mangledName": "$s17PushwooshInboxKit0aB10WalletCellC07onAddToD0y10Foundation3URLVcSgvs",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "set"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Modify",
+                "printedName": "Modify()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:17PushwooshInboxKit0aB10WalletCellC07onAddToD0y10Foundation3URLVcSgvM",
+                "mangledName": "$s17PushwooshInboxKit0aB10WalletCellC07onAddToD0y10Foundation3URLVcSgvM",
+                "moduleName": "PushwooshInboxKit",
+                "implicit": true,
+                "accessorKind": "_modify"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(style:reuseIdentifier:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxWalletCell",
+                "printedName": "PushwooshInboxKit.PushwooshInboxWalletCell",
+                "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxWalletCell"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "CellStyle",
+                "printedName": "UIKit.UITableViewCell.CellStyle",
+                "usr": "c:@E@UITableViewCellStyle"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxWalletCell(im)initWithStyle:reuseIdentifier:",
+            "mangledName": "$s17PushwooshInboxKit0aB10WalletCellC5style15reuseIdentifierACSo011UITableViewE5StyleV_SSSgtcfc",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "objc_name": "initWithStyle:reuseIdentifier:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(coder:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshInboxKit.PushwooshInboxWalletCell?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshInboxWalletCell",
+                    "printedName": "PushwooshInboxKit.PushwooshInboxWalletCell",
+                    "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxWalletCell"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "NSCoder",
+                "printedName": "Foundation.NSCoder",
+                "usr": "c:objc(cs)NSCoder"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxWalletCell(im)initWithCoder:",
+            "mangledName": "$s17PushwooshInboxKit0aB10WalletCellC5coderACSgSo7NSCoderC_tcfc",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "objc_name": "initWithCoder:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Required",
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Function",
+            "name": "apply",
+            "printedName": "apply(message:attributes:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWInboxMessageProtocol",
+                "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                "usr": "c:objc(pl)PWInboxMessageProtocol"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInboxKitAttributes",
+                "printedName": "PushwooshInboxKit.PushwooshInboxKitAttributes",
+                "usr": "s:17PushwooshInboxKit0abC10AttributesV"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0aB10WalletCellC5apply7message10attributesySo22PWInboxMessageProtocol_p_AA0abC10AttributesVtF",
+            "mangledName": "$s17PushwooshInboxKit0aB10WalletCellC5apply7message10attributesySo22PWInboxMessageProtocol_p_AA0abC10AttributesVtF",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "isOpen": true,
+            "declAttributes": [
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "prepareForReuse",
+            "printedName": "prepareForReuse()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxWalletCell(im)prepareForReuse",
+            "mangledName": "$s17PushwooshInboxKit0aB10WalletCellC15prepareForReuseyyF",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "isOpen": true,
+            "objc_name": "prepareForReuse",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "setHighlighted",
+            "printedName": "setHighlighted(_:animated:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxWalletCell(im)setHighlighted:animated:",
+            "mangledName": "$s17PushwooshInboxKit0aB10WalletCellC14setHighlighted_8animatedySb_SbtF",
+            "moduleName": "PushwooshInboxKit",
+            "overriding": true,
+            "isOpen": true,
+            "objc_name": "setHighlighted:animated:",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Custom",
+              "Override",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxWalletCell",
+        "mangledName": "$s17PushwooshInboxKit0aB10WalletCellC",
+        "moduleName": "PushwooshInboxKit",
+        "isOpen": true,
+        "objc_name": "PushwooshInboxWalletCell",
+        "declAttributes": [
+          "Custom",
+          "AccessControl",
+          "ObjC"
+        ],
+        "superclassUsr": "c:@M@PushwooshInboxKit@objc(cs)PushwooshInboxCell",
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "PushwooshInboxKit.PushwooshInboxCell",
+          "UIKit.UITableViewCell",
+          "UIKit.UIView",
+          "UIKit.UIResponder",
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Sendable",
+            "printedName": "Sendable",
+            "usr": "s:s8SendableP",
+            "mangledName": "$ss8SendableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "UITraitChangeObservable",
+            "printedName": "UITraitChangeObservable",
+            "usr": "s:5UIKit23UITraitChangeObservableP",
+            "mangledName": "$s5UIKit23UITraitChangeObservableP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "__DefaultCustomPlaygroundQuickLookable",
+            "printedName": "__DefaultCustomPlaygroundQuickLookable",
+            "usr": "s:s38__DefaultCustomPlaygroundQuickLookableP",
+            "mangledName": "$ss38__DefaultCustomPlaygroundQuickLookableP"
+          }
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "CoreImage",
+        "printedName": "CoreImage",
+        "declKind": "Import",
+        "moduleName": "PushwooshInboxKit"
+      },
+      {
+        "kind": "Import",
+        "name": "ImageIO",
+        "printedName": "ImageIO",
         "declKind": "Import",
         "moduleName": "PushwooshInboxKit"
       },
@@ -8815,401 +11760,548 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
-      "offset": 1135,
+      "offset": 1196,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
-      "offset": 1344,
+      "offset": 1405,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
-      "offset": 1445,
+      "offset": 1506,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
-      "offset": 1548,
+      "offset": 1609,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
-      "offset": 2035,
+      "offset": 2096,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
-      "offset": 2515,
+      "offset": 2576,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
-      "offset": 2750,
+      "offset": 2811,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
-      "offset": 4923,
+      "offset": 5475,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 5147,
+      "offset": 5699,
       "length": 21,
       "value": "\"Your inbox is empty\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 5272,
+      "offset": 5824,
       "length": 24,
       "value": "\"Couldn't load messages\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
-      "kind": "BooleanLiteral",
-      "offset": 6192,
-      "length": 4,
-      "value": "true"
-    },
-    {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "Array",
-      "offset": 6269,
-      "length": 34,
-      "value": "[\"banner\", \"captioned\", \"classic\"]"
+      "offset": 7422,
+      "length": 65,
+      "value": "[\"banner\", \"captioned\", \"classic\", \"carousel\", \"video\", \"wallet\"]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
-      "offset": 6437,
+      "offset": 7621,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 6490,
+      "offset": 7674,
       "length": 8,
       "value": "\"banner\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 6542,
+      "offset": 7726,
       "length": 11,
       "value": "\"captioned\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 6587,
+      "offset": 7771,
       "length": 9,
       "value": "\"classic\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 6691,
+      "offset": 7875,
       "length": 8,
       "value": "\"banner\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 6701,
+      "offset": 7885,
       "length": 11,
       "value": "\"captioned\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 6760,
+      "offset": 7944,
       "length": 9,
       "value": "\"classic\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 6884,
-      "length": 47,
-      "value": "\" (degraded from \""
+      "offset": 7967,
+      "length": 10,
+      "value": "\"carousel\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 6913,
-      "length": 2,
-      "value": "\" — no imageUrl)\""
+      "offset": 8062,
+      "length": 9,
+      "value": "\"classic\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 6934,
-      "length": 2,
-      "value": "\"\""
+      "offset": 8074,
+      "length": 10,
+      "value": "\"carousel\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7020,
+      "offset": 8098,
+      "length": 7,
+      "value": "\"video\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 8188,
+      "length": 9,
+      "value": "\"classic\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 8200,
+      "length": 7,
+      "value": "\"video\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 8221,
+      "length": 8,
+      "value": "\"wallet\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 8310,
+      "length": 9,
+      "value": "\"classic\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 8322,
+      "length": 8,
+      "value": "\"wallet\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 8760,
+      "length": 10,
+      "value": "\"carousel\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 8788,
+      "length": 11,
+      "value": "\"no slides\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 8817,
+      "length": 7,
+      "value": "\"video\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 8842,
+      "length": 21,
+      "value": "\"no video descriptor\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 8881,
+      "length": 8,
+      "value": "\"wallet\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 8907,
+      "length": 13,
+      "value": "\"no pass URL\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 8958,
+      "length": 13,
+      "value": "\"no imageUrl\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 9081,
       "length": 19,
       "value": "\"PushwooshInboxKit\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7062,
-      "length": 53,
-      "value": "\"Inbox cell resolve — code=\""
+      "offset": 9127,
+      "length": 54,
+      "value": "\"Inbox cell degraded — code=\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7109,
+      "offset": 9175,
       "length": 3,
       "value": "\"?\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7113,
+      "offset": 9179,
       "length": 1,
       "value": "\" \""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7137,
-      "length": 37,
+      "offset": 9207,
+      "length": 58,
       "value": "\"displayType=\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7166,
+      "offset": 9236,
       "length": 5,
       "value": "\"nil\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7172,
+      "offset": 9242,
+      "length": 8,
+      "value": "\" hasImage=\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 9263,
       "length": 1,
       "value": "\" \""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7196,
-      "length": 37,
-      "value": "\"→ kind=\""
-    },
-    {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
-      "kind": "StringLiteral",
-      "offset": 7217,
-      "length": 1,
+      "offset": 9291,
+      "length": 47,
       "value": "\"\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7232,
+      "offset": 9304,
+      "length": 3,
+      "value": "\"→\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 9318,
       "length": 1,
-      "value": "\"\""
+      "value": "\" (\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 9336,
+      "length": 1,
+      "value": "\")\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "BooleanLiteral",
+      "offset": 14942,
+      "length": 5,
+      "value": "false"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 12696,
+      "offset": 16570,
       "length": 2,
       "value": "14"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "FloatLiteral",
-      "offset": 12855,
+      "offset": 16729,
       "length": 4,
       "value": "0.10"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 12904,
+      "offset": 16778,
       "length": 2,
       "value": "10"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "FloatLiteral",
-      "offset": 14631,
+      "offset": 18505,
       "length": 4,
       "value": "0.16"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "FloatLiteral",
-      "offset": 14697,
+      "offset": 18571,
       "length": 4,
       "value": "0.12"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 14880,
+      "offset": 18754,
       "length": 2,
       "value": "16"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 15040,
+      "offset": 18914,
       "length": 2,
       "value": "14"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 15195,
+      "offset": 19069,
       "length": 2,
       "value": "13"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "FloatLiteral",
-      "offset": 15334,
+      "offset": 19208,
       "length": 3,
       "value": "8.0"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 15485,
+      "offset": 19359,
       "length": 2,
       "value": "14"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 15635,
+      "offset": 19509,
       "length": 2,
       "value": "10"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 15986,
+      "offset": 19738,
       "length": 7,
       "value": "\"HH:mm\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 16125,
-      "length": 11,
-      "value": "\"Yesterday\""
-    },
-    {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
-      "kind": "StringLiteral",
-      "offset": 16214,
+      "offset": 19884,
       "length": 7,
       "value": "\"MMM d\""
     },
     {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "kind": "StringLiteral",
+      "offset": 20285,
+      "length": 11,
+      "value": "\"Yesterday\""
+    },
+    {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 927,
+      "offset": 975,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 968,
+      "offset": 1016,
       "length": 2,
       "value": "88"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1208,
+      "offset": 1256,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 1244,
+      "offset": 1292,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1309,
+      "offset": 1357,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1494,
+      "offset": 1542,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "IntegerLiteral",
-      "offset": 1530,
+      "offset": 1578,
       "length": 1,
       "value": "0"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1595,
+      "offset": 1643,
       "length": 4,
       "value": "true"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1811,
+      "offset": 1865,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "kind": "Array",
+      "offset": 2014,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2160,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
-      "offset": 1887,
+      "offset": 2210,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "kind": "BooleanLiteral",
+      "offset": 2286,
       "length": 5,
       "value": "false"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "FloatLiteral",
-      "offset": 15999,
+      "offset": 17873,
       "length": 3,
       "value": "1.5"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCell.swift",
+      "kind": "FloatLiteral",
+      "offset": 15560,
+      "length": 3,
+      "value": "5.5"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCell.swift",
+      "kind": "IntegerLiteral",
+      "offset": 15625,
+      "length": 2,
+      "value": "16"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCell.swift",
+      "kind": "BooleanLiteral",
+      "offset": 24279,
+      "length": 5,
+      "value": "false"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxButton.swift",
@@ -9268,6 +12360,118 @@
       "value": "\"CFBundleIconFiles\""
     },
     {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "IntegerLiteral",
+      "offset": 983,
+      "length": 3,
+      "value": "190"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "StringLiteral",
+      "offset": 1154,
+      "length": 37,
+      "value": "\"com.pushwoosh.inboxkit.accent-color\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1859,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1894,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1943,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "Array",
+      "offset": 2336,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "StringLiteral",
+      "offset": 24019,
+      "length": 25,
+      "value": "\"pw.inbox.carousel.slide\""
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "Array",
+      "offset": 28431,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "Array",
+      "offset": 28491,
+      "length": 2,
+      "value": "[]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "IntegerLiteral",
+      "offset": 28529,
+      "length": 1,
+      "value": "8"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "IntegerLiteral",
+      "offset": 28570,
+      "length": 2,
+      "value": "22"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "IntegerLiteral",
+      "offset": 28603,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "BooleanLiteral",
+      "offset": 28776,
+      "length": 4,
+      "value": "true"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "IntegerLiteral",
+      "offset": 28703,
+      "length": 1,
+      "value": "0"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "kind": "BooleanLiteral",
+      "offset": 28997,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxVideoCell.swift",
+      "kind": "IntegerLiteral",
+      "offset": 703,
+      "length": 3,
+      "value": "190"
+    },
+    {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Internal\/InboxDataSource.swift",
       "kind": "Array",
       "offset": 521,
@@ -9277,7 +12481,14 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Internal\/MessageImageLoader.swift",
       "kind": "IntegerLiteral",
-      "offset": 491,
+      "offset": 835,
+      "length": 4,
+      "value": "1200"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Internal\/MessageImageLoader.swift",
+      "kind": "IntegerLiteral",
+      "offset": 971,
       "length": 1,
       "value": "0"
     }

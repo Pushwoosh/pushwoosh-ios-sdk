@@ -44,6 +44,8 @@ open class PushwooshInboxBannerCell: PushwooshInboxCell {
 
         imageHost.translatesAutoresizingMaskIntoConstraints = false
         imageHost.clipsToBounds = true
+        imageHost.layer.cornerRadius = 16
+        imageHost.layer.cornerCurve = .continuous
         card.addSubview(imageHost)
 
         messageImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -54,7 +56,7 @@ open class PushwooshInboxBannerCell: PushwooshInboxCell {
         pinChip.translatesAutoresizingMaskIntoConstraints = false
         pinChip.backgroundColor = UIColor.black.withAlphaComponent(0.42)
         pinChip.layer.cornerRadius = 14
-        if #available(iOS 13.0, *) { pinChip.layer.cornerCurve = .continuous }
+        pinChip.layer.cornerCurve = .continuous
         pinChip.isHidden = true
         imageHost.addSubview(pinChip)
 
@@ -75,10 +77,8 @@ open class PushwooshInboxBannerCell: PushwooshInboxCell {
         placeholderGlyph.contentMode = .scaleAspectFit
         placeholderGlyph.tintColor = .tertiaryLabel
         placeholderGlyph.isHidden = true
-        if #available(iOS 13.0, *) {
-            let cfg = UIImage.SymbolConfiguration(pointSize: 26, weight: .regular)
-            placeholderGlyph.image = UIImage(systemName: "envelope", withConfiguration: cfg)
-        }
+        let cfg = UIImage.SymbolConfiguration(pointSize: 26, weight: .regular)
+        placeholderGlyph.image = UIImage(systemName: "envelope", withConfiguration: cfg)
         imageHost.addSubview(placeholderGlyph)
 
         placeholderLabel.translatesAutoresizingMaskIntoConstraints = false
@@ -94,11 +94,15 @@ open class PushwooshInboxBannerCell: PushwooshInboxCell {
             card.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: -16),
             card.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -6),
 
-            imageHost.topAnchor.constraint(equalTo: card.topAnchor),
-            imageHost.leadingAnchor.constraint(equalTo: card.leadingAnchor),
-            imageHost.trailingAnchor.constraint(equalTo: card.trailingAnchor),
-            imageHost.bottomAnchor.constraint(equalTo: card.bottomAnchor),
-            imageHost.heightAnchor.constraint(equalToConstant: 200),
+            imageHost.topAnchor.constraint(equalTo: card.topAnchor, constant: 5.5),
+            imageHost.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 5.5),
+            imageHost.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -5.5),
+            imageHost.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -5.5),
+            {
+                let c = imageHost.heightAnchor.constraint(equalToConstant: 200)
+                c.priority = .required - 1   // yield to UIView-Encapsulated-Layout-Height (self-sizing)
+                return c
+            }(),
 
             messageImageView.topAnchor.constraint(equalTo: imageHost.topAnchor),
             messageImageView.leadingAnchor.constraint(equalTo: imageHost.leadingAnchor),
@@ -132,11 +136,11 @@ open class PushwooshInboxBannerCell: PushwooshInboxCell {
 
     open override func apply(message: PWInboxMessageProtocol, attributes: PushwooshInboxKitAttributes) {
         let style = attributes.style
+        let imageURL = PushwooshInboxKitAttributes.resolvedImageURL(from: message)
 
-        card.backgroundColor = style.backgroundColor
+        applyGlassBackdrop(in: card, imageURL: imageURL, style: style, cornerRadius: 18)
         card.layer.cornerRadius = 18
-        if #available(iOS 13.0, *) { card.layer.cornerCurve = .continuous }
-
+        card.layer.cornerCurve = .continuous
         unreadIndicatorView.backgroundColor = style.unreadBadgeColor
         unreadIndicatorView.isHidden = message.isRead
 
@@ -146,14 +150,13 @@ open class PushwooshInboxBannerCell: PushwooshInboxCell {
         if isPinned && attributes.pinIndicatorVisible {
             if let custom = style.pinIndicatorImage {
                 pinIndicatorView.image = custom
-            } else if #available(iOS 13.0, *) {
-                let cfg = UIImage.SymbolConfiguration(pointSize: 13, weight: .semibold)
+            } else {                let cfg = UIImage.SymbolConfiguration(pointSize: 13, weight: .semibold)
                 pinIndicatorView.image = UIImage(systemName: "pin.fill", withConfiguration: cfg)
             }
         }
 
-        let hasImage = !(message.imageUrl?.isEmpty ?? true)
-        if hasImage, let urlString = message.imageUrl {
+        let hasImage = imageURL != nil
+        if hasImage, let urlString = imageURL {
             placeholderGlyph.isHidden = true
             placeholderLabel.isHidden = true
             imageHost.backgroundColor = .secondarySystemFill

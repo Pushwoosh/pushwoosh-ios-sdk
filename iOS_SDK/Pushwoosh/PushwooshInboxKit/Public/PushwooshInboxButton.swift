@@ -53,7 +53,10 @@ public struct PushwooshInboxButton {
     /// `payload`.
     public init(title: String, url: String? = nil, payload: [String: Any] = [:]) {
         self.title = title
-        if let u = url, !u.isEmpty, let parsed = URL(string: u) {
+        // Require a scheme — a scheme-less string (e.g. "example.com") parses into a URL that
+        // UIApplication.open can't handle, so treat it as a custom action instead (matches the
+        // carousel/wallet URL handling).
+        if let u = url, !u.isEmpty, let parsed = URL(string: u), parsed.scheme != nil {
             self.action = .openURL(parsed)
         } else {
             self.action = .custom(payload)
@@ -130,7 +133,8 @@ public struct PushwooshInboxButton {
         default:
             if let urlString = dict["url"] as? String,
                !urlString.isEmpty,
-               let url = URL(string: urlString) {
+               let url = URL(string: urlString),
+               url.scheme != nil {
                 return .openURL(url)
             }
             var payload = dict

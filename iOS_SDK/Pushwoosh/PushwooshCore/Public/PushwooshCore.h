@@ -43,7 +43,7 @@
 #import <PushwooshCore/PWMessage+Internal.h>
 #import <PushwooshCore/PWPushPrimerBuilder.h>
 
-#define PUSHWOOSH_VERSION @"7.1.1"
+#define PUSHWOOSH_VERSION @"7.1.2"
 
 @interface PushwooshCoreManager : NSObject
 

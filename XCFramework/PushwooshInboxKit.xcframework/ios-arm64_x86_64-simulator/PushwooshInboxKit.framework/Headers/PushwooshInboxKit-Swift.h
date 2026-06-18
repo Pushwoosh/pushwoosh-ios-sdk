@@ -279,6 +279,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 @import Foundation;
 @import ObjectiveC;
+@import PassKit;
 @import PushwooshBridge;
 @import UIKit;
 #endif
@@ -333,6 +334,28 @@ SWIFT_CLASS_NAMED("PushwooshInboxCaptionedCell")
 @end
 
 
+SWIFT_CLASS_NAMED("PushwooshInboxCarouselCell")
+@interface PushwooshInboxCarouselCell : PushwooshInboxCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+- (void)prepareForReuse;
+/// Subtle press feedback for taps that land on the card chrome (text block, margins).
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+@end
+
+@class UICollectionView;
+@class NSIndexPath;
+@class UICollectionViewCell;
+@class UIScrollView;
+
+@interface PushwooshInboxCarouselCell (SWIFT_EXTENSION(PushwooshInboxKit)) <UICollectionViewDataSource, UICollectionViewDelegate>
+- (NSInteger)collectionView:(UICollectionView * _Nonnull)collectionView numberOfItemsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UICollectionViewCell * _Nonnull)collectionView:(UICollectionView * _Nonnull)collectionView cellForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+- (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
 
 SWIFT_CLASS_NAMED("PushwooshInboxClassicCell")
 @interface PushwooshInboxClassicCell : PushwooshInboxCell
@@ -359,6 +382,15 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitImplementation")
 + (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
 /// Convenience factory for Obj-C hosts that want a default-configured
 /// controller without touching the Swift <code>Attributes</code> struct.
+/// Reserved scaffold — not currently wired into an integration path:
+/// it is intentionally NOT declared on the <code>PWInboxKit</code> bridge protocol,
+/// so it is not reachable through <code>Pushwoosh.InboxKit</code> today. Current
+/// integrations build the controller directly
+/// (<code>PushwooshInboxKitViewController(attributes:)</code>, or <code>[[… alloc] init]</code>
+/// from Obj-C). Kept for a possible future Obj-C entry point: to activate
+/// it, add <code>static func makeViewController() -> UIViewController</code> to the
+/// <code>PWInboxKit</code> protocol so <code>[[Pushwoosh InboxKit] makeViewController]</code>
+/// resolves end-to-end.
 + (UIViewController * _Nonnull)makeViewController SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -381,6 +413,7 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
+- (void)viewDidAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
 - (void)viewDidDisappear:(BOOL)animated;
 - (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
@@ -427,9 +460,25 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 /// “Clear read” affordance in the nav bar. Unread (and pinned-unread)
 /// messages are preserved.
 - (void)clearReadMessages;
+/// Deletes every message in the inbox — read AND unread — in one batch and refreshes the
+/// open table immediately. Use for a “Clear all” / trash affordance, where the user expects
+/// the whole inbox to empty (unlike <code>clearReadMessages</code>, which keeps unread messages).
+- (void)deleteAllMessages;
 @end
 
-@class NSIndexPath;
+@class PKAddPassesViewController;
+
+@interface PushwooshInboxKitViewController (SWIFT_EXTENSION(PushwooshInboxKit)) <PKAddPassesViewControllerDelegate>
+- (void)addPassesViewControllerDidFinish:(PKAddPassesViewController * _Nonnull)controller;
+@end
+
+
+@interface PushwooshInboxKitViewController (SWIFT_EXTENSION(PushwooshInboxKit)) <UITableViewDataSourcePrefetching>
+/// Warms image caches for rows about to scroll into view — the message image and any carousel
+/// slide images — so they’re decoded before the cell is displayed.
+- (void)tableView:(UITableView * _Nonnull)tableView prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> * _Nonnull)indexPaths;
+@end
+
 @class UISwipeActionsConfiguration;
 
 @interface PushwooshInboxKitViewController (SWIFT_EXTENSION(PushwooshInboxKit)) <UITableViewDataSource, UITableViewDelegate>
@@ -440,6 +489,27 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (UISwipeActionsConfiguration * _Nullable)tableView:(UITableView * _Nonnull)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
+SWIFT_CLASS_NAMED("PushwooshInboxVideoCell")
+@interface PushwooshInboxVideoCell : PushwooshInboxCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+- (void)prepareForReuse;
+/// Subtle press feedback for taps that land on the card chrome (text block, margins).
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+@end
+
+
+SWIFT_CLASS_NAMED("PushwooshInboxWalletCell")
+@interface PushwooshInboxWalletCell : PushwooshInboxCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+- (void)prepareForReuse;
+/// Subtle press feedback for taps that land on the card chrome (outside the Add button).
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+@end
+
 
 #endif
 #if __has_attribute(external_source_symbol)
@@ -730,6 +800,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 @import Foundation;
 @import ObjectiveC;
+@import PassKit;
 @import PushwooshBridge;
 @import UIKit;
 #endif
@@ -784,6 +855,28 @@ SWIFT_CLASS_NAMED("PushwooshInboxCaptionedCell")
 @end
 
 
+SWIFT_CLASS_NAMED("PushwooshInboxCarouselCell")
+@interface PushwooshInboxCarouselCell : PushwooshInboxCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+- (void)prepareForReuse;
+/// Subtle press feedback for taps that land on the card chrome (text block, margins).
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+@end
+
+@class UICollectionView;
+@class NSIndexPath;
+@class UICollectionViewCell;
+@class UIScrollView;
+
+@interface PushwooshInboxCarouselCell (SWIFT_EXTENSION(PushwooshInboxKit)) <UICollectionViewDataSource, UICollectionViewDelegate>
+- (NSInteger)collectionView:(UICollectionView * _Nonnull)collectionView numberOfItemsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
+- (UICollectionViewCell * _Nonnull)collectionView:(UICollectionView * _Nonnull)collectionView cellForItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+- (void)collectionView:(UICollectionView * _Nonnull)collectionView didSelectItemAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
+- (void)scrollViewDidScroll:(UIScrollView * _Nonnull)scrollView;
+@end
+
+
 
 SWIFT_CLASS_NAMED("PushwooshInboxClassicCell")
 @interface PushwooshInboxClassicCell : PushwooshInboxCell
@@ -810,6 +903,15 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitImplementation")
 + (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
 /// Convenience factory for Obj-C hosts that want a default-configured
 /// controller without touching the Swift <code>Attributes</code> struct.
+/// Reserved scaffold — not currently wired into an integration path:
+/// it is intentionally NOT declared on the <code>PWInboxKit</code> bridge protocol,
+/// so it is not reachable through <code>Pushwoosh.InboxKit</code> today. Current
+/// integrations build the controller directly
+/// (<code>PushwooshInboxKitViewController(attributes:)</code>, or <code>[[… alloc] init]</code>
+/// from Obj-C). Kept for a possible future Obj-C entry point: to activate
+/// it, add <code>static func makeViewController() -> UIViewController</code> to the
+/// <code>PWInboxKit</code> protocol so <code>[[Pushwoosh InboxKit] makeViewController]</code>
+/// resolves end-to-end.
 + (UIViewController * _Nonnull)makeViewController SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -832,6 +934,7 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 - (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
 - (void)viewDidLoad;
 - (void)viewWillAppear:(BOOL)animated;
+- (void)viewDidAppear:(BOOL)animated;
 - (void)viewWillDisappear:(BOOL)animated;
 - (void)viewDidDisappear:(BOOL)animated;
 - (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
@@ -878,9 +981,25 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 /// “Clear read” affordance in the nav bar. Unread (and pinned-unread)
 /// messages are preserved.
 - (void)clearReadMessages;
+/// Deletes every message in the inbox — read AND unread — in one batch and refreshes the
+/// open table immediately. Use for a “Clear all” / trash affordance, where the user expects
+/// the whole inbox to empty (unlike <code>clearReadMessages</code>, which keeps unread messages).
+- (void)deleteAllMessages;
 @end
 
-@class NSIndexPath;
+@class PKAddPassesViewController;
+
+@interface PushwooshInboxKitViewController (SWIFT_EXTENSION(PushwooshInboxKit)) <PKAddPassesViewControllerDelegate>
+- (void)addPassesViewControllerDidFinish:(PKAddPassesViewController * _Nonnull)controller;
+@end
+
+
+@interface PushwooshInboxKitViewController (SWIFT_EXTENSION(PushwooshInboxKit)) <UITableViewDataSourcePrefetching>
+/// Warms image caches for rows about to scroll into view — the message image and any carousel
+/// slide images — so they’re decoded before the cell is displayed.
+- (void)tableView:(UITableView * _Nonnull)tableView prefetchRowsAtIndexPaths:(NSArray<NSIndexPath *> * _Nonnull)indexPaths;
+@end
+
 @class UISwipeActionsConfiguration;
 
 @interface PushwooshInboxKitViewController (SWIFT_EXTENSION(PushwooshInboxKit)) <UITableViewDataSource, UITableViewDelegate>
@@ -891,6 +1010,27 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (UISwipeActionsConfiguration * _Nullable)tableView:(UITableView * _Nonnull)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
 @end
+
+
+SWIFT_CLASS_NAMED("PushwooshInboxVideoCell")
+@interface PushwooshInboxVideoCell : PushwooshInboxCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+- (void)prepareForReuse;
+/// Subtle press feedback for taps that land on the card chrome (text block, margins).
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+@end
+
+
+SWIFT_CLASS_NAMED("PushwooshInboxWalletCell")
+@interface PushwooshInboxWalletCell : PushwooshInboxCell
+- (nonnull instancetype)initWithStyle:(UITableViewCellStyle)style reuseIdentifier:(NSString * _Nullable)reuseIdentifier OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+- (void)prepareForReuse;
+/// Subtle press feedback for taps that land on the card chrome (outside the Add button).
+- (void)setHighlighted:(BOOL)highlighted animated:(BOOL)animated;
+@end
+
 
 #endif
 #if __has_attribute(external_source_symbol)

@@ -8,6 +8,9 @@
 
 #if canImport(UIKit) && !os(watchOS) && os(iOS)
 import UIKit
+import AVFoundation
+import AVKit
+import PassKit
 import PushwooshCore
 
 /// Modern UIKit inbox controller backed by ``PWInboxService``.
@@ -52,6 +55,12 @@ public class PushwooshInboxKitViewController: UIViewController {
     private let dataSource = InboxDataSource()
     var facade: PWInboxFacade = .shared
     private var refreshControl: UIRefreshControl?
+    private var didActivateAudioSessionForVideo = false
+    private var previousAudioCategory: AVAudioSession.Category?
+    private var previousAudioCategoryOptions: AVAudioSession.CategoryOptions = []
+    private var pendingWalletPass: PKPass?
+    private var pendingWalletMessage: PWInboxMessageProtocol?
+    private var walletAddInProgress = false
     private var didLogUnknownKindFallback = false
     private var lastError: Error?
     private var sawRealBackground = false
@@ -73,6 +82,7 @@ public class PushwooshInboxKitViewController: UIViewController {
 
     deinit {
         NotificationCenter.default.removeObserver(self)
+        pendingInboxRefresh?.cancel()
     }
 
     public override func viewDidLoad() {
@@ -100,6 +110,7 @@ public class PushwooshInboxKitViewController: UIViewController {
 
         tableView.dataSource = self
         tableView.delegate = self
+        tableView.prefetchDataSource = self
         registerCells()
         applyAttributes()
 
@@ -147,6 +158,18 @@ public class PushwooshInboxKitViewController: UIViewController {
         loadMessages(mode: .replace)
     }
 
+    public override func viewDidAppear(_ animated: Bool) {
+        super.viewDidAppear(animated)
+        // Restore the host's audio session after a full-screen video player was dismissed
+        // (which brings this controller back). `.notifyOthersOnDeactivation` lets the host's
+        // background audio resume. Guarded so we only deactivate a session we activated.
+        // Only deactivate when no player is still on screen — a rapid second video tap can present
+        // a new player before this fires, and we must not kill that player's audio session.
+        if didActivateAudioSessionForVideo, presentedViewController == nil {
+            deactivateVideoAudioSession()
+        }
+    }
+
     public override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
         if attributes.automaticReadOnDisappear {
@@ -157,6 +180,12 @@ public class PushwooshInboxKitViewController: UIViewController {
     public override func viewDidDisappear(_ animated: Bool) {
         super.viewDidDisappear(animated)
         if isMovingFromParent || isBeingDismissed {
+            // Inbox is leaving for good (not merely covered by the video player). If we activated the
+            // audio session for a video, viewDidAppear won't fire again to release it — do it here so
+            // the host's background audio isn't left suppressed.
+            if didActivateAudioSessionForVideo {
+                deactivateVideoAudioSession()
+            }
             delegate?.inboxKit(didDismiss: self)
         }
     }
@@ -339,6 +368,9 @@ public class PushwooshInboxKitViewController: UIViewController {
         let traits: UITraitCollection? = attributes.enableDarkTheme
             ? nil
             : UITraitCollection(userInterfaceStyle: .light)
+        // Force the whole hierarchy (cells, glass effects, SF Symbols, system-drawn backgrounds) to
+        // light when dark theme is disabled — manual colour resolution alone doesn't cover those.
+        overrideUserInterfaceStyle = attributes.enableDarkTheme ? .unspecified : .light
 
         // The host view (page background) uses Apple's grouped page colour —
         // distinct from `style.backgroundColor`, which is the card surface
@@ -346,9 +378,9 @@ public class PushwooshInboxKitViewController: UIViewController {
         // contrast where cards float on a slightly tinted page.
         let pageBackground: UIColor = {
             if let traits = traits {
-                return UIColor.systemGroupedBackground.resolvedColor(with: traits)
+                return attributes.style.pageBackgroundColor.resolvedColor(with: traits)
             }
-            return .systemGroupedBackground
+            return attributes.style.pageBackgroundColor
         }()
         view.backgroundColor = pageBackground
         tableView.backgroundColor = pageBackground
@@ -449,11 +481,14 @@ public class PushwooshInboxKitViewController: UIViewController {
     }
 
     private func updateStates() {
+        let hasContent = !dataSource.isEmpty
         let hasError = lastError != nil
-        let isEmpty = dataSource.isEmpty && !hasError
-        emptyStateLabel.isHidden = !isEmpty
-        errorStateLabel.isHidden = !hasError
-        tableView.isHidden = isEmpty || hasError
+        // A failed refresh must never blank an already-populated inbox: the full-screen empty/error
+        // state is only for when there is nothing to fall back on. With content present the table
+        // stays visible and the failure is surfaced through the didRefreshWith:error: delegate.
+        emptyStateLabel.isHidden = hasContent || hasError
+        errorStateLabel.isHidden = hasContent || !hasError
+        tableView.isHidden = !hasContent
     }
 
     private func markVisibleAsRead() {
@@ -497,12 +532,30 @@ public class PushwooshInboxKitViewController: UIViewController {
     /// messages are preserved.
     @objc public func clearReadMessages() {
         facade.deleteAllRead()
-        // The bridge fires PWInboxMessagesDidUpdateNotification; the existing
-        // observer reconciles the data source.
+        // Reflect the deletion in the already-visible table immediately. `deleteAllRead`
+        // removes read messages from storage/server, but the background notification does
+        // not refresh an open controller, so update the data source directly here (mirrors
+        // `markAllAsRead`) — read rows drop out at once instead of only after a reopen.
+        let remaining = dataSource.messages.filter { !$0.isRead }
+        dataSource.replace(remaining, transform: attributes.transform)
+        tableView.reloadData()
+        updateStates()
+    }
+
+    /// Deletes every message in the inbox — read AND unread — in one batch and refreshes the
+    /// open table immediately. Use for a "Clear all" / trash affordance, where the user expects
+    /// the whole inbox to empty (unlike ``clearReadMessages``, which keeps unread messages).
+    @objc public func deleteAllMessages() {
+        let all = dataSource.messages
+        guard !all.isEmpty else { return }
+        facade.delete(messages: all)
+        dataSource.replace([], transform: attributes.transform)
+        tableView.reloadData()
+        updateStates()
     }
 
     private func cellKind(for message: PWInboxMessageProtocol) -> String {
-        if let forced = attributes.forceCellKind {
+        if let forced = attributes.forceCellKind, attributes.cells[forced.rawValue] != nil {
             return forced.rawValue
         }
         let kind = attributes.cellKindResolver(message)
@@ -543,6 +596,21 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
                 guard let self = self, let inboxCell = inboxCell else { return }
                 self.handleInlineButtonTap(button, on: message, from: inboxCell)
             }
+            if let carouselCell = inboxCell as? PushwooshInboxCarouselCell {
+                carouselCell.onCarouselSlideTap = { [weak self] url in
+                    self?.handleCarouselSlideTap(url, on: message)
+                }
+            }
+            if let videoCell = inboxCell as? PushwooshInboxVideoCell {
+                videoCell.onVideoTap = { [weak self] url in
+                    self?.handleVideoTap(url, on: message)
+                }
+            }
+            if let walletCell = inboxCell as? PushwooshInboxWalletCell {
+                walletCell.onAddToWallet = { [weak self] url in
+                    self?.handleAddToWallet(url, on: message)
+                }
+            }
         }
         return cell
     }
@@ -555,7 +623,7 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
 
         switch button.action {
         case .openURL(let url):
-            UIApplication.shared.open(url, options: [:], completionHandler: nil)
+            openExternalURL(url)
             markRead(messages: [message])
 
         case .dismiss:
@@ -571,6 +639,154 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
             // card-level tap and with Mail / Slack / Apple Notifications.
             markRead(messages: [message])
         }
+    }
+
+    /// Handles a carousel slide tap. A slide carrying its own URL opens it (honoring the
+    /// `didSelect` opt-out, so the host can intercept the tap exactly like a full-row tap) and
+    /// marks the message read; a slide without a link falls through to the message's default
+    /// selection action, matching the row tap.
+    private func handleCarouselSlideTap(_ url: URL?, on message: PWInboxMessageProtocol) {
+        guard let url = url else {
+            performDefaultSelection(for: message)
+            return
+        }
+        let shouldPerformDefault = delegate?.inboxKit(self, didSelect: message) ?? true
+        guard shouldPerformDefault else { return }
+        openExternalURL(url)
+        markRead(messages: [message])
+    }
+
+    /// Opens a server-supplied URL through the system. Card content is untrusted, so schemes that
+    /// are unsafe to hand straight to `UIApplication.open` are refused: `file:`/`javascript:`/`data:`
+    /// (local/script payloads) and `facetime:`/`facetime-audio:` (place a call with no confirmation
+    /// prompt). Custom app deep links (e.g. `myapp://…`) and `http(s)`/`mailto`/`tel`/`sms` pass
+    /// through — blocking those would break the primary CTA use case.
+    private func openExternalURL(_ url: URL) {
+        let scheme = url.scheme?.lowercased() ?? ""
+        guard !["file", "javascript", "data", "facetime", "facetime-audio"].contains(scheme) else {
+            PushwooshLog.pushwooshLog(
+                .PW_LL_WARN,
+                className: "PushwooshInboxKit",
+                message: "Refusing to open inbox URL with unsafe scheme: \(scheme)"
+            )
+            return
+        }
+        UIApplication.shared.open(url, options: [:], completionHandler: nil)
+    }
+
+    /// Runs the message's default selection action (honoring the delegate opt-out), marks it
+    /// read, and refreshes the row. Shared by full-row taps and no-URL carousel slide taps.
+    private func performDefaultSelection(for message: PWInboxMessageProtocol) {
+        let shouldPerformDefault = delegate?.inboxKit(self, didSelect: message) ?? true
+        guard shouldPerformDefault else { return }
+        let wasUnread = !message.isRead
+        facade.performAction(message: message)
+        facade.read(messages: [message])
+        if wasUnread, let indexPath = indexPath(for: message) {
+            tableView.reloadRows(at: [indexPath], with: .none)
+        }
+    }
+
+    /// Presents a full-screen player (sound on, transport controls) for a tapped video card and
+    /// marks the carrying message read. Picture-in-Picture is disabled so closing the player
+    /// slides it away cleanly instead of shrinking it into a screen corner. Plays even with the
+    /// silent switch on (`.playback` audio session).
+    private func handleVideoTap(_ url: URL, on message: PWInboxMessageProtocol) {
+        // Something is already presented (a player from a rapid double-tap, or a host sheet):
+        // present() would silently fail, leaving the audio session activated with no player on
+        // screen and the message wrongly marked read. Bail, mirroring the wallet-add guard.
+        guard presentedViewController == nil else { return }
+        let session = AVAudioSession.sharedInstance()
+        // Snapshot the host's audio configuration before overriding it. The audio session is a
+        // process-wide singleton; leaving `.playback` set would hijack a host that is itself an
+        // audio/VoIP app (e.g. one using `.playAndRecord`/`.mixWithOthers`).
+        previousAudioCategory = session.category
+        previousAudioCategoryOptions = session.categoryOptions
+        try? session.setCategory(.playback)
+        try? session.setActive(true)
+        didActivateAudioSessionForVideo = true
+        let player = AVPlayer(url: url)
+        let controller = AVPlayerViewController()
+        controller.player = player
+        controller.allowsPictureInPicturePlayback = false
+        // Full-screen guarantees this controller's viewDidAppear fires on dismissal, where
+        // the audio session is restored.
+        controller.modalPresentationStyle = .fullScreen
+        present(controller, animated: true) { player.play() }
+        markRead(messages: [message])
+    }
+
+    /// Deactivates the audio session activated for a full-screen video and restores the host's
+    /// previous category/options, so an audio/VoIP host isn't left with our `.playback` category.
+    private func deactivateVideoAudioSession() {
+        didActivateAudioSessionForVideo = false
+        let session = AVAudioSession.sharedInstance()
+        try? session.setActive(false, options: .notifyOthersOnDeactivation)
+        if let category = previousAudioCategory {
+            try? session.setCategory(category, options: previousAudioCategoryOptions)
+            previousAudioCategory = nil
+            previousAudioCategoryOptions = []
+        }
+    }
+
+    /// Adds the pass at `url` to Apple Wallet. If `url` returns raw `.pkpass` bytes (e.g. a direct
+    /// download URL), the system add-passes sheet is shown in-app. Otherwise — e.g. a Pushwoosh
+    /// Wallet "install link", which is a web URL — the URL is handed to the system, which adds the
+    /// pass via Safari/Wallet. Either way the carrying message is marked read.
+    private func handleAddToWallet(_ url: URL, on message: PWInboxMessageProtocol) {
+        // Serialize: ignore a second tap while a wallet add is already downloading/presenting, so a
+        // concurrent completion can't overwrite pendingWalletPass/Message and mis-attribute the
+        // success callback. Cleared in the failure/fallback branches and in addPassesViewControllerDidFinish.
+        guard !walletAddInProgress else { return }
+        walletAddInProgress = true
+        URLSession.shared.dataTask(with: url) { [weak self] data, response, networkError in
+            DispatchQueue.main.async {
+                guard let self = self else { return }
+                // Raw .pkpass bytes → in-app add-passes sheet. Success / cancel is reported to the
+                // host via the PKAddPassesViewControllerDelegate callback below.
+                if let data = data, let pass = try? PKPass(data: data) {
+                    // Already in Wallet — don't re-present or re-open the .pkpass URL, but the pass IS
+                    // in the user's Wallet, so still report success so the host shows its confirmation.
+                    if PKPassLibrary().containsPass(pass) {
+                        self.walletAddInProgress = false
+                        self.markRead(messages: [message])
+                        self.delegate?.inboxKit(self, didAddWalletPassFor: message)
+                        return
+                    }
+                    if let addVC = PKAddPassesViewController(pass: pass) {
+                        // If something is already presented, present() silently fails and would leave
+                        // walletAddInProgress stuck true — bail and reset the flag instead.
+                        guard self.presentedViewController == nil else {
+                            self.walletAddInProgress = false
+                            return
+                        }
+                        self.pendingWalletPass = pass
+                        self.pendingWalletMessage = message
+                        addVC.delegate = self
+                        self.present(addVC, animated: true)
+                        self.markRead(messages: [message])
+                        return
+                    }
+                }
+                self.walletAddInProgress = false
+                // Nothing downloaded → hard failure; surface it to the host.
+                if data == nil {
+                    self.delegate?.inboxKit(self, didFailToAddWalletPassFor: message, error: networkError)
+                    return
+                }
+                // Bytes that aren't a raw pass AND an HTTP error status → a broken URL (404/500),
+                // not a Wallet install link. Report failure instead of opening Safari on the error.
+                if let http = response as? HTTPURLResponse, !(200...299).contains(http.statusCode) {
+                    self.delegate?.inboxKit(self, didFailToAddWalletPassFor: message, error: networkError)
+                    return
+                }
+                // Got bytes that aren't a raw pass (e.g. a Pushwoosh install link / web URL) → hand
+                // off to the system, which adds the pass via Safari/Wallet. That flow's result isn't
+                // observable, so no success/error callback fires here.
+                UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                self.markRead(messages: [message])
+            }
+        }.resume()
     }
 
     private func performDismissAction(for message: PWInboxMessageProtocol) {
@@ -610,15 +826,7 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let message = dataSource.message(at: indexPath) else { return }
-        let shouldPerformDefault = delegate?.inboxKit(self, didSelect: message) ?? true
-        if shouldPerformDefault {
-            let wasUnread = !message.isRead
-            facade.performAction(message: message)
-            facade.read(messages: [message])
-            if wasUnread {
-                tableView.reloadRows(at: [indexPath], with: .none)
-            }
-        }
+        performDefaultSelection(for: message)
     }
 
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -635,12 +843,54 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
                 return
             }
             self.facade.delete(messages: [message])
-            _ = self.dataSource.remove(at: indexPath)
-            tableView.deleteRows(at: [indexPath], with: .automatic)
+            // The model may have shifted since the swipe config was built (a concurrent reload from
+            // an incoming push). Only animate the row out if it was actually removed at this index;
+            // otherwise resync the whole table to avoid an invalid-update crash.
+            if self.dataSource.remove(at: indexPath) != nil {
+                tableView.deleteRows(at: [indexPath], with: .automatic)
+            } else {
+                tableView.reloadData()
+            }
             self.updateStates()
             completion(true)
         }
         return UISwipeActionsConfiguration(actions: [action])
+    }
+}
+
+// MARK: - UITableViewDataSourcePrefetching
+
+extension PushwooshInboxKitViewController: UITableViewDataSourcePrefetching {
+
+    /// Warms image caches for rows about to scroll into view — the message image and any carousel
+    /// slide images — so they're decoded before the cell is displayed.
+    public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            guard let message = dataSource.message(at: indexPath) else { continue }
+            if let url = PushwooshInboxKitAttributes.resolvedImageURL(from: message) {
+                MessageImageLoader.shared.prefetch(url)
+            }
+            for slide in PushwooshInboxCarouselSlide.decode(from: message) {
+                MessageImageLoader.shared.prefetch(slide.imageUrl)
+            }
+        }
+    }
+}
+
+// MARK: - PKAddPassesViewControllerDelegate
+
+extension PushwooshInboxKitViewController: PKAddPassesViewControllerDelegate {
+    public func addPassesViewControllerDidFinish(_ controller: PKAddPassesViewController) {
+        controller.dismiss(animated: true)
+        // The sheet finishes on both "Add" and "Cancel"; a pass now present in the library means
+        // it was added. Cancellation reports nothing — it is neither success nor error.
+        if let pass = pendingWalletPass, let message = pendingWalletMessage,
+           PKPassLibrary().containsPass(pass) {
+            delegate?.inboxKit(self, didAddWalletPassFor: message)
+        }
+        pendingWalletPass = nil
+        pendingWalletMessage = nil
+        walletAddInProgress = false
     }
 }
 #endif
