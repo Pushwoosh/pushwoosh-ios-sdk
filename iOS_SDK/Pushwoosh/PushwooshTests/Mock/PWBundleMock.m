@@ -21,6 +21,8 @@
         return _applicationExitTimeoutSeconds;
     } else if ([key isEqualToString:@"Pushwoosh_ALLOW_COLLECTING_EVENTS"] && _allowCollectingEventsSet) {
         return @(_allowCollectingEvents);
+    } else if ([key isEqualToString:@"Pushwoosh_PLUGIN_NOTIFICATION_HANDLER"] && _pluginNotificationHandlerSet) {
+        return @(_pluginNotificationHandler);
     } else if ([key isEqualToString:@"Pushwoosh_APPID"]) {
         return _appIdRaw ?: _appId;
     } else if ([key isEqualToString:@"PW_API_TOKEN"]) {

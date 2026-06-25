@@ -9,6 +9,7 @@
 #import "PWUserNotificationCenterDelegate.h"
 #import "PWMessage+Internal.h"
 #import <PushwooshCore/PWManagerBridge.h>
+#import <PushwooshCore/PushwooshLog.h>
 
 @interface PWUserNotificationCenterDelegate()
 
@@ -132,7 +133,7 @@
 #else
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification {
-    NSLog(@"userNotificationCenter:didReceiveRemoteNotification: %@", notification.userInfo);
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"didDeliverNotification: %@", notification.userInfo]];
     
     if (notification.remote) {
         [_notificationManager handlePushReceived:notification.userInfo autoAcceptAllowed:NO];
@@ -140,7 +141,7 @@
 }
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didActivateNotification:(NSUserNotification *)notification {
-    NSLog(@"userNotificationCenter:didActivateNotification: %@", notification.userInfo);
+    [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"didActivateNotification: %@", notification.userInfo]];
 
     if (notification.remote) {
         [_notificationManager handlePushAccepted:notification.userInfo onStart:_notificationManager.isAppInBackground];

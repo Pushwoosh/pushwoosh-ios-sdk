@@ -394,7 +394,7 @@ void _replacement_setApplicationIconBadgeNumber(UIApplication * self, SEL _cmd, 
 
     method_exchangeImplementations(class_getInstanceMethod(self, @selector(setDelegate:)), class_getInstanceMethod(self, @selector(pw_setDelegate:)));
 
-    NSLog(@"Pushwoosh: Initializing application runtime");
+    [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:@"Initializing application runtime"];
 }
 
 - (void)swizzle_didRegisterForRemoteNotificationsWithDeviceToken:(Class)delegateClass {

@@ -218,40 +218,50 @@
     return statusesMask;
 }
 
++ (NSDictionary *)embeddedProvisioningProfileEntitlements {
+    return [self embeddedProvisioningProfileEntitlementsInBundle:[NSBundle mainBundle]];
+}
+
++ (NSDictionary *)embeddedProvisioningProfileEntitlementsInBundle:(NSBundle *)bundle {
+    NSString *provisioningPath = [bundle pathForResource:@"embedded.mobileprovision" ofType:nil];
+    if (!provisioningPath) {
+        return nil;
+    }
+    NSString *contents = [NSString stringWithContentsOfFile:provisioningPath encoding:NSASCIIStringEncoding error:nil];
+    if (!contents) {
+        return nil;
+    }
+    NSRange start = [contents rangeOfString:@"<?xml"];
+    NSRange end = [contents rangeOfString:@"</plist>"];
+    if (start.location == NSNotFound || end.location == NSNotFound || end.location < start.location) {
+        return nil;
+    }
+    start.length = end.location + end.length - start.location;
+    NSData *profileData = [[contents substringWithRange:start] dataUsingEncoding:NSUTF8StringEncoding];
+    NSDictionary *profile = [NSPropertyListSerialization propertyListWithData:profileData
+                                                                      options:NSPropertyListImmutable
+                                                                       format:nil
+                                                                        error:nil];
+    NSDictionary *entitlements = profile[@"Entitlements"];
+    return [entitlements isKindOfClass:[NSDictionary class]] ? entitlements : nil;
+}
+
 + (BOOL)getAPSProductionStatus:(BOOL)canShowAlert {
 #if TARGET_OS_SIMULATOR
     return NO;
 #endif
 
-    NSString *provisioning = [[NSBundle mainBundle] pathForResource:@"embedded.mobileprovision" ofType:nil];
-    if (!provisioning)
+    NSString *provisioningPath = [[NSBundle mainBundle] pathForResource:@"embedded.mobileprovision" ofType:nil];
+    if (!provisioningPath)
         return YES;
 
-    NSString *contents = [NSString stringWithContentsOfFile:provisioning encoding:NSASCIIStringEncoding error:nil];
-    if (!contents)
-        return YES;
-
-    NSRange start = [contents rangeOfString:@"<?xml"];
-    NSRange end = [contents rangeOfString:@"</plist>"];
-    start.length = end.location + end.length - start.location;
-
-    NSString *profile = [contents substringWithRange:start];
-    if (!profile)
-        return YES;
-
-    NSData *profileData = [profile dataUsingEncoding:NSUTF8StringEncoding];
-    NSError *error = nil;
-    NSPropertyListFormat format;
-    NSDictionary *plist = [NSPropertyListSerialization propertyListWithData:profileData options:NSPropertyListImmutable format:&format error:&error];
-
-    NSDictionary *entitlements = plist[@"Entitlements"];
-
+    NSDictionary *entitlements = [self embeddedProvisioningProfileEntitlements];
     NSString *apsGateway = entitlements[@"aps-environment"];
     if (!apsGateway && canShowAlert) {
         [self showAlertWithTitle:@"Pushwoosh Error" message:@"Your provisioning profile does not have APS entry. Please make your profile push compatible."];
     }
 
-    if ([apsGateway isEqualToString:@"development"])
+    if ([apsGateway isKindOfClass:[NSString class]] && [apsGateway isEqualToString:@"development"])
         return NO;
 
     return YES;

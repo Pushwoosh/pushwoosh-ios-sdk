@@ -463,6 +463,26 @@ static NSString *const kZeroAdvertisingId = @"00000000-0000-0000-0000-0000000000
     }
 }
 
+#if TARGET_OS_IOS
++ (void)handleWillPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    void (^block)(UNNotification *, void (^)(UNNotificationPresentationOptions)) = [PWManagerBridge shared].handleWillPresentNotificationBlock;
+    if (block) {
+        block(notification, completionHandler);
+    } else if (completionHandler) {
+        completionHandler(UNNotificationPresentationOptionNone);
+    }
+}
+
++ (void)handleNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+    void (^block)(UNNotificationResponse *, void (^)(void)) = [PWManagerBridge shared].handleNotificationResponseBlock;
+    if (block) {
+        block(response, completionHandler);
+    } else if (completionHandler) {
+        completionHandler();
+    }
+}
+#endif
+
 #pragma mark - Launch Notification
 
 + (NSDictionary *)getLaunchNotification {

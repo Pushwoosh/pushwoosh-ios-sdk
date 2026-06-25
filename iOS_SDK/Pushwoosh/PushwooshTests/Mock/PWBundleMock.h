@@ -16,6 +16,8 @@
 @property (nonatomic, strong, nullable) NSNumber *applicationExitTimeoutSeconds;
 @property (nonatomic) BOOL allowCollectingEventsSet;
 @property (nonatomic) BOOL allowCollectingEvents;
+@property (nonatomic) BOOL pluginNotificationHandlerSet;
+@property (nonatomic) BOOL pluginNotificationHandler;
 
 @property (nonatomic, copy, nullable) NSString *appId;
 @property (nonatomic, copy, nullable) NSString *apiToken;

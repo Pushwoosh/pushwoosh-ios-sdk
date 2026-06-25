@@ -18,6 +18,7 @@
 #import <PushwooshCore/PWManagerBridge.h>
 #import <PushwooshCore/PushwooshConfig.h>
 #import <PushwooshCore/PWConfig.h>
+#import <PushwooshCore/PWIntegrationValidator.h>
 #import "PWModuleResolution.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
@@ -33,6 +34,23 @@
 #define let auto const
 #else
 #define let const __auto_type
+#endif
+
+#if TARGET_OS_IOS
+@interface Pushwoosh ()
+
+/*
+ Backing delegate used only by the manual notification-forwarding API
+ (handleWillPresentNotification:/handleNotificationResponse:) when the automatic proxy is
+ disabled via Pushwoosh_PLUGIN_NOTIFICATION_HANDLER. When the proxy is active its own
+ defaultNotificationCenterDelegate is reused, so no second instance is created.
+ */
+@property (nonatomic, strong) PWUserNotificationCenterDelegate *manualNotificationCenterDelegate;
+
+- (void)handleWillPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler;
+- (void)handleNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler;
+
+@end
 #endif
 
 @implementation Pushwoosh
@@ -138,14 +156,14 @@ static dispatch_once_t ensureInitializedOncePredicate;
 - (instancetype)initWithApplicationCode:(NSString *)appCode {
     if (self = [super init]) {
         // Mandatory logs
-        NSLog(@"[PW] BUNDLE ID: %@", [PWUtils bundleId]);
-        NSLog(@"[PW] APP CODE: %@", [PWPreferences preferences].appCode);
-        NSLog(@"[PW] PUSHWOOSH SDK VERSION: %@", PUSHWOOSH_VERSION);
-        NSLog(@"[PW] HWID: %@", [PWPreferences preferences].hwid);
+        [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"BUNDLE ID: %@", [PWUtils bundleId]]];
+        [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"APP CODE: %@", [PWPreferences preferences].appCode]];
+        [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"PUSHWOOSH SDK VERSION: %@", PUSHWOOSH_VERSION]];
+        [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"HWID: %@", [PWPreferences preferences].hwid]];
 #if TARGET_OS_TV
-        NSLog(@"[PW] PUSH TV TOKEN: %@", [PWPreferences preferences].pushTvToken);
+        [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"PUSH TV TOKEN: %@", [PWPreferences preferences].pushTvToken]];
 #else
-        NSLog(@"[PW] PUSH TOKEN: %@", [PWPreferences preferences].pushToken);
+        [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"PUSH TOKEN: %@", [PWPreferences preferences].pushToken]];
 #endif
         
         [PWPreferences preferences].appCode = appCode;
@@ -199,9 +217,24 @@ static dispatch_once_t ensureInitializedOncePredicate;
             };
 #endif
         }
-        
+
+#if TARGET_OS_IOS
+        /*
+         Wired unconditionally (outside the proxy guard above) so the manual forwarding API works
+         even when the automatic proxy is disabled via Pushwoosh_PLUGIN_NOTIFICATION_HANDLER.
+         */
+        __weak typeof(self) weakSelf = self;
+        [PWManagerBridge shared].handleWillPresentNotificationBlock = ^(UNNotification *notification, void (^completionHandler)(UNNotificationPresentationOptions options)) {
+            [weakSelf handleWillPresentNotification:notification withCompletionHandler:completionHandler];
+        };
+        [PWManagerBridge shared].handleNotificationResponseBlock = ^(UNNotificationResponse *response, void (^completionHandler)(void)) {
+            [weakSelf handleNotificationResponse:response withCompletionHandler:completionHandler];
+        };
+#endif
+
+        [PWIntegrationValidator scheduleValidationWithAppCode:appCode];
     }
-    
+
     return self;
 }
 
@@ -246,6 +279,59 @@ static dispatch_once_t ensureInitializedOncePredicate;
 - (void)handlePushRegistrationFailure:(NSError *)error {
     [self.pushNotificationManager handlePushRegistrationFailure:error];
 }
+
+#if TARGET_OS_IOS
+- (id<UNUserNotificationCenterDelegate>)pw_manualNotificationHandler {
+    /*
+     Used only in opt-out mode (Pushwoosh_PLUGIN_NOTIFICATION_HANDLER) where the automatic proxy is
+     NOT installed — callers guard against an active proxy first. The delegate is created lazily under
+     a lock because the manual API may be invoked from any thread by the host's own delegate.
+     */
+    @synchronized (self) {
+        if (!self.manualNotificationCenterDelegate) {
+            self.manualNotificationCenterDelegate = [[PWUserNotificationCenterDelegate alloc] initWithNotificationManager:self.pushNotificationManager];
+        }
+        return self.manualNotificationCenterDelegate;
+    }
+}
+
+- (void)handleWillPresentNotification:(UNNotification *)notification withCompletionHandler:(void (^)(UNNotificationPresentationOptions options))completionHandler {
+    if (_notificationCenterDelegateProxy) {
+        /*
+         The automatic proxy is active and already handles this notification through its own delegate
+         callback. Forwarding here too would process the push twice (double open / statistics / deep
+         link), so ignore the manual call and just satisfy the caller's completion handler.
+         */
+        [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:@"handleWillPresentNotification: ignored — the automatic notification proxy is active. Manual forwarding is only for the Pushwoosh_PLUGIN_NOTIFICATION_HANDLER opt-out mode."];
+        if (completionHandler) {
+            completionHandler(UNNotificationPresentationOptionNone);
+        }
+        return;
+    }
+    id<UNUserNotificationCenterDelegate> handler = [self pw_manualNotificationHandler];
+    if ([handler respondsToSelector:@selector(userNotificationCenter:willPresentNotification:withCompletionHandler:)]) {
+        [handler userNotificationCenter:UNUserNotificationCenter.currentNotificationCenter willPresentNotification:notification withCompletionHandler:completionHandler];
+    } else if (completionHandler) {
+        completionHandler(UNNotificationPresentationOptionNone);
+    }
+}
+
+- (void)handleNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void (^)(void))completionHandler {
+    if (_notificationCenterDelegateProxy) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:@"handleNotificationResponse: ignored — the automatic notification proxy is active. Manual forwarding is only for the Pushwoosh_PLUGIN_NOTIFICATION_HANDLER opt-out mode."];
+        if (completionHandler) {
+            completionHandler();
+        }
+        return;
+    }
+    id<UNUserNotificationCenterDelegate> handler = [self pw_manualNotificationHandler];
+    if ([handler respondsToSelector:@selector(userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:)]) {
+        [handler userNotificationCenter:UNUserNotificationCenter.currentNotificationCenter didReceiveNotificationResponse:response withCompletionHandler:completionHandler];
+    } else if (completionHandler) {
+        completionHandler();
+    }
+}
+#endif
 
 - (void)unregisterForPushNotifications {
     [self unregisterForPushNotificationsWithCompletion:nil];
@@ -487,6 +573,10 @@ static dispatch_once_t ensureInitializedOncePredicate;
 
 + (void)destroy {
     [PWManagerBridge shared].addNotificationCenterDelegateBlock = nil;
+#if TARGET_OS_IOS
+    [PWManagerBridge shared].handleWillPresentNotificationBlock = nil;
+    [PWManagerBridge shared].handleNotificationResponseBlock = nil;
+#endif
     pushwooshOncePredicate = 0;
     pushwooshInstance = nil;
 }

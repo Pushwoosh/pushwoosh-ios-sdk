@@ -61,6 +61,58 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
 @end
 
+/// Delegate that DOES invoke the completion handler — used to verify the exactly-once guard
+/// (the regular spy ignores the handler, which would not exercise the multiple-call crash path).
+@interface PWNCDPCompletingSpy : NSObject <UNUserNotificationCenterDelegate>
+
+@property (nonatomic) NSUInteger willPresentCount;
+@property (nonatomic) NSUInteger didReceiveResponseCount;
+
+@end
+
+@implementation PWNCDPCompletingSpy
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    _willPresentCount++;
+    completionHandler(UNNotificationPresentationOptionAlert);
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+didReceiveNotificationResponse:(UNNotificationResponse *)response
+         withCompletionHandler:(void (^)(void))completionHandler {
+    _didReceiveResponseCount++;
+    completionHandler();
+}
+
+@end
+
+/// Delegate that stashes the completion handler and invokes it later, imitating a third-party SDK
+/// that does async work before deciding presentation options — exercises the async-completion path.
+@interface PWNCDPAsyncCompletingSpy : NSObject <UNUserNotificationCenterDelegate>
+
+@property (nonatomic, copy) void (^stashedWillPresentHandler)(UNNotificationPresentationOptions);
+@property (nonatomic, copy) void (^stashedDidReceiveHandler)(void);
+
+@end
+
+@implementation PWNCDPAsyncCompletingSpy
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+       willPresentNotification:(UNNotification *)notification
+         withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
+    _stashedWillPresentHandler = completionHandler;
+}
+
+- (void)userNotificationCenter:(UNUserNotificationCenter *)center
+didReceiveNotificationResponse:(UNNotificationResponse *)response
+         withCompletionHandler:(void (^)(void))completionHandler {
+    _stashedDidReceiveHandler = completionHandler;
+}
+
+@end
+
 @interface PWNotificationCenterDelegateProxyTest : XCTestCase
 
 @property (nonatomic, strong) id mockManager;
@@ -74,6 +126,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
 - (void)setUp {
     [super setUp];
+    [PWNotificationCenterDelegateProxy setCompletionFallbackDelayForTesting:0.05];
     _originalCenterDelegate = [UNUserNotificationCenter currentNotificationCenter].delegate;
     _mockManager = OCMClassMock([PWPushNotificationsManager class]);
     _proxy = [[PWNotificationCenterDelegateProxy alloc] initWithNotificationManager:_mockManager];
@@ -278,6 +331,187 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
     XCTAssertEqual(spyA.didReceiveResponseCount, 1u);
     XCTAssertEqual(spyB.didReceiveResponseCount, 1u);
+}
+
+#pragma mark - exactly-once completion handler (crash fix)
+
+/// Verifies the willPresent system completion handler runs exactly once even when several delegates
+/// each call their handler — the guard that prevents the iOS multiple-call crash.
+- (void)testWillPresent_multipleDelegatesCallHandler_systemHandlerCalledOnce {
+    [_proxy addNotificationCenterDelegate:[PWNCDPCompletingSpy new]];
+    [_proxy addNotificationCenterDelegate:[PWNCDPCompletingSpy new]];
+
+    id notification = [self mockRemoteNotificationWithUserInfo:@{@"aps": @{@"alert": @"hi"}}];
+    __block NSUInteger systemHandlerCalls = 0;
+    __block UNNotificationPresentationOptions capturedOptions = UNNotificationPresentationOptionNone;
+
+    [_proxy userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+           willPresentNotification:notification
+             withCompletionHandler:^(UNNotificationPresentationOptions options) { systemHandlerCalls++; capturedOptions = options; }];
+
+    XCTAssertEqual(systemHandlerCalls, 1u, @"system completion handler must fire exactly once");
+    XCTAssertEqual(capturedOptions, UNNotificationPresentationOptionAlert, @"first-caller options must be preserved, not overwritten by the fallback");
+}
+
+/// Verifies the didReceiveResponse system completion handler runs exactly once with multiple delegates.
+- (void)testDidReceive_multipleDelegatesCallHandler_systemHandlerCalledOnce {
+    [_proxy addNotificationCenterDelegate:[PWNCDPCompletingSpy new]];
+    [_proxy addNotificationCenterDelegate:[PWNCDPCompletingSpy new]];
+
+    id notification = [self mockRemoteNotificationWithUserInfo:@{@"aps": @{}}];
+    id response = [self mockResponseForNotification:notification actionIdentifier:UNNotificationDefaultActionIdentifier];
+    __block NSUInteger systemHandlerCalls = 0;
+
+    [_proxy userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+    didReceiveNotificationResponse:response
+             withCompletionHandler:^{ systemHandlerCalls++; }];
+
+    XCTAssertEqual(systemHandlerCalls, 1u, @"system completion handler must fire exactly once");
+}
+
+/// Verifies an async delegate's deferred willPresent completion is not pre-empted: the fallback must
+/// NOT fire while a forwarded delegate still owns the handler, so the delegate's options survive.
+- (void)testWillPresent_asyncDelegate_optionsPreservedNotSwallowedByFallback {
+    PWNCDPAsyncCompletingSpy *async = [PWNCDPAsyncCompletingSpy new];
+    [_proxy addNotificationCenterDelegate:async];
+
+    id notification = [self mockRemoteNotificationWithUserInfo:@{@"aps": @{@"alert": @"hi"}}];
+    __block NSUInteger systemHandlerCalls = 0;
+    __block UNNotificationPresentationOptions capturedOptions = UNNotificationPresentationOptionNone;
+
+    [_proxy userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+           willPresentNotification:notification
+             withCompletionHandler:^(UNNotificationPresentationOptions options) { systemHandlerCalls++; capturedOptions = options; }];
+
+    XCTAssertEqual(systemHandlerCalls, 0u, @"fallback must not fire while a forwarded delegate still owns the handler");
+
+    async.stashedWillPresentHandler(UNNotificationPresentationOptionAlert);
+
+    XCTAssertEqual(systemHandlerCalls, 1u, @"system handler fires once, when the async delegate completes");
+    XCTAssertEqual(capturedOptions, UNNotificationPresentationOptionAlert, @"the async delegate's options must survive, not be replaced by the fallback's None");
+}
+
+/// Verifies an async delegate's deferred didReceiveResponse completion is not pre-empted by the fallback.
+- (void)testDidReceive_asyncDelegate_completionNotPreEmptedByFallback {
+    PWNCDPAsyncCompletingSpy *async = [PWNCDPAsyncCompletingSpy new];
+    [_proxy addNotificationCenterDelegate:async];
+
+    id notification = [self mockRemoteNotificationWithUserInfo:@{@"aps": @{}}];
+    id response = [self mockResponseForNotification:notification actionIdentifier:UNNotificationDefaultActionIdentifier];
+    __block NSUInteger systemHandlerCalls = 0;
+
+    [_proxy userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+    didReceiveNotificationResponse:response
+             withCompletionHandler:^{ systemHandlerCalls++; }];
+
+    XCTAssertEqual(systemHandlerCalls, 0u, @"fallback must not fire while a forwarded delegate still owns the handler");
+
+    async.stashedDidReceiveHandler();
+
+    XCTAssertEqual(systemHandlerCalls, 1u, @"system handler fires once, when the async delegate completes");
+}
+
+/// Verifies the deferred fallback still fires the willPresent system handler when a forwarded delegate
+/// received the callback but never completed it (a misbehaving silent third-party SDK).
+- (void)testWillPresent_silentDelegate_fallbackFiresAfterDelay {
+    PWNCDPClientSpy *silent = [PWNCDPClientSpy new]; // responds to willPresent but never calls the handler
+    [_proxy addNotificationCenterDelegate:silent];
+
+    id notification = [self mockRemoteNotificationWithUserInfo:@{@"aps": @{@"alert": @"hi"}}];
+    XCTestExpectation *exp = [self expectationWithDescription:@"willPresent fallback fires"];
+    __block NSUInteger systemHandlerCalls = 0;
+
+    [_proxy userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+           willPresentNotification:notification
+             withCompletionHandler:^(UNNotificationPresentationOptions options) { systemHandlerCalls++; [exp fulfill]; }];
+
+    XCTAssertEqual(systemHandlerCalls, 0u, @"handler must not fire synchronously while a forwarded delegate may still complete");
+
+    [self waitForExpectations:@[exp] timeout:1.0];
+    XCTAssertEqual(systemHandlerCalls, 1u, @"deferred fallback must fire the handler once after the delay");
+}
+
+/// Verifies the deferred fallback still fires the didReceive system handler when a forwarded delegate
+/// received the callback but never completed it.
+- (void)testDidReceive_silentDelegate_fallbackFiresAfterDelay {
+    PWNCDPClientSpy *silent = [PWNCDPClientSpy new];
+    [_proxy addNotificationCenterDelegate:silent];
+
+    id notification = [self mockRemoteNotificationWithUserInfo:@{@"aps": @{}}];
+    id response = [self mockResponseForNotification:notification actionIdentifier:UNNotificationDefaultActionIdentifier];
+    XCTestExpectation *exp = [self expectationWithDescription:@"didReceive fallback fires"];
+    __block NSUInteger systemHandlerCalls = 0;
+
+    [_proxy userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+    didReceiveNotificationResponse:response
+             withCompletionHandler:^{ systemHandlerCalls++; [exp fulfill]; }];
+
+    XCTAssertEqual(systemHandlerCalls, 0u, @"handler must not fire synchronously while a forwarded delegate may still complete");
+
+    [self waitForExpectations:@[exp] timeout:1.0];
+    XCTAssertEqual(systemHandlerCalls, 1u, @"deferred fallback must fire the handler once after the delay");
+}
+
+#pragma mark - pre-existing delegate capture
+
+/// Verifies a delegate installed before Pushwoosh is preserved (keeps receiving callbacks) instead of
+/// being silently orphaned when the proxy takes over as the UNUserNotificationCenter delegate.
+- (void)testPreserveExistingDelegate_keepsItReceivingCallbacks {
+    PWNCDPClientSpy *preExisting = [PWNCDPClientSpy new];
+    [_proxy preserveExistingDelegate:preExisting];
+
+    id notification = [self mockRemoteNotificationWithUserInfo:@{@"aps": @{}}];
+    id response = [self mockResponseForNotification:notification actionIdentifier:UNNotificationDefaultActionIdentifier];
+
+    [_proxy userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+           willPresentNotification:notification
+             withCompletionHandler:^(UNNotificationPresentationOptions options) {}];
+    [_proxy userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+      didReceiveNotificationResponse:response
+               withCompletionHandler:^{}];
+
+    XCTAssertEqual(preExisting.willPresentCount, 1u, @"a preserved delegate must receive willPresent callbacks");
+    XCTAssertEqual(preExisting.didReceiveResponseCount, 1u, @"a delegate installed before Pushwoosh must be preserved and keep receiving callbacks");
+}
+
+/// Verifies the preserved pre-Pushwoosh delegate is held WEAKLY: once the host releases it the proxy
+/// does not keep it alive, so Pushwoosh never silently extends another delegate's lifetime.
+- (void)testPreserveExistingDelegate_heldWeakly_notRetainedByProxy {
+    __weak PWNCDPClientSpy *weakPreExisting;
+    @autoreleasepool {
+        PWNCDPClientSpy *preExisting = [PWNCDPClientSpy new];
+        weakPreExisting = preExisting;
+        [_proxy preserveExistingDelegate:preExisting];
+        XCTAssertNotNil(weakPreExisting, @"sanity: delegate is alive while the host holds it");
+    }
+    XCTAssertNil(weakPreExisting, @"preserved delegate must be held weakly, not retained by the proxy");
+}
+
+/// Verifies the system handler still fires exactly once for a non-Pushwoosh push with no registered
+/// delegates — the fallback that prevents a hung notification when nothing else calls the handler.
+- (void)testWillPresent_noDelegatesNonPushwoosh_stillCallsHandlerOnce {
+    id notification = [self mockRemoteNotificationWithUserInfo:@{@"aps": @{@"alert": @"hi"}}];
+    __block NSUInteger systemHandlerCalls = 0;
+
+    [_proxy userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+           willPresentNotification:notification
+             withCompletionHandler:^(UNNotificationPresentationOptions options) { systemHandlerCalls++; }];
+
+    XCTAssertEqual(systemHandlerCalls, 1u, @"handler must fire once via fallback even with no delegates");
+}
+
+/// Verifies the didReceiveResponse system handler still fires exactly once for a non-Pushwoosh response
+/// with no registered delegates — symmetric fallback to willPresent (prevents a hung response handler).
+- (void)testDidReceive_noDelegatesNonPushwoosh_stillCallsHandlerOnce {
+    id notification = [self mockRemoteNotificationWithUserInfo:@{@"aps": @{}}];
+    id response = [self mockResponseForNotification:notification actionIdentifier:UNNotificationDefaultActionIdentifier];
+    __block NSUInteger systemHandlerCalls = 0;
+
+    [_proxy userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+    didReceiveNotificationResponse:response
+             withCompletionHandler:^{ systemHandlerCalls++; }];
+
+    XCTAssertEqual(systemHandlerCalls, 1u, @"response handler must fire once via fallback even with no delegates");
 }
 
 @end

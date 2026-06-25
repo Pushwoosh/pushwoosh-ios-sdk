@@ -8,6 +8,7 @@
 
 #import "PushwooshLog.h"
 #import "PWConfig.h"
+#import <os/log.h>
 
 @implementation PushwooshLog
 
@@ -68,7 +69,7 @@ void pushwoosh_Log(id object, PUSHWOOSH_LOG_LEVEL logLevel, NSString *format, ..
     NSString *classNameStr = [NSString stringWithFormat:@"[%@]", NSStringFromClass([object class])];
     NSString *resultString = [NSString stringWithFormat:@"%@ %@ %@\n%@", prefix, logLevelTag, classNameStr, body];
     
-    NSLog(@"%@", resultString);
+    os_log(OS_LOG_DEFAULT, "%{public}@", resultString);
 }
 
 

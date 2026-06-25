@@ -39,6 +39,10 @@
 @property (nonatomic, strong) PWInAppManager *originalInAppManager;
 @property (nonatomic, weak) id originalDelegate;
 @property (nonatomic, strong) NSMutableArray *networkMocks;
+#if TARGET_OS_IOS
+@property (nonatomic, copy) void (^originalHandleWillPresentBlock)(UNNotification *notification, void (^completionHandler)(UNNotificationPresentationOptions options));
+@property (nonatomic, copy) void (^originalHandleResponseBlock)(UNNotificationResponse *response, void (^completionHandler)(void));
+#endif
 
 @end
 
@@ -54,6 +58,10 @@
     _originalPushNotificationManager = [PWManagerBridge shared].pushNotificationManager;
     _originalInAppManager = [PWManagerBridge shared].inAppManager;
     _originalDelegate = [PWManagerBridge shared].delegate;
+#if TARGET_OS_IOS
+    _originalHandleWillPresentBlock = [PWManagerBridge shared].handleWillPresentNotificationBlock;
+    _originalHandleResponseBlock = [PWManagerBridge shared].handleNotificationResponseBlock;
+#endif
 
     [[PWSdkStateProvider sharedInstance] resetForTesting];
     [[PWSdkStateProvider sharedInstance] setReady];
@@ -83,6 +91,10 @@
     [PWManagerBridge shared].pushNotificationManager = _originalPushNotificationManager;
     [PWManagerBridge shared].inAppManager = _originalInAppManager;
     [PWManagerBridge shared].delegate = _originalDelegate;
+#if TARGET_OS_IOS
+    [PWManagerBridge shared].handleWillPresentNotificationBlock = _originalHandleWillPresentBlock;
+    [PWManagerBridge shared].handleNotificationResponseBlock = _originalHandleResponseBlock;
+#endif
     [[PWSdkStateProvider sharedInstance] resetForTesting];
     [super tearDown];
 }
@@ -472,5 +484,55 @@
 
     [PushwooshConfig setAdditionalAuthorizationOptions:prior];
 }
+
+#pragma mark - manual notification forwarding (SDK-849)
+
+#if TARGET_OS_IOS
+/// Verifies handleWillPresentNotification forwards to PWManagerBridge.handleWillPresentNotificationBlock.
+- (void)testHandleWillPresentNotification_forwardsToBridgeBlock {
+    __block BOOL invoked = NO;
+    [PWManagerBridge shared].handleWillPresentNotificationBlock = ^(UNNotification *notification, void (^completionHandler)(UNNotificationPresentationOptions options)) {
+        invoked = YES;
+    };
+
+    [PushwooshConfig handleWillPresentNotification:nil withCompletionHandler:^(UNNotificationPresentationOptions options) {}];
+
+    XCTAssertTrue(invoked);
+}
+
+/// Verifies handleNotificationResponse forwards to PWManagerBridge.handleNotificationResponseBlock.
+- (void)testHandleNotificationResponse_forwardsToBridgeBlock {
+    __block BOOL invoked = NO;
+    [PWManagerBridge shared].handleNotificationResponseBlock = ^(UNNotificationResponse *response, void (^completionHandler)(void)) {
+        invoked = YES;
+    };
+
+    [PushwooshConfig handleNotificationResponse:nil withCompletionHandler:^{}];
+
+    XCTAssertTrue(invoked);
+}
+
+/// Verifies that when no bridge block is set, the completion handler is still invoked (safe fallback,
+/// so a caller is never left with a hung notification).
+- (void)testHandleWillPresentNotification_noBridgeBlock_stillCallsCompletion {
+    [PWManagerBridge shared].handleWillPresentNotificationBlock = nil;
+    __block BOOL completed = NO;
+
+    [PushwooshConfig handleWillPresentNotification:nil withCompletionHandler:^(UNNotificationPresentationOptions options) { completed = YES; }];
+
+    XCTAssertTrue(completed);
+}
+
+/// Verifies that with no bridge block set, handleNotificationResponse still invokes the completion
+/// handler (safe fallback symmetric to the willPresent case).
+- (void)testHandleNotificationResponse_noBridgeBlock_stillCallsCompletion {
+    [PWManagerBridge shared].handleNotificationResponseBlock = nil;
+    __block BOOL completed = NO;
+
+    [PushwooshConfig handleNotificationResponse:nil withCompletionHandler:^{ completed = YES; }];
+
+    XCTAssertTrue(completed);
+}
+#endif
 
 @end

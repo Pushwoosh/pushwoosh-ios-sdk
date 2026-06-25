@@ -3554,6 +3554,50 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  */
 + (void)addNotificationCenterDelegate:(id<UNUserNotificationCenterDelegate> _Nonnull)delegate NS_SWIFT_NAME(addNotificationCenterDelegate(_:));
 
+#if TARGET_OS_IOS
+/**
+ Manually forwards a foreground-presentation event to Pushwoosh (push parsing, statistics,
+ presentation options).
+
+ Use this when you opt out of Pushwoosh's automatic `UNUserNotificationCenter` delegate proxy by
+ setting `Pushwoosh_PLUGIN_NOTIFICATION_HANDLER` to `YES` in Info.plist and manage the delegate
+ yourself. Call it from your own `userNotificationCenter:willPresentNotification:withCompletionHandler:`.
+ Pushwoosh invokes the completion handler — do not call it again yourself.
+
+ Has effect only in this opt-out mode: if the automatic proxy is active (the flag is not set), the
+ call is ignored and a warning is logged, because the proxy already handles the notification.
+
+ ```swift
+ func userNotificationCenter(_ center: UNUserNotificationCenter, willPresent notification: UNNotification,
+                             withCompletionHandler completionHandler: @escaping (UNNotificationPresentationOptions) -> Void) {
+     Pushwoosh.configure.handleWillPresentNotification(notification, completionHandler: completionHandler)
+ }
+ ```
+ */
++ (void)handleWillPresentNotification:(UNNotification * _Nonnull)notification withCompletionHandler:(void (^ _Nonnull)(UNNotificationPresentationOptions options))completionHandler NS_SWIFT_NAME(handleWillPresentNotification(_:completionHandler:));
+
+/**
+ Manually forwards a notification-response event (tap / action) to Pushwoosh (open tracking, deep
+ links, notification actions).
+
+ Use this when you opt out of the automatic delegate proxy (see `Pushwoosh_PLUGIN_NOTIFICATION_HANDLER`)
+ and manage the delegate yourself. Call it from your own
+ `userNotificationCenter:didReceiveNotificationResponse:withCompletionHandler:`. Pushwoosh invokes the
+ completion handler — do not call it again yourself.
+
+ Has effect only in this opt-out mode: if the automatic proxy is active (the flag is not set), the
+ call is ignored and a warning is logged, because the proxy already handles the notification.
+
+ ```swift
+ func userNotificationCenter(_ center: UNUserNotificationCenter, didReceive response: UNNotificationResponse,
+                             withCompletionHandler completionHandler: @escaping () -> Void) {
+     Pushwoosh.configure.handleNotificationResponse(response, completionHandler: completionHandler)
+ }
+ ```
+ */
++ (void)handleNotificationResponse:(UNNotificationResponse * _Nonnull)response withCompletionHandler:(void (^ _Nonnull)(void))completionHandler NS_SWIFT_NAME(handleNotificationResponse(_:completionHandler:));
+#endif
+
 #pragma mark - Launch Notification
 
 /**

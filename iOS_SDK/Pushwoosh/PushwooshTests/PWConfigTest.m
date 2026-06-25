@@ -453,4 +453,22 @@
     XCTAssertEqualObjects(@"XXXXX-XXXXX", _config.appId);
 }
 
+#pragma mark - SDK-849: opt-out of UNUserNotificationCenter delegate proxy
+
+/// SDK-849 backward-compat guarantee: when Pushwoosh_PLUGIN_NOTIFICATION_HANDLER is absent the default proxy behaviour stays on (flag reads NO).
+- (void)testIsUsingPluginForPushHandlingDefaultsNoWhenKeyAbsent {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertFalse(_config.isUsingPluginForPushHandling);
+}
+
+/// SDK-849: Pushwoosh_PLUGIN_NOTIFICATION_HANDLER set to YES opts the client out of the proxy (flag reads YES).
+- (void)testIsUsingPluginForPushHandlingYesWhenFlagSet {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.pluginNotificationHandlerSet = YES;
+    bundleMock.pluginNotificationHandler = YES;
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertTrue(_config.isUsingPluginForPushHandling);
+}
+
 @end

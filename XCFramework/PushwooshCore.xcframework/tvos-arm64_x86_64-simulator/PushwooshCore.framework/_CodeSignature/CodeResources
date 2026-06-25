@@ -64,13 +64,17 @@
 		<data>
 		GK9uUAabUuDjMcUdB52ojDYJpjQ=
 		</data>
+		<key>Headers/PWIntegrationValidator.h</key>
+		<data>
+		lZ8SnLC/nz+HYtqKzmJIo5a1TG0=
+		</data>
 		<key>Headers/PWLegacyRichMedia.h</key>
 		<data>
 		pSdkgYh5hzuHFtlJozoHA8U48NM=
 		</data>
 		<key>Headers/PWManagerBridge.h</key>
 		<data>
-		eTgkNMILQr/FtMrd3waTWNIETLI=
+		h9BMjHTR9+yrVA4KLPsIchlXyEo=
 		</data>
 		<key>Headers/PWMedia.h</key>
 		<data>
@@ -138,11 +142,11 @@
 		</data>
 		<key>Headers/PushwooshConfig.h</key>
 		<data>
-		Sc1nyoagtp8ppF5RNgOVaDOXvvQ=
+		dFun5y/xhAzAfLev2v9LfIKgoOM=
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		YZ7BdEddtJj1iLmyHAvQPyhO4sw=
+		6UTZWgyLk6rAYjl85shOL5vheKs=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -150,7 +154,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		2270pHtfHRnqLg+kPV2jEFfFpuc=
+		K395F1Yzwk/ZrtMsQJW1vsrhwcQ=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -274,7 +278,7 @@
 		</data>
 		<key>PrivateHeaders/PWUtils.ios.h</key>
 		<data>
-		At7okmdr8LhygRscYFsQL4w8140=
+		z5OoaxjkUTziRjR6XD5I17yBal8=
 		</data>
 		<key>PrivateHeaders/PWVersionTracking.h</key>
 		<data>
@@ -392,6 +396,13 @@
 			DbbrRQZ3GwpofQcWGdjo0iSJ4FGdTJIWuCnqXQgGUv8=
 			</data>
 		</dict>
+		<key>Headers/PWIntegrationValidator.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			82dm/BEzYTW/smHP/hID46saowNSLKdIy6c8N7h83iM=
+			</data>
+		</dict>
 		<key>Headers/PWLegacyRichMedia.h</key>
 		<dict>
 			<key>hash2</key>
@@ -403,7 +414,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/59WS72urZ/OdooLlIuAVlpqpk3fb97UpDCOUCcyWKo=
+			BOWouVmwc0thXsC3ek/6FAw9Iy7lFMkXtArv38FEPKA=
 			</data>
 		</dict>
 		<key>Headers/PWMedia.h</key>
@@ -522,14 +533,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YJRODd9eboiutNW0wzgtQGlPLLVAUwbHuEI718bhc+4=
+			uLRy3FVGP+vTPdlHUmfbPRcfzXRqJZORa8GY/y7f1ic=
 			</data>
 		</dict>
 		<key>Headers/PushwooshCore.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			plaf6YV77Dj9alPm/UTNc829tThlkjij4TUHXsQ4yFA=
+			qv9zQcVa8V6QiyuAhUlacVXJxwamLnxUuOJnSn/DvTM=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -753,7 +764,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Ta0kqaHa/00uxo/RE2ZXTti/2DGCH4r2wHiKYX1mKQQ=
+			z0E25jTUbVbqqj2zlwjnpjfdG+IUSV71qGjdj87xEJo=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWVersionTracking.h</key>
