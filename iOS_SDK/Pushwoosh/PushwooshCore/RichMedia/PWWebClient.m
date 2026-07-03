@@ -170,8 +170,6 @@ static NSMutableDictionary *sJavaScriptInterfaces;
     self = [super init];
     
 	if (self) {
-        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadWebView) name:kReloadWebView object:nil];
-        
         @synchronized (sJavaScriptInterfaces) {
             _javascriptInterfaces = [sJavaScriptInterfaces copy];
         }
@@ -268,14 +266,13 @@ static NSMutableDictionary *sJavaScriptInterfaces;
                                               configuration:config
                                    withJavascriptInterfaces:interfaces
                                                 userScripts:@[addViewPortInject, pushwooshInject, hwidInject, versionInject, applicationInject, userIdInject, deviceTypeInject, messageHashInject, richMediaCodeInject, inAppCodeInject, disableSelectionInject, removeSelectionInject]];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadWebView) name:kReloadWebView object:_webView];
                 
 #if TARGET_OS_IOS
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
-        if ([PWUtils isSystemVersionGreaterOrEqualTo:@"16.4"]) {
-            
-        }
         if ([_webView.scrollView respondsToSelector:@selector(setContentInsetAdjustmentBehavior:)]) {
             _webView.scrollView.contentInsetAdjustmentBehavior = UIScrollViewContentInsetAdjustmentNever;
         }

@@ -129,20 +129,10 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
         }
 
         let pushwooshAttribute = PushwooshLiveActivityAttributeData.create(activityId: activityId)
+        let activityAttributes = DefaultLiveActivityAttributes(data: anyCodableDictionary(attributes), pushwoosh: pushwooshAttribute)
+        let contentState = DefaultLiveActivityAttributes.ContentState(data: anyCodableDictionary(content))
 
-        var attributeData = [String: AnyCodable]()
-        for attribute in attributes {
-            attributeData.updateValue(AnyCodable(attribute.value), forKey: attribute.key)
-        }
-
-        var contentData = [String: AnyCodable]()
-        for contentItem in content {
-            contentData.updateValue(AnyCodable(contentItem.value), forKey: contentItem.key)
-        }
-
-        let activityAttributes = DefaultLiveActivityAttributes(data: attributeData, pushwoosh: pushwooshAttribute)
-        let contentState = DefaultLiveActivityAttributes.ContentState(data: contentData)
-        let requestActivity = {
+        runOnMain {
             do {
                 _ = try Activity<DefaultLiveActivityAttributes>.request(
                         attributes: activityAttributes,
@@ -154,12 +144,138 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
                 completion(error)
             }
         }
-        if Thread.isMainThread {
-            requestActivity()
-        } else {
-            DispatchQueue.main.async {
-                requestActivity()
+    }
+
+    // No @available(iOS 26.0, *) on the @objc entrypoints below, for the same reason as the
+    // 16.1 defaultStart pair above: Obj-C / cross-platform plugin callers reach these from any OS
+    // version and a compile-time @available would break linking. The runtime `guard #available(iOS 26.0, *)`
+    // inside is the actual gate. Scheduling needs iOS 26.0 — that's where ActivityKit added the
+    // `start:` parameter to `Activity.request`.
+    @objc
+    public static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any],
+                                    at startDate: Date, alertTitle: String, alertBody: String) {
+        defaultStart(activityId, attributes: attributes, content: content,
+                     at: startDate, alertTitle: alertTitle, alertBody: alertBody, completion: { _ in })
+    }
+
+    @objc
+    public static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any],
+                                    at startDate: Date, alertTitle: String, alertBody: String,
+                                    completion: @escaping (Error?) -> Void) {
+        guard #available(iOS 26.0, *) else {
+            let error = NSError(domain: "pushwoosh", code: 4,
+                                userInfo: [NSLocalizedDescriptionKey: "Scheduling a Live Activity requires iOS 26.0+."])
+            PushwooshLog.pushwooshLog(.PW_LL_ERROR, className: self,
+                message: "defaultStart(at:) requires iOS 26.0+. No-op on this OS version.")
+            completion(error)
+            return
+        }
+
+        let pushwooshAttribute = PushwooshLiveActivityAttributeData.create(activityId: activityId)
+        let activityAttributes = DefaultLiveActivityAttributes(data: anyCodableDictionary(attributes), pushwoosh: pushwooshAttribute)
+        let contentState = DefaultLiveActivityAttributes.ContentState(data: anyCodableDictionary(content))
+
+        runOnMain {
+            do {
+                _ = try schedule(activityAttributes, contentState: contentState, at: startDate,
+                                 alertTitle: alertTitle, alertBody: alertBody)
+                completion(nil)
+            } catch let error {
+                PushwooshLog.pushwooshLog(.PW_LL_ERROR, className: self, message: "Schedule default live activity error: \(error.localizedDescription)")
+                completion(error)
             }
+        }
+    }
+
+    /// Schedules a Live Activity with a custom attributes type to start at a future date.
+    /// Mirrors `Activity.request(...)` (throws and returns the started activity) but hides the
+    /// iOS 26 `start:` mechanics: mandatory alert, activity style, `ActivityContent` wrapping.
+    /// Call on the main thread while the app is in the foreground.
+    @available(iOS 26.0, *)
+    public static func schedule<Attributes: PushwooshLiveActivityAttributes>(
+        _ attributes: Attributes,
+        contentState: Attributes.ContentState,
+        at startDate: Date,
+        alertTitle: String,
+        alertBody: String
+    ) throws -> Activity<Attributes> {
+        guard startDate > Date() else {
+            throw NSError(domain: "pushwoosh", code: 3,
+                          userInfo: [NSLocalizedDescriptionKey: "Scheduled start date must be in the future."])
+        }
+#if compiler(>=6.2)
+        // The `start:` overload of Activity.request and ActivityStyle.standard exist only in the
+        // iOS 26 SDK (Xcode 26 / Swift 6.2+). Gate the call by compiler version so the module still
+        // builds with older toolchains (e.g. Xcode 15.4 on CI), where these symbols are absent.
+        let activityContent = ActivityContent(state: contentState, staleDate: nil)
+        let activity = try Activity<Attributes>.request(
+            attributes: attributes,
+            content: activityContent,
+            pushType: .token,
+            style: .standard,
+            alertConfiguration: makeAlertConfiguration(title: alertTitle, body: alertBody),
+            start: startDate)
+
+        // No schedule-time backend call by design: the server learns the activity once it starts
+        // and emits a per-activity push token, picked up by the pushTokenUpdates observer that
+        // setup()/configureLiveActivity installs.
+        return activity
+#else
+        // Built with a pre-iOS-26 SDK: the scheduling overload does not exist to call. A binary built
+        // this way can never run on a toolchain that has iOS 26 anyway, so fail loudly at runtime.
+        throw NSError(domain: "pushwoosh", code: 5,
+                      userInfo: [NSLocalizedDescriptionKey: "Scheduling a Live Activity requires building with the iOS 26 SDK (Xcode 26+)."])
+#endif
+    }
+
+#if compiler(>=6.2)
+    @available(iOS 26.0, *)
+    private static func makeAlertConfiguration(title: String, body: String) -> AlertConfiguration {
+        AlertConfiguration(
+            title: LocalizedStringResource(stringLiteral: title),
+            body: LocalizedStringResource(stringLiteral: body),
+            sound: .default)
+    }
+#endif
+
+    private static func anyCodableDictionary(_ dictionary: [String: Any]) -> [String: AnyCodable] {
+        dictionary.mapValues { AnyCodable($0) }
+    }
+
+    private static func runOnMain(_ block: @escaping () -> Void) {
+        if Thread.isMainThread {
+            block()
+        } else {
+            DispatchQueue.main.async { block() }
+        }
+    }
+
+    /// Cancels a scheduled (or ends a running) Live Activity by its Pushwoosh `activityId`.
+    ///
+    /// Finds every `Activity<Attributes>` whose `pushwoosh.activityId` matches, ends it on the device —
+    /// a pending (scheduled) activity is cancelled before it starts — and notifies the Pushwoosh server.
+    /// You do not need to hold the `Activity` reference.
+    ///
+    /// Requires iOS 16.2: ending an activity goes through `Activity.end(_:dismissalPolicy:)`, which is
+    /// 16.2+. The 16.1-only deprecated `end(using:dismissalPolicy:)` is intentionally not used.
+    @available(iOS 16.2, *)
+    public static func cancel<Attributes: PushwooshLiveActivityAttributes>(
+        _ activityType: Attributes.Type, activityId: String
+    ) {
+        // ActivityKit reads/ends should run on the main thread; callers may invoke cancel from any
+        // queue (e.g. a push handler), so hop to main like the defaultStart path does. The server
+        // notify is sequenced inside the same hop, after task cancellation, so it always runs after
+        // cancelActivityTasks regardless of the calling thread.
+        runOnMain {
+            for activity in Activity<Attributes>.activities where activity.attributes.pushwoosh.activityId == activityId {
+                // Cancel the per-activity observer tasks first so the .dismissed state update from
+                // end() does not fire a second PWRequestStopLiveActivity. Mirrors handleMultipleActivities.
+                cancelActivityTasks(activity.id)
+                Task { await activity.end(nil, dismissalPolicy: .immediate) }
+            }
+            // Notify the server the activity stopped. Same PWRequestStopLiveActivity as the existing
+            // stopLiveActivity(activityId:) path.
+            stopLiveActivity(activityId: activityId) { _ in }
         }
     }
 
@@ -289,11 +405,13 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
     /// `runtimeActivityId` is the ActivityKit-issued `activity.id` (UUID) used as the `perActivityTasks`
     /// key — passing the business activityId here would silently miss the cancel.
     internal static func handleDismissedState(forActivityId activityId: String, runtimeActivityId: String) {
+        // Cancel the per-activity observer tasks first, so a concurrent token rotation can't register a
+        // post-stop token after the stop request is sent.
+        cancelActivityTasks(runtimeActivityId)
         let request = dismissedActivityRequest(forActivityId: activityId)
         send(request) { error in
             handlePushTokenResult(error: error)
         }
-        cancelActivityTasks(runtimeActivityId)
     }
 
     @available(iOS 16.1, *)

@@ -811,6 +811,13 @@
       },
       {
         "kind": "Import",
+        "name": "ActivityKit",
+        "printedName": "ActivityKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshLiveActivities"
+      },
+      {
+        "kind": "Import",
         "name": "PushwooshCore",
         "printedName": "PushwooshCore",
         "declKind": "Import",
@@ -2216,6 +2223,314 @@
               "Final",
               "ObjC",
               "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "defaultStart",
+            "printedName": "defaultStart(_:attributes:content:at:alertTitle:alertBody:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Date",
+                "printedName": "Foundation.Date",
+                "usr": "s:10Foundation4DateV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshLiveActivities@objc(cs)PushwooshLiveActivitiesImplementationSetup(cm)defaultStart:attributes:content:at:alertTitle:alertBody:",
+            "mangledName": "$s23PushwooshLiveActivities0abC19ImplementationSetupC12defaultStart_10attributes7content2at10alertTitle0K4BodyySS_SDySSypGAJ10Foundation4DateVS2StFZ",
+            "moduleName": "PushwooshLiveActivities",
+            "static": true,
+            "objc_name": "defaultStart:attributes:content:at:alertTitle:alertBody:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "defaultStart",
+            "printedName": "defaultStart(_:attributes:content:at:alertTitle:alertBody:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Date",
+                "printedName": "Foundation.Date",
+                "usr": "s:10Foundation4DateV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "((any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshLiveActivities@objc(cs)PushwooshLiveActivitiesImplementationSetup(cm)defaultStart:attributes:content:at:alertTitle:alertBody:completion:",
+            "mangledName": "$s23PushwooshLiveActivities0abC19ImplementationSetupC12defaultStart_10attributes7content2at10alertTitle0K4Body10completionySS_SDySSypGAK10Foundation4DateVS2Sys5Error_pSgctFZ",
+            "moduleName": "PushwooshLiveActivities",
+            "static": true,
+            "objc_name": "defaultStart:attributes:content:at:alertTitle:alertBody:completion:",
+            "declAttributes": [
+              "Final",
+              "ObjC",
+              "AccessControl"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "schedule",
+            "printedName": "schedule(_:contentState:at:alertTitle:alertBody:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Activity",
+                "printedName": "ActivityKit.Activity<τ_0_0>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GenericTypeParam",
+                    "printedName": "τ_0_0"
+                  }
+                ],
+                "usr": "s:11ActivityKit0A0C"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "GenericTypeParam",
+                "printedName": "τ_0_0"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "DependentMember",
+                "printedName": "τ_0_0.ContentState"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Date",
+                "printedName": "Foundation.Date",
+                "usr": "s:10Foundation4DateV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshLiveActivities0abC19ImplementationSetupC8schedule_12contentState2at10alertTitle0J4Body11ActivityKit0M0CyxGx_07ContentH0Qz10Foundation4DateVS2StKAA0abM10AttributesRzlFZ",
+            "mangledName": "$s23PushwooshLiveActivities0abC19ImplementationSetupC8schedule_12contentState2at10alertTitle0J4Body11ActivityKit0M0CyxGx_07ContentH0Qz10Foundation4DateVS2StKAA0abM10AttributesRzlFZ",
+            "moduleName": "PushwooshLiveActivities",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshLiveActivities.PushwooshLiveActivityAttributes>",
+            "sugared_genericSig": "<Attributes where Attributes : PushwooshLiveActivities.PushwooshLiveActivityAttributes>",
+            "static": true,
+            "intro_iOS": "26.0",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "Available",
+              "RawDocComment"
+            ],
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "cancel",
+            "printedName": "cancel(_:activityId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Metatype",
+                "printedName": "τ_0_0.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GenericTypeParam",
+                    "printedName": "τ_0_0"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:23PushwooshLiveActivities0abC19ImplementationSetupC6cancel_10activityIdyxm_SStAA0aB18ActivityAttributesRzlFZ",
+            "mangledName": "$s23PushwooshLiveActivities0abC19ImplementationSetupC6cancel_10activityIdyxm_SStAA0aB18ActivityAttributesRzlFZ",
+            "moduleName": "PushwooshLiveActivities",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshLiveActivities.PushwooshLiveActivityAttributes>",
+            "sugared_genericSig": "<Attributes where Attributes : PushwooshLiveActivities.PushwooshLiveActivityAttributes>",
+            "static": true,
+            "intro_iOS": "16.2",
+            "declAttributes": [
+              "Final",
+              "AccessControl",
+              "Available",
+              "RawDocComment"
             ],
             "funcSelfKind": "NonMutating"
           },
@@ -3938,6 +4253,317 @@
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
             "static": true,
             "intro_iOS": "16.1",
+            "declAttributes": [
+              "Available",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "schedule",
+            "printedName": "schedule(attributes:contentState:at:alertTitle:alertBody:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Activity",
+                "printedName": "ActivityKit.Activity<τ_1_0>",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GenericTypeParam",
+                    "printedName": "τ_1_0"
+                  }
+                ],
+                "usr": "s:11ActivityKit0A0C"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "GenericTypeParam",
+                "printedName": "τ_1_0"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "DependentMember",
+                "printedName": "τ_1_0.ContentState"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Date",
+                "printedName": "Foundation.Date",
+                "usr": "s:10Foundation4DateV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge16PWLiveActivitiesP0a4LiveD0E8schedule10attributes12contentState2at10alertTitle0K4Body11ActivityKit0N0Cyqd__Gqd___07ContentI0Qyd__10Foundation4DateVS2StKAD0aeN10AttributesRd__lFZ",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP0a4LiveD0E8schedule10attributes12contentState2at10alertTitle0K4Body11ActivityKit0N0Cyqd__Gqd___07ContentI0Qyd__10Foundation4DateVS2StKAD0aeN10AttributesRd__lFZ",
+            "moduleName": "PushwooshLiveActivities",
+            "genericSig": "<τ_0_0, τ_1_0 where τ_0_0 : PushwooshBridge.PWLiveActivities, τ_1_0 : PushwooshLiveActivities.PushwooshLiveActivityAttributes>",
+            "sugared_genericSig": "<Self, Attributes where Self : PushwooshBridge.PWLiveActivities, Attributes : PushwooshLiveActivities.PushwooshLiveActivityAttributes>",
+            "static": true,
+            "intro_iOS": "26.0",
+            "declAttributes": [
+              "DiscardableResult",
+              "Custom",
+              "Available",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "defaultStart",
+            "printedName": "defaultStart(_:attributes:content:at:alertTitle:alertBody:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Date",
+                "printedName": "Foundation.Date",
+                "usr": "s:10Foundation4DateV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge16PWLiveActivitiesP0a4LiveD0E12defaultStart_10attributes7content2at10alertTitle0K4BodyySS_SDySSypGAK10Foundation4DateVS2StFZ",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP0a4LiveD0E12defaultStart_10attributes7content2at10alertTitle0K4BodyySS_SDySSypGAK10Foundation4DateVS2StFZ",
+            "moduleName": "PushwooshLiveActivities",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
+            "static": true,
+            "intro_iOS": "26.0",
+            "declAttributes": [
+              "Available",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "defaultStart",
+            "printedName": "defaultStart(_:attributes:content:at:alertTitle:alertBody:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Date",
+                "printedName": "Foundation.Date",
+                "usr": "s:10Foundation4DateV"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "((any Swift.Error)?) -> ()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any Swift.Error)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Error",
+                        "printedName": "any Swift.Error",
+                        "usr": "s:s5ErrorP"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge16PWLiveActivitiesP0a4LiveD0E12defaultStart_10attributes7content2at10alertTitle0K4Body10completionySS_SDySSypGAL10Foundation4DateVS2Sys5Error_pSgctFZ",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP0a4LiveD0E12defaultStart_10attributes7content2at10alertTitle0K4Body10completionySS_SDySSypGAL10Foundation4DateVS2Sys5Error_pSgctFZ",
+            "moduleName": "PushwooshLiveActivities",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWLiveActivities>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWLiveActivities>",
+            "static": true,
+            "intro_iOS": "26.0",
+            "declAttributes": [
+              "Available",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "cancel",
+            "printedName": "cancel(_:activityId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Metatype",
+                "printedName": "τ_1_0.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "GenericTypeParam",
+                    "printedName": "τ_1_0"
+                  }
+                ]
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:15PushwooshBridge16PWLiveActivitiesP0a4LiveD0E6cancel_10activityIdyqd__m_SStAD0aE18ActivityAttributesRd__lFZ",
+            "mangledName": "$s15PushwooshBridge16PWLiveActivitiesP0a4LiveD0E6cancel_10activityIdyqd__m_SStAD0aE18ActivityAttributesRd__lFZ",
+            "moduleName": "PushwooshLiveActivities",
+            "genericSig": "<τ_0_0, τ_1_0 where τ_0_0 : PushwooshBridge.PWLiveActivities, τ_1_0 : PushwooshLiveActivities.PushwooshLiveActivityAttributes>",
+            "sugared_genericSig": "<Self, Attributes where Self : PushwooshBridge.PWLiveActivities, Attributes : PushwooshLiveActivities.PushwooshLiveActivityAttributes>",
+            "static": true,
+            "intro_iOS": "16.2",
             "declAttributes": [
               "Available",
               "RawDocComment"

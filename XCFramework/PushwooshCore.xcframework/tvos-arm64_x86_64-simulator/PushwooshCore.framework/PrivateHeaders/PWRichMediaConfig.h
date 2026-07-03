@@ -25,6 +25,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, assign, readonly) ModalWindowPosition position;
 @property (nonatomic, assign, readonly) PresentModalWindowAnimation presentAnimation;
 @property (nonatomic, assign, readonly) DismissModalWindowAnimation dismissAnimation;
+@property (nonatomic, assign, readonly) NSTimeInterval animationDuration;
 @property (nonatomic, strong, readonly) NSArray<NSNumber *> *swipeToDismiss;
 
 + (PresentModalWindowAnimation)presentAnimationFromString:(NSString *)string;

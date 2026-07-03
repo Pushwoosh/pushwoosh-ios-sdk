@@ -65,7 +65,7 @@
     
     self.UIDelegate = _listener;
     
-    [[NSNotificationCenter defaultCenter] postNotificationName:kReloadWebView object:nil userInfo:nil];
+    [[NSNotificationCenter defaultCenter] postNotificationName:kReloadWebView object:self userInfo:nil];
 }
 
 @end

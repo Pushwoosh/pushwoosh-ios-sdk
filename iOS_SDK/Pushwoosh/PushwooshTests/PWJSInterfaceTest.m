@@ -4,12 +4,17 @@
 #import <objc/message.h>
 
 #import "PWPushwooshJSBridge.h"
+#import "PWEasyJSWKDataFunction.h"
 #import "PushNotificationManager.h"
 #import "PushNotificationManager+Mock.h"
 #import "PWRequestManager.h"
 #import "PWTestUtils.h"
 #import <PushwooshCore/PWManagerBridge.h>
 #import <PushwooshCore/PWDataManager.h>
+
+@interface PWPushwooshJSBridge (Test)
+- (void)getTags:(PWEasyJSWKDataFunction *)successCallback :(PWEasyJSWKDataFunction *)errorCallback;
+@end
 
 @interface PWJSInterfaceTestDataManagerMock : PWDataManager
 @property (nonatomic, weak) id target;
@@ -224,6 +229,61 @@
 	XCTAssertNoThrow(((void(*)(id, SEL, id, id, id, id))objc_msgSend)(_jsInterface,
 		@selector(postEvent::::), @"testEvent", @"", nil, nil));
 	XCTAssertNil(self.lastEvent);
+}
+
+#pragma mark - getTags
+
+/// Returns serialized JSON to the success callback for valid tags.
+- (void)testGetTagsReturnsJsonForValidTags {
+    id bridgeMock = OCMPartialMock([PWManagerBridge shared]);
+    NSDictionary *tags = @{@"name": @"John"};
+    OCMStub([bridgeMock loadTags:[OCMArg any] error:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
+        __unsafe_unretained void (^successBlock)(NSDictionary *) = nil;
+        [invocation getArgument:&successBlock atIndex:2];
+        successBlock(tags);
+    });
+
+    id successCallback = OCMClassMock([PWEasyJSWKDataFunction class]);
+    __block NSString *captured = nil;
+    OCMStub([successCallback executeWithParam:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
+        __unsafe_unretained NSString *param = nil;
+        [invocation getArgument:&param atIndex:2];
+        captured = param;
+    });
+
+    [self.jsInterface getTags:successCallback :nil];
+
+    XCTAssertNotNil(captured);
+    XCTAssertTrue([captured containsString:@"John"]);
+
+    [successCallback stopMocking];
+    [bridgeMock stopMocking];
+}
+
+/// Returns "{}" to the success callback when tags cannot be serialized to JSON.
+- (void)testGetTagsReturnsEmptyObjectForUnserializableTags {
+    id bridgeMock = OCMPartialMock([PWManagerBridge shared]);
+    NSDictionary *badTags = @{@"when": [NSDate date]};
+    OCMStub([bridgeMock loadTags:[OCMArg any] error:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
+        __unsafe_unretained void (^successBlock)(NSDictionary *) = nil;
+        [invocation getArgument:&successBlock atIndex:2];
+        successBlock(badTags);
+    });
+
+    id successCallback = OCMClassMock([PWEasyJSWKDataFunction class]);
+    __block NSString *captured = nil;
+    OCMStub([successCallback executeWithParam:[OCMArg any]]).andDo(^(NSInvocation *invocation) {
+        __unsafe_unretained NSString *param = nil;
+        [invocation getArgument:&param atIndex:2];
+        captured = param;
+    });
+
+    [self.jsInterface getTags:successCallback :nil];
+
+    XCTAssertEqualObjects(captured, @"{}");
+
+    [successCallback stopMocking];
+    [bridgeMock stopMocking];
 }
 
 // PushManager proxy methods

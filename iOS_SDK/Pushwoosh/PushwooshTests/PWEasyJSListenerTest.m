@@ -210,4 +210,51 @@ runJavaScriptTextInputPanelWithPrompt:prompt
     XCTAssertEqualObjects(self.listener.updatedJavascriptInterfaces, updatedInterfaces);
 }
 
+#pragma mark - malformed prompt guards
+
+/// A prompt with no ":" separator is rejected via completionHandler(nil) instead of crashing.
+- (void)testPromptWithoutSeparatorReturnsNil {
+    __block BOOL completionCalled = NO;
+    [self.listener webView:self.mockWebView
+runJavaScriptTextInputPanelWithPrompt:@"NoSeparatorHere"
+               defaultText:nil
+            initiatedByFrame:self.mockFrame
+         completionHandler:^(NSString *result) {
+        completionCalled = YES;
+        XCTAssertNil(result);
+    }];
+
+    XCTAssertTrue(completionCalled);
+}
+
+/// A call to a method the interface does not implement is rejected without crashing on a nil signature.
+- (void)testUnknownMethodReturnsNil {
+    __block BOOL completionCalled = NO;
+    [self.listener webView:self.mockWebView
+runJavaScriptTextInputPanelWithPrompt:@"TestInterface:thisMethodDoesNotExist"
+               defaultText:nil
+            initiatedByFrame:self.mockFrame
+         completionHandler:^(NSString *result) {
+        completionCalled = YES;
+        XCTAssertNil(result);
+    }];
+
+    XCTAssertTrue(completionCalled);
+}
+
+/// A call addressed to an unregistered interface is rejected without crashing.
+- (void)testUnknownInterfaceReturnsNil {
+    __block BOOL completionCalled = NO;
+    [self.listener webView:self.mockWebView
+runJavaScriptTextInputPanelWithPrompt:@"NoSuchInterface:someMethod"
+               defaultText:nil
+            initiatedByFrame:self.mockFrame
+         completionHandler:^(NSString *result) {
+        completionCalled = YES;
+        XCTAssertNil(result);
+    }];
+
+    XCTAssertTrue(completionCalled);
+}
+
 @end

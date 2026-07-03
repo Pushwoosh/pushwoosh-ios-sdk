@@ -27,6 +27,7 @@ typedef NS_ENUM(unsigned int, IAResourcePresentationStyle) {
 @property (nonatomic, assign, readonly) ModalWindowPosition position;
 @property (nonatomic, assign, readonly) PresentModalWindowAnimation presentAnimation;
 @property (nonatomic, assign, readonly) DismissModalWindowAnimation dismissAnimation;
+@property (nonatomic, assign, readonly) NSTimeInterval animationDuration;
 @property (nonatomic, strong, readonly) NSArray<NSNumber *> *swipeToDismiss;
 @property (nonatomic, readonly) NSTimeInterval updated;
 

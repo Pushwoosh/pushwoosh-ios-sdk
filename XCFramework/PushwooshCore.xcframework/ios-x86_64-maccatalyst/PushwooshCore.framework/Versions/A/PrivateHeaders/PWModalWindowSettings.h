@@ -22,6 +22,8 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic) DismissModalWindowAnimation dismissAnimation;
 @property (nonatomic) CornerType cornerType;
 @property (nonatomic) CGFloat cornerRadius;
+@property (nonatomic) NSTimeInterval autoCloseInterval;
+@property (nonatomic) NSTimeInterval animationDuration;
 
 + (instancetype)sharedSettings;
 

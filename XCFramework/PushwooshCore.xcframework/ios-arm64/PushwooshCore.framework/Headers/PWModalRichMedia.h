@@ -64,6 +64,13 @@ NS_ASSUME_NONNULL_BEGIN
 + (void)closeAfter:(NSTimeInterval)interval;
 
 /**
+ Sets the duration of modal window present and dismiss animations.
+
+ @param duration Animation duration in seconds. Pass 0 to use the default timing.
+ */
++ (void)setAnimationDuration:(NSTimeInterval)duration;
+
+/**
  Returns the Rich Media presenting delegate.
  */
 + (nullable id<PWRichMediaPresentingDelegate>)getDelegate;
@@ -98,8 +105,8 @@ NS_ASSUME_NONNULL_BEGIN
      Pushwoosh.media.setRichMediaPresentationStyle(.modal)
      Pushwoosh.media.modalRichMedia.configure(
          position: .PWModalWindowPositionBottom,
-         presentAnimation: .PWAnimationPresentFromBottom,
-         dismissAnimation: .PWAnimationDismissDown
+         presentAnimation: .PWAnimationPresentSlideUp,
+         dismissAnimation: .PWAnimationDismissSlideDown
      )
      Pushwoosh.media.modalRichMedia.setDismissSwipeDirections([NSNumber(value: PWSwipeDismissDown.rawValue)])
      Pushwoosh.media.modalRichMedia.delegate = self
@@ -121,14 +128,14 @@ NS_ASSUME_NONNULL_BEGIN
  Only applies when presentation style is set to `PWRichMediaPresentationStyleModal`.
 
  @param position Screen position: `PWModalWindowPositionTop`, `PWModalWindowPositionCenter`, `PWModalWindowPositionBottom`, `PWModalWindowPositionBottomSheet`, `PWModalWindowPositionFullScreen`, `PWModalWindowPositionDefault`.
- @param presentAnimation Present animation: `PWAnimationPresentFromBottom`, `PWAnimationPresentFromTop`, `PWAnimationPresentFromRight`, `PWAnimationPresentFromLeft`, `PWAnimationPresentNone`.
- @param dismissAnimation Dismiss animation: `PWAnimationDismissDown`, `PWAnimationDismissUp`, `PWAnimationDismissLeft`, `PWAnimationDismissRight`, `PWAnimationDismissNone`, `PWAnimationDismissDefault`.
+ @param presentAnimation Present animation: `PWAnimationPresentSlideUp`, `PWAnimationPresentDropDown`, `PWAnimationPresentSlideFromRight`, `PWAnimationPresentSlideFromLeft`, `PWAnimationPresentFadeIn`, `PWAnimationPresentNone`.
+ @param dismissAnimation Dismiss animation: `PWAnimationDismissSlideDown`, `PWAnimationDismissSlideUp`, `PWAnimationDismissSlideLeft`, `PWAnimationDismissSlideRight`, `PWAnimationDismissFadeOut`, `PWAnimationDismissNone`, `PWAnimationDismissDefault`.
 
  ```swift
  Pushwoosh.media.modalRichMedia.configure(
      position: .PWModalWindowPositionBottom,
-     presentAnimation: .PWAnimationPresentFromBottom,
-     dismissAnimation: .PWAnimationDismissDown
+     presentAnimation: .PWAnimationPresentSlideUp,
+     dismissAnimation: .PWAnimationDismissSlideDown
  )
  ```
  */
@@ -201,6 +208,23 @@ NS_ASSUME_NONNULL_BEGIN
  ```
  */
 + (void)closeAfter:(NSTimeInterval)interval;
+
+/**
+ Sets the duration of modal window present and dismiss animations.
+
+ @discussion
+ Controls how long the present and dismiss animations run.
+ Only applies when presentation style is set to `PWRichMediaPresentationStyleModal`.
+ A duration provided by the message's `style_settings` (`animation_duration`, in milliseconds)
+ takes precedence over this programmatic value. Pass 0 to fall back to the default timing.
+
+ @param duration Animation duration in seconds.
+
+ ```swift
+ Pushwoosh.media.modalRichMedia.setAnimationDuration(0.5)
+ ```
+ */
++ (void)setAnimationDuration:(NSTimeInterval)duration;
 
 /**
  Returns the Rich Media presenting delegate.

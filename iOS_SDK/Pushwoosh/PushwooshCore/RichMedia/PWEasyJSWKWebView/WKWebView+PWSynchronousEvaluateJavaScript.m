@@ -17,26 +17,30 @@
     __block NSString *resultString = @"";
     __block BOOL finished = NO;
     __block NSError *tmpError = nil;
-    __weak typeof(self) wself = self;
 
     /**
      Starting with iOS 14, we use WKContentWorld to run injected JavaScript in a secure sandboxed environment,
      isolating it from untrusted web JavaScript. More details: https://developer.apple.com/documentation/webkit/wkcontentworld
      */
+    void (^completion)(id, NSError *) = ^(id result, NSError *jsError) {
+        if (jsError == nil) {
+            if (result != nil) {
+                resultString = [NSString stringWithFormat:@"%@", result];
+            }
+        } else {
+            tmpError = [jsError copy];
+        }
+        finished = YES;
+    };
+
     if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"14.0"]) {
         WKContentWorld* sandbox = [WKContentWorld pageWorld];
         [self evaluateJavaScript:script
                          inFrame:nil
                   inContentWorld:sandbox
-               completionHandler:^(id result, NSError * _Nullable jsError) {
-            [wself jsErrorHandlingWithResult:result jsError:jsError tmpError:tmpError resultString:resultString];
-            finished = YES;
-        }];
+               completionHandler:completion];
     } else {
-        [self evaluateJavaScript:script completionHandler:^(id result, NSError *jsError) {
-            [wself jsErrorHandlingWithResult:result jsError:jsError tmpError:tmpError resultString:resultString];
-            finished = YES;
-        }];
+        [self evaluateJavaScript:script completionHandler:completion];
     }
 
     
@@ -57,19 +61,6 @@
     }
     
     return resultString;
-}
-
-- (void)jsErrorHandlingWithResult:(id)result
-                          jsError:(NSError *)jsError
-                         tmpError:(NSError *)tmpError
-                     resultString:(NSString *)resultString {
-    if (jsError == nil) {
-        if (result != nil) {
-            resultString = [NSString stringWithFormat:@"%@", result];
-        }
-    } else {
-        tmpError = [jsError copy];
-    }
 }
 
 //just execute the JS, dont wait for a response

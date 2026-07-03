@@ -24,7 +24,12 @@
     
     NSString *requestString = prompt;
     NSArray *components = [requestString componentsSeparatedByString:@":"];
-    
+
+    if (components.count < 2) {
+        completionHandler(nil);
+        return;
+    }
+
     NSString* obj = (NSString*)[components objectAtIndex:0];
     NSString* method = [(NSString*)[components objectAtIndex:1] stringByRemovingPercentEncoding];
     NSObject* interface = [self.javascriptInterfaces objectForKey:obj];
@@ -32,6 +37,10 @@
     // execute the interfacing method
     SEL selector = NSSelectorFromString(method);
     NSMethodSignature* sig = [interface methodSignatureForSelector:selector];
+    if (!sig) {
+        completionHandler(nil);
+        return;
+    }
     NSInvocation* invoker = [NSInvocation invocationWithMethodSignature:sig];
     invoker.selector = selector;
     invoker.target = interface;

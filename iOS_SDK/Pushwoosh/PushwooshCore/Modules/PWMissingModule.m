@@ -196,6 +196,8 @@ static dispatch_queue_t _loggedSelectorsQueue;
             @"defaultSetup":                                    @"v@:",
             @"defaultStart:attributes:content:":                @"v@:@@@",
             @"defaultStart:attributes:content:completion:":     @"v@:@@@@?",
+            @"defaultStart:attributes:content:at:alertTitle:alertBody:":            @"v@:@@@@@@",
+            @"defaultStart:attributes:content:at:alertTitle:alertBody:completion:": @"v@:@@@@@@@?",
 
             @"foregroundPush":                                  @"#@:",
             @"gradientColors":                                  @"@@:",

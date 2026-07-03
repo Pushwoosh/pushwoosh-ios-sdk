@@ -113,7 +113,7 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
     
     if (_richMedia.resource.presentationStyle == IAResourcePresentationCenter) {
         _richMediaView.webClient.webView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
-    } else if (_richMedia.resource.presentationStyle == IAResourcePresentationCenter) {
+    } else if (_richMedia.resource.presentationStyle == IAResourcePresentationTopBanner) {
         _richMediaView.webClient.webView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth;
     } else if (_richMedia.resource.presentationStyle == IAResourcePresentationBottomBanner) {
         _richMediaView.webClient.webView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;

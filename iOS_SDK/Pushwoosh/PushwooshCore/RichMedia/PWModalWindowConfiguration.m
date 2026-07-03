@@ -65,6 +65,10 @@
     [self.modalWindow closeModalWindowAfter:interval];
 }
 
+- (void)setAnimationDuration:(NSTimeInterval)duration {
+    self.settings.animationDuration = duration;
+}
+
 - (void)presentModalWindow:(PWRichMedia *)richMedia {
     [self.modalWindow presentModalWindow:richMedia modalWindow:_modalWindow];
 }

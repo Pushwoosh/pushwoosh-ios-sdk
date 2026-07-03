@@ -13,6 +13,7 @@
 
 @property (nonatomic, copy) NSString *urlToLoad;
 @property (nonatomic) NSInteger webViewLoads;
+@property (nonatomic) BOOL hasShown;
 @property (nonatomic, strong) WKWebView *webView;
 
 @end
@@ -83,11 +84,10 @@
 - (void)webView:(WKWebView *)webView didFinishNavigation:(WKNavigation *)navigation {
     _webViewLoads--;
 
-    if (_webViewLoads == 0) {
+    if (_webViewLoads == 0 && !_hasShown) {
         [UIApplication sharedApplication].networkActivityIndicatorVisible = NO;
 
-        //webview is visible and shouldn't be showed anymore
-        _webViewLoads = 1000;
+        _hasShown = YES;
 
         if ([self.delegate respondsToSelector:@selector(htmlWebViewControllerReadyForShow:)])
             [self.delegate htmlWebViewControllerReadyForShow:self];

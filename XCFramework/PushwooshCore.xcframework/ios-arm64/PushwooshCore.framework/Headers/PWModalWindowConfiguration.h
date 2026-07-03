@@ -63,6 +63,13 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)closeModalWindowAfter:(NSTimeInterval)interval;
 
 /**
+ Sets the duration applied to the modal window present and dismiss animations.
+
+ @param duration The animation duration, in seconds. Pass 0 to fall back to the default timing.
+ */
+- (void)setAnimationDuration:(NSTimeInterval)duration;
+
+/**
  Presents the modal window with the specified rich media content.
 
  WARNING: This entry point bypasses `PWRichMediaPresentingDelegate.shouldPresentRichMedia:`.

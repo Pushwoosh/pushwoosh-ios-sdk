@@ -35,8 +35,8 @@ typedef NS_ENUM(NSInteger, PWRichMediaPresentationStyle) {
      Pushwoosh.media.setRichMediaPresentationStyle(.modal)
      Pushwoosh.media.modalRichMedia.configure(
          position: .PWModalWindowPositionBottom,
-         presentAnimation: .PWAnimationPresentFromBottom,
-         dismissAnimation: .PWAnimationDismissDown
+         presentAnimation: .PWAnimationPresentSlideUp,
+         dismissAnimation: .PWAnimationDismissSlideDown
      )
      Pushwoosh.media.modalRichMedia.delegate = self
 
@@ -94,8 +94,8 @@ typedef NS_ENUM(NSInteger, PWRichMediaPresentationStyle) {
  // Configure modal-specific settings
  Pushwoosh.media.modalRichMedia.configure(
      position: .PWModalWindowPositionBottom,
-     presentAnimation: .PWAnimationPresentFromBottom,
-     dismissAnimation: .PWAnimationDismissDown
+     presentAnimation: .PWAnimationPresentSlideUp,
+     dismissAnimation: .PWAnimationDismissSlideDown
  )
  Pushwoosh.media.modalRichMedia.delegate = self
 
@@ -158,8 +158,8 @@ typedef NS_ENUM(NSInteger, PWRichMediaPresentationStyle) {
  Pushwoosh.media.setRichMediaPresentationStyle(.modal)
  Pushwoosh.media.modalRichMedia.configure(
      position: .PWModalWindowPositionBottom,
-     presentAnimation: .PWAnimationPresentFromBottom,
-     dismissAnimation: .PWAnimationDismissDown
+     presentAnimation: .PWAnimationPresentSlideUp,
+     dismissAnimation: .PWAnimationDismissSlideDown
  )
  Pushwoosh.media.modalRichMedia.delegate = self
  ```

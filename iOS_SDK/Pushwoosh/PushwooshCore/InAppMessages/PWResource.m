@@ -240,6 +240,7 @@
         _position = self.config.position;
         _presentAnimation = self.config.presentAnimation;
         _dismissAnimation = self.config.dismissAnimation;
+        _animationDuration = self.config.animationDuration;
         _swipeToDismiss = self.config.swipeToDismiss;
     }
 }

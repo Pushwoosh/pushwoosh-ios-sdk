@@ -39,13 +39,13 @@
 - (void)testDefaultPresentAnimation {
     PWModalWindowSettings *settings = [PWModalWindowSettings sharedSettings];
 
-    XCTAssertEqual(settings.presentAnimation, PWAnimationPresentFromBottom);
+    XCTAssertEqual(settings.presentAnimation, PWAnimationPresentFadeIn);
 }
 
 - (void)testDefaultDismissAnimation {
     PWModalWindowSettings *settings = [PWModalWindowSettings sharedSettings];
 
-    XCTAssertEqual(settings.dismissAnimation, PWAnimationCurveEaseInOut);
+    XCTAssertEqual(settings.dismissAnimation, PWAnimationDismissFadeOut);
 }
 
 - (void)testDefaultCornerType {
@@ -58,6 +58,12 @@
     PWModalWindowSettings *settings = [PWModalWindowSettings sharedSettings];
 
     XCTAssertEqual(settings.cornerRadius, 0);
+}
+
+- (void)testDefaultAnimationDuration {
+    PWModalWindowSettings *settings = [PWModalWindowSettings sharedSettings];
+
+    XCTAssertEqual(settings.animationDuration, 0);
 }
 
 - (void)testSetModalWindowPosition {
@@ -95,8 +101,8 @@
     PWModalWindowSettings *settings = [PWModalWindowSettings sharedSettings];
     PresentModalWindowAnimation originalValue = settings.presentAnimation;
 
-    settings.presentAnimation = PWAnimationPresentFromTop;
-    XCTAssertEqual(settings.presentAnimation, PWAnimationPresentFromTop);
+    settings.presentAnimation = PWAnimationPresentDropDown;
+    XCTAssertEqual(settings.presentAnimation, PWAnimationPresentDropDown);
 
     settings.presentAnimation = originalValue;
 }
@@ -105,8 +111,8 @@
     PWModalWindowSettings *settings = [PWModalWindowSettings sharedSettings];
     DismissModalWindowAnimation originalValue = settings.dismissAnimation;
 
-    settings.dismissAnimation = PWAnimationDismissUp;
-    XCTAssertEqual(settings.dismissAnimation, PWAnimationDismissUp);
+    settings.dismissAnimation = PWAnimationDismissSlideUp;
+    XCTAssertEqual(settings.dismissAnimation, PWAnimationDismissSlideUp);
 
     settings.dismissAnimation = originalValue;
 }
@@ -129,6 +135,16 @@
     XCTAssertEqual(settings.cornerRadius, 10.0);
 
     settings.cornerRadius = originalValue;
+}
+
+- (void)testSetAnimationDuration {
+    PWModalWindowSettings *settings = [PWModalWindowSettings sharedSettings];
+    NSTimeInterval originalValue = settings.animationDuration;
+
+    settings.animationDuration = 0.75;
+    XCTAssertEqual(settings.animationDuration, 0.75);
+
+    settings.animationDuration = originalValue;
 }
 
 - (void)testSetDismissSwipeDirectionsWithEmptyArray {

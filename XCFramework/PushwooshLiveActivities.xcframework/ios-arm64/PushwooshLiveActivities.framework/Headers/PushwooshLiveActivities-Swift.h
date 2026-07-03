@@ -301,6 +301,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 
 #if defined(__OBJC__)
 @class NSString;
+@class NSDate;
 
 /// Orchestrates iOS Live Activities integration with Pushwoosh push notifications.
 SWIFT_CLASS_NAMED("PushwooshLiveActivitiesImplementationSetup")
@@ -317,6 +318,8 @@ SWIFT_CLASS_NAMED("PushwooshLiveActivitiesImplementationSetup")
 + (void)defaultSetup;
 + (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content;
 + (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
++ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content at:(NSDate * _Nonnull)startDate alertTitle:(NSString * _Nonnull)alertTitle alertBody:(NSString * _Nonnull)alertBody;
++ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content at:(NSDate * _Nonnull)startDate alertTitle:(NSString * _Nonnull)alertTitle alertBody:(NSString * _Nonnull)alertBody completion:(void (^ _Nonnull)(NSError * _Nullable))completion;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
 

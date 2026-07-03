@@ -95,6 +95,10 @@ import Foundation
         #endif
         case is Void:
             try container.encodeNil()
+        #if canImport(Foundation)
+        case let number as NSNumber where CFGetTypeID(number) != CFBooleanGetTypeID():
+            try encode(nsnumber: number, into: &container)
+        #endif
         case let bool as Bool:
             try container.encode(bool)
         case let int as Int:
@@ -124,8 +128,6 @@ import Foundation
         case let string as String:
             try container.encode(string)
         #if canImport(Foundation)
-        case let number as NSNumber:
-            try encode(nsnumber: number, into: &container)
         case let date as Date:
             try container.encode(date)
         case let url as URL:

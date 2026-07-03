@@ -24,26 +24,32 @@
 @property (nonatomic) PWRichMedia *richMediaQueue;
 @property (nonatomic) PWWebClient *webClient;
 @property (nonatomic) PWModalWindow *modalWindow;
+@property (nonatomic, weak) PWModalWindow *presenter;
 @property (nonatomic) PWModalWindowSettings *settings;
 @property (nonatomic, strong) PWResource *currentResource;
+@property (nonatomic) BOOL isDismissing;
+
+- (void)presentWithEffectiveAnimation;
+- (NSTimeInterval)effectiveAnimationDurationForResource:(PWResource *)resource fallback:(NSTimeInterval)fallback;
 
 @end
 
 @implementation PWModalWindow
 
-static NSTimeInterval timeInterval = 0;
+static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
 
 - (void)closeModalWindowAfter:(NSTimeInterval)interval {
-    timeInterval = interval;
+    _settings.autoCloseInterval = interval;
 }
 
 - (void)presentModalWindow:(PWRichMedia *)richMedia modalWindow:(PWModalWindow *)modalWindow {
     UIWindow *window = [self keyWindow];
     _modalWindow = [[PWModalWindow alloc] initWithFrame:CGRectMake(0, 0, window.bounds.size.width, 0)];
-    [self createModalWindowWith:richMedia.resource
-                      richMedia:richMedia
-                    modalWindow:_modalWindow
-                         window:window];
+    _modalWindow.presenter = self;
+    [_modalWindow createModalWindowWith:richMedia.resource
+                              richMedia:richMedia
+                            modalWindow:_modalWindow
+                                 window:window];
 }
 
 - (instancetype)initWithFrame:(CGRect)frame {
@@ -74,7 +80,7 @@ static NSTimeInterval timeInterval = 0;
 - (PresentModalWindowAnimation)effectivePresentAnimationForResource:(PWResource *)resource {
     [resource readConfig];
     
-    if (resource.config && resource.presentAnimation != PWAnimationPresentNone) {
+    if (resource.config && resource.presentAnimation != PWAnimationPresentUnset) {
         return resource.presentAnimation;
     }
     return _settings.presentAnimation;
@@ -83,7 +89,7 @@ static NSTimeInterval timeInterval = 0;
 - (DismissModalWindowAnimation)effectiveDismissAnimationForResource:(PWResource *)resource {
     [resource readConfig];
     
-    if (resource.config && resource.dismissAnimation != PWAnimationDismissDefault) {
+    if (resource.config && resource.dismissAnimation != PWAnimationDismissUnset) {
         return resource.dismissAnimation;
     }
     return _settings.dismissAnimation;
@@ -98,37 +104,43 @@ static NSTimeInterval timeInterval = 0;
     return _settings.dismissSwipeDirections;
 }
 
+- (NSTimeInterval)effectiveAnimationDurationForResource:(PWResource *)resource fallback:(NSTimeInterval)fallback {
+    [resource readConfig];
+
+    if (resource.config && resource.animationDuration > 0) {
+        return resource.animationDuration;
+    }
+    if (_settings.animationDuration > 0) {
+        return _settings.animationDuration;
+    }
+    return fallback;
+}
+
 #pragma mark - Modal Window Setup
 
 - (void)createModalWindowWith:(PWResource *)resource
                     richMedia:(PWRichMedia *)richMedia
                   modalWindow:(PWModalWindow *)modalWindow
                        window:(UIWindow *)window {
-    _modalWindow = modalWindow;
     _currentResource = resource;
-    
-    _modalWindow.translatesAutoresizingMaskIntoConstraints = NO;
-    [window addSubview:_modalWindow];
-    
+
+    modalWindow.translatesAutoresizingMaskIntoConstraints = NO;
+    [window addSubview:modalWindow];
+
     if ([self shouldShowCloseButtonForResource:resource]) {
-        [self setupCloseButtonForModalWindow:_modalWindow inWindow:window];
+        [self setupCloseButtonForModalWindow:modalWindow inWindow:window];
     }
 
     [self setupModalWindowConstraintsInWindow:window];
-    [_modalWindow createModalWindow:resource modalWindow:richMedia];
+    [modalWindow createModalWindow:resource modalWindow:richMedia];
 }
 
 - (BOOL)shouldShowCloseButtonForResource:(PWResource *)resource {
     ModalWindowPosition position = [self effectiveModalWindowPositionForResource:resource];
-    PresentModalWindowAnimation presentAnim = [self effectivePresentAnimationForResource:resource];
-    DismissModalWindowAnimation dismissAnim = [self effectiveDismissAnimationForResource:resource];
-    
+
     return resource.closeButton &&
            (position == PWModalWindowPositionCenter ||
-            position == PWModalWindowPositionDefault) &&
-           presentAnim == PWAnimationPresentFromBottom &&
-           (dismissAnim == PWAnimationCurveEaseInOut ||
-            dismissAnim == PWAnimationDismissDefault);
+            position == PWModalWindowPositionDefault);
 }
 
 - (void)setupCloseButtonForModalWindow:(PWModalWindow *)modalWindow inWindow:(UIWindow *)window {
@@ -145,32 +157,32 @@ static NSTimeInterval timeInterval = 0;
     ModalWindowPosition effectivePosition = [self effectiveModalWindowPositionForResource:_currentResource];
     
     [NSLayoutConstraint activateConstraints:@[
-        [_modalWindow.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
-        [_modalWindow.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor]
+        [self.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
+        [self.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor]
     ]];
-    
+
     switch (effectivePosition) {
         case PWModalWindowPositionTop:
             [NSLayoutConstraint activateConstraints:@[
-                [_modalWindow.topAnchor constraintEqualToAnchor:safe.topAnchor constant:15]
+                [self.topAnchor constraintEqualToAnchor:safe.topAnchor constant:15]
             ]];
             break;
         case PWModalWindowPositionBottom:
             [NSLayoutConstraint activateConstraints:@[
-                [_modalWindow.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor constant:-15]
+                [self.bottomAnchor constraintEqualToAnchor:safe.bottomAnchor constant:-15]
             ]];
             break;
         case PWModalWindowPositionBottomSheet:
             [NSLayoutConstraint activateConstraints:@[
-                [_modalWindow.bottomAnchor constraintEqualToAnchor:window.bottomAnchor constant:0]
+                [self.bottomAnchor constraintEqualToAnchor:window.bottomAnchor constant:0]
             ]];
             break;
         case PWModalWindowPositionFullScreen:
             [NSLayoutConstraint activateConstraints:@[
-                [_modalWindow.topAnchor constraintEqualToAnchor:window.topAnchor],
-                [_modalWindow.bottomAnchor constraintEqualToAnchor:window.bottomAnchor],
-                [_modalWindow.leadingAnchor constraintEqualToAnchor:window.leadingAnchor],
-                [_modalWindow.trailingAnchor constraintEqualToAnchor:window.trailingAnchor]
+                [self.topAnchor constraintEqualToAnchor:window.topAnchor],
+                [self.bottomAnchor constraintEqualToAnchor:window.bottomAnchor],
+                [self.leadingAnchor constraintEqualToAnchor:window.leadingAnchor],
+                [self.trailingAnchor constraintEqualToAnchor:window.trailingAnchor]
             ]];
             break;
         case PWModalWindowPositionCenter:
@@ -185,17 +197,17 @@ static NSTimeInterval timeInterval = 0;
 - (void)activateCenterConstraintsForModalWindow:(UILayoutGuide *)safe {
     if (_closeButton) {
         [NSLayoutConstraint activateConstraints:@[
-            [_closeButton.bottomAnchor constraintEqualToAnchor:_modalWindow.topAnchor constant:-5],
-            [_closeButton.leadingAnchor constraintEqualToAnchor:_modalWindow.leadingAnchor constant:15],
+            [_closeButton.bottomAnchor constraintEqualToAnchor:self.topAnchor constant:-5],
+            [_closeButton.leadingAnchor constraintEqualToAnchor:self.leadingAnchor constant:15],
             [_closeButton.widthAnchor constraintEqualToConstant:35],
             [_closeButton.heightAnchor constraintEqualToConstant:35],
-            [_modalWindow.centerYAnchor constraintEqualToAnchor:safe.centerYAnchor],
-            [_modalWindow.centerXAnchor constraintEqualToAnchor:safe.centerXAnchor]
+            [self.centerYAnchor constraintEqualToAnchor:safe.centerYAnchor],
+            [self.centerXAnchor constraintEqualToAnchor:safe.centerXAnchor]
         ]];
     } else {
         [NSLayoutConstraint activateConstraints:@[
-            [_modalWindow.centerYAnchor constraintEqualToAnchor:safe.centerYAnchor],
-            [_modalWindow.centerXAnchor constraintEqualToAnchor:safe.centerXAnchor]
+            [self.centerYAnchor constraintEqualToAnchor:safe.centerYAnchor],
+            [self.centerXAnchor constraintEqualToAnchor:safe.centerXAnchor]
         ]];
     }
 }
@@ -218,10 +230,6 @@ static NSTimeInterval timeInterval = 0;
 - (void)createModalWindow:(PWResource *)resource modalWindow:(PWRichMedia *)richMedia {
     [self.richMediaView removeFromSuperview];
     self.richMediaView = nil;
-    
-    CGFloat yPositionInitialize = 2000;
-    CGFloat xPositionInitialize = 2000;
-    CGFloat safeAreaGap = 15.0;
 
     self.richMedia = richMedia;
     _richMediaView = [[PWRichMediaView alloc] initWithFrame:self.bounds
@@ -251,51 +259,10 @@ static NSTimeInterval timeInterval = 0;
         
         [self addSubview:self.richMediaView];
                 
-        __block CGRect frame = self.frame;
-        
         [self.richMediaView loadRichMedia:richMedia completion:^(NSError *error) {
             if (!error) {
                 [weakSelf animateViewWithCompletion:^{
-                    weakSelf.richMediaView.alpha = 1.0f;
-                    weakSelf.modalWindow.closeButton.alpha = 1.0f;
-                    
-                    frame.origin.y = ([UIScreen mainScreen].bounds.size.height - weakSelf.richMediaView.frame.size.height) / 2;
-
-                    PresentModalWindowAnimation effectivePresent = [weakSelf effectivePresentAnimationForResource:weakSelf.currentResource];
-                    ModalWindowPosition effectivePosition = [weakSelf effectiveModalWindowPositionForResource:weakSelf.currentResource];
-
-                    UIViewPropertyAnimator *animator = [[UIViewPropertyAnimator alloc] initWithDuration:0.9
-                                                                                          dampingRatio:1.0
-                                                                                            animations:^{
-
-                        switch (effectivePresent) {
-                            case PWAnimationPresentFromTop:
-                                frame.origin.y += yPositionInitialize;
-                                weakSelf.frame = frame;
-                                break;
-                            case PWAnimationPresentFromBottom:
-                                frame.origin.y -= yPositionInitialize;
-                                weakSelf.frame = frame;
-                                CGRect closeFrame = weakSelf.closeButton.frame;
-                                closeFrame.origin.y -= yPositionInitialize;
-                                weakSelf.closeButton.frame = closeFrame;
-                                break;
-                            case PWAnimationPresentFromLeft:
-                            case PWAnimationPresentFromRight:
-                                frame.origin.y = [self yPositionForModalWindow:effectivePosition safeAreaGap:safeAreaGap];
-                                frame.origin.x += (effectivePresent == PWAnimationPresentFromLeft) ? xPositionInitialize : -xPositionInitialize;
-                                weakSelf.frame = frame;
-                                break;
-                            default:
-                                break;
-                        }
-                    }];
-                    
-                    [animator addCompletion:^(UIViewAnimatingPosition finalPosition) {
-                        [weakSelf handlePostAnimationTasks];
-                    }];
-                    
-                    [animator startAnimation];
+                    [weakSelf presentWithEffectiveAnimation];
                 }];
             } else {
                 if ([[[PWManagerBridge shared] richMediaManager].delegate respondsToSelector:@selector(richMediaManager:presentingDidFailForRichMedia:withError:)]) {
@@ -304,6 +271,64 @@ static NSTimeInterval timeInterval = 0;
             }
         }];
     }
+}
+
+- (void)presentWithEffectiveAnimation {
+    PresentModalWindowAnimation effectivePresent = [self effectivePresentAnimationForResource:self.currentResource];
+
+    [self.superview layoutIfNeeded];
+
+    if (effectivePresent == PWAnimationPresentNone) {
+        self.transform = CGAffineTransformIdentity;
+        self.closeButton.transform = CGAffineTransformIdentity;
+        self.closeButton.alpha = 1.0f;
+        self.richMediaView.alpha = 1.0f;
+        [self handlePostAnimationTasks];
+        return;
+    }
+
+    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+    CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+    CGAffineTransform offscreen = CGAffineTransformIdentity;
+
+    switch (effectivePresent) {
+        case PWAnimationPresentSlideUp:
+            offscreen = CGAffineTransformMakeTranslation(0, screenHeight);
+            break;
+        case PWAnimationPresentDropDown:
+            offscreen = CGAffineTransformMakeTranslation(0, -screenHeight);
+            break;
+        case PWAnimationPresentSlideFromLeft:
+            offscreen = CGAffineTransformMakeTranslation(-screenWidth, 0);
+            break;
+        case PWAnimationPresentSlideFromRight:
+            offscreen = CGAffineTransformMakeTranslation(screenWidth, 0);
+            break;
+        default:
+            break;
+    }
+
+    BOOL isFade = (effectivePresent == PWAnimationPresentFadeIn);
+
+    self.transform = offscreen;
+    self.closeButton.transform = offscreen;
+    self.richMediaView.alpha = isFade ? 0.0f : 1.0f;
+    self.closeButton.alpha = isFade ? 0.0f : 1.0f;
+
+    UIViewPropertyAnimator *animator = [[UIViewPropertyAnimator alloc] initWithDuration:[self effectiveAnimationDurationForResource:self.currentResource fallback:kPWModalDefaultAnimationDuration]
+                                                                          dampingRatio:1.0
+                                                                            animations:^{
+        self.transform = CGAffineTransformIdentity;
+        self.closeButton.transform = CGAffineTransformIdentity;
+        self.richMediaView.alpha = 1.0f;
+        self.closeButton.alpha = 1.0f;
+    }];
+
+    [animator addCompletion:^(UIViewAnimatingPosition finalPosition) {
+        [self handlePostAnimationTasks];
+    }];
+
+    [animator startAnimation];
 }
 
 - (void)layoutSubviews {
@@ -346,37 +371,24 @@ static NSTimeInterval timeInterval = 0;
     view.layer.mask = maskLayer;
 }
 
-- (CGFloat)yPositionForModalWindow:(ModalWindowPosition)position safeAreaGap:(CGFloat)safeAreaGap {
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    if (position == PWModalWindowPositionBottom) {
-        return screenHeight - self.richMediaView.frame.size.height - safeAreaGap;
-    } else if (position == PWModalWindowPositionTop) {
-        CGFloat safeAreaHeight = [UIApplication sharedApplication].windows.firstObject.safeAreaInsets.top;
-        return safeAreaHeight + safeAreaGap;
-    } else {
-        return ([UIScreen mainScreen].bounds.size.height - self.richMediaView.frame.size.height) / 2;
-    }
-}
-
-- (void)bottomPositionY:(CGRect)frame {
-    CGFloat safeAreaBottom = 20.0;
-    CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
-    frame.origin.y = screenHeight - self.richMediaView.frame.size.height - safeAreaBottom;
-}
-
 - (void)handlePostAnimationTasks {
+    if (_isDismissing || !self.richMedia) {
+        return;
+    }
+
     if ([[[PWManagerBridge shared] richMediaManager].delegate respondsToSelector:@selector(richMediaManager:didPresentRichMedia:)]) {
         [[[PWManagerBridge shared] richMediaManager].delegate richMediaManager:[[PWManagerBridge shared] richMediaManager] didPresentRichMedia:self.richMedia];
     }
-    
-    if (timeInterval > 0) {
-        NSTimeInterval delayInSeconds = timeInterval;
+
+    if (_settings.autoCloseInterval > 0) {
+        NSTimeInterval delayInSeconds = _settings.autoCloseInterval;
         dispatch_time_t popTime = dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delayInSeconds * NSEC_PER_SEC));
+        __weak typeof(self) weakSelf = self;
         dispatch_after(popTime, dispatch_get_main_queue(), ^{
-            [self didCloseModalWindow:nil];
+            [weakSelf didCloseModalWindow:nil];
         });
     }
-    
+
     [self addSwipeDismissDirection];
     [self addHapticFeedbackToModalWindow];
 }
@@ -446,66 +458,81 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (void)didCloseModalWindow:(UISwipeGestureRecognizer *)recognizer {
-    [self.richMediaView loadRichMedia:nil completion:nil];
-    
-    if ([self shouldDismissModalWindow]) {
-        DismissModalWindowAnimation effectiveDismiss = [self effectiveDismissAnimationForResource:_currentResource];
-        [self animateDismissModalWindow:effectiveDismiss completion:nil];
+    if (_isDismissing) {
         return;
     }
-    
-    DismissModalWindowAnimation swipeDismissDirection = [self animationDirectionForSwipeDirection:recognizer.direction];
-    
-    if (swipeDismissDirection != PWSwipeDismissNone) {
-        [self animateDismissModalWindow:swipeDismissDirection completion:nil];
-    }
-}
+    _isDismissing = YES;
 
-- (BOOL)shouldDismissModalWindow {
-    NSArray<NSNumber *> *directions = [self effectiveSwipeDirectionsForResource:_currentResource];
-    return directions.count == 0 || [directions containsObject:@(PWSwipeDismissNone)];
+    [self.richMediaView loadRichMedia:nil completion:nil];
+
+    if (recognizer) {
+        DismissModalWindowAnimation swipeDismissDirection = [self animationDirectionForSwipeDirection:recognizer.direction];
+        [self animateDismissModalWindow:swipeDismissDirection completion:nil];
+    } else {
+        DismissModalWindowAnimation effectiveDismiss = [self effectiveDismissAnimationForResource:_currentResource];
+        [self animateDismissModalWindow:effectiveDismiss completion:nil];
+    }
 }
 
 - (DismissModalWindowAnimation)animationDirectionForSwipeDirection:(UISwipeGestureRecognizerDirection)direction {
     switch (direction) {
         case UISwipeGestureRecognizerDirectionUp:
-            return PWAnimationDismissUp;
+            return PWAnimationDismissSlideUp;
         case UISwipeGestureRecognizerDirectionDown:
-            return PWAnimationDismissDown;
+            return PWAnimationDismissSlideDown;
         case UISwipeGestureRecognizerDirectionLeft:
-            return PWAnimationDismissLeft;
+            return PWAnimationDismissSlideLeft;
         case UISwipeGestureRecognizerDirectionRight:
-            return PWAnimationDismissRight;
+            return PWAnimationDismissSlideRight;
         default:
-            return PWAnimationDismissDown;
+            return PWAnimationDismissSlideDown;
     }
-}
-
-- (void)closeWithoutAnimation {
-    [self handleRichMediaViewClosure];
 }
 
 - (void)animateDismissModalWindow:(DismissModalWindowAnimation)direction completion:(dispatch_block_t)completion {
     _richMedia.resource.locked = NO;
     if (direction == PWAnimationCurveEaseInOut || direction == PWAnimationDismissDefault) {
-        [self animateCurveEaseInOut:self.richMediaView completion:nil];
+        [self animateCurveEaseInOut:self.richMediaView completion:completion];
+        return;
+    }
+
+    if (direction == PWAnimationDismissNone) {
+        [self handleRichMediaViewClosure];
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+
+    if (direction == PWAnimationDismissFadeOut) {
+        [UIView animateWithDuration:[self effectiveAnimationDurationForResource:_currentResource fallback:kPWModalDefaultAnimationDuration] animations:^{
+            self.richMediaView.alpha = 0.0f;
+            self.closeButton.alpha = 0.0f;
+        } completion:^(BOOL finished) {
+            [self handleRichMediaViewClosure];
+            if (completion) {
+                completion();
+            }
+        }];
         return;
     }
     
-    [UIView animateWithDuration:0.5 animations:^{
-        CGFloat dismissAnimationPosition = 1000.0f;
-        CGRect frame = self.frame;
-        
-        if (direction == PWAnimationDismissUp) {
-            frame.origin.y -= dismissAnimationPosition;
-        } else if (direction == PWAnimationDismissDown) {
-            frame.origin.y += dismissAnimationPosition;
-        } else if (direction == PWAnimationDismissLeft) {
-            frame.origin.x -= dismissAnimationPosition;
-        } else if (direction == PWAnimationDismissRight) {
-            frame.origin.x += dismissAnimationPosition;
+    [UIView animateWithDuration:[self effectiveAnimationDurationForResource:_currentResource fallback:kPWModalDefaultAnimationDuration] animations:^{
+        CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
+        CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
+        CGAffineTransform offscreen = CGAffineTransformIdentity;
+
+        if (direction == PWAnimationDismissSlideUp) {
+            offscreen = CGAffineTransformMakeTranslation(0, -screenHeight);
+        } else if (direction == PWAnimationDismissSlideDown) {
+            offscreen = CGAffineTransformMakeTranslation(0, screenHeight);
+        } else if (direction == PWAnimationDismissSlideLeft) {
+            offscreen = CGAffineTransformMakeTranslation(-screenWidth, 0);
+        } else if (direction == PWAnimationDismissSlideRight) {
+            offscreen = CGAffineTransformMakeTranslation(screenWidth, 0);
         }
-        self.frame = frame;
+        self.transform = offscreen;
+        self.closeButton.transform = offscreen;
     } completion:^(BOOL finished) {
         [self handleRichMediaViewClosure];
         if (completion) {
@@ -515,6 +542,9 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (void)animateViewWithCompletion:(dispatch_block_t)completion {
+    if (_isDismissing) {
+        return;
+    }
     [self handleRichMediaViewClosure];
     if (completion) {
         completion();
@@ -522,7 +552,7 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (void)animateCurveEaseInOut:(UIView *)view completion:(dispatch_block_t)completion {
-    [UIView animateWithDuration:0.2
+    [UIView animateWithDuration:[self effectiveAnimationDurationForResource:self.currentResource fallback:0.2]
                           delay:0.0
                         options:UIViewAnimationOptionCurveEaseInOut
                      animations:^{
@@ -538,14 +568,6 @@ static NSTimeInterval timeInterval = 0;
     }
                      completion:^(BOOL finished) {
         [self handleRichMediaViewClosure];
-        if (_closeButton) {
-            [view setHidden:YES];
-            [view removeFromSuperview];
-            _modalWindow = nil;
-            [_closeButton setHidden:YES];
-            [_closeButton removeFromSuperview];
-            _closeButton = nil;
-        }
         if (completion) {
             completion();
         }
@@ -553,6 +575,10 @@ static NSTimeInterval timeInterval = 0;
 }
 
 - (void)handleRichMediaViewClosure {
+    if (!self.richMedia) {
+        return;
+    }
+
     if (!self.richMediaView.richMedia) { // User closed the view
         [self.richMediaView removeFromSuperview];
         self.richMediaView = nil;
@@ -560,8 +586,20 @@ static NSTimeInterval timeInterval = 0;
         if ([[[PWManagerBridge shared] richMediaManager].delegate respondsToSelector:@selector(richMediaManager:didCloseRichMedia:)]) {
             [[[PWManagerBridge shared] richMediaManager].delegate richMediaManager:[[PWManagerBridge shared] richMediaManager] didCloseRichMedia:self.richMedia];
         }
-        
+
+        if (_closeButton) {
+            [_closeButton removeFromSuperview];
+            _closeButton = nil;
+        }
+
         [self removeFromSuperview];
+
+        self.richMedia = nil;
+        self.currentResource = nil;
+
+        if (_presenter.modalWindow == self) {
+            _presenter.modalWindow = nil;
+        }
     }
 }
 

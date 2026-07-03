@@ -53,6 +53,9 @@
 - (void)hideLoading {
 #if TARGET_OS_IOS
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        if (_counter == 0) {
+            return;
+        }
         _counter--;
         if (_counter == 0) {
             [_loadingViewController closeController];

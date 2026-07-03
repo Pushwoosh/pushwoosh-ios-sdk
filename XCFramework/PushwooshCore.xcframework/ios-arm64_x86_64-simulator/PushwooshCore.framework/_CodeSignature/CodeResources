@@ -78,7 +78,7 @@
 		</data>
 		<key>Headers/PWMedia.h</key>
 		<data>
-		nbMxYq8MvnrwsTknnUX+KVOFmzo=
+		KLE3g1YVe7/pfxHv5kcv86P4ki8=
 		</data>
 		<key>Headers/PWMessage+Internal.h</key>
 		<data>
@@ -94,11 +94,11 @@
 		</data>
 		<key>Headers/PWModalRichMedia.h</key>
 		<data>
-		Y04i6qDeTuC2xnilS8pA6U2Pqnc=
+		cVGIkD/WzDcBkQbbUvtuxnryDI8=
 		</data>
 		<key>Headers/PWModalWindowConfiguration.h</key>
 		<data>
-		cpZhdSw5Zqk7wabmPepSYqghchE=
+		XefRpjwSaQ7iObSUpF6BiU2kIsg=
 		</data>
 		<key>Headers/PWNetworkModule.h</key>
 		<data>
@@ -134,7 +134,7 @@
 		</data>
 		<key>Headers/PWRichMediaTypes.h</key>
 		<data>
-		D8OVpeVwD+OQqhr7VIiQkBEedXA=
+		jJ1txKe5hkH5CmJNSPbOjaHGFSQ=
 		</data>
 		<key>Headers/PWTypes.h</key>
 		<data>
@@ -146,7 +146,7 @@
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		6UTZWgyLk6rAYjl85shOL5vheKs=
+		+YQg5HDViat5b3ZyhZDMIg9nZ38=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -154,7 +154,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		NvR3mIiwfMgG2tRZLQLqu4JpHM8=
+		jpyYIVAE2V0XOe4Dvi34nEx81pI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -202,7 +202,7 @@
 		</data>
 		<key>PrivateHeaders/PWModalWindowSettings.h</key>
 		<data>
-		HlluHymx3YiFaFKI0ALU/8D6dPE=
+		VKaJ+QC6dyu7MJgdocD+n4hKIsI=
 		</data>
 		<key>PrivateHeaders/PWNotificationCategoryBuilder.h</key>
 		<data>
@@ -242,7 +242,7 @@
 		</data>
 		<key>PrivateHeaders/PWResource.h</key>
 		<data>
-		NGaXq3+kE+OKalFsDS8IyDCsQt4=
+		fDNEi3Y7a5b6dbzDIJNLpn4c5Ng=
 		</data>
 		<key>PrivateHeaders/PWRichMedia+Internal.h</key>
 		<data>
@@ -250,7 +250,7 @@
 		</data>
 		<key>PrivateHeaders/PWRichMediaConfig.h</key>
 		<data>
-		4TL1WP7kx89pJFuN4Zd2Ig/6jBI=
+		xEZCPKcbG//G4tbHp6lcqX88yKY=
 		</data>
 		<key>PrivateHeaders/PWRichMediaView.h</key>
 		<data>
@@ -421,7 +421,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			E6lTfkm6/UUhzWiTrCT+a82wzxLkqvcaVtHXihpnyeY=
+			WO0NqGIg3xM6WMhYriyVK/piiYLUhgrlHxrhqg0rNX8=
 			</data>
 		</dict>
 		<key>Headers/PWMessage+Internal.h</key>
@@ -449,14 +449,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tiSj/pS56ahzVawDpBtTXWa6P8h4N4ChCkrqPXJps20=
+			xjKesWgV4B0jjY2HzzFT60PIesoknCaGDoA3ucs0iDA=
 			</data>
 		</dict>
 		<key>Headers/PWModalWindowConfiguration.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			T+5paoNlpj0rQraIgqm6oVHj8uvsLmD7jD75WGNBpB0=
+			JFHNEWWz44dBcmAlZyWz8TpFwhouG5LcAVCy6pSHRLs=
 			</data>
 		</dict>
 		<key>Headers/PWNetworkModule.h</key>
@@ -519,7 +519,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			IA8eXQeJKsSP3y17tAsuk3HsQPL7mHCI2YGnSGHJLbI=
+			MQe+ZUu4U5WqWBFB4fjFY28vaKwYIJlcwFYv7UMJ6q0=
 			</data>
 		</dict>
 		<key>Headers/PWTypes.h</key>
@@ -540,7 +540,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			qv9zQcVa8V6QiyuAhUlacVXJxwamLnxUuOJnSn/DvTM=
+			2hTJZoPWgNpyCBZuCEyINvuTOd6tM0R1MuDnN/pc9/I=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -631,7 +631,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			TqtWkEEuW9sqr1aYYofnvObdfOnjfljn4lJrEIl4Noo=
+			qJuEZ+DQeKjpI09/919jyVRlyY9gs9TNvQMvU0LJN9g=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWNotificationCategoryBuilder.h</key>
@@ -701,7 +701,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			CAVmvWIWc29FdHnzW2Nb/UlD4qR9r3plKzpNVzsqZN4=
+			PcTymRQ4rcQ/h8Zg8gXyDb3JrmfGV13KP6w2PKwL5bg=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWRichMedia+Internal.h</key>
@@ -715,7 +715,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ym45kVcaG91WHBCQbefOJOmGAa0cIroqaIr7E0DuhNk=
+			sALoZ0q86s29KExco5BRZFaj5SVIJXu3wDZSJyk0usY=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWRichMediaView.h</key>

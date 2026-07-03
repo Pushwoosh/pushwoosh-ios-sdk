@@ -7,6 +7,7 @@
 //
 
 import XCTest
+import ActivityKit
 @testable import PushwooshLiveActivities
 import PushwooshCore
 
@@ -18,9 +19,6 @@ final class PushwooshLiveActivitiesImplementationSetupTests: XCTestCase {
         try super.setUpWithError()
         savedAppCode = PWPreferences.preferencesInstance().appCode
         PWPreferences.preferencesInstance().appCode = TestConstants.appCode
-        let ready = XCTestExpectation(description: "sdk ready")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { ready.fulfill() }
-        wait(for: [ready], timeout: 1.0)
     }
 
     override func tearDownWithError() throws {
@@ -52,5 +50,60 @@ final class PushwooshLiveActivitiesImplementationSetupTests: XCTestCase {
         XCTAssertNotNil(capturedError)
         XCTAssertEqual((capturedError as NSError?)?.domain, "pushwoosh")
         XCTAssertEqual((capturedError as NSError?)?.code, 1)
+    }
+
+    /// Verifies that scheduling a default Live Activity on iOS < 26 fails the completion with the
+    /// version-required error instead of starting anything. Skipped on iOS 26+, where the gate is absent.
+    func test_defaultStartAt_belowiOS26_failsWithVersionError() throws {
+        if #available(iOS 26.0, *) {
+            throw XCTSkip("Scheduling is supported on this OS; the version gate does not apply.")
+        }
+
+        let completion = XCTestExpectation(description: "completion fired")
+        var capturedError: Error?
+
+        PushwooshLiveActivitiesImplementationSetup.defaultStart(
+            "sched_1",
+            attributes: ["team": "Lakers"],
+            content: ["score": "0:0"],
+            at: Date().addingTimeInterval(3600),
+            alertTitle: "Game starting",
+            alertBody: "Lakers vs Celtics"
+        ) { error in
+            capturedError = error
+            completion.fulfill()
+        }
+
+        wait(for: [completion], timeout: 1.0)
+
+        XCTAssertNotNil(capturedError)
+        XCTAssertEqual((capturedError as NSError?)?.domain, "pushwoosh")
+        XCTAssertEqual((capturedError as NSError?)?.code, 4)
+    }
+
+    /// Verifies cancel(_:activityId:) notifies the server with a PWRequestStopLiveActivity carrying the
+    /// given activityId. The on-device end()/observer-dedup path runs only with a live ActivityKit
+    /// activity, so in the unit host Activity.activities is empty and only the server-notify path executes.
+    func test_cancel_sendsStopRequestWithActivityId() throws {
+        guard #available(iOS 16.2, *) else {
+            throw XCTSkip("cancel(_:activityId:) requires iOS 16.2+.")
+        }
+        if !Activity<DefaultLiveActivityAttributes>.activities.isEmpty {
+            throw XCTSkip("A live DefaultLiveActivityAttributes activity is present (e.g. left over from an E2E run); cancel() would also drive the on-device end path, so this server-notify assertion is not isolated.")
+        }
+        let sent = XCTestExpectation(description: "stop request sent")
+        var capturedRequest: PWCoreSetLiveActivityTokenRequest?
+        PushwooshLiveActivitiesImplementationSetup._requestSender = { request, completion in
+            capturedRequest = request
+            completion(nil)
+            sent.fulfill()
+        }
+
+        PushwooshLiveActivitiesImplementationSetup.cancel(DefaultLiveActivityAttributes.self, activityId: "cancel-1")
+
+        wait(for: [sent], timeout: 1.0)
+
+        XCTAssertTrue(capturedRequest is PWRequestStopLiveActivity)
+        XCTAssertEqual((capturedRequest as? PWRequestStopLiveActivity)?.parameters.activityId, "cancel-1")
     }
 }

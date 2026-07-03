@@ -191,6 +191,58 @@ public protocol PWLiveActivities {
     /// > an `Error` describing the unsupported OS version.
     @available(iOS 16.1, *)
     static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any], completion: @escaping (Error?) -> Void)
+
+    /// Schedules a Live Activity using the default Pushwoosh-managed attributes to start at a future date.
+    ///
+    /// Same as ``defaultStart(_:attributes:content:)`` but the activity stays in the `pending` state
+    /// until `startDate`, when the system starts it — even if the app is in the background. The SDK
+    /// hides the iOS 26 `Activity.request(start:)` mechanics (mandatory alert, activity style,
+    /// `ActivityContent` wrapping); you pass a date and the alert text the system shows on start.
+    ///
+    /// - Parameters:
+    ///   - activityId: Unique identifier for this activity instance used for targeting updates.
+    ///   - attributes: Static attribute dictionary that does not change across the activity lifetime.
+    ///   - content: Initial dynamic content-state dictionary rendered by the widget.
+    ///   - startDate: The future date at which the system starts the Live Activity. Must be in the future.
+    ///   - alertTitle: Title of the alert the system shows when the scheduled activity starts.
+    ///   - alertBody: Body of the alert the system shows when the scheduled activity starts.
+    ///
+    /// ## Example
+    ///
+    /// ```swift
+    /// if #available(iOS 26.0, *) {
+    ///     Pushwoosh.LiveActivities.defaultStart(
+    ///         "order_123",
+    ///         attributes: ["orderName": "Pizza"],
+    ///         content: ["status": "Preparing"],
+    ///         at: Date().addingTimeInterval(3600),
+    ///         alertTitle: "Order scheduled",
+    ///         alertBody: "Your order tracking starts soon")
+    /// }
+    /// ```
+    ///
+    /// > Important: Available on iOS 26.0+ — that is where ActivityKit added the `start:` parameter.
+    /// > Obj-C / plugin callers are additionally protected by a runtime guard inside the implementation —
+    /// > calling on iOS < 26.0 is a logged no-op.
+    @available(iOS 26.0, *)
+    static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any],
+                             at startDate: Date, alertTitle: String, alertBody: String)
+
+    /// Schedules a Live Activity using the default Pushwoosh-managed attributes with a completion handler.
+    ///
+    /// - Parameters:
+    ///   - activityId: Unique identifier for this activity instance used for targeting updates.
+    ///   - attributes: Static attribute dictionary that does not change across the activity lifetime.
+    ///   - content: Initial dynamic content-state dictionary rendered by the widget.
+    ///   - startDate: The future date at which the system starts the Live Activity. Must be in the future.
+    ///   - alertTitle: Title of the alert the system shows when the scheduled activity starts.
+    ///   - alertBody: Body of the alert the system shows when the scheduled activity starts.
+    ///   - completion: Completion handler called with `nil` on success or an `Error` if the OS version
+    ///     is below 26.0, `startDate` is not in the future, or `Activity.request()` throws.
+    @available(iOS 26.0, *)
+    static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any],
+                             at startDate: Date, alertTitle: String, alertBody: String,
+                             completion: @escaping (Error?) -> Void)
 }
 
 // Default no-op fallbacks for external conformers (custom mocks / test doubles).
@@ -214,6 +266,20 @@ public extension PWLiveActivities {
             code: -2,
             userInfo: [NSLocalizedDescriptionKey:
                 "defaultStart(_:attributes:content:completion:) is not implemented by this PWLiveActivities conformer."])
+        completion(error)
+    }
+    @available(iOS 26.0, *)
+    static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any],
+                             at startDate: Date, alertTitle: String, alertBody: String) { }
+    @available(iOS 26.0, *)
+    static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any],
+                             at startDate: Date, alertTitle: String, alertBody: String,
+                             completion: @escaping (Error?) -> Void) {
+        let error = NSError(
+            domain: "pushwoosh",
+            code: -2,
+            userInfo: [NSLocalizedDescriptionKey:
+                "defaultStart(_:attributes:content:at:alertTitle:alertBody:completion:) is not implemented by this PWLiveActivities conformer."])
         completion(error)
     }
 }

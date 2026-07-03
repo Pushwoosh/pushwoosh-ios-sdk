@@ -178,9 +178,14 @@
  */
 - (void)getTags:(PWEasyJSWKDataFunction*)successCallback :(PWEasyJSWKDataFunction*)errorCallback {
 	[[PWManagerBridge shared] loadTags:^(NSDictionary *tags) {
-		NSData *json = [NSJSONSerialization dataWithJSONObject:tags options:NSJSONWritingPrettyPrinted error:nil];
-		NSString *jsonString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
-		
+		NSString *jsonString = @"{}";
+		if ([NSJSONSerialization isValidJSONObject:tags]) {
+			NSData *json = [NSJSONSerialization dataWithJSONObject:tags options:NSJSONWritingPrettyPrinted error:nil];
+			if (json) {
+				jsonString = [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding];
+			}
+		}
+
 		[successCallback executeWithParam:jsonString];
 	}error:^(NSError *error) {
 		[errorCallback executeWithParam:[error description]];

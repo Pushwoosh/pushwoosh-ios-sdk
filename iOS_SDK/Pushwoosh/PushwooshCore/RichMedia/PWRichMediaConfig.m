@@ -21,6 +21,7 @@
 @property (nonatomic, assign) ModalWindowPosition position;
 @property (nonatomic, assign) PresentModalWindowAnimation presentAnimation;
 @property (nonatomic, assign) DismissModalWindowAnimation dismissAnimation;
+@property (nonatomic, assign) NSTimeInterval animationDuration;
 @property (nonatomic, strong) NSArray<NSNumber *> *swipeToDismiss;
 
 + (ModalWindowPosition)positionFromString:(NSString *)string;
@@ -60,11 +61,11 @@
         }
         
         NSDictionary *localization = parsedConfig[@"localization"];
-        if (!localization || ![localization isKindOfClass:[NSDictionary class]]) {
-            [PushwooshLog pushwooshLog:PW_LL_ERROR
+        if (![localization isKindOfClass:[NSDictionary class]]) {
+            localization = nil;
+            [PushwooshLog pushwooshLog:PW_LL_DEBUG
                              className:self
-                               message:@"Invalid pushwoosh config file structure, expected \"localization\" dicrionary"];
-            return nil;
+                               message:@"No \"localization\" in pushwoosh config; continuing with style settings only"];
         }
         
         [PushwooshLog pushwooshLog:PW_LL_DEBUG
@@ -92,7 +93,7 @@
         if (iosCloseButtonObj && [iosCloseButtonObj isKindOfClass:[NSNumber class]]) {
             self.iosCloseButton = iosCloseButtonObj.boolValue;
         } else {
-            self.iosCloseButton = YES;
+            self.iosCloseButton = NO;
         }
         
         NSString *presentationStyleKeyObj = parsedConfig[@"presentationStyleKey"];
@@ -116,8 +117,8 @@
         [self parseStyleSettings:styleDict];
     } else {
         self.position = PWModalWindowPositionDefault;
-        self.presentAnimation = PWAnimationPresentNone;
-        self.dismissAnimation = PWAnimationDismissDefault;
+        self.presentAnimation = PWAnimationPresentUnset;
+        self.dismissAnimation = PWAnimationDismissUnset;
         self.swipeToDismiss = @[];
     }
 }
@@ -126,6 +127,11 @@
     self.position = [self.class positionFromString:styleDict[@"position"]];
     self.presentAnimation = [self.class presentAnimationFromString:styleDict[@"present_animation"]];
     self.dismissAnimation = [self.class dismissAnimationFromString:styleDict[@"dismiss_animation"]];
+
+    id durationValue = styleDict[@"animation_duration"];
+    if ([durationValue isKindOfClass:[NSNumber class]]) {
+        self.animationDuration = [durationValue doubleValue] / 1000.0;
+    }
     
     NSMutableArray *swipeArray = [NSMutableArray array];
     id swipeValue = styleDict[@"swipe_to_dismiss"];
@@ -146,50 +152,58 @@
 #pragma mark - String to Enum Conversion
 
 + (ModalWindowPosition)positionFromString:(NSString *)string {
-    if (!string || ![string isKindOfClass:[NSString class]]) {
+    if (![string isKindOfClass:[NSString class]]) {
         return PWModalWindowPositionDefault;
     }
-    
-    if ([string isEqualToString:@"fullscreen"]) return PWModalWindowPositionFullScreen;
-    if ([string isEqualToString:@"top"]) return PWModalWindowPositionTop;
-    if ([string isEqualToString:@"center"]) return PWModalWindowPositionCenter;
-    if ([string isEqualToString:@"bottom"]) return PWModalWindowPositionBottom;
+
+    NSString *value = string.lowercaseString;
+    if ([value isEqualToString:@"fullscreen"]) return PWModalWindowPositionFullScreen;
+    if ([value isEqualToString:@"top"]) return PWModalWindowPositionTop;
+    if ([value isEqualToString:@"center"]) return PWModalWindowPositionCenter;
+    if ([value isEqualToString:@"bottom"]) return PWModalWindowPositionBottom;
     return PWModalWindowPositionDefault;
 }
 
 + (PresentModalWindowAnimation)presentAnimationFromString:(NSString *)string {
-    if (!string || ![string isKindOfClass:[NSString class]]) {
-        return PWAnimationPresentNone;
+    if (![string isKindOfClass:[NSString class]]) {
+        return PWAnimationPresentUnset;
     }
-    
-    if ([string isEqualToString:@"left"]) return PWAnimationPresentFromLeft;
-    if ([string isEqualToString:@"right"]) return PWAnimationPresentFromRight;
-    if ([string isEqualToString:@"up"]) return PWAnimationPresentFromTop;
-    if ([string isEqualToString:@"down"]) return PWAnimationPresentFromBottom;
-    return PWAnimationPresentNone;
+
+    NSString *value = string.lowercaseString;
+    if ([value isEqualToString:@"left"]) return PWAnimationPresentSlideFromLeft;
+    if ([value isEqualToString:@"right"]) return PWAnimationPresentSlideFromRight;
+    if ([value isEqualToString:@"up"]) return PWAnimationPresentSlideUp;
+    if ([value isEqualToString:@"down"]) return PWAnimationPresentDropDown;
+    if ([value isEqualToString:@"fade_in"]) return PWAnimationPresentFadeIn;
+    if ([value isEqualToString:@"none"]) return PWAnimationPresentNone;
+    return PWAnimationPresentUnset;
 }
 
 + (DismissModalWindowAnimation)dismissAnimationFromString:(NSString *)string {
-    if (!string || ![string isKindOfClass:[NSString class]]) {
-        return PWAnimationDismissDefault;
+    if (![string isKindOfClass:[NSString class]]) {
+        return PWAnimationDismissUnset;
     }
-    
-    if ([string isEqualToString:@"left"]) return PWAnimationDismissLeft;
-    if ([string isEqualToString:@"right"]) return PWAnimationDismissRight;
-    if ([string isEqualToString:@"up"]) return PWAnimationDismissUp;
-    if ([string isEqualToString:@"down"]) return PWAnimationDismissDown;
-    return PWAnimationDismissDefault;
+
+    NSString *value = string.lowercaseString;
+    if ([value isEqualToString:@"left"]) return PWAnimationDismissSlideLeft;
+    if ([value isEqualToString:@"right"]) return PWAnimationDismissSlideRight;
+    if ([value isEqualToString:@"up"]) return PWAnimationDismissSlideUp;
+    if ([value isEqualToString:@"down"]) return PWAnimationDismissSlideDown;
+    if ([value isEqualToString:@"fade_out"]) return PWAnimationDismissFadeOut;
+    if ([value isEqualToString:@"none"]) return PWAnimationDismissNone;
+    return PWAnimationDismissUnset;
 }
 
 + (DismissSwipeDirection)swipeDirectionFromString:(NSString *)string {
-    if (!string || ![string isKindOfClass:[NSString class]]) {
+    if (![string isKindOfClass:[NSString class]]) {
         return PWSwipeDismissNone;
     }
-    
-    if ([string isEqualToString:@"left"]) return PWSwipeDismissLeft;
-    if ([string isEqualToString:@"right"]) return PWSwipeDismissRight;
-    if ([string isEqualToString:@"up"]) return PWSwipeDismissUp;
-    if ([string isEqualToString:@"down"]) return PWSwipeDismissDown;
+
+    NSString *value = string.lowercaseString;
+    if ([value isEqualToString:@"left"]) return PWSwipeDismissLeft;
+    if ([value isEqualToString:@"right"]) return PWSwipeDismissRight;
+    if ([value isEqualToString:@"up"]) return PWSwipeDismissUp;
+    if ([value isEqualToString:@"down"]) return PWSwipeDismissDown;
     return PWSwipeDismissNone;
 }
 

@@ -42,6 +42,10 @@
     [[PWModalWindowConfiguration shared] closeModalWindowAfter:interval];
 }
 
++ (void)setAnimationDuration:(NSTimeInterval)duration {
+    [[PWModalWindowConfiguration shared] setAnimationDuration:duration];
+}
+
 + (id<PWRichMediaPresentingDelegate>)getDelegate {
     return [PWRichMediaManager sharedManager].delegate;
 }

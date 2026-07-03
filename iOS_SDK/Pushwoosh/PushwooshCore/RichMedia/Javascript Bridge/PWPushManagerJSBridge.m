@@ -117,7 +117,7 @@
 	[[[PWManagerBridge shared] inAppManager] postEvent:event withAttributes:attributesDict completion:^(NSError *error) {
 		if (!error) {
 			if (successCallback) {
-				NSString *javaScriptRequest = [NSString stringWithFormat:@"%@()", successCallback, nil];
+				NSString *javaScriptRequest = [NSString stringWithFormat:@"%@()", successCallback];
 
                 /**
                  Starting with iOS 14, we use WKContentWorld to run injected JavaScript in a secure sandboxed environment,
@@ -136,7 +136,7 @@
 			}
 		} else {
 			if (errorCallback) {
-				NSString *javaScriptRequest = [NSString stringWithFormat:@"%@('%@')", errorCallback, error.localizedDescription, nil];
+				NSString *javaScriptRequest = [NSString stringWithFormat:@"%@('%@')", errorCallback, error.localizedDescription];
                 /**
                  Starting with iOS 14, we use WKContentWorld to run injected JavaScript in a secure sandboxed environment,
                  isolating it from untrusted web JavaScript. More details: https://developer.apple.com/documentation/webkit/wkcontentworld

@@ -8,6 +8,7 @@
 #if !targetEnvironment(macCatalyst) && os(iOS)
 
 import Foundation
+import ActivityKit
 import PushwooshCore
 import PushwooshBridge
 
@@ -128,6 +129,93 @@ public extension PWLiveActivities {
     @available(iOS 16.1, *)
     static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any], completion: @escaping (Error?) -> Void) {
         PushwooshLiveActivitiesImplementationSetup.defaultStart(activityId, attributes: attributes, content: content, completion: completion)
+    }
+
+    /// Schedules a Live Activity with your custom attributes type to start at a future date.
+    ///
+    /// The activity is created in the `pending` state and the system starts it at `startDate` — even
+    /// if the app is backgrounded by then. Token registration happens automatically through the
+    /// observers installed by ``setup(_:)``. This wraps the iOS 26 `Activity.request(start:)` API and
+    /// hides its boilerplate: the mandatory alert, the activity style, and `ActivityContent` wrapping.
+    ///
+    /// - Parameters:
+    ///   - attributes: Your activity's static attributes instance.
+    ///   - contentState: The initial dynamic content state shown until the first update.
+    ///   - startDate: The future date at which the system starts the activity. Must be in the future.
+    ///   - alertTitle: Title of the alert the system shows when the scheduled activity starts.
+    ///   - alertBody: Body of the alert the system shows when the scheduled activity starts.
+    /// - Returns: The created (pending) `Activity`.
+    /// - Throws: An `Error` if `startDate` is not in the future, or whatever `Activity.request()` throws
+    ///   (for example `ActivityAuthorizationError` when Live Activities are disabled).
+    ///
+    /// > Important: Available on iOS 26.0+. Call on the main thread while the app is in the foreground.
+    ///
+    /// ## Example
+    ///
+    /// ```swift
+    /// if #available(iOS 26.0, *) {
+    ///     let activity = try Pushwoosh.LiveActivities.schedule(
+    ///         attributes: MatchAttributes(teams: "Lakers vs Celtics"),
+    ///         contentState: MatchAttributes.ContentState(score: "0:0", pushwoosh: nil),
+    ///         at: kickoffDate,
+    ///         alertTitle: "Game starting!",
+    ///         alertBody: "Lakers vs Celtics is about to begin")
+    /// }
+    /// ```
+    @available(iOS 26.0, *)
+    @MainActor
+    @discardableResult
+    static func schedule<Attributes: PushwooshLiveActivityAttributes>(
+        attributes: Attributes,
+        contentState: Attributes.ContentState,
+        at startDate: Date,
+        alertTitle: String,
+        alertBody: String
+    ) throws -> Activity<Attributes> {
+        try PushwooshLiveActivitiesImplementationSetup.schedule(
+            attributes, contentState: contentState, at: startDate,
+            alertTitle: alertTitle, alertBody: alertBody)
+    }
+
+    /// Schedules a Live Activity using default attributes to start at a future date.
+    ///
+    /// > Important: Available on iOS 26.0+. Obj-C / plugin callers are additionally protected by a
+    /// > runtime guard — calling on iOS < 26.0 is a logged no-op.
+    @available(iOS 26.0, *)
+    static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any],
+                             at startDate: Date, alertTitle: String, alertBody: String) {
+        PushwooshLiveActivitiesImplementationSetup.defaultStart(
+            activityId, attributes: attributes, content: content,
+            at: startDate, alertTitle: alertTitle, alertBody: alertBody)
+    }
+
+    /// Schedules a Live Activity using default attributes to start at a future date, with a completion handler.
+    @available(iOS 26.0, *)
+    static func defaultStart(_ activityId: String, attributes: [String: Any], content: [String: Any],
+                             at startDate: Date, alertTitle: String, alertBody: String,
+                             completion: @escaping (Error?) -> Void) {
+        PushwooshLiveActivitiesImplementationSetup.defaultStart(
+            activityId, attributes: attributes, content: content,
+            at: startDate, alertTitle: alertTitle, alertBody: alertBody, completion: completion)
+    }
+
+    /// Cancels a scheduled (or ends a running) Live Activity by its Pushwoosh `activityId`.
+    ///
+    /// Ends every `Activity<Attributes>` whose `pushwoosh.activityId` matches — a pending (scheduled)
+    /// one is cancelled before it starts — and notifies the Pushwoosh server. No `Activity` reference needed.
+    ///
+    /// ## Example
+    ///
+    /// ```swift
+    /// if #available(iOS 16.2, *) {
+    ///     Pushwoosh.LiveActivities.cancel(MatchAttributes.self, activityId: "wc_final")
+    /// }
+    /// ```
+    ///
+    /// > Important: Available on iOS 16.2+ — ending an activity uses `Activity.end(_:dismissalPolicy:)`.
+    @available(iOS 16.2, *)
+    static func cancel<Attributes: PushwooshLiveActivityAttributes>(_ activityType: Attributes.Type, activityId: String) {
+        PushwooshLiveActivitiesImplementationSetup.cancel(activityType, activityId: activityId)
     }
 }
 #endif

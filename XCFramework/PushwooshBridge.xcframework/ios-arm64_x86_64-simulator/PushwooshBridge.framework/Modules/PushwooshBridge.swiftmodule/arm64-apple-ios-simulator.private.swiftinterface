@@ -123,6 +123,10 @@ import _SwiftConcurrencyShims
   static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
   @objc @available(iOS 16.1, *)
   static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc @available(iOS 26.0, *)
+  static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], at startDate: Foundation.Date, alertTitle: Swift.String, alertBody: Swift.String)
+  @objc @available(iOS 26.0, *)
+  static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], at startDate: Foundation.Date, alertTitle: Swift.String, alertBody: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
 }
 extension PushwooshBridge.PWLiveActivities {
   @available(iOS 16.1, *)
@@ -131,6 +135,10 @@ extension PushwooshBridge.PWLiveActivities {
   public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
   @available(iOS 16.1, *)
   public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @available(iOS 26.0, *)
+  public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], at startDate: Foundation.Date, alertTitle: Swift.String, alertBody: Swift.String)
+  @available(iOS 26.0, *)
+  public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], at startDate: Foundation.Date, alertTitle: Swift.String, alertBody: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
 }
 @objc public protocol PWTransport {
   @objc static func sendRequest(_ request: PushwooshCore.PWRequest, completion: @escaping (Foundation.NSDictionary?, (any Swift.Error)?) -> Swift.Void)

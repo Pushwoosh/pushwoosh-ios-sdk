@@ -500,6 +500,7 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge32PWKeychainPersistentHWIDProvider_")
 - (NSString * _Nullable)persistentHWID SWIFT_WARN_UNUSED_RESULT;
 @end
 
+@class NSDate;
 
 /// Protocol for managing iOS Live Activities with Pushwoosh push notifications.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWLiveActivities_")
@@ -671,6 +672,59 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWLiveActivities_")
 /// OS version is below 16.1 or <code>Activity.request()</code> throws.
 ///
 + (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content completion:(void (^ _Nonnull)(NSError * _Nullable))completion SWIFT_AVAILABILITY(ios,introduced=16.1);
+/// Schedules a Live Activity using the default Pushwoosh-managed attributes to start at a future date.
+/// Same as <code>defaultStart(_:attributes:content:)</code> but the activity stays in the <code>pending</code> state
+/// until <code>startDate</code>, when the system starts it — even if the app is in the background. The SDK
+/// hides the iOS 26 <code>Activity.request(start:)</code> mechanics (mandatory alert, activity style,
+/// <code>ActivityContent</code> wrapping); you pass a date and the alert text the system shows on start.
+/// <h2>Example</h2>
+/// \code
+/// if #available(iOS 26.0, *) {
+///     Pushwoosh.LiveActivities.defaultStart(
+///         "order_123",
+///         attributes: ["orderName": "Pizza"],
+///         content: ["status": "Preparing"],
+///         at: Date().addingTimeInterval(3600),
+///         alertTitle: "Order scheduled",
+///         alertBody: "Your order tracking starts soon")
+/// }
+///
+/// \endcode<blockquote>
+/// Important: Available on iOS 26.0+ — that is where ActivityKit added the <code>start:</code> parameter.
+/// Obj-C / plugin callers are additionally protected by a runtime guard inside the implementation —
+/// calling on iOS < 26.0 is a logged no-op.
+///
+/// </blockquote>
+/// \param activityId Unique identifier for this activity instance used for targeting updates.
+///
+/// \param attributes Static attribute dictionary that does not change across the activity lifetime.
+///
+/// \param content Initial dynamic content-state dictionary rendered by the widget.
+///
+/// \param startDate The future date at which the system starts the Live Activity. Must be in the future.
+///
+/// \param alertTitle Title of the alert the system shows when the scheduled activity starts.
+///
+/// \param alertBody Body of the alert the system shows when the scheduled activity starts.
+///
++ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content at:(NSDate * _Nonnull)startDate alertTitle:(NSString * _Nonnull)alertTitle alertBody:(NSString * _Nonnull)alertBody SWIFT_AVAILABILITY(ios,introduced=26.0);
+/// Schedules a Live Activity using the default Pushwoosh-managed attributes with a completion handler.
+/// \param activityId Unique identifier for this activity instance used for targeting updates.
+///
+/// \param attributes Static attribute dictionary that does not change across the activity lifetime.
+///
+/// \param content Initial dynamic content-state dictionary rendered by the widget.
+///
+/// \param startDate The future date at which the system starts the Live Activity. Must be in the future.
+///
+/// \param alertTitle Title of the alert the system shows when the scheduled activity starts.
+///
+/// \param alertBody Body of the alert the system shows when the scheduled activity starts.
+///
+/// \param completion Completion handler called with <code>nil</code> on success or an <code>Error</code> if the OS version
+/// is below 26.0, <code>startDate</code> is not in the future, or <code>Activity.request()</code> throws.
+///
++ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content at:(NSDate * _Nonnull)startDate alertTitle:(NSString * _Nonnull)alertTitle alertBody:(NSString * _Nonnull)alertBody completion:(void (^ _Nonnull)(NSError * _Nullable))completion SWIFT_AVAILABILITY(ios,introduced=26.0);
 @end
 
 /// Animation types for dismissing rich media content on tvOS.
@@ -1578,6 +1632,7 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge32PWKeychainPersistentHWIDProvider_")
 - (NSString * _Nullable)persistentHWID SWIFT_WARN_UNUSED_RESULT;
 @end
 
+@class NSDate;
 
 /// Protocol for managing iOS Live Activities with Pushwoosh push notifications.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWLiveActivities_")
@@ -1749,6 +1804,59 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge16PWLiveActivities_")
 /// OS version is below 16.1 or <code>Activity.request()</code> throws.
 ///
 + (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content completion:(void (^ _Nonnull)(NSError * _Nullable))completion SWIFT_AVAILABILITY(ios,introduced=16.1);
+/// Schedules a Live Activity using the default Pushwoosh-managed attributes to start at a future date.
+/// Same as <code>defaultStart(_:attributes:content:)</code> but the activity stays in the <code>pending</code> state
+/// until <code>startDate</code>, when the system starts it — even if the app is in the background. The SDK
+/// hides the iOS 26 <code>Activity.request(start:)</code> mechanics (mandatory alert, activity style,
+/// <code>ActivityContent</code> wrapping); you pass a date and the alert text the system shows on start.
+/// <h2>Example</h2>
+/// \code
+/// if #available(iOS 26.0, *) {
+///     Pushwoosh.LiveActivities.defaultStart(
+///         "order_123",
+///         attributes: ["orderName": "Pizza"],
+///         content: ["status": "Preparing"],
+///         at: Date().addingTimeInterval(3600),
+///         alertTitle: "Order scheduled",
+///         alertBody: "Your order tracking starts soon")
+/// }
+///
+/// \endcode<blockquote>
+/// Important: Available on iOS 26.0+ — that is where ActivityKit added the <code>start:</code> parameter.
+/// Obj-C / plugin callers are additionally protected by a runtime guard inside the implementation —
+/// calling on iOS < 26.0 is a logged no-op.
+///
+/// </blockquote>
+/// \param activityId Unique identifier for this activity instance used for targeting updates.
+///
+/// \param attributes Static attribute dictionary that does not change across the activity lifetime.
+///
+/// \param content Initial dynamic content-state dictionary rendered by the widget.
+///
+/// \param startDate The future date at which the system starts the Live Activity. Must be in the future.
+///
+/// \param alertTitle Title of the alert the system shows when the scheduled activity starts.
+///
+/// \param alertBody Body of the alert the system shows when the scheduled activity starts.
+///
++ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content at:(NSDate * _Nonnull)startDate alertTitle:(NSString * _Nonnull)alertTitle alertBody:(NSString * _Nonnull)alertBody SWIFT_AVAILABILITY(ios,introduced=26.0);
+/// Schedules a Live Activity using the default Pushwoosh-managed attributes with a completion handler.
+/// \param activityId Unique identifier for this activity instance used for targeting updates.
+///
+/// \param attributes Static attribute dictionary that does not change across the activity lifetime.
+///
+/// \param content Initial dynamic content-state dictionary rendered by the widget.
+///
+/// \param startDate The future date at which the system starts the Live Activity. Must be in the future.
+///
+/// \param alertTitle Title of the alert the system shows when the scheduled activity starts.
+///
+/// \param alertBody Body of the alert the system shows when the scheduled activity starts.
+///
+/// \param completion Completion handler called with <code>nil</code> on success or an <code>Error</code> if the OS version
+/// is below 26.0, <code>startDate</code> is not in the future, or <code>Activity.request()</code> throws.
+///
++ (void)defaultStart:(NSString * _Nonnull)activityId attributes:(NSDictionary<NSString *, id> * _Nonnull)attributes content:(NSDictionary<NSString *, id> * _Nonnull)content at:(NSDate * _Nonnull)startDate alertTitle:(NSString * _Nonnull)alertTitle alertBody:(NSString * _Nonnull)alertBody completion:(void (^ _Nonnull)(NSError * _Nullable))completion SWIFT_AVAILABILITY(ios,introduced=26.0);
 @end
 
 /// Animation types for dismissing rich media content on tvOS.

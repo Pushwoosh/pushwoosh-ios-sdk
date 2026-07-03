@@ -51,6 +51,15 @@ extension PushwooshBridge.PWLiveActivities {
   public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
   @available(iOS 16.1, *)
   public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @available(iOS 26.0, *)
+  @discardableResult
+  @_Concurrency.MainActor public static func schedule<Attributes>(attributes: Attributes, contentState: Attributes.ContentState, at startDate: Foundation.Date, alertTitle: Swift.String, alertBody: Swift.String) throws -> ActivityKit.Activity<Attributes> where Attributes : PushwooshLiveActivities.PushwooshLiveActivityAttributes
+  @available(iOS 26.0, *)
+  public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], at startDate: Foundation.Date, alertTitle: Swift.String, alertBody: Swift.String)
+  @available(iOS 26.0, *)
+  public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], at startDate: Foundation.Date, alertTitle: Swift.String, alertBody: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @available(iOS 16.2, *)
+  public static func cancel<Attributes>(_ activityType: Attributes.Type, activityId: Swift.String) where Attributes : PushwooshLiveActivities.PushwooshLiveActivityAttributes
 }
 public struct DefaultLiveActivityAttributes : PushwooshLiveActivities.PushwooshLiveActivityAttributes {
   public var data: [Swift.String : PushwooshLiveActivities.AnyCodable]
@@ -84,6 +93,12 @@ public struct DefaultLiveActivityAttributes : PushwooshLiveActivities.PushwooshL
   @objc public static func defaultSetup()
   @objc public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any])
   @objc public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @objc public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], at startDate: Foundation.Date, alertTitle: Swift.String, alertBody: Swift.String)
+  @objc public static func defaultStart(_ activityId: Swift.String, attributes: [Swift.String : Any], content: [Swift.String : Any], at startDate: Foundation.Date, alertTitle: Swift.String, alertBody: Swift.String, completion: @escaping ((any Swift.Error)?) -> Swift.Void)
+  @available(iOS 26.0, *)
+  public static func schedule<Attributes>(_ attributes: Attributes, contentState: Attributes.ContentState, at startDate: Foundation.Date, alertTitle: Swift.String, alertBody: Swift.String) throws -> ActivityKit.Activity<Attributes> where Attributes : PushwooshLiveActivities.PushwooshLiveActivityAttributes
+  @available(iOS 16.2, *)
+  public static func cancel<Attributes>(_ activityType: Attributes.Type, activityId: Swift.String) where Attributes : PushwooshLiveActivities.PushwooshLiveActivityAttributes
   @objc override dynamic public init()
   @objc deinit
 }

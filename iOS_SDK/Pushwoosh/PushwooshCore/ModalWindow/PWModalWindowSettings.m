@@ -22,10 +22,12 @@
         sharedSettings.modalWindowPosition = PWModalWindowPositionDefault;
         sharedSettings.dismissSwipeDirections = @[@(PWSwipeDismissNone)];
         sharedSettings.hapticFeedbackType = PWHapticFeedbackNone;
-        sharedSettings.presentAnimation = PWAnimationPresentFromBottom;
-        sharedSettings.dismissAnimation = PWAnimationCurveEaseInOut;
+        sharedSettings.presentAnimation = PWAnimationPresentFadeIn;
+        sharedSettings.dismissAnimation = PWAnimationDismissFadeOut;
         sharedSettings.cornerType = PWCornerTypeNone;
         sharedSettings.cornerRadius = 0;
+        sharedSettings.autoCloseInterval = 0;
+        sharedSettings.animationDuration = 0;
     });
     return sharedSettings;
 }
