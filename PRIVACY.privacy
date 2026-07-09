@@ -1,0 +1,114 @@
+PUSHWOOSH iOS SDK — PRIVACY STATEMENT
+
+This statement describes what the Pushwoosh iOS SDK does with data when a
+developer (the "Client") integrates it into an application. It is intended to
+help the Client complete the Apple App Store Privacy questionnaire, run vendor
+and security reviews, and reference Pushwoosh in the Client's own privacy
+policy. It covers the SDK only — not any Client application.
+
+
+1. ROLES
+
+  - Client (App Developer) — Data Controller. Decides whether to integrate
+    the SDK and what data to send through it.
+  - Pushwoosh (SDK provider) — Data Processor. Processes data only on the
+    Client's instructions, to deliver the service. Pushwoosh does not own the
+    data and does not use it for its own purposes.
+
+
+2. DATA THE SDK COLLECTS AUTOMATICALLY
+
+On initialization the SDK collects a minimal set of technical data needed to
+deliver notifications:
+
+  - Push token — issued by Apple Push Notification service (APNs) to address
+    notifications to the device.
+  - Installation identifier — the iOS vendor identifier (IDFV,
+    identifierForVendor). It is not a hardware identifier (not device serial
+    number or MAC) and not an advertising identifier (not IDFA); it does not
+    identify a person.
+  - Device model and iOS version — for correct rendering and troubleshooting.
+  - Language/locale and time zone — for localization and time-zoned delivery.
+  - Application version and SDK version — for compatibility and
+    troubleshooting.
+  - Approximate location (city/country) — derived from the IP address of the
+    last connection for coarse geo-targeting.
+  - Aggregated delivery and lifecycle analytics (e.g. delivery success,
+    app-open) — for service stability and troubleshooting.
+
+Device model, iOS version and language are collected under flags that are on
+by default and can be disabled by the Client. Precise location is processed
+only as an optional feature, and only if the Client enables geo-targeting and
+the end user grants the iOS location permission.
+
+
+3. DATA THE SDK DOES NOT COLLECT
+
+The SDK does not collect cookies, the advertising identifier (IDFA), device
+serial number, or MAC address. On its own initiative it does not collect
+names, email addresses, phone numbers, financial data, or health/medical data.
+
+
+4. CLIENT-PROVIDED DATA (TAGS, EVENTS, PAYLOAD)
+
+The SDK lets the Client optionally send additional custom data (tags, events,
+segments) through its public methods. Pushwoosh receives and processes this
+data as-is, solely for the Client's notification targeting. The SDK does not
+validate, intentionally collect, or store personal, health or other sensitive
+data on its own initiative — whether any such data is sent is entirely the
+Client's decision and responsibility.
+
+
+5. PURPOSE OF PROCESSING
+
+  - App functionality — technical delivery of push notifications to the
+    device.
+  - Analytics and troubleshooting — aggregated statistics (such as delivery
+    success and SDK version) for stability and bug-fixing.
+
+
+6. DATA RETENTION
+
+Pushwoosh processes data only for as long as necessary to provide the service,
+unless a longer retention period is required or permitted by law. Device data
+is retained while the device remains active, and inactive devices are purged
+automatically. Data is deleted when it is no longer needed to deliver the
+service, or earlier on request.
+
+
+7. SECURITY
+
+All default and built-in SDK endpoints use HTTPS / TLS. App Transport Security
+(ATS) is respected: the SDK declares no cleartext-traffic exceptions (no
+NSAllowsArbitraryLoads).
+
+
+8. THIRD-PARTY SHARING
+
+Data is not sold and is not shared with third parties for their own purposes.
+The SDK does not use advertising identifiers and does not perform cross-app
+tracking. The push token is passed to Apple Push
+Notification service (APNs) solely to deliver notifications.
+
+
+9. OPT-OUT / CONSENT
+
+By default the SDK begins collection and transmission on initialization. To
+prevent any transmission before the user has given consent, the Client can
+disable SDK communication and enable it only after consent is obtained. The
+SDK also supports device/data removal on request, which fully disables further
+transmission.
+
+
+10. CHILDREN
+
+The Pushwoosh SDK is a developer tool and is not directed at children. It does
+not knowingly collect personal data of children on its own initiative.
+Determining an application's audience and any applicable obligations for
+children's data is the Client's responsibility as Data Controller.
+
+
+11. CONTACT
+
+  - Privacy requests: privacy@pushwoosh.com
+  - Report an issue: https://github.com/Pushwoosh
