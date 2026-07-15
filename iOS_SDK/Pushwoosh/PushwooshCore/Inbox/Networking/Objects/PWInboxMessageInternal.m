@@ -38,7 +38,7 @@ typedef NS_ENUM(NSInteger, PWInboxMessageSourceType) {
 + (BOOL)validateDictionary:(NSDictionary *)dictionary {
     BOOL result = YES;
     if (![dictionary isKindOfClass:[NSDictionary class]]) {
-        result = NO;
+        return NO;
     }
     if (![dictionary objectForKey:@"inbox_id"] ||
         ![dictionary objectForKey:@"order"] ||

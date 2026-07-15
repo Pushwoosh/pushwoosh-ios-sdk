@@ -153,7 +153,7 @@ static void _replacement_sendEvent(UIApplication *self, SEL _cmd, UIEvent *event
 
     NSMutableDictionary *attrs = [@{
         @"device_type": @1,
-        @"application_version": [PWUtils appVersion],
+        @"application_version": [PWUtils appVersion] ?: @"",
         @"idle_seconds": @((NSInteger)_idleThreshold),
         @"session_duration": @((NSInteger)sessionDuration),
     } mutableCopy];

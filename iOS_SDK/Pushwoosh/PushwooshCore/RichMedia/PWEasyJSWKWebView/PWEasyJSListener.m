@@ -48,22 +48,27 @@
     if ([components count] > 2){
         NSString *argsAsString = [(NSString*)[components objectAtIndex:2] stringByRemovingPercentEncoding];
         NSArray* formattedArgs = [argsAsString componentsSeparatedByString:@":"];
-        
-        for (unsigned long i = 0, j = 0, l = [formattedArgs count]; i < l; i+=2, j++){
+        NSUInteger argCount = [formattedArgs count];
+
+        for (unsigned long i = 0, j = 0; i + 1 < argCount; i += 2, j++){
+            NSUInteger argumentIndex = j + 2;
+            if (argumentIndex >= sig.numberOfArguments) {
+                break;
+            }
             NSString* type = ((NSString*) [formattedArgs objectAtIndex:i]);
             NSString* argStr = ((NSString*) [formattedArgs objectAtIndex:i + 1]);
-            
+
             if ([@"f" isEqualToString:type]){
                 PWEasyJSWKDataFunction *func = [[PWEasyJSWKDataFunction alloc] initWithWebView:webView];
                 func.funcID = argStr;
                 //do this to force retain a reference to it
                 [_funcs addObject:func];
-                [invoker setArgument:&func atIndex:(j + 2)];
+                [invoker setArgument:&func atIndex:argumentIndex];
             }else if ([@"s" isEqualToString:type]){
                 NSString* arg = [argStr stringByRemovingPercentEncoding];
                 //do this to force retain a reference to it
                 [_args addObject:arg];
-                [invoker setArgument:&arg atIndex:(j + 2)];
+                [invoker setArgument:&arg atIndex:argumentIndex];
             }
         }
     }
@@ -79,15 +84,21 @@
     
     //return the value by using javascript
     if (methodReturnsValue){
-        __unsafe_unretained NSString* tmpRetValue;
-        [invoker getReturnValue:&tmpRetValue];
-        NSString *retValue = tmpRetValue;
-        
-        if (retValue != NULL && retValue != nil) {
+        NSString *retValue = nil;
+        const char *returnType = [sig methodReturnType];
+        if (returnType != NULL && returnType[0] == '@') {
+            __unsafe_unretained id tmpRetValue = nil;
+            [invoker getReturnValue:&tmpRetValue];
+            if ([tmpRetValue isKindOfClass:[NSString class]]) {
+                retValue = tmpRetValue;
+            }
+        }
+
+        if (retValue != nil) {
             retValue = [retValue stringByTrimmingCharactersInSet:[NSCharacterSet characterSetWithCharactersInString:@"\""]]; //trick for fallback: in previous versions strings must be returned as @"\"Hamburger\""
             retValue = [retValue stringByAddingPercentEncodingWithAllowedCharacters:[NSCharacterSet letterCharacterSet]];
         }
-        
+
         completionHandler(retValue);
     }
     

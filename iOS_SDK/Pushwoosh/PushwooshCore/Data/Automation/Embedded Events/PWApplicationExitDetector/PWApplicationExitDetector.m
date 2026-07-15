@@ -172,7 +172,7 @@ NSString * const defaultApplicationExitEvent = @"PW_ApplicationExit";
 
     NSMutableDictionary *attrs = [@{
         @"device_type": @1,
-        @"application_version": [PWUtils appVersion],
+        @"application_version": [PWUtils appVersion] ?: @"",
         @"session_duration": @(_pendingSessionDurationSeconds),
         @"exit_intent_seconds": @(timeoutForPayload),
     } mutableCopy];

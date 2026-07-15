@@ -39,6 +39,16 @@
     return @"ReturnedValue";
 }
 
+- (BOOL)methodReturningBool {
+    self.lastMethodCalled = @"methodReturningBool";
+    return YES;
+}
+
+- (NSNumber *)methodReturningNumber {
+    self.lastMethodCalled = @"methodReturningNumber";
+    return @42;
+}
+
 @end
 
 @interface PWEasyJSListenerTest : XCTestCase
@@ -255,6 +265,81 @@ runJavaScriptTextInputPanelWithPrompt:@"NoSuchInterface:someMethod"
     }];
 
     XCTAssertTrue(completionCalled);
+}
+
+#pragma mark - argument-count / return-type guards
+
+/// A method invoked with more argument pairs than its arity does not crash (extra args are dropped, method still runs).
+- (void)testMethodWithMoreArgumentsThanArity_doesNotCrash {
+    NSMutableCharacterSet *allowedChars = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
+    [allowedChars removeCharactersInString:@":"];
+    NSString *encodedMethod = [@"methodWithoutReturn" stringByAddingPercentEncodingWithAllowedCharacters:allowedChars];
+    NSString *encodedArgs = [@"s:unexpected" stringByAddingPercentEncodingWithAllowedCharacters:allowedChars];
+    NSString *prompt = [NSString stringWithFormat:@"TestInterface:%@:%@", encodedMethod, encodedArgs];
+
+    __block BOOL completionCalled = NO;
+    [self.listener webView:self.mockWebView
+runJavaScriptTextInputPanelWithPrompt:prompt
+               defaultText:nil
+            initiatedByFrame:self.mockFrame
+         completionHandler:^(NSString *result) {
+        completionCalled = YES;
+    }];
+
+    XCTAssertTrue(completionCalled);
+    XCTAssertTrue(self.testInterface.methodWithoutReturnCalled);
+}
+
+/// A prompt with an odd number of arg tokens (dangling type without a value) does not crash on objectAtIndex:.
+- (void)testMethodWithOddArgumentTokens_doesNotCrash {
+    NSMutableCharacterSet *allowedChars = [[NSCharacterSet URLQueryAllowedCharacterSet] mutableCopy];
+    [allowedChars removeCharactersInString:@":"];
+    NSString *encodedMethod = [@"methodWithString:" stringByAddingPercentEncodingWithAllowedCharacters:allowedChars];
+    NSString *encodedArgs = [@"s" stringByAddingPercentEncodingWithAllowedCharacters:allowedChars];
+    NSString *prompt = [NSString stringWithFormat:@"TestInterface:%@:%@", encodedMethod, encodedArgs];
+
+    __block BOOL completionCalled = NO;
+    XCTAssertNoThrow(([self.listener webView:self.mockWebView
+runJavaScriptTextInputPanelWithPrompt:prompt
+               defaultText:nil
+            initiatedByFrame:self.mockFrame
+         completionHandler:^(NSString *result) {
+        completionCalled = YES;
+    }]));
+
+    XCTAssertTrue(completionCalled);
+}
+
+/// A method returning a non-object type (BOOL) does not crash and yields nil instead of casting raw bytes to NSString.
+- (void)testMethodReturningNonObjectType_returnsNil {
+    __block BOOL completionCalled = NO;
+    [self.listener webView:self.mockWebView
+runJavaScriptTextInputPanelWithPrompt:@"TestInterface:methodReturningBool"
+               defaultText:nil
+            initiatedByFrame:self.mockFrame
+         completionHandler:^(NSString *result) {
+        completionCalled = YES;
+        XCTAssertNil(result);
+    }];
+
+    XCTAssertTrue(completionCalled);
+    XCTAssertEqualObjects(self.testInterface.lastMethodCalled, @"methodReturningBool");
+}
+
+/// A method returning a non-string object (NSNumber) does not crash and yields nil.
+- (void)testMethodReturningNonStringObject_returnsNil {
+    __block BOOL completionCalled = NO;
+    [self.listener webView:self.mockWebView
+runJavaScriptTextInputPanelWithPrompt:@"TestInterface:methodReturningNumber"
+               defaultText:nil
+            initiatedByFrame:self.mockFrame
+         completionHandler:^(NSString *result) {
+        completionCalled = YES;
+        XCTAssertNil(result);
+    }];
+
+    XCTAssertTrue(completionCalled);
+    XCTAssertEqualObjects(self.testInterface.lastMethodCalled, @"methodReturningNumber");
 }
 
 @end

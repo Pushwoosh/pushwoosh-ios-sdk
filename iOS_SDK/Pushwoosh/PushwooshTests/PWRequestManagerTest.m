@@ -395,4 +395,19 @@ static id _mockNSBundle;
     [mockQueue stopMocking];
 }
 
+/// Verifies that a request whose requestDictionary is not JSON-serializable is blocked with an error instead of crashing NSJSONSerialization.
+- (void)testNonSerializableRequestDictionary_completesWithErrorInsteadOfCrashing {
+    id mockRequest = OCMPartialMock([PWAppOpenRequest new]);
+    OCMStub([mockRequest requestDictionary]).andReturn(@{@"bad": [NSDate date]});
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"blocked"];
+    [_requestManager sendRequestInternal:mockRequest completion:^(NSError *error) {
+        XCTAssertNotNil(error);
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    [mockRequest stopMocking];
+}
+
 @end

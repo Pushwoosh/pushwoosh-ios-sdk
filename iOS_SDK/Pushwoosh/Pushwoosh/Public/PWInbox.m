@@ -345,10 +345,15 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
 }
 
 + (void)performActionForMessageWithCode:(NSString *)code {
+    if (code.length == 0) {
+        return;
+    }
     NSArray<PWInboxMessageInternal *> *updateMessages = [[PWInbox sharedInstance].storage updateStatus:PWInboxMessageStatusAction withInboxMessageCodes:@[code]];
     PWInboxMessageInternal *message = [[PWInbox sharedInstance].storage messageForCode:code];
 #if TARGET_OS_IOS
-    [[PWInbox sharedInstance].service actionMessages:@[message]];
+    if (message) {
+        [[PWInbox sharedInstance].service actionMessages:@[message]];
+    }
 #endif
     [PWInbox sendStaticMessage:updateMessages];
 

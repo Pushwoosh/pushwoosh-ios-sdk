@@ -180,7 +180,7 @@ NSString * const defaultApplicationClosedEvent = @"PW_ApplicationMinimized";
 - (void)sendDefaultEvent: (NSString *) event{
     NSDictionary *attrs = @{
         @"device_type": @1,
-        @"application_version": [PWUtils appVersion],
+        @"application_version": [PWUtils appVersion] ?: @"",
     };
     [[[PWManagerBridge shared] inAppManager] postEvent:event withAttributes:attrs completion:nil];
 }

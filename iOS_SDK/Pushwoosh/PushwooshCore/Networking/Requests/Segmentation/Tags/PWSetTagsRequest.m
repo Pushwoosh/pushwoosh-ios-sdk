@@ -20,29 +20,39 @@
 
 - (NSDictionary *)requestDictionary {
 	NSMutableDictionary *dict = [self baseDictionary];
-	NSMutableDictionary *mutableTags = [tags mutableCopy];
+	NSDictionary *tagsSnapshot = [tags copy];
+	NSMutableDictionary *sanitizedTags = [NSMutableDictionary dictionary];
 
-	for (NSString *key in [mutableTags allKeys]) {
-		NSString *valueString = @"";
-		NSObject *value = mutableTags[key];
+	for (NSString *key in [tagsSnapshot allKeys]) {
+		if (![key isKindOfClass:[NSString class]]) {
+			continue;
+		}
+		NSObject *value = tagsSnapshot[key];
 
 		if ([value isKindOfClass:[NSString class]]) {
-			valueString = (NSString *)value;
+			NSString *valueString = (NSString *)value;
 
 			if ([valueString hasPrefix:@"#pwinc#"]) {
 				NSString *noPrefixString = [valueString substringFromIndex:7];
 				NSNumber *valueNumber = @([noPrefixString doubleValue]);
 
-				NSMutableDictionary *opTag = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"increment", @"operation", valueNumber, @"value", nil];
-				mutableTags[key] = opTag;
+				sanitizedTags[key] = [NSMutableDictionary dictionaryWithObjectsAndKeys:@"increment", @"operation", valueNumber, @"value", nil];
+			} else {
+				sanitizedTags[key] = valueString;
 			}
-        } else if ([value isKindOfClass:[NSDate class]]) {
-            NSDate *dateTag = (NSDate *)value;
-            mutableTags[key] = dateTag.pw_formattedDate;
-        }
+		} else if ([value isKindOfClass:[NSDate class]]) {
+			sanitizedTags[key] = ((NSDate *)value).pw_formattedDate;
+		} else if ([value isKindOfClass:[NSNumber class]]) {
+			double number = [(NSNumber *)value doubleValue];
+			if (!isnan(number) && !isinf(number)) {
+				sanitizedTags[key] = value;
+			}
+		} else if ([NSJSONSerialization isValidJSONObject:@{key: value}]) {
+			sanitizedTags[key] = value;
+		}
 	}
 
-	dict[@"tags"] = mutableTags;
+	dict[@"tags"] = sanitizedTags;
 	return dict;
 }
 

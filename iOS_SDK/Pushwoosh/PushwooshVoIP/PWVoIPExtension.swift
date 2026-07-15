@@ -66,7 +66,7 @@ public extension PWVoIP {
     ///                           The file must be included in your app bundle.
     @available(iOS 14.0, *)
     static func setRingtone(_ ringtoneSound: String) {
-        PushwooshVoIPImplementation.setRingtone(ringtoneSound)
+        PushwooshVoIPImplementation.setRingtone(ringtoneSound as String?)
     }
 
     /// Sets the timeout duration for incoming call notifications.

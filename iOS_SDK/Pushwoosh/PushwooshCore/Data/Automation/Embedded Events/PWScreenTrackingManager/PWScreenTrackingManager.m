@@ -124,7 +124,7 @@ void _replacement_viewDidAppear(UIViewController * self, SEL _cmd, BOOL animated
                         NSDictionary *attrs = @{
                             @"device_type": @1,
                             @"screen_name": screenName,
-                            @"application_version": [PWUtils appVersion],
+                            @"application_version": [PWUtils appVersion] ?: @"",
                         };
 
                         [[[PWManagerBridge shared] inAppManager] postEvent:defaultScreenOpenEvent withAttributes:attrs];
@@ -156,7 +156,7 @@ void _replacement_viewDidAppear(UIViewController * self, SEL _cmd, BOOL animated
     NSDictionary *attrs = @{
         @"device_type": @1,
         @"screen_name": _currentScreenName,
-        @"application_version": [PWUtils appVersion],
+        @"application_version": [PWUtils appVersion] ?: @"",
     };
     [[[PWManagerBridge shared] inAppManager] postEvent:defaultScreenOpenEvent withAttributes:attrs];
 }

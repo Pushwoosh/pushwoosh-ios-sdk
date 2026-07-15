@@ -254,6 +254,23 @@
     OCMVerifyAll(_mockManager);
 }
 
+/// Verifies that a non-string "p" value is not stored into _lastHash (typed NSString*), preventing an unrecognized-selector crash on the next isEqualToString: comparison.
+- (void)testWillPresent_nonStringPHash_lastHashStaysNil {
+    [PWManagerBridge shared].showPushnotificationAlert = YES;
+    NSDictionary *userInfo = @{@"aps": @{@"alert": @"hi"}, @"p": @12345};
+    id notification = [self mockRemoteNotificationWithUserInfo:userInfo];
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"completion"];
+    [_target userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+            willPresentNotification:notification
+              withCompletionHandler:^(UNNotificationPresentationOptions options) {
+        [expectation fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    XCTAssertNil(_target.lastHash);
+}
+
 #pragma mark - didReceiveNotificationResponse
 
 /// Verifies that the default action on a Pushwoosh push calls handlePushAccepted (carrying the action identifier) and does NOT invoke onActionIdentifierReceived (only custom actions do).

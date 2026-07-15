@@ -79,8 +79,19 @@ public extension PWLiveActivities {
     /// Configures Live Activities with custom attributes.
     ///
     /// This method sets up automatic token registration and activity lifecycle management
-    /// for your custom ``PushwooshLiveActivityAttributes`` type. Call this during app initialization,
-    /// typically in `application(_:didFinishLaunchingWithOptions:)`.
+    /// for your custom ``PushwooshLiveActivityAttributes`` type.
+    ///
+    /// > Important: Call this for **every** attributes type you use, at app launch — in
+    /// > `application(_:didFinishLaunchingWithOptions:)` (or the `App.init` for SwiftUI apps).
+    /// > This is what re-attaches the SDK to activities that are **already running** at launch and
+    /// > re-uploads their per-activity push token to the server, so remote updates keep working after
+    /// > a cold start — including an activity that started (or was scheduled to start) while the app was
+    /// > terminated. This is a required, one-time-per-launch call, not tied to any screen: ActivityKit
+    /// > exposes running activities only through the concrete `Activity<Attributes>` generic and does
+    /// > not persist the set of types across launches, so the SDK cannot reconnect a type it hasn't been
+    /// > told about in the current session. Registering a type lazily (e.g. in a view's `onAppear`)
+    /// > means the server can't update that activity until that screen is opened. The call is idempotent,
+    /// > so registering at launch and again per-screen is safe.
     ///
     /// - Parameter activityType: Your custom attributes type conforming to ``PushwooshLiveActivityAttributes``.
     @available(iOS 16.1, *)

@@ -176,13 +176,19 @@ using namespace pushwoosh;
 			break;
 		}
 		char* filename = (char*) malloc( fileInfo.size_filename +1 );
+		if ( filename == NULL ) {
+			[self outputErrorMessage:@"Error occurs while allocating file name buffer"];
+			success = NO;
+			unzCloseCurrentFile( _unzFile );
+			break;
+		}
 		unzGetCurrentFileInfo(_unzFile, &fileInfo, filename, fileInfo.size_filename + 1, NULL, 0, NULL, 0);
 		filename[fileInfo.size_filename] = '\0';
 		
 		// check if it contains directory
 		NSString * strPath = [NSString stringWithCString:filename encoding:NSASCIIStringEncoding];
 		BOOL isDirectory = NO;
-		if( filename[fileInfo.size_filename-1]=='/' || filename[fileInfo.size_filename-1]=='\\')
+		if( fileInfo.size_filename > 0 && (filename[fileInfo.size_filename-1]=='/' || filename[fileInfo.size_filename-1]=='\\'))
 			isDirectory = YES;
 		free( filename );
 		if ( [strPath rangeOfCharacterFromSet:[NSCharacterSet characterSetWithCharactersInString:@"/\\"]].location!=NSNotFound ) {// contains a path

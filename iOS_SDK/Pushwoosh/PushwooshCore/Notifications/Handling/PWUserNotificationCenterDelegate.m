@@ -55,7 +55,7 @@
         if ([_lastHash isEqualToString:content.userInfo[@"p"]]) {
             completionHandler(UNNotificationPresentationOptionNone);
         } else {
-            _lastHash = content.userInfo[@"p"];
+            _lastHash = [content.userInfo[@"p"] isKindOfClass:[NSString class]] ? content.userInfo[@"p"] : nil;
             completionHandler(UNNotificationPresentationOptionBadge | UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
         }
     } else {

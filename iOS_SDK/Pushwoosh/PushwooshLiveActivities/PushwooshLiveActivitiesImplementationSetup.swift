@@ -21,6 +21,18 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
     private static var typeTasks: [ObjectIdentifier: [Task<Void, Never>]] = [:]
     private static var perActivityTasks: [String: [Task<Void, Never>]] = [:]
 
+    // Guards the two-tier token-send dedup state below.
+    //  - inFlightActivityTokenSends (in-memory, dies with the process): tokens currently being
+    //    sent, so the multi-path fan-out at setup fires exactly one request per (activityId, token).
+    //  - UserDefaults[sentActivityTokensKey] (persisted): tokens the server CONFIRMED receiving,
+    //    written only in the send's success branch. Never written optimistically — a request lost
+    //    in flight (e.g. queued in PWSdkStateProvider while the SDK is initializing and the process
+    //    is killed) must not be recorded as sent, or dedup would block the resend on every future
+    //    launch. Tokens can rotate, so both tiers compare values, not just "did we ever send one".
+    private static let tokenCacheLock = NSLock()
+    private static let sentActivityTokensKey = "PWLiveActivitySentTokens"
+    private static var inFlightActivityTokenSends: [String: Set<String>] = [:]
+
     // Test-only seam. Read in send(_:), written by tests in setUp/tearDown.
     // Safe without synchronization while PushwooshLiveActivitiesTests.xcscheme has
     // parallelizable=NO. DO NOT enable parallel testing without converting this to a
@@ -86,8 +98,10 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
     public static func configureLiveActivity<Attributes: PushwooshLiveActivityAttributes>(_ activityType: Attributes.Type) {
         let typeId = ObjectIdentifier(activityType)
         registrationLock.lock()
-        defer { registrationLock.unlock() }
-        guard !registeredTypes.contains(typeId) else { return }
+        if registeredTypes.contains(typeId) {
+            registrationLock.unlock()
+            return
+        }
         registeredTypes.insert(typeId)
         var tasks: [Task<Void, Never>] = []
         if #available(iOS 17.2, *) {
@@ -95,6 +109,41 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
         }
         tasks.append(observeActivity(activityType))
         typeTasks[typeId] = tasks
+        registrationLock.unlock()
+
+        // Re-attach per-activity observers to activities that are ALREADY running
+        // at setup time — e.g. one started earlier, then the app was terminated and
+        // relaunched. `activityUpdates` isn't guaranteed to replay those, so their
+        // push token would otherwise never be re-sent and the server couldn't update
+        // them. Runs after unlocking: spawnAndStoreActivityTasks → replaceActivityTasks
+        // takes the same lock, so doing this under it would deadlock.
+        reconnectRunningActivities(activityType)
+    }
+
+    /// Re-observes the push token / state of every currently-running activity of
+    /// this type, re-uploading the token so a relaunched app resyncs the server.
+    ///
+    /// INTENTIONAL OVERLAP with `observeActivity`: `activityUpdates` may also replay these
+    /// already-running activities to the fresh subscriber, so both paths can call
+    /// `spawnAndStoreActivityTasks` for the same activity. This is safe by design and relies on TWO
+    /// dedup layers — do not remove either without removing this overlap: (1) `replaceActivityTasks`
+    /// cancels the prior tasks before overwriting (so only one observer pair survives per activity),
+    /// and (2) `claimActivityTokenForSend` collapses the duplicate token sends into one request.
+    /// The reconnect path is kept because `activityUpdates` replay is NOT guaranteed on every OS.
+    @available(iOS 16.1, *)
+    private static func reconnectRunningActivities<Attributes: PushwooshLiveActivityAttributes>(_ activityType: Attributes.Type) {
+        for activity in Activity<Attributes>.activities {
+            spawnAndStoreActivityTasks(activity, for: activityType)
+
+            // Push the token synchronously, right now: pushTokenUpdates is not guaranteed to
+            // replay the current token to a fresh subscriber, so on relaunch the observer above
+            // might never re-emit it. Reading activity.pushToken directly re-sends it immediately
+            // instead of waiting for a rotation that may never come. sendActivityToken skips the
+            // network call when the server already has this exact token.
+            if let token = activity.pushToken {
+                sendActivityToken(token, for: activity)
+            }
+        }
     }
 
     // No @available(iOS 16.1, *) on the @objc entrypoints below: Obj-C / cross-platform plugin
@@ -273,6 +322,10 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
                 cancelActivityTasks(activity.id)
                 Task { await activity.end(nil, dismissalPolicy: .immediate) }
             }
+            // Drop the cached token directly: cancelling the observer tasks above means the .dismissed
+            // transition is never observed, so handleDismissedState (which normally clears the cache)
+            // won't run for this path. Without this, the activityId lingers in the dedup cache forever.
+            removeCachedActivityToken(forActivityId: activityId)
             // Notify the server the activity stopped. Same PWRequestStopLiveActivity as the existing
             // stopLiveActivity(activityId:) path.
             stopLiveActivity(activityId: activityId) { _ in }
@@ -298,6 +351,10 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
     // Test-only seam. Cancels stored Tasks cooperatively but does NOT await their actual completion.
     // Tests are safe because mock streams (no real ActivityKit) don't emit further values after cancel.
     internal static func _resetForTesting() {
+        tokenCacheLock.lock()
+        inFlightActivityTokenSends.removeAll()
+        tokenCacheLock.unlock()
+
         registrationLock.lock()
         defer { registrationLock.unlock() }
         typeTasks.values.flatMap { $0 }.forEach { $0.cancel() }
@@ -305,6 +362,7 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
         registeredTypes.removeAll()
         typeTasks.removeAll()
         perActivityTasks.removeAll()
+        UserDefaults.standard.removeObject(forKey: sentActivityTokensKey)
     }
 
     private static func cancelActivityTasks(_ activityId: String) {
@@ -336,6 +394,9 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
     @available(iOS 16.1, *)
     private static func observeActivity<Attributes: PushwooshLiveActivityAttributes>(_ activityType: Attributes.Type) -> Task<Void, Never> {
         return Task {
+            // NOTE: at setup this may replay already-running activities that reconnectRunningActivities
+            // is also (re)attaching to on the calling thread. The double spawnAndStoreActivityTasks is
+            // intentional and safe — see the dedup-layers note on reconnectRunningActivities.
             for await activity in Activity<Attributes>.activityUpdates {
                 if #available(iOS 16.2, *) {
                     handleMultipleActivities(activity, for: activityType)
@@ -405,9 +466,15 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
     /// `runtimeActivityId` is the ActivityKit-issued `activity.id` (UUID) used as the `perActivityTasks`
     /// key — passing the business activityId here would silently miss the cancel.
     internal static func handleDismissedState(forActivityId activityId: String, runtimeActivityId: String) {
-        // Cancel the per-activity observer tasks first, so a concurrent token rotation can't register a
-        // post-stop token after the stop request is sent.
+        // Cancel the per-activity observer tasks first to reduce the window in which a concurrent
+        // token rotation could register a post-stop token after the stop request is sent. Note this
+        // narrows but does not fully close it: Task.cancel() is cooperative, so a send already past
+        // its await point still completes. The dedup cache clear below plus the server treating the
+        // stop as authoritative keep a late token from mattering.
         cancelActivityTasks(runtimeActivityId)
+        // The activity is gone; drop its cached token so a future activity reusing the same
+        // activityId is never wrongly deduplicated against this dead one.
+        removeCachedActivityToken(forActivityId: activityId)
         let request = dismissedActivityRequest(forActivityId: activityId)
         send(request) { error in
             handlePushTokenResult(error: error)
@@ -418,14 +485,102 @@ public class PushwooshLiveActivitiesImplementationSetup: NSObject, PWLiveActivit
     private static func observeActivityPushTokenUpdates<Attributes: PushwooshLiveActivityAttributes>(_ activity: Activity<Attributes>, for activityType: Attributes.Type) -> Task<Void, Never> {
         return Task {
             for await pushToken in activity.pushTokenUpdates {
-                let token = pushToken.map { String(format: "%02x", $0) }.joined()
-                let requestParameters = ActivityRequestParameters(activityId: activity.attributes.pushwoosh.activityId, token: token)
-                let request = PWRequestSetActivityToken(parameters: requestParameters)
-                send(request) { error in
-                    handlePushTokenResult(error: error)
-                }
+                sendActivityToken(pushToken, for: activity)
             }
         }
+    }
+
+    @available(iOS 16.1, *)
+    private static func sendActivityToken<Attributes: PushwooshLiveActivityAttributes>(_ pushToken: Data, for activity: Activity<Attributes>) {
+        let token = pushToken.map { String(format: "%02x", $0) }.joined()
+        let activityId = activity.attributes.pushwoosh.activityId
+
+        // Claim before sending so exactly one of the concurrent setup paths wins (the
+        // activityUpdates initial replay, reconnect's re-subscription, and reconnect's own
+        // synchronous pushToken read). The claim is in-memory only; the persisted cache is written
+        // exclusively after the server confirms the send, so a request lost in flight can never be
+        // recorded as sent.
+        guard claimActivityTokenForSend(token, forActivityId: activityId) else {
+            PushwooshLog.pushwooshLog(.PW_LL_DEBUG, className: self,
+                message: "Live activity token for \(activityId) already sent or in flight; skipping resend.")
+            return
+        }
+
+        let requestParameters = ActivityRequestParameters(activityId: activityId, token: token)
+        let request = PWRequestSetActivityToken(parameters: requestParameters)
+        send(request) { error in
+            if error == nil {
+                markActivityTokenSent(token, forActivityId: activityId)
+            } else {
+                // Release the claim so a later token emission or the next launch retries.
+                releaseActivityTokenClaim(token, forActivityId: activityId)
+            }
+            handlePushTokenResult(error: error)
+        }
+    }
+
+    /// Returns true when this exact token still needs a send for the activity: it is neither
+    /// server-confirmed (persisted cache) nor already being sent right now (in-flight claim).
+    /// Registers the in-flight claim on success. Check-and-set is atomic under tokenCacheLock so
+    /// racing fan-out callers can't all pass the guard.
+    /// Internal-visible so unit tests can drive the dedup state machine without an `Activity<…>`.
+    internal static func claimActivityTokenForSend(_ token: String, forActivityId activityId: String) -> Bool {
+        tokenCacheLock.lock()
+        defer { tokenCacheLock.unlock() }
+        let confirmed = (UserDefaults.standard.dictionary(forKey: sentActivityTokensKey) as? [String: String]) ?? [:]
+        if confirmed[activityId] == token || inFlightActivityTokenSends[activityId]?.contains(token) == true {
+            return false
+        }
+        inFlightActivityTokenSends[activityId, default: []].insert(token)
+        return true
+    }
+
+    /// Persists the token as server-confirmed and releases its in-flight claim. Called only from
+    /// the success branch of the send completion — write-after-confirm keeps the cache truthful
+    /// when a completion is lost with the process. Skips persisting when the claim was already
+    /// revoked by a concurrent dismissal, so a dead activity never re-enters the cache.
+    /// Internal-visible for unit tests.
+    internal static func markActivityTokenSent(_ token: String, forActivityId activityId: String) {
+        tokenCacheLock.lock()
+        defer { tokenCacheLock.unlock() }
+        guard inFlightActivityTokenSends[activityId]?.remove(token) != nil else { return }
+        if inFlightActivityTokenSends[activityId]?.isEmpty == true {
+            inFlightActivityTokenSends.removeValue(forKey: activityId)
+        }
+        var map = (UserDefaults.standard.dictionary(forKey: sentActivityTokensKey) as? [String: String]) ?? [:]
+        map[activityId] = token
+        UserDefaults.standard.set(map, forKey: sentActivityTokensKey)
+    }
+
+    /// Releases the in-flight claim after a failed send so a later token emission or the next
+    /// launch retries. The persisted cache is untouched — it never contained this token.
+    /// Internal-visible for unit tests.
+    internal static func releaseActivityTokenClaim(_ token: String, forActivityId activityId: String) {
+        tokenCacheLock.lock()
+        defer { tokenCacheLock.unlock() }
+        inFlightActivityTokenSends[activityId]?.remove(token)
+        if inFlightActivityTokenSends[activityId]?.isEmpty == true {
+            inFlightActivityTokenSends.removeValue(forKey: activityId)
+        }
+    }
+
+    /// Test-only seam: models a process relaunch for the dedup state — in-flight claims die with
+    /// the process while the persisted server-confirmed cache survives.
+    internal static func _clearInFlightClaimsForTesting() {
+        tokenCacheLock.lock()
+        defer { tokenCacheLock.unlock() }
+        inFlightActivityTokenSends.removeAll()
+    }
+
+    private static func removeCachedActivityToken(forActivityId activityId: String) {
+        tokenCacheLock.lock()
+        defer { tokenCacheLock.unlock() }
+        // Revoke any in-flight claim too: a send racing this dismissal must not persist its token
+        // after the entry is cleared, or the dead activity would linger in the cache forever.
+        inFlightActivityTokenSends.removeValue(forKey: activityId)
+        guard var map = UserDefaults.standard.dictionary(forKey: sentActivityTokensKey) as? [String: String] else { return }
+        map.removeValue(forKey: activityId)
+        UserDefaults.standard.set(map, forKey: sentActivityTokensKey)
     }
 
     private static func handlePushTokenResult(error: Error?) {

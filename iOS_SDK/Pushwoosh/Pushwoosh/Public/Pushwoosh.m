@@ -542,11 +542,11 @@ static dispatch_once_t ensureInitializedOncePredicate;
 }
 
 - (void)setEmail:(NSString *)email completion:(void(^)(NSError * error))completion {
-    [self.inAppManager setEmails:@[email] completion:completion];
+    [self.inAppManager setEmails:(email ? @[email] : @[]) completion:completion];
 }
 
 - (void)setEmail:(NSString *)email {
-    [self.inAppManager setEmails:@[email] completion:nil];
+    [self.inAppManager setEmails:(email ? @[email] : @[]) completion:nil];
 }
 
 - (void)setUser:(NSString *)userId emails:(NSArray *)emails completion:(void(^)(NSError * error))completion {
@@ -554,7 +554,7 @@ static dispatch_once_t ensureInitializedOncePredicate;
 }
 
 - (void)setUser:(NSString *)userId email:(NSString *)email completion:(void(^)(NSError * error))completion {
-    [self.inAppManager setUser:userId emails:@[email] completion:completion];
+    [self.inAppManager setUser:userId emails:(email ? @[email] : @[]) completion:completion];
 }
 
 - (void)setUser:(NSString *)userId emails:(NSArray *)emails {

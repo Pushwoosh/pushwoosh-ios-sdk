@@ -121,4 +121,13 @@ final class PushwooshVoIPTests: XCTestCase {
         XCTAssertNil(message.rawPayload["video"])
         XCTAssertNil(message.rawPayload["customData"])
     }
+
+    /// Verifies the setRingtone facade routes to the implementation without recursing and persists the value.
+    func testSetRingtoneFacadeDoesNotRecurseAndPersists() throws {
+        PushwooshVoIPImplementation.setRingtone("regression_ringtone.caf")
+
+        XCTAssertEqual(UserDefaults.standard.string(forKey: "PushwooshVoIPRingtone"), "regression_ringtone.caf")
+
+        PushwooshVoIPImplementation.setRingtone(nil)
+    }
 }

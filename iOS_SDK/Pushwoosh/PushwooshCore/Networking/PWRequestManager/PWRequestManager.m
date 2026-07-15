@@ -524,6 +524,18 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 
     [request setStartTime:[[NSDate date] timeIntervalSince1970]];
 
+    if (![NSJSONSerialization isValidJSONObject:request.requestDictionary]) {
+        NSString *errorStr = [NSString stringWithFormat:@"Failed to serialize request %@: non-serializable data", request.methodName];
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorStr];
+        if (completion) {
+            completion([PWUtils pushwooshError:errorStr]);
+        }
+#if TARGET_OS_IOS
+        [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
+#endif
+        return;
+    }
+
     NSError *jsonError = nil;
     NSData *jsonData = [NSJSONSerialization dataWithJSONObject:request.requestDictionary options:0 error:&jsonError];
 

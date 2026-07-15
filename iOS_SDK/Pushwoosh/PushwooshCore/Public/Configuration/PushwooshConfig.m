@@ -295,7 +295,7 @@
     NSString *value = [self validateAndTrim:email forSelector:_cmd];
     if (email != nil && value == nil) return;
     [self executeOrQueue:^{
-        [[PWManagerBridge shared] setEmails:@[value] completion:completion];
+        [[PWManagerBridge shared] setEmails:(value ? @[value] : @[]) completion:completion];
     }];
 }
 

@@ -8,6 +8,8 @@ PushwooshLiveActivities integrates Apple's ActivityKit framework to deliver real
 
 The module handles token registration, activity lifecycle management, and push notification delivery automatically. It supports both custom activity attributes and a default configuration for cross-platform scenarios.
 
+> Important: Call ``PushwooshLiveActivitiesImplementationSetup/setup(_:)`` for every attributes type your app uses **at launch** (in `application(_:didFinishLaunchingWithOptions:)` or the SwiftUI `App.init`), not lazily when a screen appears. Only a type registered in the current session is reconnected to its already-running activities so their push token can be re-uploaded after a cold start — for example an activity that started, or was scheduled to start, while the app was terminated. A type registered later (e.g. in a view's `onAppear`) can't receive remote updates until that screen is opened. ActivityKit exposes running activities only through the concrete `Activity<Attributes>` generic and does not persist the set of types across launches, so the SDK cannot reconnect a type it hasn't been told about this session. The call is idempotent — registering at launch and again per-screen is safe.
+
 ## Topics
 
 ### Getting Started

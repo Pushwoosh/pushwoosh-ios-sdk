@@ -4,38 +4,6 @@
 <dict>
 	<key>files</key>
 	<dict>
-		<key>Frameworks/PushwooshBridge.framework/Info.plist</key>
-		<data>
-		oCWoL+hrVZ8vvQFnswC9ENgmyGE=
-		</data>
-		<key>Frameworks/PushwooshBridge.framework/PrivacyInfo.xcprivacy</key>
-		<data>
-		7NzAl/qfKZwy0neaQU691RMQzrw=
-		</data>
-		<key>Frameworks/PushwooshBridge.framework/PushwooshBridge</key>
-		<data>
-		sqTJmf8oBBDTgGDX6gP3Tzza5jY=
-		</data>
-		<key>Frameworks/PushwooshBridge.framework/_CodeSignature/CodeResources</key>
-		<data>
-		/BQMPfkU98kf81Wk6IAAnB0cgzM=
-		</data>
-		<key>Frameworks/PushwooshCore.framework/Info.plist</key>
-		<data>
-		jpyYIVAE2V0XOe4Dvi34nEx81pI=
-		</data>
-		<key>Frameworks/PushwooshCore.framework/PrivacyInfo.xcprivacy</key>
-		<data>
-		7NzAl/qfKZwy0neaQU691RMQzrw=
-		</data>
-		<key>Frameworks/PushwooshCore.framework/PushwooshCore</key>
-		<data>
-		vW4cRqqU3laBQC2yEeyP72ytWGg=
-		</data>
-		<key>Frameworks/PushwooshCore.framework/_CodeSignature/CodeResources</key>
-		<data>
-		2sN8X6julUzeqBjvRX7GLdcP7DI=
-		</data>
 		<key>Headers/PushwooshKeychain-Swift.h</key>
 		<data>
 		sBeeJBy88fpSFzgQNY17vU2CIKo=
@@ -46,7 +14,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		qEnQ5lRFGFTXBsjUmcXxYogvAu0=
+		SKvbKGszKZGnGyMRQZbqIsE3aPE=
 		</data>
 		<key>Modules/PushwooshKeychain.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -99,62 +67,6 @@
 	</dict>
 	<key>files2</key>
 	<dict>
-		<key>Frameworks/PushwooshBridge.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			eSMzRLWW1r6xzL4nghtGhph5Ist3t+Hrytd6+rSNpWI=
-			</data>
-		</dict>
-		<key>Frameworks/PushwooshBridge.framework/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			5JV1VLSsu0iGctH5UBK5JwFbMxxCcRJL5PJrqjkX+ZM=
-			</data>
-		</dict>
-		<key>Frameworks/PushwooshBridge.framework/PushwooshBridge</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			LjdpQjczxnz5Q6M4bma1JUeav21WdmdrQTxuP+t6o7Y=
-			</data>
-		</dict>
-		<key>Frameworks/PushwooshBridge.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			61wvIDovdnIDK6okiNgQzMU9FfUz2wtY8PONeYdIBpo=
-			</data>
-		</dict>
-		<key>Frameworks/PushwooshCore.framework/Info.plist</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			LTrajjAcJVfq5fVRgMLVDgJefIfUvyzYfsVIghpr+xI=
-			</data>
-		</dict>
-		<key>Frameworks/PushwooshCore.framework/PrivacyInfo.xcprivacy</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			5JV1VLSsu0iGctH5UBK5JwFbMxxCcRJL5PJrqjkX+ZM=
-			</data>
-		</dict>
-		<key>Frameworks/PushwooshCore.framework/PushwooshCore</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			S/ogFyQaFx6WLp+UFRVbP/kPlWbEQm6iZVR9xnf2eGk=
-			</data>
-		</dict>
-		<key>Frameworks/PushwooshCore.framework/_CodeSignature/CodeResources</key>
-		<dict>
-			<key>hash2</key>
-			<data>
-			9llMqnow9VGe0Op2t6HGFKaonk+rwwDs8O6y7E9argI=
-			</data>
-		</dict>
 		<key>Headers/PushwooshKeychain-Swift.h</key>
 		<dict>
 			<key>hash2</key>

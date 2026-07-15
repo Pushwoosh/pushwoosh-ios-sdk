@@ -241,7 +241,7 @@ NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpda
 }
 
 - (void)setUser:(NSString *)userId email:(NSString *)email completion:(void (^)(NSError *error))completion {
-    [self setUser:userId emails:@[email] completion:completion];
+    [self setUser:userId emails:(email ? @[email] : @[]) completion:completion];
 }
 
 - (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void (^)(NSError *error))completion {

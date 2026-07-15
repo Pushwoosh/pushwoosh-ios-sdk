@@ -227,7 +227,7 @@ static BOOL _isInitializing = NO;
         self.grpcHost = [self trimmedStringForKey:@"Pushwoosh_GRPC_HOST"] ?: @"grpc.pushwoosh.com";
 
         NSNumber *grpcPortNum = [self infoValueForKey:@"Pushwoosh_GRPC_PORT"];
-        self.grpcPort = grpcPortNum ? [grpcPortNum integerValue] : 443;
+        self.grpcPort = [grpcPortNum respondsToSelector:@selector(integerValue)] ? [grpcPortNum integerValue] : 443;
 
         _isInitializing = NO;
 	}
@@ -296,7 +296,7 @@ static BOOL _isInitializing = NO;
     }
 
     NSNumber *raw = [self infoValueForKey:@"Pushwoosh_IDLE_TIMEOUT_SECONDS"];
-    if (!raw) {
+    if (![raw respondsToSelector:@selector(integerValue)]) {
         return 0;
     }
 
@@ -326,7 +326,7 @@ static BOOL _isInitializing = NO;
     }
 
     NSNumber *raw = [self infoValueForKey:@"Pushwoosh_APPLICATION_EXIT_TIMEOUT_SECONDS"];
-    if (!raw) {
+    if (![raw respondsToSelector:@selector(integerValue)]) {
         return 0;
     }
 

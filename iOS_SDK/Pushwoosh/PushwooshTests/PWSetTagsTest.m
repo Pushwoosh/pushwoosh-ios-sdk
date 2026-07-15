@@ -23,6 +23,10 @@
 #include <time.h>
 #include <stdlib.h>
 
+@interface PWSetTagsRequest (TEST)
+@property (nonatomic) NSDictionary *tags;
+@end
+
 
 @interface SetTagsTest_PWRequestManagerMock : PWRequestManager
 
@@ -78,8 +82,56 @@
 	[PWPlatformModule module].notificationManagerCompat = self.originalNotificationManager;
 	
 	[PWTestUtils tearDown];
-	
+
 	[super tearDown];
+}
+
+/// Valid tag value types (string, number, array) are preserved in the serialized dictionary.
+- (void)testRequestDictionaryKeepsValidTagTypes {
+	PWSetTagsRequest *request = [PWSetTagsRequest new];
+	request.tags = @{@"str": @"hello", @"num": @42, @"arr": @[@"a", @"b"]};
+
+	NSDictionary *tags = [request requestDictionary][@"tags"];
+
+	XCTAssertEqualObjects(tags[@"str"], @"hello");
+	XCTAssertEqualObjects(tags[@"num"], @42);
+	XCTAssertEqualObjects(tags[@"arr"], (@[@"a", @"b"]));
+}
+
+/// A "#pwinc#" prefixed string is converted into an increment-operation dictionary.
+- (void)testRequestDictionaryConvertsIncrementPrefix {
+	PWSetTagsRequest *request = [PWSetTagsRequest new];
+	request.tags = @{@"counter": @"#pwinc#5"};
+
+	NSDictionary *tags = [request requestDictionary][@"tags"];
+
+	XCTAssertEqualObjects(tags[@"counter"][@"operation"], @"increment");
+	XCTAssertEqualObjects(tags[@"counter"][@"value"], @5);
+}
+
+/// NaN and infinity number values are excluded so JSON serialization cannot throw.
+- (void)testRequestDictionaryExcludesNaNAndInfinity {
+	PWSetTagsRequest *request = [PWSetTagsRequest new];
+	request.tags = @{@"good": @"ok", @"nan": @(NAN), @"inf": @(INFINITY)};
+
+	NSDictionary *dictionary = [request requestDictionary];
+	NSDictionary *tags = dictionary[@"tags"];
+
+	XCTAssertEqualObjects(tags[@"good"], @"ok");
+	XCTAssertNil(tags[@"nan"]);
+	XCTAssertNil(tags[@"inf"]);
+	XCTAssertTrue([NSJSONSerialization isValidJSONObject:dictionary]);
+}
+
+/// Non-serializable value types (e.g. NSURL) are dropped instead of crashing serialization.
+- (void)testRequestDictionaryExcludesNonSerializableValues {
+	PWSetTagsRequest *request = [PWSetTagsRequest new];
+	request.tags = @{@"good": @"ok", @"url": [NSURL URLWithString:@"http://example.test"]};
+
+	NSDictionary *tags = [request requestDictionary][@"tags"];
+
+	XCTAssertEqualObjects(tags[@"good"], @"ok");
+	XCTAssertNil(tags[@"url"]);
 }
 
 @end

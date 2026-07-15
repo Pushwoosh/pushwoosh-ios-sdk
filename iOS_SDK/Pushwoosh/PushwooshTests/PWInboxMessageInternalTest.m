@@ -12,6 +12,11 @@
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
 
+@interface PWInboxMessageInternal (Test)
++ (BOOL)validateDictionary:(NSDictionary *)dictionary;
++ (instancetype)messageWithDictionary:(NSDictionary *)dictionary;
+@end
+
 @interface PWInboxMessageInternalTest : XCTestCase
 
 @property (nonatomic) NSString *code;
@@ -52,8 +57,22 @@
     PWInboxMessageInternal *message = [PWInboxMessageInternal messageWithPushNotification:self.parameters];
     
     BOOL isFromNotification = [PWInboxMessageInternal isFromNotification:message];
-    
+
     XCTAssertTrue(isFromNotification);
+}
+
+/// validateDictionary returns NO for a non-dictionary element instead of crashing on objectForKey:.
+- (void)testValidateDictionaryWithNonDictionaryInput_returnsNO {
+    NSArray *arrayInput = @[@"not", @"a", @"dict"];
+    XCTAssertFalse([PWInboxMessageInternal validateDictionary:(id)arrayInput]);
+    XCTAssertFalse([PWInboxMessageInternal validateDictionary:(id)@42]);
+    XCTAssertFalse([PWInboxMessageInternal validateDictionary:(id)@"string"]);
+}
+
+/// messageWithDictionary returns nil without crashing when a server array yields a non-dictionary element.
+- (void)testMessageWithNonDictionaryInput_returnsNil {
+    NSArray *arrayInput = @[@1, @2];
+    XCTAssertNil([PWInboxMessageInternal messageWithDictionary:(id)arrayInput]);
 }
 
 - (NSDictionary *)parameters {
