@@ -9,6 +9,8 @@
 #import <PushwooshCore/PushwooshLog.h>
 #import <PushwooshCore/PWPreferences.h>
 
+@class PWResource;
+
 FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 
 @interface PWInAppMessagesManager : NSObject
@@ -39,6 +41,10 @@ FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 
 #if TARGET_OS_IOS
 - (void)addJavascriptInterface:(NSObject*)interface withName:(NSString*)name;
+
+// Detected in the single rich-media funnel (PWRichMediaManager presentRichMedia:): reads
+// native-config.json from the resolved resource and routes it to the PushwooshInApp module.
+- (void)routeNativeInAppForResource:(PWResource *)resource messageHash:(NSString *)messageHash;
 #endif
 
 @end

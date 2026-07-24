@@ -14,3 +14,4 @@ PushwooshModuleIdentifier const PWModuleIdentifierVoIP = @"voIP";
 PushwooshModuleIdentifier const PWModuleIdentifierForegroundPush = @"foregroundPush";
 PushwooshModuleIdentifier const PWModuleIdentifierTVoS = @"tvOS";
 PushwooshModuleIdentifier const PWModuleIdentifierKeychain = @"keychain";
+PushwooshModuleIdentifier const PWModuleIdentifierInApp = @"inApp";

@@ -72,7 +72,10 @@
                          className:self
                            message:[NSString stringWithFormat:@"Current device preferred language: %@", [PWPreferences preferences].language]];
         self.localizedStrings = localization[[PWPreferences preferences].language];
-        
+        if (![_localizedStrings isKindOfClass:[NSDictionary class]]) {
+            _localizedStrings = nil;
+        }
+
         if (!self.localizedStrings) {
             NSString *defaultLanguage = parsedConfig[@"default_language"];
             [PushwooshLog pushwooshLog:PW_LL_DEBUG

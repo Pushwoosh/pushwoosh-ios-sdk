@@ -9,8 +9,8 @@
 
 @implementation PWMissingModuleProtocolCoverageTest
 
-/// Verifies that every selector declared on the six optional-module protocols and the
-/// three back-channel handler protocols is either present in
+/// Verifies that every selector declared on the seven optional-module protocols and the
+/// four back-channel handler protocols is either present in
 /// `PWMissingModule.knownSignatures` or safely covered by the `set...:` -> `v@:@` heuristic
 /// (object-only setters). Any new protocol method that escapes both checks fails the test —
 /// add an explicit entry to `knownSignatures` with the correct type encoding.
@@ -41,6 +41,8 @@
         @protocol(PWKeychainPersistentHWIDProvider),
         @protocol(PWVoIPConfigureHandler),
         @protocol(PWTVoSInAppHandler),
+        @protocol(PWInApp),
+        @protocol(PWInAppHandler),
     ];
     return protocols;
 }

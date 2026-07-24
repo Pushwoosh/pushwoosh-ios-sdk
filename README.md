@@ -38,6 +38,7 @@
 [![PushwooshKeychain Documentation](https://img.shields.io/badge/docs-PushwooshKeychain-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshKeychain/documentation/pushwooshkeychain/)
 [![PushwooshGRPC Documentation](https://img.shields.io/badge/docs-PushwooshGRPC-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshGRPC/documentation/pushwooshgrpc/)
 [![PushwooshNotificationUI Documentation](https://img.shields.io/badge/docs-PushwooshNotificationUI-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshNotificationUI/documentation/pushwooshnotificationui/)
+[![PushwooshInApp Documentation](https://img.shields.io/badge/docs-PushwooshInApp-blue.svg?style=flat-square)](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshInApp/documentation/pushwooshinapp/)
 
 ## Features
 
@@ -52,6 +53,7 @@
 - **VoIP Push Notifications** - CallKit integration for VoIP apps
 - **Live Activities** - iOS 16.1+ Live Activities with push updates
 - **InboxKit** - Modern UIKit inbox UI with banner / captioned / classic cards, inline CTAs and pinning
+- **In-App Messages** - Native modal, sheet, carousel, stories, banner and fullscreen in-apps rendered without a webview
 - **tvOS Support** - Push notifications and Rich Media for Apple TV
 - **Foreground Push** - Custom foreground notifications with animations and effects
 - **Push Stories** - Full-screen, Instagram-style stories in an expanded notification
@@ -80,6 +82,7 @@ Select the modules you need in your target's **Frameworks, Libraries, and Embedd
 - `PushwooshKeychain` - Persistent device ID across app reinstalls *(optional)*
 - `PushwooshGRPC` - gRPC transport for improved performance *(optional)*
 - `PushwooshNotificationUI` - Full-screen push stories UI for a Notification Content Extension *(optional)*
+- `PushwooshInApp` - Native in-app messages: modal, sheet, carousel, stories, banner, fullscreen *(optional)*
 
 ---
 
@@ -100,6 +103,7 @@ pod 'PushwooshXCFramework/PushwooshForegroundPush'
 pod 'PushwooshXCFramework/PushwooshKeychain'
 pod 'PushwooshXCFramework/PushwooshGRPC'
 pod 'PushwooshXCFramework/PushwooshNotificationUI'
+pod 'PushwooshXCFramework/PushwooshInApp'
 ```
 
 Then run:
@@ -248,6 +252,11 @@ Optional gRPC transport layer for improved network performance. Automatically fa
 
 ### [PushwooshNotificationUI](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshNotificationUI/documentation/pushwooshnotificationui/)
 Full-screen, Instagram-style push stories rendered in a Notification Content Extension. Subclass `PushwooshStoriesViewController` and drive it with a `pw_stories` payload.
+
+**Requirements:** iOS 13.0+ | UIKit
+
+### [PushwooshInApp](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshInApp/documentation/pushwooshinapp/)
+Native in-app messages rendered without a webview - modal, sheet, carousel, stories, banner, fullscreen, video, PiP, scratch card and spin wheel. Presented automatically from campaigns, or manually via `Pushwoosh.inApp.present(_:)`.
 
 **Requirements:** iOS 13.0+ | UIKit
 

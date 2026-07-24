@@ -190,6 +190,19 @@ extension PushwooshBridge.PWLiveActivities {
 @objc public protocol PWTVoSInAppHandler {
   @objc func handleInAppResource(_ resource: Any)
 }
+@objc public protocol PWInApp {
+  @objc static func present(_ config: [Swift.AnyHashable : Any])
+  @objc static var delegate: Swift.AnyObject? { get set }
+  @objc static var isPaused: Swift.Bool { get set }
+  @objc static var isPresenting: Swift.Bool { get }
+  @objc static func dismiss()
+  @objc static func setFrequencyCapEnabled(_ enabled: Swift.Bool)
+}
+@objc public protocol PWInAppHandler {
+  @objc func handleInAppConfig(_ config: [Swift.AnyHashable : Any])
+  @objc func handleInAppConfig(_ config: [Swift.AnyHashable : Any], onShown: (() -> Swift.Void)?)
+  @objc func handleInAppConfig(_ config: [Swift.AnyHashable : Any], onShown: (() -> Swift.Void)?, onClicked: (() -> Swift.Void)?, onClosed: (() -> Swift.Void)?)
+}
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Equatable {}
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Hashable {}
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.RawRepresentable {}

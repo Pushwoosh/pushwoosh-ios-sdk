@@ -99,6 +99,13 @@
 }
 #endif
 
+#if TARGET_OS_IOS
++ (Class<PWInApp>)inApp {
+    [self ensureInitialized];
+    return (Class<PWInApp>)[PushwooshModuleRegistry classForIdentifier:PWModuleIdentifierInApp];
+}
+#endif
+
 + (Class)configure {
     [self ensureInitialized];
     [self sharedInstance];

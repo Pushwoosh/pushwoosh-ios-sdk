@@ -144,6 +144,14 @@
     return [[self localPath] stringByAppendingPathComponent:@"index.html"];
 }
 
+- (NSString *)nativeConfigUrl {
+    return [[self localPath] stringByAppendingPathComponent:@"native-config.json"];
+}
+
+- (BOOL)hasNativeConfig {
+    return [[NSFileManager defaultManager] fileExistsAtPath:[self nativeConfigUrl]];
+}
+
 - (void)deleteData {
     if ([self localPath].length > 0) {
         [[NSFileManager defaultManager] removeItemAtPath:[self localPath] error:nil];
@@ -230,18 +238,20 @@
 }
 
 - (void)readConfig {
-    if (self.config)
-        return;
-    
-    self.config = [[PWRichMediaConfig alloc] initWithContentsOfFile:[self configUrl]];
-    if (self.config) {
-        _closeButton = self.config.iosCloseButton;
-        _presentationStyleKey = self.config.presentationStyleKey;
-        _position = self.config.position;
-        _presentAnimation = self.config.presentAnimation;
-        _dismissAnimation = self.config.dismissAnimation;
-        _animationDuration = self.config.animationDuration;
-        _swipeToDismiss = self.config.swipeToDismiss;
+    @synchronized (self) {
+        if (self.config)
+            return;
+
+        self.config = [[PWRichMediaConfig alloc] initWithContentsOfFile:[self configUrl]];
+        if (self.config) {
+            _closeButton = self.config.iosCloseButton;
+            _presentationStyleKey = self.config.presentationStyleKey;
+            _position = self.config.position;
+            _presentAnimation = self.config.presentAnimation;
+            _dismissAnimation = self.config.dismissAnimation;
+            _animationDuration = self.config.animationDuration;
+            _swipeToDismiss = self.config.swipeToDismiss;
+        }
     }
 }
 
@@ -305,16 +315,16 @@
     NSDictionary *localizedStrings = self.config.localizedStrings;
     
     // replace {{tagName|type|defaultValue}} with localization value
-    NSString *localizationRegexString = @"\\{\\{(.[^\\}]+?)\\|(.[^\\}]+?)\\|(.[^\\}]*?)\\}\\}";
+    NSString *localizationRegexString = @"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\|([^|\\}]*)\\}\\}";
     pageContent = [self postProcessPageUsingParameters:localizedStrings regex:localizationRegexString pageContent:pageContent options:NSRegularExpressionDotMatchesLineSeparators];
     
     // replace {placeholderName|type|defaultValue} and {placeholderName|type|} with tag value
-    NSString *tagsNoDefaultValueRegexString = @"\\{(.[^\\}]+?)\\|(.[^\\}]+?)\\|\\}";
-    NSString *tagsRegexString = @"\\{(.[^\\}]+?)\\|(.[^\\}]+?)\\|(.[^\\}]*?)\\}";
+    NSString *tagsNoDefaultValueRegexString = @"\\{([^|\\}]+)\\|([^|\\}]+)\\|\\}";
+    NSString *tagsRegexString = @"\\{([^|\\}]+)\\|([^|\\}]+)\\|([^|\\}]*)\\}";
     NSMutableDictionary *tags = _tags.mutableCopy ? : [[PWCache cache] getTags].mutableCopy;
     
     // support template syntax like {{ Placeholder name | Type }}
-    NSString *localizationRegexStringDefault = @"\\{\\{(.[^\\}]+?)\\|(.[^\\}]+?)\\}\\}";
+    NSString *localizationRegexStringDefault = @"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\}\\}";
     pageContent = [self postProcessPageUsingParameters:localizedStrings regex:localizationRegexStringDefault pageContent:pageContent options:NSRegularExpressionDotMatchesLineSeparators];
     
     if ([PWConfig config].allowCollectingDeviceOsVersion == YES) {
@@ -329,8 +339,166 @@
     
     pageContent = [self postProcessPageUsingParameters:tags regex:tagsNoDefaultValueRegexString pageContent:pageContent options:0];
     pageContent = [self postProcessPageUsingParameters:tags regex:tagsRegexString pageContent:pageContent options:0];
-    
-    return pageContent;
+
+    return [self injectHTMLCharset:pageContent];
+}
+
+- (NSDictionary *)localizeConfig:(NSDictionary *)config {
+    if (![config isKindOfClass:[NSDictionary class]]) {
+        return config;
+    }
+    @synchronized (self) {
+        [self readConfig];
+        id resolved = [self pw_localizeNode:config];
+        return [resolved isKindOfClass:[NSDictionary class]] ? resolved : config;
+    }
+}
+
+- (id)pw_localizeNode:(id)node {
+    if ([node isKindOfClass:[NSString class]]) {
+        return [self pw_localizeString:(NSString *)node];
+    }
+    if ([node isKindOfClass:[NSArray class]]) {
+        NSMutableArray *result = [NSMutableArray arrayWithCapacity:[(NSArray *)node count]];
+        for (id item in (NSArray *)node) {
+            [result addObject:[self pw_localizeNode:item]];
+        }
+        return result;
+    }
+    if ([node isKindOfClass:[NSDictionary class]]) {
+        NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:[(NSDictionary *)node count]];
+        for (id key in (NSDictionary *)node) {
+            result[key] = [self pw_localizeNode:((NSDictionary *)node)[key]];
+        }
+        return result;
+    }
+    return node;
+}
+
+- (NSString *)pw_localizeString:(NSString *)string {
+    if (string.length == 0) {
+        return string;
+    }
+    NSDictionary *localizedStrings = self.config.localizedStrings;
+    NSString *result = [self postProcessPageUsingParameters:localizedStrings
+                                                      regex:@"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\|([^|\\}]*)\\}\\}"
+                                                pageContent:string
+                                                    options:NSRegularExpressionDotMatchesLineSeparators] ?: string;
+    result = [self postProcessPageUsingParameters:localizedStrings
+                                            regex:@"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\}\\}"
+                                      pageContent:result
+                                          options:NSRegularExpressionDotMatchesLineSeparators] ?: result;
+    NSDictionary *tags = @{};
+    result = [self postProcessPageUsingParameters:tags
+                                            regex:@"\\{([^|\\}]+)\\|([^|\\}]+)\\|\\}"
+                                      pageContent:result
+                                          options:0] ?: result;
+    result = [self postProcessPageUsingParameters:tags
+                                            regex:@"\\{([^|\\}]+)\\|([^|\\}]+)\\|([^|\\}]*)\\}"
+                                      pageContent:result
+                                          options:0] ?: result;
+    return result;
+}
+
+- (NSString *)pw_applyModifier:(NSString *)modifier toValue:(NSString *)value applyValueFormatters:(BOOL)applyValueFormatters {
+    if (value == nil || modifier.length == 0) {
+        return value ?: @"";
+    }
+    if (![value isKindOfClass:[NSString class]]) {
+        return [NSString stringWithFormat:@"%@", value];
+    }
+    if ([modifier isEqualToString:@"CapitalizeFirst"]) {
+        return value.length > 0 ? [NSString stringWithFormat:@"%@%@", [value substringToIndex:1].uppercaseString, [value substringFromIndex:1].lowercaseString] : value;
+    } else if ([modifier isEqualToString:@"CapitalizeAllFirst"]) {
+        return value.capitalizedString;
+    } else if ([modifier isEqualToString:@"UPPERCASE"]) {
+        return value.uppercaseString;
+    } else if ([modifier isEqualToString:@"lowercase"]) {
+        return value.lowercaseString;
+    }
+    if (!applyValueFormatters) {
+        return value;
+    }
+    if ([modifier isEqualToString:@"cent"]) {
+        return [self pw_toCent:value];
+    } else if ([modifier isEqualToString:@"dollar"]) {
+        return value.length == 0 ? @"$0" : [@"$" stringByAppendingString:[self pw_toComma:value]];
+    } else if ([modifier isEqualToString:@"euro"]) {
+        return value.length == 0 ? @"€0" : [@"€" stringByAppendingString:[self pw_toComma:value]];
+    } else if ([modifier isEqualToString:@"jpy"]) {
+        return value.length == 0 ? @"¥0" : [@"¥" stringByAppendingString:[self pw_toComma:value]];
+    } else if ([modifier isEqualToString:@"lira"]) {
+        return value.length == 0 ? @"₤0" : [@"₤" stringByAppendingString:[self pw_toComma:value]];
+    } else if ([modifier isEqualToString:@"comma"]) {
+        return [self pw_toComma:value];
+    }
+    NSString *dateFormat = [self pw_dateFormatForModifier:modifier];
+    if (dateFormat) {
+        return [self pw_formatUnixTimestamp:value withFormat:dateFormat] ?: value;
+    }
+    return value;
+}
+
+- (NSString *)pw_toComma:(NSString *)string {
+    if (string.length == 0) {
+        return @"";
+    }
+    NSString *result = @"";
+    NSInteger left = (NSInteger)string.length;
+    while (left > 0) {
+        left -= 3;
+        NSInteger start = MAX(left, 0);
+        NSInteger end = left + 3;
+        result = [NSString stringWithFormat:@"%@,%@", [string substringWithRange:NSMakeRange(start, end - start)], result];
+    }
+    return [result substringToIndex:result.length - 1];
+}
+
+- (NSString *)pw_toCent:(NSString *)string {
+    if (string.length == 0) {
+        return @"$.00";
+    }
+    if (string.length == 1) {
+        string = [@"0" stringByAppendingString:string];
+    }
+    NSString *cents = [string substringFromIndex:string.length - 2];
+    NSString *dollars = [string substringToIndex:string.length - 2];
+    return [NSString stringWithFormat:@"$%@.%@", dollars, cents];
+}
+
+- (NSString *)pw_dateFormatForModifier:(NSString *)modifier {
+    static NSDictionary *formats;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        formats = @{
+            @"M-d-y": @"MMM-dd-yy",
+            @"m-d-y": @"MM-dd-yy",
+            @"M d y": @"MMM dd yy",
+            @"M d Y": @"MMM dd yyyy",
+            @"l": @"EEEE",
+            @"M d": @"MMM dd",
+            @"H:i": @"hh:mm",
+            @"m-d-y H:i": @"MM-dd-yy hh:mm"
+        };
+    });
+    return formats[modifier];
+}
+
+- (NSString *)pw_formatUnixTimestamp:(NSString *)value withFormat:(NSString *)format {
+    const char *cString = value.UTF8String;
+    if (cString == NULL) {
+        return nil;
+    }
+    char *end = NULL;
+    long long timestamp = strtoll(cString, &end, 10);
+    if (end == cString || *end != '\0') {
+        return nil;
+    }
+    NSDate *date = [NSDate dateWithTimeIntervalSince1970:(NSTimeInterval)timestamp];
+    NSDateFormatter *formatter = [NSDateFormatter new];
+    formatter.dateFormat = format;
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    return [formatter stringFromDate:date];
 }
 
 - (NSString *)postProcessPageUsingParameters:(NSDictionary *)parameters regex:(NSString *)tagsRegexString pageContent:(NSString *)pageContent options:(NSRegularExpressionOptions)options {
@@ -361,7 +529,7 @@
             tagDefaultValue = [pageContent substringWithRange:[match rangeAtIndex:3]];
         } else if ([match numberOfRanges] == 3) {
             //handle dynamic content placeholder without a default value
-            if ([tagsRegexString  isEqual: @"\\{(.[^\\}]+?)\\|(.[^\\}]+?)\\|\\}"]) {
+            if ([tagsRegexString  isEqual: @"\\{([^|\\}]+)\\|([^|\\}]+)\\|\\}"]) {
                 tagDefaultValue = @"";
             } else {
                 tagDefaultValue = [pageContent substringWithRange:[match rangeAtIndex:1]];
@@ -377,21 +545,14 @@
                            message:[NSString stringWithFormat:@"Found tag placement: %@, key: %@, default value: %@, modifier: %@", tagPlacement, tagKey, tagDefaultValue, modifier]];
         
         NSString *tagReplacement = parameters[tagKey];
-        
-        if (!tagReplacement) {
+        BOOL found = (tagReplacement != nil);
+
+        if (!found) {
             tagReplacement = tagDefaultValue;
         }
-        
-        if ([modifier isEqualToString:@"CapitalizeFirst"] && tagReplacement.length > 0) {
-            tagReplacement = [NSString stringWithFormat:@"%@%@",[tagReplacement substringToIndex:1].uppercaseString, [tagReplacement substringFromIndex:1].lowercaseString];
-        } else if ([modifier isEqualToString:@"CapitalizeAllFirst"]) {
-            tagReplacement = tagReplacement.capitalizedString;
-        } else if ([modifier isEqualToString:@"UPPERCASE"]) {
-            tagReplacement = tagReplacement.uppercaseString;
-        } else if ([modifier isEqualToString:@"lowercase"]) {
-            tagReplacement = tagReplacement.lowercaseString;
-        }
-        
+
+        tagReplacement = [self pw_applyModifier:modifier toValue:tagReplacement applyValueFormatters:found];
+
         replaceDict[tagPlacement] = tagReplacement;
     }
     
@@ -407,14 +568,16 @@
                            message:[NSString stringWithFormat:@"Replacing: %@, with: %@", tagPlacement, tagReplacement]];
         pageContent = [pageContent stringByReplacingOccurrencesOfString:tagPlacement withString:tagReplacement];
     }
-    
+
+    return pageContent;
+}
+
+- (NSString *)injectHTMLCharset:(NSString *)pageContent {
     NSString *charsetInject = @"<head><meta charset='UTF-8'>";
     NSRange range = [pageContent rangeOfString:charsetInject options:NSCaseInsensitiveSearch];
-    
     if (range.location == NSNotFound) {
         pageContent = [pageContent stringByReplacingOccurrencesOfString:@"<head>" withString:charsetInject];
     }
-    
     return pageContent;
 }
 

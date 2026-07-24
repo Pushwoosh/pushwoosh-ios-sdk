@@ -12,3 +12,4 @@
 #import "Backchannels/PWKeychainPersistentHWIDProvider.h"
 #import "Backchannels/PWVoIPConfigureHandler.h"
 #import "Backchannels/PWTVoSInAppHandler.h"
+#import "Backchannels/PWInAppHandler.h"

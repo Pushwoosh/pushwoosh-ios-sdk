@@ -356,7 +356,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         [[PWManagerBridge shared].inAppMessagesManager presentRichMediaFromPush:userInfo];
     }
 #endif
-    
+
     if (linkUrl && [[PWConfig config] preHandleNotificationsWithUrl]) {
         if ([self isSilentPush:userInfo] && ![[PWConfig config] acceptedDeepLinkForSilentPush])
             return;
@@ -472,7 +472,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
             }
         });
     });
-    
+
     return YES;
 }
 

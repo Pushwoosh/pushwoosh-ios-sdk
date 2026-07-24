@@ -397,6 +397,72 @@ typedef SWIFT_ENUM(NSInteger, PWForegroundPushStyle, open) {
 };
 
 
+/// Public surface of the optional <code>PushwooshInApp</code> module, reached as
+/// <code>Pushwoosh.inApp</code>. Resolves to the module’s implementation class when the
+/// module is linked, otherwise to a logged no-op (<code>PWMissingModule</code>).
+/// Production in-app messages are presented automatically — config arrives as
+/// <code>native-config.json</code> inside a postEvent resource ZIP and is dispatched to
+/// the module via the <code>PWInAppHandler</code> back-channel. <code>present(_:)</code> is the
+/// manual / testing entry point.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge7PWInApp_")
+@protocol PWInApp
+/// Presents a native in-app message from a raw config dictionary.
+/// Use from code to test layouts without a server round-trip:
+/// \code
+/// Pushwoosh.inApp.present(["displayType": "modal", "modal": [ ... ]])
+///
+/// \endcode
++ (void)present:(NSDictionary * _Nonnull)config;
+/// Delegate receiving in-app lifecycle and click callbacks. The object must
+/// conform to <code>PWInAppMessageDelegate</code> (declared in <code>PushwooshInApp</code>).
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id _Nullable delegate;)
++ (id _Nullable)delegate SWIFT_WARN_UNUSED_RESULT;
++ (void)setDelegate:(id _Nullable)newValue;
+/// When <code>true</code>, eligible in-app messages are queued but not displayed.
+/// Defaults to <code>false</code>.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) BOOL isPaused;)
++ (BOOL)isPaused SWIFT_WARN_UNUSED_RESULT;
++ (void)setIsPaused:(BOOL)newValue;
+/// <code>true</code> while any in-app (including a floating PiP) is on screen.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isPresenting;)
++ (BOOL)isPresenting SWIFT_WARN_UNUSED_RESULT;
+/// Dismisses whatever in-app is currently shown (e.g. on logout or a
+/// deep-link navigation). No-op if nothing is showing.
++ (void)dismiss;
+/// Opt-in enforcement of the <code>maxDisplays</code> / <code>cooldown</code> frequency caps.
+/// Defaults to <code>false</code> — an SDK update never changes display behaviour
+/// silently. <code>expireDate</code> / <code>ttl</code> are always enforced regardless.
++ (void)setFrequencyCapEnabled:(BOOL)enabled;
+@end
+
+
+/// Back-channel protocol that lets Core dispatch a native in-app config to the
+/// optional <code>PushwooshInApp</code> module without a <code>performSelector</code> chain.
+/// The module registers a handler conforming to this protocol via
+/// <code>PushwooshModuleRegistry.registerHandler(_:forIdentifier:)</code> at load time.
+/// Core forwards the config dictionary (read from <code>native-config.json</code> in a
+/// postEvent resource ZIP) through <code>handleInAppConfig(_:)</code>; when the module is
+/// not linked the handler is <code>nil</code> and the message is a no-op.
+/// Mirrors the Obj-C <code>@protocol PWInAppHandler</code> in
+/// <code>PushwooshCore/Modules/Backchannels/PWInAppHandler.h</code> — same <code>@objc</code>
+/// selectors, so dispatch resolves identically on either side.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge14PWInAppHandler_")
+@protocol PWInAppHandler
+/// Hands a native in-app config dictionary off to the in-app presenter.
+- (void)handleInAppConfig:(NSDictionary * _Nonnull)config;
+/// Same as <code>handleInAppConfig(_:)</code>, with an <code>onShown</code> hook the presenter
+/// fires when the message is actually displayed (not on route acceptance —
+/// frequency caps, pause or the host delegate may still suppress it). Core
+/// uses the hook to fire the same show statistics as regular in-apps.
+- (void)handleInAppConfig:(NSDictionary * _Nonnull)config onShown:(void (^ _Nullable)(void))onShown;
+/// Full statistics variant: <code>onClicked</code> fires when a URL action runs (a
+/// close tap is not a click), <code>onClosed</code> once when the message is dismissed
+/// by any path. Core maps them to the same <code>richMediaAction</code> requests as the
+/// HTML rich media JS bridge (action types 1 and 4).
+- (void)handleInAppConfig:(NSDictionary * _Nonnull)config onShown:(void (^ _Nullable)(void))onShown onClicked:(void (^ _Nullable)(void))onClicked onClosed:(void (^ _Nullable)(void))onClosed;
+@end
+
+
 /// Protocol bridging the optional <code>PushwooshInboxKit</code> module to the umbrella SDK.
 /// The host SDK discovers <code>PushwooshInboxKit</code> at runtime through
 /// <code>PushwooshModuleRegistry</code> — <code>PushwooshInboxKitLoader.+load</code> registers the

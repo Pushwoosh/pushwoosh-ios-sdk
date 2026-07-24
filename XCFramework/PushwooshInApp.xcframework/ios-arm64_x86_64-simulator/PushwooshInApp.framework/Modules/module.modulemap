@@ -1,0 +1,11 @@
+framework module PushwooshInApp {
+  umbrella header "PushwooshInApp.h"
+  export *
+
+  module * { export * }
+}
+
+module PushwooshInApp.Swift {
+  header "PushwooshInApp-Swift.h"
+  requires objc
+}

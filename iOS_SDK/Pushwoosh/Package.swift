@@ -28,6 +28,11 @@ let package = Package(
             name: "PushwooshNotificationUI",
             targets: ["PushwooshNotificationUI"]
         ),
+        // Optional native in-app messages module
+        .library(
+            name: "PushwooshInApp",
+            targets: ["PushwooshInApp"]
+        ),
     ],
     dependencies: [
         // SwiftProtobuf for protobuf serialization
@@ -54,6 +59,10 @@ let package = Package(
         .binaryTarget(
             name: "PushwooshNotificationUI",
             path: "XCFrameworks/PushwooshNotificationUI.xcframework"
+        ),
+        .binaryTarget(
+            name: "PushwooshInApp",
+            path: "XCFrameworks/PushwooshInApp.xcframework"
         ),
         // Wrapper target for main SDK
         .target(

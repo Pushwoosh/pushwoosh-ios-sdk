@@ -279,11 +279,11 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"7.1.5"
+#define PUSHWOOSH_VERSION @"7.2.0"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy, PushwooshConfig;
-@protocol PWLiveActivities, PWVoIP, PWForegroundPush, PWTVoS, PWDebug, PWMedia, PWKeychain, PWInboxKit;
+@protocol PWLiveActivities, PWVoIP, PWForegroundPush, PWTVoS, PWDebug, PWMedia, PWKeychain, PWInboxKit, PWInApp;
 
 
 typedef void (^PushwooshRegistrationHandler)(NSString * _Nullable token, NSError * _Nullable error);
@@ -543,6 +543,11 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 #if TARGET_OS_IOS
 #pragma mark - Rich Media
 + (Class<PWMedia>_Nonnull)media NS_REFINED_FOR_SWIFT;
+#endif
+
+#if TARGET_OS_IOS
+#pragma mark - Native In-App Messages (PushwooshInApp)
++ (Class<PWInApp>_Nonnull)inApp NS_REFINED_FOR_SWIFT;
 #endif
 
 /**

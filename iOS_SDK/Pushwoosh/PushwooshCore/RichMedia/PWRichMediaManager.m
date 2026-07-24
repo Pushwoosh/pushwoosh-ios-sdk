@@ -12,6 +12,10 @@
 #import <PushwooshCore/PWModalWindowSettings.h>
 #import "PWModalWindowConfiguration.h"
 #import "PWConfig.h"
+#import "PWRichMedia+Internal.h"
+#import "PWResource.h"
+#import "PWManagerBridge.h"
+#import "PWInAppMessagesManager.h"
 
 @implementation PWRichMediaManager
 
@@ -34,6 +38,12 @@
 }
 
 - (void)presentRichMedia:(PWRichMedia *)richMedia {
+    if ([richMedia.resource hasNativeConfig]) {
+        [[[PWManagerBridge shared] inAppMessagesManager] routeNativeInAppForResource:richMedia.resource
+                                                                         messageHash:richMedia.pushPayload[@"p"]];
+        return;
+    }
+
     if (![self shouldPresentRichMedia:richMedia]) {
         return;
     }

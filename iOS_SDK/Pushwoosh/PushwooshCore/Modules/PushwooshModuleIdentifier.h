@@ -18,5 +18,6 @@ FOUNDATION_EXPORT PushwooshModuleIdentifier const PWModuleIdentifierVoIP NS_SWIF
 FOUNDATION_EXPORT PushwooshModuleIdentifier const PWModuleIdentifierForegroundPush NS_SWIFT_NAME(foregroundPush);
 FOUNDATION_EXPORT PushwooshModuleIdentifier const PWModuleIdentifierTVoS NS_SWIFT_NAME(tvOS);
 FOUNDATION_EXPORT PushwooshModuleIdentifier const PWModuleIdentifierKeychain NS_SWIFT_NAME(keychain);
+FOUNDATION_EXPORT PushwooshModuleIdentifier const PWModuleIdentifierInApp NS_SWIFT_NAME(inApp);
 
 NS_ASSUME_NONNULL_END

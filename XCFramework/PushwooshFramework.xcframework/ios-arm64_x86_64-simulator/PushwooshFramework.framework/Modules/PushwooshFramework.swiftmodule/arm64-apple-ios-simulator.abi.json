@@ -528,6 +528,68 @@
                 "accessorKind": "get"
               }
             ]
+          },
+          {
+            "kind": "Var",
+            "name": "inApp",
+            "printedName": "inApp",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any PushwooshBridge.PWInApp.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInApp",
+                    "printedName": "PushwooshBridge.PWInApp",
+                    "usr": "c:@M@PushwooshBridge@objc(pl)PWInApp"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So9PushwooshC0A9FrameworkE5inApp0A6Bridge04PWInD0_pXpvpZ",
+            "mangledName": "$sSo9PushwooshC0A9FrameworkE5inApp0A6Bridge04PWInD0_pXpvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ExistentialMetatype",
+                    "printedName": "any PushwooshBridge.PWInApp.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWInApp",
+                        "printedName": "PushwooshBridge.PWInApp",
+                        "usr": "c:@M@PushwooshBridge@objc(pl)PWInApp"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So9PushwooshC0A9FrameworkE5inApp0A6Bridge04PWInD0_pXpvgZ",
+                "mangledName": "$sSo9PushwooshC0A9FrameworkE5inApp0A6Bridge04PWInD0_pXpvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
           }
         ],
         "declKind": "Class",

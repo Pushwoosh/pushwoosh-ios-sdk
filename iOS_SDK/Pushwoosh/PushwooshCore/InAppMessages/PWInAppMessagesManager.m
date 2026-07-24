@@ -61,7 +61,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 @property (nonatomic, strong) PWRequestManager *requestManager;
 @property (nonatomic) NSString *trackingAppCode;
-@property (nonatomic) NSString *postEventMessageHash;
+@property (atomic) NSString *postEventMessageHash;
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 @property (nonatomic) PWRichMediaView *richMediaView;
@@ -582,14 +582,18 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
                             @"tags" : tags };
     
     PWResource *resource = [[PWInAppStorage storage] resourceForDictionary:dict];
-    
+
     [resource getHTMLDataWithCompletion:^(NSString *htmlData, NSError *error) {
-        if (!error) {
-            dispatch_async(dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            BOOL isNative = NO;
+#if TARGET_OS_IOS
+            isNative = [resource hasNativeConfig];
+#endif
+            if (!error || isNative) {
                 PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourcePush resource:resource pushPayload:userInfo];
                 [self richMediaTypeWith:richMedia resource:resource];
-            });
-        }
+            }
+        });
     }];
 }
 
@@ -597,6 +601,58 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     [[[PWManagerBridge shared] richMediaManager] presentRichMedia:richMedia];
 }
 
+#if TARGET_OS_IOS
+- (void)routeNativeInAppForResource:(PWResource *)resource messageHash:(NSString *)messageHash {
+    NSString *path = [resource nativeConfigUrl];
+    dispatch_async(dispatch_get_global_queue(QOS_CLASS_UTILITY, 0), ^{
+        NSError *error = nil;
+        NSData *data = [NSData dataWithContentsOfFile:path options:0 error:&error];
+        id parsed = data ? [NSJSONSerialization JSONObjectWithData:data options:0 error:&error] : nil;
+        if (![parsed isKindOfClass:[NSDictionary class]]) {
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self
+                               message:[NSString stringWithFormat:@"Failed to read native-config.json for %@: %@", resource.code, error.localizedDescription ?: @"invalid config"]];
+            NSError *failure = error ?: [NSError errorWithDomain:@"com.pushwoosh.inapp"
+                                                            code:-1
+                                                        userInfo:@{NSLocalizedDescriptionKey: @"native-config.json is not a valid JSON object"}];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                PWRichMediaManager *richMediaManager = [[PWManagerBridge shared] richMediaManager];
+                if ([richMediaManager.delegate respondsToSelector:@selector(richMediaManager:presentingDidFailForRichMedia:withError:)]) {
+                    NSDictionary *payload = ([messageHash isKindOfClass:[NSString class]] && messageHash.length > 0) ? @{@"p": messageHash} : @{};
+                    PWRichMedia *failedRichMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourceInApp resource:resource pushPayload:payload];
+                    [richMediaManager.delegate richMediaManager:richMediaManager presentingDidFailForRichMedia:failedRichMedia withError:failure];
+                }
+            });
+            return;
+        }
+        NSString *code = resource.code;
+        NSMutableDictionary *config = [parsed mutableCopy];
+        id existingId = config[@"inAppId"];
+        if (code.length > 0 && (![existingId isKindOfClass:[NSString class]] || [(NSString *)existingId length] == 0)) {
+            config[@"inAppId"] = code;
+        }
+        NSDictionary *localizedConfig = [resource localizeConfig:config];
+        dispatch_async(dispatch_get_main_queue(), ^{
+            id<PWInAppHandler> handler = [PushwooshModuleRegistry handlerForIdentifier:PWModuleIdentifierInApp];
+            if (!handler) {
+                [PushwooshLog pushwooshLog:PW_LL_WARN className:self
+                                   message:[NSString stringWithFormat:@"native in-app detected but PushwooshInApp module is not linked, skipping: %@", resource.code]];
+                return;
+            }
+            __weak typeof(self) wself = self;
+            BOOL isRichMedia = [resource isRichMedia];
+            NSString *statInAppCode = isRichMedia ? @"" : code;
+            NSString *statRichMediaCode = isRichMedia ? code : @"";
+            [handler handleInAppConfig:localizedConfig onShown:^{
+                [wself trackInAppWithCode:code action:PW_INAPP_ACTION_SHOW messageHash:messageHash];
+            } onClicked:^{
+                [wself richMediaAction:statInAppCode richMediaCode:statRichMediaCode actionType:@1 actionAttributes:nil messageHash:messageHash completion:nil];
+            } onClosed:^{
+                [wself richMediaAction:statInAppCode richMediaCode:statRichMediaCode actionType:@4 actionAttributes:nil messageHash:messageHash completion:nil];
+            }];
+        });
+    });
+}
+#endif
 #endif
 
 // tags must be NSString -> NSString dictionary

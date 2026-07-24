@@ -28,6 +28,9 @@ let package = Package(
             name: "PushwooshNotificationUI",
             targets: ["PushwooshNotificationUI"]),
         .library(
+            name: "PushwooshInApp",
+            targets: ["PushwooshInApp"]),
+        .library(
             name: "PushwooshVoIP",
             targets: ["PushwooshVoIP"]),
         .library(
@@ -73,6 +76,11 @@ let package = Package(
             name: "PushwooshNotificationUI",
             url: "__PushwooshNotificationUI_URL__",
             checksum: "__PushwooshNotificationUI_CHECKSUM__"
+        ),
+        .binaryTarget(
+            name: "PushwooshInApp",
+            url: "__PushwooshInApp_URL__",
+            checksum: "__PushwooshInApp_CHECKSUM__"
         ),
         .binaryTarget(
             name: "PushwooshVoIP",

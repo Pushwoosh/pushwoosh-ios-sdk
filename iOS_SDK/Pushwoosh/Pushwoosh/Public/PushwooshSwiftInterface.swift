@@ -148,6 +148,23 @@ public extension Pushwoosh {
     static var media: PWMedia.Type {
         return __media() as! PWMedia.Type
     }
+
+    /// Native in-app messages module (`PushwooshInApp`). Resolves to the module's
+    /// implementation when linked; otherwise a logged no-op.
+    ///
+    /// Production in-apps are presented automatically from a push (`u` custom
+    /// data with a `displayType`). `present(_:)` is the manual / testing entry
+    /// point:
+    ///
+    /// ```swift
+    /// Pushwoosh.inApp.present([
+    ///     "displayType": "modal",
+    ///     "modal": ["title": ["text": "Hi"], "message": ["text": "Welcome"]]
+    /// ])
+    /// ```
+    static var inApp: PWInApp.Type {
+        return __inApp() as! PWInApp.Type
+    }
     #endif
 }
 

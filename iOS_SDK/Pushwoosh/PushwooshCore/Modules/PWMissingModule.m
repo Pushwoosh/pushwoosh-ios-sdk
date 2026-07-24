@@ -57,6 +57,8 @@ static dispatch_queue_t _loggedSelectorsQueue;
             @"PWKeychainPersistentHWIDProvider",
             @"PWVoIPConfigureHandler",
             @"PWTVoSInAppHandler",
+            @"PWInApp",
+            @"PWInAppHandler",
         ]];
     });
     if ([moduleProtocolNames containsObject:NSStringFromProtocol(aProtocol)]) {
@@ -229,6 +231,17 @@ static dispatch_queue_t _loggedSelectorsQueue;
             @"setRichMediaGetTagsHandler:":                     @"v@:@?",
 
             @"handleInAppResource:":                            @"v@:@",
+
+            @"present:":                                        @"v@:@",
+            @"isPresenting":                                    @"B@:",
+            @"isPaused":                                        @"B@:",
+            @"setIsPaused:":                                    @"v@:B",
+            @"setDelegate:":                                    @"v@:@",
+            @"dismiss":                                         @"v@:",
+            @"handleInAppConfig:":                              @"v@:@",
+            @"handleInAppConfig:onShown:":                      @"v@:@@?",
+            @"handleInAppConfig:onShown:onClicked:onClosed:":   @"v@:@@?@?@?",
+            @"setFrequencyCapEnabled:":                         @"v@:B",
         };
     });
     return signatures;

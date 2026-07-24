@@ -45,11 +45,15 @@ typedef NS_ENUM(unsigned int, IAResourcePresentationStyle) {
 - (BOOL)isDownloaded;
 - (void)downloadDataWithCompletion:(PWResourceDownloadCompleteBlock)completion;
 - (void)getHTMLDataWithCompletion:(void (^)(NSString *, NSError *))completion;
+
+- (BOOL)hasNativeConfig;
+- (NSString *)nativeConfigUrl;
 - (void)deleteData;
 - (NSString *)localPath;
 - (NSString *)configUrl;
 - (BOOL)isRichMedia;
 - (NSString *)postProcessPageWithContent:(NSString *)pageContent;
+- (NSDictionary *)localizeConfig:(NSDictionary *)config;
 - (void)readConfig;
 
 @end

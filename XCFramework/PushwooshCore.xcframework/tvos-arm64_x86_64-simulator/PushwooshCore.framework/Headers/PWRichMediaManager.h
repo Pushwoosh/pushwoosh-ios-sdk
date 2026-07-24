@@ -57,6 +57,11 @@
  route through this method. Downstream classes (`PWModalWindow`, `PWMessageViewController`,
  `PWModalWindowConfiguration`) do NOT re-check the delegate; they assume the gate
  already approved the presentation.
+
+ Exception: native in-app resources (`native-config.json` in the ZIP) are routed to the
+ `PushwooshInApp` module at the top of `presentRichMedia:`, BEFORE the gate, and are
+ intentionally NOT subject to `shouldPresentRichMedia:` — they carry their own lifecycle
+ callbacks (onShown/onClicked/onClosed). The gate governs HTML / modal rich media only.
  */
 @interface PWRichMediaManager : NSObject
 
@@ -80,9 +85,11 @@
 + (instancetype)sharedManager;
 
 /**
- Presents the rich media object.
+ Presents the rich media object. Must be called on the main thread.
  Skips presentation when the delegate's
- richMediaManager:shouldPresentRichMedia: returns NO.
+ richMediaManager:shouldPresentRichMedia: returns NO. Native in-app resources
+ (native-config.json) are routed to the PushwooshInApp module before this gate and
+ bypass the delegate (see the single delegate-gate invariant above).
  */
 - (void)presentRichMedia:(PWRichMedia *)richMedia;
 
