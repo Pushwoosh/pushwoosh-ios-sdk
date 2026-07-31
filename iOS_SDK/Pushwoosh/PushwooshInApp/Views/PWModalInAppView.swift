@@ -12,6 +12,12 @@
 //  glows with its own color. The card is width-capped so it stays a card on
 //  iPad and enters with a lift-up spring.
 //
+//  The image is never cropped: the media well takes the picture's real aspect
+//  ratio at full width, and when the picture is too tall for the safe-area cap
+//  the well stops at the cap and `scaleAspectFit` shows the whole picture inside
+//  it, letterboxed on the sides against the card. Text and buttons always stay
+//  on screen, and there is no scrolling.
+//
 //  On iOS 26+ the card surface is Liquid Glass (`UIGlassEffect`) tinted with
 //  the campaign background color; older systems (and the pre-26 CI toolchain,
 //  hence the `#if compiler(>=6.2)` gates) fall back to the solid card.
@@ -202,12 +208,15 @@ final class PWModalInAppView: UIView, PWInAppRenderable {
     private func makeInsetMedia(_ imageURL: URL) -> UIView {
         let container = UIView()
         let imageView = UIImageView()
-        imageView.contentMode = .scaleAspectFill
+        // Fit, not fill: while the well matches the picture's ratio the two are identical, but
+        // once a tall picture pushes the well into the safe-area cap, fit keeps the whole
+        // picture visible (narrower, centered) where fill would have cropped its top and bottom.
+        imageView.contentMode = .scaleAspectFit
         imageView.clipsToBounds = true
         imageView.layer.cornerRadius = Metrics.mediaCornerRadius
         imageView.layer.cornerCurve = .continuous
-        // Transparent backdrop: on the rare frame where the image doesn't cover the whole well
-        // (mid-load, or a source far wider than the min-height floor) the card shows through
+        // Transparent backdrop: whenever the image doesn't cover the whole well (mid-load, or a
+        // tall picture fitted inside the capped well) the card shows through on the sides
         // instead of a grey box.
         imageView.backgroundColor = .clear
         imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -231,10 +240,10 @@ final class PWModalInAppView: UIView, PWInAppRenderable {
             imageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
             minHeight,
         ])
-        // Once loaded, the well takes the image's exact aspect ratio, so scaleAspectFill covers
-        // it edge-to-edge by width with no crop. The aspect constraint yields to the card's
-        // safe-area height cap (lower priority): a picture too tall to fit whole hits the cap and
-        // is then cropped top & bottom (still full width), centered. No scroll.
+        // Once loaded, the well takes the image's exact aspect ratio at full width — the web
+        // editor's `width:100%; height:auto`. The ratio yields to the card's safe-area cap
+        // (lower priority), so a picture too tall to fit whole shrinks the well to the cap and
+        // `scaleAspectFit` scales the whole picture down inside it instead of cropping.
         PWInAppImageLoader.shared.load(imageURL, into: imageView, onImage: { [weak self, weak imageView] image in
             guard let self = self, let imageView = imageView, image.size.width > 0 else { return }
             let ratio = image.size.height / image.size.width

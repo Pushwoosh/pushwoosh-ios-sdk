@@ -10,8 +10,10 @@
 //  sheet follows the finger and springs back if released early. Surface is
 //  Liquid Glass on iOS 26+ (shared PWInAppStyle.makeSurface), solid before.
 //
-//  `dimsBackground == false` drops the backdrop and passes touches outside the
-//  sheet through to the app — a floating, non-blocking sheet.
+//  `dimsBackground == true` dims the screen behind the card (60% black, the same
+//  as Android's `#99000000`), blocks the host and dismisses on an outside tap.
+//  `false` drops the backdrop and passes touches outside the sheet through to the
+//  app — a floating, non-blocking sheet.
 //
 
 #if canImport(UIKit) && os(iOS)
@@ -25,6 +27,7 @@ final class PWSheetInAppView: UIView, PWInAppRenderable {
         static let mediaInset: CGFloat = 14
         static let mediaCornerRadius: CGFloat = 18
         static let mediaAspect: CGFloat = 0.52
+        static let mediaMaxHeightFraction: CGFloat = 0.4
         static let textInset: CGFloat = 24
         static let buttonInset: CGFloat = 20
         static let buttonHeight: CGFloat = 52
@@ -37,6 +40,7 @@ final class PWSheetInAppView: UIView, PWInAppRenderable {
     private let content: PWInAppSheetContent
     private var backdrop: UIView?
     private var sheet: UIView!
+    private var closeButton: UIButton?
     private var actionsByTag: [Int: PWInAppAction] = [:]
 
     init(content: PWInAppSheetContent) {
@@ -49,21 +53,46 @@ final class PWSheetInAppView: UIView, PWInAppRenderable {
         fatalError("init(coder:) has not been implemented")
     }
 
-    // Non-blocking mode: only the sheet subtree is interactive; touches on the
-    // empty area return nil so the hosting window passes them to the app.
+    // Two modes, decided by whether the dim scrim (dimsBackground) is installed —
+    // the same rule the modal follows:
+    //  - floating (no scrim): an empty-area touch resolves to self, so return nil
+    //    and the hosting window passes it through to the app.
+    //  - blocking (scrim installed): the interactive scrim claims empty-area
+    //    touches, so `hit` is the scrim, never self, and the host stays blocked.
     override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
         let hit = super.hitTest(point, with: event)
-        // Non-blocking like a banner: touches outside the sheet pass through
-        // to the host app; only the sheet itself is interactive.
         if hit === self {
             return nil
         }
         return hit
     }
 
+    // A tall sheet — landscape, or simply a lot of copy — grows upward until its
+    // top slides under the status bar, and the ✕ rides along: invisible against
+    // the bar, and the bar eats the tap. Push it down by the overlap so it always
+    // lands on visible surface. Taken from the laid-out geometry rather than
+    // `sheet.frame`, so the entrance slide and a drag in progress — both plain
+    // transforms — don't read as the sheet having moved clear. Same rule as
+    // Android's `closeButton.translationY`.
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        guard let close = closeButton else {
+            return
+        }
+        let sheetTop = bounds.height - sheet.bounds.height
+        close.transform = CGAffineTransform(translationX: 0, y: max(0, safeAreaInsets.top - sheetTop))
+    }
+
     private func buildUI() {
         if content.dimsBackground {
-            let backdrop = PWInAppStyle.makeBackdrop()
+            // 0.6 and interactive. A plain `makeBackdrop()` is the pass-through
+            // default — transparent and untouchable — so `dimBackground: true` used
+            // to darken nothing and block nothing, while Android dimmed to
+            // `#99000000`, closed on an outside tap, and routed the sheet through a
+            // blocking activity. The campaign editor previews the dim too, so both
+            // the marketer and the Android build disagreed with what iOS showed.
+            let backdrop = PWInAppStyle.makeBackdrop(dimmed: true, opacity: 0.6)
+            backdrop.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeTapped)))
             backdrop.translatesAutoresizingMaskIntoConstraints = false
             addSubview(backdrop)
             NSLayoutConstraint.activate([
@@ -87,9 +116,16 @@ final class PWSheetInAppView: UIView, PWInAppRenderable {
         }
         sheet.translatesAutoresizingMaskIntoConstraints = false
         addSubview(sheet)
+        if content.dimsBackground {
+            sheet.accessibilityViewIsModal = true
+        }
 
         let grabber = UIView()
-        grabber.backgroundColor = UIColor.tertiaryLabel
+        // Contrast against the card, not the device theme: `tertiaryLabel` follows
+        // the theme, so a white campaign card in dark mode got a near-white grabber
+        // and the sheet read as having no handle at all. Same luminance rule and the
+        // same 0.3 alpha as Android's grabberColor (#4D000000 / #4DFFFFFF).
+        grabber.backgroundColor = PWInAppStyle.contrastColor(on: background).withAlphaComponent(0.3)
         grabber.layer.cornerRadius = 2.5
         grabber.translatesAutoresizingMaskIntoConstraints = false
         contentHost.addSubview(grabber)
@@ -102,7 +138,7 @@ final class PWSheetInAppView: UIView, PWInAppRenderable {
         contentHost.addSubview(stack)
 
         if let imageURL = content.imageURL {
-            stack.addArrangedSubview(makeInsetMedia(imageURL))
+            addInsetMedia(imageURL, to: stack)
         }
 
         let textStack = UIStackView()
@@ -172,15 +208,21 @@ final class PWSheetInAppView: UIView, PWInAppRenderable {
             close.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
             NSLayoutConstraint.activate([
                 close.topAnchor.constraint(equalTo: contentHost.topAnchor, constant: 16),
-                close.trailingAnchor.constraint(equalTo: contentHost.trailingAnchor, constant: -16),
+                // The sheet is edge-to-edge, so its trailing edge is the screen's:
+                // in landscape a cutout or the nav bar sits right on the button and
+                // eats the tap. The safe area guide keeps it clear, like Android
+                // adding insets.right to the button's end margin.
+                close.trailingAnchor.constraint(equalTo: contentHost.safeAreaLayoutGuide.trailingAnchor,
+                                                constant: -16),
             ])
+            closeButton = close
         }
 
         let pan = UIPanGestureRecognizer(target: self, action: #selector(handlePan(_:)))
         sheet.addGestureRecognizer(pan)
     }
 
-    private func makeInsetMedia(_ imageURL: URL) -> UIView {
+    private func addInsetMedia(_ imageURL: URL, to stack: UIStackView) {
         let container = UIView()
         let imageView = UIImageView()
         imageView.contentMode = .scaleAspectFill
@@ -188,17 +230,49 @@ final class PWSheetInAppView: UIView, PWInAppRenderable {
         imageView.layer.cornerRadius = Metrics.mediaCornerRadius
         imageView.layer.cornerCurve = .continuous
         imageView.backgroundColor = .quaternarySystemFill
+        // The loaded image brings its own intrinsic size, and an image view defends
+        // it with compression resistance 750 — the same priority as the ratio below.
+        // Two demands of equal weight pulling opposite ways leave the height to the
+        // solver, so a square or portrait cover came out taller than width × 0.52
+        // and cropped differently than on Android, where onMeasure sets the height
+        // outright. Dropping the intrinsic priorities makes the ratio the one that
+        // decides. Same four lines the modal already carries.
+        imageView.setContentHuggingPriority(.defaultLow, for: .vertical)
+        imageView.setContentHuggingPriority(.defaultLow, for: .horizontal)
+        imageView.setContentCompressionResistancePriority(.defaultLow, for: .vertical)
+        imageView.setContentCompressionResistancePriority(.defaultLow, for: .horizontal)
         imageView.translatesAutoresizingMaskIntoConstraints = false
         container.addSubview(imageView)
+        // Joins the hierarchy before the caps below are activated: they reference
+        // this view's safeAreaLayoutGuide, and Auto Layout throws on a constraint
+        // whose anchors have no common ancestor — every sheet with a cover crashed.
+        stack.addArrangedSubview(container)
+
+        // In landscape the sheet has ~400pt of height to live in, and the cover at
+        // width × 0.52 alone takes more than that: the copy and the buttons get laid
+        // out past the sheet's top edge, off screen, with no scrolling to reach them.
+        // So the ratio is only a preference, capped at a share of the available
+        // height — Android clamps the same way in CoverImage.onMeasure. The lower
+        // priority equal-to-cap constraint is what sizes the cover once the ratio
+        // gives way, instead of leaving its height to the solver's discretion.
+        let ratio = imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor,
+                                                      multiplier: Metrics.mediaAspect)
+        ratio.priority = .defaultHigh
+        let atCap = imageView.heightAnchor.constraint(equalTo: safeAreaLayoutGuide.heightAnchor,
+                                                      multiplier: Metrics.mediaMaxHeightFraction)
+        atCap.priority = UILayoutPriority(749)
+
         NSLayoutConstraint.activate([
             imageView.topAnchor.constraint(equalTo: container.topAnchor),
             imageView.leadingAnchor.constraint(equalTo: container.leadingAnchor, constant: Metrics.mediaInset),
             imageView.trailingAnchor.constraint(equalTo: container.trailingAnchor, constant: -Metrics.mediaInset),
             imageView.bottomAnchor.constraint(equalTo: container.bottomAnchor),
-            imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: Metrics.mediaAspect),
+            ratio,
+            atCap,
+            imageView.heightAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.heightAnchor,
+                                              multiplier: Metrics.mediaMaxHeightFraction),
         ])
         PWInAppImageLoader.shared.load(imageURL, into: imageView)
-        return container
     }
 
     private func makeButton(_ model: PWInAppButton, tag: Int) -> UIButton {

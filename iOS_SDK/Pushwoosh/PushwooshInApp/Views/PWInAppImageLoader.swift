@@ -129,6 +129,14 @@ final class PWInAppImageLoader {
         }
     }
 
+    #if DEBUG
+    /// Seeds the memory cache so view tests can lay out against a known image without a network
+    /// round trip. Debug-only: never compiled into a shipped SDK.
+    func seedMemoryCache(_ image: UIImage, for url: URL) {
+        memoryCache.setObject(image, forKey: url as NSURL)
+    }
+    #endif
+
     /// Memory → disk → network (de-duplicated). Completion is always on the main thread.
     func image(for url: URL, completion: @escaping (UIImage?) -> Void) {
         if let cached = memoryCache.object(forKey: url as NSURL) {

@@ -45,6 +45,14 @@ enum PWInAppStyle {
         button.layer.borderWidth = 1.5
         button.layer.cornerRadius = model.cornerRadius
         button.layer.cornerCurve = .continuous
+        // A long CTA shrinks to fit rather than being cut: the height stays 52 on
+        // every button, so a two-button stack keeps matching heights and nothing in
+        // the layout moves. Android lets the label wrap to a second line instead —
+        // both platforms show the whole text, only the look differs. Tail, not
+        // UIButton's default middle truncation, for the text that even 0.8 can't fit.
+        button.titleLabel?.adjustsFontSizeToFitWidth = true
+        button.titleLabel?.minimumScaleFactor = 0.8
+        button.titleLabel?.lineBreakMode = .byTruncatingTail
         button.heightAnchor.constraint(equalToConstant: 52).isActive = true
         return button
     }
@@ -60,18 +68,23 @@ enum PWInAppStyle {
         return label
     }
 
-    /// Dimmed backdrop behind modal-style templates. On iOS 26+ it's a Liquid
-    /// Glass sheet with a light wash — the app stays clearly visible beneath;
-    /// before that, a darker thin-material blur. Animate its `alpha` to fade
-    /// the whole backdrop.
-    static func makeBackdrop() -> UIView {
-        // No dimming/blur and non-interactive: a transparent pass-through layer so
-        // in-app templates no longer darken, cover, or block the host screen.
-        // Touches fall through it to the template root (whose hitTest forwards
-        // empty-area touches to the app); templates dismiss via their own close.
+    /// Layer behind a template's card. Animate its `alpha` to fade the whole
+    /// backdrop in and out.
+    ///
+    /// Default is pass-through: transparent and non-interactive, so the template
+    /// neither darkens nor blocks the host screen — touches fall through it to
+    /// the template root (whose hitTest forwards empty-area touches to the app).
+    ///
+    /// `dimmed: true` makes it a blocking scrim instead: black at `opacity` and
+    /// interactive, so the app underneath is covered and unreachable. Templates
+    /// that dim wire a tap on it to their close.
+    ///
+    /// The default 0.8 is the carousel's, matching Android's `#CC000000`; the
+    /// sheet passes 0.6 to match its own Android value, `#99000000`.
+    static func makeBackdrop(dimmed: Bool = false, opacity: CGFloat = 0.8) -> UIView {
         let container = UIView()
-        container.backgroundColor = .clear
-        container.isUserInteractionEnabled = false
+        container.backgroundColor = dimmed ? UIColor(white: 0, alpha: opacity) : .clear
+        container.isUserInteractionEnabled = dimmed
         return container
     }
 
@@ -198,6 +211,20 @@ final class PWInAppChipButton: UIButton {
         effectView.translatesAutoresizingMaskIntoConstraints = false
         addSubview(effectView)
 
+        // Glass and blur both take their tone from whatever is behind them, so on a light card or
+        // a bright photo the chip turns pale and the white glyph loses contrast. A fixed scrim
+        // under the glyph keeps it white-on-dark everywhere — the same 40% black Android fills its
+        // close chip with (`#66000000`), while the glass highlights still ride the edges.
+        // It carries its own circular corner: `contentView` is NOT clipped by the effect view's
+        // corner configuration on iOS 26, so colouring the content view directly paints a square.
+        let scrim = UIView()
+        scrim.backgroundColor = UIColor.black.withAlphaComponent(0.4)
+        scrim.layer.cornerRadius = size / 2
+        scrim.clipsToBounds = true
+        scrim.isUserInteractionEnabled = false
+        scrim.translatesAutoresizingMaskIntoConstraints = false
+        effectView.contentView.addSubview(scrim)
+
         iconView.tintColor = .white
         iconView.translatesAutoresizingMaskIntoConstraints = false
         effectView.contentView.addSubview(iconView)
@@ -210,6 +237,10 @@ final class PWInAppChipButton: UIButton {
             effectView.bottomAnchor.constraint(equalTo: bottomAnchor),
             effectView.leadingAnchor.constraint(equalTo: leadingAnchor),
             effectView.trailingAnchor.constraint(equalTo: trailingAnchor),
+            scrim.topAnchor.constraint(equalTo: effectView.contentView.topAnchor),
+            scrim.bottomAnchor.constraint(equalTo: effectView.contentView.bottomAnchor),
+            scrim.leadingAnchor.constraint(equalTo: effectView.contentView.leadingAnchor),
+            scrim.trailingAnchor.constraint(equalTo: effectView.contentView.trailingAnchor),
             iconView.centerXAnchor.constraint(equalTo: effectView.contentView.centerXAnchor),
             iconView.centerYAnchor.constraint(equalTo: effectView.contentView.centerYAnchor),
         ])

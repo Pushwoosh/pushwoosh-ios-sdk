@@ -9,6 +9,9 @@
 //  scrim, rounded-face title overlay and a pill page control. Tapping a slide
 //  fires its URL action. Neither Braze nor CleverTap ship a native carousel.
 //
+//  Blocking, like Android's carousel: an 80%-black scrim covers the host screen
+//  and a tap on it dismisses the card — the second way out besides the ✕.
+//
 
 #if canImport(UIKit) && os(iOS)
 import UIKit
@@ -16,14 +19,22 @@ import UIKit
 final class PWCarouselInAppView: UIView, PWInAppRenderable,
                                  UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
 
+    private enum Metrics {
+        static let sideInset: CGFloat = 22
+        static let aspect: CGFloat = 1.32
+        static let maxCardWidth: CGFloat = 480
+    }
+
     var onClose: (() -> Void)?
     var onAction: ((PWInAppAction) -> Void)?
 
     private let content: PWInAppCarouselContent
-    private let backdrop = PWInAppStyle.makeBackdrop()
+    private let backdrop = PWInAppStyle.makeBackdrop(dimmed: true)
     private var card: UIView!
     private let pageControl = UIPageControl()
     private var collectionView: UICollectionView!
+    private var currentPage = 0
+    private var pagedWidth: CGFloat = 0
 
     init(content: PWInAppCarouselContent) {
         self.content = content
@@ -35,15 +46,12 @@ final class PWCarouselInAppView: UIView, PWInAppRenderable,
         fatalError("init(coder:) has not been implemented")
     }
 
-    // Non-blocking like a banner: touches outside the card pass through to the
-    // host app; only the card is interactive.
-    override func hitTest(_ point: CGPoint, with event: UIEvent?) -> UIView? {
-        let hit = super.hitTest(point, with: event)
-        return hit === self ? nil : hit
-    }
-
     private func buildUI() {
         backdrop.translatesAutoresizingMaskIntoConstraints = false
+        // The scrim is the only dismiss path besides the ✕, so it takes the tap
+        // itself rather than relying on the root: the card sits above it and
+        // swallows its own touches, so a tap here is always an outside tap.
+        backdrop.addGestureRecognizer(UITapGestureRecognizer(target: self, action: #selector(closeTapped)))
         addSubview(backdrop)
 
         let (surface, contentHost, _) = PWInAppStyle.makeSurface(
@@ -77,16 +85,31 @@ final class PWCarouselInAppView: UIView, PWInAppRenderable,
         pageControl.pageIndicatorTintColor = UIColor.white.withAlphaComponent(0.4)
         contentHost.addSubview(pageControl)
 
+        // Height is what runs out in landscape: at width × 1.32 a full-width card
+        // is taller than the screen, and the ✕, the dots and the slide caption —
+        // all pinned to the card's edges — end up off it. So the width is only a
+        // preference: the safe-area height cap wins and the card narrows, keeping
+        // its ratio. Same rule as Android's carouselCardSize.
+        let preferredWidth = card.widthAnchor.constraint(equalTo: safeAreaLayoutGuide.widthAnchor,
+                                                        constant: -2 * Metrics.sideInset)
+        preferredWidth.priority = .defaultHigh
+
         NSLayoutConstraint.activate([
             backdrop.topAnchor.constraint(equalTo: topAnchor),
             backdrop.bottomAnchor.constraint(equalTo: bottomAnchor),
             backdrop.leadingAnchor.constraint(equalTo: leadingAnchor),
             backdrop.trailingAnchor.constraint(equalTo: trailingAnchor),
 
-            card.centerYAnchor.constraint(equalTo: centerYAnchor),
-            card.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 22),
-            card.trailingAnchor.constraint(equalTo: trailingAnchor, constant: -22),
-            card.heightAnchor.constraint(equalTo: card.widthAnchor, multiplier: 1.32),
+            card.centerXAnchor.constraint(equalTo: safeAreaLayoutGuide.centerXAnchor),
+            card.centerYAnchor.constraint(equalTo: safeAreaLayoutGuide.centerYAnchor),
+            preferredWidth,
+            // The sheet and the modal cap their width; the carousel did not, so on an
+            // iPad it stretched to nearly the full screen — a card meant to be held
+            // in one hand. Same cap as the sheet's.
+            card.widthAnchor.constraint(lessThanOrEqualToConstant: Metrics.maxCardWidth),
+            card.heightAnchor.constraint(equalTo: card.widthAnchor, multiplier: Metrics.aspect),
+            card.heightAnchor.constraint(lessThanOrEqualTo: safeAreaLayoutGuide.heightAnchor,
+                                        constant: -2 * Metrics.sideInset),
 
             collectionView.topAnchor.constraint(equalTo: card.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: card.leadingAnchor),
@@ -97,19 +120,17 @@ final class PWCarouselInAppView: UIView, PWInAppRenderable,
             pageControl.centerXAnchor.constraint(equalTo: card.centerXAnchor),
         ])
 
-        // A carousel has no guaranteed way out on its own: slide taps fire an
-        // optional action, there is no drag-to-dismiss and no auto-dismiss. Always
-        // show the close chip so a campaign can't ship a trapped, unclosable card.
-        let hasGuaranteedDismissPath = false
-        if content.showCloseButton || !hasGuaranteedDismissPath {
-            let close = PWInAppStyle.makeCloseButton()
-            contentHost.addSubview(close)
-            close.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
-            NSLayoutConstraint.activate([
-                close.topAnchor.constraint(equalTo: card.topAnchor, constant: 12),
-                close.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -12),
-            ])
-        }
+        // The close chip ignores `showClose` and is always shown (Android forces
+        // it too): the scrim tap aside, a carousel has no way out of its own —
+        // slide taps fire an optional action, there is no drag-to-dismiss and no
+        // auto-dismiss — and a scrim tap is not something a user can guess.
+        let close = PWInAppStyle.makeCloseButton()
+        contentHost.addSubview(close)
+        close.addTarget(self, action: #selector(closeTapped), for: .touchUpInside)
+        NSLayoutConstraint.activate([
+            close.topAnchor.constraint(equalTo: card.topAnchor, constant: 12),
+            close.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -12),
+        ])
     }
 
     @objc private func closeTapped() {
@@ -141,9 +162,42 @@ final class PWCarouselInAppView: UIView, PWInAppRenderable,
     }
 
     func scrollViewDidScroll(_ scrollView: UIScrollView) {
+        pageControl.currentPage = page(in: scrollView)
+    }
+
+    // The settled page, not the one under the finger: it is what a bounds change
+    // re-pins to, and mid-scroll (or mid-rotation) readings would move that target.
+    func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        currentPage = page(in: scrollView)
+    }
+
+    func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        if !decelerate {
+            currentPage = page(in: scrollView)
+        }
+    }
+
+    // Clamped: a rubber-band offset past either end would otherwise name a page
+    // that doesn't exist, and layoutSubviews re-pins to whatever this returns.
+    private func page(in scrollView: UIScrollView) -> Int {
         let width = scrollView.bounds.width
-        guard width > 0 else { return }
-        pageControl.currentPage = Int((scrollView.contentOffset.x + width / 2) / width)
+        guard width > 0 else { return currentPage }
+        let raw = Int((scrollView.contentOffset.x + width / 2) / width)
+        return min(max(raw, 0), max(content.items.count - 1, 0))
+    }
+
+    override func layoutSubviews() {
+        super.layoutSubviews()
+        // Paging offsets are in points, so the card narrowing on rotation leaves
+        // the collection view parked between two slides. Re-pin it to the page the
+        // user is on — Android's ViewPager2 keeps its page across the same
+        // configuration change on its own.
+        let width = collectionView.bounds.width
+        guard width > 0, width != pagedWidth else {
+            return
+        }
+        pagedWidth = width
+        collectionView.setContentOffset(CGPoint(x: CGFloat(currentPage) * width, y: 0), animated: false)
     }
 
     // MARK: - PWInAppRenderable

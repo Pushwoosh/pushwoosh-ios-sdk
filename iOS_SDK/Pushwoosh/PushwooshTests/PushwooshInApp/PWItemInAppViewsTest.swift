@@ -34,6 +34,26 @@ class PWItemInAppViewsTest: XCTestCase {
     private func txt(_ s: String) -> PWInAppText { PWInAppText(text: s, color: nil) }
 
     /// Carousel builds a page indicator with one dot per item.
+    /// Verifies that the close chip carries a circular dark scrim, so its white glyph stays readable over any background.
+    func testCloseChipHasCircularDarkScrim() throws {
+        let chip = PWInAppStyle.makeCloseButton()
+        chip.frame = CGRect(x: 0, y: 0, width: PWInAppStyle.closeSize, height: PWInAppStyle.closeSize)
+        chip.layoutIfNeeded()
+
+        let effect = try XCTUnwrap(chip.subviews.compactMap { $0 as? UIVisualEffectView }.first,
+                                   "the chip is a glass/blur circle")
+        let scrim = try XCTUnwrap(effect.contentView.subviews.first { $0 !== effect.contentView && !($0 is UIImageView) },
+                                  "the glyph needs a scrim behind it — glass alone takes the tone of the backdrop")
+
+        var alpha: CGFloat = 0
+        scrim.backgroundColor?.getWhite(nil, alpha: &alpha)
+        XCTAssertGreaterThan(alpha, 0.2, "the scrim must actually darken, not be transparent")
+        XCTAssertEqual(scrim.layer.cornerRadius, PWInAppStyle.closeSize / 2, accuracy: 0.5,
+                       "the scrim must be a circle — the effect view does not clip its content view on iOS 26, "
+                       + "so a square scrim shows through as a black box")
+        XCTAssertTrue(scrim.clipsToBounds, "without clipping the corner radius does nothing")
+    }
+
     func testCarouselRendersAllItems() {
         let items = (0..<3).map {
             PWInAppCarouselItem(imageURL: nil, title: txt("slide \($0)"), subtitle: nil, action: nil)
