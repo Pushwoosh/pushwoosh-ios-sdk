@@ -16,6 +16,7 @@
 #import <PushwooshCore/PWMessageDeliveryRequest.h>
 #import <PushwooshCore/PWMessage+Internal.h>
 #import <PushwooshCore/PWNetworkModule.h>
+#import <PushwooshCore/PWPreferences.h>
 #import <PushwooshCore/NSDictionary+PWDictUtils.h>
 #import <PushwooshCore/PushwooshLog.h>
 
@@ -251,6 +252,7 @@
         return;
     }
 
+    [[PWPreferences preferences] loadActiveApplicationFromAppGroups:self.appGroupsName];
     [_requestManager loadReverseProxyFromAppGroups:self.appGroupsName];
 
     PWMessageDeliveryRequest *request = [PWMessageDeliveryRequest new];

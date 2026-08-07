@@ -6,6 +6,7 @@
 #import "PWNetworkModule.h"
 #import "PWRequestManager.h"
 #import "PWMessageDeliveryRequest.h"
+#import "PWPreferences.h"
 
 #if TARGET_OS_IOS
 
@@ -88,10 +89,15 @@
     OCMStub([mockDefaults setInteger:4 forKey:@"badge_count"]).andDo(^(NSInvocation *invocation) {
         [badgeWritten fulfill];
     });
+    XCTestExpectation *badgeApplied = [self expectationWithDescription:@"badge applied to content"];
+    OCMStub([(UNMutableNotificationContent *)mockContent setBadge:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        [badgeApplied fulfill];
+    });
 
     [processor processRequest:request appGroups:@"group.test" completion:^(UNNotificationContent *content) {}];
 
     [self waitForExpectationsWithTimeout:2 handler:nil];
+    dispatch_sync(processor.serialQueue, ^{});
     OCMVerify([mockDefaults setInteger:4 forKey:@"badge_count"]);
 
     [mockDefaults stopMocking];
@@ -117,10 +123,15 @@
     OCMStub([mockDefaults setInteger:2 forKey:@"badge_count"]).andDo(^(NSInvocation *invocation) {
         [badgeWritten fulfill];
     });
+    XCTestExpectation *badgeApplied = [self expectationWithDescription:@"badge applied to content"];
+    OCMStub([(UNMutableNotificationContent *)mockContent setBadge:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        [badgeApplied fulfill];
+    });
 
     [processor processRequest:request appGroups:@"group.test" completion:^(UNNotificationContent *content) {}];
 
     [self waitForExpectationsWithTimeout:2 handler:nil];
+    dispatch_sync(processor.serialQueue, ^{});
     OCMVerify([mockDefaults setInteger:2 forKey:@"badge_count"]);
 
     [mockDefaults stopMocking];
@@ -146,10 +157,15 @@
     OCMStub([mockDefaults setInteger:5 forKey:@"badge_count"]).andDo(^(NSInvocation *invocation) {
         [badgeWritten fulfill];
     });
+    XCTestExpectation *badgeApplied = [self expectationWithDescription:@"badge applied to content"];
+    OCMStub([(UNMutableNotificationContent *)mockContent setBadge:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        [badgeApplied fulfill];
+    });
 
     [processor processRequest:request appGroups:@"group.test" completion:^(UNNotificationContent *content) {}];
 
     [self waitForExpectationsWithTimeout:2 handler:nil];
+    dispatch_sync(processor.serialQueue, ^{});
     OCMVerify([mockDefaults setInteger:5 forKey:@"badge_count"]);
 
     [mockDefaults stopMocking];
@@ -189,6 +205,27 @@
 
     OCMVerify([mockRequestManager loadReverseProxyFromAppGroups:@"group.com.test.delivery"]);
 
+    [mockRequestManager stopMocking];
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// SDK-882: Verifies the delivery path reloads the active application from the resolved App Group, so a reused extension process follows the application the host app switched to.
+- (void)testDeliveryEventReloadsActiveApplicationFromAppGroup {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id mockRequestManager = OCMClassMock([PWRequestManager class]);
+    processor.requestManager = mockRequestManager;
+
+    id mockPreferences = OCMPartialMock([PWPreferences preferences]);
+
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:(@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash"}) content:&mockContent request:&mockRequest];
+
+    [processor processRequest:request appGroups:@"group.com.test.delivery" completion:^(UNNotificationContent *content) {}];
+
+    OCMVerify([mockPreferences loadActiveApplicationFromAppGroups:@"group.com.test.delivery"]);
+
+    [mockPreferences stopMocking];
     [mockRequestManager stopMocking];
     [mockContent stopMocking];
     [mockRequest stopMocking];
@@ -273,10 +310,15 @@
     OCMStub([mockDefaults setInteger:10 forKey:@"badge_count"]).andDo(^(NSInvocation *invocation) {
         [badgeWritten fulfill];
     });
+    XCTestExpectation *badgeApplied = [self expectationWithDescription:@"badge applied to content"];
+    OCMStub([(UNMutableNotificationContent *)mockContent setBadge:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        [badgeApplied fulfill];
+    });
 
     [processor processRequest:request appGroups:@"group.test" completion:^(UNNotificationContent *content) {}];
 
     [self waitForExpectationsWithTimeout:2 handler:nil];
+    dispatch_sync(processor.serialQueue, ^{});
     OCMVerify([mockDefaults setInteger:10 forKey:@"badge_count"]);
 
     [mockDefaults stopMocking];
@@ -554,10 +596,15 @@
     OCMStub([mockDefaults setInteger:0 forKey:@"badge_count"]).andDo(^(NSInvocation *invocation) {
         [badgeWritten fulfill];
     });
+    XCTestExpectation *badgeApplied = [self expectationWithDescription:@"badge applied to content"];
+    OCMStub([(UNMutableNotificationContent *)mockContent setBadge:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        [badgeApplied fulfill];
+    });
 
     [processor processRequest:request appGroups:@"group.test" completion:^(UNNotificationContent *content) {}];
 
     [self waitForExpectationsWithTimeout:2 handler:nil];
+    dispatch_sync(processor.serialQueue, ^{});
     OCMVerify([mockDefaults setInteger:0 forKey:@"badge_count"]);
 
     [mockDefaults stopMocking];

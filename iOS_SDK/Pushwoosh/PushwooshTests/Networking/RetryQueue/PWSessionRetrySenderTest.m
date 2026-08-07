@@ -4,6 +4,7 @@
 #import "PWRetryPolicy.h"
 #import "PWRequestManager.h"
 #import "PWRequest.h"
+#import "PWRequest+Internal.h"
 
 @interface PWSessionRetrySenderTest : XCTestCase
 @property (nonatomic) id mockRequestManager;
@@ -160,6 +161,59 @@
 
     [self waitForExpectationsWithTimeout:2 handler:nil];
     XCTAssertEqual(calls, 2);
+}
+
+/// SDK-882: Verifies a request that must outlive the application it names is handed to the persistent queue once the session attempts are exhausted.
+- (void)testExhaustedSurvivorIsPersistedForLaterRetry {
+    PWRequest *survivor = [PWRequest new];
+    survivor.survivesApplicationChange = YES;
+
+    __block int calls = 0;
+    NSError *timeout = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+    [self stubSendReturningError:timeout httpCode:0 counter:&calls];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"done"];
+    [self.sender sendWithRetry:survivor completion:^(NSError *error) {
+        XCTAssertNotNil(error);
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    OCMVerify([self.mockRequestManager persistRequestForLaterRetry:survivor]);
+}
+
+/// SDK-882: Verifies an ordinary request is not pushed into the persistent queue when its session attempts run out.
+- (void)testExhaustedOrdinaryRequestIsNotPersisted {
+    __block int calls = 0;
+    NSError *timeout = [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorTimedOut userInfo:nil];
+    [self stubSendReturningError:timeout httpCode:0 counter:&calls];
+    OCMReject([self.mockRequestManager persistRequestForLaterRetry:OCMOCK_ANY]);
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"done"];
+    [self.sender sendWithRetry:[PWRequest new] completion:^(NSError *error) {
+        XCTAssertNotNil(error);
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+}
+
+/// SDK-882: Verifies a survivor that succeeds within the session is not queued for a later launch.
+- (void)testSurvivorThatSucceedsIsNotPersisted {
+    PWRequest *survivor = [PWRequest new];
+    survivor.survivesApplicationChange = YES;
+
+    __block int calls = 0;
+    [self stubSendReturningError:nil httpCode:200 counter:&calls];
+    OCMReject([self.mockRequestManager persistRequestForLaterRetry:OCMOCK_ANY]);
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"done"];
+    [self.sender sendWithRetry:survivor completion:^(NSError *error) {
+        XCTAssertNil(error);
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
 }
 
 /// Verifies a nil completion does not crash while retries are exhausted.

@@ -14,8 +14,10 @@ import UIKit
 @available(iOS 13.0, *)
 public extension PWForegroundPush {
     
-    static var delegate: PWForegroundPushDelegate {
-        get { PushwooshForegroundPushImplementation.delegate as! PWForegroundPushDelegate }
+    /// Delegate receiving foreground push events. Held weakly, so reading it back returns `nil`
+    /// once the owner is deallocated — never force-unwrap the result.
+    static var delegate: PWForegroundPushDelegate? {
+        get { PushwooshForegroundPushImplementation.delegate as? PWForegroundPushDelegate }
         set { PushwooshForegroundPushImplementation.delegate = newValue }
     }
     

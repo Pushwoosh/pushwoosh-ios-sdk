@@ -1,10 +1,16 @@
 
 #import <XCTest/XCTest.h>
+#import <OCMock/OCMock.h>
 #import "PWResource.h"
+#import "PWCache.h"
+#import "PWConfig.h"
+#import "PWUtils.h"
 
 @interface PWResourceNativeConfigTest : XCTestCase
 
 @property (nonatomic, strong) PWResource *resource;
+@property (nonatomic, strong) id cacheMock;
+@property (nonatomic, strong) id configMock;
 
 @end
 
@@ -22,6 +28,11 @@
 }
 
 - (void)tearDown {
+    /// PWCache and PWConfig are singletons, so a partial mock left standing would leak into every later suite.
+    [self.cacheMock stopMocking];
+    self.cacheMock = nil;
+    [self.configMock stopMocking];
+    self.configMock = nil;
     [[NSFileManager defaultManager] removeItemAtPath:[self.resource localPath] error:nil];
     self.resource = nil;
     [super tearDown];
@@ -73,6 +84,92 @@
 
     XCTAssertEqualObjects(localized[@"modal"][@"title"], @"Plain");
     XCTAssertEqualObjects(localized[@"modal"][@"message"], @"Def");
+}
+
+/// Verifies the two-step substitution: a {{key}} resolves to a localized string that itself carries a {tag} placeholder, which is then filled from the device tags.
+- (void)testLocalizeConfigSubstitutesTagsNestedInLocalizedStrings {
+    PWResource *resource = [[PWResource alloc] initWithDictionary:@{ @"code": @"TEST-NATIVE-CFG",
+                                                                     @"url": @"https://example.com/test.zip",
+                                                                     @"updated": @1,
+                                                                     @"tags": @{ @"UserName": @"alexey" } }];
+    [@"{\"default_language\":\"default\",\"localization\":{\"default\":{\"t3.text\":\"Button {UserName|CapitalizeAllFirst|пес}\"}}}"
+        writeToFile:[resource configUrl] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    NSDictionary *config = @{ @"modal": @{ @"buttons": @[ @{ @"text": @{ @"text": @"{{t3.text|text}}" } } ] } };
+
+    NSDictionary *localized = [resource localizeConfig:config];
+
+    XCTAssertEqualObjects(localized[@"modal"][@"buttons"][0][@"text"][@"text"], @"Button Alexey");
+}
+
+/// Verifies that an empty payload tag dictionary replaces the cache rather than falling through to it, so the placeholder renders its own default with the modifier applied.
+- (void)testLocalizeConfigIgnoresTheTagCacheWhenThePayloadCarriesAnEmptyTagDictionary {
+    self.cacheMock = OCMPartialMock([PWCache cache]);
+    OCMStub([self.cacheMock getTags]).andReturn(@{ @"UserName": @"alexey" });
+    PWResource *resource = [[PWResource alloc] initWithDictionary:@{ @"code": @"TEST-NATIVE-CFG",
+                                                                     @"url": @"https://example.com/test.zip",
+                                                                     @"updated": @1,
+                                                                     @"tags": @{} }];
+    [@"{\"default_language\":\"default\",\"localization\":{\"default\":{\"t3.text\":\"Button {UserName|CapitalizeAllFirst|пес}\"}}}"
+        writeToFile:[resource configUrl] atomically:YES encoding:NSUTF8StringEncoding error:nil];
+    NSDictionary *config = @{ @"modal": @{ @"title": @"{{t3.text|text}}" } };
+
+    NSDictionary *localized = [resource localizeConfig:config];
+
+    XCTAssertEqualObjects(localized[@"modal"][@"title"], @"Button Пес");
+}
+
+/// Verifies that a resource carrying no payload tags falls back to the device tag cache.
+- (void)testLocalizeConfigFallsBackToTheTagCacheWhenThePayloadHasNoTags {
+    self.cacheMock = OCMPartialMock([PWCache cache]);
+    OCMStub([self.cacheMock getTags]).andReturn(@{ @"UserName": @"alexey" });
+
+    NSDictionary *localized = [self.resource localizeConfig:@{ @"modal": @{ @"title": @"Hi {UserName|CapitalizeAllFirst|friend}" } }];
+
+    XCTAssertEqualObjects(localized[@"modal"][@"title"], @"Hi Alexey");
+}
+
+/// Verifies that with neither payload tags nor a tag cache the device tags stay out, so a creative keeps rendering its defaults (unchanged HTML-path behaviour).
+- (void)testLocalizeConfigKeepsDeviceTagsOutWhenThereIsNoTagSourceAtAll {
+    self.cacheMock = OCMPartialMock([PWCache cache]);
+    OCMStub([self.cacheMock getTags]).andReturn(nil);
+    /// Both collection flags are forced on so the assertion below rests on the nil dictionary alone —
+    /// a test bundle that ever disables device-data collection must not turn this green for free.
+    self.configMock = OCMPartialMock([PWConfig config]);
+    OCMStub([self.configMock allowCollectingDeviceModel]).andReturn(YES);
+    OCMStub([self.configMock allowCollectingDeviceOsVersion]).andReturn(YES);
+
+    NSDictionary *localized = [self.resource localizeConfig:@{ @"modal": @{ @"title": @"{Device Model|text|Fallback}" } }];
+
+    XCTAssertEqualObjects(localized[@"modal"][@"title"], @"Fallback");
+}
+
+/// Verifies that the two device tags the server never returns are injected once a tag source exists, so losing either write cannot stay green.
+- (void)testLocalizeConfigInjectsDeviceTagsWhenATagSourceExists {
+    self.configMock = OCMPartialMock([PWConfig config]);
+    OCMStub([self.configMock allowCollectingDeviceModel]).andReturn(YES);
+    OCMStub([self.configMock allowCollectingDeviceOsVersion]).andReturn(YES);
+    PWResource *resource = [[PWResource alloc] initWithDictionary:@{ @"code": @"TEST-NATIVE-CFG",
+                                                                     @"url": @"https://example.com/test.zip",
+                                                                     @"updated": @1,
+                                                                     @"tags": @{ @"City": @"Tbilisi" } }];
+
+    NSDictionary *localized = [resource localizeConfig:@{ @"modal": @{ @"title": @"{Device Model|text|Fallback}",
+                                                                       @"message": @"{OS Version|text|Fallback}" } }];
+
+    XCTAssertEqualObjects(localized[@"modal"][@"title"], [PWUtils machineName]);
+    XCTAssertEqualObjects(localized[@"modal"][@"message"], [PWUtils systemVersion]);
+}
+
+/// Verifies that a tag placeholder written straight into native-config.json is substituted with the modifier applied.
+- (void)testLocalizeConfigSubstitutesTagWrittenDirectlyInConfig {
+    PWResource *resource = [[PWResource alloc] initWithDictionary:@{ @"code": @"TEST-NATIVE-CFG",
+                                                                     @"url": @"https://example.com/test.zip",
+                                                                     @"updated": @1,
+                                                                     @"tags": @{ @"City": @"Tbilisi" } }];
+
+    NSDictionary *localized = [resource localizeConfig:@{ @"modal": @{ @"message": @"Message {City|UPPERCASE|}" } }];
+
+    XCTAssertEqualObjects(localized[@"modal"][@"message"], @"Message TBILISI");
 }
 
 @end

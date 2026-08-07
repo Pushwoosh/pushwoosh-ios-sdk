@@ -311,32 +311,41 @@
     });
 }
 
+/// The one source of tag values for both substitution paths — HTML pages and native-config strings.
+/// Payload tags win over the cache, and the two device tags the server never returns are added locally.
+- (nullable NSDictionary *)pw_substitutionTags {
+    /// Deliberately left nil when neither source exists: the two writes below are then no-ops, which
+    /// is what the HTML path has always done. Creating a dictionary here would start substituting
+    /// OS Version / Device Model into creatives that render their defaults today.
+    NSMutableDictionary *tags = _tags.mutableCopy ? : [[PWCache cache] getTags].mutableCopy;
+
+    if ([PWConfig config].allowCollectingDeviceOsVersion == YES) {
+        tags[@"OS Version"] = [PWUtils systemVersion];
+    }
+
+    if ([PWConfig config].allowCollectingDeviceModel == YES) {
+        tags[@"Device Model"] = [PWUtils machineName];
+    }
+
+    return tags;
+}
+
 - (NSString *)postProcessPageWithContent:(NSString *)pageContent {
     NSDictionary *localizedStrings = self.config.localizedStrings;
-    
+
     // replace {{tagName|type|defaultValue}} with localization value
     NSString *localizationRegexString = @"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\|([^|\\}]*)\\}\\}";
     pageContent = [self postProcessPageUsingParameters:localizedStrings regex:localizationRegexString pageContent:pageContent options:NSRegularExpressionDotMatchesLineSeparators];
-    
+
     // replace {placeholderName|type|defaultValue} and {placeholderName|type|} with tag value
     NSString *tagsNoDefaultValueRegexString = @"\\{([^|\\}]+)\\|([^|\\}]+)\\|\\}";
     NSString *tagsRegexString = @"\\{([^|\\}]+)\\|([^|\\}]+)\\|([^|\\}]*)\\}";
-    NSMutableDictionary *tags = _tags.mutableCopy ? : [[PWCache cache] getTags].mutableCopy;
-    
+    NSDictionary *tags = [self pw_substitutionTags];
+
     // support template syntax like {{ Placeholder name | Type }}
     NSString *localizationRegexStringDefault = @"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\}\\}";
     pageContent = [self postProcessPageUsingParameters:localizedStrings regex:localizationRegexStringDefault pageContent:pageContent options:NSRegularExpressionDotMatchesLineSeparators];
-    
-    if ([PWConfig config].allowCollectingDeviceOsVersion == YES) {
-        NSString *systemVersion = [PWUtils systemVersion];
-        tags[@"OS Version"] = systemVersion;
-    }
-    
-    if ([PWConfig config].allowCollectingDeviceModel == YES) {
-        NSString *machineName = [PWUtils machineName];
-        tags[@"Device Model"] = machineName;
-    }
-    
+
     pageContent = [self postProcessPageUsingParameters:tags regex:tagsNoDefaultValueRegexString pageContent:pageContent options:0];
     pageContent = [self postProcessPageUsingParameters:tags regex:tagsRegexString pageContent:pageContent options:0];
 
@@ -349,33 +358,36 @@
     }
     @synchronized (self) {
         [self readConfig];
-        id resolved = [self pw_localizeNode:config];
+        /// Built once per config, not per string: -getTags reads and unarchives a file every call,
+        /// and this walks every string in the tree.
+        NSDictionary *tags = [self pw_substitutionTags];
+        id resolved = [self pw_localizeNode:config tags:tags];
         return [resolved isKindOfClass:[NSDictionary class]] ? resolved : config;
     }
 }
 
-- (id)pw_localizeNode:(id)node {
+- (id)pw_localizeNode:(id)node tags:(NSDictionary *)tags {
     if ([node isKindOfClass:[NSString class]]) {
-        return [self pw_localizeString:(NSString *)node];
+        return [self pw_localizeString:(NSString *)node tags:tags];
     }
     if ([node isKindOfClass:[NSArray class]]) {
         NSMutableArray *result = [NSMutableArray arrayWithCapacity:[(NSArray *)node count]];
         for (id item in (NSArray *)node) {
-            [result addObject:[self pw_localizeNode:item]];
+            [result addObject:[self pw_localizeNode:item tags:tags]];
         }
         return result;
     }
     if ([node isKindOfClass:[NSDictionary class]]) {
         NSMutableDictionary *result = [NSMutableDictionary dictionaryWithCapacity:[(NSDictionary *)node count]];
         for (id key in (NSDictionary *)node) {
-            result[key] = [self pw_localizeNode:((NSDictionary *)node)[key]];
+            result[key] = [self pw_localizeNode:((NSDictionary *)node)[key] tags:tags];
         }
         return result;
     }
     return node;
 }
 
-- (NSString *)pw_localizeString:(NSString *)string {
+- (NSString *)pw_localizeString:(NSString *)string tags:(NSDictionary *)tags {
     if (string.length == 0) {
         return string;
     }
@@ -388,7 +400,6 @@
                                             regex:@"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\}\\}"
                                       pageContent:result
                                           options:NSRegularExpressionDotMatchesLineSeparators] ?: result;
-    NSDictionary *tags = @{};
     result = [self postProcessPageUsingParameters:tags
                                             regex:@"\\{([^|\\}]+)\\|([^|\\}]+)\\|\\}"
                                       pageContent:result

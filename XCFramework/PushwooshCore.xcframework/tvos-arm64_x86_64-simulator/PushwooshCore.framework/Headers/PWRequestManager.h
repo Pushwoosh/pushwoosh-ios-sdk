@@ -19,6 +19,10 @@ typedef void (^PWRequestDownloadCompleteBlock)(NSString *, NSError *);
 @property (nonatomic, readonly) BOOL isGRPCAvailable;
 
 - (void)sendRequest:(PWRequest *)request completion:(void (^)(NSError *error))completion;
+
+/// Hands a request to the persistent retry queue, frozen to the host it was addressed to — used when
+/// session attempts are exhausted but the request must still be delivered (the vacated-app unregister).
+- (void)persistRequestForLaterRetry:(PWRequest *)request;
 - (void)downloadDataFromURL:(NSURL *)url withCompletion:(PWRequestDownloadCompleteBlock)completion;
 - (void)setReverseProxyUrl:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers;
 - (void)loadReverseProxyFromAppGroups;
@@ -28,5 +32,9 @@ typedef void (^PWRequestDownloadCompleteBlock)(NSString *, NSError *);
 /// `pushwooshAppGroupsName`) so the read suite matches the one the host app wrote to.
 /// When `appGroupsName` is nil or empty, falls back to `PWConfig.appGroupsName`.
 - (void)loadReverseProxyFromAppGroups:(NSString *)appGroupsName;
+
+/// YES while a reverse proxy URL is configured. Callers that may move the base URL must not do so
+/// behind a proxy — the proxy URL is the transport-level override and outranks it anyway.
+- (BOOL)isUsingReverseProxy;
 
 @end

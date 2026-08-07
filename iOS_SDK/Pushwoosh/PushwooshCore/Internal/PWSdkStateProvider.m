@@ -9,6 +9,9 @@
 #import "PushwooshLog.h"
 
 NSNotificationName const kPWAppCodeUpdatedNotification = @"com.pushwoosh.sdk.appCodeUpdated";
+NSNotificationName const kPWActiveApplicationWillChangeNotification = @"com.pushwoosh.sdk.activeApplicationWillChange";
+NSNotificationName const kPWActiveApplicationChangedNotification = @"com.pushwoosh.sdk.activeApplicationChanged";
+NSString * const kPWActiveApplicationChangedAppCodeChangedKey = @"appCodeChanged";
 
 @interface PWSdkStateProvider ()
 

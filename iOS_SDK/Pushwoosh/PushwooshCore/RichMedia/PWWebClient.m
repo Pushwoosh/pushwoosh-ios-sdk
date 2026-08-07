@@ -143,6 +143,58 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 
 @implementation PWWebClient
 
+/// Renders a value as a JavaScript string literal, quotes included, so a quote or a backslash in a
+/// client-supplied value (userId is often an email typed by the end user) cannot escape the literal
+/// and execute inside the rich media page.
+///
+/// Serialization is not guaranteed to succeed: a lone surrogate — `"\ud83d"` from a backend response,
+/// or a string truncated in the middle of an emoji — makes `dataWithJSONObject:` return nil without
+/// raising. Falling back to the hand-quoted form there would restore the exact injection this method
+/// exists to prevent, so an unserializable value renders as an empty literal instead.
++ (NSString *)pw_jsLiteralForString:(NSString *)value {
+    NSString *safeValue = @"";
+    if ([value isKindOfClass:[NSString class]]) {
+        safeValue = value;
+    } else if (value != nil) {
+        safeValue = [NSString stringWithFormat:@"%@", value];
+    }
+
+    NSData *json = [NSJSONSerialization dataWithJSONObject:@[safeValue] options:0 error:nil];
+    NSString *serialized = json ? [[NSString alloc] initWithData:json encoding:NSUTF8StringEncoding] : nil;
+
+    if (serialized.length > 2) {
+        return [serialized substringWithRange:NSMakeRange(1, serialized.length - 2)];
+    }
+
+    return @"\"\"";
+}
+
+/// Normalizes custom push data before it is injected as a raw JavaScript value (rich media templates
+/// expect an object there, not a string, so it must not be quoted). The payload is parsed and
+/// re-serialized, so anything that is not valid JSON — including a value carrying trailing
+/// statements — is rejected instead of being executed.
++ (NSString *)pw_jsJSONValueForString:(NSString *)value {
+    if (![value isKindOfClass:[NSString class]] || value.length == 0) {
+        return nil;
+    }
+
+    NSData *data = [value dataUsingEncoding:NSUTF8StringEncoding];
+    id parsed = data ? [NSJSONSerialization JSONObjectWithData:data options:NSJSONReadingAllowFragments error:nil] : nil;
+
+    if (parsed == nil) {
+        return nil;
+    }
+
+    NSData *normalized = [NSJSONSerialization dataWithJSONObject:@[parsed] options:0 error:nil];
+    NSString *serialized = normalized ? [[NSString alloc] initWithData:normalized encoding:NSUTF8StringEncoding] : nil;
+
+    if (serialized.length > 2) {
+        return [serialized substringWithRange:NSMakeRange(1, serialized.length - 2)];
+    }
+
+    return nil;
+}
+
 + (void)addJavascriptInterface:(NSObject*)interface withName:(NSString*)name {
 	static dispatch_once_t onceToken;
 	dispatch_once(&onceToken, ^{
@@ -196,7 +248,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
         
         WKUserScript *pushwooshInject = [[WKUserScript alloc] initWithSource:PUSHWOOSH_JS injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
         
-        WKUserScript *hwidInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._hwid = \"%@\";", [[PWManagerBridge shared] getHWID]]
+        WKUserScript *hwidInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._hwid = %@;", [PWWebClient pw_jsLiteralForString:[[PWManagerBridge shared] getHWID]]]
                                                           injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                        forMainFrameOnly:NO];
         
@@ -204,11 +256,11 @@ static NSMutableDictionary *sJavaScriptInterfaces;
                                                              injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                           forMainFrameOnly:NO];
         
-        WKUserScript *applicationInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._application = \"%@\";", [[PWManagerBridge shared] appCode]]
+        WKUserScript *applicationInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._application = %@;", [PWWebClient pw_jsLiteralForString:[[PWManagerBridge shared] appCode]]]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
         
-        WKUserScript *userIdInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._user_id = \"%@\";", [[PWPreferences preferences] userId]]
+        WKUserScript *userIdInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._user_id = %@;", [PWWebClient pw_jsLiteralForString:[[PWPreferences preferences] userId]]]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
         
@@ -216,15 +268,15 @@ static NSMutableDictionary *sJavaScriptInterfaces;
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
         
-        WKUserScript *messageHashInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._message_hash = \"%@\";", _messageHash]
+        WKUserScript *messageHashInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._message_hash = %@;", [PWWebClient pw_jsLiteralForString:_messageHash]]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
         
-        WKUserScript *richMediaCodeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._richmedia_code = \"%@\";", _richMediaCode]
+        WKUserScript *richMediaCodeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._richmedia_code = %@;", [PWWebClient pw_jsLiteralForString:_richMediaCode]]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
                 
-        WKUserScript *inAppCodeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._inapp_code = \"%@\";", _inAppCode]
+        WKUserScript *inAppCodeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._inapp_code = %@;", [PWWebClient pw_jsLiteralForString:_inAppCode]]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
         
@@ -345,22 +397,29 @@ static NSMutableDictionary *sJavaScriptInterfaces;
     
     if (_richMedia.pushPayload) {
         NSString *customData = [[PWManagerBridge shared] getCustomPushData:_richMedia.pushPayload];
-        
-        if (customData) {
+        NSString *customDataValue = [PWWebClient pw_jsJSONValueForString:customData];
+
+        if (customData != nil && customDataValue == nil) {
+            [PushwooshLog pushwooshLog:PW_LL_WARN
+                             className:self
+                               message:@"Custom push data is not valid JSON and was not injected into the rich media page"];
+        }
+
+        if (customDataValue) {
             /**
              Starting with iOS 14, we use WKContentWorld to run injected JavaScript in a secure sandboxed environment,
              isolating it from untrusted web JavaScript. More details: https://developer.apple.com/documentation/webkit/wkcontentworld
              */
             if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"14.0"]) {
                 WKContentWorld* sandbox = [WKContentWorld pageWorld];
-                [webView evaluateJavaScript:[NSString stringWithFormat:@"window.pushwoosh._customData = %@;", customData]
+                [webView evaluateJavaScript:[NSString stringWithFormat:@"window.pushwoosh._customData = %@;", customDataValue]
                                                    inFrame:nil
                                             inContentWorld:sandbox
                           completionHandler:^(id _Nullable result, NSError * _Nullable error) {
                     [self.delegate webClientDidFinishLoad:self];
                 }];
             } else {
-                [webView evaluateJavaScript:[NSString stringWithFormat:@"window.pushwoosh._customData = %@;", customData]
+                [webView evaluateJavaScript:[NSString stringWithFormat:@"window.pushwoosh._customData = %@;", customDataValue]
                           completionHandler:^(id _Nullable result, NSError * _Nullable error) {
                     [self.delegate webClientDidFinishLoad:self];
                 }];

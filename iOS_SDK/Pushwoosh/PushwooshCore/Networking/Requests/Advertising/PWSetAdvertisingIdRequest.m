@@ -9,6 +9,7 @@
 #import "PWSetAdvertisingIdRequest.h"
 #import "PWConfig.h"
 #import "PWPreferences.h"
+#import "PWRequest+Internal.h"
 
 static NSString *const kDefaultTrackingUrl = @"https://tracking.svc-nue.pushwoosh.com/api/v2/device-api/";
 
@@ -37,7 +38,7 @@ static NSString *const kDefaultTrackingUrl = @"https://tracking.svc-nue.pushwoos
 - (NSDictionary *)requestDictionary {
     NSMutableDictionary *dict = [NSMutableDictionary new];
 
-    dict[@"application"] = [PWPreferences preferences].appCode;
+    dict[@"application"] = self.pinnedAppCode ?: [PWPreferences preferences].appCode;
     dict[@"hwid"] = [PWPreferences preferences].hwid;
     dict[@"madid"] = self.advertisingId ?: [NSNull null];
 

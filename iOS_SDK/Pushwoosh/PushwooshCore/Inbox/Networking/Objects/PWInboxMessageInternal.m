@@ -62,7 +62,7 @@ typedef NS_ENUM(NSInteger, PWInboxMessageSourceType) {
         _actionParams[@"r"]) {
         _type = PWInboxMessageTypeRichmedia;
     }
-    NSString *linkUrl = _actionParams[@"l"];
+    NSString *linkUrl = [_actionParams pw_stringForKey:@"l"];
     if (linkUrl) {
         if ([linkUrl hasPrefix:@"http"]) {
             _type = PWInboxMessageTypeURL;
@@ -106,7 +106,7 @@ typedef NS_ENUM(NSInteger, PWInboxMessageSourceType) {
     _type = [self typeForNumber:actionType];
     _actionParams = [self parseString:[dictionary pw_stringForKey:@"action_params"]];
     if (_actionParams != nil) {
-        NSString *urlCandidate = [_actionParams valueForKey:@"attachment"];
+        NSString *urlCandidate = [_actionParams pw_stringForKey:@"attachment"];
         if ([urlCandidate hasPrefix:@"http://"] || [urlCandidate hasPrefix:@"https://"]) {
             _attachmentUrl = urlCandidate;
         }

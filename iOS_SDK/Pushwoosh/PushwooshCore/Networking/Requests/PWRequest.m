@@ -13,6 +13,10 @@
 @interface PWRequest ()
 
 @property (nonatomic, copy) NSString *requestIdentifier;
+@property (nonatomic, copy) NSString *pinnedAppCode;
+@property (nonatomic, copy) NSString *pinnedBaseUrl;
+@property (nonatomic, copy) NSString *pinnedUserId;
+@property (nonatomic, assign) BOOL survivesApplicationChange;
 
 @end
 
@@ -27,7 +31,7 @@
 }
 
 - (NSString *)baseUrl {
-	return nil;
+	return _pinnedBaseUrl;
 }
 
 - (BOOL)shouldWrapRequest {
@@ -51,8 +55,8 @@
 - (NSMutableDictionary *)baseDictionary {
 	NSMutableDictionary *dict = [NSMutableDictionary new];
 
-	dict[@"userId"] = [PWPreferences preferences].userId;
-	dict[@"application"] = [PWPreferences preferences].appCode;
+	dict[@"userId"] = _pinnedUserId ?: [PWPreferences preferences].userId;
+	dict[@"application"] = _pinnedAppCode ?: [PWPreferences preferences].appCode;
     
     if (_usePreviousHWID && [PWUtils isValidHwid:[PWPreferences preferences].previosHWID]) {
         dict[@"hwid"] = [PWPreferences preferences].previosHWID;

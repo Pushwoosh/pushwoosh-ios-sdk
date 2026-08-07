@@ -109,7 +109,19 @@ public class PushwooshForegroundPushImplementation: NSObject {
     @objc
     public static weak var delegate: AnyObject? {
         get { shared._delegate }
-        set { shared._delegate = newValue as? (NSObjectProtocol & PWForegroundPushDelegate) }
+        set {
+            guard let newValue else {
+                shared._delegate = nil
+                return
+            }
+            guard let typedDelegate = newValue as? (NSObjectProtocol & PWForegroundPushDelegate) else {
+                PushwooshLog.pushwooshLog(.PW_LL_ERROR,
+                                          className: self,
+                                          message: "Foreground push delegate ignored: \(type(of: newValue)) must inherit from NSObject and conform to PWForegroundPushDelegate")
+                return
+            }
+            shared._delegate = typedDelegate
+        }
     }
 
     private weak var _delegate: PWForegroundPushDelegate?

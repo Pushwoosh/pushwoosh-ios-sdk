@@ -25,6 +25,10 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)sendRetryEntry:(PWRetryEntry *)entry
             completion:(void (^)(NSInteger statusCode, NSError * _Nullable error))completion;
 
+/// The base URL a replay would actually be sent to right now — from the transport, not `PWPreferences`,
+/// so a configured reverse proxy is never diagnosed as pointing at the wrong host.
+- (nullable NSString *)currentBaseUrlForRetry;
+
 @end
 
 NS_ASSUME_NONNULL_END

@@ -32,9 +32,17 @@ NS_ASSUME_NONNULL_BEGIN
 /// `requestIdentifier` is already queued. Triggers a flush.
 - (void)enqueueRequest:(PWRequest *)request;
 
+/// Same as `-enqueueRequest:` but the caller decides which host a replay must target.
+/// `nil` = replay against whatever base URL is current at replay time (legacy behaviour).
+- (void)enqueueRequest:(PWRequest *)request baseUrl:(nullable NSString *)baseUrl;
+
 /// Attempt every due, not-in-flight entry; drop expired/exhausted ones. Safe to
 /// call repeatedly and from any thread.
 - (void)flush;
+
+/// Drops every queued entry (except survivors) on an application change: entries built for the
+/// previous application must never be replayed into the new one.
+- (void)purgeAllEntriesWithReason:(NSString *)reason;
 
 /// Hook for the reachability observer — connectivity restored, so flush now.
 - (void)onNetworkReachable;

@@ -9,10 +9,9 @@
 #import "PWPurchaseManager.h"
 #import "PWRequestManager.h"
 #import "PWNetworkModule.h"
-#import "PWSendPurchaseRequest.h"
 #import "PWPostEventRequest.h"
 
-@interface PWPurchaseManager () <SKProductsRequestDelegate, SKPaymentTransactionObserver>
+@interface PWPurchaseManager () <SKProductsRequestDelegate>
 
 @property (nonatomic, strong) NSMutableArray *transactionsArray;
 @property (nonatomic, strong) NSMutableDictionary *productArray;  //productid => SKProduct mapping
@@ -24,22 +23,9 @@
 
 @implementation PWPurchaseManager
 
-- (void)dealloc {
-	NSNumber *noTrackIAP = @YES;  //[[NSBundle mainBundle] objectForInfoDictionaryKey:@"Pushwoosh_NO_TRACK_IAP"];
-	if (!noTrackIAP || ![noTrackIAP boolValue]) {
-		[[SKPaymentQueue defaultQueue] removeTransactionObserver:self];
-	}
-}
-
 - (instancetype)init {
 	if (self = [super init]) {
 		[[PWNetworkModule module] inject:self];
-		
-		NSNumber *noTrackIAP = @YES;  //[[NSBundle mainBundle] objectForInfoDictionaryKey:@"Pushwoosh_NO_TRACK_IAP"];
-		if (!noTrackIAP || ![noTrackIAP boolValue]) {
-			// Start observing purchase transactions
-			[[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-		}
 	}
 	return self;
 }
@@ -75,11 +61,6 @@
 	SKProductsRequest *productsRequest = [[SKProductsRequest alloc] initWithProductIdentifiers:[NSSet setWithArray:productIdentifiers]];
 	productsRequest.delegate = self;
 	[productsRequest start];
-}
-
-//something changes in the transaction queue
-- (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
-	[self sendSKPaymentTransactions:transactions];
 }
 
 #pragma mark - SKProductsRequestDelegate
@@ -132,12 +113,6 @@
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"sendPurchase failed"];
         }
     }];
-}
-
-- (NSString *)convertDateToString:(NSDate *)date {
-    NSDateFormatter *dateFormat = [[NSDateFormatter alloc] init];
-    [dateFormat setDateFormat:@"yyyy-MM-dd"];
-    return [dateFormat stringFromDate:date];
 }
 
 - (void)sendSKPayments:(NSArray *)transactions {

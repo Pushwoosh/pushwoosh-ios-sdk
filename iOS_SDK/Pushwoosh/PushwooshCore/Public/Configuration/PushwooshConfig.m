@@ -94,6 +94,51 @@
     return [[PWPreferences preferences] appCode];
 }
 
++ (void)setAppCode:(NSString *)appCode baseUrl:(NSString *)baseUrl {
+    NSString *code = [self validateAndTrim:appCode forSelector:_cmd];
+    if (code == nil) {
+        return;
+    }
+
+    /// No endpoint supplied — `nil`, empty or whitespace-only — delegates to the one-argument setter,
+    /// exactly as `setAppId(appId, null)` does on Android. A binding that forwards an argument its
+    /// caller never passed lands here whichever of the three it renders an absent value as.
+    if ([self trim:baseUrl] == nil) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:[PushwooshConfig class]
+                           message:[NSString stringWithFormat:@"%@ received no endpoint (%@): resolving the default endpoint for the Application Code",
+                                    NSStringFromSelector(_cmd),
+                                    baseUrl == nil ? @"nil" : @"blank string"]];
+        [self setAppCode:code];
+        return;
+    }
+
+    PWPreferences *preferences = [PWPreferences preferences];
+
+    NSDictionary<NSString *, NSString *> *previousPair = nil;
+    if (![preferences switchToApplicationWithAppCode:code baseUrl:baseUrl previousPair:&previousPair]) {
+        return;
+    }
+
+    NSString *previousAppCode = previousPair[kPWActiveApplicationAppCodeKey];
+
+    if (previousAppCode.length == 0) {
+        return;
+    }
+
+    /// URL-only switch: an address migration, not a change of target — no unregister, no forced
+    /// registration (the Android contract; the transaction already cleared the registration dedup).
+    if ([previousAppCode isEqualToString:code]) {
+        return;
+    }
+
+    [preferences unregisterFromVacatedApplication:previousPair];
+}
+
++ (NSString *)getBaseUrl {
+    return [[PWPreferences preferences] baseUrl];
+}
+
 + (void)setApiToken:(NSString *)apiToken {
     NSString *value = [self validateAndTrim:apiToken forSelector:_cmd];
     if (apiToken != nil && value == nil) return;

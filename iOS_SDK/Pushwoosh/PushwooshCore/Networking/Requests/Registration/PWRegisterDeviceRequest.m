@@ -5,6 +5,7 @@
 //
 
 #import "PWRegisterDeviceRequest.h"
+#import <PushwooshCore/PushwooshLog.h>
 #import "PWUtils.h"
 #import "PWPushRuntime.h"
 #import "PWPreferences.h"
@@ -48,6 +49,17 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (NSDictionary *)requestDictionary {
+    // A WhatsApp registration without a number has no request to send: skipping only the hwid
+    // override used to leave the device's own hwid in place with device_type 21, which silently
+    // re-registered the real device as a WhatsApp one and sent its iOS pushes elsewhere. Refusing
+    // the whole dictionary keeps a rejected registration indistinguishable from an absent one.
+    if (_platform == Whatsapp && _token.length == 0) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:@"WhatsApp registration requires a phone number, skipping request"];
+        return nil;
+    }
+
     NSMutableDictionary *dict = [[super requestDictionary] mutableCopy];
 
     dict[@"push_token"] = _token;
@@ -58,7 +70,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         case SMS:
             dict[@"hwid"] = _token;
             break;
-            
+
         case Whatsapp: {
             NSString *whatsappToken = [@"whatsapp:" stringByAppendingString:_token];
             dict[@"hwid"] = whatsappToken;

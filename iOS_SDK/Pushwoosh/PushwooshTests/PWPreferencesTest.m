@@ -19,6 +19,7 @@
 
 + (NSString *)readAppId;
 + (void)resetCache;
++ (NSString *)readProductionAppCodeAndUpdateIfNeeded;
 
 @end
 
@@ -32,6 +33,10 @@
 @property (nonatomic) PWPreferences *settings;
 @property (nonatomic) PWConfig *config;
 
+@property (nonatomic, copy) NSString *savedAppId;
+@property (nonatomic, copy) NSString *savedBaseUrl;
+@property (nonatomic, copy) NSString *savedInfoPlistAppId;
+@property (nonatomic, copy) NSString *savedInMemoryAppCode;
 
 @end
 
@@ -39,10 +44,28 @@
 
 - (void)setUp {
     _settings = [PWPreferences preferences];
+
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    _savedAppId = [[defaults objectForKey:@"Pushwoosh_APPID"] copy];
+    _savedBaseUrl = [[defaults objectForKey:@"Pushwoosh_BASEURL"] copy];
+    _savedInfoPlistAppId = [[defaults objectForKey:@"Pushwoosh_INFO_PLIST_APPID"] copy];
+    _savedInMemoryAppCode = [_settings.appCode copy];
 }
 
 - (void)tearDown {
-    // Put teardown code here. This method is called after the invocation of each test method in the class.
+    [self restoreDefaultsKey:@"Pushwoosh_APPID" value:_savedAppId];
+    [self restoreDefaultsKey:@"Pushwoosh_BASEURL" value:_savedBaseUrl];
+    [self restoreDefaultsKey:@"Pushwoosh_INFO_PLIST_APPID" value:_savedInfoPlistAppId];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    _settings.appCode = _savedInMemoryAppCode;
+}
+
+- (void)restoreDefaultsKey:(NSString *)key value:(NSString *)value {
+    if (value) {
+        [[NSUserDefaults standardUserDefaults] setObject:value forKey:key];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:key];
+    }
 }
 
 /// Verifies that when appGroupsName is empty, PWPreferences reads PWInAppUserId from standardUserDefaults.
@@ -252,8 +275,10 @@
     [[NSUserDefaults standardUserDefaults] setObject:@"https://cp.pushwoosh.com/json/1.3/" forKey:@"Pushwoosh_BASEURL"];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
-    // Force the cached ivar to nil so the next -baseUrl call invokes -readBaseUrl.
-    [_settings setValue:nil forKey:@"baseUrl"];
+    /// Force the cached ivar to nil so the next -baseUrl call invokes -readBaseUrl. Must target the
+    /// ivar name: key "baseUrl" resolves to the deprecated -setBaseUrl:, which funnels into
+    /// -updateBaseUrl:nil and is rejected, leaving the cached value in place.
+    [_settings setValue:nil forKey:@"_baseUrl"];
 
     NSString *result = [_settings baseUrl];
 
@@ -458,6 +483,47 @@
         [[NSUserDefaults standardUserDefaults] setObject:savedInfoPlistAppId forKey:@"Pushwoosh_INFO_PLIST_APPID"];
     }
     [[NSUserDefaults standardUserDefaults] synchronize];
+}
+
+#pragma mark - SDK-882 (H7): Info.plist app-code snapshot on first resolve
+
+/// SDK-882: Verifies that resolving an Info.plist-only application code persists the snapshot, so the next launch does not see it as an edit.
+- (void)testReadProductionAppCodeWritesInfoPlistSnapshotOnFirstResolve {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Pushwoosh_APPID"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Pushwoosh_INFO_PLIST_APPID"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    id mockConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockConfig appId]).andReturn(@"PLIST-11111");
+
+    XCTAssertEqualObjects([PWPreferences readProductionAppCodeAndUpdateIfNeeded], @"PLIST-11111");
+    XCTAssertEqualObjects([[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_INFO_PLIST_APPID"], @"PLIST-11111");
+
+    [mockConfig stopMocking];
+}
+
+/// SDK-882: Verifies that a runtime application code set on top of an Info.plist one is not reverted on the next launch, and that the runtime base URL survives with it.
+- (void)testRuntimeAppCodeSurvivesSecondLaunchWithInfoPlistAppCode {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Pushwoosh_APPID"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Pushwoosh_BASEURL"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Pushwoosh_INFO_PLIST_APPID"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    id mockConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockConfig appId]).andReturn(@"PLIST-11111");
+    OCMStub([mockConfig appIdDev]).andReturn(nil);
+    OCMStub([mockConfig requestUrl]).andReturn(nil);
+
+    XCTAssertEqualObjects([PWPreferences readProductionAppCodeAndUpdateIfNeeded], @"PLIST-11111");
+
+    PWPreferences *launchOne = [[PWPreferences alloc] init];
+    [launchOne setAppCode:@"RUNTIME-2222"];
+    [launchOne updateBaseUrl:@"https://runtime.example.com/json/1.3/"];
+
+    XCTAssertEqualObjects([PWPreferences readProductionAppCodeAndUpdateIfNeeded], @"RUNTIME-2222");
+    XCTAssertEqualObjects([[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_BASEURL"], @"https://runtime.example.com/json/1.3/");
+
+    [mockConfig stopMocking];
 }
 
 #pragma mark - SDK-816: lastKnockTriggerTimestamp persistence

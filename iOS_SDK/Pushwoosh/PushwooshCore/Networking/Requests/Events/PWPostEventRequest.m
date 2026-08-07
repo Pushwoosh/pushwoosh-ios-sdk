@@ -93,22 +93,26 @@
                 return;
             }
             
-            NSString *url = richMediaDictionary[@"url"];
-            if (!url) {
+            // Typed, not just checked for presence: this is a server response, and a non-string url
+            // reached -lastPathComponent below and crashed with unrecognized selector. Same block as
+            // in -[PWInAppMessagesManager presentRichMediaFromPush:], reachable by postEvent instead
+            // of a push. pw_stringForKey: is already used for code and message_hash above.
+            NSString *url = [richMediaDictionary pw_stringForKey:@"url"];
+            if (!url.length) {
                 [PushwooshLog pushwooshLog:PW_LL_ERROR
                                  className:self
                                    message:@"Url is missing"];
                 return;
             }
-            
+
             NSDictionary *tags = richMediaDictionary[@"tags"];
-            if (!tags)
+            if (![tags isKindOfClass:[NSDictionary class]])
                 tags = @{};
-            
+
             tags = [self convertTags:tags];
-            
-            NSString *ts = richMediaDictionary[@"ts"];
-            if (!ts) {
+
+            NSString *ts = [richMediaDictionary pw_stringForKey:@"ts"];
+            if (!ts.length) {
                 [PushwooshLog pushwooshLog:PW_LL_ERROR
                                  className:self
                                    message:@"Timestamp is missing"];

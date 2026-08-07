@@ -11,6 +11,7 @@
 #import "PWConfig.h"
 #import "PWSdkStateProvider.h"
 #import <PushwooshCore/PWManagerBridge.h>
+#import "PWRequest+Internal.h"
 
 @interface PWPreferences (AdvertisingTest)
 
@@ -115,6 +116,41 @@ static NSString *const kTestKeyAdvertisingId = @"PWAdvertisingId";
     NSDictionary *dict = [request requestDictionary];
 
     XCTAssertEqualObjects(dict[@"madid"], [NSNull null]);
+}
+
+/// SDK-882: Verifies that a pinned setMADID request serializes the pinned application code, not the live one.
+- (void)testRequest_pinnedApplicationCodeIsSerialized {
+    NSString *savedAppCode = [[PWPreferences preferences].appCode copy];
+    [PWPreferences preferences].appCode = @"LIVE-11111";
+
+    PWSetAdvertisingIdRequest *request = [[PWSetAdvertisingIdRequest alloc] init];
+    request.advertisingId = @"test-idfa-789";
+    request.pinnedAppCode = @"PINNED-2222";
+
+    XCTAssertEqualObjects([request requestDictionary][@"application"], @"PINNED-2222");
+
+    [PWPreferences preferences].appCode = savedAppCode;
+}
+
+/// SDK-882: Verifies that an unpinned setMADID request still serializes the live application code.
+- (void)testRequest_unpinnedUsesLiveApplicationCode {
+    NSString *savedAppCode = [[PWPreferences preferences].appCode copy];
+    [PWPreferences preferences].appCode = @"LIVE-11111";
+
+    PWSetAdvertisingIdRequest *request = [[PWSetAdvertisingIdRequest alloc] init];
+    request.advertisingId = @"test-idfa-789";
+
+    XCTAssertEqualObjects([request requestDictionary][@"application"], @"LIVE-11111");
+
+    [PWPreferences preferences].appCode = savedAppCode;
+}
+
+/// SDK-882: Verifies that the tracking host still wins over a pinned base URL — the advertising endpoint does not follow an application switch.
+- (void)testRequest_trackingHostWinsOverPinnedBaseUrl {
+    PWSetAdvertisingIdRequest *request = [[PWSetAdvertisingIdRequest alloc] init];
+    request.pinnedBaseUrl = @"https://region-b.example.com/json/1.3/";
+
+    XCTAssertFalse([[request baseUrl] hasPrefix:@"https://region-b.example.com"]);
 }
 
 #pragma mark - PushwooshConfig setAdvertisingId Tests

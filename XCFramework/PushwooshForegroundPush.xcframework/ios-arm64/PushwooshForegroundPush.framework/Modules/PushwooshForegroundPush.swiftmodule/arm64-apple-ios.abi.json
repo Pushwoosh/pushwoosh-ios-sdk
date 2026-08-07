@@ -1676,16 +1676,27 @@
             "children": [
               {
                 "kind": "TypeNominal",
-                "name": "PWForegroundPushDelegate",
-                "printedName": "any PushwooshForegroundPush.PWForegroundPushDelegate",
-                "usr": "c:@M@PushwooshForegroundPush@objc(pl)PWForegroundPushDelegate"
+                "name": "Optional",
+                "printedName": "(any PushwooshForegroundPush.PWForegroundPushDelegate)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWForegroundPushDelegate",
+                    "printedName": "any PushwooshForegroundPush.PWForegroundPushDelegate",
+                    "usr": "c:@M@PushwooshForegroundPush@objc(pl)PWForegroundPushDelegate"
+                  }
+                ],
+                "usr": "s:Sq"
               }
             ],
             "declKind": "Var",
-            "usr": "s:15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pvpZ",
-            "mangledName": "$s15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pvpZ",
+            "usr": "s:15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pSgvpZ",
+            "mangledName": "$s15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pSgvpZ",
             "moduleName": "PushwooshForegroundPush",
             "static": true,
+            "declAttributes": [
+              "RawDocComment"
+            ],
             "isFromExtension": true,
             "accessors": [
               {
@@ -1695,14 +1706,22 @@
                 "children": [
                   {
                     "kind": "TypeNominal",
-                    "name": "PWForegroundPushDelegate",
-                    "printedName": "any PushwooshForegroundPush.PWForegroundPushDelegate",
-                    "usr": "c:@M@PushwooshForegroundPush@objc(pl)PWForegroundPushDelegate"
+                    "name": "Optional",
+                    "printedName": "(any PushwooshForegroundPush.PWForegroundPushDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPushDelegate",
+                        "printedName": "any PushwooshForegroundPush.PWForegroundPushDelegate",
+                        "usr": "c:@M@PushwooshForegroundPush@objc(pl)PWForegroundPushDelegate"
+                      }
+                    ],
+                    "usr": "s:Sq"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pvgZ",
-                "mangledName": "$s15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pvgZ",
+                "usr": "s:15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pSgvgZ",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pSgvgZ",
                 "moduleName": "PushwooshForegroundPush",
                 "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
@@ -1722,14 +1741,22 @@
                   },
                   {
                     "kind": "TypeNominal",
-                    "name": "PWForegroundPushDelegate",
-                    "printedName": "any PushwooshForegroundPush.PWForegroundPushDelegate",
-                    "usr": "c:@M@PushwooshForegroundPush@objc(pl)PWForegroundPushDelegate"
+                    "name": "Optional",
+                    "printedName": "(any PushwooshForegroundPush.PWForegroundPushDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWForegroundPushDelegate",
+                        "printedName": "any PushwooshForegroundPush.PWForegroundPushDelegate",
+                        "usr": "c:@M@PushwooshForegroundPush@objc(pl)PWForegroundPushDelegate"
+                      }
+                    ],
+                    "usr": "s:Sq"
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pvsZ",
-                "mangledName": "$s15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pvsZ",
+                "usr": "s:15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pSgvsZ",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pSgvsZ",
                 "moduleName": "PushwooshForegroundPush",
                 "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
@@ -1749,8 +1776,8 @@
                   }
                 ],
                 "declKind": "Accessor",
-                "usr": "s:15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pvMZ",
-                "mangledName": "$s15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pvMZ",
+                "usr": "s:15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pSgvMZ",
+                "mangledName": "$s15PushwooshBridge16PWForegroundPushP0a10ForegroundD0E8delegateAD0cD8Delegate_pSgvMZ",
                 "moduleName": "PushwooshForegroundPush",
                 "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWForegroundPush>",
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
@@ -2833,7 +2860,7 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshForegroundPush\/PushwooshForegroundPushImplementation.swift",
       "kind": "IntegerLiteral",
-      "offset": 34796,
+      "offset": 35318,
       "length": 1,
       "value": "3"
     }

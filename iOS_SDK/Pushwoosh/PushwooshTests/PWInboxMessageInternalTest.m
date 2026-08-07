@@ -75,6 +75,34 @@
     XCTAssertNil([PWInboxMessageInternal messageWithDictionary:(id)arrayInput]);
 }
 
+/// A non-string deep link in an inbox push is ignored instead of crashing while the type is derived.
+- (void)testMessageWithNonStringLink_doesNotCrash {
+    NSMutableDictionary *payload = [[self parameters] mutableCopy];
+    payload[@"l"] = @12345;
+
+    PWInboxMessageInternal *message = [PWInboxMessageInternal messageWithPushNotification:payload];
+
+    XCTAssertNotNil(message);
+    XCTAssertEqual(message.type, PWInboxMessageTypePlain);
+}
+
+/// Non-string action params of a service message are ignored instead of crashing on hasPrefix:.
+- (void)testServiceMessageWithNonStringActionParams_doesNotCrash {
+    NSDictionary *serviceMessage = @{ @"inbox_id" : _code,
+                                      @"order" : @"1",
+                                      @"rt" : @"1646917972",
+                                      @"text" : @"test",
+                                      @"action_type" : _type,
+                                      @"status" : @1,
+                                      @"action_params" : @"{\"l\": 456, \"attachment\": 123}" };
+
+    PWInboxMessageInternal *message = [PWInboxMessageInternal messageWithDictionary:serviceMessage];
+
+    XCTAssertNotNil(message);
+    XCTAssertNil(message.attachmentUrl);
+    XCTAssertEqual(message.type, PWInboxMessageTypePlain);
+}
+
 - (NSDictionary *)parameters {
     return @{@"pw_inbox": _code,
                                  @"inbox_params": @{@"rt": @"1646917972",

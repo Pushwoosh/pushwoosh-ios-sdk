@@ -200,4 +200,47 @@
     XCTAssertEqualObjects(_requestDevice.requestDictionary[@"hwid"], whatsappToken);
 }
 
+/// Verifies that a nil or blank number is rejected before a request is built, so the WhatsApp
+/// prefix concatenation can never receive nil.
+- (void)testRegisterNumberWithBlankValueBuildsNoRequest {
+    _notificationManager = [[PWPushNotificationsManagerCommon alloc] init];
+
+    [_notificationManager registerWhatsappNumber:nil];
+    XCTAssertNil(_notificationManager.request);
+
+    [_notificationManager registerWhatsappNumber:@"   "];
+    XCTAssertNil(_notificationManager.request);
+
+    [_notificationManager registerSmsNumber:@""];
+    XCTAssertNil(_notificationManager.request);
+}
+
+/// Verifies that a WhatsApp registration without a number builds no dictionary at all. Skipping only
+/// the hwid override would leave the device's own hwid in place with device_type 21 and silently
+/// re-register the real device as a WhatsApp one.
+///
+/// What stops the request afterwards is transport-specific, so this test asserts the body and nothing
+/// more: on REST isValidJSONObject: rejects nil before sending, while the gRPC path and the retry
+/// queue used to substitute an empty dictionary for it — both now refuse instead.
+- (void)testRequestDicitionaryPlatformWhatsappWithEmptyToken {
+    NSInteger whatsapp = 21;
+    _requestDevice = [PWRegisterDeviceRequest new];
+    _requestDevice.token = nil;
+    _requestDevice.platform = whatsapp;
+
+    XCTAssertNil(_requestDevice.requestDictionary);
+    XCTAssertFalse([NSJSONSerialization isValidJSONObject:_requestDevice.requestDictionary]);
+}
+
+/// Same for a blank number rather than a missing one: a nil token stops at the length check, an empty
+/// string used to pass it and put push_token: "" into the dictionary next to the device's own hwid.
+- (void)testRequestDicitionaryPlatformWhatsappWithBlankToken {
+    NSInteger whatsapp = 21;
+    _requestDevice = [PWRegisterDeviceRequest new];
+    _requestDevice.token = @"";
+    _requestDevice.platform = whatsapp;
+
+    XCTAssertNil(_requestDevice.requestDictionary);
+}
+
 @end

@@ -7,6 +7,7 @@
 
 #import "PWRetryEntry.h"
 #import <PushwooshCore/PWRequest.h>
+#import "PWRequest+Internal.h"
 
 static NSString *const kKeyRequestIdentifier = @"rid";
 static NSString *const kKeyMethodName = @"mn";
@@ -16,18 +17,27 @@ static NSString *const kKeyBaseUrl = @"bu";
 static NSString *const kKeyAttemptCount = @"ac";
 static NSString *const kKeyNextAttemptDate = @"nad";
 static NSString *const kKeyFirstEnqueuedDate = @"fed";
+static NSString *const kKeySurvivesApplicationChange = @"sac";
 
 @implementation PWRetryEntry
 
 - (instancetype)initWithRequest:(PWRequest *)request now:(NSDate *)now {
-    return [self initWithRequestIdentifier:request.requestIdentifier
+    return [self initWithRequest:request baseUrl:request.baseUrl now:now];
+}
+
+- (instancetype)initWithRequest:(PWRequest *)request baseUrl:(NSString *)baseUrl now:(NSDate *)now {
+    self = [self initWithRequestIdentifier:request.requestIdentifier
                                methodName:request.methodName
                         requestDictionary:request.requestDictionary ?: @{}
                         shouldWrapRequest:request.shouldWrapRequest
-                                  baseUrl:request.baseUrl
+                                  baseUrl:baseUrl
                              attemptCount:0
                           nextAttemptDate:now
                         firstEnqueuedDate:now];
+    if (self) {
+        _survivesApplicationChange = request.survivesApplicationChange;
+    }
+    return self;
 }
 
 - (instancetype)initWithRequestIdentifier:(NSString *)requestIdentifier
@@ -68,7 +78,7 @@ static NSString *const kKeyFirstEnqueuedDate = @"fed";
 }
 
 - (PWRetryEntry *)entryByIncrementingAttemptWithNextDate:(NSDate *)nextDate {
-    return [[PWRetryEntry alloc] initWithRequestIdentifier:_requestIdentifier
+    PWRetryEntry *next = [[PWRetryEntry alloc] initWithRequestIdentifier:_requestIdentifier
                                                methodName:_methodName
                                         requestDictionary:_requestDictionary
                                         shouldWrapRequest:_shouldWrapRequest
@@ -76,6 +86,21 @@ static NSString *const kKeyFirstEnqueuedDate = @"fed";
                                              attemptCount:_attemptCount + 1
                                           nextAttemptDate:nextDate
                                         firstEnqueuedDate:_firstEnqueuedDate];
+    next->_survivesApplicationChange = _survivesApplicationChange;
+    return next;
+}
+
+- (PWRetryEntry *)entryByRetargetingToBaseUrl:(NSString *)baseUrl {
+    PWRetryEntry *retargeted = [[PWRetryEntry alloc] initWithRequestIdentifier:_requestIdentifier
+                                               methodName:_methodName
+                                        requestDictionary:_requestDictionary
+                                        shouldWrapRequest:_shouldWrapRequest
+                                                  baseUrl:baseUrl
+                                             attemptCount:_attemptCount
+                                          nextAttemptDate:_nextAttemptDate
+                                        firstEnqueuedDate:_firstEnqueuedDate];
+    retargeted->_survivesApplicationChange = _survivesApplicationChange;
+    return retargeted;
 }
 
 #pragma mark - NSCopying
@@ -110,7 +135,7 @@ static NSString *const kKeyFirstEnqueuedDate = @"fed";
         return nil;
     }
 
-    return [self initWithRequestIdentifier:requestIdentifier
+    self = [self initWithRequestIdentifier:requestIdentifier
                                methodName:methodName
                         requestDictionary:requestDictionary ?: @{}
                         shouldWrapRequest:shouldWrapRequest
@@ -118,6 +143,10 @@ static NSString *const kKeyFirstEnqueuedDate = @"fed";
                              attemptCount:attemptCount
                           nextAttemptDate:nextAttemptDate
                         firstEnqueuedDate:firstEnqueuedDate];
+    if (self) {
+        _survivesApplicationChange = [coder decodeBoolForKey:kKeySurvivesApplicationChange];
+    }
+    return self;
 }
 
 - (void)encodeWithCoder:(NSCoder *)coder {
@@ -129,6 +158,7 @@ static NSString *const kKeyFirstEnqueuedDate = @"fed";
     [coder encodeInteger:(NSInteger)_attemptCount forKey:kKeyAttemptCount];
     [coder encodeObject:_nextAttemptDate forKey:kKeyNextAttemptDate];
     [coder encodeObject:_firstEnqueuedDate forKey:kKeyFirstEnqueuedDate];
+    [coder encodeBool:_survivesApplicationChange forKey:kKeySurvivesApplicationChange];
 }
 
 @end

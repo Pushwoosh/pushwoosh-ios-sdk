@@ -91,9 +91,195 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  @note Prefer configuring via Info.plist with key `Pushwoosh_APPID` for most use cases.
 
+ @warning This method moves the Application Code only. If an endpoint was selected earlier with
+ `setAppCode:baseUrl:`, changing the Application Code here **drops** that endpoint and falls back to
+ the default (Info.plist `Pushwoosh_BASEURL`, otherwise
+ `https://<appCode>.api.pushwoosh.com/json/1.3/`), so one application's data can never be addressed
+ to the host chosen for another one. A warning naming the dropped endpoint is logged. To move an
+ application and its endpoint together, use `setAppCode:baseUrl:`.
+
+ @note Like `setAppCode:baseUrl:`, this method **unregisters the device from the application it
+ leaves** whenever the Application Code actually changes, addressed to that application's own host, so
+ the device stops receiving its pushes. The local push token is kept, so the device registers into the
+ new application right away. Re-applying the code the SDK already holds changes nothing and sends
+ nothing.
+
  @see getAppCode
+ @see setAppCode:baseUrl:
  */
 + (void)setAppCode:(NSString *_Nonnull)appCode;
+
+/**
+ Sets the Pushwoosh Application Code together with the API endpoint it lives behind — both move as
+ one unit, or neither does.
+
+ @discussion
+ The two-argument form of `setAppCode:`. Use it when one app serves more than one Pushwoosh
+ application — typically several regions, or a white-label deployment where each application has its
+ own API endpoint. The selected pair is persisted, survives app restarts, and is visible to the
+ Notification Service Extension.
+
+ Pass the **same** Application Code with a different `baseUrl` to move only the endpoint.
+
+ The URL is used **verbatim**: pass the **full** endpoint including the path. The SDK does not build
+ `<appCode>.<host>` for you. A trailing `/` is added when missing and the scheme must be
+ `http://` or `https://`; an invalid URL is rejected and nothing is changed.
+
+ The Application Code does **not** have to appear in the URL. A dedicated domain that carries no code
+ (`https://api.your-region.com/json/1.3/`), an on-premise path or a proxy address are all equally valid.
+ `https://<appCode>.api.pushwoosh.com/json/1.3/` is composed only when no endpoint was supplied.
+
+ `baseUrl: nil` — and equally an **empty** or whitespace-only string — means "no endpoint supplied",
+ not "select the default one": the call then behaves exactly like the one-argument `setAppCode:`, so a
+ binding that forwards an optional argument its caller never passed cannot destroy an endpoint selected
+ in an earlier session, whichever of the three it renders an absent value as. To move to the
+ default endpoint (Info.plist `Pushwoosh_BASEURL` when present, otherwise
+ `https://<appCode>.api.pushwoosh.com/json/1.3/`), change the Application Code with `setAppCode:`, or
+ pass the default endpoint explicitly.
+
+ Safe to call from any thread.
+
+ @param appCode The Application Code to select. Must not be empty and must not contain `.`.
+ @param baseUrl The full API endpoint of that application, or nil / an empty string when no endpoint
+ is supplied.
+
+ ## Effects
+
+ - The device is **unregistered from the previous application** and re-registered in the new one.
+   The server keeps the device, its tags and its user in the application being left, so returning to
+   it later loses no data. The unregister outlives the session: it is retried inside the session and,
+   if those attempts fail, it is persisted and retried on later launches. It stays addressed to the
+   application and the host it was created for, so a device that switched region while offline still
+   stops receiving the previous application's pushes rather than receiving both.
+   It is not an unlimited guarantee: the persisted retry follows the SDK's retry policy, so it is
+   given a small number of attempts within a few days and is then dropped with a warning in the log.
+   Attempts are also consumed while server communication is stopped
+   (`Pushwoosh_ALLOW_SERVER_COMMUNICATION = NO` / `stopServerCommunication`), so prefer switching
+   while communication is allowed.
+ - Pending cached statistics events that belong to the previous application are dropped rather than
+   replayed, so no traffic reaches an application the user deliberately left.
+ - A change that moves only the URL (same Application Code) is an address migration, not a change of
+   target: **nothing is sent**. No unregister, because the device is not leaving that application, and
+   no forced registration either, because the same Application Code on another host is the same
+   logical backend, which already knows this device. Requests are re-pointed at once and the choice is
+   persisted; the device introduces itself to the new host with the next ordinary registration update
+   (an app activation). Cached statistics events keep their place in the queue and are replayed to the
+   new host, and the local inbox is left untouched. A rotation performed by Pushwoosh itself behaves
+   the same way.
+
+ ## Repeat calls, and server-side endpoint rotation
+
+ Calling this with the Application Code and the endpoint the SDK is already using is a no-op: it is
+ safe (and expected) to call it on every app start with a constant pair. Nothing is written, nothing
+ is re-registered, no cached events are dropped.
+
+ Pushwoosh may legitimately move your traffic to another host of the same application (a shard
+ rotation), and that move outranks your endpoint for the rest of the session and survives a restart. A
+ later call carrying your own pair puts your endpoint back, in one call, with no unregister and no data
+ loss: the Application Code did not move, so nothing application-scoped is reset. An app that calls
+ this on every start therefore re-asserts its endpoint on the next start after a rotation.
+
+ The SDK logs a warning when the server moves traffic outside the domain of the endpoint you selected,
+ so an unexpected rotation is visible in a support log.
+
+ ## Which endpoint wins
+
+ More than one party can name the endpoint a request actually goes to, so the resolution order is:
+
+ 1. A reverse proxy (`setReverseProxy:headers:`). While one is configured it carries every request,
+    whatever pair is selected here.
+ 2. Pushwoosh itself: a shard rotation carried in a response, or the `set_base_url` push command. Such
+    a move outranks the endpoint you passed for the rest of the session and survives restarts, but it
+    never rewrites your selection: the pair stays on record, a warning is logged when the new host
+    leaves the domain of the endpoint you chose, and your next call carrying that pair puts it back.
+ 3. The endpoint passed to this method.
+ 4. Info.plist `Pushwoosh_BASEURL`, used when no endpoint was ever passed.
+ 5. `https://<appCode>.api.pushwoosh.com/json/1.3/`, derived when that key is absent.
+
+ `getBaseUrl` reports the effective Pushwoosh endpoint, so it reflects a server-side rotation and is not
+ necessarily the URL you passed. A configured reverse proxy is deliberately not reflected there: it is
+ a transport in front of that endpoint, not the endpoint itself.
+
+ ## Coexistence with Info.plist
+
+ Info.plist `Pushwoosh_APPID`, `Pushwoosh_APPID_Dev` and `Pushwoosh_BASEURL` are the **seed / default
+ only**. A pair selected at runtime outranks all three and keeps doing so after a restart.
+
+ @warning Once an install has selected an application at runtime, shipping a **different** Application
+ Code in Info.plist no longer migrates it: the selected code wins on every launch, in the app and in
+ the Notification Service Extension. To move such installs, call
+ `setAppCode(<new code>, baseUrl: nil)` from the app itself — an app update alone cannot do it.
+
+ With more than one application, do **not** put an application-specific URL in Info.plist — pass it
+ explicitly every time, otherwise a call that supplies no endpoint resolves to that plist URL.
+
+ @warning Once you use this method, audit what your app still passes at launch through the one-argument
+ `setAppCode:` **or** `Pushwoosh.initializeWithAppCode:` (the legacy initializer routes into the same
+ setter). Passing the Application Code that is already selected changes nothing. Passing a **different**
+ one is a deliberate application change: the device is unregistered from the selected application, the
+ selection is rewritten and the endpoint you chose is **dropped** in favour of the default, so a
+ selection made in the previous session does not survive the restart. That is exactly the shape most
+ cross-platform wrappers ship by default — the build-time code from Info.plist, passed on every launch,
+ which stops matching the moment the user picks another application. Either remove that call once an
+ application has been selected, or replace it with this two-argument form carrying the pair you want
+ (repeating the same pair is a no-op, so it is safe on every launch).
+
+ ## Notification Service Extension
+
+ Add the same `PW_APP_GROUPS_NAME` App Group to the app **and** the extension target. Without it the
+ extension cannot see the selected application and `messageDeliveryEvent` keeps going to the
+ Info.plist application.
+
+ @warning The advertising-id endpoint (`Pushwoosh_TRACKING_URL`), the gRPC host
+ (`Pushwoosh_GRPC_HOST`) and rich-media / CDN downloads do **not** follow this selection. An
+ integrator with a data-residency requirement must either not enable IDFA / gRPC, or point those
+ Info.plist keys at a host acceptable for every application.
+
+ ## Example
+
+ Let the user pick a region, then apply it:
+
+ ```swift
+ func selectRegion(_ region: Region) {
+     switch region {
+     case .armenia:
+         Pushwoosh.configure.setAppCode("AAAAA-11111",
+                                        baseUrl: "https://AAAAA-11111.api.pushwoosh.com/json/1.3/")
+     case .russia:
+         // A dedicated domain, no Application Code in the host
+         Pushwoosh.configure.setAppCode("BBBBB-22222",
+                                        baseUrl: "https://api.example-region.com/json/1.3/")
+     }
+ }
+
+ // No endpoint supplied: identical to setAppCode("CCCCC-33333"), so the application moves and
+ // the default endpoint of that application takes over
+ Pushwoosh.configure.setAppCode("CCCCC-33333", baseUrl: nil)
+ ```
+
+ Objective-C:
+
+ ```objc
+ [Pushwoosh.configure setAppCode:@"BBBBB-22222"
+                         baseUrl:@"https://api.example-region.com/json/1.3/"];
+ ```
+
+ ## First launch, before the user has chosen
+
+ **Omit `Pushwoosh_APPID` from Info.plist.** With no Application Code the SDK is not ready yet and
+ every request is **queued** — nothing leaks to a wrong application and nothing is lost — until the
+ first `setAppCode(_:baseUrl:)` unlocks it.
+
+ If the key must stay in Info.plist, set `Pushwoosh_ALLOW_SERVER_COMMUNICATION = NO` and call
+ `Pushwoosh.configure.startServerCommunication()` after the choice instead. Requests attempted while
+ server communication is disabled fail rather than queue.
+
+ @see getBaseUrl
+ @see setAppCode:
+ */
++ (void)setAppCode:(NSString *_Nonnull)appCode
+           baseUrl:(NSString *_Nullable)baseUrl
+    NS_SWIFT_NAME(setAppCode(_:baseUrl:));
 
 /**
  Retrieves the current Pushwoosh Application Code.
@@ -162,6 +348,33 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see setAppCode:
  */
 + (NSString *_Nullable)getApplicationCode;
+
+/**
+ Returns the API base URL the SDK currently sends requests to.
+
+ @discussion
+ Resolution order: the endpoint currently in effect — seeded by `setAppCode:baseUrl:` and afterwards
+ movable by the server (shard rotation) —
+ then the endpoint recorded by that call, then Info.plist `Pushwoosh_BASEURL`, then
+ `https://<appCode>.api.pushwoosh.com/json/1.3/`. So a server-side rotation is what this returns
+ until the effective endpoint is cleared, at which point the recorded selection takes over again.
+ Returns nil when no Application Code is configured yet and no explicit URL was set.
+
+ A reverse proxy configured with `setReverseProxy:headers:` is **not** reflected here — it is a
+ transport-level override applied when the request is sent.
+
+ @return The current API base URL, or nil when it cannot be resolved yet.
+
+ ## Example
+
+ ```swift
+ let endpoint = Pushwoosh.configure.getBaseUrl() ?? "not resolved yet"
+ Logger.debug("Pushwoosh endpoint: \(endpoint)")
+ ```
+
+ @see setAppCode:baseUrl:
+ */
++ (NSString *_Nullable)getBaseUrl;
 
 /**
  Sets the Pushwoosh API Token for server-to-server communication.

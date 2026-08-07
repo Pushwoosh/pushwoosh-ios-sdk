@@ -20,9 +20,11 @@
 #import "PWPlatformModule.h"
 #import "PWNotificationManagerCompat.h"
 #import "PWMessage+Internal.h"
+#import <PushwooshCore/NSDictionary+PWDictUtils.h>
 
 #import "PWPushNotificationsManager+Internal.h"
 #import "PWMessageDeliveryRequest.h"
+#import "PWRequest+Internal.h"
 
 #import <PushwooshCore/PWManagerBridge.h>
 #import "PWDataManager.h"
@@ -287,6 +289,47 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     }];
 }
 
+- (void)unregisterFromApplicationWithAppCode:(NSString *)appCode baseUrl:(NSString *)baseUrl {
+    NSString *token = [PWPreferences preferences].pushToken;
+    NSString *skipReason = nil;
+    if (appCode.length == 0) {
+        skipReason = @"the previous application code is empty";
+    } else if (token.length == 0) {
+        skipReason = @"the device has no push token";
+    } else if (![PWPreferences preferences].registrationEverOccured) {
+        skipReason = @"the device never registered for push notifications";
+    }
+
+    if (skipReason != nil) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:self
+                           message:[NSString stringWithFormat:@"Not unregistering the device from the previous Pushwoosh application %@: %@.", appCode.length > 0 ? appCode : @"(none)", skipReason]];
+        return;
+    }
+
+    PWUnregisterDeviceRequest *request = [PWUnregisterDeviceRequest new];
+    request.pinnedAppCode = appCode;
+    /// A reverse proxy carries every request; left unpinned, the URL resolves to the proxy at send time.
+    request.pinnedBaseUrl = [_requestManager isUsingReverseProxy] ? nil : baseUrl;
+    request.pinnedUserId = [PWPreferences preferences].userId;
+    /// Outlives the session: `cacheable` persists it when session attempts fail, and
+    /// `survivesApplicationChange` keeps the queue from purging or re-addressing it.
+    request.cacheable = YES;
+    request.survivesApplicationChange = YES;
+
+    [_sessionRetry sendWithRetry:request completion:^(NSError *error) {
+        if (error == nil) {
+            [PushwooshLog pushwooshLog:PW_LL_INFO
+                             className:self
+                               message:[NSString stringWithFormat:@"Unregistered the device from the previous Pushwoosh application %@", appCode]];
+        } else {
+            [PushwooshLog pushwooshLog:PW_LL_WARN
+                             className:self
+                               message:[NSString stringWithFormat:@"Failed to unregister the device from the previous Pushwoosh application %@. It may keep receiving that application's pushes until the next successful switch.", appCode]];
+        }
+    }];
+}
+
 - (void)handlePushRegistrationString:(NSString *)deviceID withDifferentProvider:(BOOL)isOn {
     [self handlePushRegistrationString:deviceID];
 }
@@ -342,9 +385,9 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (void)processActionUserInfo:(NSDictionary *)userInfo {
-    NSString *htmlPageId = userInfo[@"h"];
-    NSString *linkUrl = userInfo[@"l"];
-    NSString *customHtmlPageId = userInfo[@"r"];
+    NSString *htmlPageId = [userInfo pw_stringForKey:@"h"];
+    NSString *linkUrl = [userInfo pw_stringForKey:@"l"];
+    NSString *customHtmlPageId = [userInfo pw_stringForKey:@"r"];
     NSDictionary *richMedia = userInfo[@"rm"];
     
 #if TARGET_OS_IOS || TARGET_OS_OSX
@@ -357,14 +400,32 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     }
 #endif
 
-    if (linkUrl && [[PWConfig config] preHandleNotificationsWithUrl]) {
-        if ([self isSilentPush:userInfo] && ![[PWConfig config] acceptedDeepLinkForSilentPush])
-            return;
-        
+    NSURL *deepLink = [self deepLinkUrlForUserInfo:userInfo];
+    if (deepLink) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [PWUtils openUrl:[NSURL URLWithString:linkUrl]];
+            [PWUtils openUrl:deepLink];
         });
     }
+}
+
+/// Resolves the deep link a push should pre-handle, or nil when there is nothing to open.
+///
+/// Separate from the opening itself so the decision can be asserted synchronously: opening is
+/// deferred to the main queue, and any assertion that waits on that timer is flaky in this suite —
+/// getStatusesMask blocks the queue for two seconds per call. Type filtering of "l" lives here, so
+/// it stays covered by a test that cannot become timing-dependent.
+- (NSURL *)deepLinkUrlForUserInfo:(NSDictionary *)userInfo {
+    NSString *linkUrl = [userInfo pw_stringForKey:@"l"];
+
+    if (!linkUrl.length || ![[PWConfig config] preHandleNotificationsWithUrl]) {
+        return nil;
+    }
+
+    if ([self isSilentPush:userInfo] && ![[PWConfig config] acceptedDeepLinkForSilentPush]) {
+        return nil;
+    }
+
+    return [NSURL URLWithString:linkUrl];
 }
 
 - (BOOL)isSilentPush:(NSDictionary *)userInfo {
@@ -602,7 +663,16 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (void)registerNumber:(NSString *)number forPlatform:(PWPlatform)platform {
-    [_sessionRetry sendWithRetry:[self requestParameters:number platform:platform] completion:^(NSError *error) {
+    NSString *trimmedNumber = [number stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+
+    if (trimmedNumber.length == 0) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:[NSString stringWithFormat:@"register%@Number ignored: number must not be nil or empty", (platform == Whatsapp) ? @"Whatsapp" : @"Sms"]];
+        return;
+    }
+
+    [_sessionRetry sendWithRetry:[self requestParameters:trimmedNumber platform:platform] completion:^(NSError *error) {
         [[PWPreferences preferences] setCustomTags:nil];
         
         if (error == nil) {

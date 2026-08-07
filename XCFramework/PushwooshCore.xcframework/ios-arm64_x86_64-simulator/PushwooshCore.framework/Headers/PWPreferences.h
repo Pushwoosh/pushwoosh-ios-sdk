@@ -10,6 +10,11 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// Keys of the (application code, base URL) pair returned by `-activeApplicationSnapshot` and
+/// `-switchToApplicationWithAppCode:baseUrl:previousPair:`.
+FOUNDATION_EXPORT NSString * const kPWActiveApplicationAppCodeKey;
+FOUNDATION_EXPORT NSString * const kPWActiveApplicationBaseUrlKey;
+
 @interface PWPreferences : NSObject
 
 + (instancetype)preferences NS_SWIFT_NAME(preferencesInstance());
@@ -84,6 +89,44 @@ NS_ASSUME_NONNULL_BEGIN
 - (void)saveCurrentHWIDtoUserDefaults;
 
 + (BOOL)checkAppCodeforChanges:(NSString *)appCode;
+
+#pragma mark - Active application (application code + base URL as one unit)
+
+/// Atomically switches the active application: code and base URL move together or not at all.
+/// Returns YES when applied; NO when an input was rejected (nothing is written).
+- (BOOL)switchToApplicationWithAppCode:(NSString *)appCode baseUrl:(nullable NSString *)baseUrl;
+
+/// As above, and reports the superseded pair captured inside the critical section — the unregister
+/// MUST use this, not a pre-call read. `previousPair` may be NULL; untouched on NO and on a no-op.
+- (BOOL)switchToApplicationWithAppCode:(NSString *)appCode
+                               baseUrl:(nullable NSString *)baseUrl
+                          previousPair:(NSDictionary<NSString *, NSString *> *_Nullable *_Nullable)previousPair;
+
+/// Unregisters the device from a superseded pair (as reported via `previousPair`). Skipped with a
+/// WARN when the previous host cannot be resolved — that traffic must not reach the current host.
+- (void)unregisterFromVacatedApplication:(NSDictionary<NSString *, NSString *> *)vacatedApplication;
+
+/// Applies a server-supplied endpoint only while the response's pinned pair is still current (verdict
+/// and write under one lock); unpinned applies unconditionally. Returns the applied URL, or nil.
+- (nullable NSString *)updateBaseUrl:(NSString *)rawUrl
+        ifSelectedPairMatchesAppCode:(nullable NSString *)pinnedAppCode
+                             baseUrl:(nullable NSString *)pinnedBaseUrl;
+
+/// Atomic snapshot of the active pair (keys `appCode`/`baseUrl`, empty strings rather than nil).
+/// MUST NOT be called from code already holding the preferences lock.
+- (NSDictionary<NSString *, NSString *> *)activeApplicationSnapshot;
+
+/// YES once the integrator has selected an application at runtime — gates every switch-specific
+/// behaviour, so installs without a record behave exactly as before.
++ (BOOL)hasActiveApplicationRecord;
+
+/// The recorded endpoint the integrator selected (nil = default / never switched); deliberately does
+/// NOT follow a server rotation, unlike `baseUrl`. Diagnostics only.
+- (nullable NSString *)selectedBaseUrl;
+
+/// Extension-side reload of the pair the host app currently talks to. Strictly read-only — the host
+/// app is the only writer of both App Group records. Falls back to `PWConfig.appGroupsName`.
+- (void)loadActiveApplicationFromAppGroups:(nullable NSString *)appGroupsName;
 
 @end
 

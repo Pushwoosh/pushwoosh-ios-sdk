@@ -504,8 +504,21 @@
     id prevDelegate = [PWRichMediaManager sharedManager].delegate;
     id delegateMock = OCMProtocolMock(@protocol(PWRichMediaPresentingDelegate));
     XCTestExpectation *failed = [self expectationWithDescription:@"presenting failure reported"];
+    /*
+     The delegate lives on the PWRichMediaManager singleton, and routing runs asynchronously, so a
+     failure produced by an earlier test in this suite can still land here and fulfill a second
+     time — which raises an API violation and tears the whole run down. Fulfilling once keeps the
+     assertion ("a failure is reported") intact and makes it independent of that timing.
+     */
+    __block BOOL failureReported = NO;
     OCMStub([delegateMock richMediaManager:[OCMArg any] presentingDidFailForRichMedia:[OCMArg any] withError:[OCMArg any]])
-        .andDo(^(NSInvocation *invocation) { [failed fulfill]; });
+        .andDo(^(NSInvocation *invocation) {
+            if (failureReported) {
+                return;
+            }
+            failureReported = YES;
+            [failed fulfill];
+        });
     [PWRichMediaManager sharedManager].delegate = delegateMock;
 
     [self.manager routeNativeInAppForResource:self.resource messageHash:@"err-hash"];

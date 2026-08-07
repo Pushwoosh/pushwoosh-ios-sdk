@@ -133,6 +133,16 @@ NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpda
     }
 }
 
+- (void)unregisterFromApplicationWithAppCode:(NSString *)appCode baseUrl:(NSString *)baseUrl {
+    if (self.pushNotificationManager) {
+        [self.pushNotificationManager unregisterFromApplicationWithAppCode:appCode baseUrl:baseUrl];
+    } else {
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:self
+                           message:[NSString stringWithFormat:@"Not unregistering the device from the previous Pushwoosh application %@: the push notification manager is not available.", appCode]];
+    }
+}
+
 - (BOOL)isServerCommunicationAllowed {
     return [[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed];
 }

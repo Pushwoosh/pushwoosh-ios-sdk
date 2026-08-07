@@ -81,6 +81,10 @@
 - (void)registerForPushNotificationsWithCompletion:(PushwooshRegistrationHandler)completion;
 - (void)unregisterForPushNotificationsWithCompletion:(void (^)(NSError *error))completion;
 
+/// Fire-and-forget unregister from the application the device is leaving, pinned to its code and host.
+/// Keeps the local push token so the device can register into the new application.
+- (void)unregisterFromApplicationWithAppCode:(NSString * _Nonnull)appCode baseUrl:(NSString * _Nullable)baseUrl;
+
 - (BOOL)isServerCommunicationAllowed;
 - (void)startServerCommunication;
 - (void)stopServerCommunication;

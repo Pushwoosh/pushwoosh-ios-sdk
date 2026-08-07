@@ -7,6 +7,7 @@
 #import "PWNetworkModule.h"
 #import "PWAppOpenRequest.h"
 #import "PWRequest.h"
+#import "PWRequest+Internal.h"
 #import "PWConfig.h"
 
 #pragma mark - Expose private properties for testing
@@ -40,6 +41,8 @@
 }
 
 - (void)tearDown {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Pushwoosh_ACTIVE_APPLICATION"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
     [PWPreferences preferences].baseUrl = [[PWPreferences preferences] defaultBaseUrl];
     _requestManager = nil;
     [super tearDown];
@@ -391,6 +394,145 @@
     }
 
     XCTAssertEqualObjects([PWPreferences preferences].baseUrl, originalBaseUrl);
+}
+
+#pragma mark - SDK-882: processResponse: guards scoped to a selected application
+
+- (void)seedActiveApplicationRecordWithAppCode:(NSString *)appCode baseUrl:(NSString *)baseUrl {
+    NSMutableDictionary *record = [NSMutableDictionary dictionaryWithObject:appCode forKey:@"appCode"];
+    if (baseUrl) {
+        record[@"baseUrl"] = baseUrl;
+    }
+    [[NSUserDefaults standardUserDefaults] setObject:record forKey:@"Pushwoosh_ACTIVE_APPLICATION"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    if (baseUrl) {
+        [[PWPreferences preferences] updateBaseUrl:baseUrl];
+    }
+}
+
+- (NSData *)responseDataWithString:(NSString *)responseString {
+    return [responseString dataUsingEncoding:NSUTF8StringEncoding];
+}
+
+/// H6: Verifies that a body without status_code does NOT reset the URL once an application has been selected at runtime.
+- (void)testProcessResponse_noStatusCode_keepsBaseUrlWhenApplicationPinned {
+    [self seedActiveApplicationRecordWithAppCode:@"AAAAA-11111" baseUrl:@"https://region-a.example.com/json/1.3/"];
+
+    NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@"https://region-a.example.com"] statusCode:200 HTTPVersion:nil headerFields:nil];
+    NSData *responseData = [self responseDataWithString:@"{\"status_message\":\"OK\",\"response\":null}"];
+
+    PWRequest *request = [PWAppOpenRequest new];
+    NSError *error = nil;
+    [_requestManager processResponse:httpResponse responseData:responseData request:request url:@"https://region-a.example.com/applicationOpen" requestData:@"{}" error:&error];
+
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, @"https://region-a.example.com/json/1.3/");
+}
+
+/// Verifies that a server-pushed base_url is still applied when the request's pinned pair is the current one.
+- (void)testProcessResponse_baseUrlAppliedWhenPinnedPairStillCurrent {
+    [self seedActiveApplicationRecordWithAppCode:@"AAAAA-11111" baseUrl:@"https://region-a.example.com/json/1.3/"];
+
+    id mockPrefs = OCMPartialMock([PWPreferences preferences]);
+    OCMStub([mockPrefs appCode]).andReturn(@"AAAAA-11111");
+
+    PWRequest *request = [PWAppOpenRequest new];
+    request.pinnedAppCode = @"AAAAA-11111";
+    request.pinnedBaseUrl = @"https://region-a.example.com/json/1.3/";
+
+    NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@"https://region-a.example.com"] statusCode:200 HTTPVersion:nil headerFields:nil];
+    NSData *responseData = [self responseDataWithString:@"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null,\"base_url\":\"https://region-a-shard2.example.com/json/1.3/\"}"];
+
+    NSError *error = nil;
+    [_requestManager processResponse:httpResponse responseData:responseData request:request url:@"https://region-a.example.com/applicationOpen" requestData:@"{}" error:&error];
+
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, @"https://region-a-shard2.example.com/json/1.3/");
+
+    [mockPrefs stopMocking];
+}
+
+/// H1: Verifies that a late response pinned to the previous application code cannot rewrite the URL of the new one.
+- (void)testProcessResponse_baseUrlIgnoredWhenPinnedPairIsStale {
+    [self seedActiveApplicationRecordWithAppCode:@"AAAAA-11111" baseUrl:@"https://region-a.example.com/json/1.3/"];
+
+    PWRequest *request = [PWAppOpenRequest new];
+    request.pinnedAppCode = @"AAAAA-11111";
+    request.pinnedBaseUrl = @"https://region-a.example.com/json/1.3/";
+
+    [self seedActiveApplicationRecordWithAppCode:@"BBBBB-22222" baseUrl:@"https://region-b.example.com/json/1.3/"];
+    id mockPrefs = OCMPartialMock([PWPreferences preferences]);
+    OCMStub([mockPrefs appCode]).andReturn(@"BBBBB-22222");
+
+    NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@"https://region-a.example.com"] statusCode:200 HTTPVersion:nil headerFields:nil];
+    NSData *responseData = [self responseDataWithString:@"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null,\"base_url\":\"https://region-a-shard2.example.com/json/1.3/\"}"];
+
+    NSError *error = nil;
+    [_requestManager processResponse:httpResponse responseData:responseData request:request url:@"https://region-a.example.com/applicationOpen" requestData:@"{}" error:&error];
+
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, @"https://region-b.example.com/json/1.3/");
+
+    [mockPrefs stopMocking];
+}
+
+/// A1: Verifies that a URL-only switch also invalidates a late response — the pin must be compared against the currently effective URL, never against the request itself.
+- (void)testProcessResponse_baseUrlIgnoredWhenOnlyBaseUrlMovedForSameAppCode {
+    [self seedActiveApplicationRecordWithAppCode:@"AAAAA-11111" baseUrl:@"https://region-a.example.com/json/1.3/"];
+
+    PWRequest *request = [PWAppOpenRequest new];
+    request.pinnedAppCode = @"AAAAA-11111";
+    request.pinnedBaseUrl = @"https://region-a.example.com/json/1.3/";
+
+    [self seedActiveApplicationRecordWithAppCode:@"AAAAA-11111" baseUrl:@"https://region-a-moved.example.com/json/1.3/"];
+    id mockPrefs = OCMPartialMock([PWPreferences preferences]);
+    OCMStub([mockPrefs appCode]).andReturn(@"AAAAA-11111");
+
+    NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@"https://region-a.example.com"] statusCode:200 HTTPVersion:nil headerFields:nil];
+    NSData *responseData = [self responseDataWithString:@"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null,\"base_url\":\"https://region-a-old-shard.example.com/json/1.3/\"}"];
+
+    NSError *error = nil;
+    [_requestManager processResponse:httpResponse responseData:responseData request:request url:@"https://region-a.example.com/applicationOpen" requestData:@"{}" error:&error];
+
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, @"https://region-a-moved.example.com/json/1.3/");
+
+    [mockPrefs stopMocking];
+}
+
+/// Verifies that a base_url pinned to a vacated application is rejected even when no active-application record exists (legacy setAppCode: path).
+- (void)testProcessResponse_baseUrlIgnoredWhenPinnedPairIsStaleWithoutARecord {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Pushwoosh_ACTIVE_APPLICATION"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+
+    PWRequest *request = [PWAppOpenRequest new];
+    request.pinnedAppCode = @"AAAAA-11111";
+    request.pinnedBaseUrl = @"https://region-a.example.com/json/1.3/";
+
+    [[PWPreferences preferences] updateBaseUrl:@"https://region-b.example.com/json/1.3/"];
+    id mockPrefs = OCMPartialMock([PWPreferences preferences]);
+    OCMStub([mockPrefs appCode]).andReturn(@"BBBBB-22222");
+
+    NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@"https://region-a.example.com"] statusCode:200 HTTPVersion:nil headerFields:nil];
+    NSData *responseData = [self responseDataWithString:@"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null,\"base_url\":\"https://region-a-shard2.example.com/json/1.3/\"}"];
+
+    NSError *error = nil;
+    [_requestManager processResponse:httpResponse responseData:responseData request:request url:@"https://region-a.example.com/applicationOpen" requestData:@"{}" error:&error];
+
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, @"https://region-b.example.com/json/1.3/");
+
+    [mockPrefs stopMocking];
+}
+
+/// Verifies that an unpinned response sent before any record existed cannot move the endpoint of an application selected mid-flight.
+- (void)testProcessResponse_baseUrlIgnoredWhenUnpinnedRequestPredatesTheRecord {
+    PWRequest *request = [PWAppOpenRequest new];
+
+    [self seedActiveApplicationRecordWithAppCode:@"BBBBB-22222" baseUrl:@"https://region-b.example.com/json/1.3/"];
+
+    NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@"https://region-a.example.com"] statusCode:200 HTTPVersion:nil headerFields:nil];
+    NSData *responseData = [self responseDataWithString:@"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null,\"base_url\":\"https://region-a-shard2.example.com/json/1.3/\"}"];
+
+    NSError *error = nil;
+    [_requestManager processResponse:httpResponse responseData:responseData request:request url:@"https://region-a.example.com/applicationOpen" requestData:@"{}" error:&error];
+
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, @"https://region-b.example.com/json/1.3/");
 }
 
 #pragma mark - Thread Safety Tests

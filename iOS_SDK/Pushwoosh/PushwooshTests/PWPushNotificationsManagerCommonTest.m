@@ -17,6 +17,8 @@
 #import "PWVersionTracking.h"
 #import "PWRequestManager.h"
 #import "PWPreferences.h"
+#import "PWRichPushManager.h"
+#import <PushwooshCore/PWManagerBridge.h>
 
 #import <UserNotifications/UserNotifications.h>
 #import <OCMock/OCMock.h>
@@ -28,6 +30,7 @@ static BOOL isBackground;
 @property (nonatomic, strong) PWRequestManager *requestManager;
 
 - (void)sendDevTokenToServer:(NSString *)deviceID;
+- (NSURL *)deepLinkUrlForUserInfo:(NSDictionary *)userInfo;
 
 @end
 
@@ -202,6 +205,88 @@ static BOOL isBackground;
     XCTAssertNil([[Pushwoosh sharedInstance] getPushToken]);
 
     [mockPWRequestManager stopMocking];
+}
+
+/// Verifies that non-string page ids from a payload are filtered out before they reach the rich push
+/// manager. Checked on the h/r branches on purpose: they are dispatched synchronously, while the
+/// deep-link branch runs off a main-queue timer that cannot be awaited reliably here — this suite
+/// blocks the main queue for two seconds per getStatusesMask call.
+- (void)testProcessActionUserInfoIgnoresNonStringPageIds {
+    id richPushManagerMock = OCMClassMock([PWRichPushManager class]);
+    id bridgeMock = OCMPartialMock([PWManagerBridge shared]);
+    OCMStub([bridgeMock richPushManager]).andReturn(richPushManagerMock);
+
+    OCMReject([richPushManagerMock showPushPage:OCMOCK_ANY]);
+    OCMReject([richPushManagerMock showCustomPushPageWithURLString:OCMOCK_ANY]);
+
+    [_pushManager processActionUserInfo:@{ @"h" : @123, @"r" : @456 }];
+
+    [bridgeMock stopMocking];
+    [richPushManagerMock stopMocking];
+}
+
+/// Verifies that a string page id still reaches the rich push manager after the type check.
+- (void)testProcessActionUserInfoOpensStringPageId {
+    id richPushManagerMock = OCMClassMock([PWRichPushManager class]);
+    id bridgeMock = OCMPartialMock([PWManagerBridge shared]);
+    OCMStub([bridgeMock richPushManager]).andReturn(richPushManagerMock);
+
+    OCMExpect([richPushManagerMock showPushPage:@"page-1"]);
+
+    [_pushManager processActionUserInfo:@{ @"h" : @"page-1" }];
+
+    OCMVerifyAll(richPushManagerMock);
+
+    [bridgeMock stopMocking];
+    [richPushManagerMock stopMocking];
+}
+
+/// Verifies that a string deep link still resolves to a URL, and that a non-string one resolves to
+/// nothing. Asserted on the resolver rather than on the opening: the opening waits on a main-queue
+/// timer, and the previous version of this check was dropped for being flaky — which left the "l"
+/// type filtering with no positive test at all, while a dead deep link is worse for a client than a
+/// crash (a crash shows up in Crashlytics the same day, "opens the wrong place" arrives as a ticket
+/// a month later).
+- (void)testDeepLinkResolverFiltersByType {
+    id configMock = OCMClassMock([PWConfig class]);
+    OCMStub([configMock config]).andReturn(configMock);
+    OCMStub([(PWConfig *)configMock preHandleNotificationsWithUrl]).andReturn(YES);
+
+    XCTAssertEqualObjects([_pushManager deepLinkUrlForUserInfo:@{ @"l" : @"https://example.com" }],
+                          [NSURL URLWithString:@"https://example.com"]);
+    XCTAssertNil([_pushManager deepLinkUrlForUserInfo:@{ @"l" : @123 }]);
+    XCTAssertNil([_pushManager deepLinkUrlForUserInfo:@{ @"l" : @"" }]);
+    XCTAssertNil([_pushManager deepLinkUrlForUserInfo:@{}]);
+
+    [configMock stopMocking];
+}
+
+/// Verifies that a silent push opens its deep link only when the app opted in. The rule moved into the
+/// resolver together with the rest of the decision, so it now lives in a testable place and is covered
+/// here rather than staying an untested branch.
+- (void)testDeepLinkResolverHonoursSilentPushOptIn {
+    id configMock = OCMClassMock([PWConfig class]);
+    OCMStub([configMock config]).andReturn(configMock);
+    OCMStub([(PWConfig *)configMock preHandleNotificationsWithUrl]).andReturn(YES);
+
+    NSDictionary *silentPush = @{ @"l" : @"https://example.com",
+                                  @"aps" : @{ @"content-available" : @1 } };
+
+    OCMStub([(PWConfig *)configMock acceptedDeepLinkForSilentPush]).andReturn(NO);
+    XCTAssertNil([_pushManager deepLinkUrlForUserInfo:silentPush],
+                 @"a silent push must not open a deep link unless the app accepted it");
+
+    [configMock stopMocking];
+
+    id acceptingConfig = OCMClassMock([PWConfig class]);
+    OCMStub([acceptingConfig config]).andReturn(acceptingConfig);
+    OCMStub([(PWConfig *)acceptingConfig preHandleNotificationsWithUrl]).andReturn(YES);
+    OCMStub([(PWConfig *)acceptingConfig acceptedDeepLinkForSilentPush]).andReturn(YES);
+
+    XCTAssertEqualObjects([_pushManager deepLinkUrlForUserInfo:silentPush],
+                          [NSURL URLWithString:@"https://example.com"]);
+
+    [acceptingConfig stopMocking];
 }
 
 @end

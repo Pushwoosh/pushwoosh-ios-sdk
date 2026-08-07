@@ -6,7 +6,6 @@
 #import "PWRequestManagerMock.h"
 #import "PWPlatformModule.h"
 #import "PWNotificationManagerCompat.h"
-#import "PWSendPurchaseRequest.h"
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
 #import "PWRegisterUserRequest.h"

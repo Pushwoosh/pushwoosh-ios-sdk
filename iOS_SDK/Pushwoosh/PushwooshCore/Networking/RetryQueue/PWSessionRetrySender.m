@@ -6,6 +6,7 @@
  */
 
 #import "PWSessionRetrySender.h"
+#import "PWRequest+Internal.h"
 #import "PWRetryPolicy.h"
 #import <PushwooshCore/PWRequest.h>
 #import <PushwooshCore/PWRequestManager.h>
@@ -46,6 +47,11 @@
             && [sSelf.policy shouldRetryStatusCode:request.httpCode error:error];
 
         if (!shouldRetry) {
+            /// Out of session attempts: a request that must outlive the application it names goes to
+            /// the persistent queue, so an offline switch cannot leave the device registered in both.
+            if (error != nil && request.survivesApplicationChange) {
+                [sSelf.requestManager persistRequestForLaterRetry:request];
+            }
             if (completion) completion(error);
             return;
         }

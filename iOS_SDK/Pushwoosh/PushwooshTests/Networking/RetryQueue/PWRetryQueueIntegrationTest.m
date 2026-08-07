@@ -23,6 +23,10 @@
     return self;
 }
 
+- (NSString *)currentBaseUrlForRetry {
+    return nil;
+}
+
 - (void)sendRetryEntry:(PWRetryEntry *)entry completion:(void (^)(NSInteger, NSError *))completion {
     [self.sentIdentifiers addObject:entry.requestIdentifier];
     NSUInteger index = MIN(self.callCount, self.statusCodes.count - 1);

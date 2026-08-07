@@ -52,10 +52,20 @@ NS_ASSUME_NONNULL_BEGIN
 /// Absolute time the entry first entered the queue. Anchor for TTL expiry.
 @property (nonatomic, copy, readonly) NSDate *firstEnqueuedDate;
 
+/// Copied from `PWRequest.survivesApplicationChange`: the entry is not purged on an application
+/// change, never treated as stale, never re-addressed.
+@property (nonatomic, assign, readonly) BOOL survivesApplicationChange;
+
 /// Snapshots `request` into a fresh entry: `attemptCount = 0`,
 /// `firstEnqueuedDate = nextAttemptDate = now`. Also freezes the request's
 /// `shouldWrapRequest` and `baseUrl` so the replay matches the original send.
 - (instancetype)initWithRequest:(PWRequest *)request now:(NSDate *)now;
+
+/// Same as `-initWithRequest:now:` but with an explicit base-URL stamp, so the caller can freeze
+/// the URL a replay must target even when the request itself carries no override.
+- (instancetype)initWithRequest:(PWRequest *)request
+                        baseUrl:(nullable NSString *)baseUrl
+                            now:(NSDate *)now;
 
 /// Designated initializer. Used by `initWithCoder:` and by
 /// `-entryByIncrementingAttemptWithNextDate:`.
@@ -82,6 +92,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// Returns a copy with `attemptCount` incremented by one and `nextAttemptDate`
 /// set to `nextDate`. The receiver is unchanged.
 - (PWRetryEntry *)entryByIncrementingAttemptWithNextDate:(NSDate *)nextDate;
+
+/// Returns a copy addressed to `baseUrl`, payload and retry bookkeeping unchanged — used when the
+/// host of the SAME application rotated.
+- (PWRetryEntry *)entryByRetargetingToBaseUrl:(nullable NSString *)baseUrl;
 
 @end
 

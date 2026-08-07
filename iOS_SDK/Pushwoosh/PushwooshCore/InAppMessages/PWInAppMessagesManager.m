@@ -23,6 +23,7 @@ extern NSString * const PWInboxMessagesDidUpdateNotification;
 #import <PushwooshCore/PWInboxBridge.h>
 #import "PWDataManager.h"
 #import "PWRichMedia+Internal.h"
+#import "NSDictionary+PWDictUtils.h"
 #import "PWRegisterEmail.h"
 #import "PWRegisterEmailUser.h"
 #import "PWRichMediaView.h"
@@ -549,22 +550,24 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         return;
     }
     
-    NSString *url = richMedia[@"url"];
-    if (!url) {
+    // Checked for type, not just for presence: the payload is remote, and a non-string url reached
+    // -lastPathComponent below and crashed with unrecognized selector (a number is the easy case).
+    NSString *url = [richMedia pw_stringForKey:@"url"];
+    if (!url.length) {
         [PushwooshLog pushwooshLog:PW_LL_ERROR
                          className:self
                            message:@"Url is missing"];
         return;
     }
-    
+
     NSDictionary *tags = richMedia[@"tags"];
-    if (!tags)
+    if (![tags isKindOfClass:[NSDictionary class]])
         tags = @{};
-    
+
     tags = [self convertTags:tags];
-    
-    NSString *ts = richMedia[@"ts"];
-    if (!ts) {
+
+    NSString *ts = [richMedia pw_stringForKey:@"ts"];
+    if (!ts.length) {
         [PushwooshLog pushwooshLog:PW_LL_ERROR
                          className:self
                            message:@"Timestamp is missing"];

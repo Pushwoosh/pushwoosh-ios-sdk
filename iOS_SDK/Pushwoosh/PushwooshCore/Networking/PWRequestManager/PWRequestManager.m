@@ -21,6 +21,7 @@
 #import "PWRetryEntry.h"
 #import "PWRetryQueueStorage.h"
 #import "PWReplayRequest.h"
+#import "PWRequest+Internal.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 #import "PWReachability.h"
@@ -43,6 +44,7 @@
 @property (nonatomic, copy) NSString *reverseProxyUrl;
 @property (nonatomic, copy) NSDictionary<NSString *, NSString *> *customHeaders;
 @property (nonatomic, assign) BOOL firstQueueWarningEmitted;
+@property (nonatomic, strong) NSMutableSet<NSString *> *warnedRotationHosts;
 
 // gRPC transport class (dynamically loaded)
 @property (nonatomic, strong) Class grpcTransportClass;
@@ -72,6 +74,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 		_sendTagsLock = [NSObject new];
 		_sendTagsCompletions = [NSMutableArray new];
 		_customHeaders = @{};
+		_warnedRotationHosts = [NSMutableSet new];
 
         _grpcTransportClass = NSClassFromString(@"PushwooshGRPC.PushwooshGRPCImplementation");
 
@@ -86,6 +89,16 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
         [[NSNotificationCenter defaultCenter] addObserver:self
                                                  selector:@selector(onAppCodeUpdatedNotification:)
                                                      name:kPWAppCodeUpdatedNotification
+                                                   object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onActiveApplicationWillChange:)
+                                                     name:kPWActiveApplicationWillChangeNotification
+                                                   object:nil];
+
+        [[NSNotificationCenter defaultCenter] addObserver:self
+                                                 selector:@selector(onActiveApplicationChanged:)
+                                                     name:kPWActiveApplicationChangedNotification
                                                    object:nil];
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
@@ -172,6 +185,101 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     [_retryQueue flush];
 }
 
+/// The code has not moved yet — draining the pending `setTags` wrapper now is what makes its
+/// late-serialized body carry the application it was accumulated for.
+- (void)onActiveApplicationWillChange:(NSNotification *)notification {
+    [self drainCombinedSetTagsRequest];
+}
+
+/// Purge only on an actual application change — a URL-only move keeps its queued statistics.
+/// An absent flag means "unknown" and purges (fail towards isolation).
+- (void)onActiveApplicationChanged:(NSNotification *)notification {
+    [self drainCombinedSetTagsRequest];
+
+#if TARGET_OS_IOS || TARGET_OS_OSX
+    NSNumber *appCodeChanged = notification.userInfo[kPWActiveApplicationChangedAppCodeChangedKey];
+    if (![appCodeChanged isKindOfClass:[NSNumber class]] || appCodeChanged.boolValue) {
+        [_retryQueue purgeAllEntriesWithReason:@"active application changed"];
+    }
+#endif
+
+    __weak typeof(self) wSelf = self;
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [wSelf evaluateReadiness];
+    });
+}
+
+#pragma mark - Send-time application pin
+
+/// Gated on a record, so installs that never selected an application keep behaving bit-for-bit as
+/// before. A `PWReplayRequest` is never pinned — its body and URL are already frozen.
+- (void)pinApplicationForRequest:(PWRequest *)request {
+    if (request.pinnedAppCode.length > 0) {
+        return;
+    }
+    if ([request isKindOfClass:[PWReplayRequest class]]) {
+        return;
+    }
+    if (![PWPreferences hasActiveApplicationRecord]) {
+        return;
+    }
+
+    NSDictionary *pair = [[PWPreferences preferences] activeApplicationSnapshot];
+    NSString *appCode = pair[kPWActiveApplicationAppCodeKey];
+    if (appCode.length > 0) {
+        request.pinnedAppCode = appCode;
+    }
+
+    if (request.pinnedBaseUrl.length == 0) {
+        /// BOTH halves come from the one snapshot, or a racing switch could pin one application's code
+        /// next to the other's host. A reverse proxy is a transport-level override and still wins.
+        NSString *currentUrl = [self isUsingReverseProxy] ? [self baseUrl] : pair[kPWActiveApplicationBaseUrlKey];
+        if (currentUrl.length > 0) {
+            request.pinnedBaseUrl = currentUrl;
+        }
+    }
+
+    if (request.pinnedAppCode.length > 0) {
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self
+                           message:[NSString stringWithFormat:@"Pinned %@ to %@ @ %@", request.methodName, request.pinnedAppCode, request.pinnedBaseUrl ?: @"(current)"]];
+    }
+}
+
+/// The gRPC host is fixed by `Pushwoosh_GRPC_HOST` and cannot follow a runtime switch, so fall back
+/// to REST when the selected endpoint differs (ADR-12).
+- (BOOL)shouldBypassGRPCForRequest:(PWRequest *)request {
+    if (![PWPreferences hasActiveApplicationRecord]) {
+        return NO;
+    }
+
+    NSString *targetUrl = request.pinnedBaseUrl ?: [self baseUrl];
+    NSString *targetHost = targetUrl.length > 0 ? [NSURL URLWithString:targetUrl].host : nil;
+    NSString *grpcHost = [PWConfig config].grpcHost;
+
+    if (targetHost.length == 0 || grpcHost.length == 0 || [targetHost isEqualToString:grpcHost]) {
+        return NO;
+    }
+
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:self
+                           message:[NSString stringWithFormat:@"A Pushwoosh application was selected at runtime, but the gRPC transport is fixed to \"%@\" and cannot follow it. Falling back to REST so requests reach \"%@\". Point Pushwoosh_GRPC_HOST at a host valid for every application, or do not link PushwooshGRPC.", grpcHost, targetHost]];
+    });
+
+    return YES;
+}
+
+/// Freezes the replay host only once the integrator owns the pair; without a record the stamp
+/// stays exactly as before (nil = replay against the current URL).
+- (NSString *)frozenBaseUrlForRetryOf:(PWRequest *)request {
+    if (![PWPreferences hasActiveApplicationRecord]) {
+        return [request baseUrl];
+    }
+
+    return [request baseUrl] ?: [self baseUrl];
+}
+
 - (void)logFirstQueueWarnIfNeeded:(PWRequest *)request {
     BOOL shouldWarn = NO;
     NSString *reason = nil;
@@ -233,6 +341,12 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
         }
     }
 	return [PWPreferences preferences].baseUrl;
+}
+
+- (BOOL)isUsingReverseProxy {
+    @synchronized (self) {
+        return _reverseProxyUrl.length > 0;
+    }
 }
 
 - (void)setReverseProxyUrl:(NSString *)url headers:(NSDictionary<NSString *, NSString *> *)headers {
@@ -334,8 +448,10 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
         return;
     }
 
+    [self pinApplicationForRequest:request];
+
     // Use gRPC automatically when module is linked and supports this method
-    if ([self isGRPCAvailable] && [self grpcSupportsMethod:request.methodName]) {
+    if ([self isGRPCAvailable] && [self grpcSupportsMethod:request.methodName] && ![self shouldBypassGRPCForRequest:request]) {
         [self sendRequestViaGRPC:request completion:completion];
         return;
     }
@@ -394,7 +510,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
                 NSError *statusError = [PWUtils pushwooshError:statusMessage ?: @"gRPC request failed"];
 #if TARGET_OS_IOS || TARGET_OS_OSX
                 if (request.cacheable && [wSelf.retryPolicy shouldRetryStatusCode:request.httpCode error:statusError]) {
-                    [wSelf.retryQueue enqueueRequest:request];
+                    [wSelf.retryQueue enqueueRequest:request baseUrl:[wSelf frozenBaseUrlForRetryOf:request]];
                 }
 #endif
                 if (completion) {
@@ -410,10 +526,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
             }
 
             // Handle base_url switch
-            NSString *newBaseUrl = response[@"base_url"];
-            if ([newBaseUrl isKindOfClass:[NSString class]]) {
-                [[PWPreferences preferences] updateBaseUrl:newBaseUrl];
-            }
+            [wSelf applyServerBaseUrl:response[@"base_url"] forRequest:request];
 
             if (completion) {
                 completion(nil);
@@ -431,6 +544,10 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 }
 
 #pragma mark - PWRetryTransport
+
+- (NSString *)currentBaseUrlForRetry {
+    return [self baseUrl];
+}
 
 - (void)sendRetryEntry:(PWRetryEntry *)entry completion:(void (^)(NSInteger statusCode, NSError *error))completion {
     if (![[PWSdkStateProvider sharedInstance] isReady]) {
@@ -458,6 +575,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 		BOOL scheduledSendTags = NO;
 		if (!_combinedRequest) {
 			_combinedRequest = [PWCombinedSetTagsRequest new];
+			[self pinApplicationForRequest:_combinedRequest];
 			scheduledSendTags = YES;
 		}
 
@@ -468,23 +586,56 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 		}
 
 		if (scheduledSendTags) {
+			PWCombinedSetTagsRequest *scheduledRequest = _combinedRequest;
+			__weak typeof(self) wSelf = self;
 			dispatch_after(dispatch_time(DISPATCH_TIME_NOW, NSEC_PER_SEC), dispatch_get_main_queue(), ^{
-				@synchronized(_sendTagsLock) {
-					NSArray *completions = [_sendTagsCompletions copy];
-					[self sendRequestInternal:_combinedRequest completion:^void(NSError *error) {
-						for (void (^handler)(NSError *error) in completions) {
-							handler(error);
-						}
-					}];
-					[_sendTagsCompletions removeAllObjects];
-					_combinedRequest = nil;
-				}
+				[wSelf drainCombinedSetTagsRequestIfCurrent:scheduledRequest];
 			});
 		}
 	}
 }
 
+/// Flushes the one-second `setTags` coalescing window immediately, so an application switch cannot
+/// merge the next application's tags into a wrapper opened under the previous one.
+- (void)drainCombinedSetTagsRequest {
+	[self drainCombinedSetTagsRequestIfCurrent:nil];
+}
+
+/// `expected` == nil drains whatever is pending; otherwise only the wrapper the caller scheduled,
+/// so a stale timer cannot truncate the next window. Extract under the lock, send outside it.
+- (void)drainCombinedSetTagsRequestIfCurrent:(PWCombinedSetTagsRequest *)expected {
+	PWCombinedSetTagsRequest *pending = nil;
+	NSArray *completions = nil;
+
+	@synchronized(_sendTagsLock) {
+		if (_combinedRequest == nil) {
+			return;
+		}
+		if (expected != nil && _combinedRequest != expected) {
+			return;
+		}
+		pending = _combinedRequest;
+		completions = [_sendTagsCompletions copy];
+		_combinedRequest = nil;
+		[_sendTagsCompletions removeAllObjects];
+	}
+
+	[self sendRequestInternal:pending completion:^void(NSError *error) {
+		for (void (^handler)(NSError *error) in completions) {
+			handler(error);
+		}
+	}];
+}
+
+- (void)persistRequestForLaterRetry:(PWRequest *)request {
+#if TARGET_OS_IOS || TARGET_OS_OSX
+    [_retryQueue enqueueRequest:request baseUrl:[self frozenBaseUrlForRetryOf:request]];
+#endif
+}
+
 - (void)sendRequestInternal:(PWRequest *)request completion:(void (^)(NSError *error))completion {
+    [self pinApplicationForRequest:request];
+
     //check server communication enabled
     if (![[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
         NSString *errorStr = @"Communication with Pushwoosh is disabled. To send the request you have to enable the server communication using method startServerCommunication of Pushwoosh class.";
@@ -581,7 +732,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
         NSHTTPURLResponse *httpResponse = (NSHTTPURLResponse*)response;
         if (request.cacheable && [wSelf.retryPolicy shouldRetryStatusCode:httpResponse.statusCode error:error]) {
             request.httpCode = httpResponse.statusCode;
-            [wSelf.retryQueue enqueueRequest:request];
+            [wSelf.retryQueue enqueueRequest:request baseUrl:[wSelf frozenBaseUrlForRetryOf:request]];
 
             if (completion) {
                 NSError *reportedError = error ?: [PWUtils pushwooshError:[NSString stringWithFormat:@"Request %@ failed with status code %ld and was queued for retry", request.methodName, (long)httpResponse.statusCode]];
@@ -607,6 +758,96 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 	];
 
 	[postDataTask resume];
+}
+
+/// The single decision point (REST + gRPC) for whether a server-supplied `base_url` may move the
+/// effective endpoint: never from a replay, never from an application the device has since left.
+- (void)applyServerBaseUrl:(id)newBaseUrl forRequest:(PWRequest *)request {
+    if (![newBaseUrl isKindOfClass:[NSString class]]) {
+        return;
+    }
+
+    if ([request isKindOfClass:[PWReplayRequest class]]) {
+        [PushwooshLog pushwooshLog:PW_LL_INFO
+                         className:self
+                           message:[NSString stringWithFormat:@"Ignoring base_url from the replay of %@: a replayed request must not move the endpoint", request.methodName]];
+        return;
+    }
+
+    /// Verdict and write are one operation on the preferences side — check-then-write here would
+    /// leave a window for a racing switch.
+    NSString *applied = [[PWPreferences preferences] updateBaseUrl:newBaseUrl
+                                     ifSelectedPairMatchesAppCode:request.pinnedAppCode
+                                                          baseUrl:request.pinnedBaseUrl];
+    if (applied == nil) {
+        [PushwooshLog pushwooshLog:PW_LL_INFO
+                         className:self
+                           message:[NSString stringWithFormat:@"Ignoring base_url \"%@\" from %@: the response belongs to a Pushwoosh application that is no longer active, or the URL was rejected", newBaseUrl, request.methodName]];
+        return;
+    }
+
+    [self warnOnceIfServerBaseUrlLeavesSelectedDomain:applied];
+}
+
+/// Log-only, one WARN per new host: a hostile rotation and a legitimate shard rotation are
+/// indistinguishable at the client, and blocking would break real migrations (ADR-14).
+- (void)warnOnceIfServerBaseUrlLeavesSelectedDomain:(NSString *)newBaseUrl {
+    if (![PWPreferences hasActiveApplicationRecord]) {
+        return;
+    }
+
+    NSString *newHost = [NSURL URLWithString:newBaseUrl].host;
+    if (newHost.length == 0) {
+        return;
+    }
+
+    PWPreferences *preferences = [PWPreferences preferences];
+    NSString *selectedUrl = [preferences selectedBaseUrl] ?: [preferences defaultBaseUrl];
+    NSString *selectedHost = selectedUrl.length > 0 ? [NSURL URLWithString:selectedUrl].host : nil;
+    if (selectedHost.length == 0) {
+        return;
+    }
+
+    NSString *selectedDomain = [self registrableDomainOfHost:selectedHost];
+    if ([[self registrableDomainOfHost:newHost] isEqualToString:selectedDomain]) {
+        return;
+    }
+
+    BOOL shouldWarn = NO;
+    @synchronized (self) {
+        if (![_warnedRotationHosts containsObject:newHost]) {
+            [_warnedRotationHosts addObject:newHost];
+            shouldWarn = YES;
+        }
+    }
+    if (!shouldWarn) {
+        return;
+    }
+
+    [PushwooshLog pushwooshLog:PW_LL_WARN
+                     className:self
+                       message:[NSString stringWithFormat:@"The server moved Pushwoosh traffic to \"%@\", which is outside the domain of the selected application (\"%@\"). The move was applied - shard rotations are legitimate - but if it was not expected, call Pushwoosh.configure.setAppCode(<code>, baseUrl:) again with your own endpoint to return to it.", newHost, selectedDomain]];
+}
+
+/// Last-two-labels approximation (no bundled public suffix list): under-warns for suffixes like
+/// `co.uk`, the right bias for a log-only signal.
+- (NSString *)registrableDomainOfHost:(NSString *)host {
+    NSArray<NSString *> *labels = [host componentsSeparatedByString:@"."];
+    if (labels.count <= 2) {
+        return host;
+    }
+    return [NSString stringWithFormat:@"%@.%@", labels[labels.count - 2], labels[labels.count - 1]];
+}
+
+/// One-shot: a gateway that strips `status_code` from every reply would otherwise fill production
+/// logs with the same line.
+- (void)logSuppressedMissingStatusCodeResetOnce:(PWRequest *)request {
+    static dispatch_once_t once;
+    dispatch_once(&once, ^{
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:self
+                           message:[NSString stringWithFormat:@"Response to %@ carries no status_code. Keeping the endpoint of the selected Pushwoosh application instead of falling back to the default one. This is logged once per app run.", request.methodName]];
+    });
 }
 
 - (NSMutableURLRequest *)prepareRequest:(NSString *)requestUrl jsonRequestData:(NSString *)jsonRequestData {
@@ -678,15 +919,19 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
             @synchronized (self) {
                 isUsingProxy = (_reverseProxyUrl != nil);
             }
+            BOOL hasActiveApplication = [PWPreferences hasActiveApplicationRecord];
 			if (jsonResult[@"status_code"] == nil && !isUsingProxy) {
-				NSString *defaultUrl = [[PWPreferences preferences] defaultBaseUrl];
-				if (defaultUrl.length > 0) {
-					[[PWPreferences preferences] updateBaseUrl:defaultUrl];
-				}
+                if (hasActiveApplication) {
+                    [self logSuppressedMissingStatusCodeResetOnce:request];
+                } else {
+                    NSString *defaultUrl = [[PWPreferences preferences] defaultBaseUrl];
+                    if (defaultUrl.length > 0) {
+                        [[PWPreferences preferences] updateBaseUrl:defaultUrl];
+                    }
+                }
 			}
-			NSString *newBaseUrl = jsonResult[@"base_url"];
-            if ([newBaseUrl isKindOfClass:[NSString class]] && !isUsingProxy) {
-				[[PWPreferences preferences] updateBaseUrl:newBaseUrl];
+            if (!isUsingProxy) {
+                [self applyServerBaseUrl:jsonResult[@"base_url"] forRequest:request];
 			}
             
 			// check status
