@@ -566,7 +566,8 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
     tags = [self convertTags:tags];
 
-    NSString *ts = [richMedia pw_stringForKey:@"ts"];
+    /// A push payload carries `ts` as a string, a postEvent response as a number — accept both.
+    NSString *ts = [richMedia pw_forceStringForKey:@"ts"];
     if (!ts.length) {
         [PushwooshLog pushwooshLog:PW_LL_ERROR
                          className:self

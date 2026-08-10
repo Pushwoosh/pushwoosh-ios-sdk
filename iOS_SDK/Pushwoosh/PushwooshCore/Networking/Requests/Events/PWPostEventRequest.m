@@ -111,7 +111,9 @@
 
             tags = [self convertTags:tags];
 
-            NSString *ts = [richMediaDictionary pw_stringForKey:@"ts"];
+            /// The server sends `ts` as a JSON number here and as a string inside a push payload, so
+            /// the strict string getter dropped every rich media triggered by an event.
+            NSString *ts = [richMediaDictionary pw_forceStringForKey:@"ts"];
             if (!ts.length) {
                 [PushwooshLog pushwooshLog:PW_LL_ERROR
                                  className:self

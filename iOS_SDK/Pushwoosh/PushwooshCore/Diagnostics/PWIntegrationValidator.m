@@ -13,6 +13,7 @@
 
 static NSString * const kDisableIntegrationCheckKey = @"Pushwoosh_DISABLE_INTEGRATION_CHECK";
 static NSString * const kAppIdKey = @"Pushwoosh_APPID";
+static const NSTimeInterval kValidationDelay = 5.0;
 static NSString * const kAppIdDevKey = @"Pushwoosh_APPID_Dev";
 static NSString * const kApiTokenKey = @"Pushwoosh_API_TOKEN";
 static NSString * const kLegacyApiTokenKey = @"PW_API_TOKEN";
@@ -58,12 +59,16 @@ static NSString * const kGRPCImplementationClassName = @"PushwooshGRPC.Pushwoosh
             return;
         }
 
-        NSString *apiToken = [PushwooshConfig getApiToken];
-        dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        /// Delayed, and the pair is read again when the check actually runs: a cross-platform binding
+        /// sets the Application Code from its own runtime after this singleton exists, so reporting on
+        /// whatever was known at init time called a legitimate integration broken on its first launch.
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kValidationDelay * NSEC_PER_SEC)),
+                       dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
             @try {
+                NSString *resolvedAppCode = appCode.length > 0 ? appCode : [PushwooshConfig getAppCode];
                 NSArray<PWIntegrationFinding *> *findings = [self runChecksWithBundle:bundle
-                                                                      resolvedAppCode:appCode
-                                                                     resolvedApiToken:apiToken];
+                                                                      resolvedAppCode:resolvedAppCode
+                                                                     resolvedApiToken:[PushwooshConfig getApiToken]];
                 [self logReport:findings];
             } @catch (NSException *exception) {
                 [PushwooshLog pushwooshLog:PW_LL_DEBUG

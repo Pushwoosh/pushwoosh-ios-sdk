@@ -81,11 +81,42 @@
 
 - (void)testBadCodeTypeResponse {
     NSDictionary *response = [self responseFromString:@"{ \"code\" : [] }"];
-    
+
     PWPostEventRequest *request = [PWPostEventRequest new];
     XCTAssertNil(request.resultCode);
     [request parseResponse:response];
     XCTAssertNil(request.resultCode);
+}
+
+/// Verifies that a numeric timestamp — the shape the server actually sends here — still produces a rich media.
+- (void)testRichMediaWithNumericTimestamp {
+    NSDictionary *response = [self responseFromString:@"{ \"code\" : \"\", \"richmedia\" : { \"url\" : \"https://richmedia.pushwoosh.com/0/F/0F765-A7953.zip?ts=1786095705\", \"code\" : \"0F765-A7953\", \"ts\" : 1786095705 } }"];
+
+    PWPostEventRequest *request = [PWPostEventRequest new];
+    [request parseResponse:response];
+
+    XCTAssertEqualObjects(request.richMedia[@"updated"], @"1786095705");
+    XCTAssertEqualObjects(request.richMedia[@"code"], @"r-0F765-A7953");
+}
+
+/// Verifies that a string timestamp, the shape a push payload carries, keeps working.
+- (void)testRichMediaWithStringTimestamp {
+    NSDictionary *response = [self responseFromString:@"{ \"code\" : \"\", \"richmedia\" : { \"url\" : \"https://richmedia.pushwoosh.com/0/F/0F765-A7953.zip\", \"ts\" : \"1786095705\" } }"];
+
+    PWPostEventRequest *request = [PWPostEventRequest new];
+    [request parseResponse:response];
+
+    XCTAssertEqualObjects(request.richMedia[@"updated"], @"1786095705");
+}
+
+/// Verifies that a timestamp of a type that cannot be read as one is still rejected, so the guard is not simply gone.
+- (void)testRichMediaWithUnusableTimestampIsRejected {
+    NSDictionary *response = [self responseFromString:@"{ \"code\" : \"\", \"richmedia\" : { \"url\" : \"https://richmedia.pushwoosh.com/0/F/0F765-A7953.zip\", \"ts\" : {} } }"];
+
+    PWPostEventRequest *request = [PWPostEventRequest new];
+    [request parseResponse:response];
+
+    XCTAssertNil(request.richMedia);
 }
 
 @end

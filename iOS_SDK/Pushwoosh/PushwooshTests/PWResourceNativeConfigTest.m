@@ -132,8 +132,7 @@
 - (void)testLocalizeConfigKeepsDeviceTagsOutWhenThereIsNoTagSourceAtAll {
     self.cacheMock = OCMPartialMock([PWCache cache]);
     OCMStub([self.cacheMock getTags]).andReturn(nil);
-    /// Both collection flags are forced on so the assertion below rests on the nil dictionary alone —
-    /// a test bundle that ever disables device-data collection must not turn this green for free.
+    /// Flags forced on so the assertion rests on the nil dictionary, not on the test bundle's plist.
     self.configMock = OCMPartialMock([PWConfig config]);
     OCMStub([self.configMock allowCollectingDeviceModel]).andReturn(YES);
     OCMStub([self.configMock allowCollectingDeviceOsVersion]).andReturn(YES);
