@@ -14,11 +14,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		dYiW/Ek1iC6Yojk59hYC4Bw58Is=
+		y8j/TjS4tHOh3t95MG22JL/DY6w=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		4FhtCWpirj8Genjd3LY6I58XWFg=
+		1xSBOH7MRE/TSTEjioF0h+DnWSo=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -34,11 +34,11 @@
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		T91ilE+Lj44TPzjxQ/ozGtaz0d8=
+		G87ACJMOqJOQwvpsOJSfEDL7+jY=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		4FhtCWpirj8Genjd3LY6I58XWFg=
+		1xSBOH7MRE/TSTEjioF0h+DnWSo=
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		h1TIvwiC6E/crUlaCUu0Tc+HMnY=
+		UTViO1MPccwG/Boc5uda79R/HqI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -85,7 +85,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			MaARvn8nXZ6Z35aY2qgmxO2hYveGni9bpjkS7WR5kX4=
+			Amvbj3Cakum/Fqhfm7WY+gbPCy0k1eQCVyWlmZ4v5Us=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
@@ -113,14 +113,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Fk9emgwkvAuMfwf2/AdLes32HSEl8DR757pg5udf5YA=
+			QWM9JNilChYjxtDkdA1mgt2RW8k43OpTsQBFBfBbGWg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			MaARvn8nXZ6Z35aY2qgmxO2hYveGni9bpjkS7WR5kX4=
+			Amvbj3Cakum/Fqhfm7WY+gbPCy0k1eQCVyWlmZ4v5Us=
 			</data>
 		</dict>
 		<key>Modules/PushwooshVoIP.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
@@ -148,7 +148,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			HsIRlEG6EsjaD+cSzvBR0L2JKD7pyPlQ/xWjDlcvW8E=
+			zi9LVRcv7W8ozQS2w2VgjMY/7gyZx7VWi8bzi5jk2Zw=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

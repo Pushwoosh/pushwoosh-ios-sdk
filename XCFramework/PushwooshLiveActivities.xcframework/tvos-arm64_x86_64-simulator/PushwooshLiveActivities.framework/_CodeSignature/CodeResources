@@ -14,7 +14,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		NRQp7+qUA+fqZQ/kqu29h10LruQ=
+		WlPChISICJlW76u8gp6hNe6mewk=
 		</data>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/arm64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		CDGuT5MrfzoQ5kUqyQMB/N6p2Kg=
+		HDoiO1k9EbXQRbP3zkfrYNqoKQM=
 		</data>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/x86_64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		Vmft54EpT8GSldwcZR3/hGujO2o=
+		5QjoOOQ73Z7QMGs81XEOEoIlBLU=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -113,7 +113,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			mfDqTJzCRip8Wxfp65eup5iB5uQgj0LsT/gQnECt21g=
+			WcknWTqx8H0Ed+qabzf1dEuU2+ZTGRNt3WeHDuTr994=
 			</data>
 		</dict>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
@@ -148,7 +148,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			dDZcJyQGITtDnltDpKNZoQCPWfLLaVRh4ZsoFiSd0Ng=
+			oRaoMUsw9RLnIBSgbZ1Y9cNhGJvmDS6z1ZyJHvpTIO8=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -14,11 +14,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		y9qPdrUM0sStbgodx+h4kJSk+oo=
+		eLkt3BCKYWzHWvDfJnnym4+ccKk=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
 		<data>
-		QskBGNap3aKCr+4EfiPHMMzhy/c=
+		bjh51nMJUP0cNlhvTV6wJCYV8YM=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.private.swiftinterface</key>
 		<data>
@@ -34,11 +34,11 @@
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		cxVfXjWLsJEo7lAoi9Ct/2A0nPA=
+		Acehn3O//WhL/KMDMpyy5EF9Yy4=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
 		<data>
-		QskBGNap3aKCr+4EfiPHMMzhy/c=
+		bjh51nMJUP0cNlhvTV6wJCYV8YM=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.private.swiftinterface</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		fz+6fcQcfOosF3LjVFZmO/ELWG4=
+		TOUGeel17RfQBLXRMSny9ZLmsKI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -85,7 +85,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ruKaXMb9OWsuNW1n6jEwnPgiGK4NR12jGJB1QrNYx5w=
+			JITScGP/5GO0pxPf0OlR3JsR1O/Koaq+j5cQxncldxo=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.private.swiftinterface</key>
@@ -113,14 +113,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			0BP3qhZwfDULspSfqKFueeLcRi2iZdVrwvKhb7tBMlk=
+			nQ3l+bKHAP+Xa9ZU+DoP5Djm8sZ7OAKFP23doHxEdgE=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ruKaXMb9OWsuNW1n6jEwnPgiGK4NR12jGJB1QrNYx5w=
+			JITScGP/5GO0pxPf0OlR3JsR1O/Koaq+j5cQxncldxo=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.private.swiftinterface</key>
@@ -148,7 +148,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ec91M9A+h22gbcBq4IvURHJDx4ucoEeBeYixuHzzq/g=
+			KkXPEx+UQbOWpUkuVTL9W6LI+fcKXlodyn8TRb1who0=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

@@ -30,6 +30,102 @@
 
 @end
 
+/// ISO codes as `/getTags` returns them, mapped to names. Kept byte-identical to Android's
+/// `InAppTagFormatModifier` table so one creative reads the same on both platforms.
+static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
+    static NSDictionary *codes;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        codes = @{
+            @"AD": @"Andorra", @"AE": @"United Arab Emirates", @"AF": @"Afghanistan",
+            @"AG": @"Antigua and Barbuda", @"AI": @"Anguilla", @"AL": @"Albania",
+            @"AM": @"Armenia", @"AO": @"Angola", @"AP": @"Asia/Pacific Region",
+            @"AQ": @"Antarctica", @"AR": @"Argentina", @"AS": @"American Samoa",
+            @"AT": @"Austria", @"AU": @"Australia", @"AW": @"Aruba",
+            @"AX": @"Aland Islands", @"AZ": @"Azerbaijan", @"BA": @"Bosnia and Herzegovina",
+            @"BB": @"Barbados", @"BD": @"Bangladesh", @"BE": @"Belgium",
+            @"BF": @"Burkina Faso", @"BG": @"Bulgaria", @"BH": @"Bahrain",
+            @"BI": @"Burundi", @"BJ": @"Benin", @"BL": @"Saint Bartelemey",
+            @"BM": @"Bermuda", @"BN": @"Brunei Darussalam", @"BO": @"Bolivia",
+            @"BQ": @"Bonaire, Saint Eustatius and Saba", @"BR": @"Brazil", @"BS": @"Bahamas",
+            @"BT": @"Bhutan", @"BV": @"Bouvet Island", @"BW": @"Botswana",
+            @"BY": @"Belarus", @"BZ": @"Belize", @"CA": @"Canada",
+            @"CC": @"Cocos (Keeling) Islands", @"CD": @"Congo, The Democratic Republic of the", @"CF": @"Central African Republic",
+            @"CG": @"Congo", @"CH": @"Switzerland", @"CI": @"Cote d'Ivoire",
+            @"CK": @"Cook Islands", @"CL": @"Chile", @"CM": @"Cameroon",
+            @"CN": @"China", @"CO": @"Colombia", @"CR": @"Costa Rica",
+            @"CU": @"Cuba", @"CV": @"Cape Verde", @"CW": @"Curacao",
+            @"CX": @"Christmas Island", @"CY": @"Cyprus", @"CZ": @"Czech Republic",
+            @"DE": @"Germany", @"DJ": @"Djibouti", @"DK": @"Denmark",
+            @"DM": @"Dominica", @"DO": @"Dominican Republic", @"DZ": @"Algeria",
+            @"EC": @"Ecuador", @"EE": @"Estonia", @"EG": @"Egypt",
+            @"EH": @"Western Sahara", @"ER": @"Eritrea", @"ES": @"Spain",
+            @"ET": @"Ethiopia", @"EU": @"Europe", @"FI": @"Finland",
+            @"FJ": @"Fiji", @"FK": @"Falkland Islands (Malvinas)", @"FM": @"Micronesia, Federated States of",
+            @"FO": @"Faroe Islands", @"FR": @"France", @"GA": @"Gabon",
+            @"GB": @"United Kingdom", @"GD": @"Grenada", @"GE": @"Georgia",
+            @"GF": @"French Guiana", @"GG": @"Guernsey", @"GH": @"Ghana",
+            @"GI": @"Gibraltar", @"GL": @"Greenland", @"GM": @"Gambia",
+            @"GN": @"Guinea", @"GP": @"Guadeloupe", @"GQ": @"Equatorial Guinea",
+            @"GR": @"Greece", @"GS": @"South Georgia and the South Sandwich Islands", @"GT": @"Guatemala",
+            @"GU": @"Guam", @"GW": @"Guinea-Bissau", @"GY": @"Guyana",
+            @"HK": @"Hong Kong", @"HM": @"Heard Island and McDonald Islands", @"HN": @"Honduras",
+            @"HR": @"Croatia", @"HT": @"Haiti", @"HU": @"Hungary",
+            @"ID": @"Indonesia", @"IE": @"Ireland", @"IL": @"Israel",
+            @"IM": @"Isle of Man", @"IN": @"India", @"IO": @"British Indian Ocean Territory",
+            @"IQ": @"Iraq", @"IR": @"Iran, Islamic Republic of", @"IS": @"Iceland",
+            @"IT": @"Italy", @"JE": @"Jersey", @"JM": @"Jamaica",
+            @"JO": @"Jordan", @"JP": @"Japan", @"KE": @"Kenya",
+            @"KG": @"Kyrgyzstan", @"KH": @"Cambodia", @"KI": @"Kiribati",
+            @"KM": @"Comoros", @"KN": @"Saint Kitts and Nevis", @"KP": @"Korea, Democratic People's Republic of",
+            @"KR": @"Korea, Republic of", @"KW": @"Kuwait", @"KY": @"Cayman Islands",
+            @"KZ": @"Kazakhstan", @"LA": @"Lao People's Democratic Republic", @"LB": @"Lebanon",
+            @"LC": @"Saint Lucia", @"LI": @"Liechtenstein", @"LK": @"Sri Lanka",
+            @"LR": @"Liberia", @"LS": @"Lesotho", @"LT": @"Lithuania",
+            @"LU": @"Luxembourg", @"LV": @"Latvia", @"LY": @"Libyan Arab Jamahiriya",
+            @"MA": @"Morocco", @"MC": @"Monaco", @"MD": @"Moldova, Republic of",
+            @"ME": @"Montenegro", @"MF": @"Saint Martin", @"MG": @"Madagascar",
+            @"MH": @"Marshall Islands", @"MK": @"Macedonia", @"ML": @"Mali",
+            @"MM": @"Myanmar", @"MN": @"Mongolia", @"MO": @"Macao",
+            @"MP": @"Northern Mariana Islands", @"MQ": @"Martinique", @"MR": @"Mauritania",
+            @"MS": @"Montserrat", @"MT": @"Malta", @"MU": @"Mauritius",
+            @"MV": @"Maldives", @"MW": @"Malawi", @"MX": @"Mexico",
+            @"MY": @"Malaysia", @"MZ": @"Mozambique", @"NA": @"Namibia",
+            @"NC": @"New Caledonia", @"NE": @"Niger", @"NF": @"Norfolk Island",
+            @"NG": @"Nigeria", @"NI": @"Nicaragua", @"NL": @"Netherlands",
+            @"NO": @"Norway", @"NP": @"Nepal", @"NR": @"Nauru",
+            @"NU": @"Niue", @"NZ": @"New Zealand", @"OM": @"Oman",
+            @"PA": @"Panama", @"PE": @"Peru", @"PF": @"French Polynesia",
+            @"PG": @"Papua New Guinea", @"PH": @"Philippines", @"PK": @"Pakistan",
+            @"PL": @"Poland", @"PM": @"Saint Pierre and Miquelon", @"PN": @"Pitcairn",
+            @"PR": @"Puerto Rico", @"PS": @"Palestinian Territory", @"PT": @"Portugal",
+            @"PW": @"Palau", @"PY": @"Paraguay", @"QA": @"Qatar",
+            @"RE": @"Reunion", @"RO": @"Romania", @"RS": @"Serbia",
+            @"RU": @"Russian Federation", @"RW": @"Rwanda", @"SA": @"Saudi Arabia",
+            @"SB": @"Solomon Islands", @"SC": @"Seychelles", @"SD": @"Sudan",
+            @"SE": @"Sweden", @"SG": @"Singapore", @"SH": @"Saint Helena",
+            @"SI": @"Slovenia", @"SJ": @"Svalbard and Jan Mayen", @"SK": @"Slovakia",
+            @"SL": @"Sierra Leone", @"SM": @"San Marino", @"SN": @"Senegal",
+            @"SO": @"Somalia", @"SR": @"Suriname", @"SS": @"South Sudan",
+            @"ST": @"Sao Tome and Principe", @"SV": @"El Salvador", @"SX": @"Sint Maarten",
+            @"SY": @"Syrian Arab Republic", @"SZ": @"Swaziland", @"TC": @"Turks and Caicos Islands",
+            @"TD": @"Chad", @"TF": @"French Southern Territories", @"TG": @"Togo",
+            @"TH": @"Thailand", @"TJ": @"Tajikistan", @"TK": @"Tokelau",
+            @"TL": @"Timor-Leste", @"TM": @"Turkmenistan", @"TN": @"Tunisia",
+            @"TO": @"Tonga", @"TR": @"Turkey", @"TT": @"Trinidad and Tobago",
+            @"TV": @"Tuvalu", @"TW": @"Taiwan", @"TZ": @"Tanzania, United Republic of",
+            @"UA": @"Ukraine", @"UG": @"Uganda", @"UM": @"United States Minor Outlying Islands",
+            @"US": @"United States", @"UY": @"Uruguay", @"UZ": @"Uzbekistan",
+            @"VA": @"Holy See (Vatican City State)", @"VC": @"Saint Vincent and the Grenadines", @"VE": @"Venezuela",
+            @"VG": @"Virgin Islands, British", @"VI": @"Virgin Islands, U.S.", @"VN": @"Vietnam",
+            @"VU": @"Vanuatu", @"WF": @"Wallis and Futuna", @"WS": @"Samoa",
+            @"YE": @"Yemen", @"YT": @"Mayotte", @"ZA": @"South Africa",
+            @"ZM": @"Zambia", @"ZW": @"Zimbabwe"
+        };
+    });
+    return codes;
+}
+
 @implementation PWResource
 
 - (void)encodeWithCoder:(NSCoder *)aCoder {
@@ -311,14 +407,49 @@
     });
 }
 
-/// The one source of tag values for both substitution paths — HTML pages and native-config strings.
-/// Payload tags win over the cache, and the two device tags the server never returns are added locally.
+/// Tag values for the HTML path: payload tags win over the cache.
 - (nullable NSDictionary *)pw_substitutionTags {
-    /// Deliberately left nil when neither source exists: the two writes below are then no-ops, which
-    /// is what the HTML path has always done. Creating a dictionary here would start substituting
-    /// OS Version / Device Model into creatives that render their defaults today.
+    /// Left nil when neither source exists, so the device-tag writes stay no-ops — creatives that
+    /// render their defaults today must keep doing so.
     NSMutableDictionary *tags = _tags.mutableCopy ? : [[PWCache cache] getTags].mutableCopy;
+    return [self pw_addDeviceTags:tags];
+}
 
+/// Native-config tags: the local cache only, never the payload, mirroring Android's `InAppTags`.
+/// Always a dictionary, so the two device tags are substituted even with an empty cache.
+- (nonnull NSDictionary *)pw_nativeSubstitutionTags {
+    NSMutableDictionary *tags = [[PWCache cache] getTags].mutableCopy ? : [NSMutableDictionary dictionary];
+    [self pw_convertGeoTags:tags];
+    return [self pw_addDeviceTags:tags];
+}
+
+/// Geo tags reach the cache raw — `Country` as an ISO code, `City` as "<code>, <city>". An
+/// unresolvable code drops the tag so the placeholder renders its default (Android parity).
+- (void)pw_convertGeoTags:(NSMutableDictionary *)tags {
+    id country = tags[@"Country"];
+    if (country && country != [NSNull null]) {
+        NSString *code = [[NSString stringWithFormat:@"%@", country] uppercaseString];
+        NSString *name = PWCountryNameByCode()[code];
+        if (name) {
+            tags[@"Country"] = name;
+        } else {
+            [tags removeObjectForKey:@"Country"];
+        }
+    }
+
+    id city = tags[@"City"];
+    if (city && city != [NSNull null]) {
+        NSMutableArray *components = [[[NSString stringWithFormat:@"%@", city] componentsSeparatedByString:@", "] mutableCopy];
+        /// Java's split drops trailing empty components; "Berlin, " must stay "Berlin", not "".
+        while (components.count > 1 && [(NSString *)components.lastObject length] == 0) {
+            [components removeLastObject];
+        }
+        tags[@"City"] = components.lastObject;
+    }
+}
+
+/// The two device tags the server never returns, added locally under their privacy flags.
+- (nullable NSMutableDictionary *)pw_addDeviceTags:(nullable NSMutableDictionary *)tags {
     if ([PWConfig config].allowCollectingDeviceOsVersion == YES) {
         tags[@"OS Version"] = [PWUtils systemVersion];
     }
@@ -360,7 +491,7 @@
         [self readConfig];
         /// Built once per config, not per string: -getTags reads and unarchives a file every call,
         /// and this walks every string in the tree.
-        NSDictionary *tags = [self pw_substitutionTags];
+        NSDictionary *tags = [self pw_nativeSubstitutionTags];
         id resolved = [self pw_localizeNode:config tags:tags];
         return [resolved isKindOfClass:[NSDictionary class]] ? resolved : config;
     }

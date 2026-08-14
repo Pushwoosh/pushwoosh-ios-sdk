@@ -155,17 +155,44 @@ class PWInAppConfigParserTest: XCTestCase {
         }), "empty button text must invalidate the config")
     }
 
-    /// Verifies an unparseable optional image URL leaves the asset empty instead of dropping the config (Android parity), while a required media URL still fails.
-    func testUnparseableImageUrlKeepsConfigButRequiredMediaStillFails() {
+    /// Verifies a URL the editor let through with a space is recovered by percent-encoding instead of emptying the asset or dropping the config.
+    func testUrlWithSpaceIsRecoveredByPercentEncoding() {
         guard case .modal(let content)? = parsed(modal { $0["image"] = "http://a b.com" })?.layout else {
-            return XCTFail("an unparseable image URL must not invalidate the modal")
+            return XCTFail("a URL with a space must not invalidate the modal")
         }
-        XCTAssertNil(content.imageURL, "unparseable image URL resolves to nil, not a parse failure")
+        XCTAssertEqual(content.imageURL?.absoluteString, "http://a%20b.com")
 
         let video: [AnyHashable: Any] = ["displayType": "video",
                                          "video": ["showClose": true, "loop": true, "muted": true,
                                                    "url": "http://a b.com", "buttons": [button]]]
-        XCTAssertNil(parsed(video), "an unparseable required video url must still invalidate the config")
+        guard case .video(let videoContent)? = parsed(video)?.layout else {
+            return XCTFail("a required media URL with a space must not invalidate the config")
+        }
+        XCTAssertEqual(videoContent.videoURL.absoluteString, "http://a%20b.com")
+    }
+
+    /// Verifies that an escape already present in the URL survives the recovery pass instead of being encoded a second time.
+    func testExistingPercentEscapeIsNotEncodedTwice() {
+        var mixed = button
+        mixed["action"] = ["type": "url", "url": "myapp://open%20item x"]
+
+        guard case .modal(let content)? = parsed(modal { $0["buttons"] = [mixed] })?.layout,
+              case .url(let url) = content.buttons[0].action else {
+            return XCTFail("a partly encoded URL must still parse into a url action")
+        }
+        XCTAssertEqual(url.absoluteString, "myapp://open%20item%20x", "%20 must not become %2520")
+    }
+
+    /// Verifies a custom-scheme deep link with a space — rejected by URL(string:) on every iOS version — still yields a usable button action.
+    func testCustomSchemeActionWithSpaceStillParses() {
+        var withSpace = button
+        withSpace["action"] = ["type": "url", "url": "myapp://open item"]
+
+        guard case .modal(let content)? = parsed(modal { $0["buttons"] = [withSpace] })?.layout,
+              case .url(let url) = content.buttons[0].action else {
+            return XCTFail("a custom-scheme URL with a space must still parse into a url action")
+        }
+        XCTAssertEqual(url.absoluteString, "myapp://open%20item")
     }
 
     /// Verifies sheet parses its canonical config and is invalidated when a required field is missing (fail-closed like modal).

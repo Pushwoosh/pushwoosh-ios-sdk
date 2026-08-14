@@ -378,7 +378,7 @@ enum PWInAppConfigParser {
             return .close
         case "url":
             guard let urlString = dict["url"] as? String, !urlString.isEmpty,
-                  let url = URL(string: urlString) else {
+                  let url = resolveURL(urlString) else {
                 throw Fail.key("\(label).url")
             }
             return .url(url)
@@ -573,7 +573,20 @@ enum PWInAppConfigParser {
         // dropping the whole config (Android parity: a bad image URL leaves the asset
         // empty, it does not invalidate the message). Required media (video/pip url) still
         // fails, because url() rejects a nil result.
-        return URL(string: string)
+        return resolveURL(string)
+    }
+
+    /// Recovers a link the editor let through (a space, a custom scheme) instead of dropping the
+    /// message. `%` stays allowed so an existing `%XX` escape is not encoded a second time.
+    private static func resolveURL(_ string: String) -> URL? {
+        if let url = URL(string: string) {
+            return url
+        }
+        let allowed = CharacterSet.urlFragmentAllowed.union(CharacterSet(charactersIn: "%"))
+        guard let encoded = string.addingPercentEncoding(withAllowedCharacters: allowed) else {
+            return nil
+        }
+        return URL(string: encoded)
     }
 
     /// Envelope numbers keep the pre-contract tolerance: a JSON number or a

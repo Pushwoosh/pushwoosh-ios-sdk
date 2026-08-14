@@ -6,7 +6,7 @@
 	<dict>
 		<key>Frameworks/PushwooshBridge.framework/Info.plist</key>
 		<data>
-		Wvpt2RLde4Xi9roNko1Tdy1ClkE=
+		UP1C5R9BqUsj3cnkG522xDDBBw0=
 		</data>
 		<key>Frameworks/PushwooshBridge.framework/PrivacyInfo.xcprivacy</key>
 		<data>
@@ -14,15 +14,15 @@
 		</data>
 		<key>Frameworks/PushwooshBridge.framework/PushwooshBridge</key>
 		<data>
-		46o5vdOoQTtzesfldffO5LHhn7o=
+		hIoWscKQZrY/IIjfEjd6aI846zY=
 		</data>
 		<key>Frameworks/PushwooshBridge.framework/_CodeSignature/CodeResources</key>
 		<data>
-		2yBsZsWXUHxWhWoG1nAUV0u4deI=
+		KhYSO21iII0rshLSmAGegzLBZRw=
 		</data>
 		<key>Frameworks/PushwooshCore.framework/Info.plist</key>
 		<data>
-		KQhtXQYfl8nlbIod8O0VjJ1qZks=
+		sJoFFBdiTsHXiJYB6GOIXxSGiO0=
 		</data>
 		<key>Frameworks/PushwooshCore.framework/PrivacyInfo.xcprivacy</key>
 		<data>
@@ -30,11 +30,11 @@
 		</data>
 		<key>Frameworks/PushwooshCore.framework/PushwooshCore</key>
 		<data>
-		rBEoxFFBUtzAgDbISp+g+hFO7oo=
+		Z0mFu+je0tvci55UFIKnAmWcZBE=
 		</data>
 		<key>Frameworks/PushwooshCore.framework/_CodeSignature/CodeResources</key>
 		<data>
-		gF7Ub+IrdK1u0WfVomLzjjA39bA=
+		QsQNy0gn9YSpik2zAihy/LLH3ZU=
 		</data>
 		<key>Headers/PushwooshGRPC-Swift.h</key>
 		<data>
@@ -50,7 +50,7 @@
 		</data>
 		<key>Modules/PushwooshGRPC.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		NCaxUfb9hJ9mC0KfFxYPRkdqpOs=
+		BW4MJC7MQJsHrHQpRulCBrjUnW0=
 		</data>
 		<key>Modules/PushwooshGRPC.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -66,11 +66,11 @@
 		</data>
 		<key>Modules/PushwooshGRPC.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		uMNveJfGL0vXtKO6Q5VU5q76a8o=
+		O23UDbXfMT1IcRnbF/1B+K4t09g=
 		</data>
 		<key>Modules/PushwooshGRPC.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		NCaxUfb9hJ9mC0KfFxYPRkdqpOs=
+		BW4MJC7MQJsHrHQpRulCBrjUnW0=
 		</data>
 		<key>Modules/PushwooshGRPC.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -86,7 +86,7 @@
 		</data>
 		<key>Modules/PushwooshGRPC.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		8jMkWKGCbObvOEJwwz5O9gSKMhY=
+		+LZCwQ0CFT+B3HtLi+gRtUt3ks4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -99,7 +99,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			VIdlnzlnQRWue2zRrS+DCJfzcnxbOyc7zGPdaRy3sIo=
+			rb81HilBgklD0LkKioJwU1QkcLGc3mhJB+9oAcxuSCg=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshBridge.framework/PrivacyInfo.xcprivacy</key>
@@ -113,21 +113,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			DeoBKQi9aWfvr76s9psuFks5AU8K+9vR1w9auT/HgUM=
+			yL3sYkQ6YYidhA50fLbLndvdJug+eE3RmFaWsVyeR3s=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshBridge.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			UEktDJ/yoRARzwOecCBogoP7V9oXxeg3WQvLG5lBGBg=
+			lNmyBbJ5MEWMMfhA2vPc0X8KUcQaVp/y0HXVJbeDzzY=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshCore.framework/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			kDAJArmg3URA79EwKFJFZrfvj16NY/oIuhDU3QO6DT8=
+			wFigiDIpyibflrRxdOUCqoaY+WdzgeX6IIflvE3lkmk=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshCore.framework/PrivacyInfo.xcprivacy</key>
@@ -141,14 +141,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cbCjt5Oo74x/eBsIAcDwL2xxTDXMayUVe/MkxWRihOM=
+			yqUnfl74uVpXGtu3JenPWNspyM5iOymROIFgoz3YN0U=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshCore.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			dkw3Yx29R8DE5tQK292ysgCQzViaNQEj93mhExZ7lvQ=
+			9XztPvNYqvMvdbL1LxEsX3ktpqUvnlf5HLrHSm9llhs=
 			</data>
 		</dict>
 		<key>Headers/PushwooshGRPC-Swift.h</key>
@@ -169,7 +169,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			cEQzFu0gkRTzxvfyQzQdCZllhT0FH2Retp/yvjM8gJo=
+			A/B/6TIdudTGxGP4bRzn6tObubOYyUEDP2Y0NQa6kYE=
 			</data>
 		</dict>
 		<key>Modules/PushwooshGRPC.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
@@ -197,14 +197,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zzXyI2RZnZkLq9NarMMTEWI4ANU6k7pZ8egupd+bTRg=
+			BLrW2CVeLUl0IUXL0TLXtsfNEKLYg57tDucG0j8E5+I=
 			</data>
 		</dict>
 		<key>Modules/PushwooshGRPC.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			cEQzFu0gkRTzxvfyQzQdCZllhT0FH2Retp/yvjM8gJo=
+			A/B/6TIdudTGxGP4bRzn6tObubOYyUEDP2Y0NQa6kYE=
 			</data>
 		</dict>
 		<key>Modules/PushwooshGRPC.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
@@ -232,7 +232,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			/bZRu42kuAigThBm2+j1HZNie7i+cUojyhngXufjl3k=
+			VPY9YqZD52R4Z3vvzIYLeOs8yTGsiDAAT+AzYis/o4w=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

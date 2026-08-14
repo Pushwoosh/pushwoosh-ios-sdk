@@ -55,6 +55,10 @@ final class PushwooshInAppUI: PWInAppPresenting {
     /// (which would also lose its onShown show-statistic).
     private var pendingPips: [PWInAppMessageModel] = []
 
+    // Set for the duration of a presentation: `show` calls out to the host, and a host that
+    // calls back into present()/dismiss() from there must wait rather than re-enter.
+    private var isShowing = false
+
     // Presentation is gated on the app being foreground: dequeuing while backgrounded
     // would present into an invisible window, burning the frequency cap and firing
     // onShown unseen. Held messages drain on the next foreground. Injectable for tests
@@ -152,15 +156,24 @@ final class PushwooshInAppUI: PWInAppPresenting {
     }
 
     private func showNextIfIdle() {
-        guard current == nil, !isPaused, !queue.isEmpty else {
+        // Re-entrant call from a host callback fired inside `show` — the loop
+        // below is still running and picks the message up on its next turn.
+        guard !isShowing else {
             return
         }
-        guard foregroundProvider() else {
-            observeForegroundForRetry()
-            return
+        isShowing = true
+        defer { isShowing = false }
+
+        // A declined message leaves `current` nil, so the next one is tried here
+        // instead of recursing back through `show`.
+        while current == nil, !isPaused, !queue.isEmpty {
+            guard foregroundProvider() else {
+                observeForegroundForRetry()
+                return
+            }
+            let next = queue.removeFirst()
+            show(next)
         }
-        let next = queue.removeFirst()
-        show(next)
     }
 
     private func observeForegroundForRetry() {
@@ -181,24 +194,22 @@ final class PushwooshInAppUI: PWInAppPresenting {
         }
     }
 
+    /// Presents the message, or declines it and leaves `current` nil — the caller's
+    /// drain loop moves on to the next one. Only ever called from `showNextIfIdle`.
     private func show(_ message: PWInAppMessageModel) {
         if delegate?.pushwooshInAppShouldDisplay?(messageId: message.id) == false {
-            showNextIfIdle()
             return
         }
         // Re-check caps at show time: a sibling with the same id may have been
         // shown while this one waited in the queue.
         guard PWInAppFrequencyStore.shared.canShow(message) else {
-            showNextIfIdle()
             return
         }
         guard let view = PWInAppViewFactory.makeView(for: message.layout) else {
-            showNextIfIdle()
             return
         }
         let window = ensureWindow()
         guard let container = window.rootViewController?.view else {
-            showNextIfIdle()
             return
         }
         // Record only once we're actually presenting.
@@ -269,6 +280,14 @@ final class PushwooshInAppUI: PWInAppPresenting {
 
     private func dismissCurrent() {
         guard let active = current else {
+            return
+        }
+        // Called from inside `show`: the view isn't in the hierarchy yet, so honour the
+        // intent one main turn later, once the message is actually presented.
+        if isShowing {
+            DispatchQueue.main.async { [weak self] in
+                self?.dismissCurrent()
+            }
             return
         }
         // Clear `current` before the dismiss animation so a second call within the

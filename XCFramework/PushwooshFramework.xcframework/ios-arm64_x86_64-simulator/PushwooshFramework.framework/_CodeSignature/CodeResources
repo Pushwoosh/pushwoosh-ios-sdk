@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/PushwooshFramework.h</key>
 		<data>
-		g3cFKgjS1YNHskC3I8Gpgb0fVcM=
+		Q/OA8R99EzpwWpyCirwyc26Xxrw=
 		</data>
 		<key>Headers/PushwooshNotificationServiceExtension.h</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		sHVXVpkSixx5fPVBXtMdMg+ySJ4=
+		Ie9yZ88NCiAxamY8b9yt3mYRjog=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		xWT9NazTye7XGzkL4ZT2fyCfYho=
+		7bExHaKbqfinYbFwq67SFWKT/gc=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -74,7 +74,7 @@
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		BCbi/KJZvjkszxiOW/2TqR7QpbY=
+		arB8h7gtUpC4rq4sgx4m4qWuvjA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -126,7 +126,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			3fMszRD/OYU3Wp4dEx5yIvN6lDIfhsP4oqICA492mF8=
+			tRmRV63xlg7Bi0tsnXAzuVaiyOT4Jk9lwYyAeUuOGnE=
 			</data>
 		</dict>
 		<key>Headers/PushwooshNotificationServiceExtension.h</key>
@@ -168,7 +168,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ftucIO1yiax1R7isQ6XBitU1oypOq/NaACfDnsr+RlQ=
+			81xx5YKzUa/G8mRL9PB5Uf5Fni97+WUl10Uoy7A80EQ=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
@@ -203,7 +203,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			d2jFM31pzQhXzYOe7xZfbqPMxc6Q4BbtJfk1zUo70vY=
+			GqNMx2Xg7q7NKYhh8uY6WMjHkqFQBPT3Y94n9tOfUas=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

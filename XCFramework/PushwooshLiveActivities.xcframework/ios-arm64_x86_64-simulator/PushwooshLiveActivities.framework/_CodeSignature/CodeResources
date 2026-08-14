@@ -14,11 +14,11 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		BHkGaw3FzXoD6jNaAHDHa2iYXa4=
+		bNEDza/dSIPc5LIeAS9sZMZd1kM=
 		</data>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
-		/fVyRygdL9ja/PW/BlPN5y48vxw=
+		np0FLRFmuWahR9gMKh5z5veYELI=
 		</data>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -34,11 +34,11 @@
 		</data>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/arm64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		+GY+TWNDRI3mG+UVsUpL+aOv9zE=
+		NFT+xxokrIQ/l84bEtK96QULqSM=
 		</data>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<data>
-		/fVyRygdL9ja/PW/BlPN5y48vxw=
+		np0FLRFmuWahR9gMKh5z5veYELI=
 		</data>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/x86_64-apple-ios-simulator.swiftmodule</key>
 		<data>
-		t0D+QlTrL1x9wv3rb12U6D3Xg/c=
+		bhdjtaiQGI1b+v+9t0ZynAx/RNo=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -85,7 +85,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			EtUxU5YOZR03YQDFhlPuaKrFpGXddp2iGZWjvb2Jgqs=
+			VCYP7TkAupQ+5grxMtARqCO5qOny4Y5LNlDY2AEAoHE=
 			</data>
 		</dict>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/arm64-apple-ios-simulator.private.swiftinterface</key>
@@ -113,14 +113,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			XP7QEWFtsmhUXuU/jHufLPGL8//Yntr8jA6P4JTRgYw=
+			R8nmSB5b0BYIKxQFtzSzMAMKCcfYRobhtZxuEtiPcDE=
 			</data>
 		</dict>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/x86_64-apple-ios-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			EtUxU5YOZR03YQDFhlPuaKrFpGXddp2iGZWjvb2Jgqs=
+			VCYP7TkAupQ+5grxMtARqCO5qOny4Y5LNlDY2AEAoHE=
 			</data>
 		</dict>
 		<key>Modules/PushwooshLiveActivities.swiftmodule/x86_64-apple-ios-simulator.private.swiftinterface</key>
@@ -148,7 +148,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			s76TrjFOJR9bP4tvMwiS8fWWokjoeC9pO/VdGnC99lI=
+			NSXM/o/8B8hobPLLIWTMMwmhMWxHVnZ1XcCOPas0IcQ=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>
