@@ -6,7 +6,7 @@
 
 #import "PWPushStatRequest.h"
 
-@interface PWPushStatRequest () 
+@interface PWPushStatRequest ()
 
 @end
 
@@ -19,11 +19,11 @@
 - (NSDictionary *)requestDictionary {
     NSMutableDictionary *dict = [super requestDictionary].mutableCopy;
     NSString *metadata = self.pushDict[@"md"];
-    
+
     if (metadata != nil) {
         dict[@"metaData"] = metadata;
     }
-    
+
     return dict;
 }
 

@@ -1,7 +1,7 @@
 #if TARGET_OS_IOS || TARGET_OS_TV
 
 //
-//  PushRuntime.m
+//  PWPushRuntime.ios.m
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2024
 //
@@ -79,7 +79,7 @@ void _replacement_didReceiveRemoteNotificationWithUserInfo(id self, SEL _cmd, UI
     if ([self respondsToSelector:@selector(application:didReceiveRemoteNotification:)]) {
         ((void(*)(id, SEL, UIApplication *, NSDictionary *))pw_original_didReceiveRemoteNotificationWithUserInfo_Imp)(self, _cmd, application, userInfo);
     }
-    
+
     if ([[PWPreferences preferences] hasAppCode]) {
         [[PWManagerBridge shared] handlePushReceived:userInfo];
     }
@@ -87,7 +87,7 @@ void _replacement_didReceiveRemoteNotificationWithUserInfo(id self, SEL _cmd, UI
 
 void _replacement_didReceiveRemoteNotification(id self, SEL _cmd, UIApplication * application, NSDictionary * userInfo, void (^completionHandler)(UIBackgroundFetchResult)) {
     ((void(*)(id, SEL, UIApplication *, NSDictionary *, void(^)(UIBackgroundFetchResult)))pw_original_didReceiveRemoteNotification_Imp)(self, _cmd, application, userInfo, completionHandler);
-    
+
     if ([[PWPreferences preferences] hasAppCode]) {
         [[PWManagerBridge shared] handlePushReceived:userInfo];
     }
@@ -126,10 +126,10 @@ BOOL dynamicHandleOpenURL(id self, SEL _cmd, id application, id openURL) {
 void dynamicSceneOpenURLContexts(id self, SEL _cmd, id scene, id contexts) {
     if ([contexts isKindOfClass:[NSSet class]]) {
         id context = [contexts anyObject];
-        
+
         if ([context respondsToSelector:@selector(URL)]) {
             NSURL *url = [context URL];
-            
+
             if (url) {
                 [[UIApplication sharedApplication] pw_checkURL:url];
             }
@@ -173,25 +173,25 @@ static BOOL openURLSwizzled = NO;
             toSelector:@selector(application:pw_handleOpenURL:)
         implementation:(IMP)dynamicHandleOpenURL
           typeEncoding:"v@:::::"];
-    
+
     //Scene environment support
     NSDictionary *sceneManifest = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIApplicationSceneManifest"];
-    
+
     if ([sceneManifest isKindOfClass:[NSDictionary class]]) {
         NSDictionary *configs = sceneManifest[@"UISceneConfigurations"];
-        
+
         if ([configs isKindOfClass:[NSDictionary class]]) {
             NSArray *sessionRole = configs[@"UIWindowSceneSessionRoleApplication"];
-            
+
             if ([sessionRole isKindOfClass:[NSArray class]]) {
                 NSDictionary *config = sessionRole.firstObject;
-                
+
                 if ([config isKindOfClass:[NSDictionary class]]) {
                     NSString *sceneDelegateClassName = config[@"UISceneDelegateClassName"];
-                    
+
                     if (sceneDelegateClassName) {
                         Class sceneDelegateClass = NSClassFromString(sceneDelegateClassName);
-                        
+
                         [PWUtils swizzle:sceneDelegateClass
                             fromSelector:@selector(scene:openURLContexts:)
                               toSelector:@selector(scene:pw_openURLContexts:)
@@ -206,19 +206,19 @@ static BOOL openURLSwizzled = NO;
 
 - (void)performSwizzlingForDelegate:(id<UIApplicationDelegate>)delegate proxy:(id<UIApplicationDelegate>)proxy {
     BOOL useRuntime = [PWConfig config].useRuntime;
-    
+
     if (delegate.superclass == NSProxy.class) {
         @try {
             NSString *propertyName = @"delegates";
             objc_property_t property = class_getProperty(delegate.class, [propertyName cStringUsingEncoding:NSASCIIStringEncoding]);
-            
+
             if (property) {
                 SEL getter = NSSelectorFromString(propertyName);
                 NSArray *delegates = ((NSArray *(*)(id, SEL))objc_msgSend)(delegate, getter);
-                
+
                 if ([delegates isKindOfClass:[NSArray class]]) {
                     id <UIApplicationDelegate> realDelegate = delegates.firstObject;
-                    
+
                     for (id <UIApplicationDelegate>candidateDelegate in delegates) {
                         if ([candidateDelegate conformsToProtocol:@protocol(UIApplicationDelegate)]) {
                             if ([candidateDelegate respondsToSelector:@selector(application:openURL:options:)] ||
@@ -229,7 +229,7 @@ static BOOL openURLSwizzled = NO;
                             }
                         }
                     }
-                    
+
                     if (realDelegate) {
                         [self performSwizzlingForDelegate:realDelegate proxy:delegate];
                         return;
@@ -238,16 +238,16 @@ static BOOL openURLSwizzled = NO;
             }
         } @catch (NSException *exception) {
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@""];
-            [PushwooshLog pushwooshLog:PW_LL_ERROR 
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
                              className:self
                                message:[NSString stringWithFormat:@"!!!!!!-----Exception caused by AppDelegate proxy: %@-----!!!!!!", exception]];
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@""];
 
         }
     }
-    
+
     [self swizzle_didFinishLaunchingWithOptionsForExtensionRequest:[delegate class]];
-        
+
     //override runtime functions only if requested (used in plugins or by user decision)
     if (![[UIApplication sharedApplication] respondsToSelector:@selector(pushwooshUseRuntimeMagic)] && !useRuntime) {
         [self pw_swizzleOpenURLMethods:[delegate class]];
@@ -255,25 +255,25 @@ static BOOL openURLSwizzled = NO;
         [self pw_setDelegate:proxy ? : delegate];
         return;
     }
-    
+
     static BOOL swizzleDone = NO;
-    
+
     //do not swizzle twice
     if (swizzleDone || delegate == nil) {
         [self pw_setDelegate:proxy ? : delegate];
         return;
     }
-    
+
     swizzleDone = YES;
-    
+
     Class delegateClass = [delegate class];
-    
+
     [self swizzle_didFinishLaunchingWithOptions:delegateClass];
     [self swizzle_didRegisterForRemoteNotificationsWithDeviceToken:delegateClass];
     [self swizzle_didFailToRegisterForRemoteNotificationsWithError:delegateClass];
     [self swizzle_didReceiveRemoteNotification:delegateClass];
     [self swizzle_didReceiveRemoteNotificationWithFetchBlock:delegateClass];
-    
+
     [self pw_swizzleOpenURLMethods:delegateClass];
 
     [self pw_setDelegate:proxy ? : delegate];
@@ -289,7 +289,7 @@ static BOOL openURLSwizzled = NO;
     if (swizzleDone)
         return;
     swizzleDone = YES;
-    
+
     Method originalMethod = class_getInstanceMethod(delegateClass, @selector(application:didFinishLaunchingWithOptions:));
     pw_original_didFinishLaunchingWithOptionsExtension = method_setImplementation(originalMethod, (IMP)_replacement_didFinishLaunchingWithOptionsExtensionRequest);
 }
@@ -312,7 +312,7 @@ void _replacement_didRegisterForRemoteNotificationWithToken(id self, SEL _cmd, U
     if ([self respondsToSelector:@selector(application:didRegisterForRemoteNotificationsWithDeviceToken:)]) {
         ((void(*)(id, SEL, UIApplication*, NSData*))pw_original_didRegisterForRemoteNotificationWithDeviceToken_Imp)(self, _cmd, application, deviceToken);
     }
-    
+
     if ([[PWPreferences preferences] hasAppCode]) {
         [[PWManagerBridge shared] handlePushRegistration:deviceToken];
     }
@@ -321,19 +321,19 @@ void _replacement_didRegisterForRemoteNotificationWithToken(id self, SEL _cmd, U
 
 BOOL _replacement_didFinishLaunchingWithOptions(id self, SEL _cmd, UIApplication *application, NSDictionary *launchOptions) {
     BOOL result = YES;
-    
+
     if ([self respondsToSelector:@selector(application:didFinishLaunchingWithOptions:)]) {
         result = ((BOOL(*)(id, SEL, UIApplication *, NSDictionary *))pw_original_didFinishLaunchingWithOptions)(self, _cmd, application, launchOptions);
     } else {
         [self applicationDidFinishLaunching:application];
         result = YES;
     }
-    
+
     if (![[PWPreferences preferences] hasAppCode]) {
         // pushwoosh has not been initialized yet
         return result;
     }
-    
+
     if (![PWManagerBridge shared].delegate) {
         if ([[UIApplication sharedApplication] respondsToSelector:@selector(getPushwooshDelegate)]) {
             [PWManagerBridge shared].delegate = [[UIApplication sharedApplication] getPushwooshDelegate];
@@ -341,7 +341,7 @@ BOOL _replacement_didFinishLaunchingWithOptions(id self, SEL _cmd, UIApplication
             [PWManagerBridge shared].delegate = self;
         }
     }
-    
+
     // Initialize SDK early (like the old [PushNotificationManager pushManager] did)
     // to set up UNUserNotificationCenter delegate before didReceiveNotificationResponse: is called.
     // Using NSClassFromString to avoid circular dependency between PushwooshCore and PushwooshFramework.
@@ -375,7 +375,7 @@ void _replacement_didFailToRegisterForRemoteNotificationsWithError(id self, SEL 
 
 void _replacement_setApplicationIconBadgeNumber(UIApplication * self, SEL _cmd, NSInteger badgeNumber) {
     ((void(*)(id,SEL,NSInteger))pw_original_setApplicationIconBadgeNumber_Imp)(self, _cmd, badgeNumber);
-    
+
     NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:[[PWConfig config] appGroupsName]];
     [defaults setInteger:badgeNumber forKey:@"badge_count"];
 }

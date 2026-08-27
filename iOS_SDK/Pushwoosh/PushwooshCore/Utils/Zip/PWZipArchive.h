@@ -1,5 +1,5 @@
 //
-//  IAZipArchive.h
+//  PWZipArchive.h
 //
 
 #import <Foundation/Foundation.h>

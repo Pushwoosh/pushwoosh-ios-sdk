@@ -38,7 +38,7 @@
 - (void)richMediaManager:(PWRichMediaManager *)richMediaManager didCloseRichMedia:(PWRichMedia *)richMedia;
 
 /**
- Tells the delegate that error during Rich Media presenting has been occured.
+ Tells the delegate that an error occurred while presenting Rich Media.
  */
 - (void)richMediaManager:(PWRichMediaManager *)richMediaManager presentingDidFailForRichMedia:(PWRichMedia *)richMedia withError:(NSError *)error;
 

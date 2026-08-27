@@ -1,5 +1,5 @@
 //
-//  PWPushNotificationsManager.m
+//  PWPushNotificationsManager.common.m
 //  PushNotificationManager
 //
 //  Created by Kaizer on 06/06/16.
@@ -26,7 +26,6 @@
 #import "PWMessageDeliveryRequest.h"
 #import "PWRequest+Internal.h"
 
-#import <PushwooshCore/PWManagerBridge.h>
 #import "PWDataManager.h"
 #import "PWRichPushManager.h"
 #import "PWInAppMessagesManager.h"
@@ -118,9 +117,9 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     [[[PWPlatformModule module] notificationManagerCompat] getRemoteNotificationStatusWithCompletion:^(NSDictionary* status) {
         if (![@"1" isEqualToString:status[@"enabled"]])
             return;
-        
+
         NSString * pushToken = [PWPreferences preferences].pushToken;
-        
+
         if(pushToken) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self sendDevTokenToServer:pushToken triggerCallbacks:NO];
@@ -143,7 +142,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
             [invocation setArgument:&error atIndex:2];
             [invocation invoke];
         }
-        
+
         if (registrationHandler) {
             registrationHandler(nil, [PWUtils pushwooshErrorWithCode:PWErrorCommunicationDisabled description:@"Communication with Pushwoosh is disabled"]);
         }
@@ -153,23 +152,23 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 - (void)unregisterForPushNotificationsWithCompletion:(void (^)(NSError *))completion  {
     //we do not call [[UIApplication sharedApplication] unregisterForRemoteNotifications]; due to apple recommendations:
     //https://developer.apple.com/documentation/uikit/uiapplication/1623093-unregisterforremotenotifications?preferredLanguage=occ
-    
+
     [self unregisterDeviceWithCompletion:completion];
 }
 
 + (NSMutableDictionary *)getRemoteNotificationStatus {
     dispatch_semaphore_t semaphore = dispatch_semaphore_create(0);
-    
+
     __block NSDictionary *result = @{};
     [[[PWPlatformModule module] notificationManagerCompat] getRemoteNotificationStatusWithCompletion:^(NSDictionary* status) {
         result = status;
         dispatch_semaphore_signal(semaphore);
     }];
-    
+
     if (dispatch_semaphore_wait(semaphore, dispatch_time(DISPATCH_TIME_NOW, 2*(NSEC_PER_SEC)))) {
-        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Failed to get notification setttings"];
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Failed to get notification settings"];
     }
-    
+
     return [result mutableCopy];
 }
 
@@ -183,13 +182,13 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 
 - (void)sendTokenToDelegate:(NSString *)deviceID triggerCallbacks:(BOOL)triggerCallbacks{
     NSString *token = [[PWManagerBridge shared] getPushToken];
-    
+
     if (token) {
         if (triggerCallbacks) {
             if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(onDidRegisterForRemoteNotificationsWithDeviceToken:)]) {
                 [[PWManagerBridge shared].delegate performSelectorOnMainThread:@selector(onDidRegisterForRemoteNotificationsWithDeviceToken:) withObject:token waitUntilDone:NO];
             }
-            
+
             if (_registrationHandler) {
                 _registrationHandler(token, nil);
             }
@@ -235,7 +234,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     [_sessionRetry sendWithRetry:[self requestParameters:deviceID platform:iOS] completion:^(NSError *error) {
 
         [[PWPreferences preferences] setCustomTags:nil];
-        
+
         if (error == nil) {
             [PushwooshLog pushwooshLog:PW_LL_INFO
                              className:self
@@ -246,21 +245,21 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
                                         deviceID, [PWPreferences preferences].hwid]];
             //registered on server, save last registration time to prevent multiple register request
             [PWPreferences preferences].lastRegTime = [NSDate date];
-            
+
             [self sendTokenToDelegate:deviceID triggerCallbacks:triggerCallbacks];
         } else {
             //reset time
             [PWPreferences preferences].lastRegTime = NSDate.distantPast;
-            
+
             [PushwooshLog pushwooshLog:PW_LL_ERROR
                              className:self
                                message:@"Registered for push notifications failed"];
-            
+
             if (triggerCallbacks) {
                 if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(onDidFailToRegisterForRemoteNotificationsWithError:)]) {
                     [[PWManagerBridge shared].delegate performSelectorOnMainThread:@selector(onDidFailToRegisterForRemoteNotificationsWithError:) withObject:error waitUntilDone:NO];
                 }
-                
+
                 if (_registrationHandler) {
                     _registrationHandler(nil, error);
                 }
@@ -282,7 +281,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
                              className:self
                                message:@"Unregistering for push notifications failed"];
         }
-        
+
         if (completion) {
             completion(error);
         }
@@ -336,23 +335,23 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 
 - (void)handlePushRegistrationString:(NSString *)deviceID {
     [PWPreferences preferences].pushToken = deviceID;
-    
+
     [self sendDevTokenToServer:deviceID];
 }
 
 - (void)handlePushRegistration:(NSData *)devToken {
     NSMutableString *deviceID = [NSMutableString stringWithCapacity:devToken.length];
     const uint8_t *tokenDataPtr = (const uint8_t *)devToken.bytes;
-    
+
     for (NSUInteger i = 0; i < devToken.length; ++i) {
         [deviceID appendString:[NSString stringWithFormat:@"%02hhx", tokenDataPtr[i]]];
     }
-    
+
     if ([self resetLastRegTimeIfNeeded:deviceID]) {
         [PWPreferences preferences].pushToken = deviceID;
         [PWPreferences preferences].registrationEverOccured = YES;
     }
-    
+
     [self sendDevTokenToServer:deviceID];
 }
 
@@ -369,7 +368,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(onDidFailToRegisterForRemoteNotificationsWithError:)]) {
         [[PWManagerBridge shared].delegate performSelectorOnMainThread:@selector(onDidFailToRegisterForRemoteNotificationsWithError:) withObject:error waitUntilDone:NO];
     }
-    
+
     if (_registrationHandler) {
         _registrationHandler(nil, error);
     }
@@ -389,7 +388,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     NSString *linkUrl = [userInfo pw_stringForKey:@"l"];
     NSString *customHtmlPageId = [userInfo pw_stringForKey:@"r"];
     NSDictionary *richMedia = userInfo[@"rm"];
-    
+
 #if TARGET_OS_IOS || TARGET_OS_OSX
     if (htmlPageId) {
         [[PWManagerBridge shared].richPushManager showPushPage:htmlPageId];
@@ -447,38 +446,38 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 - (BOOL)handlePushReceived:(NSDictionary *)userInfo autoAcceptAllowed:(BOOL)autoAcceptAllowed {
     if (![userInfo isKindOfClass:[NSDictionary class]])
         return NO;
-    
+
     NSDictionary *pushStartDictionary = [self startPushInfoFromInfoDictionary:userInfo];
     BOOL isPushFromBackground = pushStartDictionary != nil || [self isAppInBackground];
-    
+
     if (pushStartDictionary) {
         userInfo = pushStartDictionary;
     }
-    
+
     if (![PWMessage isPushwooshMessage:userInfo]) {
         return NO;
     }
-    
+
     NSDictionary *pushDict = userInfo[@"aps"];
     if (!pushDict || ![pushDict isKindOfClass:[NSDictionary class]])
         return NO;
-    
+
     if (pushStartDictionary) {
         [PWManagerBridge shared].launchNotification = pushStartDictionary;
     }
-    
+
     NSString *hash = userInfo[@"p"];
     //check hash valid
     if (hash != nil && ![hash isKindOfClass:[NSString class]]) {
         return NO;
     }
-    
+
     if (![self checkDuplicate:userInfo]) {
         return NO;
     }
-    
+
     [self dispatchInboxPushIfNeeded:userInfo];
-    
+
 #if TARGET_OS_IPHONE
     if (![PWManagerBridge shared].showPushnotificationAlert && _config.sendPushStatIfAlertsDisabled && !isPushFromBackground && ![PWMessage isContentAvailablePush:userInfo]) {
         [[PWManagerBridge shared].dataManager sendStatsForPush:userInfo];
@@ -486,7 +485,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 #else
     [[PWManagerBridge shared].dataManager sendStatsForPush:userInfo];
 #endif
-    
+
     [self preHandlePushReceived:userInfo onStart:isPushFromBackground];
 
     if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(onPushReceived:withNotification:onStart:)]) {
@@ -501,10 +500,10 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         [invocation setArgument:&isPushFromBackground atIndex:4];
         [invocation invoke];
     }
-    
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         PWMessage *message = [[PWMessage alloc] initWithPayload:userInfo foreground:!isPushFromBackground];
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(pushwoosh:onMessageReceived:)]) {
                 id delegate = [PWManagerBridge shared].delegate;
@@ -523,7 +522,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
                                  className:self
                                    message:[NSString stringWithFormat:@"Method 'pushwoosh:onMessageReceived:' was called with payload: %@", userInfo]];
             }
-            
+
             if (autoAcceptAllowed && ![self showForegroundAlert:userInfo onStart:isPushFromBackground]) {
                 if (isPushFromBackground) {
                     [self handlePushAccepted:userInfo onStart:isPushFromBackground];
@@ -558,11 +557,11 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     }
     [self processUserInfo:userInfo];
     [self dispatchActionInboxPushIfNeeded:userInfo];
-    
+
 #if TARGET_OS_IPHONE
     [[PWManagerBridge shared].dataManager sendStatsForPush:userInfo];
 #endif
-    
+
     if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(onPushAccepted:withNotification:onStart:)]) {
         PWManagerBridge *bridge = [PWManagerBridge shared];
         NSMethodSignature *signature = [bridge.delegate methodSignatureForSelector:@selector(onPushAccepted:withNotification:onStart:)];
@@ -586,10 +585,10 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         [invocation invoke];
 #pragma clang diagnostic pop
     }
-    
+
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
         PWMessage *message = [[PWMessage alloc] initWithPayload:userInfo foreground:!onStart];
-        
+
         dispatch_async(dispatch_get_main_queue(), ^{
             if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(pushwoosh:onMessageOpened:)]) {
                 id delegate = [PWManagerBridge shared].delegate;
@@ -606,7 +605,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
             }
         });
     });
-    
+
     return YES;
 }
 
@@ -619,7 +618,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     if (![customData isKindOfClass:[NSString class]]) {
         return nil;
     }
-    
+
     return customData;
 }
 
@@ -627,15 +626,15 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     NSString *userdataStr = [self getCustomPushData:pushNotification];
     if (!userdataStr)
         return nil;
-    
+
     NSDictionary *userdata = [NSJSONSerialization JSONObjectWithData:[userdataStr dataUsingEncoding:NSUTF8StringEncoding]
                                                              options:NSJSONReadingMutableContainers
                                                                error:nil];
-    
+
     if (![userdata isKindOfClass:[NSDictionary class]]) {
         return nil;
     }
-    
+
     return userdata;
 }
 
@@ -645,7 +644,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     request.name = [PWUtils deviceName];
     request.desc = @"Imported from the app";
     request.autoCreated = NO;
-    
+
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {
             [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:@"Registered test device"];
@@ -674,7 +673,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 
     [_sessionRetry sendWithRetry:[self requestParameters:trimmedNumber platform:platform] completion:^(NSError *error) {
         [[PWPreferences preferences] setCustomTags:nil];
-        
+
         if (error == nil) {
             [PushwooshLog pushwooshLog:PW_LL_INFO
                              className:self
@@ -692,7 +691,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     _request.platform = platform;
     _request.token = token;
     _request.customTags = [[PWPreferences preferences] customTags];
-    
+
     return _request;
 }
 

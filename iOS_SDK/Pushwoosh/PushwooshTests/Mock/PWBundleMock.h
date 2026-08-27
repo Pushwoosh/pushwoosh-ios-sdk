@@ -1,5 +1,5 @@
 //
-//  NSBundle+PWNSBundleMock.h
+//  PWBundleMock.h
 //  PushwooshTests
 //
 //  Created by Fectum on 20/09/2018.

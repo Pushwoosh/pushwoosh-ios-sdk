@@ -82,32 +82,32 @@
 - (void)sendPurchase:(NSString *)productIdentifier withPrice:(NSDecimalNumber *)price currencyCode:(NSString *)currencyCode andDate:(NSDate *)date {
 	if (!price)
 		price = [NSDecimalNumber zero];
-    
+
 	if (!currencyCode)
 		currencyCode = @"USD";
-    
+
     if (!productIdentifier)
         productIdentifier = @"unknowProduct";
-        
+
     if (!date)
         date = [NSDate date];
-    
+
     PWPostEventRequest *postEventRequest = [PWPostEventRequest new];
-    
+
     postEventRequest.event = @"PW_InAppPurchase";
-    postEventRequest.attributes = @{@"productIdentifier": [self checkStringOrEempty:productIdentifier],
+    postEventRequest.attributes = @{@"productIdentifier": [self checkStringOrEmpty:productIdentifier],
                                     @"quantity": @1,
                                     @"__amount": price,
                                     @"transactionDate": [NSString stringWithFormat:@"%@", date],
                                     @"__currency": currencyCode,
                                     @"status": @"success"
     };
-    
+
     if (![postEventRequest.attributes isKindOfClass:[NSDictionary class]]) {
-        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Uncorrect attributes format"];
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Incorrect attributes format"];
         return;
     }
-    
+
     [_requestManager sendRequest:postEventRequest completion:^(NSError *error) {
         if (error) {
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"sendPurchase failed"];
@@ -120,7 +120,7 @@
 		NSString *productIdentifier = transaction.payment.productIdentifier;
         if (!productIdentifier)
             productIdentifier = @"unknowProduct";
-        
+
 		SKProduct *product = (self.productArray)[productIdentifier];
 		if (!product) {
             [PushwooshLog pushwooshLog:PW_LL_WARN
@@ -136,7 +136,7 @@
 		NSString *currencyCode = [product.priceLocale objectForKey:NSLocaleCurrencyCode];
 		if (!currencyCode)
 			currencyCode = @"USD";
-        
+
         NSString *status = @"";
         switch (transaction.transactionState) {
             case SKPaymentTransactionStatePurchased:
@@ -152,20 +152,20 @@
                 status = @"unknow";
                 break;
         }
-        
+
         NSDate *date = [NSDate date];
-        
+
         PWPostEventRequest *postEventRequest = [PWPostEventRequest new];
-        
+
         postEventRequest.event = @"PW_InAppPurchase";
-        postEventRequest.attributes = @{@"productIdentifier": [self checkStringOrEempty:productIdentifier],
+        postEventRequest.attributes = @{@"productIdentifier": [self checkStringOrEmpty:productIdentifier],
                                         @"quantity": @1,
                                         @"__amount": price,
                                         @"transactionDate": [NSString stringWithFormat:@"%@", date],
                                         @"__currency": currencyCode,
                                         @"status": status
         };
-        
+
         [_requestManager sendRequest:postEventRequest completion:^(NSError *error) {
             if (error) {
                 [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"sendPurchase failed"];
@@ -174,7 +174,7 @@
 	}
 }
 
-- (NSString *)checkStringOrEempty:(NSString *)string {
+- (NSString *)checkStringOrEmpty:(NSString *)string {
     return string != nil ? string : @"";
 }
 

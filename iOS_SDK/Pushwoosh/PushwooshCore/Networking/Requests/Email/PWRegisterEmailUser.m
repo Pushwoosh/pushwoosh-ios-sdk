@@ -9,7 +9,7 @@
 #import "PWRegisterEmailUser.h"
 #import "PWPreferences.h"
 
-@interface PWRegisterEmailUser () 
+@interface PWRegisterEmailUser ()
 
 @end
 
@@ -22,13 +22,13 @@
     dict[@"userId"] = self.userId;
     NSUInteger tzOffset = [[NSTimeZone localTimeZone] secondsFromGMT];
     dict[@"tz_offset"] = [NSNumber numberWithInteger:tzOffset];
-    
+
     if (dict[@"hwid"])
         [dict removeObjectForKey:@"hwid"];
-    
+
     if (dict[@"device_type"])
         [dict removeObjectForKey:@"device_type"];
-    
+
     return dict;
 }
 

@@ -8,7 +8,7 @@
 
 #import "PWTriggerInAppActionRequest.h"
 
-@interface PWTriggerInAppActionRequest () 
+@interface PWTriggerInAppActionRequest ()
 
 @end
 
@@ -16,20 +16,20 @@
 
 - (NSDictionary *)requestDictionary {
     NSMutableDictionary *dict = self.baseDictionary;
-    
+
     dict[@"action"] = @"show";
     dict[@"code"] = _inAppCode;
     dict[@"messageHash"] = _messageHash;
     dict[@"richMediaCode"] = _richMediaCode;
-    
+
     NSInteger timezone = [[NSTimeZone localTimeZone] secondsFromGMT];
     NSInteger timestampUTC = [[NSDate date] timeIntervalSince1970];
     NSInteger timestampCurrent = timestampUTC + timezone;
-    
-    
+
+
     dict[@"timestampUTC"] = @(timestampUTC);
     dict[@"timestampCurrent"] = @(timestampCurrent);
-    
+
     return dict;
 }
 

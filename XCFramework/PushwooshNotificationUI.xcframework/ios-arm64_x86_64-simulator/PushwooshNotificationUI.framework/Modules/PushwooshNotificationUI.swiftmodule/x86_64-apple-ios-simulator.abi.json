@@ -1653,168 +1653,168 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPage.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPage.swift",
       "kind": "FloatLiteral",
       "offset": 248,
       "length": 3,
       "value": "5.0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPage.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPage.swift",
       "kind": "IntegerLiteral",
       "offset": 295,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
       "kind": "StringLiteral",
       "offset": 226,
       "length": 12,
       "value": "\"pw_stories\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
       "kind": "StringLiteral",
       "offset": 273,
       "length": 7,
       "value": "\"pages\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
       "kind": "StringLiteral",
       "offset": 315,
       "length": 7,
       "value": "\"image\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
       "kind": "StringLiteral",
       "offset": 360,
       "length": 10,
       "value": "\"duration\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
       "kind": "StringLiteral",
       "offset": 404,
       "length": 6,
       "value": "\"link\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
       "kind": "StringLiteral",
       "offset": 451,
       "length": 14,
       "value": "\"button_title\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
       "kind": "StringLiteral",
       "offset": 500,
       "length": 7,
       "value": "\"title\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
       "kind": "StringLiteral",
       "offset": 545,
       "length": 10,
       "value": "\"subtitle\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
       "kind": "StringLiteral",
       "offset": 595,
       "length": 3,
       "value": "\"u\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryPayloadParser.swift",
       "kind": "StringLiteral",
       "offset": 636,
       "length": 10,
       "value": "\"userdata\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoriesPlayer.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoriesPlayer.swift",
       "kind": "IntegerLiteral",
       "offset": 798,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoriesPlayer.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoriesPlayer.swift",
       "kind": "BooleanLiteral",
       "offset": 954,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryImageLoader.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryImageLoader.swift",
       "kind": "Array",
       "offset": 332,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryImageLoader.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryImageLoader.swift",
       "kind": "IntegerLiteral",
       "offset": 1270,
       "length": 4,
       "value": "1500"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryProgressBarView.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryProgressBarView.swift",
       "kind": "Array",
       "offset": 284,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryProgressBarView.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryProgressBarView.swift",
       "kind": "Array",
       "offset": 348,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryProgressBarView.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/StoryProgressBarView.swift",
       "kind": "FloatLiteral",
       "offset": 414,
       "length": 3,
       "value": "0.3"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
       "kind": "Array",
       "offset": 1783,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
       "kind": "IntegerLiteral",
       "offset": 1877,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
       "kind": "IntegerLiteral",
       "offset": 1995,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 2154,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshNotificationUI\/PushwooshStoriesViewController.swift",
       "kind": "IntegerLiteral",
       "offset": 2208,
       "length": 1,

@@ -43,7 +43,7 @@
 @property (nonatomic, strong) NSMutableArray *sendTagsCompletions;
 @property (nonatomic, copy) NSString *reverseProxyUrl;
 @property (nonatomic, copy) NSDictionary<NSString *, NSString *> *customHeaders;
-@property (nonatomic, assign) BOOL firstQueueWarningEmitted;
+@property (nonatomic, strong) NSMutableSet<NSString *> *warnedQueueReasons;
 @property (nonatomic, strong) NSMutableSet<NSString *> *warnedRotationHosts;
 
 // gRPC transport class (dynamically loaded)
@@ -74,6 +74,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 		_sendTagsLock = [NSObject new];
 		_sendTagsCompletions = [NSMutableArray new];
 		_customHeaders = @{};
+		_warnedQueueReasons = [NSMutableSet new];
 		_warnedRotationHosts = [NSMutableSet new];
 
         _grpcTransportClass = NSClassFromString(@"PushwooshGRPC.PushwooshGRPCImplementation");
@@ -148,10 +149,12 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     }
 }
 
-- (BOOL)isReadyForNetwork {
+/// Single source of both the gate and its diagnostic: a new precondition added here automatically
+/// gets a warning, instead of queueing silently until someone remembers the second copy.
+- (NSString *)unmetReadinessReason {
     NSString *appCode = [PWPreferences preferences].appCode;
     if (appCode.length == 0) {
-        return NO;
+        return @"app_code is not set. Call Pushwoosh.configure.setAppCode() or set Pushwoosh_APPID in Info.plist.";
     }
     if ([PWConfig config].allowReverseProxy) {
         BOOL hasProxy;
@@ -159,10 +162,14 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
             hasProxy = (_reverseProxyUrl.length > 0);
         }
         if (!hasProxy) {
-            return NO;
+            return @"reverse proxy URL is not set. Call Pushwoosh.configure.setReverseProxy().";
         }
     }
-    return YES;
+    return nil;
+}
+
+- (BOOL)isReadyForNetwork {
+    return [self unmetReadinessReason] == nil;
 }
 
 - (void)evaluateReadiness {
@@ -280,28 +287,31 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     return [request baseUrl] ?: [self baseUrl];
 }
 
-- (void)logFirstQueueWarnIfNeeded:(PWRequest *)request {
-    BOOL shouldWarn = NO;
-    NSString *reason = nil;
-    @synchronized (self) {
-        if (!_firstQueueWarningEmitted) {
-            _firstQueueWarningEmitted = YES;
-            shouldWarn = YES;
-            if ([PWPreferences preferences].appCode.length == 0) {
-                reason = @"app_code is not set. Call Pushwoosh.configure.setAppCode() or set Pushwoosh_APPID in Info.plist.";
-            } else {
-                reason = @"reverse proxy URL is not set. Call Pushwoosh.configure.setReverseProxy().";
-            }
-        }
-    }
-    if (shouldWarn) {
+/// Called only for a request the provider actually queued, so the "will be queued" tail is always true.
+/// Warned once per reason, so a second unmet condition is still announced after the first one is fixed.
+- (void)logQueueWarnIfNeeded:(PWRequest *)request {
+    NSString *reason = [self unmetReadinessReason];
+    if (reason != nil && [self shouldWarnOnceForKey:reason inSet:_warnedQueueReasons]) {
         [PushwooshLog pushwooshLog:PW_LL_WARN
                          className:self
                            message:[NSString stringWithFormat:@"Pushwoosh SDK is not ready yet - %@ Requests will be queued until the SDK is ready.", reason]];
     }
+
     [PushwooshLog pushwooshLog:PW_LL_DEBUG
                      className:self
                        message:[NSString stringWithFormat:@"Queuing %@ until SDK is ready.", request.methodName]];
+}
+
+/// YES the first time a key is seen, NO afterwards. Shared by the queue-readiness and the shard-rotation
+/// warnings so a change to the once-per-key policy lands in one place.
+- (BOOL)shouldWarnOnceForKey:(NSString *)key inSet:(NSMutableSet<NSString *> *)seen {
+    @synchronized (self) {
+        if ([seen containsObject:key]) {
+            return NO;
+        }
+        [seen addObject:key];
+        return YES;
+    }
 }
 
 - (BOOL)isGRPCAvailable {
@@ -439,12 +449,17 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 }
 
 - (void)sendRequest:(PWRequest *)request completion:(void (^)(NSError *error))completion {
-    if (![[PWSdkStateProvider sharedInstance] isReady]) {
-        [self logFirstQueueWarnIfNeeded:request];
-        __weak typeof(self) wSelf = self;
-        [[PWSdkStateProvider sharedInstance] executeOrQueue:^{
-            [wSelf sendRequest:request completion:completion];
-        }];
+    __weak typeof(self) wSelf = self;
+    PWSdkQueueDecision decision = [[PWSdkStateProvider sharedInstance] queueUnlessReady:^{
+        [wSelf sendRequest:request completion:completion];
+    }];
+
+    if (decision == PWSdkQueueDecisionQueued) {
+        [self logQueueWarnIfNeeded:request];
+        return;
+    }
+
+    if (decision == PWSdkQueueDecisionDropped) {
         return;
     }
 
@@ -813,14 +828,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
         return;
     }
 
-    BOOL shouldWarn = NO;
-    @synchronized (self) {
-        if (![_warnedRotationHosts containsObject:newHost]) {
-            [_warnedRotationHosts addObject:newHost];
-            shouldWarn = YES;
-        }
-    }
-    if (!shouldWarn) {
+    if (![self shouldWarnOnceForKey:newHost inSet:_warnedRotationHosts]) {
         return;
     }
 

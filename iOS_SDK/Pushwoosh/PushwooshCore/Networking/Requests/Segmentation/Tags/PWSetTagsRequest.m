@@ -7,7 +7,7 @@
 #import "PWSetTagsRequest.h"
 #import "NSDate+PWDateUtils.h"
 
-@interface PWSetTagsRequest () 
+@interface PWSetTagsRequest ()
 
 @end
 

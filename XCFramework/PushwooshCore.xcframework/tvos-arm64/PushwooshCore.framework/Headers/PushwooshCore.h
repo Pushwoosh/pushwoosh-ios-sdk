@@ -44,7 +44,7 @@
 #import <PushwooshCore/PWIntegrationValidator.h>
 #import <PushwooshCore/PWPushPrimerBuilder.h>
 
-#define PUSHWOOSH_VERSION @"7.2.4"
+#define PUSHWOOSH_VERSION @"7.2.5"
 
 @interface PushwooshCoreManager : NSObject
 

@@ -8,7 +8,7 @@
 
 #import "PWBasePushTrackingRequest.h"
 
-@interface PWBasePushTrackingRequest () 
+@interface PWBasePushTrackingRequest ()
 
 @end
 
@@ -24,11 +24,11 @@
 - (NSDictionary *)requestDictionary {
     NSMutableDictionary *dict = [self baseDictionary];
     NSString *hash = _pushDict[@"p"];
-    
+
     if (hash != nil) {
         dict[@"hash"] = hash;
     }
-    
+
     return dict;
 }
 

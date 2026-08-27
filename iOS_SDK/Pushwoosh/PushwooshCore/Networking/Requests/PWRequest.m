@@ -57,13 +57,13 @@
 
 	dict[@"userId"] = _pinnedUserId ?: [PWPreferences preferences].userId;
 	dict[@"application"] = _pinnedAppCode ?: [PWPreferences preferences].appCode;
-    
+
     if (_usePreviousHWID && [PWUtils isValidHwid:[PWPreferences preferences].previosHWID]) {
         dict[@"hwid"] = [PWPreferences preferences].previosHWID;
     } else {
         dict[@"hwid"] = [PWPreferences preferences].hwid;
     }
-	
+
 	dict[@"v"] = PUSHWOOSH_VERSION;
 	dict[@"device_type"] = @(DEVICE_TYPE);
 

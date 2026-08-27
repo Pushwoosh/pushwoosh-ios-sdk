@@ -181,15 +181,15 @@
     return messages;
 }
 
-- (BOOL)removeExpiredMessageInDictionary:(NSMutableDictionary<NSString *, PWInboxMessageInternal *> *)dictionaty {
+- (BOOL)removeExpiredMessageInDictionary:(NSMutableDictionary<NSString *, PWInboxMessageInternal *> *)dictionary {
     NSMutableArray<NSString *> *removeKeys = [NSMutableArray new];
-    for (NSString *key in dictionaty.allKeys) {
-        PWInboxMessageInternal *message = dictionaty[key];
+    for (NSString *key in dictionary.allKeys) {
+        PWInboxMessageInternal *message = dictionary[key];
         if (message.isExpired) {
             [removeKeys addObject:key];
         }
     }
-    [dictionaty removeObjectsForKeys:removeKeys];
+    [dictionary removeObjectsForKeys:removeKeys];
     return removeKeys.count;
 }
 

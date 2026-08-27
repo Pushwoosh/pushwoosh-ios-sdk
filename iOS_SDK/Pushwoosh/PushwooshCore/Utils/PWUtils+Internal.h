@@ -1,5 +1,5 @@
 //
-//  PWRequest.h
+//  PWUtils+Internal.h
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2016
 //

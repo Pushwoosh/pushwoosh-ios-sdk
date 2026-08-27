@@ -1,5 +1,5 @@
 //
-//  RichPushManager.m
+//  PWRichPushManager.ios.m
 //	Pushwoosh SDK
 //
 

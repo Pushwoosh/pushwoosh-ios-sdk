@@ -1,5 +1,5 @@
 //
-//  PushNotificationManager.h
+//  PWInAppMessagesManager.m
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2015
 //
@@ -129,7 +129,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 - (void)addServerCommunicationStartedObserver {
     if (!_communicationStartedHandler) {
         _communicationStartedHandler = [[NSNotificationCenter defaultCenter] addObserverForName:kPWServerCommunicationStarted object:nil queue:NSOperationQueue.mainQueue usingBlock:^(NSNotification *note) {
-            
+
             [[NSNotificationCenter defaultCenter] removeObserver:self->_communicationStartedHandler];
             self->_communicationStartedHandler = nil;
 
@@ -201,7 +201,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         completion(nil, [PWUtils pushwooshError:@"Pushwoosh: Event is missing"]);
         return;
     }
-    
+
     if ([[PWPreferences preferences].appCode isEqualToString:@""]) {
         [PushwooshLog pushwooshLog:PW_LL_WARN
                          className:self
@@ -209,7 +209,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         completion(nil, [PWUtils pushwooshError:@"Pushwoosh App code is missing"]);
         return;
     }
-    
+
     if (![PWPreferences preferences].userId) {
         [PushwooshLog pushwooshLog:PW_LL_WARN
                          className:self
@@ -217,11 +217,11 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         completion(nil, [PWUtils pushwooshError:@"Pushwoosh User Id is missing"]);
         return;
     }
-    
+
     PWPostEventRequest *request = [PWPostEventRequest new];
     request.event = event;
     NSMutableDictionary *attributesDictionary = [NSMutableDictionary new];
-    
+
     if ([PWManagerBridge shared].dataManager.lastHash) {
         attributesDictionary[@"msgHash"] = [PWManagerBridge shared].dataManager.lastHash;
     }
@@ -235,13 +235,13 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         attributesDictionary[@"inAppCode"] = self.postEventInAppCode;
     }
 #endif
-    
+
     if (attributes) {
         [attributesDictionary addEntriesFromDictionary:attributes];
     }
-    
+
     request.attributes = attributesDictionary;
-    
+
     __weak typeof(self) wself = self;
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error) {
@@ -351,26 +351,26 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     if (lastRegDate) {
         lastRegPeriod = [[NSDate date] timeIntervalSinceDate:lastRegDate];
     }
-    
+
     if ([self isDeviceRestored]) {
         [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Device is restored from iCloud backup"];
     } else if ([[PWPreferences preferences].userId isEqualToString:userId] && (lastRegPeriod < kRegisterUserUpdateInterval)) {
         [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"/registerUser with same id already sent this day"];
         if (completion)
             completion(nil);
-        
+
         return;
     }
     NSString *previousUserId = [PWPreferences preferences].userId;
     [PWPreferences preferences].userId = userId;
     NSDate *previousRegisterUserDate = [PWPreferences preferences].lastRegisterUserDate;
     [PWPreferences preferences].lastRegisterUserDate = [NSDate date];
-    
+
     PWRegisterUserRequest *request = [PWRegisterUserRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {
             [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"User \"%@\" was successfully registered", userId]];
-            
+
             [[PWManagerBridge shared].inboxBridge updateInboxForNewUserId:^(NSUInteger messagesCount) {
                 if (messagesCount == 0) {
                     [[NSNotificationCenter defaultCenter] postNotificationName:PWInboxMessagesDidUpdateNotification
@@ -407,7 +407,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     request.srcUserId = oldUserId;
     request.dstUserId = newUserId;
     request.doMerge = doMerge;
-    
+
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (completion)
             completion(error);
@@ -463,7 +463,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
                     completion(error);
                 else
                     [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:@"Something went wrong with setEmail. Use completion handler to handle the error"];
-                
+
                 return;
             } else {
                 [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"Email %@ was successfully registered", email]];
@@ -542,14 +542,14 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 - (void)presentRichMediaFromPush:(NSDictionary *)userInfo {
     NSDictionary *richMedia = userInfo[@"rm"];
-    
+
     if (![richMedia isKindOfClass:[NSDictionary class]]) {
         [PushwooshLog pushwooshLog:PW_LL_ERROR
                          className:self
                            message:[NSString stringWithFormat:@"Invalid json type: %@, %@", [richMedia class], richMedia]];
         return;
     }
-    
+
     // Checked for type, not just for presence: the payload is remote, and a non-string url reached
     // -lastPathComponent below and crashed with unrecognized selector (a number is the easy case).
     NSString *url = [richMedia pw_stringForKey:@"url"];
@@ -574,17 +574,17 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
                            message:@"Timestamp is missing"];
         return;
     }
-    
+
     NSString *code = [[url lastPathComponent] stringByDeletingPathExtension];
     code = [@"r-" stringByAppendingString:code];  // avoid inapp and richmedia code conflicts
-    
+
     NSDictionary *dict = @{ @"code" : code,
                             @"url" : url,
                             @"closeButtonType" : @"YES",
                             @"layout" : @"topbanner",
                             @"updated" : ts,
                             @"tags" : tags };
-    
+
     PWResource *resource = [[PWInAppStorage storage] resourceForDictionary:dict];
 
     [resource getHTMLDataWithCompletion:^(NSString *htmlData, NSError *error) {
@@ -664,26 +664,26 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     if (![tags isKindOfClass:[NSDictionary class]]) {
         return @{};
     }
-    
+
     NSMutableDictionary *result = [tags mutableCopy];
     for (NSString *key in [tags keyEnumerator]) {
         id value = tags[key];
-        
+
         if (![key isKindOfClass:[NSString class]]) {
             [result removeObjectForKey:key];
             continue;
         }
-        
+
         if ([value isKindOfClass:[NSNumber class]]) {
             result[key] = [(NSNumber *)value stringValue];
             continue;
         }
-        
+
         if (![value isKindOfClass:[NSString class]]) {
             [result removeObjectForKey:key];
         }
     }
-    
+
     return result;
 }
 

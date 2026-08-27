@@ -22,6 +22,13 @@
 
 @class PWWebClient;
 
+typedef NS_ENUM(NSInteger, PWLinkAction) {
+    PWLinkActionBridge,
+    PWLinkActionIgnore,
+    PWLinkActionCloseOnly,
+    PWLinkActionCloseAndOpen
+};
+
 @protocol PWWebClientDelegate <NSObject>
 
 - (void)webClientDidFinishLoad:(PWWebClient *)webClient;

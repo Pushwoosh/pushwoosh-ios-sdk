@@ -1,6 +1,6 @@
 //
 //
-//  PushNotificationManager.h
+//  PWPostEventRequest.m
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2015
 //
@@ -8,7 +8,7 @@
 #import "PWPostEventRequest.h"
 #import "NSDate+PWDateUtils.h"
 
-@interface PWPostEventRequest () 
+@interface PWPostEventRequest ()
 
 @property (nonatomic, strong) NSString *resultCode;
 @property (nonatomic, strong) NSDictionary *richMedia;
@@ -81,18 +81,18 @@
 - (void)parseResponse:(NSDictionary *)response {
 	_resultCode = [response pw_stringForKey:@"code"];
     _messageHash = [response pw_stringForKey:@"message_hash"];
-    
+
     if ([_resultCode length] == 0) {
         if ([response objectForKey:@"richmedia"]){
             NSDictionary *richMediaDictionary = response[@"richmedia"];
-            
+
             if (![richMediaDictionary isKindOfClass:[NSDictionary class]]) {
                 [PushwooshLog pushwooshLog:PW_LL_ERROR
                                  className:self
                                    message:[NSString stringWithFormat:@"Invalid json type: %@, %@", [richMediaDictionary class], richMediaDictionary]];
                 return;
             }
-            
+
             // Typed, not just checked for presence: this is a server response, and a non-string url
             // reached -lastPathComponent below and crashed with unrecognized selector. Same block as
             // in -[PWInAppMessagesManager presentRichMediaFromPush:], reachable by postEvent instead
@@ -120,10 +120,10 @@
                                    message:@"Timestamp is missing"];
                 return;
             }
-            
+
             NSString *code = [[url lastPathComponent] stringByDeletingPathExtension];
             code = [@"r-" stringByAppendingString:code];  // avoid inapp and richmedia code conflicts
-            
+
             _richMedia = @{ @"code" : code,
                             @"url" : url,
                             @"closeButtonType" : @"YES",

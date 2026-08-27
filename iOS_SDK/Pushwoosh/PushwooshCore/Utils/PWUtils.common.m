@@ -1,5 +1,5 @@
 //
-//  PushUtils.m
+//  PWUtils.common.m
 //  PushNotificationManager
 //
 //  Created by User on 23/07/15.
@@ -158,6 +158,14 @@ void heavy_operation_impl(const char *function) {
 }
 
 + (void)applicationOpenURL:(NSURL *)url {
+}
+
++ (NSString *)loggableURLDescription:(NSURL *)url {
+    NSString *scheme = url.scheme.length > 0 ? url.scheme.lowercaseString : @"(no scheme)";
+    if (url.host.length > 0) {
+        return [NSString stringWithFormat:@"%@://%@", scheme, url.host.lowercaseString];
+    }
+    return [NSString stringWithFormat:@"%@:", scheme];
 }
 
 //Shortened urls (bit.ly etc.) are resolved to their final destination before opening.

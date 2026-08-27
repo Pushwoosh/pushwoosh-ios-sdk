@@ -867,8 +867,12 @@ extension PushwooshInboxKitViewController: UITableViewDataSourcePrefetching {
     public func tableView(_ tableView: UITableView, prefetchRowsAt indexPaths: [IndexPath]) {
         for indexPath in indexPaths {
             guard let message = dataSource.message(at: indexPath) else { continue }
-            if let url = PushwooshInboxKitAttributes.resolvedImageURL(from: message) {
+            // Both slots a card can fill: the hero attachment and the message icon.
+            if let url = PushwooshInboxKitAttributes.resolvedBannerURL(from: message) {
                 MessageImageLoader.shared.prefetch(url)
+            }
+            if let icon = PushwooshInboxKitAttributes.resolvedImageURL(from: message) {
+                MessageImageLoader.shared.prefetch(icon)
             }
             for slide in PushwooshInboxCarouselSlide.decode(from: message) {
                 MessageImageLoader.shared.prefetch(slide.imageUrl)

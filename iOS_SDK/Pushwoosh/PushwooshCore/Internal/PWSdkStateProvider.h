@@ -13,6 +13,13 @@ typedef NS_ENUM(NSInteger, PWSdkState) {
     PWSdkStateError
 };
 
+/// What `-queueUnlessReady:` did with the task it was handed.
+typedef NS_ENUM(NSInteger, PWSdkQueueDecision) {
+    PWSdkQueueDecisionSendNow,   // ready — the task was not touched, run it yourself
+    PWSdkQueueDecisionQueued,    // initializing — the task is in the queue
+    PWSdkQueueDecisionDropped    // error — the task was discarded and the drop was logged
+};
+
 NS_ASSUME_NONNULL_BEGIN
 
 FOUNDATION_EXPORT NSNotificationName const kPWAppCodeUpdatedNotification;
@@ -38,6 +45,10 @@ FOUNDATION_EXPORT NSString * const kPWActiveApplicationChangedAppCodeChangedKey;
 - (BOOL)isReady;
 
 - (void)executeOrQueue:(dispatch_block_t)task;
+
+/// Decides and acts under one acquisition of the provider's lock: the task is queued (initializing),
+/// discarded (error), or left untouched when ready so the caller can run it outside the lock.
+- (PWSdkQueueDecision)queueUnlessReady:(dispatch_block_t)task;
 
 - (void)setReady;
 

@@ -1,5 +1,5 @@
 //
-//  PWRichMediaAction.h
+//  PWRichMediaActionRequest.h
 //  Pushwoosh
 //
 //  Created by Andrei Kiselev on 14.6.23..

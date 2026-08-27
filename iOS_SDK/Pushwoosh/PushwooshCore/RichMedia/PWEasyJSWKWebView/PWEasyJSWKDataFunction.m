@@ -1,5 +1,5 @@
 //
-//  EasyJSDataFunction.m
+//  PWEasyJSWKDataFunction.m
 //  EasyJSWKWebView
 //
 //  Created by Alex Lau on 21/1/13.

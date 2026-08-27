@@ -33,7 +33,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
  `PushNotificationDelegate` protocol defines the methods that can be implemented in the delegate of the `PushNotificationManager` class' singleton object.
  These methods provide information about the key events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification.
  These methods implementation allows to react on these events properly.
- 
+
  Deprecated. Use PWMessagingDelegate instead.
  */
 @protocol PushNotificationDelegate
@@ -41,21 +41,21 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 @optional
 /**
  Tells the delegate that the application has registered with Apple Push Service (APS) successfully.
- 
+
  @param token A token used for identifying the device with APS.
  */
 - (void)onDidRegisterForRemoteNotificationsWithDeviceToken:(NSString *)token;
 
 /**
  Sent to the delegate when Apple Push Service (APS) could not complete the registration process successfully.
- 
+
  @param error An NSError object encapsulating the information about the reason of the registration failure. Within this method you can define application's behaviour in case of registration failure.
  */
 - (void)onDidFailToRegisterForRemoteNotificationsWithError:(NSError *)error;
 
 /**
  Tells the delegate that the push manager has received a remote notification.
- 
+
  @param pushManager The push manager that received the remote notification.
  @param pushNotification A dictionary that contains information referring to the remote notification, potentially including a badge number for the application icon, an alert sound, an alert message to display to the user, a notification identifier, and custom data.
  The provider originates it as a JSON-defined dictionary that iOS converts to an NSDictionary object; the dictionary may contain only property-list objects plus NSNull.
@@ -66,7 +66,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 /**
  Tells the delegate that the user has pressed OK on the push notification.
  IMPORTANT: This method is used for backwards compatibility and is deprecated. Please use the `onPushAccepted:withNotification:onStart:` method instead
- 
+
  @param pushManager The push manager that received the remote notification.
  @param pushNotification A dictionary that contains information referring to the remote notification, potentially including a badge number for the application icon, an alert sound, an alert message to display to the user, a notification identifier, and custom data.
  The provider originates it as a JSON-defined dictionary that iOS converts to an NSDictionary object; the dictionary may contain only property-list objects plus NSNull.
@@ -85,15 +85,15 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 /**
  Tells the delegate that a custom action was triggered when opening a notification.
- 
+
  @param identifier NSString containing an ID of a clicked button. This ID is set by a user when creating a category in the Pushwoosh Control Panel
- @param notification NSDictionary with push payload. 
+ @param notification NSDictionary with push payload.
 */
 - (void)onActionIdentifierReceived:(NSString *)identifier withNotification:(NSDictionary *)notification;
 
 /**
  Tells the delegate that the user has pressed on the push notification banner.
- 
+
  @param pushManager The push manager that received the remote notification.
  @param pushNotification A dictionary that contains information about the remote notification, potentially including a badge number for the application icon, an alert sound, an alert message to display to the user, a notification identifier, and custom data.
  The provider originates it as a JSON-defined dictionary that iOS converts to an NSDictionary object; the dictionary may contain only property-list objects plus NSNull.
@@ -107,14 +107,14 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
      p = 1pb;
  }
  @endcode
- 
+
  @param onStart If the application was not foreground when the push notification was received, the application will be opened with this parameter equal to `YES`, otherwise the parameter will be `NO`.
  */
 - (void)onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart;
 
 /**
  Tells the delegate that the push manager has received tags from the server.
- 
+
  @param tags Dictionary representation of received tags.
  Dictionary example:
  @code
@@ -128,21 +128,21 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 /**
  Sent to the delegate when push manager could not complete the tags receiving process successfully.
- 
+
  @param error An NSError object that encapsulates information why receiving tags did not succeed.
  */
 - (void)onTagsFailedToReceive:(NSError *)error;
 
 /**
  Tells the delegate that In-App with specified code has been closed
- 
+
  @param code In-App code
  */
 - (void)onInAppClosed:(NSString *)code __attribute__((deprecated("Use PWRichMediaPresentingDelegate protocol from PWRichMediaManager.h")));
 
 /**
  Tells the delegate that In-App with specified code has been displayed
- 
+
  @param code In-App code
  */
 - (void)onInAppDisplayed:(NSString *)code __attribute__((deprecated("Use PWRichMediaPresentingDelegate protocol from PWRichMediaManager.h")));
@@ -153,7 +153,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
  The method will be called on the delegate when the application is launched in response to the user's request to view in-app notification settings.
  Add UNAuthorizationOptionProvidesAppNotificationSettings as an option in [PushNotificationManager pushManager].additionalAuthorizationOptions to add a button to inline notification settings view and the notification settings view in Settings.
  The notification will be nil when opened from Settings.
- 
+
  @param pushManager PushNotificationManager instance
  @param notification Source notification
  */
@@ -170,7 +170,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 /**
  Creates a dictionary for incrementing/decrementing a numeric tag on the server.
- 
+
  Example:
  @code
  NSDictionary *tags = @{
@@ -178,33 +178,33 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
      @"FavNumber" : @([favNumField.text intValue]),
      @"price": [PWTags incrementalTagWithInteger:5],
  };
- 
+
  [[PushNotificationManager pushManager] setTags:tags];
  @endcode
- 
+
  @param delta Difference that needs to be applied to the tag's counter.
- 
+
  @return Dictionary, that needs to be sent as the value for the tag
  */
 + (NSDictionary *)incrementalTagWithInteger:(NSInteger)delta;
 
 /**
  Creates a dictionary for extending Tag’s values list with additional values
- 
+
  Example:
- 
+
  @code
  NSDictionary *tags = @{
      @"Alias" : aliasField.text,
      @"FavNumber" : @([favNumField.text intValue]),
      @"List" : [PWTags appendValuesToListTag:@[ @"Item1" ]]
  };
- 
+
  [[PushNotificationManager pushManager] setTags:tags];
  @endcode
- 
+
  @param array Array of values to be added to the tag.
- 
+
  @return Dictionary to be sent as the value for the tag
  */
 + (NSDictionary *)appendValuesToListTag:(NSArray<NSString *> *)array;
@@ -212,21 +212,21 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 /**
  Creates a dictionary for removing Tag’s values from existing values list
- 
+
  Example:
- 
+
  @code
  NSDictionary *tags = @{
      @"Alias" : aliasField.text,
      @"FavNumber" : @([favNumField.text intValue]),
      @"List" : [PWTags removeValuesFromListTag:@[ @"Item1" ]]
  };
- 
+
  [[PushNotificationManager pushManager] setTags:tags];
  @endcode
- 
+
  @param array Array of values to be removed from the tag.
- 
+
  @return Dictionary to be sent as the value for the tag
  */
 + (NSDictionary *)removeValuesFromListTag:(NSArray<NSString *> *)array;
@@ -235,7 +235,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 /**
  `PushNotificationManager` class offers access to the singleton-instance of the push manager responsible for registering the device with the APS servers, receiving and processing push notifications.
- 
+
  Deprecated. Use Pushwoosh class instead.
  */
 @interface PushNotificationManager : NSObject {
@@ -309,7 +309,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 /**
  Returns an object representing the current push manager.
- 
+
  @return A singleton object that represents the push manager.
  */
 + (PushNotificationManager *)pushManager;
@@ -344,23 +344,23 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 /**
  Start location tracking.
- 
+
  Deprecated. Use PushwooshGeozones framework.
  */
 - (void)startLocationTracking __attribute__((deprecated("Use PushwooshGeozones framework")));
 
 /**
  Stops location tracking
- 
+
  Deprecated. Use PushwooshGeozones framework.
  */
 - (void)stopLocationTracking __attribute__((deprecated("Use PushwooshGeozones framework")));
 
 /**
  Explicitly sends geolocation to the server for GeoFencing push technology. Also called internally, please use `startLocationTracking` and `stopLocationTracking` functions.
- 
+
  @param location Location to be sent.
- 
+
  Deprecated. Use PushwooshGeozones framework.
  */
 - (void)sendLocation:(CLLocation *)location __attribute__((deprecated("Use PushwooshGeozones framework")));
@@ -369,7 +369,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 /**
  Send tags to server. Tag names have to be created in the Pushwoosh Control Panel. Possible tag types: Integer, String, Incremental (integer only), List tags (array of values).
- 
+
  Example:
  @code
  NSDictionary *tags =  @{ @"Alias" : aliasField.text,
@@ -377,10 +377,10 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
                           @"price" : [PWTags incrementalTagWithInteger:5],
                            @"List" : @[ @"Item1", @"Item2", @"Item3" ]
  };
-	
+
  [[PushNotificationManager pushManager] setTags:tags];
  @endcode
- 
+
  @param tags Dictionary representation of tags to send.
  */
 - (void)setTags:(NSDictionary *)tags;
@@ -397,8 +397,8 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 /**
  Get tags from server. Calls delegate method if exists and handler (block).
- 
- @param successHandler The block is executed on the successful completion of the request. This block has no return value and takes one argument: the dictionary representation of the recieved tags.
+
+ @param successHandler The block is executed on the successful completion of the request. This block has no return value and takes one argument: the dictionary representation of the received tags.
  Example of the dictionary representation of the received tags:
  {
      Country = ru;
@@ -418,14 +418,14 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 #if TARGET_OS_IOS
 /**
  Sends in-app purchases to Pushwoosh. Use in paymentQueue:updatedTransactions: payment queue method (see example).
- 
+
  Example:
  @code
  - (void)paymentQueue:(SKPaymentQueue *)queue updatedTransactions:(NSArray *)transactions {
      [[PushNotificationManager pushManager] sendSKPaymentTransactions:transactions];
  }
  @endcode
- 
+
  @param transactions Array of SKPaymentTransaction items as received in the payment queue.
  */
 - (void)sendSKPaymentTransactions:(NSArray *)transactions;
@@ -433,7 +433,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 /**
  Tracks individual in-app purchase. See recommended `sendSKPaymentTransactions:` method.
- 
+
  @param productIdentifier purchased product ID
  @param price price for the product
  @param currencyCode currency of the price (ex: @"USD")
@@ -444,7 +444,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 #endif
 /**
  Gets current push token.
- 
+
  @return Current push token. May be nil if no push token is available yet.
  */
 - (NSString *)getPushToken;
@@ -452,7 +452,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 /**
  Gets HWID. Unique device identifier that used in all API calls with Pushwoosh.
  This is identifierForVendor for iOS >= 7.
- 
+
  @return Unique device identifier.
  */
 - (NSString *)getHWID;
@@ -468,7 +468,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 /**
  Gets APN payload from push notifications dictionary.
- 
+
  Example:
  @code
  - (void)onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart {
@@ -476,7 +476,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
      NSLog(@"%@", apnPayload);
  }
  @endcode
- 
+
  For Push dictionary sample:
  @code
  {
@@ -487,7 +487,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
      p = 1pb;
  }
  @endcode
- 
+
  Result is:
  @code
  {
@@ -501,7 +501,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 
 /**
  Gets custom JSON string data from push notifications dictionary as specified in Pushwoosh Control Panel.
- 
+
  Example:
  @code
  - (void)onPushAccepted:(PushNotificationManager *)pushManager withNotification:(NSDictionary *)pushNotification onStart:(BOOL)onStart {
@@ -509,7 +509,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
      NSLog(@"%@", customData);
  }
  @endcode
- 
+
  @param pushNotification Push notifications dictionary as received in `onPushAccepted: withNotification: onStart:`
  */
 - (NSString *)getCustomPushData:(NSDictionary *)pushNotification;
@@ -520,8 +520,8 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 - (NSDictionary *)getCustomPushDataAsNSDict:(NSDictionary *)pushNotification;
 
 /**
- Returns dictionary with enabled remove notificaton types.
- 
+ Returns dictionary with enabled remote notification types.
+
  Example enabled push:
  @code
  {
@@ -533,7 +533,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
  }
  @endcode
  where "type" field is UIUserNotificationType
- 
+
  Disabled push:
  @code
  {
@@ -544,7 +544,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 	type = 0;
  }
  @endcode
- 
+
  Note: In the latter example "enabled" field means that device can receive push notification but could not display alerts (ex: silent push)
  */
 + (NSMutableDictionary *)getRemoteNotificationStatus;
@@ -557,43 +557,43 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 /**
  Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
  This allows data and events to be matched across multiple user devices.
- 
+
  Deprecated. Use PWInAppManager setUserId method instead
  */
-- (void)setUserId:(NSString *)userId __attribute__ ((deprecated));;
+- (void)setUserId:(NSString *)userId __attribute__ ((deprecated));
 
 /**
  Move all events from oldUserId to newUserId if doMerge is true. If doMerge is false all events for oldUserId are removed.
- 
+
  @param oldUserId source user
  @param newUserId destination user
  @param doMerge if false all events for oldUserId are removed, if true all events for oldUserId are moved to newUserId
  @param completion callback
- 
+
  Deprecated. Use PWInAppManager mergeUserId method instead
  */
 - (void)mergeUserId:(NSString *)oldUserId to:(NSString *)newUserId doMerge:(BOOL)doMerge completion:(void (^)(NSError *error))completion __attribute__ ((deprecated));
 
 /**
  Post events for In-App Messages. This can trigger In-App message display as specified in Pushwoosh Control Panel.
- 
+
  Example:
  @code
  [[PushNotificationManager pushManager] setUserId:@"96da2f590cd7246bbde0051047b0d6f7"];
  [[PushNotificationManager pushManager] postEvent:@"buttonPressed" withAttributes:@{ @"buttonNumber" : @"4", @"buttonLabel" : @"Banner" } completion:nil];
  @endcode
- 
+
  @param event name of the event
  @param attributes NSDictionary of event attributes
  @param completion function to call after posting event
- 
+
  Deprecated. Use PWInAppManager postEvent method instead
  */
 - (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void (^)(NSError *error))completion __attribute__ ((deprecated));
 
 /**
  See `postEvent:withAttributes:completion:`
- 
+
  Deprecated. Use PWInAppManager postEvent method instead
  */
 - (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes __attribute__ ((deprecated));

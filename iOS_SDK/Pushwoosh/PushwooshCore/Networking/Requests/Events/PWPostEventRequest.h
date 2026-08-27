@@ -1,6 +1,6 @@
 //
 //
-//  PushNotificationManager.h
+//  PWPostEventRequest.h
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2015
 //

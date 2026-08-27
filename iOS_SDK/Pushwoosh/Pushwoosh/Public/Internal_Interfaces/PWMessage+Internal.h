@@ -1,5 +1,5 @@
 //
-//  PWMessage+PWMessage_Internal.h
+//  PWMessage+Internal.h
 //  Pushwoosh
 //
 //  Created by Fectum on 28.02.2020.

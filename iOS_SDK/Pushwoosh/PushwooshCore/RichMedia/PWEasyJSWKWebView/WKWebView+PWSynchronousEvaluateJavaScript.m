@@ -1,5 +1,5 @@
 //
-//  WKWebView+SynchronousEvaluateJavaScript.m
+//  WKWebView+PWSynchronousEvaluateJavaScript.m
 //  EasyJSWKWebView
 //
 //  Created by Zayin Krige on 2016/09/15.

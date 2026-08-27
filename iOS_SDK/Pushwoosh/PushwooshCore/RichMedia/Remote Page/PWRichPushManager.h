@@ -1,5 +1,5 @@
 //
-//  RichPushManager.h
+//  PWRichPushManager.h
 //	Pushwoosh SDK
 //
 

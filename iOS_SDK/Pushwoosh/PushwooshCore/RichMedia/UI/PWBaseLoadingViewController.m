@@ -28,24 +28,24 @@
     UIWindow *presentedWindow = [[PWInteractionDisabledWindow alloc] initWithFrame:bounds];
     presentedWindow.hidden = YES;
     presentedWindow.windowLevel = UIWindowLevelNormal + ([UIViewController instancesRespondToSelector:@selector(restoresFocusAfterTransition)] ? 1 : 0); //iOS 10 check
-    
+
     return presentedWindow;
 }
 
 - (void)presentInWindow:(UIWindow *)window {
     window.rootViewController = self;
-    
+
     Class sceneClass = NSClassFromString(@"UIWindowScene");
-    
+
     if (sceneClass) {
         #pragma clang diagnostic push
         #pragma clang diagnostic ignored "-Wpartial-availability"
         #pragma clang diagnostic ignored "-Warc-performSelector-leaks"
-        
+
         SEL scenesSelector = NSSelectorFromString(@"connectedScenes");
         SEL setWindowSceneSelector = NSSelectorFromString(@"setWindowScene:");
         NSArray *scenes = [(id)UIApplication.sharedApplication performSelector:scenesSelector];
-        
+
         for (id scene in scenes) {
             if ([scene isKindOfClass:sceneClass]) {
                 [window performSelector:setWindowSceneSelector withObject:scene];
@@ -55,7 +55,7 @@
 
         #pragma clang diagnostic pop
     }
-    
+
     self.view.frame = window.bounds;
     self.view.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
     [window makeKeyAndVisible];
@@ -73,7 +73,7 @@
         } else {
             supportedOrientations = [[UIApplication sharedApplication] supportedInterfaceOrientationsForWindow:window];
         }
-        
+
         _supportedOrientations = supportedOrientations;
     }
     return self;
@@ -85,22 +85,22 @@
 
 - (void)viewDidLoad {
     [super viewDidLoad];
-    
+
     PWLoadingView *loadingView = nil;
-    
+
     if (_richMediaStyle.loadingViewBlock) {
         loadingView = _richMediaStyle.loadingViewBlock();
     }
-    
+
     if (!loadingView || ![loadingView isKindOfClass:[PWLoadingView class]]) {
         loadingView = [PWLoadingView new];
     }
-    
+
     loadingView.frame = self.view.bounds;
     loadingView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:loadingView];
     [loadingView.cancelLoadingButton addTarget:self action:@selector(closeController) forControlEvents:UIControlEventTouchUpInside];
-    
+
     _loadingView = loadingView;
 }
 

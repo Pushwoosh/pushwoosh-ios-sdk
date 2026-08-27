@@ -491,14 +491,14 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshKeychain\/PWKeychainHelper.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshKeychain\/PWKeychainHelper.swift",
       "kind": "StringLiteral",
       "offset": 490,
       "length": 24,
       "value": "\"com.pushwoosh.keychain\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshKeychain\/PWKeychainHelper.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshKeychain\/PWKeychainHelper.swift",
       "kind": "StringLiteral",
       "offset": 548,
       "length": 17,

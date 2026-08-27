@@ -1,5 +1,5 @@
 //
-//  WKWebView+SynchronousEvaluateJavaScript.h
+//  WKWebView+PWSynchronousEvaluateJavaScript.h
 //  
 //
 //  Created by Zayin Krige on 2016/09/15.

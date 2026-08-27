@@ -1,5 +1,5 @@
 //
-//  WKUserScript+InterfacesScriptGenerator.m
+//  WKUserScript+PWInterfacesScriptGenerator.m
 //  EasyJSWKWebView
 //
 //  Created by Zayin Krige on 2016/10/05.

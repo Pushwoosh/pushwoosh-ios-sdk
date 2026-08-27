@@ -1,5 +1,5 @@
 //
-//  PWInAppStyle.m
+//  PWRichMediaStyle.m
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2018
 //

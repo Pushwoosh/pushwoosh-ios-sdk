@@ -136,7 +136,8 @@ open class PushwooshInboxBannerCell: PushwooshInboxCell {
 
     open override func apply(message: PWInboxMessageProtocol, attributes: PushwooshInboxKitAttributes) {
         let style = attributes.style
-        let imageURL = PushwooshInboxKitAttributes.resolvedImageURL(from: message)
+        // Hero slot takes the push attachment, falling back to the message icon.
+        let imageURL = PushwooshInboxKitAttributes.resolvedBannerURL(from: message)
 
         applyGlassBackdrop(in: card, imageURL: imageURL, style: style, cornerRadius: 18)
         card.layer.cornerRadius = 18

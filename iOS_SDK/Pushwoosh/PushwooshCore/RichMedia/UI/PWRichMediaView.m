@@ -28,12 +28,12 @@
     if (self = [super initWithFrame:frame]) {
         _webClient = [[PWWebClient alloc] initWithParentView:self payload:payload code:code inAppCode:inAppCode];
         _webClient.delegate = self;
-        
+
         #if TARGET_OS_IOS
         [_webClient.webView.scrollView addObserver:self forKeyPath:@"contentSize" options:NSKeyValueObservingOptionNew context:nil];
         self.backgroundColor = [UIColor clearColor];
         #endif
-        
+
         [self refreshContentSize];
     }
     return self;
@@ -42,9 +42,9 @@
 - (void)loadRichMedia:(PWRichMedia *)richMedia completion:(void (^)(NSError *))completion {
     _richMedia = richMedia;
     _completion = completion;
-    
+
     _webClient.richMedia = richMedia;
-    
+
     if (richMedia) {
         _richMedia.resource.locked = YES;
         [_richMedia.resource getHTMLDataWithCompletion:^(NSString *htmlData, NSError *error) {
@@ -53,7 +53,7 @@
                 [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorString];
                 error = [PWUtils pushwooshError:errorString];
             }
-            
+
             if (error) {
                 if (_completion) {
                     _completion(error);
@@ -61,12 +61,12 @@
             } else {
                 NSString *resPath = [_richMedia.resource localPath];
                 NSURL *baseURL = [NSURL fileURLWithPath:resPath isDirectory:YES];
-                
+
                 dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
                     NSURL *htmlDataFile = [[NSURL fileURLWithPath:resPath] URLByAppendingPathComponent:@"pw_prepared_rich_media.html"];
                     NSError *error = nil;
                     [htmlData writeToURL:htmlDataFile atomically:NO encoding:NSUTF8StringEncoding error:&error];
-                    
+
                     dispatch_async(dispatch_get_main_queue(), ^{
                         if (!error) {
                             if ([_webClient.webView respondsToSelector:@selector(loadFileURL:allowingReadAccessToURL:)]) {
@@ -102,7 +102,7 @@
                        context:(void *)context {
     if (object == _webClient.webView.scrollView && [keyPath isEqual:@"contentSize"]) {
         [self refreshContentSize];
-        
+
         if (_contentSizeDidChangeBlock && _richMedia) {
             _contentSizeDidChangeBlock();
         }
@@ -114,9 +114,9 @@
 
 - (void)webClientDidFinishLoad:(PWWebClient *)webClient {
     [self refreshContentSize];
-    
+
     [[PWManagerBridge shared].inAppMessagesManager trackInAppWithCode:_richMedia.resource.code action:PW_INAPP_ACTION_SHOW messageHash:[webClient.richMedia.pushPayload objectForKey:@"p"]];
-    
+
     if (_completion) {
         _completion(nil);
     }

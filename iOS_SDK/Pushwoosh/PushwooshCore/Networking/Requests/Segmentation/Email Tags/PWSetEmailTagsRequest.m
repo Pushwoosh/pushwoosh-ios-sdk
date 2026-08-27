@@ -9,7 +9,7 @@
 #import "PWSetEmailTagsRequest.h"
 #import "NSDate+PWDateUtils.h"
 
-@interface PWSetEmailTagsRequest () 
+@interface PWSetEmailTagsRequest ()
 
 @end
 
@@ -33,13 +33,13 @@
 
     dict[@"tags"] = mutableTags;
     dict[@"email"] = self.email;
-    
+
     if (dict[@"hwid"])
         [dict removeObjectForKey:@"hwid"];
-    
+
     if (dict[@"device_type"])
         [dict removeObjectForKey:@"device_type"];
-    
+
     return dict;
 }
 

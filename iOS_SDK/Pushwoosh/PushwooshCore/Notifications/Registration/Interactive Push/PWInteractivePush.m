@@ -1,5 +1,5 @@
 //
-//  InteractivePush.m
+//  PWInteractivePush.m
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2016
 //

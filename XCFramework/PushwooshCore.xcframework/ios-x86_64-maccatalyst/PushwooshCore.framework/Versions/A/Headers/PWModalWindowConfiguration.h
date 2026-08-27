@@ -1,5 +1,5 @@
 //
-//  PWRichMediaConfiguration.h
+//  PWModalWindowConfiguration.h
 //  Pushwoosh
 //
 //  Created by André Kis on 01.10.24.

@@ -1,5 +1,5 @@
 //
-//  PWRegisterUserRequest.h
+//  PWRegisterUserRequest.m
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2015
 //
@@ -10,7 +10,7 @@
 #import <PushwooshCore/PWInboxBridge.h>
 #endif
 
-@interface PWRegisterUserRequest () 
+@interface PWRegisterUserRequest ()
 
 @end
 
@@ -32,7 +32,5 @@
 
 	return dict;
 }
-
-
 
 @end

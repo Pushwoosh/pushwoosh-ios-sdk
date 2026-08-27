@@ -47,15 +47,27 @@ NSString * const kPWActiveApplicationChangedAppCodeChangedKey = @"appCodeChanged
     }
 }
 
-- (void)executeOrQueue:(dispatch_block_t)task {
+- (PWSdkQueueDecision)queueUnlessReady:(dispatch_block_t)task {
     @synchronized (_lock) {
         if (_currentState == PWSdkStateReady) {
-            task();
-        } else if (_currentState == PWSdkStateInitializing) {
+            return PWSdkQueueDecisionSendNow;
+        }
+        if (_currentState == PWSdkStateInitializing) {
             [_taskQueue addObject:[task copy]];
             [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"SDK is initializing, task queued."];
-        } else {
-            [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:@"SDK is in ERROR state, task ignored."];
+            return PWSdkQueueDecisionQueued;
+        }
+        [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:@"SDK is in ERROR state, task ignored."];
+        return PWSdkQueueDecisionDropped;
+    }
+}
+
+- (void)executeOrQueue:(dispatch_block_t)task {
+    /// Runs the task under `_lock` when ready, as it always has — callers that need the decision
+    /// without that (the request path) use `queueUnlessReady:` instead.
+    @synchronized (_lock) {
+        if ([self queueUnlessReady:task] == PWSdkQueueDecisionSendNow) {
+            task();
         }
     }
 }

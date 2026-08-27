@@ -1,5 +1,5 @@
 //
-//  PWPushNotificationManagerCommonTest.m
+//  PWPushNotificationsManagerCommonTest.m
 //  PushwooshTests
 //
 //  Created by Fectum on 20/09/2018.

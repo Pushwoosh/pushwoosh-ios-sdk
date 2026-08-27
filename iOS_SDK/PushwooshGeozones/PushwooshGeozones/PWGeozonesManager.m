@@ -12,7 +12,6 @@
 #import "PWLocationHelper.h"
 #import "PWSignificantLocationTracker.h"
 #import "PWSDKInterface.h"
-#import "PWGeozonesManager.h"
 
 #import <UIKit/UIKit.h>
 

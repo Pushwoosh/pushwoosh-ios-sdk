@@ -4588,56 +4588,56 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/API\/Requests\/PWRequestSetActivityToken.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/API\/Requests\/PWRequestSetActivityToken.swift",
       "kind": "StringLiteral",
       "offset": 260,
       "length": 25,
       "value": "\"PushwooshLiveActivities.PWRequestSetActivityToken\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/API\/Requests\/PWRequestSetPushToStartToken.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/API\/Requests\/PWRequestSetPushToStartToken.swift",
       "kind": "StringLiteral",
       "offset": 263,
       "length": 28,
       "value": "\"PushwooshLiveActivities.PWRequestSetPushToStartToken\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/API\/Requests\/PWRequestStopLiveActivity.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/API\/Requests\/PWRequestStopLiveActivity.swift",
       "kind": "StringLiteral",
       "offset": 260,
       "length": 25,
       "value": "\"PushwooshLiveActivities.PWRequestStopLiveActivity\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
       "kind": "Array",
       "offset": 635,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
       "kind": "Dictionary",
       "offset": 714,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
       "kind": "Dictionary",
       "offset": 791,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
       "kind": "StringLiteral",
       "offset": 1646,
       "length": 26,
       "value": "\"PWLiveActivitySentTokens\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshLiveActivities\/PushwooshLiveActivitiesImplementationSetup.swift",
       "kind": "Dictionary",
       "offset": 1748,
       "length": 3,

@@ -1,5 +1,5 @@
 //
-//  PWNetworkModule.m
+//  PWNetworkModule.h
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2016
 //

@@ -1,5 +1,5 @@
 //
-//  PushwooshOSCore.h
+//  PushwooshBridge.h
 //  PushwooshOSCore
 //
 //  Created by André Kis on 04.03.25.

@@ -1,5 +1,5 @@
 //
-//  InAppManager.m
+//  PWInAppManager.m
 //  PushNotificationManager
 //
 //  Created by Dmitry Malugin on 30/01/17.

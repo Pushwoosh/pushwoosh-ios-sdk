@@ -1,5 +1,5 @@
 //
-//  HtmlWebViewController.h
+//  PWHtmlWebViewController.ios.h
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2012
 //

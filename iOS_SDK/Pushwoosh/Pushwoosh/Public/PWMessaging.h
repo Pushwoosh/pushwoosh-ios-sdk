@@ -1,5 +1,5 @@
 //
-//  PushwooshFramework.h
+//  PWMessaging.h
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2024
 //

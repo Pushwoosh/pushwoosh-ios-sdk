@@ -6,11 +6,11 @@
 	<dict>
 		<key>Headers/PWInbox.h</key>
 		<data>
-		GRfD79JXN/XfwXZCuo7EBWh2Sv0=
+		QTewKXrtkqI9BSgyMy6kVYVdGuA=
 		</data>
 		<key>Headers/PWMessaging.h</key>
 		<data>
-		YUnTHOhZHQY7KxGyhDyAOjrx2Fk=
+		IAAhkEAJJpPjyMj6sQHm4b5PYow=
 		</data>
 		<key>Headers/PWNotificationExtensionManager.h</key>
 		<data>
@@ -18,7 +18,7 @@
 		</data>
 		<key>Headers/PushNotificationManager.h</key>
 		<data>
-		Gk4SWFflVaipsVSnoVpHMz3DG/k=
+		GhhlI1J0iSGjMHMBKRdOMQjvkv0=
 		</data>
 		<key>Headers/PushwooshFramework-Swift.h</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/PushwooshFramework.h</key>
 		<data>
-		Q/OA8R99EzpwWpyCirwyc26Xxrw=
+		t4oNcYS3hCToVXTRwFPPuhe6J9I=
 		</data>
 		<key>Headers/PushwooshNotificationServiceExtension.h</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		83Fri8uEzmFXngIQoyibWWnMKgg=
+		LRtO8ey01Ini4RYwNtTwtokgDPA=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		p/pKrwIExVRwR4BtaAF4O/SiA4o=
+		h3L+Jd/0Tue1BE6T9FheU5v+uFU=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
 		<data>
@@ -74,7 +74,7 @@
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		9TBz1K4Am0Nw0Q5HcK6i2LtMauQ=
+		OiBdq6Fh6XBDlNJAOXh2Nzcmz3E=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -91,14 +91,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Tv9SG7kG77cYvVQ8GvmUUw1+STzL0KBfGK5JemZnnG8=
+			6dPy9THeYQt9xbMQoAs6qlLidlNbwoQQ3MnCptsMnjs=
 			</data>
 		</dict>
 		<key>Headers/PWMessaging.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5vuZhC9YYcRObXkreTJNSqOYsO9l+qo5+Zcqsotunr8=
+			/TVgYJXVxoCJGt/7B0TKg0aqnInxr8ubwLw7uX8+6iM=
 			</data>
 		</dict>
 		<key>Headers/PWNotificationExtensionManager.h</key>
@@ -112,7 +112,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LLM/ctyn8S2bmBUgcXMTs9Zyod+Rcgw4vLNR8O3iyOc=
+			zShtf92vPxfcK5fLFNyQfaPe7Usid7PGLYGvIVz+rts=
 			</data>
 		</dict>
 		<key>Headers/PushwooshFramework-Swift.h</key>
@@ -126,7 +126,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tRmRV63xlg7Bi0tsnXAzuVaiyOT4Jk9lwYyAeUuOGnE=
+			RTizOA3VNbuqm9AS9Yd2VxtIPMepSqLREhVeEWuBCsc=
 			</data>
 		</dict>
 		<key>Headers/PushwooshNotificationServiceExtension.h</key>
@@ -168,7 +168,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			0+dJpz3akgQ56PC8zc5mip0go7kTIkkBkPVtEFmqjL8=
+			IfKhwiVz1zxFfXKFbPIpt/Lw+JhotOuxYuCtdHRz8Tc=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
@@ -203,7 +203,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			aYN770VSYl8v90SIfpOhtoKiEeofYLUbFaBwrmx+1zI=
+			LPjHuAGGtdwzJWjoifVATMy/Er6+4+/3ukyAGYBXrnE=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

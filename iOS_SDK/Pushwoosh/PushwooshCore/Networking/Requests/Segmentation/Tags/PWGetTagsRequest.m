@@ -6,7 +6,7 @@
 
 #import "PWGetTagsRequest.h"
 
-@interface PWGetTagsRequest () 
+@interface PWGetTagsRequest ()
 
 @property (nonatomic, copy) NSDictionary *tags;
 

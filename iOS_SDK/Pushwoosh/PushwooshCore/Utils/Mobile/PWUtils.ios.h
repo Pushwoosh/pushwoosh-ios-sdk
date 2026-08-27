@@ -1,5 +1,5 @@
 //
-//  PWUtils.h
+//  PWUtils.ios.h
 //  PushNotificationManager
 //
 //  Created by Kaizer on 07/06/16.

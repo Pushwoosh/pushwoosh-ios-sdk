@@ -149,7 +149,7 @@ public struct PushwooshInboxKitAttributes {
     ///   With none it degrades to `classic`.
     public static let defaultCellKindResolver: (PWInboxMessageProtocol) -> String = { message in
         let serverType = readDisplayType(from: message)
-        let hasImage = resolvedImageURL(from: message) != nil
+        let hasImage = resolvedBannerURL(from: message) != nil
 
         let requested: String
         if let serverType = serverType, ["banner", "captioned", "classic", "carousel", "video", "wallet"].contains(serverType) {
@@ -278,10 +278,47 @@ public struct PushwooshInboxKitAttributes {
         return nil
     }
 
-    /// Resolves the single image URL for a card: `message.imageUrl` first, then `actionParams`
-    /// (`image` at root, or inside `u` as a dict or a JSON-encoded string). Pushwoosh inbox pushes
-    /// deliver custom data — including the image — inside `u`, so cards must look there too.
-    static func resolvedImageURL(from message: PWInboxMessageProtocol) -> String? {
+    /// The hero image of a `banner` / `captioned` card: the attachment that travels with the
+    /// push, read from `actionParams["attachment"]` — and from `"b"`, the key the Android inbox
+    /// UI uses for the same picture, so one payload feeds both platforms. Only `http`/`https`
+    /// values are accepted. Falls back to ``resolvedImageURL(from:)`` so a payload carrying just
+    /// an icon still renders a card instead of degrading to `classic`.
+    ///
+    /// Kept separate from ``resolvedImageURL(from:)`` on purpose: that one is the message icon,
+    /// which belongs in the small round avatar, not in the hero slot. Custom cells that fill both
+    /// slots should call this for the hero and ``resolvedImageURL(from:)`` for the icon, and skip
+    /// the icon when the two return the same URL — that means the payload had only one picture.
+    ///
+    /// ```swift
+    /// let hero = PushwooshInboxKitAttributes.resolvedBannerURL(from: message)
+    /// let icon = PushwooshInboxKitAttributes.resolvedImageURL(from: message)
+    /// iconView.isHidden = icon == nil || icon == hero
+    /// ```
+    ///
+    /// - Parameter message: The inbox message being rendered.
+    /// - Returns: The hero image URL, or `nil` when the message carries no picture at all.
+    public static func resolvedBannerURL(from message: PWInboxMessageProtocol) -> String? {
+        if let params = message.actionParams as NSDictionary? {
+            for key in ["attachment", "b"] {
+                if let value = params[key] as? String,
+                   value.hasPrefix("http://") || value.hasPrefix("https://") {
+                    return value
+                }
+            }
+        }
+        return resolvedImageURL(from: message)
+    }
+
+    /// The message icon: `message.imageUrl` first, then `actionParams` — `image` at the root, or
+    /// inside `u` as a dictionary or a JSON-encoded string. Pushwoosh inbox pushes deliver custom
+    /// data, the image among it, inside `u`, so cards have to look there too.
+    ///
+    /// This is the small round avatar in `classic` and `captioned`. For the large hero picture use
+    /// ``resolvedBannerURL(from:)``.
+    ///
+    /// - Parameter message: The inbox message being rendered.
+    /// - Returns: The icon URL, or `nil` when the message has none.
+    public static func resolvedImageURL(from message: PWInboxMessageProtocol) -> String? {
         if let direct = message.imageUrl, !direct.isEmpty { return direct }
         guard let params = message.actionParams as NSDictionary? else { return nil }
         if let img = params["image"] as? String, !img.isEmpty { return img }

@@ -1,5 +1,5 @@
 //
-//  PushNotificationManager.h
+//  Pushwoosh+Internal.h
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2015
 //

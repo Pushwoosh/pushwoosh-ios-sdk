@@ -133,6 +133,56 @@
     XCTAssertEqual(_provider.currentState, PWSdkStateError);
 }
 
+#pragma mark - queueUnlessReady Tests
+
+/// Ready: the task is left to the caller to run outside the provider's lock.
+- (void)testQueueUnlessReady_readyLeavesTaskToTheCaller {
+    [_provider setReady];
+
+    __block BOOL executed = NO;
+    PWSdkQueueDecision decision = [_provider queueUnlessReady:^{ executed = YES; }];
+
+    XCTAssertEqual(decision, PWSdkQueueDecisionSendNow);
+    XCTAssertFalse(executed);
+    XCTAssertEqual(_provider.taskQueue.count, 0);
+}
+
+/// Initializing: the task is queued before the decision is returned.
+- (void)testQueueUnlessReady_initializingQueuesTheTask {
+    __block BOOL executed = NO;
+    PWSdkQueueDecision decision = [_provider queueUnlessReady:^{ executed = YES; }];
+
+    XCTAssertEqual(decision, PWSdkQueueDecisionQueued);
+    XCTAssertFalse(executed);
+    XCTAssertEqual(_provider.taskQueue.count, 1);
+}
+
+/// Error: the task is discarded before the decision is returned.
+- (void)testQueueUnlessReady_errorDropsTheTask {
+    [_provider setError];
+
+    __block BOOL executed = NO;
+    PWSdkQueueDecision decision = [_provider queueUnlessReady:^{ executed = YES; }];
+
+    XCTAssertEqual(decision, PWSdkQueueDecisionDropped);
+    XCTAssertFalse(executed);
+    XCTAssertEqual(_provider.taskQueue.count, 0);
+}
+
+/// A task reported as queued is one that setReady will actually run — the decision and the queueing
+/// are the same acquisition of the lock, so no state change can land between them.
+- (void)testQueueUnlessReady_taskReportedAsQueuedIsTheOneThatRuns {
+    __block BOOL executed = NO;
+    XCTAssertEqual([_provider queueUnlessReady:^{ executed = YES; }], PWSdkQueueDecisionQueued);
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"flush"];
+    [_provider setReady];
+    dispatch_async(dispatch_get_main_queue(), ^{ [expectation fulfill]; });
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+
+    XCTAssertTrue(executed);
+}
+
 #pragma mark - executeOrQueue Tests
 
 /// Verifies that tasks are queued when state is Initializing.

@@ -14,26 +14,26 @@
 
 - (instancetype)initWithFrame:(CGRect)frame {
     self = [super initWithFrame:frame];
-    
+
     if (self) {
         UIView *downloadIndicatorBackground = [self createDownloadIndicatorBackground];
-        
+
         _activityIndicatorView = [self createDownloadIndicator];
-        
+
         downloadIndicatorBackground.autoresizingMask = _activityIndicatorView.autoresizingMask = [self downloadAutoresizing];
-        
+
         downloadIndicatorBackground.center = _activityIndicatorView.center = self.center;
-        
+
         [self addSubview:downloadIndicatorBackground];
         [self addSubview:_activityIndicatorView];
-        
+
         [_activityIndicatorView startAnimating];
-        
+
         _cancelLoadingButton = [PWUtils webViewCloseButton];
-        
+
         [self addSubview:_cancelLoadingButton];
     }
-    
+
     return self;
 }
 

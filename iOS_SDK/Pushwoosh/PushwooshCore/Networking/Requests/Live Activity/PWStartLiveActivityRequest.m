@@ -16,9 +16,9 @@
 
 - (NSDictionary *)requestDictionary {
     NSMutableDictionary *dict = self.baseDictionary;
-    
+
     dict[@"activity_push_to_start_token"] = _token;
-    
+
     return dict;
 }
 

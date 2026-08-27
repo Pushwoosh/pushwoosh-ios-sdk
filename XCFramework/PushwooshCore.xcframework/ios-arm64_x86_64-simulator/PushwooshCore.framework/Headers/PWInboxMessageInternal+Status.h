@@ -1,5 +1,5 @@
 //
-//  PWInboxMessageInternal+Network.h
+//  PWInboxMessageInternal+Status.h
 //  Pushwoosh
 //
 //  Created by Victor Eysner on 25/10/2017.

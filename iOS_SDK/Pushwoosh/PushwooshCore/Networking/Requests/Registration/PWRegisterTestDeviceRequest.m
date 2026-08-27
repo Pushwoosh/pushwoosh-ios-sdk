@@ -6,7 +6,7 @@
 
 #import "PWRegisterTestDeviceRequest.h"
 
-@interface PWRegisterDeviceRequest () 
+@interface PWRegisterDeviceRequest ()
 
 @end
 

@@ -1,5 +1,5 @@
 //
-//  PushNotificationManager.h
+//  PWGetResourcesRequest.h
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2015
 //

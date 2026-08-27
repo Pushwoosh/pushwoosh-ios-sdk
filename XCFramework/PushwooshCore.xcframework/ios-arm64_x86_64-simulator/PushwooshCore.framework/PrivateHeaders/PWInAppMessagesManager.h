@@ -1,5 +1,5 @@
 //
-//  PushNotificationManager.h
+//  PWInAppMessagesManager.h
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2016
 //

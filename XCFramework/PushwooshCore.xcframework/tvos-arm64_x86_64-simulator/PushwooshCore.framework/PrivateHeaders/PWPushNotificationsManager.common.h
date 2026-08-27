@@ -1,5 +1,5 @@
 //
-//  PWPushNotificationsManager.h
+//  PWPushNotificationsManager.common.h
 //  PushNotificationManager
 //
 //  Created by Kaizer on 06/06/16.

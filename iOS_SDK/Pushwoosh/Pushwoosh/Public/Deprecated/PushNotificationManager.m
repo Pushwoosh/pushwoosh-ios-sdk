@@ -46,10 +46,10 @@ static dispatch_once_t pushManagerOncePredicate;
 - (instancetype)init {
     if (self = [super init]) {
         [Pushwoosh sharedInstance];
-        
+
         if (![PWConfig config].isUsingPluginForPushHandling) {
             _notificationCenterDelegate = [[PWUserNotificationCenterDelegate alloc] initWithNotificationManager:[Pushwoosh sharedInstance].pushNotificationManager];
-        } 
+        }
     }
     return self;
 }
@@ -191,7 +191,7 @@ static dispatch_once_t pushManagerOncePredicate;
 
 - (void)informUserAboutGeozones {
     NSString *message = @"This Geozones API is deprecated. Please use PushwooshGeozones Framework";
-    
+
     if ([PWUtils getAPSProductionStatus:NO]) {
         [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:message];
     } else {

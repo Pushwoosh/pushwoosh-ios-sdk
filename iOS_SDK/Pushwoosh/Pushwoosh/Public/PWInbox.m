@@ -193,7 +193,7 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
 
 + (void)addInboxMessageFromPushNotification:(NSDictionary *)userInfo {
     PWInboxMessageInternal *message = [PWInboxMessageInternal messageWithPushNotification:userInfo];
-    
+
     if (message) {
         if (message.message) {
             [[PWInbox sharedInstance].storage addInboxMessageFromPushNotification:message];

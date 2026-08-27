@@ -279,7 +279,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"7.2.4"
+#define PUSHWOOSH_VERSION @"7.2.5"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy, PushwooshConfig;
@@ -1009,7 +1009,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 #if TARGET_OS_IOS
 /**
  Sends in-app purchases to Pushwoosh. Use in paymentQueue:updatedTransactions: payment queue method (see example).
- 
+
  Example:
 
  ```swift
@@ -1017,14 +1017,14 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
      Pushwoosh.configure.sendSKPaymentTransactions(transactions)
  }
  ```
- 
+
  @param transactions Array of SKPaymentTransaction items as received in the payment queue.
  */
 - (void)sendSKPaymentTransactions:(NSArray * _Nonnull)transactions;
 
 /**
  Tracks individual in-app purchase. See recommended `sendSKPaymentTransactions:` method.
- 
+
  @param productIdentifier purchased product ID
  @param price price for the product
  @param currencyCode currency of the price (ex: @"USD")
@@ -1102,8 +1102,8 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 - (NSString * _Nonnull)getUserId;
 
 /**
- Returns dictionary with enabled remove notificaton types.
- 
+ Returns dictionary with enabled remote notification types.
+
  Example enabled push:
 
  ```
@@ -1129,7 +1129,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
     type = 0;
  }
  ```
- 
+
  Note: In the latter example "enabled" field means that device can receive push notification but could not display alerts (ex: silent push)
  */
 + (NSMutableDictionary * _Nullable)getRemoteNotificationStatus;
@@ -1295,7 +1295,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 /**
  Sends push to start live activity token to the server.
  Call this method when you want to initiate live activity via push notification
- 
+
  Example:
 
  ```swift
@@ -1313,12 +1313,12 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 - (void)sendPushToStartLiveActivityToken:(NSString *_Nullable)token
 __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: ) instead.")));
 - (void)sendPushToStartLiveActivityToken:(NSString *_Nullable)token completion:(void (^ _Nullable)(NSError * _Nullable))completion
-__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: , completion: ) instead.")));;
+__attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: , completion: ) instead.")));
 
 /**
  Sends live activity token to the server.
  Call this method when you create a live activity.
- 
+
  Example:
 
  ```swift
@@ -1336,15 +1336,15 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
      return nil
  }
  ```
- 
+
  @param token Activity token
  @param activityId Activity ID for updating Live Activities by segments
  */
 - (void)startLiveActivityWithToken:(NSString * _Nonnull)token
-                        activityId:(NSString * _Nullable)activityId 
+                        activityId:(NSString * _Nullable)activityId
 __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use Pushwoosh.LiveActivities.startLiveActivity(token: , activityId: ) instead.")));
 ;
-- (void)startLiveActivityWithToken:(NSString * _Nonnull)token 
+- (void)startLiveActivityWithToken:(NSString * _Nonnull)token
                         activityId:(NSString * _Nullable)activityId
                         completion:(void (^ _Nullable)(NSError * _Nullable error))completion
 __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be removed within 6 months. Use startLiveActivity(token: , activityId: , completion: ) instead.")));
@@ -1352,7 +1352,7 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
 
 /**
  Call this method when you finish working with the live activity.
- 
+
  Example:
 
  ```swift
@@ -1420,7 +1420,7 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
 @interface PWTagsBuilder : NSObject
 /**
  Creates a dictionary for incrementing/decrementing a numeric tag on the server.
- 
+
  Example:
 
  ```swift
@@ -1433,14 +1433,14 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
  ```
 
  @param delta Difference that needs to be applied to the tag's counter.
- 
+
  @return Dictionary, that needs to be sent as the value for the tag
  */
 + (NSDictionary * _Nullable)incrementalTagWithInteger:(NSInteger)delta;
 
 /**
  Creates a dictionary for extending Tag’s values list with additional values
- 
+
  Example:
 
  ```swift
@@ -1453,14 +1453,14 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
  ```
 
  @param array Array of values to be added to the tag.
- 
+
  @return Dictionary to be sent as the value for the tag
  */
 + (NSDictionary * _Nullable)appendValuesToListTag:(NSArray<NSString *> * _Nonnull)array;
 
 /**
  Creates a dictionary for removing Tag’s values from existing values list
- 
+
  Example:
 
  ```swift
@@ -1473,7 +1473,7 @@ __attribute__((deprecated("Since 6.8.0: This method is deprecated and will be re
  ```
 
  @param array Array of values to be removed from the tag.
- 
+
  @return Dictionary to be sent as the value for the tag
  */
 + (NSDictionary * _Nullable)removeValuesFromListTag:(NSArray<NSString *> * _Nonnull)array;

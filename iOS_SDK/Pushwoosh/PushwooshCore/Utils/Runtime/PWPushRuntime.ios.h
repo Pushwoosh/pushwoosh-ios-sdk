@@ -1,5 +1,5 @@
 //
-//  PushRuntime.h
+//  PWPushRuntime.ios.h
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2012
 //

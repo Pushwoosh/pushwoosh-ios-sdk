@@ -77,7 +77,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
             dict[@"push_token"] = whatsappToken;
             break;
         }
-        
+
         case iOS: {
             BOOL sandbox = ![PWUtils getAPSProductionStatus:NO];
             dict[@"gateway"] = sandbox ? @"sandbox" : @"production";
@@ -91,7 +91,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
             }
             break;
         }
-            
+
         default:
             break;
     }
@@ -108,9 +108,9 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     NSArray *iosCategories = response[@"iosCategories"];
     if (!iosCategories || ![iosCategories isKindOfClass:[NSArray class]] || [iosCategories count] == 0)
         return;
-    
+
     [PWInteractivePush savePushwooshCategories:iosCategories];
-    
+
     [PWInteractivePush getCategoriesWithCompletion:^(NSSet *categories) {
         [[[PWPlatformModule module] notificationManagerCompat] registerUserNotifications:categories completion:nil];
     }];

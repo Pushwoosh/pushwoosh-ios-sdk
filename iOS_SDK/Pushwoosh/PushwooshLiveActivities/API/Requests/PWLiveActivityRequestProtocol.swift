@@ -1,5 +1,5 @@
 //
-//  PWLiveActivityRequest.swift
+//  PWLiveActivityRequestProtocol.swift
 //  PushwooshLiveActivities
 //
 //  Created by André Kis on 12.03.25.

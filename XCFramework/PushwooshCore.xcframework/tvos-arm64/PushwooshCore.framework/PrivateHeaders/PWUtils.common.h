@@ -1,5 +1,5 @@
 //
-//  PushUtils.h
+//  PWUtils.common.h
 //  PushNotificationManager
 //
 //  Created by User on 23/07/15.
@@ -49,6 +49,10 @@ void heavy_operation_impl(const char *function);
 + (NSError *)pushwooshErrorWithCode:(NSInteger)errorCode description:(NSString *)description;
 
 + (void)openUrl:(NSURL *)url;
+
+/// Scheme and host only, never path, query or resource specifier: deeplinks carry tokens and
+/// opaque URLs carry the user's phone number or email, and PushwooshLog writes unredacted os_log.
++ (NSString *)loggableURLDescription:(NSURL *)url;
 
 + (void)swizzle:(Class)cls fromSelector:(SEL)fromChange toSelector:(SEL)toChange implementation:(IMP)impl typeEncoding:(const char *)typesEncoding;
 

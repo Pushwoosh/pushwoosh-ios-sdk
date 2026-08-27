@@ -1,5 +1,5 @@
 //
-//  PWRequestVoIPTokenUnregistration.swift
+//  PWRequestVoIPDeviceUnregister.swift
 //  PushwooshVoIP
 //
 //  Created by André on 14.05.25.

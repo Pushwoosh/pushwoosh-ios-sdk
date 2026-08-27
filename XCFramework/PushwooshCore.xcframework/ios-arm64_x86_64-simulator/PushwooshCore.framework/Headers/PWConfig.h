@@ -121,7 +121,7 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
 /**
  key: Pushwoosh_ALLOW_COLLECTING_EVENTS
  type: boolean
- value: Allows the SDK to send events (PW_ScreenOpen, PW_ApplicationOpen, PW_ApplicationMinimized) request ti the server (by default it is allwed)
+ value: Allows the SDK to send events (PW_ScreenOpen, PW_ApplicationOpen, PW_ApplicationMinimized) requests to the server (by default it is allowed)
  */
 @property (nonatomic, assign, readonly) BOOL isCollectingLifecycleEventsAllowed;
 

@@ -6,7 +6,7 @@
 
 #import "PWUnregisterDeviceRequest.h"
 
-@interface PWUnregisterDeviceRequest () 
+@interface PWUnregisterDeviceRequest ()
 
 @end
 

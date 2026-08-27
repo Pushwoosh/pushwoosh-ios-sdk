@@ -30,35 +30,35 @@ FOUNDATION_EXPORT NSString * const PWInboxMessagesDidReceiveInPushNotification;
 
 /**
  Get the number of the PWInboxMessageProtocol with no action performed
- 
+
  @param completion - if successful, return the number of the InboxMessages with no action performed. Otherwise, return error
  */
 + (void)messagesWithNoActionPerformedCountWithCompletion:(void (^)(NSInteger count, NSError *error))completion;
 
 /**
  Get the number of the unread PWInboxMessageProtocol
- 
+
  @param completion - if successful, return the number of the unread InboxMessages. Otherwise, return error
  */
 + (void)unreadMessagesCountWithCompletion:(void (^)(NSInteger count, NSError *error))completion;
 
 /**
  Get the total number of the PWInboxMessageProtocol
- 
+
  @param completion - if successful, return the total number of the InboxMessages. Otherwise, return error
  */
 + (void)messagesCountWithCompletion:(void (^)(NSInteger count, NSError *error))completion;
 
 /**
  Get the collection of the PWInboxMessageProtocol that the user received
- 
+
  @param completion - if successful, return the collection of the InboxMessages. Otherwise, return error
  */
 + (void)loadMessagesWithCompletion:(void (^)(NSArray<NSObject<PWInboxMessageProtocol> *> *messages, NSError *error))completion;
 
 /**
  Call this method to mark the list of InboxMessageProtocol as read
- 
+
  @param codes of the inboxMessages
  */
 + (void)readMessagesWithCodes:(NSArray<NSString *> *)codes;
@@ -101,14 +101,14 @@ FOUNDATION_EXPORT NSString * const PWInboxMessagesDidReceiveInPushNotification;
 
 /**
  Subscribe for messages arriving with push notifications. @warning You need to unsubscribe by calling the removeObserver method, if you don't want to receive notifications
- 
+
  @param completion - return the collection of the InboxMessages.
  */
 + (id<NSObject>)addObserverForDidReceiveInPushNotificationCompletion:(void (^)(NSArray<NSObject<PWInboxMessageProtocol> *> *messagesAdded))completion;
 
 /**
  Subscribe for messages arriving when a message is deleted, added, or updated. @warning You need to unsubscribe by calling the removeObserver method, if you don't want to receive notifications
- 
+
  @param completion - return the collection of the InboxMessages.
  */
 + (id<NSObject>)addObserverForUpdateInboxMessagesCompletion:(void (^)(NSArray<NSObject<PWInboxMessageProtocol> *> *messagesDeleted,
@@ -131,7 +131,7 @@ Subscribe for messages with no action performed count changes. @warning You need
 
 /**
  Unsubscribes from notifications
- 
+
  @param observer - Unsubscribes observer
  */
 + (void)removeObserver:(id<NSObject>)observer;

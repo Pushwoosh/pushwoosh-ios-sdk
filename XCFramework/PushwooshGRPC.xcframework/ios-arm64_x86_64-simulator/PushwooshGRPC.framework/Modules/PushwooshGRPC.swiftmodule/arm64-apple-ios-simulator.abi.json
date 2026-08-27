@@ -53684,1379 +53684,1379 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/PushwooshGRPCImplementation.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/PushwooshGRPCImplementation.swift",
       "kind": "StringLiteral",
       "offset": 341,
       "length": 7,
       "value": "\"1.0.0\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/PushwooshGRPCImplementation.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/PushwooshGRPCImplementation.swift",
       "kind": "Array",
       "offset": 456,
       "length": 336,
       "value": "[\"registerDevice\", \"unregisterDevice\", \"setTags\", \"getTags\", \"applicationOpen\", \"pushStat\", \"messageDeliveryEvent\", \"setBadge\", \"getInApps\", \"registerUser\", \"setActivityToken\", \"setActivityPushToStartToken\", \"richMediaAction\"]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Transport\/GRPCTransport.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Transport\/GRPCTransport.swift",
       "kind": "IntegerLiteral",
       "offset": 720,
       "length": 1,
       "value": "3"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Transport\/GRPCTransport.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Transport\/GRPCTransport.swift",
       "kind": "FloatLiteral",
       "offset": 771,
       "length": 4,
       "value": "25.0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Transport\/GRPCTransport.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Transport\/GRPCTransport.swift",
       "kind": "IntegerLiteral",
       "offset": 951,
       "length": 2,
       "value": "30"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Transport\/GRPCTransport.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Transport\/GRPCTransport.swift",
       "kind": "IntegerLiteral",
       "offset": 998,
       "length": 2,
       "value": "60"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Transport\/GRPCTransport.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Transport\/GRPCTransport.swift",
       "kind": "BooleanLiteral",
       "offset": 1328,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 1289,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "Dictionary",
       "offset": 4103,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 4488,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 4977,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 5828,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 7243,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 7319,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 8695,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "Dictionary",
       "offset": 10573,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "Array",
       "offset": 10669,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "Array",
       "offset": 11294,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 16746,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 16780,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "Array",
       "offset": 17825,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "Array",
       "offset": 20608,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 20962,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "Array",
       "offset": 21084,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "Array",
       "offset": 29291,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 29636,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "Array",
       "offset": 29732,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 30190,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 30236,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "Array",
       "offset": 34032,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 34489,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 34532,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "BooleanLiteral",
       "offset": 34607,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 34647,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "BooleanLiteral",
       "offset": 36986,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "BooleanLiteral",
       "offset": 37029,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 37542,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "Array",
       "offset": 41325,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 43816,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 43853,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 44450,
       "length": 25,
       "value": "\"pushwoosh.device_api.v2\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 44702,
       "length": 25,
       "value": "\".ApplicationOpenRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 44801,
       "length": 249,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0001platform\u0000\u0001language\u0000\u0003app_version\u0000\u0003device_model\u0000\u0003os_version\u0000\u0003sdk_version\u0000\u0003push_alerts_enabled\u0000\u0001timezone\u0000\u0003time_sensitive_notifications\u0000\u0003scheduled_summary\u0000\u0003user_id\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 49868,
       "length": 26,
       "value": "\".ApplicationOpenResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 49968,
       "length": 26,
       "value": "\"\u0000\u0003required_inapps\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 51632,
       "length": 16,
       "value": "\".RequiredInApp\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 51722,
       "length": 29,
       "value": "\"\u0000\u0001code\u0000\u0001updated\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 53281,
       "length": 18,
       "value": "\".SetBadgeRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 53373,
       "length": 45,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0001badge\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 55165,
       "length": 19,
       "value": "\".SetBadgeResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 55998,
       "length": 18,
       "value": "\".PushStatRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 56090,
       "length": 93,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0001hash\u0000\u0001platform\u0000\u0003user_id\u0000\u0002\u0002metadata\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 58981,
       "length": 19,
       "value": "\".PushStatResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 59821,
       "length": 25,
       "value": "\".MessageDeliveryRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 59920,
       "length": 105,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0001hash\u0000\u0001platform\u0000\u0003user_id\u0000\u0003message_id\u0000\u0001metadata\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 63100,
       "length": 26,
       "value": "\".MessageDeliveryResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 63953,
       "length": 17,
       "value": "\".SetTagsRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 64044,
       "length": 73,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0003user_id\u0000\u0001tags\u0000\u0001platform\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 66661,
       "length": 18,
       "value": "\".SetTagsResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 67502,
       "length": 29,
       "value": "\".MultiRegisterDeviceRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 67605,
       "length": 261,
       "value": "\"\u0000\u0003user_id\u0000\u0001application\u0000\u0001email\u0000\u0003sms_phone_number\u0000\u0003whatsapp_phone_number\u0000\u0003kakao_phone_number\u0000\u0003line_token\u0000\u0003telegram_user_id\u0000\u0001language\u0000\u0001timezone\u0000\u0001city\u0000\u0001country\u0000\u0001state\u0000\u0001tags\u0000\u0003push_devices\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 73166,
       "length": 11,
       "value": "\".TagValue\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 73251,
       "length": 45,
       "value": "\"\u0000\u0001operation\u0000\u0001value\u0000\u0001values\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 75054,
       "length": 98,
       "value": "\"\u0000\u0002\u0000OPERATION_SET\u0000\u0001OPERATION_APPEND\u0000\u0001OPERATION_REMOVE\u0000\u0001OPERATION_INCREMENT\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 75446,
       "length": 13,
       "value": "\".PushDevice\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 75533,
       "length": 141,
       "value": "\"\u0000\u0001hwid\u0000\u0001platform\u0000\u0003push_token\u0000\u0003app_version\u0000\u0003os_version\u0000\u0003sdk_version\u0000\u0001location\u0000\u0001push\u0000\u0003web_push\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 80269,
       "length": 185,
       "value": "\"\u0000\u0002\u0000PLATFORM_UNSPECIFIED\u0000\u0001IOS\u0000\u0002\u0002ANDROID\u0000\u0002\u0004OSX\u0000\u0001WINDOWS\u0000\u0001AMAZON\u0000\u0001SAFARI\u0000\u0001CHROME\u0000\u0001FIREFOX\u0000\u0002\u0005HUAWEI_ANDROID\u0000\u0002\u0003WEB\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 80768,
       "length": 11,
       "value": "\".Location\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 80853,
       "length": 24,
       "value": "\"\u0000\u0001lat\u0000\u0001lon\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 82519,
       "length": 19,
       "value": "\".PushPlatformData\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 82612,
       "length": 74,
       "value": "\"\u0000\u0003push_alerts_enabled\u0000\u0003device_model\u0000\u0003application_sounds\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 85033,
       "length": 22,
       "value": "\".WebPushPlatformData\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 85129,
       "length": 52,
       "value": "\"\u0000\u0003public_key\u0000\u0003auth_token\u0000\u0001browser\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 87054,
       "length": 30,
       "value": "\".MultiRegisterDeviceResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 87936,
       "length": 34,
       "value": "\".GetPlatformConfigurationRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 88044,
       "length": 22,
       "value": "\"\u0000\u0001application\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 89392,
       "length": 35,
       "value": "\".GetPlatformConfigurationResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 89501,
       "length": 14,
       "value": "\"\u0000\u0001ios\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 91179,
       "length": 19,
       "value": "\".PlatformParamIOS\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 91272,
       "length": 21,
       "value": "\"\u0000\u0001categories\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 92750,
       "length": 11,
       "value": "\".Category\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 92835,
       "length": 36,
       "value": "\"\u0000\u0003category_id\u0000\u0001buttons\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 94470,
       "length": 62,
       "value": "\"\u0000\u0002\u0000BUTTON_TYPE_DEFAULT\u0000\u0001BUTTON_TYPE_DESTRUCTIVE\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 94756,
       "length": 60,
       "value": "\"\u0000\u0002\u0000START_APP_BACKGROUND\u0000\u0001START_APP_FOREGROUND\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 95170,
       "length": 9,
       "value": "\".Button\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 95253,
       "length": 60,
       "value": "\"\u0000\u0001id\u0000\u0001label\u0000\u0001type\u0000\u0003start_application\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 97430,
       "length": 24,
       "value": "\".RegisterDeviceRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 97528,
       "length": 381,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0001platform\u0000\u0003push_token\u0000\u0003user_id\u0000\u0001language\u0000\u0003app_version\u0000\u0003device_model\u0000\u0003os_version\u0000\u0003sdk_version\u0000\u0003push_alerts_enabled\u0000\u0001timezone\u0000\u0003time_sensitive_notifications\u0000\u0003scheduled_summary\u0000\u0003public_key\u0000\u0003auth_token\u0000\u0003fcm_token\u0000\u0003fcm_push_set\u0000\u0001sounds\u0000\u0001tags\u0000\u0003voip_push_token\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 98049,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "Array",
       "offset": 98767,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 108625,
       "length": 25,
       "value": "\".RegisterDeviceResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 108724,
       "length": 24,
       "value": "\"\u0000\u0001iosCategories\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 110115,
       "length": 14,
       "value": "\".IOSCategory\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 110203,
       "length": 35,
       "value": "\"\u0000\u0001categoryId\u0000\u0001buttons\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 111877,
       "length": 9,
       "value": "\".Button\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 111960,
       "length": 59,
       "value": "\"\u0000\u0001id\u0000\u0001label\u0000\u0001type\u0000\u0001startApplication\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 114069,
       "length": 26,
       "value": "\".UnregisterDeviceRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 114169,
       "length": 59,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0001hash\u0000\u0001metadata\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 116554,
       "length": 27,
       "value": "\".UnregisterDeviceResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 117415,
       "length": 22,
       "value": "\".DeleteDeviceRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 117511,
       "length": 33,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 119069,
       "length": 23,
       "value": "\".DeleteDeviceResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 119916,
       "length": 20,
       "value": "\".DeleteUserRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 120010,
       "length": 36,
       "value": "\"\u0000\u0003user_id\u0000\u0001application\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 121575,
       "length": 21,
       "value": "\".DeleteUserResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 122415,
       "length": 19,
       "value": "\".GetInAppsRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 122508,
       "length": 22,
       "value": "\"\u0000\u0001application\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 123811,
       "length": 20,
       "value": "\".GetInAppsResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 123905,
       "length": 17,
       "value": "\"\u0000\u0001inApps\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 125228,
       "length": 8,
       "value": "\".InApp\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 125310,
       "length": 145,
       "value": "\"\u0000\u0001url\u0000\u0001code\u0000\u0001layout\u0000\u0001updated\u0000\u0001closeButtonType\u0000\u0001hash\u0000\u0001required\u0000\u0001priority\u0000\u0001businessCase\u0000\u0001gdpr\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 128968,
       "length": 23,
       "value": "\".SetAttributesRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 129065,
       "length": 81,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0001key\u0000\u0003encrypted_data\u0000\u0001attributes\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 131746,
       "length": 24,
       "value": "\".SetAttributesResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 132597,
       "length": 21,
       "value": "\".CheckDeviceRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 132692,
       "length": 33,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 134247,
       "length": 22,
       "value": "\".CheckDeviceResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 134343,
       "length": 39,
       "value": "\"\u0000\u0001exist\u0000\u0003push_token_exist\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 135918,
       "length": 22,
       "value": "\".RegisterUserRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 136014,
       "length": 67,
       "value": "\"\u0000\u0001hwid\u0000\u0002\u0002application\u0000\u0003user_id\u0000\u0001platform\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 138102,
       "length": 23,
       "value": "\".RegisterUserResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 138946,
       "length": 17,
       "value": "\".GetTagsRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 139037,
       "length": 47,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0003user_id\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 140839,
       "length": 18,
       "value": "\".GetTagsResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 140931,
       "length": 17,
       "value": "\"\u0000\u0001result\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 142507,
       "length": 24,
       "value": "\".EmailLinkClickRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 142605,
       "length": 151,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0003redirect_link\u0000\u0003original_link\u0000\u0003original_title\u0000\u0003template_code\u0000\u0001hash\u0000\u0003point_uuid\u0000\u0001ip\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 146112,
       "length": 25,
       "value": "\".EmailLinkClickResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 146977,
       "length": 32,
       "value": "\".GetUnregisteredDevicesRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 147083,
       "length": 63,
       "value": "\"\u0000\u0001auth\u0000\u0001application\u0000\u0003date_from\u0000\u0003date_to\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 149201,
       "length": 33,
       "value": "\".GetUnregisteredDevicesResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 149308,
       "length": 16,
       "value": "\"\u0000\u0001hwids\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 150609,
       "length": 26,
       "value": "\".SetActivityTokenRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 150709,
       "length": 72,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0003activity_token\u0000\u0003activity_id\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 152863,
       "length": 27,
       "value": "\".SetActivityTokenResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 153739,
       "length": 37,
       "value": "\".SetActivityPushToStartTokenRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 153850,
       "length": 68,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0003activity_push_to_start_token\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 155823,
       "length": 38,
       "value": "\".SetActivityPushToStartTokenResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 156720,
       "length": 25,
       "value": "\".RichMediaActionRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 156819,
       "length": 162,
       "value": "\"\u0000\u0001application\u0000\u0001hwid\u0000\u0003user_id\u0000\u0003inapp_code\u0000\u0003rich_media_code\u0000\u0003message_hash\u0000\u0001platform\u0000\u0003action_type\u0000\u0003action_attributes\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device_service.pb.swift",
       "kind": "StringLiteral",
       "offset": 160377,
       "length": 26,
       "value": "\".RichMediaActionResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Array",
       "offset": 1138,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Array",
       "offset": 1178,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Array",
       "offset": 1213,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Array",
       "offset": 1669,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Array",
       "offset": 1769,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Array",
       "offset": 2162,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 2574,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Dictionary",
       "offset": 2630,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Array",
       "offset": 2691,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Dictionary",
       "offset": 2769,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Dictionary",
       "offset": 2843,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Dictionary",
       "offset": 2896,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Dictionary",
       "offset": 2954,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Dictionary",
       "offset": 3032,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Dictionary",
       "offset": 3110,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "BooleanLiteral",
       "offset": 3149,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Dictionary",
       "offset": 3646,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 4505,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 4535,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "Array",
       "offset": 5336,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 8007,
       "length": 25,
       "value": "\"pushwoosh.device_api.v2\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 8255,
       "length": 21,
       "value": "\".LoadDevicesRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 8350,
       "length": 64,
       "value": "\"\u0000\u0001hwids\u0000\u0003push_tokens\u0000\u0001users\u0000\u0001application\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 10446,
       "length": 22,
       "value": "\".LoadDevicesResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 10542,
       "length": 34,
       "value": "\"\u0000\u0001devices\u0000\u0003user_tags\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 12092,
       "length": 10,
       "value": "\".TagList\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 12176,
       "length": 15,
       "value": "\"\u0000\u0001tags\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 13410,
       "length": 9,
       "value": "\".Device\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 13493,
       "length": 210,
       "value": "\"\u0000\u0001hwid\u0000\u0001platform\u0000\u0003push_tokens\u0000\u0003device_tags\u0000\u0003app_tags\u0000\u0001users\u0000\u0001badges\u0000\u0001attributes\u0000\u0003fcm_keys\u0000\u0003web_keys\u0000\u0001unsubscribed\u0000\u0001location\u0000\u0003voip_push_tokens\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 19851,
       "length": 9,
       "value": "\".FCMKey\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 19934,
       "length": 31,
       "value": "\"\u0000\u0001token\u0000\u0003push_set\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 21437,
       "length": 11,
       "value": "\".Location\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 21522,
       "length": 24,
       "value": "\"\u0000\u0001lat\u0000\u0001lon\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 23004,
       "length": 9,
       "value": "\".WebKey\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 23087,
       "length": 38,
       "value": "\"\u0000\u0003public_key\u0000\u0003auth_token\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 24629,
       "length": 13,
       "value": "\".StringList\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 24716,
       "length": 17,
       "value": "\"\u0000\u0001values\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 25963,
       "length": 6,
       "value": "\".Tag\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 26043,
       "length": 119,
       "value": "\"\u0000\u0001name\u0000\u0001integer\u0000\u0001string\u0000\u0001list\u0000\u0001date\u0000\u0001boolean\u0000\u0001price\u0000\u0001version\u0000\u0001timezone\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 31536,
       "length": 7,
       "value": "\".User\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/device.pb.swift",
       "kind": "StringLiteral",
       "offset": 31617,
       "length": 13,
       "value": "\"\u0000\u0001id\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 1302,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 1337,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 2393,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "BooleanLiteral",
       "offset": 2851,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "IntegerLiteral",
       "offset": 4398,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "StringLiteral",
       "offset": 5025,
       "length": 26,
       "value": "\"pushwoosh.post_event_api\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "StringLiteral",
       "offset": 5272,
       "length": 19,
       "value": "\".PostEventRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "StringLiteral",
       "offset": 5365,
       "length": 125,
       "value": "\"\u0000\u0001hwid\u0000\u0001application\u0000\u0001event\u0000\u0003user_id\u0000\u0001platform\u0000\u0001timestamp\u0000\u0001attributes\u0000\u0003sdk_version\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "StringLiteral",
       "offset": 8813,
       "length": 12,
       "value": "\".RichMedia\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "StringLiteral",
       "offset": 8899,
       "length": 45,
       "value": "\"\u0000\u0001url\u0000\u0001code\u0000\u0001ts\u0000\u0001hash\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "StringLiteral",
       "offset": 10860,
       "length": 20,
       "value": "\".PostEventResponse\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "StringLiteral",
       "offset": 10954,
       "length": 65,
       "value": "\"\u0000\u0001code\u0000\u0001required\u0000\u0001richmedia\u0000\u0003message_hash\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "StringLiteral",
       "offset": 13352,
       "length": 26,
       "value": "\".ShowInappMessageRequest\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "StringLiteral",
       "offset": 13452,
       "length": 84,
       "value": "\"\u0000\u0003user_id\u0000\u0001application\u0000\u0001inapp\u0000\u0003expiry_date\u0000\u0003campaign_id\u0000\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshGRPC\/Generated\/post_event.pb.swift",
       "kind": "StringLiteral",
       "offset": 16146,
       "length": 27,

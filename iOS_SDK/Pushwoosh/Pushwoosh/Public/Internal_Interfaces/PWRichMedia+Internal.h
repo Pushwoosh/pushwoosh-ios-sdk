@@ -1,7 +1,7 @@
 #if TARGET_OS_IOS
 
 //
-//  PWInAppManager.h
+//  PWRichMedia+Internal.h
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2018
 //

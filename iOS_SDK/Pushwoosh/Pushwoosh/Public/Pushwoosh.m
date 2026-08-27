@@ -172,23 +172,23 @@ static dispatch_once_t ensureInitializedOncePredicate;
 #else
         [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"PUSH TOKEN: %@", [PWPreferences preferences].pushToken]];
 #endif
-        
+
         [PWPreferences preferences].appCode = appCode;
-        
+
 #if TARGET_OS_IOS || TARGET_OS_OSX
         self.purchaseManager = [PWPurchaseManager new];
         self.richPushManager = [PWRichPushManager new];
 #endif
-        
+
 #if TARGET_OS_IOS
         //Create PWGeozonesManager instance (if linked) on application start. Otherwise after app relaunch geozones may not work.
         Class geozonesManagerClass = NSClassFromString(@"PWGeozonesManager");
-        
+
         if (geozonesManagerClass) {
             [geozonesManagerClass sharedManager];
         }
 #endif
-        
+
 #if TARGET_OS_IOS
         [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Will show foreground notifications: %d", self.showPushnotificationAlert]];
 #endif

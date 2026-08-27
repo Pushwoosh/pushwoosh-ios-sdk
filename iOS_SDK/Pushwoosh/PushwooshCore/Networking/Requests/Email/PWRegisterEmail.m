@@ -9,7 +9,7 @@
 #import "PWRegisterEmail.h"
 #import "PWPreferences.h"
 
-@interface PWRegisterEmail () 
+@interface PWRegisterEmail ()
 
 @end
 
@@ -18,18 +18,18 @@
 - (NSDictionary *)requestDictionary {
     NSMutableDictionary *dict = self.baseDictionary;
     NSUInteger tzOffset = [[NSTimeZone localTimeZone] secondsFromGMT];
-    
+
     dict[@"email"] = self.email;
     dict[@"language"] = [[NSLocale currentLocale] objectForKey:NSLocaleLanguageCode];
     dict[@"tz_offset"] = [NSNumber numberWithInteger:tzOffset];
-    
+
     if (dict[@"hwid"])
         [dict removeObjectForKey:@"hwid"];
-    
+
     if (dict[@"device_type"])
         [dict removeObjectForKey:@"device_type"];
-    
-    
+
+
     return dict;
 }
 

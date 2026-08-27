@@ -1,5 +1,5 @@
 //
-//  PushNotificationManager.h
+//  PWInteractionDisabledView.m
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2015
 //

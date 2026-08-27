@@ -1,5 +1,5 @@
 //
-//  PWUtils.m
+//  PWUtils.ios.m
 //  PushNotificationManager
 //
 //  Created by Kaizer on 07/06/16.
@@ -12,6 +12,7 @@
 #import "PWReachability.h"
 #import "PWPreferences.h"
 #import "PWConfig.h"
+#import "PWUniversalLinkResolver.h"
 #import <PushwooshCore/PWManagerBridge.h>
 #import "PWPushNotificationsManager.h"
 
@@ -32,46 +33,117 @@
 + (void)applicationOpenURL:(NSURL *)url {
     NSString *scheme = url.scheme.lowercaseString;
 
-    if ([scheme isEqualToString:@"https"] || [scheme isEqualToString:@"http"]) {
-        // Try to handle as Universal Link within the app
-        NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:NSUserActivityTypeBrowsingWeb];
-        userActivity.webpageURL = url;
-
-        BOOL handled = NO;
-
-        // Try scene delegate first (iOS 13+)
-        if (@available(iOS 13.0, *)) {
-            for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
-                if ([scene isKindOfClass:[UIWindowScene class]] && scene.delegate) {
-                    if ([scene.delegate respondsToSelector:@selector(scene:continueUserActivity:)]) {
-                        [scene.delegate scene:scene continueUserActivity:userActivity];
-                        handled = YES;
-                        break;
-                    }
-                }
-            }
-        }
-
-        // Try app delegate if scene delegate didn't handle
-        if (!handled) {
-            id<UIApplicationDelegate> appDelegate = [UIApplication sharedApplication].delegate;
-            if ([appDelegate respondsToSelector:@selector(application:continueUserActivity:restorationHandler:)]) {
-                BOOL result = [appDelegate application:[UIApplication sharedApplication]
-                          continueUserActivity:userActivity
-                            restorationHandler:^(NSArray<id<UIUserActivityRestoring>> * _Nullable restorableObjects) {}];
-                // If disableUrlFallback is YES, ignore return value (same as SceneDelegate behavior)
-                handled = [[PWConfig config] disableUrlFallback] ? YES : result;
-            }
-        }
-
-        // If not handled, open in Safari
-        if (!handled) {
-            [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
-        }
-    } else {
-        // Custom URL scheme (myapp://) — open directly
-        [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:nil];
+    if (![scheme isEqualToString:@"https"] && ![scheme isEqualToString:@"http"]) {
+        [self openURLReportingOutcome:url];
+        return;
     }
+
+    [PWUniversalLinkResolver resolveURL:url completion:^(PWUniversalLinkVerdict verdict) {
+        [self routeURL:url verdict:verdict];
+    }];
+}
+
++ (void)routeURL:(NSURL *)url verdict:(PWUniversalLinkVerdict)verdict {
+    if (verdict == PWUniversalLinkVerdictNoMatch) {
+        [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"Universal link: host %@ not associated with this app (AASA) -> opening in Safari", url.host]];
+        [self openURLInSafari:url];
+        return;
+    }
+    if (verdict == PWUniversalLinkVerdictMatch) {
+        [self deliverActivityForURL:url logPrefix:@"Universal link: AASA match" logLevel:PW_LL_INFO];
+        return;
+    }
+    /// Unknown means the domain could not be reached, not that the app claims it. Handing the
+    /// activity over on a guess loses the link outright: `scene:continueUserActivity:` returns
+    /// void, so a SwiftUI app whose router ignores the URL leaves the user on the screen they
+    /// were on, with no navigation, no browser and no error. Safari is the outcome the user can
+    /// still act on, so it wins unless the integrator asked us to never open it.
+    if ([[PWConfig config] disableUrlFallback]) {
+        [self deliverActivityForURL:url
+                          logPrefix:@"Universal link: AASA verdict unknown, Pushwoosh_DISABLE_URL_FALLBACK is set"
+                           logLevel:PW_LL_WARN];
+        return;
+    }
+    [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:[NSString stringWithFormat:@"Universal link: AASA verdict unknown for host %@ -> opening in Safari", url.host]];
+    [self openURLInSafari:url];
+}
+
++ (NSUserActivity *)browsingActivityWithURL:(NSURL *)url {
+    NSUserActivity *userActivity = [[NSUserActivity alloc] initWithActivityType:NSUserActivityTypeBrowsingWeb];
+    userActivity.webpageURL = url;
+    return userActivity;
+}
+
++ (UIScene *)sceneForUniversalLinkDelivery API_AVAILABLE(ios(13.0)) {
+    NSArray<NSNumber *> *activationStatePriority = @[@(UISceneActivationStateForegroundActive),
+                                                     @(UISceneActivationStateForegroundInactive),
+                                                     @(UISceneActivationStateBackground),
+                                                     @(UISceneActivationStateUnattached)];
+    for (NSNumber *activationState in activationStatePriority) {
+        for (UIScene *scene in [UIApplication sharedApplication].connectedScenes) {
+            if ([scene isKindOfClass:[UIWindowScene class]]
+                && scene.activationState == activationState.integerValue
+                && [scene.delegate respondsToSelector:@selector(scene:continueUserActivity:)]) {
+                return scene;
+            }
+        }
+    }
+    return nil;
+}
+
++ (BOOL)appDelegateRespondsToContinueUserActivity {
+    return [[UIApplication sharedApplication].delegate respondsToSelector:@selector(application:continueUserActivity:restorationHandler:)];
+}
+
++ (BOOL)deliverActivityToAppDelegate:(NSUserActivity *)userActivity {
+    return [[UIApplication sharedApplication].delegate application:[UIApplication sharedApplication]
+                                              continueUserActivity:userActivity
+                                                restorationHandler:^(NSArray<id<UIUserActivityRestoring>> * _Nullable restorableObjects) {}];
+}
+
++ (void)deliverActivityForURL:(NSURL *)url logPrefix:(NSString *)logPrefix logLevel:(PUSHWOOSH_LOG_LEVEL)logLevel {
+    NSUserActivity *userActivity = [self browsingActivityWithURL:url];
+
+    if (@available(iOS 13.0, *)) {
+        UIScene *scene = [self sceneForUniversalLinkDelivery];
+        if (scene) {
+            [scene.delegate scene:scene continueUserActivity:userActivity];
+            [PushwooshLog pushwooshLog:logLevel className:self message:[NSString stringWithFormat:@"%@ -> delivered to scene delegate %@ (scene state %ld); outcome is unobservable on the scene path", logPrefix, NSStringFromClass([scene.delegate class]), (long)scene.activationState]];
+            return;
+        }
+    }
+
+    if ([self appDelegateRespondsToContinueUserActivity]) {
+        if ([self deliverActivityToAppDelegate:userActivity]) {
+            [PushwooshLog pushwooshLog:logLevel className:self message:[NSString stringWithFormat:@"%@ -> app delegate handled the activity", logPrefix]];
+            return;
+        }
+        if ([[PWConfig config] disableUrlFallback]) {
+            [PushwooshLog pushwooshLog:logLevel className:self message:[NSString stringWithFormat:@"%@ -> app delegate returned NO, Pushwoosh_DISABLE_URL_FALLBACK is set -> not opening a link to %@", logPrefix, url.host]];
+            return;
+        }
+        [PushwooshLog pushwooshLog:logLevel className:self message:[NSString stringWithFormat:@"%@ -> app delegate returned NO -> opening in Safari", logPrefix]];
+        [self openURLInSafari:url];
+        return;
+    }
+
+    [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:[NSString stringWithFormat:@"%@ -> neither scene nor app delegate implements continueUserActivity -> opening in Safari", logPrefix]];
+    [self openURLInSafari:url];
+}
+
++ (void)openURLInSafari:(NSURL *)url {
+    [self openURLReportingOutcome:url];
+}
+
++ (void)openURLReportingOutcome:(NSURL *)url {
+    NSString *loggableURL = [self loggableURLDescription:url];
+    [[UIApplication sharedApplication] openURL:url options:@{} completionHandler:^(BOOL success) {
+        if (success) {
+            [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Opened remote url: %@", loggableURL]];
+            return;
+        }
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Can't open remote url: %@", loggableURL]];
+    }];
 }
 
 #if TARGET_OS_IOS

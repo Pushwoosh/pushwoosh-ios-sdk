@@ -1,5 +1,5 @@
 //
-//  PushNotificationManager.h
+//  PWMessageViewController.ios.m
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2015
 //
@@ -47,7 +47,7 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
 + (void)presentWithRichMedia:(PWRichMedia *)richMedia completion:(void (^)(BOOL success))completion {
     if (!richMedia.resource.locked) {
         UIWindow *presentedWindow = [self presentedWindow];
-        
+
         PWMessageViewController *viewController = [[self alloc] initWithRichMedia:richMedia
                                                                            window:presentedWindow
                                                                    richMediaStyle:[[PWManagerBridge shared] richMediaManager].richMediaStyle
@@ -67,19 +67,19 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
 - (void)viewDidLoad {
     [super viewDidLoad];
     _succeeded = YES;
-    
+
     //used if there is not ViewController based statusbar appearance
     _statusBarInitiallyHidden = [UIApplication sharedApplication].statusBarHidden;
-    
+
     _richMediaView = [[PWRichMediaView alloc] initWithFrame:self.view.bounds
                                                     payload:_richMedia.pushPayload
                                                        code:(_richMedia.resource.isRichMedia ? _richMedia.content : @"")
                                                   inAppCode:(!_richMedia.resource.isRichMedia ? _richMedia.content : @"")];
     _richMediaView.autoresizingMask = UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleHeight;
     [self.view addSubview:_richMediaView];
-    
+
     __weak typeof (self) wself = self;
-    
+
     NSString *isDebug = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Pushwoosh_DEBUG"];
     dispatch_block_t block = ^{
         [_richMediaView loadRichMedia:_richMedia completion:^(NSError *error) {
@@ -90,7 +90,7 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
             }
         }];
     };
-    
+
     if (isDebug) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(4 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
             block();
@@ -98,19 +98,19 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
     } else {
         block();
     }
-    
+
     if (self.richMediaStyle.allowsInlineMediaPlayback != nil) {
         _richMediaView.webClient.webView.configuration.allowsInlineMediaPlayback = [self.richMediaStyle.allowsInlineMediaPlayback boolValue];
     }
-    
+
     if (self.richMediaStyle.mediaPlaybackRequiresUserAction != nil) {
         _richMediaView.webClient.webView.configuration.mediaPlaybackRequiresUserAction = self.richMediaStyle.mediaPlaybackRequiresUserAction.boolValue;
     }
-    
+
     _richMediaView.closeActionBlock = ^{
         [wself didCloseRichMediaView];
     };
-    
+
     if (_richMedia.resource.presentationStyle == IAResourcePresentationCenter) {
         _richMediaView.webClient.webView.autoresizingMask = UIViewAutoresizingFlexibleBottomMargin | UIViewAutoresizingFlexibleWidth | UIViewAutoresizingFlexibleTopMargin;
     } else if (_richMedia.resource.presentationStyle == IAResourcePresentationTopBanner) {
@@ -118,10 +118,10 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
     } else if (_richMedia.resource.presentationStyle == IAResourcePresentationBottomBanner) {
         _richMediaView.webClient.webView.autoresizingMask = UIViewAutoresizingFlexibleTopMargin | UIViewAutoresizingFlexibleWidth;
     }
-    
+
 	_closeButton = [PWUtils webViewCloseButton];
 	[_closeButton addTarget:_richMediaView.webClient action:@selector(close) forControlEvents:UIControlEventTouchUpInside];
-    
+
     self.loadingView.alpha = 0.0f;
     self.loadingView.cancelLoadingButton.alpha = 0.0f;
     _richMediaView.alpha = 0.0;
@@ -145,40 +145,40 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
             } else {
                 [self.view addSubview:_closeButton];
             }
-            
+
             _closeButton.alpha = 0.0f;
-            
+
             [UIView animateWithDuration:PWRichMediaStyleDefaultAnimationDuration animations:^{
                 _closeButton.alpha = 1.0f;
             }];
         }
     } else {
         self.loadingView.cancelLoadingButton.alpha = 0.0f;
-        
+
         [UIView animateWithDuration:PWRichMediaStyleDefaultAnimationDuration animations:^{
             self.loadingView.cancelLoadingButton.alpha = 1.0f;
         }];
     }
-    
+
     _closeButtonTimerExpired = YES;
 }
 
 - (void)runAnimation {
     _richMediaView.alpha = 1.0;
-    
+
     dispatch_block_t completion = ^{
         if (!appeared) {
             appeared = YES;
             [self updateStatusBar];
         }
     };
-    
+
     if (self.richMediaStyle.animationDelegate) {
         [self.richMediaStyle.animationDelegate runPresentingAnimationWithContentView:_richMediaView parentView:self.view completion:completion];
     } else {
         completion();
     }
-    
+
     [UIView animateWithDuration:PWRichMediaStyleDefaultAnimationDuration animations:^{
         self.view.backgroundColor = self.richMediaStyle.backgroundColor;
     }];
@@ -186,7 +186,7 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
 
 - (void)updateStatusBar {
     NSNumber *statusBarVCBasedAppearance = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"UIViewControllerBasedStatusBarAppearance"];
-    
+
     if (statusBarVCBasedAppearance && !statusBarVCBasedAppearance.boolValue) {
         if (appeared) {
             [[UIApplication sharedApplication] setStatusBarHidden:self.richMediaStyle.shouldHideStatusBar withAnimation:UIStatusBarAnimationFade];
@@ -202,11 +202,11 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
 
 - (void)closeController {
     _richMedia.resource.locked = NO;
-    
+
     appeared = NO;
-    
+
     [self updateStatusBar];
-    
+
     dispatch_async(dispatch_get_main_queue(), ^{
         if (_richMedia.resource.presentationStyle != IAResourcePresentationFullScreen) {
             [UIView animateKeyframesWithDuration:0.1
@@ -223,19 +223,19 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
             _completion(_succeeded);
         }
     });
-    
+
     [UIView animateWithDuration:PWRichMediaStyleDefaultAnimationDuration animations:^{
         self.view.backgroundColor = [UIColor clearColor];
     }];
-    
+
     dispatch_block_t completion = ^{
        [super closeController];
-        
+
         if ([[[PWManagerBridge shared] richMediaManager].delegate respondsToSelector:@selector(richMediaManager:didCloseRichMedia:)]) {
             [[[PWManagerBridge shared] richMediaManager].delegate richMediaManager:[[PWManagerBridge shared] richMediaManager] didCloseRichMedia:_richMedia];
         }
     };
-    
+
     if (self.richMediaStyle.animationDelegate) {
         [self.richMediaStyle.animationDelegate runDismissingAnimationWithContentView:_richMediaView parentView:self.view completion:completion];
     } else {
@@ -252,11 +252,11 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
         return;
     }
     _webContentLoaded = YES;
-    
+
     if (_richMedia.resource.presentationStyle != IAResourcePresentationFullScreen && _richMedia.resource.presentationStyle != IAResourcePresentationTopBanner) {
         CGRect frame = _richMediaView.webClient.webView.frame;
         CGFloat height = _richMediaView.contentSize.height;
-        
+
         if (height > 1.0) {
             if (_richMedia.resource.presentationStyle == IAResourcePresentationCenter) {
                 frame.origin = CGPointMake(0.0, self.view.frame.size.height / 2.0 - height / 2.0);
@@ -266,25 +266,25 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
         } else {
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Inapp measurement failed"];
         }
-        
+
         _richMediaView.webClient.webView.frame = frame;
     }
-	
+
     if (_closeButtonTimerExpired) {
         [self conditionallyShowCloseButton];
     }
-    
+
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showLoadingView) object:nil];
-    
+
     __weak typeof(self) wself = self;
 	[UIView animateWithDuration:PWRichMediaStyleDefaultAnimationDuration animations:^{
         wself.loadingView.alpha = 0;
     } completion:^(BOOL finished) {
         [wself.loadingView removeFromSuperview];
     }];
-    
+
     [self runAnimation];
-    
+
     if ([[[PWManagerBridge shared] richMediaManager].delegate respondsToSelector:@selector(richMediaManager:didPresentRichMedia:)]) {
         [[[PWManagerBridge shared] richMediaManager].delegate richMediaManager:[[PWManagerBridge shared] richMediaManager] didPresentRichMedia:_richMedia];
     }
@@ -293,7 +293,7 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
 - (void)richMediaViewDidFailWithError:(NSError *)error {
     _succeeded = NO;
     [self closeController];
-    
+
     if ([[[PWManagerBridge shared] richMediaManager].delegate respondsToSelector:@selector(richMediaManager:presentingDidFailForRichMedia:withError:)]) {
         [[[PWManagerBridge shared] richMediaManager].delegate richMediaManager:[[PWManagerBridge shared] richMediaManager]
                                         presentingDidFailForRichMedia:_richMedia
@@ -310,6 +310,6 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(showLoadingView) object:nil];
     [NSObject cancelPreviousPerformRequestsWithTarget:self selector:@selector(conditionallyShowCloseButton) object:nil];
 }
-     
+
 @end
 #endif

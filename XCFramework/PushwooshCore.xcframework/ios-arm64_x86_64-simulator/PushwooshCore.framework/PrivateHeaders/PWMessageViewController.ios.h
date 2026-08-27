@@ -1,5 +1,5 @@
 //
-//  PushNotificationManager.h
+//  PWMessageViewController.ios.h
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2015
 //

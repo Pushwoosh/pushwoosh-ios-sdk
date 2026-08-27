@@ -184,18 +184,18 @@
         [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"tags must be NSDictionary"];
         return;
     }
-    
+
     if (email == nil) {
         [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"email cannot be nil"];
         return;
     }
-    
+
     [[PWCache cache] addEmailTags:tags];
-    
+
     PWSetEmailTagsRequest *request = [[PWSetEmailTagsRequest alloc] init];
     request.tags = tags;
     request.email = email;
-    
+
     [self.requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {
             [PushwooshLog pushwooshLog:PW_LL_INFO
@@ -204,7 +204,7 @@
         } else {
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"setEmailTags failed"];
         }
-        
+
         if (completion)
             completion(error);
     }];
@@ -218,14 +218,14 @@
     if (_appOpenDidSent) {
         return;
     }
-    
+
     _appOpenDidSent = YES;
-    
+
     [PWVersionTracking track];
 
     //it's ok to call this method without push token
     PWAppOpenRequest *request = [[PWAppOpenRequest alloc] init];
-    
+
     [self.requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {
             if ([PWPreferences preferences].previosHWID) {
@@ -248,7 +248,7 @@
             completion(error);
         }
     }];
-    
+
     [self loadTags]; //we need to initially load and cache tags for personalized in-apps
 }
 
@@ -269,31 +269,31 @@
 - (void)sendStatsForPush:(NSDictionary *)pushDict {
     NSDictionary *apsDict = [pushDict pw_dictionaryForKey:@"aps"];
     BOOL isContentAvailable = [[apsDict objectForKey:@"content-available"] boolValue];
-    
+
     NSString *alert = pushDict[@"alert"];
-    
+
     if (isContentAvailable && !alert) { //is silent push
         return;
     }
-    
+
     if (pushDict[@"pw_msg"] == nil) { // not Pushwoosh push
         return;
     }
-    
+
     if ([_lastHash isEqualToString:pushDict[@"p"]]){
         return;
     }
-    
+
     _lastHash = pushDict[@"p"];
-    
+
     NSDictionary *richMedia = pushDict[@"rm"];
     NSString *url = richMedia[@"url"];
-    
+
     if (url) {
         NSString *code = [[url lastPathComponent] stringByDeletingPathExtension];
         _richMediaCode = code;
     }
-    
+
     dispatch_block_t sendPushStatBlock = ^{
         PWPushStatRequest *request = [[PWPushStatRequest alloc] init];
         request.pushDict = pushDict;
@@ -327,7 +327,7 @@
         if (error) {
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Start Live Activity request failed"];
         }
-        
+
         if (completion)
             completion(error);
     }];
@@ -338,7 +338,7 @@
         if (error) {
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Live Activity request failed"];
         }
-        
+
         if (completion)
             completion(error);
     }];
@@ -350,7 +350,7 @@
         if (error) {
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Live Activity request failed"];
         }
-        
+
         if (completion)
             completion(error);
     }];
@@ -360,14 +360,14 @@
     PWLiveActivityRequest *request = [[PWLiveActivityRequest alloc] init];
     request.token = token;
     request.activityId = activityId;
-    
+
     return request;
 }
 
 - (PWStartLiveActivityRequest *)sendStartLiveActivityRequestWithToken:(NSString *)token {
     PWStartLiveActivityRequest *request = [[PWStartLiveActivityRequest alloc] init];
     request.token = token;
-    
+
     return request;
 }
 

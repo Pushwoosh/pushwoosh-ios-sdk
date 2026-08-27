@@ -172,7 +172,7 @@
  *			console.log("tags: " + JSON.stringify(tags));
  *		}
  *		function(error) {
- *			console.log("failded to get tags: " + error);
+ *			console.log("failed to get tags: " + error);
  *		}
  *	);
  */

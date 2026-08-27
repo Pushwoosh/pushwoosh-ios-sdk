@@ -1,5 +1,5 @@
 //
-//  PWPushNotificationDelegateMock.h
+//  PWPushNotificationCustomDelegateMock.h
 //  PushNotificationManager
 //
 //  Created by Dmitry Malugin on 09/12/16.

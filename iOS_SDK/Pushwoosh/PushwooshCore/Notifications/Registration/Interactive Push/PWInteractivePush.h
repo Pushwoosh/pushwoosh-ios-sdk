@@ -1,5 +1,5 @@
 //
-//  InteractivePush.h
+//  PWInteractivePush.h
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2016
 //

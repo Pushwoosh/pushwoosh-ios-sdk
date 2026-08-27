@@ -2211,6 +2211,80 @@
             "funcSelfKind": "NonMutating"
           },
           {
+            "kind": "Function",
+            "name": "resolvedBannerURL",
+            "printedName": "resolvedBannerURL(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWInboxMessageProtocol",
+                "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                "usr": "c:objc(pl)PWInboxMessageProtocol"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0abC10AttributesV17resolvedBannerURL4fromSSSgSo22PWInboxMessageProtocol_p_tFZ",
+            "mangledName": "$s17PushwooshInboxKit0abC10AttributesV17resolvedBannerURL4fromSSSgSo22PWInboxMessageProtocol_p_tFZ",
+            "moduleName": "PushwooshInboxKit",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "resolvedImageURL",
+            "printedName": "resolvedImageURL(from:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PWInboxMessageProtocol",
+                "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                "usr": "c:objc(pl)PWInboxMessageProtocol"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:17PushwooshInboxKit0abC10AttributesV16resolvedImageURL4fromSSSgSo22PWInboxMessageProtocol_p_tFZ",
+            "mangledName": "$s17PushwooshInboxKit0abC10AttributesV16resolvedImageURL4fromSSSgSo22PWInboxMessageProtocol_p_tFZ",
+            "moduleName": "PushwooshInboxKit",
+            "static": true,
+            "declAttributes": [
+              "AccessControl",
+              "RawDocComment"
+            ],
+            "funcSelfKind": "NonMutating"
+          },
+          {
             "kind": "TypeDecl",
             "name": "Style",
             "printedName": "Style",
@@ -11758,735 +11832,735 @@
   },
   "ConstValues": [
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
       "offset": 1196,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
       "offset": 1405,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
       "offset": 1506,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
       "offset": 1609,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
       "offset": 2096,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
       "offset": 2576,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
       "offset": 2811,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
       "offset": 5475,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
       "offset": 5699,
       "length": 21,
       "value": "\"Your inbox is empty\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
       "offset": 5824,
       "length": 24,
       "value": "\"Couldn't load messages\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "Array",
-      "offset": 7422,
+      "offset": 7423,
       "length": 65,
       "value": "[\"banner\", \"captioned\", \"classic\", \"carousel\", \"video\", \"wallet\"]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
-      "offset": 7621,
+      "offset": 7622,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7674,
+      "offset": 7675,
       "length": 8,
       "value": "\"banner\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7726,
+      "offset": 7727,
       "length": 11,
       "value": "\"captioned\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7771,
+      "offset": 7772,
       "length": 9,
       "value": "\"classic\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7875,
+      "offset": 7876,
       "length": 8,
       "value": "\"banner\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7885,
+      "offset": 7886,
       "length": 11,
       "value": "\"captioned\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7944,
+      "offset": 7945,
       "length": 9,
       "value": "\"classic\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 7967,
+      "offset": 7968,
       "length": 10,
       "value": "\"carousel\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8062,
+      "offset": 8063,
       "length": 9,
       "value": "\"classic\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8074,
+      "offset": 8075,
       "length": 10,
       "value": "\"carousel\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8098,
+      "offset": 8099,
       "length": 7,
       "value": "\"video\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8188,
+      "offset": 8189,
       "length": 9,
       "value": "\"classic\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8200,
+      "offset": 8201,
       "length": 7,
       "value": "\"video\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8221,
+      "offset": 8222,
       "length": 8,
       "value": "\"wallet\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8310,
+      "offset": 8311,
       "length": 9,
       "value": "\"classic\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8322,
+      "offset": 8323,
       "length": 8,
       "value": "\"wallet\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8760,
+      "offset": 8761,
       "length": 10,
       "value": "\"carousel\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8788,
+      "offset": 8789,
       "length": 11,
       "value": "\"no slides\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8817,
+      "offset": 8818,
       "length": 7,
       "value": "\"video\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8842,
+      "offset": 8843,
       "length": 21,
       "value": "\"no video descriptor\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8881,
+      "offset": 8882,
       "length": 8,
       "value": "\"wallet\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8907,
+      "offset": 8908,
       "length": 13,
       "value": "\"no pass URL\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 8958,
+      "offset": 8959,
       "length": 13,
       "value": "\"no imageUrl\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 9081,
+      "offset": 9082,
       "length": 19,
       "value": "\"PushwooshInboxKit\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 9127,
+      "offset": 9128,
       "length": 54,
       "value": "\"Inbox cell degraded — code=\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 9175,
+      "offset": 9176,
       "length": 3,
       "value": "\"?\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 9179,
+      "offset": 9180,
       "length": 1,
       "value": "\" \""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 9207,
+      "offset": 9208,
       "length": 58,
       "value": "\"displayType=\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 9236,
+      "offset": 9237,
       "length": 5,
       "value": "\"nil\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 9242,
+      "offset": 9243,
       "length": 8,
       "value": "\" hasImage=\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 9263,
+      "offset": 9264,
       "length": 1,
       "value": "\" \""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 9291,
+      "offset": 9292,
       "length": 47,
       "value": "\"\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 9304,
+      "offset": 9305,
       "length": 3,
       "value": "\"→\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 9318,
+      "offset": 9319,
       "length": 1,
       "value": "\" (\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 9336,
+      "offset": 9337,
       "length": 1,
       "value": "\")\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "BooleanLiteral",
-      "offset": 14942,
+      "offset": 16959,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 16570,
+      "offset": 18587,
       "length": 2,
       "value": "14"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "FloatLiteral",
-      "offset": 16729,
+      "offset": 18746,
       "length": 4,
       "value": "0.10"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 16778,
+      "offset": 18795,
       "length": 2,
       "value": "10"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "FloatLiteral",
-      "offset": 18505,
+      "offset": 20522,
       "length": 4,
       "value": "0.16"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "FloatLiteral",
-      "offset": 18571,
+      "offset": 20588,
       "length": 4,
       "value": "0.12"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 18754,
+      "offset": 20771,
       "length": 2,
       "value": "16"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 18914,
+      "offset": 20931,
       "length": 2,
       "value": "14"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 19069,
+      "offset": 21086,
       "length": 2,
       "value": "13"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "FloatLiteral",
-      "offset": 19208,
+      "offset": 21225,
       "length": 3,
       "value": "8.0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 19359,
+      "offset": 21376,
       "length": 2,
       "value": "14"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "IntegerLiteral",
-      "offset": 19509,
+      "offset": 21526,
       "length": 2,
       "value": "10"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 19738,
+      "offset": 21755,
       "length": 7,
       "value": "\"HH:mm\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 19884,
+      "offset": 21901,
       "length": 7,
       "value": "\"MMM d\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitAttributes.swift",
       "kind": "StringLiteral",
-      "offset": 20285,
+      "offset": 22302,
       "length": 11,
       "value": "\"Yesterday\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 975,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "IntegerLiteral",
       "offset": 1016,
       "length": 2,
       "value": "88"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 1256,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "IntegerLiteral",
       "offset": 1292,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 1357,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 1542,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "IntegerLiteral",
       "offset": 1578,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 1643,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 1865,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "Array",
       "offset": 2014,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 2160,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 2210,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "BooleanLiteral",
       "offset": 2286,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxKitViewController.swift",
       "kind": "FloatLiteral",
       "offset": 17873,
       "length": 3,
       "value": "1.5"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCell.swift",
       "kind": "FloatLiteral",
       "offset": 15560,
       "length": 3,
       "value": "5.5"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCell.swift",
       "kind": "IntegerLiteral",
       "offset": 15625,
       "length": 2,
       "value": "16"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCell.swift",
       "kind": "BooleanLiteral",
       "offset": 24279,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxButton.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxButton.swift",
       "kind": "Dictionary",
       "offset": 2022,
       "length": 3,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
       "kind": "StringLiteral",
       "offset": 954,
       "length": 21,
       "value": "\"CFBundleDisplayName\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
       "kind": "StringLiteral",
       "offset": 1011,
       "length": 14,
       "value": "\"CFBundleName\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
       "kind": "StringLiteral",
       "offset": 1054,
       "length": 2,
       "value": "\"\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
       "kind": "IntegerLiteral",
       "offset": 1128,
       "length": 1,
       "value": "1"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
       "kind": "StringLiteral",
       "offset": 1395,
       "length": 15,
       "value": "\"CFBundleIcons\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
       "kind": "StringLiteral",
       "offset": 1465,
       "length": 21,
       "value": "\"CFBundlePrimaryIcon\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxClassicCell.swift",
       "kind": "StringLiteral",
       "offset": 1541,
       "length": 19,
       "value": "\"CFBundleIconFiles\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "IntegerLiteral",
       "offset": 983,
       "length": 3,
       "value": "190"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "StringLiteral",
       "offset": 1154,
       "length": 37,
       "value": "\"com.pushwoosh.inboxkit.accent-color\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "BooleanLiteral",
       "offset": 1859,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "BooleanLiteral",
       "offset": 1894,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "BooleanLiteral",
       "offset": 1943,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "Array",
       "offset": 2336,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "StringLiteral",
       "offset": 24019,
       "length": 25,
       "value": "\"pw.inbox.carousel.slide\""
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "Array",
       "offset": 28431,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "Array",
       "offset": 28491,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "IntegerLiteral",
       "offset": 28529,
       "length": 1,
       "value": "8"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "IntegerLiteral",
       "offset": 28570,
       "length": 2,
       "value": "22"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "IntegerLiteral",
       "offset": 28603,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "BooleanLiteral",
       "offset": 28776,
       "length": 4,
       "value": "true"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "IntegerLiteral",
       "offset": 28703,
       "length": 1,
       "value": "0"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxCarouselCell.swift",
       "kind": "BooleanLiteral",
       "offset": 28997,
       "length": 5,
       "value": "false"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxVideoCell.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Public\/PushwooshInboxVideoCell.swift",
       "kind": "IntegerLiteral",
       "offset": 703,
       "length": 3,
       "value": "190"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Internal\/InboxDataSource.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Internal\/InboxDataSource.swift",
       "kind": "Array",
       "offset": 521,
       "length": 2,
       "value": "[]"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Internal\/MessageImageLoader.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Internal\/MessageImageLoader.swift",
       "kind": "IntegerLiteral",
       "offset": 835,
       "length": 4,
       "value": "1200"
     },
     {
-      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/2\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Internal\/MessageImageLoader.swift",
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInboxKit\/Internal\/MessageImageLoader.swift",
       "kind": "IntegerLiteral",
       "offset": 971,
       "length": 1,

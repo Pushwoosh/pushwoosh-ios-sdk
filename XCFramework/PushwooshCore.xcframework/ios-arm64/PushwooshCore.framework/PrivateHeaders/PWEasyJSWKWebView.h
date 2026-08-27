@@ -1,5 +1,5 @@
 //
-//  EasyJSWKWebView.h
+//  PWEasyJSWKWebView.h
 //  EasyJSWKWebView
 //
 //  Created by Lau Alex on 19/1/13.

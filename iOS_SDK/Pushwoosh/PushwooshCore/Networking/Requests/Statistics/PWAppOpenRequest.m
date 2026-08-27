@@ -10,7 +10,7 @@
 #import "PWConfig.h"
 #import <PushwooshCore/PWManagerBridge.h>
 
-@interface PWAppOpenRequest () 
+@interface PWAppOpenRequest ()
 
 @end
 
@@ -34,12 +34,12 @@
 	if (package) {
 		dict[@"package"] = package;
 	}
-    
+
     NSString *timeZone = [PWUtils timezone];
     if (timeZone) {
         dict[@"timezone"] = [PWUtils timezone];
     }
-	
+
 	NSString *appVersion = [PWUtils appVersion];
 	if (appVersion) {
 		dict[@"app_version"] = appVersion;
@@ -58,36 +58,36 @@
     if ([PWConfig config].allowCollectingDeviceLocale == YES) {
         dict[@"language"] = [PWPreferences preferences].language;
     }
-    
+
     NSDictionary *permissionsStatusDict = [PWManagerBridge getRemoteNotificationStatus];
-    
+
     BOOL soundsEnabled = [permissionsStatusDict[@"pushSound"] boolValue];
     BOOL badgesEnabled = [permissionsStatusDict[@"pushBadge"] boolValue];
     BOOL alertEnabled = [permissionsStatusDict[@"pushAlert"] boolValue];
-    
+
     if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"15.0"]) {
         BOOL timeSensitive = [permissionsStatusDict[@"time_sensitive_notifications"] boolValue];
         BOOL scheduleSettings = [permissionsStatusDict[@"scheduled_summary"] boolValue];
-        
+
         dict[@"time_sensitive_notifications"] = @(timeSensitive);
         dict[@"scheduled_summary"] = @(scheduleSettings);
     }
 
-    
+
     NSInteger statusesMask = 0;
-    
+
     if (badgesEnabled) {
         statusesMask |= 1;
     }
-    
+
     if (soundsEnabled) {
         statusesMask |= 1 << 1;
     }
-    
+
     if (alertEnabled) {
         statusesMask |= 1 << 2;
     }
-    
+
     dict[@"notificationTypes"] = @(statusesMask);
 
 	return dict;

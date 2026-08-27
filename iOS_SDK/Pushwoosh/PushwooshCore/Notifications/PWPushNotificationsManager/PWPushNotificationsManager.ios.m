@@ -1,5 +1,5 @@
 //
-//  PWPushNotificationsManager.m
+//  PWPushNotificationsManager.ios.m
 //  PushNotificationManager
 //
 //  Created by Kaizer on 07/06/16.
@@ -42,11 +42,11 @@
 #endif
 }
 
-- (void)willForeground:(NSNotification *)notifiaction {
+- (void)willForeground:(NSNotification *)notification {
     _fromForeground = YES;
 }
 
-- (void)didBecomeActive:(NSNotification *)notifiaction {
+- (void)didBecomeActive:(NSNotification *)notification {
     _fromForeground = NO;
 }
 

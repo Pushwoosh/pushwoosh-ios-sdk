@@ -433,39 +433,72 @@ static NSMutableDictionary *sJavaScriptInterfaces;
     }
 }
 
++ (PWLinkAction)pw_linkActionForURL:(NSURL *)url {
+    NSString *scheme = url.scheme.lowercaseString;
+
+    if ([scheme isEqualToString:@"pushwoosh"]) {
+        return PWLinkActionBridge;
+    }
+
+    if (scheme.length == 0 || [@[@"javascript", @"about", @"data", @"blob"] containsObject:scheme]) {
+        return PWLinkActionIgnore;
+    }
+
+    /// Local navigation inside the creative closes the in-app, as it did before SDK-883. Letting it
+    /// navigate needs impression dedup and per-page content preparation — separate feature.
+    if ([scheme isEqualToString:@"file"]) {
+        return PWLinkActionCloseOnly;
+    }
+
+    return PWLinkActionCloseAndOpen;
+}
+
 - (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler {
-    if (navigationAction.navigationType == WKNavigationTypeLinkActivated || navigationAction.navigationType == WKNavigationTypeFormSubmitted) {
-        
-        BOOL isPushwooshURLScheme = [navigationAction.request.URL.scheme isEqualToString:@"pushwoosh"];
-#if TARGET_OS_IOS
-        if (![[UIApplication sharedApplication] canOpenURL:navigationAction.request.URL] && !isPushwooshURLScheme) {
+    if (navigationAction.navigationType != WKNavigationTypeLinkActivated && navigationAction.navigationType != WKNavigationTypeFormSubmitted) {
+        decisionHandler(WKNavigationActionPolicyAllow);
+        return;
+    }
+
+    NSURL *url = navigationAction.request.URL;
+
+    switch ([[self class] pw_linkActionForURL:url]) {
+        case PWLinkActionBridge: {
+            [self loadPushwooshUrl:url];
             decisionHandler(WKNavigationActionPolicyCancel);
             return;
         }
-#endif
-        
-        if (isPushwooshURLScheme) {
-            [self loadPushwooshUrl:navigationAction.request.URL];
+
+        case PWLinkActionIgnore: {
+            [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"In-app link: in-content navigation to %@ consumed", [PWUtils loggableURLDescription:url]]];
             decisionHandler(WKNavigationActionPolicyCancel);
-        } else {
+            return;
+        }
+
+        case PWLinkActionCloseOnly: {
             [self.delegate webClientDidStartClose:self];
-            
-#if TARGET_OS_IOS
+            decisionHandler(WKNavigationActionPolicyCancel);
+            return;
+        }
+
+        case PWLinkActionCloseAndOpen: {
+            [self.delegate webClientDidStartClose:self];
+
             //If url has custom scheme like facebook:// or itms:// we need to open it directly:
             //small fix to prevent app freeezes on iOS7
-            //see: http://stackoverflow.com/questions/19356488/openurl-freezes-app-for-over-10-seconds
+            //see: https://stackoverflow.com/questions/19356488/openurl-freezes-app-for-over-10-seconds
             dispatch_async(dispatch_get_main_queue(), ^{
-                [PWUtils openUrl:navigationAction.request.URL];
+                [PWUtils openUrl:url];
             });
-#else
-            [[NSWorkspace sharedWorkspace] openURL:navigationAction.request.URL];
-#endif
-            
+
             decisionHandler(WKNavigationActionPolicyCancel);
+            return;
         }
-    } else {
-        decisionHandler(WKNavigationActionPolicyAllow);
     }
+
+    /// Unreachable while the switch stays exhaustive - no default: label, so a new PWLinkAction case
+    /// is a build warning instead of a silent close. WebKit still gets its answer if it ever is not.
+    [self.delegate webClientDidStartClose:self];
+    decisionHandler(WKNavigationActionPolicyCancel);
 }
 
 - (void)webView:(WKWebView *)webView didFailNavigation:(WKNavigation *)navigation withError:(NSError *)error {

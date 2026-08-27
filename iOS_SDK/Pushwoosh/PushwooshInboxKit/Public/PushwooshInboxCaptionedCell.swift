@@ -19,6 +19,15 @@ open class PushwooshInboxCaptionedCell: PushwooshInboxCell {
 
     private let card = UIView()
     private let imageHost = UIView()
+    /// Round message icon in the title row. Distinct from the hero image above:
+    /// the hero is the push attachment, this is the message's own icon.
+    private let iconView = UIImageView()
+    /// Swapped in `apply`: the whole text block starts in the unread-dot gutter when
+    /// there is no icon, and after the icon when there is one.
+    private var bodyLeadingWithoutIcon: NSLayoutConstraint?
+    private var bodyLeadingWithIcon: NSLayoutConstraint?
+    /// Spans title + body, so the icon can be centred on the copy alone.
+    private let textBlockGuide = UILayoutGuide()
     private let bodyStack = UIStackView()
     private let titleRow = UIView()
     private let pinChip = UIView()
@@ -66,6 +75,16 @@ open class PushwooshInboxCaptionedCell: PushwooshInboxCell {
         pinIndicatorView.tintColor = .white
         pinChip.addSubview(pinIndicatorView)
 
+        // Round message icon, leading the text block: title and body both sit to the
+        // right of it, the same arrangement the classic card uses for its avatar.
+        iconView.translatesAutoresizingMaskIntoConstraints = false
+        iconView.contentMode = .scaleAspectFill
+        iconView.clipsToBounds = true
+        iconView.layer.cornerRadius = 16
+        iconView.isHidden = true
+        card.addSubview(iconView)
+        card.addLayoutGuide(textBlockGuide)
+
         bodyStack.translatesAutoresizingMaskIntoConstraints = false
         bodyStack.axis = .vertical
         bodyStack.alignment = .fill
@@ -91,8 +110,8 @@ open class PushwooshInboxCaptionedCell: PushwooshInboxCell {
         // vertically centred on the title. Hidden = invisible but layout
         // unchanged (title stays put when read).
         unreadIndicatorView.translatesAutoresizingMaskIntoConstraints = false
-        unreadIndicatorView.layer.cornerRadius = 4
-        card.addSubview(unreadIndicatorView)
+        unreadIndicatorView.layer.cornerRadius = 5
+        imageHost.addSubview(unreadIndicatorView)
 
         bodyLabel.translatesAutoresizingMaskIntoConstraints = false
         bodyLabel.numberOfLines = 3
@@ -134,17 +153,26 @@ open class PushwooshInboxCaptionedCell: PushwooshInboxCell {
             pinIndicatorView.widthAnchor.constraint(equalToConstant: 13),
             pinIndicatorView.heightAnchor.constraint(equalToConstant: 13),
 
+            iconView.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 16),
+            // Centred on the text itself — the guide spans the title row and the body
+            // label, so the buttons row (when a message carries CTAs) does not drag the
+            // icon down past the copy it belongs to.
+            iconView.centerYAnchor.constraint(equalTo: textBlockGuide.centerYAnchor),
+            iconView.widthAnchor.constraint(equalToConstant: 32),
+            iconView.heightAnchor.constraint(equalToConstant: 32),
+
+            textBlockGuide.topAnchor.constraint(equalTo: titleRow.topAnchor),
+            textBlockGuide.bottomAnchor.constraint(equalTo: bodyLabel.bottomAnchor),
+
             bodyStack.topAnchor.constraint(equalTo: imageHost.bottomAnchor, constant: 14),
-            // bodyStack inset 32pt from card.leading — leaves a 16pt gutter
-            // for the unread dot (8pt dot + 8pt spacing).
-            bodyStack.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 32),
             bodyStack.trailingAnchor.constraint(equalTo: card.trailingAnchor, constant: -16),
             bodyStack.bottomAnchor.constraint(equalTo: card.bottomAnchor, constant: -16),
 
-            unreadIndicatorView.trailingAnchor.constraint(equalTo: bodyStack.leadingAnchor, constant: -8),
-            unreadIndicatorView.centerYAnchor.constraint(equalTo: titleLabel.centerYAnchor),
-            unreadIndicatorView.widthAnchor.constraint(equalToConstant: 8),
-            unreadIndicatorView.heightAnchor.constraint(equalToConstant: 8),
+            // Top-left corner of the hero image, mirroring the pin chip on the right.
+            unreadIndicatorView.topAnchor.constraint(equalTo: imageHost.topAnchor, constant: 10),
+            unreadIndicatorView.leadingAnchor.constraint(equalTo: imageHost.leadingAnchor, constant: 10),
+            unreadIndicatorView.widthAnchor.constraint(equalToConstant: 10),
+            unreadIndicatorView.heightAnchor.constraint(equalToConstant: 10),
 
             titleLabel.leadingAnchor.constraint(equalTo: titleRow.leadingAnchor),
             titleLabel.topAnchor.constraint(equalTo: titleRow.topAnchor),
@@ -155,12 +183,30 @@ open class PushwooshInboxCaptionedCell: PushwooshInboxCell {
             dateLabel.trailingAnchor.constraint(equalTo: titleRow.trailingAnchor)
         ])
 
+        bodyLeadingWithoutIcon = bodyStack.leadingAnchor.constraint(equalTo: card.leadingAnchor, constant: 16)
+        bodyLeadingWithIcon = bodyStack.leadingAnchor.constraint(equalTo: iconView.trailingAnchor, constant: 12)
+        bodyLeadingWithoutIcon?.isActive = true
+
         installTextGlassPlate(behind: bodyStack, in: card)
     }
 
     open override func apply(message: PWInboxMessageProtocol, attributes: PushwooshInboxKitAttributes) {
         let style = attributes.style
-        let imageURL = PushwooshInboxKitAttributes.resolvedImageURL(from: message)
+        // Hero slot takes the push attachment; the round icon in the title row takes
+        // the message icon. When the payload carries only one picture the resolver
+        // returns the same URL for both, and the icon is dropped so it is not shown twice.
+        let imageURL = PushwooshInboxKitAttributes.resolvedBannerURL(from: message)
+        let iconURL = PushwooshInboxKitAttributes.resolvedImageURL(from: message)
+        let showsIcon = iconURL != nil && iconURL != imageURL
+
+        iconView.isHidden = !showsIcon
+        bodyLeadingWithoutIcon?.isActive = !showsIcon
+        bodyLeadingWithIcon?.isActive = showsIcon
+        if let iconURL, showsIcon {
+            MessageImageLoader.shared.load(iconURL, into: iconView, placeholder: style.imagePlaceholder)
+        } else {
+            iconView.image = nil
+        }
 
         applyGlassBackdrop(in: card, imageURL: imageURL, style: style, cornerRadius: 18)
         card.layer.cornerRadius = 18

@@ -256,13 +256,13 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
 
 - (void)downloadDataWithCompletion:(PWResourceDownloadCompleteBlock)completion {
     [self deleteData];
-    
+
     @synchronized(_downloadListeners) {
         _lastError = nil;
     }
-    
+
     [self registerDownloadListener:completion];
-    
+
     void (^innerCompletionHandler)(NSError *error) = ^(NSError *error) {
         @synchronized(_downloadListeners) {
             _lastError = error;
@@ -279,7 +279,7 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
             NSString *temporaryLocation = NSTemporaryDirectory();
             temporaryLocation = [[temporaryLocation stringByAppendingPathComponent:[location lastPathComponent]] stringByAppendingString:@"_42"];
             [[NSFileManager defaultManager] moveItemAtPath:location toPath:temporaryLocation error:nil];
-            
+
             [self processZipFileAtLocation:temporaryLocation completion:^(NSError *error) {
                 innerCompletionHandler(error);
             }];
@@ -306,24 +306,24 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
         NSString *temporaryDict = NSTemporaryDirectory();
         temporaryDict = [temporaryDict stringByAppendingPathComponent:_code];
         [[NSFileManager defaultManager] createDirectoryAtPath:temporaryDict withIntermediateDirectories:NO attributes:nil error:nil];
-        
+
         PWZipArchive *archive = [PWZipArchive new];
         BOOL result = [archive unzipOpenFile:location];
-        
+
         if (!result) {
             completionWrapper([NSString stringWithFormat:@"InApp: %@ is not a zip archive!", _url]);
             return;
         }
-        
+
         result = [archive unzipFileTo:temporaryDict overWrite:YES];
         if (!result) {
             completionWrapper([NSString stringWithFormat:@"InApp: %@ failed to extract!", _url]);
             return;
         }
-        
+
         [archive unzipCloseFile];
         [self deleteData];
-        
+
         NSError *error = nil;
         if (![[NSFileManager defaultManager] moveItemAtPath:temporaryDict toPath:[self localPath] error:&error]) {
             completionWrapper([NSString stringWithFormat:@"Failed to move %@, error: %@", _url, error.localizedDescription]);
@@ -354,7 +354,7 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
 - (void)registerDownloadListener:(PWResourceDownloadCompleteBlock)completion {
     if (!completion)
         return;
-    
+
     @synchronized(_downloadListeners) {
         if (_lastError || [self isDownloaded]) {
             completion(_lastError);
@@ -393,16 +393,16 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
             }
         };
         [self readConfig];
-        
+
         NSError *error = nil;
         NSString *pageContent = [NSString stringWithContentsOfFile:[self pageUrl] encoding:NSUTF8StringEncoding error:&error];
         if (error) {
             completionWrapper(nil, [NSString stringWithFormat:@"Failed to read index file, error: %@", [error localizedDescription]]);
             return;
         }
-        
+
         pageContent = [self postProcessPageWithContent:pageContent];
-        
+
         completionWrapper(pageContent, nil);
     });
 }
@@ -646,7 +646,7 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
 - (NSString *)postProcessPageUsingParameters:(NSDictionary *)parameters regex:(NSString *)tagsRegexString pageContent:(NSString *)pageContent options:(NSRegularExpressionOptions)options {
     if (!pageContent)
         return nil;
-    
+
     NSError *error = nil;
     NSRegularExpression *tagsRegex = [NSRegularExpression regularExpressionWithPattern:tagsRegexString options:options error:&error];
     if (error) {
@@ -655,14 +655,14 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
                            message:[NSString stringWithFormat:@"Failed to create regex, error: %@", [error localizedDescription]]];
         return nil;
     }
-    
+
     NSRange pageRange = NSMakeRange(0, [pageContent length]);
-    
+
     NSMutableDictionary *replaceDict = [NSMutableDictionary new];
-    
+
     NSArray *matches = [tagsRegex matchesInString:pageContent options:0 range:pageRange];
     for (NSTextCheckingResult *match in matches) {
-        
+
         NSString *tagDefaultValue;
         NSString *tagPlacement = [pageContent substringWithRange:[match rangeAtIndex:0]];
         NSString *tagKey = [pageContent substringWithRange:[match rangeAtIndex:1]];
@@ -681,11 +681,11 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
                              className:self
                                message:@"Incorrect number of matches"];
         }
-        
+
         [PushwooshLog pushwooshLog:PW_LL_VERBOSE
                          className:self
                            message:[NSString stringWithFormat:@"Found tag placement: %@, key: %@, default value: %@, modifier: %@", tagPlacement, tagKey, tagDefaultValue, modifier]];
-        
+
         NSString *tagReplacement = parameters[tagKey];
         BOOL found = (tagReplacement != nil);
 
@@ -697,14 +697,14 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
 
         replaceDict[tagPlacement] = tagReplacement;
     }
-    
+
     for (NSString *tagPlacement in replaceDict) {
         NSString *tagReplacement = replaceDict[tagPlacement];
-        
+
         if (![tagReplacement isKindOfClass:[NSString class]]) {
             tagReplacement = [NSString stringWithFormat:@"%@", tagReplacement];
         }
-        
+
         [PushwooshLog pushwooshLog:PW_LL_DEBUG
                          className:self
                            message:[NSString stringWithFormat:@"Replacing: %@, with: %@", tagPlacement, tagReplacement]];

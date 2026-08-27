@@ -1,6 +1,6 @@
 //
 //
-//  PushNotificationManager.h
+//  PWGetResourcesRequest.m
 //  Pushwoosh SDK
 //  (c) Pushwoosh 2015
 //
@@ -10,7 +10,7 @@
 #import "PWGetResourcesRequest.h"
 #import "PWResource.h"
 
-@interface PWGetResourcesRequest () 
+@interface PWGetResourcesRequest ()
 
 @property (nonatomic, copy) NSDictionary *resources;
 

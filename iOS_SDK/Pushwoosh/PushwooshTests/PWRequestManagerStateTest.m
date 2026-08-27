@@ -19,9 +19,10 @@
 @property (nonatomic, strong) NSURLSession *session;
 @property (nonatomic, copy) NSString *reverseProxyUrl;
 @property (nonatomic, copy) NSDictionary<NSString *, NSString *> *customHeaders;
-@property (nonatomic, assign) BOOL firstQueueWarningEmitted;
+@property (nonatomic, strong) NSMutableSet<NSString *> *warnedQueueReasons;
 
 - (void)sendRequestInternal:(PWRequest *)request completion:(void (^)(NSError *error))completion;
+- (NSString *)unmetReadinessReason;
 - (BOOL)isReadyForNetwork;
 - (void)evaluateReadiness;
 
@@ -42,6 +43,9 @@
 
 @property (nonatomic, strong) id mockConfig;
 @property (nonatomic, copy) NSString *savedAppCode;
+/// Torn down centrally: a class mock on PushwooshLog that outlives a failing test keeps its
+/// expectations armed and fails the next one instead.
+@property (nonatomic, strong) id logMock;
 
 @end
 
@@ -56,6 +60,8 @@
 
 - (void)tearDown {
     [[PWSdkStateProvider sharedInstance] resetForTesting];
+    [_logMock stopMocking];
+    _logMock = nil;
     [_mockConfig stopMocking];
     _mockConfig = nil;
     [PWPreferences preferences].baseUrl = [[PWPreferences preferences] defaultBaseUrl];
@@ -186,6 +192,22 @@
 
     XCTAssertFalse(completionCalled);
     XCTAssertEqual([PWSdkStateProvider sharedInstance].taskQueue.count, 0);
+}
+
+/// In the error state the request is dropped, so nothing may promise a queue for it - neither the
+/// readiness advice nor the debug line. `executeOrQueue` reports the drop itself.
+- (void)testSendRequest_errorState_saysNothingAboutQueuing {
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
+
+    [[PWSdkStateProvider sharedInstance] setError];
+
+    self.logMock = OCMClassMock([PushwooshLog class]);
+    OCMReject([self.logMock pushwooshLog:PW_LL_WARN className:manager message:OCMOCK_ANY]);
+    OCMReject([self.logMock pushwooshLog:PW_LL_DEBUG className:manager message:OCMOCK_ANY]);
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+
+    XCTAssertEqual(manager.warnedQueueReasons.count, (NSUInteger)0);
 }
 
 /// Verifies that queued requests are dropped when setError is called.
@@ -349,15 +371,14 @@
     NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:testGroupName];
     [sharedDefaults removeObjectForKey:@"PWReverseProxyURL"];
 
-    id logMock = OCMClassMock([PushwooshLog class]);
-    OCMExpect([logMock pushwooshLog:PW_LL_ERROR className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
+    self.logMock = OCMClassMock([PushwooshLog class]);
+    OCMExpect([self.logMock pushwooshLog:PW_LL_ERROR className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
         return [msg containsString:@"Reverse proxy is enabled"] && [msg containsString:testGroupName];
     }]]);
 
     [manager loadReverseProxyFromAppGroups];
 
-    OCMVerifyAll(logMock);
-    [logMock stopMocking];
+    OCMVerifyAll(self.logMock);
 }
 
 /// Verifies the missing-proxy error is NOT logged when a proxy URL is present in the App Group.
@@ -370,15 +391,14 @@
     NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:testGroupName];
     [sharedDefaults setObject:@"https://proxy.example.com/" forKey:@"PWReverseProxyURL"];
 
-    id logMock = OCMClassMock([PushwooshLog class]);
-    OCMReject([logMock pushwooshLog:PW_LL_ERROR className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
+    self.logMock = OCMClassMock([PushwooshLog class]);
+    OCMReject([self.logMock pushwooshLog:PW_LL_ERROR className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
         return [msg containsString:@"Reverse proxy is enabled but no proxy URL"];
     }]]);
 
     [manager loadReverseProxyFromAppGroups];
 
     [sharedDefaults removeObjectForKey:@"PWReverseProxyURL"];
-    [logMock stopMocking];
 }
 
 #pragma mark - Scenario: Queued requests flushed via App Groups path
@@ -711,16 +731,23 @@
     XCTAssertTrue([[PWSdkStateProvider sharedInstance] isReady]);
 }
 
-/// Verifies that the first-queue warning is emitted only once per PWRequestManager instance.
-- (void)testFirstQueueWarn_emittedOnlyOnce {
+/// Verifies that one unmet condition is announced only once per PWRequestManager instance, however
+/// many requests queue behind it.
+- (void)testQueueWarn_sameReasonEmittedOnlyOnce {
     [PWPreferences preferences].appCode = @"";
     PWRequestManager *manager = [self createManagerWithAllowReverseProxy:NO];
 
     [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+
+    self.logMock = OCMClassMock([PushwooshLog class]);
+    OCMReject([self.logMock pushwooshLog:PW_LL_WARN className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
+        return [msg containsString:@"app_code is not set"];
+    }]]);
+
     [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
     [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
 
-    XCTAssertTrue(manager.firstQueueWarningEmitted);
+    XCTAssertEqual(manager.warnedQueueReasons.count, (NSUInteger)1);
     XCTAssertEqual([PWSdkStateProvider sharedInstance].taskQueue.count, 3);
 }
 
@@ -735,6 +762,99 @@
 
     XCTAssertEqual([PWSdkStateProvider sharedInstance].currentState, PWSdkStateInitializing);
     XCTAssertFalse([[PWSdkStateProvider sharedInstance] isReady]);
+}
+
+#pragma mark - Scenario: the queue warning names the condition that is actually unmet
+
+/// An empty app code is named as such.
+- (void)testQueueWarning_namesAppCode_whenAppCodeIsEmpty {
+    [PWPreferences preferences].appCode = @"";
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:NO];
+
+    self.logMock = OCMClassMock([PushwooshLog class]);
+    OCMExpect([self.logMock pushwooshLog:PW_LL_WARN className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
+        return [msg containsString:@"app_code is not set"];
+    }]]);
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+
+    OCMVerifyAll(self.logMock);
+}
+
+/// A reverse proxy that is required and absent is named as such - the app code is set here, so this
+/// is the one case where the proxy really is what the integrator has to supply.
+- (void)testQueueWarning_namesReverseProxy_whenProxyIsRequiredAndMissing {
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
+
+    self.logMock = OCMClassMock([PushwooshLog class]);
+    OCMExpect([self.logMock pushwooshLog:PW_LL_WARN className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
+        return [msg containsString:@"reverse proxy URL is not set"];
+    }]]);
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+
+    OCMVerifyAll(self.logMock);
+}
+
+/// Verifies that a fully configured SDK queueing only on the readiness hop is advised nothing.
+- (void)testQueueWarning_silentWhenOnlyReadinessIsPending {
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:NO];
+    XCTAssertTrue([[PWSdkStateProvider sharedInstance] isReady]);
+
+    [[PWSdkStateProvider sharedInstance] resetForTesting];
+
+    /// Matched on the advice, not the prefix — a reword must not turn this into a no-op.
+    self.logMock = OCMClassMock([PushwooshLog class]);
+    OCMReject([self.logMock pushwooshLog:PW_LL_WARN className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
+        return [msg containsString:@"app_code is not set"] || [msg containsString:@"reverse proxy URL is not set"];
+    }]]);
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+
+    XCTAssertEqual(manager.warnedQueueReasons.count, (NSUInteger)0);
+    XCTAssertNil([manager unmetReadinessReason]);
+}
+
+/// Verifies that a silent readiness queue spends no warning, so a genuinely missing app code is still named afterwards.
+- (void)testQueueWarning_stillNamesAppCodeAfterAPendingReadinessQueue {
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:NO];
+    [[PWSdkStateProvider sharedInstance] resetForTesting];
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+
+    [PWPreferences preferences].appCode = @"";
+
+    self.logMock = OCMClassMock([PushwooshLog class]);
+    OCMExpect([self.logMock pushwooshLog:PW_LL_WARN className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
+        return [msg containsString:@"app_code is not set"];
+    }]]);
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+
+    OCMVerifyAll(self.logMock);
+}
+
+/// Verifies that the warning is spent per reason: the required proxy is named once the app code it warned about arrives.
+- (void)testQueueWarning_namesReverseProxyAfterTheAppCodeItWarnedAboutArrives {
+    [PWPreferences preferences].appCode = @"";
+    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
+
+    self.logMock = OCMClassMock([PushwooshLog class]);
+    OCMExpect([self.logMock pushwooshLog:PW_LL_WARN className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
+        return [msg containsString:@"app_code is not set"];
+    }]]);
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+    OCMVerifyAll(self.logMock);
+
+    [PWPreferences preferences].appCode = @"TEST-APPCODE-STATE";
+
+    OCMExpect([self.logMock pushwooshLog:PW_LL_WARN className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
+        return [msg containsString:@"reverse proxy URL is not set"];
+    }]]);
+
+    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
+
+    OCMVerifyAll(self.logMock);
 }
 
 @end
