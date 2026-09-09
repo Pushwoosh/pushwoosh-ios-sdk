@@ -39,7 +39,7 @@
 
 - (void)testMethodNameIsCorrect {
     NSString *methodName = [self.request methodName];
-    
+
     XCTAssertEqualObjects(methodName, @"mergeUser");
 }
 
@@ -47,9 +47,9 @@
     [self.request setSrcUserId:@"user"];
     [self.request setDstUserId:@"user_dst"];
     [self.request setDoMerge:YES];
-    
+
     NSDictionary *parameters = [self.request requestDictionary];
-    
+
     assertThat(parameters, hasKey(@"oldUserId"));
     assertThat(parameters, hasKey(@"newUserId"));
     assertThat(parameters, hasKey(@"merge"));

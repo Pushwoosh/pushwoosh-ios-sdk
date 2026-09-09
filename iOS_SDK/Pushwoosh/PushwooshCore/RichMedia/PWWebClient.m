@@ -200,10 +200,10 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 	dispatch_once(&onceToken, ^{
 		sJavaScriptInterfaces = [NSMutableDictionary new];
 	});
-	
+
     @synchronized (sJavaScriptInterfaces) {
         sJavaScriptInterfaces[name] = interface;
-        
+
         [[NSNotificationCenter defaultCenter] postNotificationName:kJavaScriptUpdated object:nil userInfo:@{kInterface: sJavaScriptInterfaces}];
     }
 }
@@ -218,14 +218,14 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 #else
 - (id)initWithParentView:(NSView *)parentView payload:(NSDictionary *)payload code:(NSString *)code inAppCode:(NSString *)inAppCode {
 #endif
-    
+
     self = [super init];
-    
+
 	if (self) {
         @synchronized (sJavaScriptInterfaces) {
             _javascriptInterfaces = [sJavaScriptInterfaces copy];
         }
-        
+
         WKPreferences *prefs = [WKPreferences new];
         prefs.javaScriptEnabled = YES;
 #if TARGET_OS_IOS
@@ -235,7 +235,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
         }
 #endif
 #endif
-        
+
         WKWebViewConfiguration *config = [WKWebViewConfiguration new];
         config.preferences = prefs;
 #if TARGET_OS_IOS
@@ -245,41 +245,41 @@ static NSMutableDictionary *sJavaScriptInterfaces;
         [self setMessageHash:messageHash ? messageHash : @""];
         [self setRichMediaCode:code];
         [self setInAppCode:inAppCode];
-        
+
         WKUserScript *pushwooshInject = [[WKUserScript alloc] initWithSource:PUSHWOOSH_JS injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:NO];
-        
+
         WKUserScript *hwidInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._hwid = %@;", [PWWebClient pw_jsLiteralForString:[[PWManagerBridge shared] getHWID]]]
                                                           injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                        forMainFrameOnly:NO];
-        
+
         WKUserScript *versionInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._version = \"%@\";", PUSHWOOSH_VERSION]
                                                              injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                           forMainFrameOnly:NO];
-        
+
         WKUserScript *applicationInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._application = %@;", [PWWebClient pw_jsLiteralForString:[[PWManagerBridge shared] appCode]]]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
-        
+
         WKUserScript *userIdInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._user_id = %@;", [PWWebClient pw_jsLiteralForString:[[PWPreferences preferences] userId]]]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
-        
+
         WKUserScript *deviceTypeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._device_type = \"%@\";", @(DEVICE_TYPE)]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
-        
+
         WKUserScript *messageHashInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._message_hash = %@;", [PWWebClient pw_jsLiteralForString:_messageHash]]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
-        
+
         WKUserScript *richMediaCodeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._richmedia_code = %@;", [PWWebClient pw_jsLiteralForString:_richMediaCode]]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
-                
+
         WKUserScript *inAppCodeInject = [[WKUserScript alloc] initWithSource:[NSString stringWithFormat:@"window.pushwoosh._inapp_code = %@;", [PWWebClient pw_jsLiteralForString:_inAppCode]]
                                                                  injectionTime:WKUserScriptInjectionTimeAtDocumentStart
                                                               forMainFrameOnly:NO];
-        
+
         WKUserScript *disableSelectionInject = [[WKUserScript alloc] initWithSource:@"\
                                                 (function() {\
                                                 var pw_style = document.createElement(\"style\");\
@@ -288,7 +288,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
                                                 })();"
                                                                       injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                                                                    forMainFrameOnly:NO];
-        
+
         WKUserScript *addViewPortInject = [[WKUserScript alloc] initWithSource:@"\
                                            var meta = document.createElement('meta'); \
                                            meta.setAttribute('name', 'viewport'); \
@@ -296,31 +296,31 @@ static NSMutableDictionary *sJavaScriptInterfaces;
                                            document.getElementsByTagName('head')[0].appendChild(meta);"
                                                                       injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                                                                    forMainFrameOnly:NO];
-        
+
         WKUserScript *removeSelectionInject = [[WKUserScript alloc] initWithSource:@"window.getSelection().removeAllRanges();"
                                                                      injectionTime:WKUserScriptInjectionTimeAtDocumentEnd
                                                                   forMainFrameOnly:NO];
-        
+
         PWPushManagerJSBridge *pushManagerJS = [[PWPushManagerJSBridge alloc] initWithClient:self];
         pushManagerJS.delegate = self;
-        
+
         PWPushwooshJSBridge *pushwooshJS = [[PWPushwooshJSBridge alloc] initWithClient:self];
-        
+
         NSMutableDictionary *interfaces = @{@"pushManager" : pushManagerJS,
                                             @"pushwooshImpl" : pushwooshJS
                                             }.mutableCopy;
-        
+
         if (_javascriptInterfaces) {
             [interfaces addEntriesFromDictionary:_javascriptInterfaces];
         }
-                
+
         _webView = [[PWEasyJSWKWebView alloc] initWithFrame:parentView.bounds
                                               configuration:config
                                    withJavascriptInterfaces:interfaces
                                                 userScripts:@[addViewPortInject, pushwooshInject, hwidInject, versionInject, applicationInject, userIdInject, deviceTypeInject, messageHashInject, richMediaCodeInject, inAppCodeInject, disableSelectionInject, removeSelectionInject]];
 
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(reloadWebView) name:kReloadWebView object:_webView];
-                
+
 #if TARGET_OS_IOS
 #if __IPHONE_OS_VERSION_MAX_ALLOWED >= 110000
 #pragma clang diagnostic push
@@ -330,19 +330,19 @@ static NSMutableDictionary *sJavaScriptInterfaces;
         }
 #pragma clang diagnostic pop
 #endif
-        
+
         for (UIView *view in _webView.scrollView.subviews) {
             for (UIGestureRecognizer *gestureRecognizer in view.gestureRecognizers) {
                 if ([gestureRecognizer isKindOfClass:UITapGestureRecognizer.class]) {
                     UITapGestureRecognizer *tapRecognizer = (UITapGestureRecognizer *)gestureRecognizer;
-                    
+
                     if (tapRecognizer.numberOfTapsRequired == 2 && tapRecognizer.numberOfTouchesRequired == 1) {
                         tapRecognizer.enabled = NO;
                     }
                 }
             }
         }
-        
+
         _webView.autoresizingMask = UIViewAutoresizingFlexibleHeight | UIViewAutoresizingFlexibleWidth;
         _webView.backgroundColor = [UIColor clearColor];
         _webView.opaque = NO;
@@ -351,10 +351,10 @@ static NSMutableDictionary *sJavaScriptInterfaces;
         _webView.autoresizingMask = NSViewWidthSizable | NSViewHeightSizable;
 #endif
 		_webView.navigationDelegate = self;
-        
+
         [parentView addSubview:_webView];
 	}
-    
+
 	return self;
 }
 
@@ -367,7 +367,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
                            message:[NSString stringWithFormat:@"Unrecognized pushwoosh url: %@", url.absoluteString]];
 		return NO;
 	}
-	
+
 	return YES;
 }
 
@@ -394,7 +394,7 @@ static NSMutableDictionary *sJavaScriptInterfaces;
         }
     }
 #endif
-    
+
     if (_richMedia.pushPayload) {
         NSString *customData = [[PWManagerBridge shared] getCustomPushData:_richMedia.pushPayload];
         NSString *customDataValue = [PWWebClient pw_jsJSONValueForString:customData];

@@ -1,4 +1,3 @@
-
 #import <XCTest/XCTest.h>
 
 #import "PWGetResourcesRequest.h"
@@ -18,16 +17,16 @@
 
 - (void)testPositiveResponse {
     NSDictionary *response = [self responseFromString:@"{\"inApps\":[{\"url\":\"https:\\/\\/inapp.pushwoosh.com\\/json\\/1.3\\/getInApp\\/FE293-BA62E-1\",\"code\":\"FE293-BA62E\",\"layout\":\"topbanner\",\"updated\":1465292957,\"closeButtonType\":\"1\"}]}"];
-	
+
 	PWGetResourcesRequest *request = [PWGetResourcesRequest new];
-	
+
 	XCTAssertNil(request.resources);
 	[request parseResponse:response];
 
 	NSDictionary *inapps = request.resources;
-	
+
 	XCTAssertEqual([inapps count], 1);
-	
+
 	PWResource *resource = inapps[@"FE293-BA62E"];
 	XCTAssertEqualObjects(resource.code, @"FE293-BA62E");
 	XCTAssertEqualObjects(resource.url, @"https://inapp.pushwoosh.com/json/1.3/getInApp/FE293-BA62E-1");
@@ -37,9 +36,9 @@
 
 - (void)testNoInApps {
     NSDictionary *response = [self responseFromString:@"{ }"];
-	
+
 	PWGetResourcesRequest *request = [PWGetResourcesRequest new];
-	
+
 	XCTAssertNil(request.resources);
 	[request parseResponse:response];
 
@@ -48,23 +47,23 @@
 
 - (void)testNullInApps {
     NSDictionary *response = [self responseFromString:@"{ \"inApps\":null }"];
-	
+
 	PWGetResourcesRequest *request = [PWGetResourcesRequest new];
-	
+
 	XCTAssertNil(request.resources);
 	[request parseResponse:response];
-	
+
 	[self assertNilOrEmpty:request.resources];
 }
 
 - (void)testEmptyInApps {
     NSDictionary *response = [self responseFromString:@"{ \"inApps\":[] }"];
-	
+
 	PWGetResourcesRequest *request = [PWGetResourcesRequest new];
-	
+
 	XCTAssertNil(request.resources);
 	[request parseResponse:response];
-	
+
 	[self assertNilOrEmpty:request.resources];
 }
 

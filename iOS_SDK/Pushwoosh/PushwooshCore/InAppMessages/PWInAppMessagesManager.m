@@ -62,7 +62,6 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 @property (nonatomic, strong) PWRequestManager *requestManager;
 @property (nonatomic) NSString *trackingAppCode;
-@property (atomic) NSString *postEventMessageHash;
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 @property (nonatomic) PWRichMediaView *richMediaView;
@@ -156,26 +155,26 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 #endif
 
 - (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void (^)(NSError *error))completion {
-    [self postEventInternal:event withAttributes:attributes completion:^(id resource, NSError *error) {
-#if TARGET_OS_TV
-        if (!error && resource) {
-            dispatch_async(dispatch_get_main_queue(), ^{
-                id<PWTVoSInAppHandler> tvosHandler =
-                    [PushwooshModuleRegistry handlerForIdentifier:PWModuleIdentifierTVoS];
-                [tvosHandler handleInAppResource:resource];
-            });
+    [self postEventInternal:event
+             withAttributes:attributes
+                 completion:completion
+            resourceHandler:^(PWResource *resource, NSString *messageHash, NSError *error) {
+        if (error || !resource) {
+            return;
         }
+#if TARGET_OS_TV
+        dispatch_async(dispatch_get_main_queue(), ^{
+            id<PWTVoSInAppHandler> tvosHandler =
+                [PushwooshModuleRegistry handlerForIdentifier:PWModuleIdentifierTVoS];
+            [tvosHandler handleInAppResource:resource];
+        });
 #elif TARGET_OS_IOS || TARGET_OS_OSX
-        if (!error && resource)
-            dispatch_async(dispatch_get_main_queue(), ^{
-                NSDictionary *payload = self.postEventMessageHash.length > 0 ? @{@"p": self.postEventMessageHash} : nil;
-                PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourceInApp resource:resource pushPayload:payload];
-                self.postEventMessageHash = nil;
-                [self richMediaTypeWith:richMedia resource:resource];
-            });
+        dispatch_async(dispatch_get_main_queue(), ^{
+            NSDictionary *payload = messageHash.length > 0 ? @{@"p": messageHash} : nil;
+            PWRichMedia *richMedia = [[PWRichMedia alloc] initWithSource:PWRichMediaSourceInApp resource:resource pushPayload:payload];
+            [self richMediaTypeWith:richMedia resource:resource];
+        });
 #endif
-        if (completion)
-            completion(error);
     }];
 }
 
@@ -193,12 +192,16 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 #endif
 }
 
-- (void)postEventInternal:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void (^)(id resource, NSError *error))completion {
+- (void)postEventInternal:(NSString *)event
+           withAttributes:(NSDictionary *)attributes
+               completion:(void (^)(NSError *error))completion
+          resourceHandler:(void (^)(PWResource *resource, NSString *messageHash, NSError *error))resourceHandler {
     if (event.length == 0) {
         [PushwooshLog pushwooshLog:PW_LL_WARN
                          className:self
                            message:@"Pushwoosh: Event is missing"];
-        completion(nil, [PWUtils pushwooshError:@"Pushwoosh: Event is missing"]);
+        if (completion)
+            completion([PWUtils pushwooshError:@"Pushwoosh: Event is missing"]);
         return;
     }
 
@@ -206,7 +209,8 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         [PushwooshLog pushwooshLog:PW_LL_WARN
                          className:self
                            message:@"Pushwoosh App code is missing. Initialize Pushwoosh manager in application:didFinishLaunchingWithOptions:"];
-        completion(nil, [PWUtils pushwooshError:@"Pushwoosh App code is missing"]);
+        if (completion)
+            completion([PWUtils pushwooshError:@"Pushwoosh App code is missing"]);
         return;
     }
 
@@ -214,7 +218,8 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
         [PushwooshLog pushwooshLog:PW_LL_WARN
                          className:self
                            message:@"Pushwoosh: You need to setup UserId, [PWManagerBridge shared] setUserId:]"];
-        completion(nil, [PWUtils pushwooshError:@"Pushwoosh User Id is missing"]);
+        if (completion)
+            completion([PWUtils pushwooshError:@"Pushwoosh User Id is missing"]);
         return;
     }
 
@@ -245,105 +250,122 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     __weak typeof(self) wself = self;
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error) {
-            completion(nil, error);
+            if (completion)
+                completion(error);
+            if (resourceHandler)
+                resourceHandler(nil, nil, error);
             return;
         }
-        wself.postEventMessageHash = request.messageHash;
-#if TARGET_OS_IOS || TARGET_OS_OSX
+
+        if (completion)
+            completion(nil);
+
+        NSString *messageHash = request.messageHash;
+
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
         if ([request.resultCode length] != 0) {
-            [self setPostEventInAppCode:request.resultCode];
-
-            PWResource *resource = [[PWInAppStorage storage] resourceForCode:request.resultCode];
-
-            void (^loadResource)(void) = ^{
-                RichMediaStyleType style = [[PWConfig config] richMediaStyle];
-
-                if (style != PWRichMediaStyleTypeModal) {
-                    [PWShowLoading showLoadingWithCancelBlock:^{
-                        [[PWInAppStorage storage] resetBlocks];
-                    }];
+            [wself setPostEventInAppCode:request.resultCode];
+            [wself resolveInAppResourceForCode:request.resultCode messageHash:messageHash handler:resourceHandler];
+        } else if (request.richMedia) {
+            PWResource *resource = [[PWInAppStorage storage] resourceForDictionary:request.richMedia];
+            [resource getHTMLDataWithCompletion:^(NSString *htmlData, NSError *htmlError) {
+                if (!resourceHandler) {
+                    return;
                 }
-
-                [[PWInAppStorage storage] resourcesForCode:request.resultCode
-                                           completionBlock:^(PWResource *resource) {
-                    if (style != PWRichMediaStyleTypeModal) {
-                        [PWShowLoading hideLoading];
-                    }
-                    [wself processingResource:resource withRequest:request completion:completion];
-                }];
-            };
-
-            if (resource == nil) {
-                [[PWInAppStorage storage] synchronize:^(NSError *error) {
-                    if (!error) {
-                        loadResource();
-                    }
-                }];
-            } else {
-                [wself processingResource:resource withRequest:request completion:completion];
-            }
-        } else if (request.richMedia) {
-            PWResource *resource = [[PWInAppStorage storage] resourceForDictionary:request.richMedia];
-            [resource getHTMLDataWithCompletion:^(NSString *htmlData, NSError *error){
-                [wself processingResource:resource withRequest:request completion:completion];
+                if (!resource.isDownloaded) {
+                    resourceHandler(nil, messageHash, htmlError ?: [PWUtils pushwooshError:@"Pushwoosh Rich Media resource is not downloaded"]);
+                    return;
+                }
+                resourceHandler(resource, messageHash, nil);
             }];
-        } else {
-            completion(nil, nil);
-        }
-#elif TARGET_OS_TV
-        if ([request.resultCode length] != 0) {
-            [self setPostEventInAppCode:request.resultCode];
-            PWResource *resource = [[PWInAppStorage storage] resourceForCode:request.resultCode];
-
-            void (^loadResource)(void) = ^{
-                [[PWInAppStorage storage] resourcesForCode:request.resultCode
-                                           completionBlock:^(PWResource *resource) {
-                    [wself processingResource:resource withRequest:request completion:completion];
-                }];
-            };
-
-            if (resource == nil) {
-                [[PWInAppStorage storage] synchronize:^(NSError *error) {
-                    if (!error) {
-                        loadResource();
-                    } else {
-                        completion(nil, error);
-                    }
-                }];
-            } else {
-                [wself processingResource:resource withRequest:request completion:completion];
-            }
-        } else if (request.richMedia) {
-            PWResource *resource = [[PWInAppStorage storage] resourceForDictionary:request.richMedia];
-            [resource getHTMLDataWithCompletion:^(NSString *htmlData, NSError *error){
-                [wself processingResource:resource withRequest:request completion:completion];
-            }];
-        } else {
-            completion(nil, nil);
+        } else if (resourceHandler) {
+            resourceHandler(nil, messageHash, nil);
         }
 #else
-        completion(nil, nil);
+        if (resourceHandler)
+            resourceHandler(nil, messageHash, nil);
 #endif
     }];
 }
 
+#if TARGET_OS_IOS || TARGET_OS_OSX || TARGET_OS_TV
 
-- (void)processingResource:(PWResource *)resource withRequest:(PWPostEventRequest *)request completion:(void (^)(PWResource *resource, NSError *error))completion {
-    if (!resource) {
-        NSString *message = [NSString stringWithFormat:@"Pushwoosh In-App Resource with code %@ is not found", request.resultCode];
-        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:message];
-        completion(nil, [PWUtils pushwooshError:message]);
-        return;
-    }
+- (void)resolveInAppResourceForCode:(NSString *)code
+                        messageHash:(NSString *)messageHash
+                            handler:(void (^)(PWResource *resource, NSString *messageHash, NSError *error))handler {
+    __weak typeof(self) wself = self;
 
-    if (!resource.isDownloaded) {
-        NSString *message = [NSString stringWithFormat:@"Pushwoosh In-App: Resource with code %@ is not downloaded yet", request.resultCode];
-        [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:message];
-        completion(nil, [PWUtils pushwooshError:message]);
-        return;
+    void (^awaitResource)(void) = ^{
+        // Synchronous fetch: the catalog is already settled here, so the isUpdating-aware async path would only add a redundant hop.
+        PWResource *resource = [[PWInAppStorage storage] resourceForCode:code];
+        if (!resource) {
+            NSString *message = [NSString stringWithFormat:@"Pushwoosh In-App Resource with code %@ is not found", code];
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:wself message:message];
+            if (handler)
+                handler(nil, messageHash, [PWUtils pushwooshError:message]);
+            return;
+        }
+
+        // The overlay is only for an actual wait: on a warm cache the await below reports synchronously,
+        // so showing it unconditionally presented and dismissed the loading window on every in-app.
+        if (resource.isDownloaded) {
+            if (handler)
+                handler(resource, messageHash, nil);
+            return;
+        }
+
+        [wself showInAppLoading];
+
+        [resource awaitDownloadWithCompletion:^(NSError *downloadError) {
+            [wself hideInAppLoading];
+
+            if (downloadError || !resource.isDownloaded) {
+                NSString *message = [NSString stringWithFormat:@"Pushwoosh In-App: Resource with code %@ failed to download: %@",
+                                     code, downloadError.localizedDescription ?: @"unknown error"];
+                [PushwooshLog pushwooshLog:PW_LL_ERROR className:wself message:message];
+                if (handler)
+                    handler(nil, messageHash, downloadError ?: [PWUtils pushwooshError:message]);
+                return;
+            }
+
+            if (handler)
+                handler(resource, messageHash, nil);
+        }];
+    };
+
+    if ([[PWInAppStorage storage] resourceForCode:code] == nil) {
+        [[PWInAppStorage storage] synchronizeCatalog:^(NSError *error) {
+            if (error) {
+                if (handler)
+                    handler(nil, messageHash, error);
+                return;
+            }
+            awaitResource();
+        }];
+    } else {
+        awaitResource();
     }
-    completion(resource, nil);
 }
+
+- (void)showInAppLoading {
+#if TARGET_OS_IOS || TARGET_OS_OSX
+    if ([[PWConfig config] richMediaStyle] != PWRichMediaStyleTypeModal) {
+        [PWShowLoading showLoadingWithCancelBlock:^{
+            [[PWInAppStorage storage] resetBlocks];
+        }];
+    }
+#endif
+}
+
+- (void)hideInAppLoading {
+#if TARGET_OS_IOS || TARGET_OS_OSX
+    if ([[PWConfig config] richMediaStyle] != PWRichMediaStyleTypeModal) {
+        [PWShowLoading hideLoading];
+    }
+#endif
+}
+
+#endif
 
 - (void)setUserId:(NSString *)userId completion:(void(^)(NSError * error))completion {
     NSDate *lastRegDate = [PWPreferences preferences].lastRegisterUserDate;
@@ -442,6 +464,7 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
                     completion(error);
                 return;
             } else {
+                [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"Email %@ was successfully registered", email]];
                 [wself registerEmailUser:email userId:nil];
             }
             if (completion)

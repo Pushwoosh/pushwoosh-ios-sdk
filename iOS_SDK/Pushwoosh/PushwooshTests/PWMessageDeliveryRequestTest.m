@@ -35,13 +35,13 @@
 
 - (void)testMethodNameIsCorrect {
     NSString *methodName = [self.request methodName];
-    
+
     XCTAssertEqualObjects(methodName, @"messageDeliveryEvent");
 }
 
 - (void)testRequestDictionaryHasParameters {
     [self.request setPushDict:@{@"md": @"md"}];
-    
+
     NSDictionary *parameters = [self.request requestDictionary];
 
     assertThat(parameters, hasKey(@"metaData"));

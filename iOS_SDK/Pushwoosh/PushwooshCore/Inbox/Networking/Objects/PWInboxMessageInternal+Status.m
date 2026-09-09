@@ -34,7 +34,7 @@
     } else if (self.status == PWInboxMessageStatusCreated) {
         return YES;
     } else {
-        
+
         switch (status) {
             case PWInboxMessageStatusDeleted:
                 return YES;
@@ -55,7 +55,7 @@
                 break;
         }
         return NO;
-        
+
     }
 }
 

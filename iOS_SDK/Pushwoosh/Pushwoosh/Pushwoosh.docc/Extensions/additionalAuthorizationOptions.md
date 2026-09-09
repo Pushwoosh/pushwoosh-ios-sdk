@@ -107,4 +107,4 @@ if (@available(iOS 12.0, *)) {
 ## See Also
 
 - ``Pushwoosh/registerForPushNotifications()``
-- ``PushwooshConfig/addNotificationCenterDelegate(_:)``
+- ``PWConfiguration/addNotificationCenterDelegate(_:)``

@@ -15,7 +15,7 @@ void PWRichMediaStyleRunAnimation(dispatch_block_t animationBlock, dispatch_bloc
                      animations:animationBlock
                      completion:^(BOOL finished) {
                          [[UIApplication sharedApplication] endIgnoringInteractionEvents];
-                         
+
                          if (completion) {
                              completion();
                          }

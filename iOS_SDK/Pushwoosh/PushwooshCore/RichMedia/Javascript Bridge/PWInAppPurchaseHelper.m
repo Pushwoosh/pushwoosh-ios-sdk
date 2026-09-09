@@ -39,10 +39,10 @@
 
 - (void)validateProductIdentifiers:(NSArray *)productIdentifiers {
     [[SKPaymentQueue defaultQueue] addTransactionObserver:self];
-    
+
     SKProductsRequest *productsRequest = [[SKProductsRequest alloc]
                                           initWithProductIdentifiers:[NSSet setWithArray:productIdentifiers]];
-    
+
     self.request = productsRequest;
     productsRequest.delegate = self;
     [productsRequest start];

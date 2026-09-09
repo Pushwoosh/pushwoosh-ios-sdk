@@ -66,7 +66,7 @@
                                 NSStringFromSelector(selector)]];
 }
 
-+ (Class)configure {
++ (Class<PWConfiguration>)configure {
     return self;
 }
 

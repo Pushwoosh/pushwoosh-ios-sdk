@@ -37,24 +37,24 @@
 
 - (void)testMethodNameIsCorrect {
     NSString *methodName = [self.request methodName];
-    
+
     XCTAssertEqualObjects(methodName, @"getTags");
 }
 
 - (void)testRequestDictionaryHasParameters {
     PWRequest *request = [[PWRequest alloc] init];
     NSDictionary *dict = [request baseDictionary];
-    
+
     NSDictionary *parameters = [self.request requestDictionary];
-    
+
     XCTAssertEqualObjects(dict, parameters);
 }
 
 - (void)testParseResponse {
     NSDictionary *tags = @{@"test": @"test"};
-    
+
     [self.request parseResponse:@{@"result": tags}];
-    
+
     XCTAssertEqualObjects(tags, self.request.tags);
 }
 

@@ -21,7 +21,7 @@
 - (void)webView:(PWEasyJSWKWebView *)webView runJavaScriptTextInputPanelWithPrompt:(NSString *)prompt defaultText:(nullable NSString *)defaultText initiatedByFrame:(WKFrameInfo *)frame completionHandler:(void (^)(NSString * _Nullable result))completionHandler {
     NSMutableArray <PWEasyJSWKDataFunction *>* _funcs = [NSMutableArray new];
     NSMutableArray <NSString *>* _args = [NSMutableArray new];
-    
+
     NSString *requestString = prompt;
     NSArray *components = [requestString componentsSeparatedByString:@":"];
 
@@ -33,7 +33,7 @@
     NSString* obj = (NSString*)[components objectAtIndex:0];
     NSString* method = [(NSString*)[components objectAtIndex:1] stringByRemovingPercentEncoding];
     NSObject* interface = [self.javascriptInterfaces objectForKey:obj];
-    
+
     // execute the interfacing method
     SEL selector = NSSelectorFromString(method);
     NSMethodSignature* sig = [interface methodSignatureForSelector:selector];
@@ -44,7 +44,7 @@
     NSInvocation* invoker = [NSInvocation invocationWithMethodSignature:sig];
     invoker.selector = selector;
     invoker.target = interface;
-    
+
     if ([components count] > 2){
         NSString *argsAsString = [(NSString*)[components objectAtIndex:2] stringByRemovingPercentEncoding];
         NSArray* formattedArgs = [argsAsString componentsSeparatedByString:@":"];
@@ -72,16 +72,16 @@
             }
         }
     }
-    
+
     BOOL methodReturnsValue = [sig methodReturnLength] > 0;
-    
+
     if (!methodReturnsValue) {
         completionHandler(nil);
     }
-    
+
     [invoker retainArguments];
     [invoker invoke];
-    
+
     //return the value by using javascript
     if (methodReturnsValue){
         NSString *retValue = nil;
@@ -101,7 +101,7 @@
 
         completionHandler(retValue);
     }
-    
+
     //clean up any retained funcs
     [_funcs removeAllObjects];
     //clean up any retained args

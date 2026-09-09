@@ -1,4 +1,3 @@
-
 #import <XCTest/XCTest.h>
 #import "PushwooshModuleRegistry.h"
 #import "PushwooshModuleIdentifier.h"

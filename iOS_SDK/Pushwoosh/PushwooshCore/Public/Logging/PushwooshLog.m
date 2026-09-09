@@ -43,20 +43,20 @@ void pushwoosh_Log(id object, PUSHWOOSH_LOG_LEVEL logLevel, NSString *format, ..
 
     if (currentLevel < logLevel || currentLevel == PW_LL_NONE)
         return;
-    
+
     va_list ap;
     va_start(ap, format);
-    
+
     if (![format hasSuffix:@"\n"]) {
         format = [format stringByAppendingString:@"\n"];
     }
-    
+
     NSString *body = [[NSString alloc] initWithFormat:format arguments:ap];
     va_end(ap);
-    
+
     NSString *prefix = @"[PW]";
     NSString *logLevelTag;
-    
+
     switch (logLevel) {
         case PW_LL_ERROR: logLevelTag = @"[ERROR]"; break;
         case PW_LL_WARN: logLevelTag = @"[WARNING]"; break;
@@ -65,15 +65,15 @@ void pushwoosh_Log(id object, PUSHWOOSH_LOG_LEVEL logLevel, NSString *format, ..
         case PW_LL_VERBOSE: logLevelTag = @"[VERBOSE]"; break;
         default: logLevelTag = @"[UNKNOWN]"; break;
     }
-    
+
     NSString *classNameStr = [NSString stringWithFormat:@"[%@]", NSStringFromClass([object class])];
     NSString *resultString = [NSString stringWithFormat:@"%@ %@ %@\n%@", prefix, logLevelTag, classNameStr, body];
-    
+
     os_log(OS_LOG_DEFAULT, "%{public}@", resultString);
 }
 
 
-+ (void)setLogLevel:(PUSHWOOSH_LOG_LEVEL)logLevel { 
++ (void)setLogLevel:(PUSHWOOSH_LOG_LEVEL)logLevel {
     _llPushwooshLogLevel = logLevel;
 }
 

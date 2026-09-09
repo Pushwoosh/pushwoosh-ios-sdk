@@ -31,7 +31,7 @@
 
 - (void)testMethodNameIsCorrect {
     NSString *methodName = [self.request methodName];
-    
+
     XCTAssertEqualObjects(methodName, @"createTestDevice");
 }
 
@@ -39,7 +39,7 @@
     [self.request setName:@"name"];
     [self.request setDesc:@"desc"];
     NSDictionary *parameters = [self.request requestDictionary];
-    
+
     assertThat(parameters, hasKey(@"name"));
     assertThat(parameters, hasKey(@"description"));
 }

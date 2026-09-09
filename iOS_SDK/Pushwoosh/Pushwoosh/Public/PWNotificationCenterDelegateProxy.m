@@ -44,7 +44,7 @@ static NSTimeInterval sCompletionFallbackDelay = 4.0;
         NSUserNotificationCenter.defaultUserNotificationCenter.delegate = self;
     }
 #endif
-    
+
     return self;
 }
 #if TARGET_OS_IOS || TARGET_OS_TV

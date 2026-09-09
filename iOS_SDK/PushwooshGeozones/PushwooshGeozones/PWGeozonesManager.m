@@ -67,13 +67,13 @@
 
 - (void)dependencySetup {
     __weak typeof(self) wself = self;
-    
+
     _regionMonitoring = [PWRegionMonitoring new];
-    
+
     [_regionMonitoring updateSendLocationBlock:^(CLLocation *sendLocation) {
         [wself sendLocation:sendLocation];
     }];
-    
+
     _locationHelper = [[PWLocationHelper alloc] initWithRemoveLocationBlock:^{
         [wself removeLocation];
     }];
@@ -81,15 +81,15 @@
 
 - (void)setupWithLocationTracker:(NSObject<PWLocationTrackerProtocol> *)locationTracker {
     [self dependencySetup];
-    
+
     __weak typeof(self) wself = self;
-    
+
     _locationTracker = locationTracker;
-    
+
     [_locationTracker updateSendLocationBlock:^(CLLocation *sendLocation) {
         [wself sendLocation:sendLocation];
     }];
-    
+
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidBecomeActive) name:UIApplicationDidBecomeActiveNotification object:nil];
     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(applicationDidFinishLaunching:) name:UIApplicationDidFinishLaunchingNotification object:nil];
 }
@@ -98,12 +98,12 @@
 
 - (void)startLocationTracking {
     __weak typeof(self) wself = self;
-    
+
     [_locationHelper requestLocationAuthorization:^(CLAuthorizationStatus status) {
         if ([wself.locationTracker validAuthorizationStatusForStartTracking:status]) {
             wself.enabled = YES;
             [wself.locationTracker startTracking];
-            
+
             if ([wself.delegate respondsToSelector:@selector(didStartLocationTrackingWithManager:)]) {
                 [wself.delegate didStartLocationTrackingWithManager:wself];
             }
@@ -123,7 +123,7 @@
 
 - (void)sendLocation:(CLLocation *)location {
     PWLogInfo(@"Sending location: %@", location);
-    
+
     NSNumber *bgTask = [PWLocationHelper startBackgroundTask];
     PWGetNearestZoneRequest *request = [[PWGetNearestZoneRequest alloc] init];
     request.userCoordinate = location.coordinate;
@@ -133,12 +133,12 @@
             if ([wself.delegate respondsToSelector:@selector(geozonesManager:didSendLocation:)]) {
                 [wself.delegate geozonesManager:wself didSendLocation:location];
             }
-            
+
             PWLogDebug(@"getNearestZone completed");
-            
+
             [wself.regionMonitoring setupNearestGeozone:request.nearestGeozones];
             [wself.locationHelper saveSuccessfulSendLocation];
-            
+
             NSString *message = [NSString stringWithFormat:@"Location sent. Received nearest geozones: %d, location", (int)[request.nearestGeozones count]];
             [PWLocationLog reportLocation:location
                               withMessage:message
@@ -146,7 +146,7 @@
         } else {
             PWLogError(@"getNearestZone failed");
         }
-        
+
         PWLogDebug(@"Location sent");
         [PWLocationHelper stopBackgroundTask:bgTask];
     }];
@@ -154,14 +154,14 @@
 
 - (void)removeLocation {
     PWLogInfo(@"Remove location");
-    
+
     NSNumber *bgTask = [PWLocationHelper startBackgroundTask];
     PWRemoveLocationRequest *request = [[PWRemoveLocationRequest alloc] init];
     __weak typeof(self) wself = self;
     [[PWNetworkModule module].requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {
             PWLogDebug(@"Remove location completed");
-            
+
             [wself.regionMonitoring stopRegionMonitoring];
             [wself.locationHelper removeSuccessfulSendLocation];
         } else {

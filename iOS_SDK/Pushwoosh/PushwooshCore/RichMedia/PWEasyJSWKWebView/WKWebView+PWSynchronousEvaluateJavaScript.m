@@ -43,23 +43,23 @@
         [self evaluateJavaScript:script completionHandler:completion];
     }
 
-    
+
     //max 5 seconds for script to run
     NSDate *date = [NSDate dateWithTimeIntervalSinceNow:5];
-    
+
     while (!finished && [[NSDate date] compare:date] == NSOrderedAscending){
         [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate distantFuture]];
     }
-    
+
     if (!finished) {
         [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Timed out"];
     }
 
-    
+
     if (tmpError && error != NULL) {
         *error = [tmpError copy];
     }
-    
+
     return resultString;
 }
 

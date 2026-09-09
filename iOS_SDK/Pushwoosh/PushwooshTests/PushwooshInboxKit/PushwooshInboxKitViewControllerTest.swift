@@ -270,6 +270,27 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
         XCTAssertFalse(sut.attributes.pinIndicatorVisible)
     }
 
+    // MARK: - Appearance
+
+    func testBackgroundColorPairResolvesPerAppearance() {
+        sut.setBackgroundColor(light: .white, dark: .black)
+
+        let light = sut.attributes.style.backgroundColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light))
+        let dark = sut.attributes.style.backgroundColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark))
+
+        XCTAssertEqual(light, UIColor.white.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light)))
+        XCTAssertEqual(dark, UIColor.black.resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark)))
+    }
+
+    func testSingleColorBackgroundStaysFixedAcrossAppearances() {
+        sut.setBackgroundColor(.orange)
+
+        let light = sut.attributes.style.backgroundColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .light))
+        let dark = sut.attributes.style.backgroundColor.resolvedColor(with: UITraitCollection(userInterfaceStyle: .dark))
+
+        XCTAssertEqual(light, dark)
+    }
+
     // MARK: - Helpers
 
     private func loadAndWait() {

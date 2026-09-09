@@ -1,4 +1,3 @@
-
 #import <XCTest/XCTest.h>
 
 #import "PWGetNearestZoneRequest.h"
@@ -27,7 +26,7 @@
 
 - (void)testBadGeozonesTypeResponse {
     NSDictionary *response = [self responseFromString:@"{ \"geozones\":\"fail\" }"];
-	
+
 	PWGetNearestZoneRequest *request = [PWGetNearestZoneRequest new];
 	XCTAssertNil(request.nearestGeozones);
 	[request parseResponse:response];
@@ -39,11 +38,11 @@
 	CLLocationCoordinate2D coordinate;
 	coordinate.latitude = 12.3;
 	coordinate.longitude = 45.6;
-	
+
 	request.userCoordinate = coordinate;
-	
+
 	NSDictionary *requestDict = [request requestDictionary];
-	
+
 	XCTAssertNotNil(requestDict);
 	XCTAssertEqualWithAccuracy([requestDict[@"lat"] doubleValue], 12.3, 0.01);
 	XCTAssertEqualWithAccuracy([requestDict[@"lng"] doubleValue], 45.6, 0.01);

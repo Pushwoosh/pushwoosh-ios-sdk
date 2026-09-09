@@ -68,16 +68,16 @@
         //sometimes location manager sends old coordinate!!! we have to compare timestamps then.
         CLLocation *managerLocation = [self.locationManager location];
         CLLocation *location = [locations lastObject];
-        
+
         if (managerLocation && [managerLocation.timestamp compare:location.timestamp] == NSOrderedDescending) {
             location = managerLocation;
         }
-        
+
         [PWLocationLog reportLocation:location
                           withMessage:[NSString stringWithFormat:@"Significant Location Change Detected"]
                               tracker:self];
         [self sendLocation:location];
-        
+
     }
 }
 

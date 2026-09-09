@@ -158,11 +158,11 @@ static BOOL isBackground;
     isBackground = NO;
     [PushNotificationManager pushManager].showPushnotificationAlert = NO;
     _bundleMock.sendPushStatIfAlertsDisabled = NO;
-    
+
     PWConfig *config = [[PWConfig alloc] initWithBundle:_bundleMock];
     _pushManager = [[PWPushNotificationsManagerCommon alloc] initWithConfig:config];
     [Pushwoosh sharedInstance].dataManager = [PWMockDataManager new];
-    
+
     [_pushManager handlePushReceived:@{@"aps" : @{@"test" : @"test"}} autoAcceptAllowed:NO];
     XCTAssertEqual([Pushwoosh sharedInstance].dataManager.pushStatCount, 0);
 }

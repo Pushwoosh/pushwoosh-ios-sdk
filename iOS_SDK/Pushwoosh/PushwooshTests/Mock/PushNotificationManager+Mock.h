@@ -1,4 +1,3 @@
-
 #import "PushNotificationManager.h"
 
 @interface PushNotificationManager (Mock)

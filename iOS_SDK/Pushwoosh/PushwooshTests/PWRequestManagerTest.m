@@ -1,4 +1,3 @@
-
 #import "PWAppOpenRequest.h"
 #import "PWRequestManager.h"
 #import "PWPreferences.h"
@@ -141,37 +140,65 @@ static id _mockNSBundle;
 	NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
 	NSString *responseData = @"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null}";
 	[NSURLSession injectResponse:httpResponse data:[responseData dataUsingEncoding:NSUTF8StringEncoding] error:nil];
-	
+
 	XCTestExpectation *appOpenExpectation = [self expectationWithDescription:@"applicationOpen resonse"];
-	
+
 	PWAppOpenRequest *request = [PWAppOpenRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
         XCTAssertNil(error);
 		[appOpenExpectation fulfill];
 	}];
-	
+
 	[self waitForExpectationsWithTimeout:1 handler:nil];
+}
+
+/// Verifies that the session no longer serializes its callbacks on the main queue, so response
+/// parsing and in-app zip delivery stay off the thread the host app draws on.
+- (void)testSessionDoesNotDeliverCallbacksOnTheMainQueue {
+	XCTAssertNotEqualObjects(_requestManager.session.delegateQueue, [NSOperationQueue mainQueue]);
+}
+
+/// Verifies that a completion produced off the main thread still reaches the caller on the main
+/// queue, the contract callers had while the session ran its callbacks there.
+- (void)testCompletionIsDeliveredOnTheMainQueueWhenTheRequestFinishesOffMain {
+	NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
+	NSString *responseData = @"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null}";
+	[NSURLSession injectResponse:httpResponse data:[responseData dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+
+	XCTestExpectation *expectation = [self expectationWithDescription:@"completion on main"];
+	PWAppOpenRequest *request = [PWAppOpenRequest new];
+
+	dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+		XCTAssertFalse([NSThread isMainThread]);
+		[_requestManager sendRequestInternal:request completion:^(NSError *error) {
+			XCTAssertNil(error);
+			XCTAssertTrue([NSThread isMainThread]);
+			[expectation fulfill];
+		}];
+	});
+
+	[self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 - (void)testUrlChange {
 	XCTAssertEqualObjects([PWPreferences preferences].baseUrl, [[PWPreferences preferences] defaultBaseUrl]);
-	
+
 	NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
 	NSString *responseData = @"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null,\"base_url\":\"https://test.pushwoosh.com/json/4.2/\"}";
 	[NSURLSession injectResponse:httpResponse data:[responseData dataUsingEncoding:NSUTF8StringEncoding] error:nil];
-	
+
 	XCTestExpectation *appOpenExpectation = [self expectationWithDescription:@"applicationOpen resonse"];
-	
+
 	PWAppOpenRequest *request = [PWAppOpenRequest new];
 	[_requestManager sendRequest:request completion:^(NSError *error) {
         XCTAssertNil(error);
         XCTAssertEqualObjects([PWPreferences preferences].baseUrl, @"https://test.pushwoosh.com/json/4.2/");
 		[appOpenExpectation fulfill];
 	}];
-	
+
 	[self waitForExpectationsWithTimeout:1 handler:nil];
-	
-	
+
+
 	// Test url reset after bad request
 	XCTestExpectation *appOpenExpectation2 = [self expectationWithDescription:@"applicationOpen resonse2"];
 	responseData = @"{\"status_message\":\"OK\",\"response\":null}";
@@ -181,7 +208,7 @@ static id _mockNSBundle;
         XCTAssertEqualObjects([PWPreferences preferences].baseUrl, [[PWPreferences preferences] defaultBaseUrl]);
 		[appOpenExpectation2 fulfill];
 	}];
-	
+
 	[self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
@@ -211,15 +238,15 @@ static id _mockNSBundle;
 	NSHTTPURLResponse *httpResponse = nil;
 	NSString *responseData = @"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null}";
 	[NSURLSession injectResponse:httpResponse data:[responseData dataUsingEncoding:NSUTF8StringEncoding] error:nil];
-	
+
 	XCTestExpectation *appOpenExpectation = [self expectationWithDescription:@"applicationOpen resonse"];
-	
+
 	PWAppOpenRequest *request = [PWAppOpenRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
         XCTAssertNotNil(error);
 		[appOpenExpectation fulfill];
 	}];
-	
+
 	[self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
@@ -227,15 +254,15 @@ static id _mockNSBundle;
 	NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
 	NSString *responseData = @")Not json format";
 	[NSURLSession injectResponse:httpResponse data:[responseData dataUsingEncoding:NSUTF8StringEncoding] error:nil];
-	
+
 	XCTestExpectation *appOpenExpectation = [self expectationWithDescription:@"applicationOpen resonse"];
-	
+
 	PWAppOpenRequest *request = [PWAppOpenRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
         XCTAssertNotNil(error);
 		[appOpenExpectation fulfill];
 	}];
-	
+
 	[self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
@@ -243,15 +270,15 @@ static id _mockNSBundle;
 	NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
 	NSString *responseData = @"{\"response\":null}";
 	[NSURLSession injectResponse:httpResponse data:[responseData dataUsingEncoding:NSUTF8StringEncoding] error:nil];
-	
+
 	XCTestExpectation *appOpenExpectation = [self expectationWithDescription:@"applicationOpen resonse"];
-	
+
 	PWAppOpenRequest *request = [PWAppOpenRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
         XCTAssertNotNil(error);
 		[appOpenExpectation fulfill];
 	}];
-	
+
 	[self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
@@ -259,14 +286,14 @@ static id _mockNSBundle;
 	NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
 	NSString *responseData = @"{\"status_code\":200,\"status_message\":\"OK\"}";
 	[NSURLSession injectResponse:httpResponse data:[responseData dataUsingEncoding:NSUTF8StringEncoding] error:nil];
-	
+
 	XCTestExpectation *appOpenExpectation = [self expectationWithDescription:@"applicationOpen resonse"];
-	
+
 	PWAppOpenRequest *request = [PWAppOpenRequest new];
 	[_requestManager sendRequest:request completion:^(NSError *error) {
 		[appOpenExpectation fulfill];
 	}];
-	
+
 	[self waitForExpectationsWithTimeout:1 handler:nil];
 	// cannot guarantee anything, just do not crash
 	//XCTAssertNil(request.error);
@@ -276,15 +303,15 @@ static id _mockNSBundle;
 	NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
 	NSString *responseData = @"{\"status_code\":\"200\",\"status_message\":\"OK\",\"response\":null}";
 	[NSURLSession injectResponse:httpResponse data:[responseData dataUsingEncoding:NSUTF8StringEncoding] error:nil];
-	
+
 	XCTestExpectation *appOpenExpectation = [self expectationWithDescription:@"applicationOpen resonse"];
-	
+
 	PWAppOpenRequest *request = [PWAppOpenRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
         XCTAssertNotNil(error);
 		[appOpenExpectation fulfill];
 	}];
-	
+
 	[self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
@@ -292,15 +319,15 @@ static id _mockNSBundle;
 	NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
 	NSString *responseData = @"{\"status_code\":[],\"status_message\":\"OK\",\"response\":null}";
 	[NSURLSession injectResponse:httpResponse data:[responseData dataUsingEncoding:NSUTF8StringEncoding] error:nil];
-	
+
 	XCTestExpectation *appOpenExpectation = [self expectationWithDescription:@"applicationOpen resonse"];
-	
+
 	PWAppOpenRequest *request = [PWAppOpenRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
         XCTAssertNotNil(error);
 		[appOpenExpectation fulfill];
 	}];
-	
+
 	[self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
@@ -308,15 +335,15 @@ static id _mockNSBundle;
 	NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
 	NSString *responseData = @"{\"status_code\":\"210\",\"status_message\":\"Not OK\",\"response\":null}";
 	[NSURLSession injectResponse:httpResponse data:[responseData dataUsingEncoding:NSUTF8StringEncoding] error:nil];
-	
+
 	XCTestExpectation *appOpenExpectation = [self expectationWithDescription:@"applicationOpen resonse"];
-	
+
 	PWAppOpenRequest *request = [PWAppOpenRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
         XCTAssertNotNil(error);
 		[appOpenExpectation fulfill];
 	}];
-	
+
 	[self waitForExpectationsWithTimeout:1 handler:nil];
 }
 
@@ -354,6 +381,27 @@ static id _mockNSBundle;
     }];
 
     [self waitForExpectationsWithTimeout:2 handler:nil];
+    [mockPrefs stopMocking];
+}
+
+/// Verifies that an early-exit error honours the main-queue contract too, not only the response path.
+- (void)testEarlyExitErrorIsDeliveredOnTheMainQueueWhenCalledOffMain {
+    id mockPrefs = OCMPartialMock([PWPreferences preferences]);
+    OCMStub([mockPrefs baseUrl]).andReturn(nil);
+
+    XCTestExpectation *expectation = [self expectationWithDescription:@"early exit on main"];
+    PWAppOpenRequest *request = [PWAppOpenRequest new];
+
+    dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
+        XCTAssertFalse([NSThread isMainThread]);
+        [_requestManager sendRequestInternal:request completion:^(NSError *error) {
+            XCTAssertNotNil(error);
+            XCTAssertTrue([NSThread isMainThread]);
+            [expectation fulfill];
+        }];
+    });
+
+    [self waitForExpectationsWithTimeout:5 handler:nil];
     [mockPrefs stopMocking];
 }
 

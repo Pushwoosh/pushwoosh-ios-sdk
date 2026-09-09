@@ -39,9 +39,9 @@
 
 - (NSString *)executeWithParams: (NSArray*) params{
 	NSMutableString* injection = [[NSMutableString alloc] init];
-	
+
 	[injection appendFormat:@"EasyJS.invokeCallback(\"%@\", %@", self.funcID, self.removeAfterExecute ? @"true" : @"false"];
-	
+
 	if (params){
 		for (unsigned long i = 0, l = params.count; i < l; i++){
 			NSString* arg = [params objectAtIndex:i];
@@ -50,9 +50,9 @@
 			[injection appendFormat:@", \"%@\"", encodedArg];
 		}
 	}
-	
+
 	[injection appendString:@");"];
-	
+
 	if (self.webView){
         return [self.webView pw_stringByEvaluatingJavaScriptFromString:injection error:nil];
 	}else{

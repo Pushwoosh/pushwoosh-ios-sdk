@@ -44,15 +44,16 @@ NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpda
 }
 
 - (void)sendSKPaymentTransactions:(NSArray *)transactions {
-    if (self.sendTransactionsBlock) {
-        self.sendTransactionsBlock(transactions);
+#if TARGET_OS_IOS || TARGET_OS_OSX
+    if (self.purchaseManager) {
+        [self.purchaseManager sendSKPaymentTransactions:transactions];
     }
+#endif
 }
 
 - (void)setEmail:(NSString *)email {
-    if (self.setEmailBlock) {
-        self.setEmailBlock(email);
-    }
+    NSString *trimmed = [email stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    [self setEmails:(trimmed.length ? @[trimmed] : @[]) completion:nil];
 }
 
 - (NSString *)getPushToken {

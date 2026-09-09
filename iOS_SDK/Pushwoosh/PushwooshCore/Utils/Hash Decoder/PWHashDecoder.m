@@ -106,14 +106,14 @@ static const int messageCodeOtherPartLettersCount = 8;
         uint64_t campaignID = [PWAlphabetUtils alphabetDecode:parts[1]];
         uint64_t messageID = [PWAlphabetUtils alphabetDecode:parts[2]];
         NSString *messageCode = [self decodeMessageCode:parts[3]];
-        
+
         _messageCode = messageCode;
         _messageId = messageID;
         _campaignId = campaignID;
-        
+
         return;
     }
-    
+
     _messageCode = @"";
     _messageId = 0;
     _campaignId = 0;

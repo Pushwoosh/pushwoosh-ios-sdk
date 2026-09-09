@@ -2,16 +2,23 @@
 
 #import "PWInAppStorage.h"
 #import "PWResource.h"
+#import "PWNetworkModule.h"
+#import "PWRequestManagerMock.h"
 
 static NSString *const KeyInAppSavedResources = @"InAppSavedResources";
 
 @interface PWInAppStorage (Test)
 
 @property (atomic, strong) NSDictionary *resources;
+@property (atomic, assign) volatile BOOL isUpdating;
+@property (atomic, assign) volatile BOOL isSyncing;
 
 @end
 
 @interface PWInAppStorageTest : XCTestCase
+
+@property (nonatomic, strong) PWRequestManagerMock *mockRequestManager;
+@property (nonatomic, strong) PWRequestManager *originalRequestManager;
 
 @end
 
@@ -26,9 +33,15 @@ static NSString *const KeyInAppSavedResources = @"InAppSavedResources";
     [super setUp];
     [self.class clearDefaults];
     [PWInAppStorage destroy];
+
+    self.originalRequestManager = [PWNetworkModule module].requestManager;
+    self.mockRequestManager = [PWRequestManagerMock new];
+    [PWNetworkModule module].requestManager = self.mockRequestManager;
 }
 
 - (void)tearDown {
+    [PWNetworkModule module].requestManager = self.originalRequestManager;
+    [self removeLocalDataForCodes:@[@"sync-1", @"sync-2"]];
     [PWInAppStorage destroy];
     [self.class clearDefaults];
     [super tearDown];
@@ -138,6 +151,152 @@ static NSString *const KeyInAppSavedResources = @"InAppSavedResources";
     XCTAssertEqualObjects(storage.resources[@"null"], [NSNull null]);
     XCTAssertEqualObjects(storage.resources[@"date"], date);
     XCTAssertEqualObjects(storage.resources[@"nested"][@"inner"], (@[@1, [NSNull null]]));
+}
+
+#pragma mark - Two-stage synchronization
+
+- (void)removeLocalDataForCodes:(NSArray<NSString *> *)codes {
+    for (NSString *code in codes) {
+        PWResource *resource = [[PWResource alloc] initWithDictionary:@{
+            @"code": code,
+            @"url": @"https://example.com/x.zip",
+            @"updated": @1,
+        }];
+        [resource deleteData];
+    }
+}
+
+- (NSDictionary *)twoResourceCatalogResponse {
+    return @{ @"inApps": @[
+        @{@"code": @"sync-1", @"url": @"https://example.com/sync-1.zip", @"updated": @1, @"layout": @"topbanner"},
+        @{@"code": @"sync-2", @"url": @"https://example.com/sync-2.zip", @"updated": @1, @"layout": @"topbanner"},
+    ]};
+}
+
+- (void)drainMainQueue {
+    XCTestExpectation *drained = [self expectationWithDescription:@"main queue drained"];
+    dispatch_async(dispatch_get_main_queue(), ^{
+        [drained fulfill];
+    });
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[drained] timeout:2], XCTWaiterResultCompleted);
+}
+
+/// Verifies that synchronizeCatalog: reports as soon as the getInApps response is stored, while every
+/// resource zip is still in flight — the callback latency must not scale with the account's in-app count.
+- (void)testSynchronizeCatalog_reportsBeforeResourceDownloadsFinish {
+    self.mockRequestManager.defersDownloads = YES;
+    self.mockRequestManager.responsesByMethod = @{ @"getInApps": [self twoResourceCatalogResponse] };
+
+    PWInAppStorage *storage = [PWInAppStorage storage];
+
+    __block NSError *reported = [NSError errorWithDomain:@"sentinel" code:0 userInfo:nil];
+    XCTestExpectation *catalogReady = [self expectationWithDescription:@"catalog ready"];
+    [storage synchronizeCatalog:^(NSError *error) {
+        reported = error;
+        [catalogReady fulfill];
+    }];
+
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[catalogReady] timeout:2], XCTWaiterResultCompleted);
+    XCTAssertNil(reported);
+    XCTAssertEqual(storage.resources.count, 2u);
+    XCTAssertFalse(storage.isUpdating, @"catalog gate must be open");
+    XCTAssertEqual(self.mockRequestManager.downloadRequestCount, 2u, @"both zips are still downloading");
+
+    [self.mockRequestManager releaseDownloadsWithLocation:nil error:[NSError errorWithDomain:@"pushwoosh" code:-4 userInfo:nil]];
+    [self drainMainQueue];
+}
+
+/// Verifies that synchronize: keeps its old contract: it reports only once every resource zip has settled.
+/// This is what reloadInAppsWithCompletion: relies on.
+- (void)testSynchronize_stillWaitsForEveryResourceDownload {
+    self.mockRequestManager.defersDownloads = YES;
+    self.mockRequestManager.responsesByMethod = @{ @"getInApps": [self twoResourceCatalogResponse] };
+
+    PWInAppStorage *storage = [PWInAppStorage storage];
+
+    __block NSUInteger syncCalls = 0;
+    XCTestExpectation *synced = [self expectationWithDescription:@"full sync finished"];
+    [storage synchronize:^(NSError *error) {
+        syncCalls++;
+        [synced fulfill];
+    }];
+
+    [self drainMainQueue];
+
+    XCTAssertEqual(syncCalls, 0u, @"synchronize: must not report while zips are still downloading");
+    XCTAssertEqual(self.mockRequestManager.downloadRequestCount, 2u);
+
+    [self.mockRequestManager releaseDownloadsWithLocation:nil error:[NSError errorWithDomain:@"pushwoosh" code:-4 userInfo:nil]];
+
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[synced] timeout:2], XCTWaiterResultCompleted);
+    XCTAssertEqual(syncCalls, 1u);
+    XCTAssertFalse(storage.isSyncing);
+}
+
+/// Verifies that once the catalog is known, resourcesForCode: hands back the entry while its zip is still
+/// downloading — the pre-condition for the presentation path to await its own resource instead of erroring.
+- (void)testResourcesForCode_returnsCatalogEntryWhileItsZipIsStillDownloading {
+    self.mockRequestManager.defersDownloads = YES;
+    self.mockRequestManager.responsesByMethod = @{ @"getInApps": [self twoResourceCatalogResponse] };
+
+    PWInAppStorage *storage = [PWInAppStorage storage];
+
+    XCTestExpectation *catalogReady = [self expectationWithDescription:@"catalog ready"];
+    [storage synchronizeCatalog:^(NSError *error) {
+        [catalogReady fulfill];
+    }];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[catalogReady] timeout:2], XCTWaiterResultCompleted);
+
+    __block PWResource *found = nil;
+    XCTestExpectation *resolved = [self expectationWithDescription:@"resource resolved"];
+    [storage resourcesForCode:@"sync-1" completionBlock:^(PWResource *resource) {
+        found = resource;
+        [resolved fulfill];
+    }];
+
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[resolved] timeout:2], XCTWaiterResultCompleted);
+    XCTAssertEqualObjects(found.code, @"sync-1");
+    XCTAssertFalse([found isDownloaded]);
+    XCTAssertTrue([found isDownloading]);
+
+    [self.mockRequestManager releaseDownloadsWithLocation:nil error:[NSError errorWithDomain:@"pushwoosh" code:-4 userInfo:nil]];
+    [self drainMainQueue];
+}
+
+/// Verifies that a catalog-only caller arriving mid download-phase (isUpdating == NO, isSyncing == YES)
+/// is served immediately — regression for the isSyncing-only gate that stranded such callers forever.
+- (void)testSynchronizeCatalog_calledDuringDownloadPhaseOfAnotherSync_reportsImmediately {
+    self.mockRequestManager.defersDownloads = YES;
+    self.mockRequestManager.responsesByMethod = @{ @"getInApps": [self twoResourceCatalogResponse] };
+
+    PWInAppStorage *storage = [PWInAppStorage storage];
+
+    __block NSUInteger fullSyncCalls = 0;
+    XCTestExpectation *fullSynced = [self expectationWithDescription:@"full sync finished"];
+    [storage synchronize:^(NSError *error) {
+        fullSyncCalls++;
+        [fullSynced fulfill];
+    }];
+
+    [self drainMainQueue];
+    XCTAssertFalse(storage.isUpdating, @"catalog phase of the full sync must have completed already");
+    XCTAssertTrue(storage.isSyncing, @"download phase must still be running");
+
+    __block NSError *catalogError = [NSError errorWithDomain:@"sentinel" code:0 userInfo:nil];
+    XCTestExpectation *catalogReady = [self expectationWithDescription:@"catalog-only call reports immediately"];
+    [storage synchronizeCatalog:^(NSError *error) {
+        catalogError = error;
+        [catalogReady fulfill];
+    }];
+
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[catalogReady] timeout:2], XCTWaiterResultCompleted);
+    XCTAssertNil(catalogError);
+    XCTAssertEqual(fullSyncCalls, 0u, @"the original full-sync waiter must still be unresolved");
+
+    [self.mockRequestManager releaseDownloadsWithLocation:nil error:[NSError errorWithDomain:@"pushwoosh" code:-4 userInfo:nil]];
+
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[fullSynced] timeout:2], XCTWaiterResultCompleted);
+    XCTAssertEqual(fullSyncCalls, 1u);
 }
 
 @end

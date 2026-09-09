@@ -106,7 +106,7 @@
 }
 #endif
 
-+ (Class)configure {
++ (Class<PWConfiguration>)configure {
     [self ensureInitialized];
     [self sharedInstance];
     return [PushwooshConfig configure];

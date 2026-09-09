@@ -12,11 +12,11 @@
 + (PWNetworkModule*)module {
 	static PWNetworkModule *instance = nil;
 	static dispatch_once_t pred;
-	
+
 	dispatch_once(&pred, ^{
 		instance = [PWNetworkModule new];
 	});
-	
+
 	return instance;
 }
 

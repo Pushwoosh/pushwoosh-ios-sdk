@@ -33,7 +33,7 @@ static NSString * cacheFile() {
 	// Clear pushwoosh globals
 	[Pushwoosh destroy];
 	[PWInAppManager destroy];
-	
+
 	[PWInAppStorage destroy];
 	[[PWCache cache] clear];
 	[PWPreferences preferences].appCode = nil;

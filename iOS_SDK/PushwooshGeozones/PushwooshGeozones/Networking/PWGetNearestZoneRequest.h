@@ -15,4 +15,3 @@
 @property (nonatomic, strong) NSArray<PWGeozone *> *nearestGeozones;
 
 @end
-

@@ -55,7 +55,7 @@
 
 - (void)testIsFromNotificationMethod {
     PWInboxMessageInternal *message = [PWInboxMessageInternal messageWithPushNotification:self.parameters];
-    
+
     BOOL isFromNotification = [PWInboxMessageInternal isFromNotification:message];
 
     XCTAssertTrue(isFromNotification);

@@ -602,4 +602,3 @@ class PWTVOSRichMediaViewController: UIViewController {
     }
 
 }
-

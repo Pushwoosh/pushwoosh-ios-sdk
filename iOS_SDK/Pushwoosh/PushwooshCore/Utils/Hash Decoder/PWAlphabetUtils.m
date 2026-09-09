@@ -53,7 +53,7 @@ static NSDictionary<NSString *, NSNumber *> *alphabetRevert;
     for (NSUInteger i = 0; i < hash.length; i++) {
         NSString *symbol = [hash substringWithRange:NSMakeRange(i, 1)];
         NSNumber *symbolValue = alphabetRevert[symbol];
-        
+
         if (symbolValue) {
             value = value * hashingBase + [symbolValue unsignedLongLongValue];
         } else {

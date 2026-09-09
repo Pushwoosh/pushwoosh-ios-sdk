@@ -94,10 +94,10 @@ public struct PushwooshInboxKitAttributes {
     /// 1. Reads `actionParams["displayType"]` from the inbox message payload.
     ///    If it equals `"banner"`, `"captioned"`, `"classic"`, `"carousel"`,
     ///    `"video"`, or `"wallet"` (case-insensitive), that kind is used.
-    /// 2. Otherwise falls back to image/title presence:
-    ///    - image + no title → `"banner"`
-    ///    - image + title    → `"captioned"`
-    ///    - else             → `"classic"`
+    /// 2. Otherwise falls back to image/text presence:
+    ///    - image + no title       → `"banner"`
+    ///    - image + title + body   → `"captioned"`
+    ///    - else                   → `"classic"`
     ///
     /// Override this closure to drive variants from your own server-side
     /// fields or to add custom cell kinds.
@@ -137,12 +137,13 @@ public struct PushwooshInboxKitAttributes {
     /// Default resolver — reads `actionParams["displayType"]` first, falls back
     /// to imageUrl/title heuristic. See ``cellKindResolver`` for details.
     ///
-    /// Degrade rules:
-    /// - `banner` and `captioned` both require a non-empty `imageUrl`. If the
-    ///   message has no image, the resolver degrades the kind to `classic` so
-    ///   we never render an empty image placeholder card.
-    /// - `carousel` requires at least one decodable slide in
-    ///   `actionParams["carousel"]`. With no slides it degrades to `classic`.
+    /// Degrade rules (the editor's mandatory fields per card type):
+    /// - `banner` requires a non-empty image. Without one it degrades to `classic`
+    ///   so we never render an empty image placeholder card.
+    /// - `captioned` requires an image, a title and a body. Missing any of them
+    ///   degrades to `classic`.
+    /// - `carousel` requires a title, a body and at least one decodable slide in
+    ///   `actionParams["carousel"]`. Otherwise it degrades to `classic`.
     /// - `video` requires a decodable video descriptor in `actionParams["video"]`.
     ///   With none it degrades to `classic`.
     /// - `wallet` requires a decodable pass URL in `actionParams["wallet"]`.
@@ -150,24 +151,28 @@ public struct PushwooshInboxKitAttributes {
     public static let defaultCellKindResolver: (PWInboxMessageProtocol) -> String = { message in
         let serverType = readDisplayType(from: message)
         let hasImage = resolvedBannerURL(from: message) != nil
+        let hasTitle = !(message.title?.isEmpty ?? true)
+        let hasText = hasTitle && !(message.message?.isEmpty ?? true)
 
         let requested: String
         if let serverType = serverType, ["banner", "captioned", "classic", "carousel", "video", "wallet"].contains(serverType) {
             requested = serverType
         } else {
-            switch (hasImage, !(message.title?.isEmpty ?? true)) {
+            switch (hasImage, hasTitle) {
             case (true, false): requested = "banner"
-            case (true, true): requested = "captioned"
+            case (true, true): requested = hasText ? "captioned" : "classic"
             default: requested = "classic"
             }
         }
 
         let resolved: String
         switch requested {
-        case "banner", "captioned":
-            resolved = hasImage ? requested : "classic"
+        case "banner":
+            resolved = hasImage ? "banner" : "classic"
+        case "captioned":
+            resolved = (hasImage && hasText) ? "captioned" : "classic"
         case "carousel":
-            resolved = PushwooshInboxCarouselSlide.decode(from: message).isEmpty ? "classic" : "carousel"
+            resolved = (hasText && !PushwooshInboxCarouselSlide.decode(from: message).isEmpty) ? "carousel" : "classic"
         case "video":
             resolved = PushwooshInboxVideoContent.decode(from: message) == nil ? "classic" : "video"
         case "wallet":
@@ -182,7 +187,8 @@ public struct PushwooshInboxKitAttributes {
         if resolved != requested {
             let degradeReason: String
             switch requested {
-            case "carousel": degradeReason = "no slides"
+            case "captioned": degradeReason = hasImage ? "no title/body" : "no imageUrl"
+            case "carousel": degradeReason = hasText ? "no slides" : "no title/body"
             case "video": degradeReason = "no video descriptor"
             case "wallet": degradeReason = "no pass URL"
             default: degradeReason = "no imageUrl"

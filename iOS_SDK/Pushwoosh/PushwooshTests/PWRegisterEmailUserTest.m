@@ -39,9 +39,9 @@
 - (void)testRequestDictionaryHasParameters {
     [self.request setEmail:@"test@pushwoosh.com"];
     [self.request setUserId:@"pushwoosh"];
-    
+
     NSDictionary *parameters = [self.request requestDictionary];
-    
+
     assertThat(parameters, hasKey(@"email"));
     assertThat(parameters, hasKey(@"userId"));
     assertThat(parameters, hasKey(@"tz_offset"));
@@ -51,7 +51,7 @@
 
 - (void)testMethodNameIsCorrect {
     NSString *methodName = [self.request methodName];
-    
+
     XCTAssertEqualObjects(methodName, @"registerEmailUser");
 }
 

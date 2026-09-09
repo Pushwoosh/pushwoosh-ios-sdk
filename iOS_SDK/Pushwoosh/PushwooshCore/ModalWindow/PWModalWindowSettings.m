@@ -17,7 +17,7 @@
     static dispatch_once_t onceToken;
     dispatch_once(&onceToken, ^{
         sharedSettings = [[self alloc] init];
-        
+
         // Initialize default values
         sharedSettings.modalWindowPosition = PWModalWindowPositionDefault;
         sharedSettings.dismissSwipeDirections = @[@(PWSwipeDismissNone)];

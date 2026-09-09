@@ -18,12 +18,12 @@
                                        NSArray<PWInboxMessageInternal *> *updateMessages))completion {
     NSMutableArray<PWInboxMessageInternal *> *needUpdateStatusMessages = [NSMutableArray new];
     NSMutableArray<PWInboxMessageInternal *> *updatedMessages = [NSMutableArray new];
-    
+
     for (PWInboxMessageInternal *serviceMessage in serviceMessages.allValues) {
         PWInboxMessageInternal *storageMessage = [storageMessages messageForCode:serviceMessage.code];
-        
+
         if (storageMessage && storageMessage.status != serviceMessage.status) {
-            
+
             if ([storageMessage canUpdateStatus:serviceMessage.status]) {
                 [updatedMessages addObject:serviceMessage];
             }
@@ -32,7 +32,7 @@
             }
         }
     }
-    
+
     if (completion) {
         completion(needUpdateStatusMessages, updatedMessages);
     }

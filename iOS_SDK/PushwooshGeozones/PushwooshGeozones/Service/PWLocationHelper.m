@@ -68,7 +68,7 @@ typedef void (^PWAuthorizationLocationBlock)(CLAuthorizationStatus status);
         return;
     }
     [self removeLocationIfNeeded];
-    
+
     if (_authorizationBlock) {
         _authorizationBlock(status);
     }
@@ -78,7 +78,7 @@ typedef void (^PWAuthorizationLocationBlock)(CLAuthorizationStatus status);
 
 - (BOOL)isNeededRemoveLocation {
     CLAuthorizationStatus authorizationStatus = [CLLocationManager authorizationStatus];
-    
+
     if ((authorizationStatus == kCLAuthorizationStatusAuthorizedAlways && [PWGeozonesManager sharedManager].enabled)
         || authorizationStatus == kCLAuthorizationStatusNotDetermined
         || self.isSuccessfulSendLocation == NO) {
@@ -113,7 +113,7 @@ typedef void (^PWAuthorizationLocationBlock)(CLAuthorizationStatus status);
         [[UIApplication sharedApplication] endBackgroundTask:regionMonitoringBGTask];
         regionMonitoringBGTask = UIBackgroundTaskInvalid;
     }];
-    
+
     return @(regionMonitoringBGTask);
 }
 
@@ -121,7 +121,7 @@ typedef void (^PWAuthorizationLocationBlock)(CLAuthorizationStatus status);
     if (!taskId || [taskId integerValue] == UIBackgroundTaskInvalid) {
         return;
     }
-    
+
     [[UIApplication sharedApplication] endBackgroundTask:[taskId integerValue]];
 }
 

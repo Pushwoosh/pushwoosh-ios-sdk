@@ -17,4 +17,3 @@
 + (BOOL)isContentAvailablePush:(NSDictionary *)userInfo;
 
 @end
-

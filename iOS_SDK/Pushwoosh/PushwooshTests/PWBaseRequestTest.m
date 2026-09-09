@@ -13,9 +13,9 @@
 - (NSDictionary *)responseFromString:(NSString *)responseString {
     NSData *responseData = [responseString dataUsingEncoding:NSUTF8StringEncoding];
     NSDictionary *response = [NSJSONSerialization JSONObjectWithData:responseData options:NSJSONReadingMutableContainers error:nil];
-    
+
     XCTAssertNotNil(response);
-    
+
     return response;
 }
 

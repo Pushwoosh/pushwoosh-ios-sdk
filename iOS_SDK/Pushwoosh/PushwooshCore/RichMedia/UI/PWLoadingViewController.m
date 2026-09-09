@@ -34,7 +34,7 @@
 
 - (void)closeController {
     [super closeController];
-    
+
     if (_cancelBlock) {
         _cancelBlock();
     }

@@ -1,4 +1,3 @@
-
 #import "PushNotificationManager+Mock.h"
 #import <PushwooshFramework/PushwooshFramework.h>
 
@@ -30,7 +29,7 @@ id gProxy = nil;
 		NSLog(@"PushNotificationManager mock_initWithApplicationCode");
 		return [super init];
 	}
-	
+
 	// Real method
 	return [self mock_initWithApplicationCode:appCode appName:appName];
 }

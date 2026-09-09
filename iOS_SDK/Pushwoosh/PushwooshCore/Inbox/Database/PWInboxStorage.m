@@ -39,7 +39,7 @@
     NSMutableDictionary<NSString *, PWInboxMessageInternal *> *allMessages = [NSMutableDictionary new];
     //remove notification messages
     [_pushNotificationMessages removeObjectsForKeys:_serviceMessages.allKeys];
-    
+
     //update messages
     [allMessages addEntriesFromDictionary:_serviceMessages];
     [allMessages addEntriesFromDictionary:_pushNotificationMessages];
@@ -60,15 +60,15 @@
                                               NSArray<PWInboxMessageInternal *> *messagesUpdated))completion {
     NSMutableArray<NSString *> *messagesDeleted = [_serviceMessages.allKeys mutableCopy];
     NSMutableArray<NSString *> *messageKeysAdded = [messages.allKeys mutableCopy];
-    
+
     [messagesDeleted removeObjectsInArray:messages.allKeys];
     [_serviceMessages removeObjectsForKeys:messagesDeleted];
-    
+
     [messageKeysAdded removeObjectsInArray:_allMessages.allKeys];
     PWInboxMessageInternal *nullMessage = [PWInboxMessageInternal new];
     NSMutableArray<PWInboxMessageInternal *> *messagesAdded = [[messages objectsForKeys:messageKeysAdded notFoundMarker:nullMessage] mutableCopy];
     [messagesAdded removeObject:nullMessage];
-    
+
     [self addInboxMessagesDeleted:messagesDeleted
                     messagesAdded:messagesAdded
                       fromService:messages
@@ -166,14 +166,14 @@
     messages = [messages sortedArrayUsingComparator:^NSComparisonResult(PWInboxMessageInternal * _Nonnull obj1, PWInboxMessageInternal * _Nonnull obj2) {
         NSComparisonResult result = [obj2.sendDate compare:obj1.sendDate];
         if (result == NSOrderedSame) {
-            
+
             result = [obj2.sortOrder compare:obj1.sortOrder];
             if (result == NSOrderedSame) {
                 return [obj2.code compare:obj1.code];
             } else {
                 return result;
             }
-            
+
         } else {
             return result;
         }
@@ -205,7 +205,7 @@
 - (void)loadMessages {
     _serviceMessages = [self loadWithFileName:@"PWInbox.serviceMessages"] ?: [NSMutableDictionary new];
     _pushNotificationMessages = [self loadWithFileName:@"PWInbox.pushNotificationMessages"] ?: [NSMutableDictionary new];
-    
+
     if ([self removeExpiredMessageInDictionary:_serviceMessages] || [self removeExpiredMessageInDictionary:_pushNotificationMessages]) {
         [self saveMessages];
     }
@@ -220,7 +220,7 @@
     NSArray *paths = NSSearchPathForDirectoriesInDomains(NSDocumentDirectory, NSUserDomainMask, YES);
     NSString *documentsDirectory = paths[0];
     NSString *path = [NSString stringWithFormat:@"%@/%@", documentsDirectory, fileName];
-    
+
     return path;
 }
 

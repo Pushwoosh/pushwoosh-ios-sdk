@@ -39,9 +39,9 @@
 - (void)testRequestDictionaryHasParameters {
     [self.request setTags:@{@"test": @"test"}];
     [self.request setEmail:@"test@pushwoosh.com"];
-    
+
     NSDictionary *parameters = [self.request requestDictionary];
-    
+
     assertThat(parameters, hasKey(@"tags"));
     assertThat(parameters, hasKey(@"email"));
     XCTAssertNil(parameters[@"hwid"]);
@@ -50,7 +50,7 @@
 
 - (void)testMethodNameIsCorrect {
     NSString *methodName = [self.request methodName];
-    
+
     XCTAssertEqualObjects(methodName, @"setEmailTags");
 }
 

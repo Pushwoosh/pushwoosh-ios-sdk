@@ -55,7 +55,7 @@
     } else {
         NSString *string = [self pw_objectForKey:aKey ofType:[NSString class]];
         if (string) {
-            
+
             return @(string.longLongValue);
         } else {
             return nil;

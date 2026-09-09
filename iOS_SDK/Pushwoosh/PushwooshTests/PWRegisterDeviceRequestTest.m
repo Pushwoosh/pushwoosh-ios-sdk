@@ -1,4 +1,3 @@
-
 #import "PWRegisterDeviceRequest.h"
 #import "PWPreferences.h"
 #import "PWInteractivePush.h"
@@ -48,12 +47,12 @@
 
 - (void)setUp {
     [super setUp];
-	
+
     self.notificationManager = [[PWPushNotificationsManagerCommon alloc] init];
-    
+
 	self.originalCategoryBuilder = [PWPlatformModule module].NotificationCategoryBuilder;
 	[PWPlatformModule module].NotificationCategoryBuilder = [PWNotificationCategoryBuilder class];
-	
+
 	self.originalNotificationManager = [PWPlatformModule module].notificationManagerCompat;
 	[PWPlatformModule module].notificationManagerCompat = mock([PWNotificationManagerCompat class]);
 }
@@ -61,7 +60,7 @@
 - (void)tearDown {
 	[PWPlatformModule module].NotificationCategoryBuilder = self.originalCategoryBuilder;
 	[PWPlatformModule module].notificationManagerCompat = self.originalNotificationManager;
-	
+
 	[PWPreferences preferences].categories = nil;
     [super tearDown];
 }

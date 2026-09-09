@@ -15,7 +15,7 @@
     if (completion) {
         completion();
     }
-    
+
     [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"STUB"];
 }
 

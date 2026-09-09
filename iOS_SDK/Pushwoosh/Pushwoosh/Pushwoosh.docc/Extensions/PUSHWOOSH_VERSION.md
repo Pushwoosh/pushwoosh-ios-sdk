@@ -39,4 +39,3 @@ func buildAboutSection() -> [SettingsRow] {
     ]
 }
 ```
-

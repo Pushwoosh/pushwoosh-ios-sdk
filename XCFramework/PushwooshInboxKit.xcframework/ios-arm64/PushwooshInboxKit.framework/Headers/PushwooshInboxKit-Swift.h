@@ -422,6 +422,8 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 /// when the server response doesn’t include them yet.
 - (void)reloadData;
 - (void)setBackgroundColor:(UIColor * _Nonnull)color;
+/// Sets the card background as a dynamic colour, so the labels stay readable in both appearances.
+- (void)setBackgroundColorWithLight:(UIColor * _Nonnull)light dark:(UIColor * _Nonnull)dark;
 - (void)setAccentColor:(UIColor * _Nonnull)color;
 - (void)setSeparatorColor:(UIColor * _Nonnull)color;
 - (void)setEmptyMessage:(NSString * _Nonnull)text;

@@ -20,7 +20,7 @@ public protocol PWVoIP {
        - ringtoneSound: The name of the custom ringtone sound file to be used for incoming calls.
        - handleTypes: The type of call handle to support:
          (Pass one of the following values)
-         
+
          - 1 – Generic
          - 2 – Phone number
          - 3 – Email address
@@ -29,7 +29,7 @@ public protocol PWVoIP {
     static func initializeVoIP(_ supportVideo: Bool,
                                ringtoneSound: String,
                                handleTypes: Int)
-    
+
     /**
      Sets the VoIP push token for Pushwoosh.
 
@@ -61,9 +61,9 @@ public protocol PWVoIP {
     @objc
     static func setIncomingCallTimeout(_ timeout: TimeInterval)
 
-    /** 
+    /**
     A delegate object that conforms to the `PWVoIPCallDelegate` protocol.
-    
+
     Use this property to set an object that handles VoIP call events such as answering,
     ending, muting, or playing DTMF tones. The delegate should conform to the
     `PWVoIPCallDelegate` protocol and must be assigned before handling any call actions.
@@ -81,7 +81,7 @@ public protocol PWVoIP {
     [[Pushwoosh VoIP] setDelegate:self];
     ```
     Make sure `self` conforms to `<PWVoIPCallDelegate>`.
-     
+
     Call `.delegate = self` before `initializeVoip()`
     */
     @objc

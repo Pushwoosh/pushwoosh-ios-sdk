@@ -10,11 +10,11 @@
 		</data>
 		<key>Headers/PushwooshBridge.h</key>
 		<data>
-		K8FXBYoq4HNvTaCx8pUilznrAUo=
+		sKMFTLrIFfhcCrficak0cYuHO9w=
 		</data>
 		<key>Info.plist</key>
 		<data>
-		40xjdcaGCdCUSUSOoZEz8mjiEIk=
+		yCh/11ZJ1Ti40/smchb8MgAR5+A=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		7/nu5BjUA4Z0vWORZAWtRhcFo2g=
+		2SKCk9u9rGT2YjY6pz24j5d8Mo4=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.swiftdoc</key>
 		<data>
-		jBDTV+YTeDXWoREJvwL1/2ydud8=
+		nG8jjHGzl57WiTzalo980FeqDq4=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>
 		<data>
@@ -78,7 +78,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			sQV6tdHev3+keSb/E3ZoLepY5gI5z9SX1DC8RifICB0=
+			C5MUhTeCyxji7G8DiIA+Kpg2cMZ8LZKeVXbKSgYHdm0=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.abi.json</key>
@@ -99,7 +99,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			07mimcgUm7KCGgJUIFr4kM5WLriRPS1xy1pzcuLCLNI=
+			dusAAgPJFooQaRryfc7/xiyn8+4owKTUzP/xcFnG3yU=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-ios-simulator.swiftinterface</key>
@@ -134,7 +134,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6Uvl+cxw+5FQy+GET0RJV33glSul3LoNQ727XmMJwQU=
+			8r+MaFr32il5GjItU6Kk6wn1hNRgEUY5QDWsReqoWFg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-ios-simulator.swiftinterface</key>

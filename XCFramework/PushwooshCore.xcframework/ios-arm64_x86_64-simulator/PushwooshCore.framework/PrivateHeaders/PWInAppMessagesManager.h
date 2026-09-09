@@ -25,7 +25,12 @@ FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 
 - (void)postEvent:(NSString*)event withAttributes:(NSDictionary*)attributes completion:(void (^)(NSError* error))completion;
 
-- (void)postEventInternal:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void (^)(id resource, NSError *error))completion;
+/// `completion` fires on the postEvent server response only; `resourceHandler` reports the
+/// resulting in-app resource (or its error) once that separate download settles.
+- (void)postEventInternal:(NSString *)event
+           withAttributes:(NSDictionary *)attributes
+               completion:(void (^)(NSError *error))completion
+          resourceHandler:(void (^)(PWResource *resource, NSString *messageHash, NSError *error))resourceHandler;
 
 - (void)reloadInAppsWithCompletion:(void (^)(NSError *error)) completion;
 

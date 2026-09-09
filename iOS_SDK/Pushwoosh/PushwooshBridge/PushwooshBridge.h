@@ -15,5 +15,3 @@ FOUNDATION_EXPORT double PushwooshBridgeVersionNumber;
 FOUNDATION_EXPORT const unsigned char PushwooshBridgeVersionString[];
 
 // In this header, you should import all the public headers of your framework using statements like #import <PushwooshBridge/PublicHeader.h>
-
-

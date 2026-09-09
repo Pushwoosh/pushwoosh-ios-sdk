@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/PWConfig.h</key>
 		<data>
-		4QTZgvbHggEk/Jzsa41KY19yf3A=
+		GFN/zqlKb2/ouFtIxyH6jKLXMAs=
 		</data>
 		<key>Headers/PWCoreUtils.h</key>
 		<data>
@@ -74,7 +74,7 @@
 		</data>
 		<key>Headers/PWManagerBridge.h</key>
 		<data>
-		yjqhdO5q4Datskjs34KvCGi3Zvs=
+		K0YytUaAmyR9B2RteIq4xW2Wshs=
 		</data>
 		<key>Headers/PWMedia.h</key>
 		<data>
@@ -126,11 +126,11 @@
 		</data>
 		<key>Headers/PWRichMediaManager.h</key>
 		<data>
-		2W1ZibKxOuuptSElMgYM9+cH5W4=
+		ExVmXbZDWKq8mMpIonP3QEwWR70=
 		</data>
 		<key>Headers/PWRichMediaStyle.h</key>
 		<data>
-		ZQNYRPD85ST/ZimilnHUhILST2U=
+		vUjqlONZ5e2XOC9q8sjkotR7AIk=
 		</data>
 		<key>Headers/PWRichMediaTypes.h</key>
 		<data>
@@ -142,11 +142,11 @@
 		</data>
 		<key>Headers/PushwooshConfig.h</key>
 		<data>
-		+o0eRJ7KjicWkdNDLu5nCwKkETI=
+		1kG3dsT33VxLnXuEx4v6la7FvV4=
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		eTh88c7UKpO9RdLGfz+KOZVcKOk=
+		9PRlbG2pvpUVYZIsJtpKGf6KjUg=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -154,7 +154,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		jedMUIHn8+gftLfI+1YHDdsWtB8=
+		euGGz+U+wFJE9xeOzb+g0vonWoA=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -182,11 +182,11 @@
 		</data>
 		<key>PrivateHeaders/PWInAppMessagesManager.h</key>
 		<data>
-		UITKYHRffCZWmZqhd2gCQYg9TsE=
+		+eFXs5g7ezuKU2hAmuhMhyGBxco=
 		</data>
 		<key>PrivateHeaders/PWInAppStorage.h</key>
 		<data>
-		ndK3YkkmRw9cRtFhWU8H3pB5WaY=
+		dzr5bql55CTsds8MCv80sHI9Hhg=
 		</data>
 		<key>PrivateHeaders/PWMessageViewController.h</key>
 		<data>
@@ -242,7 +242,7 @@
 		</data>
 		<key>PrivateHeaders/PWResource.h</key>
 		<data>
-		m9EFoTEIgi5yryr8r0LwKNismgg=
+		7o8mwlNuc5WVu9bBhvrfEgt2L9o=
 		</data>
 		<key>PrivateHeaders/PWRichMedia+Internal.h</key>
 		<data>
@@ -327,7 +327,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			UevS9taWiK17ILLCI37ATwCppGLZ+9LCanp+8HDxNOQ=
+			gAm8mDPavTEXjp+ZsA81m0s+gnjXSQkv5vWNrHEY7ww=
 			</data>
 		</dict>
 		<key>Headers/PWCoreUtils.h</key>
@@ -418,7 +418,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			owYDnyEb1a60KQ3V717ofpbKyI+fSedPpfHrOo16Z1Q=
+			iQdwqgD023+VnTjep8f7zdWm/Bj2/Caq66y6mfPVZAg=
 			</data>
 		</dict>
 		<key>Headers/PWMedia.h</key>
@@ -509,14 +509,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			VnZQUwy5ISAcuXhJSWrg+DJD2/4pjB+Fw3kacDjysTo=
+			Ub21vIpLBExzRno5efJJ5KZAkvQ/6CpGz6VjyF+JpU8=
 			</data>
 		</dict>
 		<key>Headers/PWRichMediaStyle.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			DmkhNLfhwzpMltAedAVOiLXl0ng855NfPPbt+aFX7AM=
+			NSVu6SVQjHhm3R9G38FzYhwXR6klZjDFdMT7htkt4LM=
 			</data>
 		</dict>
 		<key>Headers/PWRichMediaTypes.h</key>
@@ -537,14 +537,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6RnuKFHNwWMKUnpRDwH1pr89oYiWeCgndbnGJ4vVz4k=
+			KeUps1BmEhhy+A6zCpJf/la6JgPmBldH5M8CLim6vCo=
 			</data>
 		</dict>
 		<key>Headers/PushwooshCore.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			n/drQEZ4IX3dLNUzcPrFajRLnp79FzLQBtXxoXYi0xM=
+			Xs/OgDKaLl7L1AT+avPSGwC+yb8A97uFwNW5u5ycnVM=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -600,14 +600,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YeYahB3G8l+G7Qb0Cnad37Z1R2S+Us9vRIjGavRC4IU=
+			ICSEsEAfqlKqq8gDYbJdKgcejZN6vLhd+TjLZz7lFzQ=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWInAppStorage.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			8zUORTPeLaFVWgiJJ2KJD5/m2/AEloFiNpmPjbyGv10=
+			JBM519wc2Ae+sauQPrmaFnl0X5SiFM/oGFWa1ZmuBmo=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWMessageViewController.h</key>
@@ -705,7 +705,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			NlMH+FN7OG7ZOChOLBcikjCp1nR04MbcAY/PuMcDuPg=
+			GA6o2P8y+pxjI0jaepNBreGGNtfX6aL6B9iA29WMEmY=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWRichMedia+Internal.h</key>

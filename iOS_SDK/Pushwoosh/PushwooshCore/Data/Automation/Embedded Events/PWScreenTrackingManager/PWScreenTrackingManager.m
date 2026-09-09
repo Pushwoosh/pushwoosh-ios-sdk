@@ -88,7 +88,7 @@ static NSString *pw_screenNameForViewController(UIViewController *vc) {
 
 - (void)setDefaultScreenOpenAllowed:(BOOL)defaultScreenOpenAllowed {
     _defaultScreenOpenAllowed = defaultScreenOpenAllowed;
-    
+
     if (defaultScreenOpenAllowed) {
         [self startTracking];
     }
@@ -137,7 +137,7 @@ void _replacement_viewDidAppear(UIViewController * self, SEL _cmd, BOOL animated
 
                 [PWScreenTrackingManager sharedManager].isWaitingToSendEvent = NO;
             });
-            
+
             [PWScreenTrackingManager sharedManager].isWaitingToSendEvent = YES;
         }
     }

@@ -35,9 +35,9 @@
 
 - (void)testRequestDictionaryHasCorrectParameters {
     [self.request setPushDict:@{@"p": @"p"}];
-    
+
     NSDictionary *parameters = [self.request requestDictionary];
-    
+
     assertThat(parameters, hasKey(@"hash"));
 }
 

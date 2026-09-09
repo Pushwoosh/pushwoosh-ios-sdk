@@ -33,7 +33,7 @@ static NSInteger minimalTimeinterval = 10;
 
 + (PWIRequestBlock *)requestBlock:(PWRequest *)request withBlock:(void (^)(PWRequest *request, NSError *error))completion {
     PWIRequestBlock *requestBlock = nil;
-    
+
     if (request.uid == nil || completion == nil) {
         return requestBlock;
     } else {
@@ -82,9 +82,9 @@ static NSInteger minimalTimeinterval = 10;
     if (_currentUserID && ![[PWPreferences preferences].userId isEqualToString:_currentUserID]) {
         [[PWManagerBridge shared].inboxBridge resetApplication];
     }
-    
+
     _currentUserID = [PWPreferences preferences].userId;
-    
+
     if (_lastRequestTime && [[NSDate date] timeIntervalSinceDate:_lastRequestTime] < minimalTimeinterval) {
         return NO;
     } else {
@@ -191,7 +191,7 @@ static NSInteger minimalTimeinterval = 10;
             [_requestManager sendRequest:[PWInboxUpdateStatusRequest deleteInboxMessage:message.sortOrder inboxHash:message.inboxHash] completion:nil];
         }
     }
-    
+
     [self removeMessagesFromNotificationCenter:messages];
 }
 
@@ -201,18 +201,18 @@ static NSInteger minimalTimeinterval = 10;
             [_requestManager sendRequest:[PWInboxUpdateStatusRequest actionInboxMessage:message.sortOrder inboxHash:message.inboxHash] completion:nil];
         }
     }
-    
+
     [self removeMessagesFromNotificationCenter:messages];
 }
 
 - (void)removeMessagesFromNotificationCenter:(NSArray<PWInboxMessageInternal *> *)messages {
     [[UNUserNotificationCenter currentNotificationCenter] getDeliveredNotificationsWithCompletionHandler:^(NSArray<UNNotification *> * _Nonnull notifications) {
         NSMutableArray *identifiersToDelete = [NSMutableArray new];
-        
+
         for (PWInboxMessageInternal *message in messages) {
             for (UNNotification *notification in notifications) {
                 NSString *inboxID = notification.request.content.userInfo[@"pw_inbox"];
-                
+
                 if (inboxID) {
                     if ([message.code isEqualToString:inboxID] && notification.request.identifier) {
                         [identifiersToDelete addObject:notification.request.identifier];
@@ -220,7 +220,7 @@ static NSInteger minimalTimeinterval = 10;
                 }
             }
         }
-        
+
         if (identifiersToDelete.count) {
             [[UNUserNotificationCenter currentNotificationCenter] removeDeliveredNotificationsWithIdentifiers:identifiersToDelete];
         }

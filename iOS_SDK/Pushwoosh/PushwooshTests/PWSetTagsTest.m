@@ -42,7 +42,7 @@
 	if (completion) {
 		completion(nil);
 	}
-	
+
 	if (self.onSendRequest) {
 		self.onSendRequest(request);
 	}
@@ -66,13 +66,13 @@
 
 - (void)setUp {
 	[super setUp];
-	
+
 	[PWTestUtils setUp];
-	
+
 	self.originalRequestManager = [PWNetworkModule module].requestManager;
 	self.mockRequestManager = [SetTagsTest_PWRequestManagerMock new];
 	[PWNetworkModule module].requestManager = self.mockRequestManager;
-	
+
 	self.originalNotificationManager = [PWPlatformModule module].notificationManagerCompat;
 	[PWPlatformModule module].notificationManagerCompat = mock([PWNotificationManagerCompat class]);
 }
@@ -80,7 +80,7 @@
 - (void)tearDown {
 	[PWNetworkModule module].requestManager = self.originalRequestManager;
 	[PWPlatformModule module].notificationManagerCompat = self.originalNotificationManager;
-	
+
 	[PWTestUtils tearDown];
 
 	[super tearDown];

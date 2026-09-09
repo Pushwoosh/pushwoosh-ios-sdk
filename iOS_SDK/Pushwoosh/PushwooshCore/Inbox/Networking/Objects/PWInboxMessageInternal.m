@@ -70,7 +70,7 @@ typedef NS_ENUM(NSInteger, PWInboxMessageSourceType) {
             _type = PWInboxMessageTypeDeeplink;
         }
     }
-    
+
 }
 
 - (NSDictionary *)parseString:(NSString *)string {
@@ -159,7 +159,7 @@ typedef NS_ENUM(NSInteger, PWInboxMessageSourceType) {
     NSDateFormatter *formatter = [[NSDateFormatter alloc] init];
     [formatter setDateFormat:@"yyyy-MM-dd"];
     _expirationDate = [formatter dateFromString:[inboxParams pw_stringForKey:@"rt"]];
-    
+
     NSNumber *actionType = [dictionary pw_numberForKey:@"action_type"];
     _type = [self typeForNumber:actionType];
     _actionParams = dictionary;
@@ -177,7 +177,7 @@ typedef NS_ENUM(NSInteger, PWInboxMessageSourceType) {
     [aCoder encodeObject:_sendDate forKey:@"sendDate"];
     [aCoder encodeObject:_imageUrl forKey:@"imageUrl"];
     [aCoder encodeInteger:_type forKey:@"type"];
-    
+
     //private
     [aCoder encodeObject:_inboxHash forKey:@"inboxHash"];
     [aCoder encodeObject:_sortOrder forKey:@"sortOrder"];
@@ -195,7 +195,7 @@ typedef NS_ENUM(NSInteger, PWInboxMessageSourceType) {
     if (!self) {
         return nil;
     }
-    
+
     //public
     _code = [aDecoder decodeObjectOfClass:NSString.class forKey:@"code"];
     _title = [aDecoder decodeObjectOfClass:NSString.class forKey:@"title"];
@@ -203,7 +203,7 @@ typedef NS_ENUM(NSInteger, PWInboxMessageSourceType) {
     _sendDate = [aDecoder decodeObjectOfClass:NSDate.class forKey:@"sendDate"];
     _imageUrl = [aDecoder decodeObjectOfClass:NSString.class forKey:@"imageUrl"];
     _type = [aDecoder decodeIntegerForKey:@"type"];
-    
+
     //private
     _inboxHash = [aDecoder decodeObjectOfClass:NSString.class forKey:@"inboxHash"];
     _sortOrder = [aDecoder decodeObjectOfClass:NSString.class forKey:@"sortOrder"];
@@ -220,7 +220,7 @@ typedef NS_ENUM(NSInteger, PWInboxMessageSourceType) {
                                   nil];
     _actionParams = [aDecoder decodeObjectOfClasses:actionParamsClasses forKey:@"actionParams"];
     _status = [aDecoder decodeIntegerForKey:@"status"];
-    
+
     return self;
 }
 

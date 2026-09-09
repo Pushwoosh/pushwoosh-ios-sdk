@@ -48,4 +48,3 @@ func loadUserPreferences() {
 
 - ``PushwooshErrorHandler``
 - ``Pushwoosh/getTags(_:onFailure:)``
-

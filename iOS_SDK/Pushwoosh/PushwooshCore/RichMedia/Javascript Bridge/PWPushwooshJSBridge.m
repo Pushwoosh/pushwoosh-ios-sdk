@@ -33,7 +33,7 @@
 	self = [super init];
 	if (self) {
         [[PWNetworkModule module] inject:self];
-        
+
 		self.webClient = webClient;
 	}
 	return self;
@@ -90,7 +90,7 @@
 		[errorCallback executeWithParam:[jsonError description]];
 		return;
 	}
-	
+
 	[[[PWManagerBridge shared] inAppManager] postEvent:event withAttributes:attributes completion:^(NSError *error) {
 		if (!error) {
 			[successCallback execute];
@@ -112,7 +112,7 @@
     request.actionType = @([actionType integerValue]);
     request.messageHash = self.webClient.messageHash;
     request.actionAttributes = actionAttributes;
-        
+
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (!error) {
             [successCallback execute];
@@ -259,7 +259,7 @@
  */
 - (void)closeInApp {
     NSNumber *closeActionType = @4;
-    
+
 	[self.webClient close];
     [self richMediaAction:self.webClient.inAppCode
                          :self.webClient.richMediaCode

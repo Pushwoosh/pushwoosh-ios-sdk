@@ -38,6 +38,27 @@ class PushwooshInboxRichCardsTest: XCTestCase {
     }
 
     /// Keeps a slide whose tap URL has no scheme but drops the unusable URL, so a malformed
+    /// Caps the gallery at `maxSlides` decodable slides, keeping the first ones in payload order.
+    func testCarouselCapsSlidesAtMax() {
+        let message = FakeMessage()
+        message.actionParams = ["carousel": (1...7).map { ["image": "https://x/\($0).jpg"] }]
+        let slides = PushwooshInboxCarouselSlide.decode(from: message)
+        XCTAssertEqual(PushwooshInboxCarouselSlide.maxSlides, 5)
+        XCTAssertEqual(slides.count, 5)
+        XCTAssertEqual(slides.first?.imageUrl, "https://x/1.jpg")
+        XCTAssertEqual(slides.last?.imageUrl, "https://x/5.jpg")
+    }
+
+    /// An image-less slide is skipped without taking up one of the capped places.
+    func testCarouselDroppedSlideDoesNotCountTowardsMax() {
+        let message = FakeMessage()
+        let valid: [[String: Any]] = (1...6).map { ["image": "https://x/\($0).jpg"] }
+        message.actionParams = ["carousel": [["title": "no image"]] + valid]
+        let slides = PushwooshInboxCarouselSlide.decode(from: message)
+        XCTAssertEqual(slides.count, 5)
+        XCTAssertEqual(slides.last?.imageUrl, "https://x/5.jpg")
+    }
+
     /// link can't navigate anywhere while the slide image still renders.
     func testCarouselSlideDropsSchemelessURL() {
         let message = FakeMessage()
@@ -178,6 +199,13 @@ class PushwooshInboxRichCardsTest: XCTestCase {
         let message = FakeMessage()
         message.actionParams = ["displayType": "carousel", "carousel": [["image": "https://x/1.jpg"]]]
         XCTAssertEqual(PushwooshInboxKitAttributes.defaultCellKindResolver(message), "carousel")
+    }
+
+    /// Resolver degrades `carousel` to `classic` when the message has slides but no title/body.
+    func testResolverDegradesCarouselWithoutTextToClassic() {
+        let message = FakeMessage(title: "")
+        message.actionParams = ["displayType": "carousel", "carousel": [["image": "https://x/1.jpg"]]]
+        XCTAssertEqual(PushwooshInboxKitAttributes.defaultCellKindResolver(message), "classic")
     }
 
     /// Resolver degrades `carousel` to `classic` when there are no slides.

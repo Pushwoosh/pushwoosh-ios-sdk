@@ -79,13 +79,13 @@
 
 - (void)testPresentingAnimation {
     [self prepareAnimatorForAnimationType:PWRichMediaStyleAnimationTypeSlideBottom];
-    
+
     XCTestExpectation *expectation = [self expectationWithDescription:@"..."];
-    
+
     [_animator runPresentingAnimationWithCompletion:^{
         [expectation fulfill];
     }];
-    
+
     [self waitForExpectationsWithTimeout:2 handler:^(NSError * _Nullable error) {
         BOOL result = CGAffineTransformEqualToTransform(CGAffineTransformIdentity, _view.transform);
         XCTAssertTrue(result);
@@ -94,13 +94,13 @@
 
 - (void)testDissmissingAnimation {
     [self prepareAnimatorForAnimationType:PWRichMediaStyleAnimationTypeSlideBottom];
-    
+
     XCTestExpectation *expectation = [self expectationWithDescription:@"..."];
-    
+
     [_animator runDismissingAnimationWithCompletion:^{
         [expectation fulfill];
     }];
-    
+
     [self waitForExpectationsWithTimeout:2 handler:^(NSError * _Nullable error) {
         BOOL result = CGAffineTransformEqualToTransform(CGAffineTransformMakeTranslation(0, 100), _view.transform);
         XCTAssertTrue(result);

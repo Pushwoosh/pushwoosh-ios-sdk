@@ -27,6 +27,21 @@
 #import "PWReachability.h"
 #endif
 
+/// Every completion of the `sendRequest`/`sendRequestInternal` contract reaches its caller on the
+/// main queue through here, whichever transport or early exit produced it.
+static void PWDeliverCompletionOnMain(void (^completion)(NSError *error), NSError *error) {
+    if (!completion) {
+        return;
+    }
+    if ([NSThread isMainThread]) {
+        completion(error);
+        return;
+    }
+    dispatch_async(dispatch_get_main_queue(), ^{
+        completion(error);
+    });
+}
+
 @protocol PWGRPCTransport <NSObject>
 + (BOOL)isAvailable;
 + (void)sendRequest:(PWRequest *)request completion:(void (^)(NSDictionary *, NSError *))completion;
@@ -65,7 +80,9 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 - (instancetype)init {
 	if (self = [super init]) {
 		NSURLSessionConfiguration *configuration = [NSURLSessionConfiguration defaultSessionConfiguration];
-		_session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:[NSOperationQueue mainQueue]];
+		/// Own serial queue keeps response parsing and in-app zip delivery off the main thread, where
+		/// they would serialize against the host app's UI work.
+		_session = [NSURLSession sessionWithConfiguration:configuration delegate:nil delegateQueue:nil];
 
 		NSURLSessionConfiguration *retryConfiguration = [NSURLSessionConfiguration defaultSessionConfiguration];
 		retryConfiguration.timeoutIntervalForRequest = 80;
@@ -528,9 +545,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
                     [wSelf.retryQueue enqueueRequest:request baseUrl:[wSelf frozenBaseUrlForRetryOf:request]];
                 }
 #endif
-                if (completion) {
-                    completion(statusError);
-                }
+                PWDeliverCompletionOnMain(completion, statusError);
                 return;
             }
 
@@ -543,9 +558,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
             // Handle base_url switch
             [wSelf applyServerBaseUrl:response[@"base_url"] forRequest:request];
 
-            if (completion) {
-                completion(nil);
-            }
+            PWDeliverCompletionOnMain(completion, nil);
         });
     } else {
         // Fallback to REST if method not available
@@ -655,7 +668,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     if (![[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
         NSString *errorStr = @"Communication with Pushwoosh is disabled. To send the request you have to enable the server communication using method startServerCommunication of Pushwoosh class.";
         if (completion) {
-            completion([PWUtils pushwooshErrorWithCode:PWErrorCommunicationDisabled description:errorStr]);
+            PWDeliverCompletionOnMain(completion, [PWUtils pushwooshErrorWithCode:PWErrorCommunicationDisabled description:errorStr]);
         } else {
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorStr];
         }
@@ -669,15 +682,13 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
         backgroundTaskId = UIBackgroundTaskInvalid;
     }];
 #endif
-    
+
     //request part
     NSString *base = [request baseUrl] ?: [self baseUrl];
     if (base.length == 0) {
         NSString *errorStr = [NSString stringWithFormat:@"Base URL is not configured yet. Request blocked: %@", request.methodName];
         [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:errorStr];
-        if (completion) {
-            completion([PWUtils pushwooshErrorWithCode:PWErrorRequestNotReady description:errorStr]);
-        }
+        PWDeliverCompletionOnMain(completion, [PWUtils pushwooshErrorWithCode:PWErrorRequestNotReady description:errorStr]);
 #if TARGET_OS_IOS
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
 #endif
@@ -693,9 +704,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     if (![NSJSONSerialization isValidJSONObject:request.requestDictionary]) {
         NSString *errorStr = [NSString stringWithFormat:@"Failed to serialize request %@: non-serializable data", request.methodName];
         [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorStr];
-        if (completion) {
-            completion([PWUtils pushwooshError:errorStr]);
-        }
+        PWDeliverCompletionOnMain(completion, [PWUtils pushwooshError:errorStr]);
 #if TARGET_OS_IOS
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
 #endif
@@ -708,9 +717,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     if (!jsonData || jsonError) {
         NSString *errorStr = [NSString stringWithFormat:@"Failed to serialize request: %@", jsonError.localizedDescription ?: @"unknown error"];
         [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorStr];
-        if (completion) {
-            completion([PWUtils pushwooshError:errorStr]);
-        }
+        PWDeliverCompletionOnMain(completion, [PWUtils pushwooshError:errorStr]);
 #if TARGET_OS_IOS
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
 #endif
@@ -727,9 +734,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     if (!urlRequest || !urlRequest.URL) {
         NSString *errorStr = [NSString stringWithFormat:@"Invalid request URL: %@", requestUrl];
         [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorStr];
-        if (completion) {
-            completion([PWUtils pushwooshError:errorStr]);
-        }
+        PWDeliverCompletionOnMain(completion, [PWUtils pushwooshError:errorStr]);
 #if TARGET_OS_IOS
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
 #endif
@@ -749,10 +754,8 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
             request.httpCode = httpResponse.statusCode;
             [wSelf.retryQueue enqueueRequest:request baseUrl:[wSelf frozenBaseUrlForRetryOf:request]];
 
-            if (completion) {
-                NSError *reportedError = error ?: [PWUtils pushwooshError:[NSString stringWithFormat:@"Request %@ failed with status code %ld and was queued for retry", request.methodName, (long)httpResponse.statusCode]];
-                completion(reportedError);
-            }
+            NSError *reportedError = error ?: [PWUtils pushwooshError:[NSString stringWithFormat:@"Request %@ failed with status code %ld and was queued for retry", request.methodName, (long)httpResponse.statusCode]];
+            PWDeliverCompletionOnMain(completion, reportedError);
 
 #if TARGET_OS_IOS
             [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
@@ -760,12 +763,11 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
             return;
         }
 #endif
-                
+
         [wSelf processResponse:(NSHTTPURLResponse *)response responseData:data request:request url:requestUrl requestData:requestData error:&error];
-        
-		if (completion)
-			completion(error);
-		
+
+		PWDeliverCompletionOnMain(completion, error);
+
 #if TARGET_OS_IOS
 		[[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
 #endif
@@ -893,13 +895,13 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 }
 
 - (void)processResponse:(NSHTTPURLResponse *)httpResponse responseData:(NSData *)responseData request:(PWRequest *)request url:(NSString *)requestUrl requestData:(NSString *)requestData error:(NSError **)outError {
-    
+
 	NSError *error = *outError;
 	request.httpCode = httpResponse.statusCode;
-        
+
     if (error == nil) {
         NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
-        
+
         NSString *requestLogStr = [NSString stringWithFormat:@"\n"
                                      @"x\n"
                                      @"|    Pushwoosh request:\n"
@@ -909,14 +911,14 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
                                      @"| Response: %@\n"
                                      @"x",
                                      requestUrl, requestData, (long)[httpResponse statusCode], [NSHTTPURLResponse localizedStringForStatusCode:[httpResponse statusCode]], responseString];
-        
-        
+
+
         [PushwooshLog pushwooshLog:PW_LL_DEBUG
                          className:self
                            message:requestLogStr];
-        
+
         NSDictionary *jsonResult = [NSJSONSerialization JSONObjectWithData:[responseString dataUsingEncoding:NSUTF8StringEncoding] options:0 error:&error];
-        
+
         if (![jsonResult isKindOfClass:[NSDictionary class]]) {
 			if (error == nil) {
 				error = [PWUtils pushwooshError:@"Bad response body"];
@@ -941,12 +943,12 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
             if (!isUsingProxy) {
                 [self applyServerBaseUrl:jsonResult[@"base_url"] forRequest:request];
 			}
-            
+
 			// check status
 			if (httpResponse.statusCode != 200 || ![jsonResult[@"status_code"] isKindOfClass:[NSNumber class]] || [jsonResult[@"status_code"] intValue] != 200) {
-                
+
                 NSString *statusMessage = jsonResult[@"status_message"];
-                
+
                 if (statusMessage) {
                     error = [PWUtils pushwooshError:statusMessage];
                 } else {
@@ -955,7 +957,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 			} else {
 				// optional response parsing
 				NSDictionary *responseDict = jsonResult[@"response"];
-                
+
                 if ([responseDict isKindOfClass:[NSDictionary class]]) {
                     #ifdef DEBUG
                     [request parseResponse:responseDict];

@@ -140,6 +140,7 @@ extension PushwooshInboxKit.PushwooshInboxKitDelegate {
   @_Concurrency.MainActor(unsafe) public func reload() async throws
   #endif
   @objc @_Concurrency.MainActor(unsafe) public func setBackgroundColor(_ color: UIKit.UIColor)
+  @objc @_Concurrency.MainActor(unsafe) public func setBackgroundColor(light: UIKit.UIColor, dark: UIKit.UIColor)
   @objc @_Concurrency.MainActor(unsafe) public func setAccentColor(_ color: UIKit.UIColor)
   @objc @_Concurrency.MainActor(unsafe) public func setSeparatorColor(_ color: UIKit.UIColor)
   @objc @_Concurrency.MainActor(unsafe) public func setEmptyMessage(_ text: Swift.String)
@@ -248,6 +249,7 @@ public struct PushwooshInboxCarouselSlide {
   public let url: Foundation.URL?
   public init(imageUrl: Swift.String, title: Swift.String? = nil, url: Foundation.URL? = nil)
   public static func decode(from message: any PushwooshCore.PWInboxMessageProtocol) -> [PushwooshInboxKit.PushwooshInboxCarouselSlide]
+  public static let maxSlides: Swift.Int
 }
 @_inheritsConvenienceInitializers @objc(PushwooshInboxCarouselCell) @_Concurrency.MainActor(unsafe) open class PushwooshInboxCarouselCell : PushwooshInboxKit.PushwooshInboxCell {
   @_Concurrency.MainActor(unsafe) public var onCarouselSlideTap: ((Foundation.URL?) -> Swift.Void)?

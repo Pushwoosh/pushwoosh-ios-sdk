@@ -89,6 +89,26 @@ class PushwooshInboxKitAttributesTest: XCTestCase {
         XCTAssertEqual(PushwooshInboxKitAttributes.defaultCellKindResolver(message), "classic")
     }
 
+    /// Resolver degrades `captioned` to `classic` when the title is empty — title and body are mandatory.
+    func testResolverDegradesCaptionedWithoutTitleToClassic() {
+        let message = FakeMessage(title: "", imageUrl: "https://x/y.png")
+        message.actionParams = ["displayType": "captioned"]
+        XCTAssertEqual(PushwooshInboxKitAttributes.defaultCellKindResolver(message), "classic")
+    }
+
+    /// Resolver degrades `captioned` to `classic` when the body is empty.
+    func testResolverDegradesCaptionedWithoutBodyToClassic() {
+        let message = FakeMessage(message: "", imageUrl: "https://x/y.png")
+        message.actionParams = ["displayType": "captioned"]
+        XCTAssertEqual(PushwooshInboxKitAttributes.defaultCellKindResolver(message), "classic")
+    }
+
+    /// Heuristic picks `classic`, not `captioned`, for an image + title message with no body.
+    func testResolverHeuristicClassicWhenImageTitleNoBody() {
+        let message = FakeMessage(message: "", imageUrl: "https://x/y.png")
+        XCTAssertEqual(PushwooshInboxKitAttributes.defaultCellKindResolver(message), "classic")
+    }
+
     /// Resolver picks heuristic banner when no displayType is supplied but the
     /// message carries an image and no title.
     func testResolverHeuristicBannerWhenImageNoTitle() {

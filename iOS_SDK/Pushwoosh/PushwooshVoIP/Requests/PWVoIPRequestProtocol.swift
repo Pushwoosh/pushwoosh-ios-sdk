@@ -18,7 +18,7 @@ protocol PWCoreUnregisterVoIPDeviceRequest: PWCoreSetVoIPTokenRequest {}
 
 struct VoIPRequestParameters {
     let token: String?
-    
+
     init(token: String?) {
         self.token = token
     }

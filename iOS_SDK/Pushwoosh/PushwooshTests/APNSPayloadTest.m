@@ -1,4 +1,3 @@
-
 #import <XCTest/XCTest.h>
 
 #import "PushNotificationManager.h"
@@ -23,12 +22,12 @@
 
 - (void)setUp {
     [super setUp];
-	
+
 	[PWTestUtils setUp];
-	
+
 	self.requestManager = [PWNetworkModule module].requestManager;
 	[PWNetworkModule module].requestManager = mock([PWRequestManager class]);
-	
+
 	self.originalNotificationManager = [PWPlatformModule module].notificationManagerCompat;
 	[PWPlatformModule module].notificationManagerCompat = mock([PWNotificationManagerCompat class]);
 }
@@ -36,9 +35,9 @@
 - (void)tearDown {
 	[PWNetworkModule module].requestManager = self.requestManager;
 	[PWPlatformModule module].notificationManagerCompat = self.originalNotificationManager;
-	
+
 	[PWTestUtils tearDown];
-	
+
     [super tearDown];
 }
 

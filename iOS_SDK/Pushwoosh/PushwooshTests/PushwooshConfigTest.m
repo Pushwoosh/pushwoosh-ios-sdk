@@ -2,6 +2,7 @@
 #import <OCMock/OCMock.h>
 
 #import "PushwooshConfig.h"
+#import "PushwooshFramework.h"
 #import "PWManagerBridge.h"
 #import "PWPreferences.h"
 #import "PWConfig.h"
@@ -170,28 +171,26 @@
 
 #pragma mark - setEmail trim
 
-/// Verifies that setEmail trims input and forwards the trimmed value to PWManagerBridge.setEmailBlock.
-- (void)testSetEmail_forwardsTrimmedValueToBridgeBlock {
-    __block NSString *captured = nil;
-    [PWManagerBridge shared].setEmailBlock = ^(NSString *email) {
-        captured = email;
-    };
+/// Verifies that setEmail trims input and registers the trimmed value through the inAppManager.
+- (void)testSetEmail_forwardsTrimmedValueToInAppManager {
+    id mockInApp = OCMClassMock([PWInAppManager class]);
+    OCMExpect([mockInApp setEmails:@[@"user@example.com"] completion:[OCMArg isNil]]);
+    [PWManagerBridge shared].inAppManager = mockInApp;
 
     [PushwooshConfig setEmail:@"  user@example.com  "];
 
-    XCTAssertEqualObjects(captured, @"user@example.com");
+    OCMVerifyAll(mockInApp);
 }
 
-/// Verifies that setEmail with whitespace-only input does NOT invoke setEmailBlock.
-- (void)testSetEmail_whitespaceOnly_doesNotInvokeBlock {
-    __block BOOL invoked = NO;
-    [PWManagerBridge shared].setEmailBlock = ^(NSString *email) {
-        invoked = YES;
-    };
+/// Verifies that setEmail with whitespace-only input does NOT reach the inAppManager.
+- (void)testSetEmail_whitespaceOnly_doesNotForward {
+    id mockInApp = OCMClassMock([PWInAppManager class]);
+    OCMReject([mockInApp setEmails:[OCMArg any] completion:[OCMArg any]]);
+    [PWManagerBridge shared].inAppManager = mockInApp;
 
     [PushwooshConfig setEmail:@"   "];
 
-    XCTAssertFalse(invoked);
+    OCMVerifyAll(mockInApp);
 }
 
 #pragma mark - setUserId trim
@@ -534,5 +533,23 @@
     XCTAssertTrue(completed);
 }
 #endif
+
+#pragma mark - PWConfiguration protocol surface (SDK-966)
+
+/// Verifies that PushwooshConfig conforms to the PWConfiguration protocol.
+- (void)testPushwooshConfig_conformsToPWConfiguration {
+    XCTAssertTrue([PushwooshConfig conformsToProtocol:@protocol(PWConfiguration)]);
+}
+
+/// Compile-time anchor: donated methods are callable through a Class<PWConfiguration>-typed result of [Pushwoosh configure].
+- (void)testConfigure_typedResult_exposesProtocolSurface {
+    Class<PWConfiguration> config = [Pushwoosh configure];
+
+    [config setDelegate:nil];
+    (void)[config getLaunchNotification];
+    (void)[config getAdditionalAuthorizationOptions];
+
+    XCTAssertEqual(config, [PushwooshConfig class]);
+}
 
 @end

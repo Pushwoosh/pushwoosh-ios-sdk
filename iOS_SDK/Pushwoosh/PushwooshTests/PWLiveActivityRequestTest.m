@@ -36,14 +36,14 @@
 
 - (void)testMethodName {
     NSString *methodName = @"setActivityToken";
-    
+
     XCTAssertEqualObjects([_request methodName], methodName);
 }
 
 - (void)testRequestDictionaryWithActivityId {
     self.request.token = @"testToken";
     self.request.activityId = @"testActivityId";
-    
+
     XCTAssertEqual([[_request requestDictionary] objectForKey:@"activity_token"], self.request.token);
     XCTAssertEqual([[_request requestDictionary] objectForKey:@"activity_id"], self.request.activityId);
 }
@@ -52,7 +52,7 @@
     self.request.token = @"testToken";
     self.request.activityId = @"";
 
-    
+
     XCTAssertEqual([[_request requestDictionary] objectForKey:@"activity_id"], self.request.activityId);
     XCTAssertEqual([[_request requestDictionary] objectForKey:@"activity_token"], self.request.token);
 }

@@ -36,18 +36,18 @@
         UNMutableNotificationContent *content = notification.request.content.mutableCopy;
         NSMutableDictionary *userInfo = content.userInfo.mutableCopy;
         userInfo[@"pw_push"] = @(YES);
-        
+
         content.userInfo = userInfo;
-        
+
         UNNotificationRequest *request = [UNNotificationRequest requestWithIdentifier:notification.request.identifier content:content trigger:nil];
-        
+
         [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:nil];
-        
+
         //newsstand push
         if (![PWMessage isContentAvailablePush:userInfo]) {
              [_notificationManager handlePushReceived:[self pushPayloadFromContent:content] autoAcceptAllowed:NO];
         }
-        
+
         completionHandler(UNNotificationPresentationOptionNone);
     } else if ([PWManagerBridge shared].showPushnotificationAlert || [notification.request.content.userInfo objectForKey:@"pw_push"] == nil) {
         UNMutableNotificationContent *content = notification.request.content.mutableCopy;
@@ -86,12 +86,12 @@
             [_notificationManager handlePushAccepted:userInfoWithActionIdentifier onStart:_notificationManager.isAppInBackground];
         }
     };
-    
+
     if ([self isRemoteNotification:response.notification]  && [PWMessage isPushwooshMessage:response.notification.request.content.userInfo]) {
         if (![PWMessage isContentAvailablePush:response.notification.request.content.userInfo]) {
             [_notificationManager handlePushReceived:[self pushPayloadFromContent:response.notification.request.content] autoAcceptAllowed:NO];
         }
-        
+
         handlePushAcceptanceBlock();
     } else if ([response.notification.request.content.userInfo objectForKey:@"pw_push"]) {
         handlePushAcceptanceBlock();
@@ -134,7 +134,7 @@
 
 - (void)userNotificationCenter:(NSUserNotificationCenter *)center didDeliverNotification:(NSUserNotification *)notification {
     [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"didDeliverNotification: %@", notification.userInfo]];
-    
+
     if (notification.remote) {
         [_notificationManager handlePushReceived:notification.userInfo autoAcceptAllowed:NO];
     }

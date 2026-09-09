@@ -277,6 +277,13 @@ public class PushwooshInboxKitViewController: UIViewController {
         attributes.style.backgroundColor = color
     }
 
+    /// Sets the card background as a dynamic colour, so the labels stay readable in both appearances.
+    @objc public func setBackgroundColor(light: UIColor, dark: UIColor) {
+        attributes.style.backgroundColor = UIColor { traits in
+            traits.userInterfaceStyle == .dark ? dark : light
+        }
+    }
+
     @objc public func setAccentColor(_ color: UIColor) {
         attributes.style.unreadBadgeColor = color
     }

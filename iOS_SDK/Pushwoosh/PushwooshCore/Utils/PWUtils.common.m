@@ -133,19 +133,19 @@ void heavy_operation_impl(const char *function) {
     if (![hwid isKindOfClass:[NSString class]]) {
         return NO;
     }
-    
+
     if ([hwid length] == 0) {
         return NO;
     }
-    
+
     if ([hwid isEqualToString:@"00000000-0000-0000-0000-000000000000"]) {
         return NO;
     }
-    
+
     if ([hwid isEqualToString:@"0f607264fc6318a92b9e13c65db7cd3c"]) {
         return NO;
     }
-    
+
     return YES;
 }
 

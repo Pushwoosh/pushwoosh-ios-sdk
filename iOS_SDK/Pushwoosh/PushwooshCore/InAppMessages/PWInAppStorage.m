@@ -18,9 +18,11 @@ static NSString *const KeyInAppSavedResources = @"InAppSavedResources";
 @interface PWInAppStorage ()
 
 @property (nonatomic) NSMutableArray<dispatch_block_t> *listeners;
+@property (nonatomic) NSMutableArray<dispatch_block_t> *fullSyncListeners;
 @property (atomic, strong) NSDictionary *resources;
 
 @property (atomic, assign) volatile BOOL isUpdating;
+@property (atomic, assign) volatile BOOL isSyncing;
 
 // @Inject
 @property (nonatomic, strong) PWRequestManager *requestManager;
@@ -33,9 +35,10 @@ static NSString *const KeyInAppSavedResources = @"InAppSavedResources";
 	self = [super init];
 	if (self) {
 		[[PWNetworkModule module] inject:self];
-		
+
 		NSData *data = [[NSUserDefaults standardUserDefaults] objectForKey:KeyInAppSavedResources];
         _listeners = [NSMutableArray new];
+        _fullSyncListeners = [NSMutableArray new];
 
 		if (data.length > 0) {
             if (TARGET_OS_IOS || TARGET_OS_TV) {
@@ -124,53 +127,104 @@ static dispatch_once_t inAppStorageOncePred;
 }
 
 - (void)synchronize:(void(^)(NSError *error))completion {
-    if (self.isUpdating) {
+    [self synchronizeWaitingForDownloads:YES completion:completion];
+}
+
+- (void)synchronizeCatalog:(void(^)(NSError *error))completion {
+    [self synchronizeWaitingForDownloads:NO completion:completion];
+}
+
+- (void)synchronizeWaitingForDownloads:(BOOL)waitForDownloads completion:(void(^)(NSError *error))completion {
+    BOOL waitingOnMatchingPhase = waitForDownloads ? self.isSyncing : self.isUpdating;
+    if (waitingOnMatchingPhase) {
         if (completion) {
             [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-                [self.listeners addObject:^{
+                dispatch_block_t listener = ^{
                     completion(nil);
-                }];
+                };
+                if (waitForDownloads) {
+                    [self.fullSyncListeners addObject:listener];
+                } else {
+                    [self.listeners addObject:listener];
+                }
             }];
         }
         return;
     }
 
+    // Catalog already known; a running download phase alone must not block a catalog-only caller.
+    if (!waitForDownloads && self.isSyncing) {
+        if (completion) {
+            [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+                completion(nil);
+            }];
+        }
+        return;
+    }
+
+    self.isSyncing = YES;
     self.isUpdating = YES;
 
     PWGetResourcesRequest *request = [PWGetResourcesRequest new];
     __weak typeof(self) wSelf = self;
     [_requestManager sendRequest:request completion:^(NSError *error) {
-        if (error == nil) {
-            [wSelf updateLocalResources:request.resources completion:^{
-                if (completion)
-                    completion(nil);
-            }];
-        } else {
-            [wSelf completionLoad];
+        if (error) {
+            [wSelf finishCatalogUpdate:nil];
+            [wSelf finishFullSync:nil];
             if (completion)
                 completion(error);
+            return;
         }
+
+        [wSelf updateLocalResources:request.resources
+                       catalogReady:^{
+            if (!waitForDownloads && completion)
+                completion(nil);
+        }
+                     downloadsReady:^{
+            if (waitForDownloads && completion)
+                completion(nil);
+        }];
     }];
 }
 
 - (void)resetBlocks {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
         [_listeners removeAllObjects];
+        [_fullSyncListeners removeAllObjects];
     }];
 }
 
-- (void)completionLoad {
+- (void)finishPhaseWithListeners:(NSMutableArray<dispatch_block_t> *)listeners
+                       clearFlag:(void (^)(void))clearFlag
+                      completion:(void (^)(void))completion {
     [[NSOperationQueue mainQueue] addOperationWithBlock:^{
-        self.isUpdating = NO;
-        for (dispatch_block_t block in _listeners) {
+        clearFlag();
+        NSArray<dispatch_block_t> *pending = [listeners copy];
+        [listeners removeAllObjects];
+        for (dispatch_block_t block in pending) {
             block();
         }
-        [_listeners removeAllObjects];
+        if (completion)
+            completion();
     }];
+}
+
+- (void)finishCatalogUpdate:(void (^)(void))completion {
+    [self finishPhaseWithListeners:_listeners
+                         clearFlag:^{ self.isUpdating = NO; }
+                        completion:completion];
+}
+
+- (void)finishFullSync:(void (^)(void))completion {
+    [self finishPhaseWithListeners:_fullSyncListeners
+                         clearFlag:^{ self.isSyncing = NO; }
+                        completion:completion];
 }
 
 - (void)updateLocalResources:(NSDictionary *)resources
-                  completion:(void(^)(void))completion {
+                catalogReady:(void (^)(void))catalogReady
+              downloadsReady:(void (^)(void))downloadsReady {
     NSMutableDictionary *currentResources = [_resources mutableCopy];
     NSMutableSet *oldResources = [NSMutableSet new];
 
@@ -213,10 +267,10 @@ static dispatch_once_t inAppStorageOncePred;
 #endif
     [[NSUserDefaults standardUserDefaults] synchronize];
 
+    [self finishCatalogUpdate:catalogReady];
+
     dispatch_group_notify(group, dispatch_get_main_queue(), ^{
-        [self completionLoad];
-        if (completion)
-            completion();
+        [self finishFullSync:downloadsReady];
     });
 }
 

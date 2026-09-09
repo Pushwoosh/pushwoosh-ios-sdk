@@ -216,7 +216,7 @@
 + (UIViewController*)findRootViewController {
     UIApplication *sharedApplication = [UIApplication valueForKey:@"sharedApplication"];
     UIViewController *controller = sharedApplication.keyWindow.rootViewController;
-    
+
     while (controller.presentedViewController) {
         controller = controller.presentedViewController;
     }
@@ -230,7 +230,7 @@
         [[UIApplication sharedApplication] endBackgroundTask:regionMonitoringBGTask];
         regionMonitoringBGTask = UIBackgroundTaskInvalid;
     }];
-    
+
     [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"started task: %ld", (long)regionMonitoringBGTask]];
     return @(regionMonitoringBGTask);
 }
@@ -240,7 +240,7 @@
         [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Empty task id to stop!"];
         return;
     }
-    
+
     [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"stopping task: %ld", (long)[taskId integerValue]]];
     [[UIApplication sharedApplication] endBackgroundTask:[taskId integerValue]];
 }
@@ -251,7 +251,7 @@
                 dispatch_block_t registerTestDeviceBlock = ^{
                     [[PWManagerBridge shared].pushNotificationManager registerTestDevice];
                 };
-                
+
                 if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
                     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.5f * NSEC_PER_SEC)), dispatch_get_main_queue(), registerTestDeviceBlock);
                 }
@@ -268,21 +268,21 @@
 
 + (NSInteger)getStatusesMask {
     NSDictionary *permissionsStatusDict = [PWManagerBridge getRemoteNotificationStatus];
-    
+
     BOOL soundsEnabled = [permissionsStatusDict[@"pushSound"] boolValue];
     BOOL badgesEnabled = [permissionsStatusDict[@"pushBadge"] boolValue];
     BOOL alertEnabled = [permissionsStatusDict[@"pushAlert"] boolValue];
-    
+
     NSInteger statusesMask = 0;
-    
+
     if (badgesEnabled) {
         statusesMask |= 1;
     }
-    
+
     if (soundsEnabled) {
         statusesMask |= 1 << 1;
     }
-    
+
     if (alertEnabled) {
         statusesMask |= 1 << 2;
     }

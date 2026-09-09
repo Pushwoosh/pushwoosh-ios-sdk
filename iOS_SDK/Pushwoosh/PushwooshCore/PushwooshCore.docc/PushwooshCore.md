@@ -75,4 +75,3 @@ Key capabilities:
 - ``PushwooshCoreManager``
 
   Internal manager for core SDK operations.
-

@@ -90,9 +90,9 @@ public class PushwooshForegroundPushImplementation: NSObject {
             print("Push configuration is not set")
             return
         }
-        
+
         self.disappearedPushAnimation = config.disappearedAnimation
-        
+
         drawPush(style: config.style,
                  duration: config.duration,
                  vibration: config.vibration,
@@ -104,7 +104,7 @@ public class PushwooshForegroundPushImplementation: NSObject {
                  messagePushFont: config.messagePushFont,
                  userInfo: userInfo)
     }
-    
+
     /// Delegate for receiving foreground push events.
     @objc
     public static weak var delegate: AnyObject? {
@@ -125,7 +125,7 @@ public class PushwooshForegroundPushImplementation: NSObject {
     }
 
     private weak var _delegate: PWForegroundPushDelegate?
-    
+
     @available(iOS 13.0, *)
     private static func drawPush(style: PWForegroundPushStyle,
                                  duration: Int,
@@ -137,27 +137,27 @@ public class PushwooshForegroundPushImplementation: NSObject {
                                  titlePushFont: UIFont?,
                                  messagePushFont: UIFont?,
                                  userInfo: [AnyHashable: Any]) {
-        
+
         guard let window = UIApplication.shared.windows.first(where: { $0.isKeyWindow }) else { return }
-        
+
         let aps = userInfo["aps"] as? [String: Any]
         let alert = aps?["alert"] as? [String: Any]
         let titleText = alert?["title"] as? String ?? ""
         let bodyText = alert?["body"] as? String ?? ""
         let attachmentURL = userInfo["attachment"] as? String
-        
+
         func showNotification(with image: UIImage?, animation: PWForegroundPushDisappearedAnimation) {
             let notificationView = UIView()
             notificationView.backgroundColor = .clear
             notificationView.alpha = 0
             notificationView.translatesAutoresizingMaskIntoConstraints = false
             window.addSubview(notificationView)
-            
+
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
             notificationView.addGestureRecognizer(tapGesture)
             notificationView.isUserInteractionEnabled = true
             notificationView.accessibilityElements = [userInfo]
-            
+
             // --- Icon ---
             let iconView = UIImageView()
             iconView.translatesAutoresizingMaskIntoConstraints = false
@@ -204,32 +204,32 @@ public class PushwooshForegroundPushImplementation: NSObject {
 
                 iconView.image = image
             }
-            
+
             // --- Text ---
             let titleLabel = UILabel()
             titleLabel.text = titleText
             titleLabel.font = self.titlePushFont ?? .boldSystemFont(ofSize: 18)
             titleLabel.textColor = titlePushColor ?? .white
             titleLabel.numberOfLines = 0
-            
+
             let bodyLabel = UILabel()
             bodyLabel.text = bodyText
             bodyLabel.font = self.messagePushFont ?? .systemFont(ofSize: 16)
             bodyLabel.textColor = messagePushColor ?? .white
             bodyLabel.numberOfLines = 0
-            
+
             let textStack = UIStackView(arrangedSubviews: [titleLabel, bodyLabel])
             textStack.axis = .vertical
             textStack.alignment = .leading
             textStack.spacing = 4
             textStack.translatesAutoresizingMaskIntoConstraints = false
-            
+
             let hStack = UIStackView(arrangedSubviews: [iconView, textStack])
             hStack.axis = .horizontal
             hStack.alignment = .center
             hStack.spacing = 12
             hStack.translatesAutoresizingMaskIntoConstraints = false
-            
+
             // --- Image view ---
             let imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -239,36 +239,36 @@ public class PushwooshForegroundPushImplementation: NSObject {
             if let img = image {
                 imageView.image = img
             }
-            
+
             let vStack = UIStackView(arrangedSubviews: image != nil ? [hStack, imageView] : [hStack])
             vStack.axis = .vertical
             vStack.spacing = 8
             vStack.translatesAutoresizingMaskIntoConstraints = false
             notificationView.addSubview(vStack)
-            
+
             NSLayoutConstraint.activate([
                 notificationView.centerXAnchor.constraint(equalTo: window.centerXAnchor),
                 notificationView.topAnchor.constraint(equalTo: window.topAnchor, constant: 65),
                 notificationView.widthAnchor.constraint(equalTo: window.widthAnchor, multiplier: 0.9),
-                
+
                 vStack.leadingAnchor.constraint(equalTo: notificationView.leadingAnchor, constant: 16),
                 vStack.trailingAnchor.constraint(equalTo: notificationView.trailingAnchor, constant: -16),
                 vStack.topAnchor.constraint(equalTo: notificationView.topAnchor, constant: 16),
                 vStack.bottomAnchor.constraint(equalTo: notificationView.bottomAnchor, constant: -16)
             ])
-            
+
             if let img = image {
                 let aspect = img.size.height / img.size.width
                 imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: aspect).isActive = true
             }
-            
+
             notificationView.layoutIfNeeded()
             ForegroundPushShape.applyStyle(style, to: notificationView,
                                            gradientColors: gradientColors,
                                            backgroundColor: backgroundColor,
                                            usePushAnimation: usePushAnimation,
                                            useLiquidView: false)
-            
+
             // --- Show animation ---
             notificationView.transform = CGAffineTransform(translationX: 0, y: -100).rotated(by: -0.05)
             UIView.animate(withDuration: 0.5,
@@ -279,7 +279,7 @@ public class PushwooshForegroundPushImplementation: NSObject {
                 notificationView.alpha = 1
                 notificationView.transform = .identity
             }
-            
+
             disappearedAnimation(animation: animation, view: notificationView)
         }
 #if compiler(>=5.13) && swift(>=6.2)
@@ -288,30 +288,30 @@ public class PushwooshForegroundPushImplementation: NSObject {
                                    animation: PWForegroundPushDisappearedAnimation) {
             let glassEffect = UIGlassEffect()
             glassEffect.isInteractive = true
-            
+
             let containerView = UIView()
             containerView.translatesAutoresizingMaskIntoConstraints = false
             containerView.layer.cornerRadius = 20
             containerView.clipsToBounds = true
             containerView.alpha = 0
             window.addSubview(containerView)
-            
+
             let effectView = UIVisualEffectView(effect: glassEffect)
             effectView.translatesAutoresizingMaskIntoConstraints = false
             containerView.addSubview(effectView)
-            
+
             NSLayoutConstraint.activate([
                 effectView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
                 effectView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
                 effectView.topAnchor.constraint(equalTo: containerView.topAnchor),
                 effectView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
             ])
-            
+
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
             containerView.addGestureRecognizer(tapGesture)
             containerView.isUserInteractionEnabled = true
             containerView.accessibilityElements = [userInfo]
-            
+
             // --- Icon ---
             let iconView = UIImageView()
             iconView.translatesAutoresizingMaskIntoConstraints = false
@@ -358,32 +358,32 @@ public class PushwooshForegroundPushImplementation: NSObject {
 
                 iconView.image = image
             }
-            
+
             // --- Text ---
             let titleLabel = UILabel()
             titleLabel.text = titleText
             titleLabel.font = self.titlePushFont ?? .boldSystemFont(ofSize: 18)
             titleLabel.textColor = self.titlePushColor ?? .black
             titleLabel.numberOfLines = 0
-            
+
             let bodyLabel = UILabel()
             bodyLabel.text = bodyText
             bodyLabel.font = self.messagePushFont ?? .systemFont(ofSize: 16)
             bodyLabel.textColor = self.messagePushColor ?? .black
             bodyLabel.numberOfLines = 0
-            
+
             let textStack = UIStackView(arrangedSubviews: [titleLabel, bodyLabel])
             textStack.axis = .vertical
             textStack.alignment = .leading
             textStack.spacing = 4
             textStack.translatesAutoresizingMaskIntoConstraints = false
-            
+
             let hStack = UIStackView(arrangedSubviews: [iconView, textStack])
             hStack.axis = .horizontal
             hStack.alignment = .center
             hStack.spacing = 12
             hStack.translatesAutoresizingMaskIntoConstraints = false
-            
+
             // --- Image view ---
             let imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -393,36 +393,36 @@ public class PushwooshForegroundPushImplementation: NSObject {
             if let img = image {
                 imageView.image = img
             }
-            
+
             let vStack = UIStackView(arrangedSubviews: image != nil ? [hStack, imageView] : [hStack])
             vStack.axis = .vertical
             vStack.spacing = 8
             vStack.translatesAutoresizingMaskIntoConstraints = false
             effectView.contentView.addSubview(vStack)
-            
+
             NSLayoutConstraint.activate([
                 containerView.centerXAnchor.constraint(equalTo: window.centerXAnchor),
                 containerView.topAnchor.constraint(equalTo: window.topAnchor, constant: 65),
                 containerView.widthAnchor.constraint(equalTo: window.widthAnchor, multiplier: 0.9),
-                
+
                 vStack.leadingAnchor.constraint(equalTo: effectView.contentView.leadingAnchor, constant: 16),
                 vStack.trailingAnchor.constraint(equalTo: effectView.contentView.trailingAnchor, constant: -16),
                 vStack.topAnchor.constraint(equalTo: effectView.contentView.topAnchor, constant: 16),
                 vStack.bottomAnchor.constraint(equalTo: effectView.contentView.bottomAnchor, constant: -16)
             ])
-            
+
             if let img = image {
                 let aspect = img.size.height / img.size.width
                 imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: aspect).isActive = true
             }
-            
+
             containerView.layoutIfNeeded()
             ForegroundPushShape.applyStyle(style, to: containerView,
                                            gradientColors: gradientColors,
                                            backgroundColor: backgroundColor,
                                            usePushAnimation: usePushAnimation,
                                            useLiquidView: true)
-            
+
             // --- Show animation ---
             containerView.transform = CGAffineTransform(translationX: 0, y: -100).rotated(by: -0.05)
             UIView.animate(withDuration: 0.5,
@@ -433,37 +433,37 @@ public class PushwooshForegroundPushImplementation: NSObject {
                 containerView.alpha = 1
                 containerView.transform = .identity
             }
-            
+
             disappearedAnimation(animation: animation, view: containerView)
         }
 #else
         func showGlassNotification(with image: UIImage?,
                                    animation: PWForegroundPushDisappearedAnimation) {
             let blurEffect = UIBlurEffect(style: .systemMaterial)
-            
+
             let containerView = UIView()
             containerView.translatesAutoresizingMaskIntoConstraints = false
             containerView.layer.cornerRadius = 20
             containerView.clipsToBounds = true
             containerView.alpha = 0
             window.addSubview(containerView)
-            
+
             let effectView = UIVisualEffectView(effect: blurEffect)
             effectView.translatesAutoresizingMaskIntoConstraints = false
             containerView.addSubview(effectView)
-            
+
             NSLayoutConstraint.activate([
                 effectView.leadingAnchor.constraint(equalTo: containerView.leadingAnchor),
                 effectView.trailingAnchor.constraint(equalTo: containerView.trailingAnchor),
                 effectView.topAnchor.constraint(equalTo: containerView.topAnchor),
                 effectView.bottomAnchor.constraint(equalTo: containerView.bottomAnchor)
             ])
-            
+
             let tapGesture = UITapGestureRecognizer(target: self, action: #selector(handleTap(_:)))
             containerView.addGestureRecognizer(tapGesture)
             containerView.isUserInteractionEnabled = true
             containerView.accessibilityElements = [userInfo]
-            
+
             // --- Icon ---
             let iconView = UIImageView()
             iconView.translatesAutoresizingMaskIntoConstraints = false
@@ -510,32 +510,32 @@ public class PushwooshForegroundPushImplementation: NSObject {
 
                 iconView.image = image
             }
-            
+
             // --- Text ---
             let titleLabel = UILabel()
             titleLabel.text = titleText
             titleLabel.font = self.titlePushFont ?? .boldSystemFont(ofSize: 18)
             titleLabel.textColor = self.titlePushColor ?? .black
             titleLabel.numberOfLines = 0
-            
+
             let bodyLabel = UILabel()
             bodyLabel.text = bodyText
             bodyLabel.font = self.messagePushFont ?? .systemFont(ofSize: 16)
             bodyLabel.textColor = self.messagePushColor ?? .black
             bodyLabel.numberOfLines = 0
-            
+
             let textStack = UIStackView(arrangedSubviews: [titleLabel, bodyLabel])
             textStack.axis = .vertical
             textStack.alignment = .leading
             textStack.spacing = 4
             textStack.translatesAutoresizingMaskIntoConstraints = false
-            
+
             let hStack = UIStackView(arrangedSubviews: [iconView, textStack])
             hStack.axis = .horizontal
             hStack.alignment = .center
             hStack.spacing = 12
             hStack.translatesAutoresizingMaskIntoConstraints = false
-            
+
             // --- Image view ---
             let imageView = UIImageView()
             imageView.translatesAutoresizingMaskIntoConstraints = false
@@ -545,36 +545,36 @@ public class PushwooshForegroundPushImplementation: NSObject {
             if let img = image {
                 imageView.image = img
             }
-            
+
             let vStack = UIStackView(arrangedSubviews: image != nil ? [hStack, imageView] : [hStack])
             vStack.axis = .vertical
             vStack.spacing = 8
             vStack.translatesAutoresizingMaskIntoConstraints = false
             effectView.contentView.addSubview(vStack)
-            
+
             NSLayoutConstraint.activate([
                 containerView.centerXAnchor.constraint(equalTo: window.centerXAnchor),
                 containerView.topAnchor.constraint(equalTo: window.topAnchor, constant: 65),
                 containerView.widthAnchor.constraint(equalTo: window.widthAnchor, multiplier: 0.9),
-                
+
                 vStack.leadingAnchor.constraint(equalTo: effectView.contentView.leadingAnchor, constant: 16),
                 vStack.trailingAnchor.constraint(equalTo: effectView.contentView.trailingAnchor, constant: -16),
                 vStack.topAnchor.constraint(equalTo: effectView.contentView.topAnchor, constant: 16),
                 vStack.bottomAnchor.constraint(equalTo: effectView.contentView.bottomAnchor, constant: -16)
             ])
-            
+
             if let img = image {
                 let aspect = img.size.height / img.size.width
                 imageView.heightAnchor.constraint(equalTo: imageView.widthAnchor, multiplier: aspect).isActive = true
             }
-            
+
             containerView.layoutIfNeeded()
             ForegroundPushShape.applyStyle(style, to: containerView,
                                            gradientColors: gradientColors,
                                            backgroundColor: backgroundColor,
                                            usePushAnimation: usePushAnimation,
                                            useLiquidView: false) // No glass effect
-            
+
             // --- Show animation ---
             containerView.transform = CGAffineTransform(translationX: 0, y: -100).rotated(by: -0.05)
             UIView.animate(withDuration: 0.5,
@@ -585,12 +585,12 @@ public class PushwooshForegroundPushImplementation: NSObject {
                 containerView.alpha = 1
                 containerView.transform = .identity
             }
-            
+
             disappearedAnimation(animation: animation, view: containerView)
         }
 #endif
-        
-        
+
+
         func disappearedAnimation(animation: PWForegroundPushDisappearedAnimation, view: UIView) {
             switch animation {
             case .balls:
@@ -601,7 +601,7 @@ public class PushwooshForegroundPushImplementation: NSObject {
                 scheduleDisappearPush(for: view)
             }
         }
-        
+
         func scheduleDisappearPush(for view: UIView, duration: TimeInterval = 3.0) {
             DispatchQueue.main.asyncAfter(deadline: .now() + duration) {
                 UIView.animate(withDuration: 0.4,
@@ -615,30 +615,30 @@ public class PushwooshForegroundPushImplementation: NSObject {
                 }
             }
         }
-        
+
         func scheduleDisappearBalls(for view: UIView, animation: PWForegroundPushDisappearedAnimation) {
             DispatchQueue.main.asyncAfter(deadline: .now() + .seconds(duration)) {
                 guard let superview = view.superview else { return }
-                
+
                 UIGraphicsBeginImageContextWithOptions(view.bounds.size, false, UIScreen.main.scale)
                 view.layer.render(in: UIGraphicsGetCurrentContext()!)
                 guard let snapshotImage = UIGraphicsGetImageFromCurrentImageContext() else { return }
                 UIGraphicsEndImageContext()
-                
+
                 let ballDiameter: CGFloat = 12
                 let cols = Int(ceil(snapshotImage.size.width / ballDiameter))
                 let rows = Int(ceil(snapshotImage.size.height / ballDiameter))
-                
+
                 var balls: [UIView] = []
-                
+
                 for row in 0..<rows {
                     for col in 0..<cols {
                         let x = CGFloat(col) * ballDiameter
                         let y = CGFloat(row) * ballDiameter
                         let rect = CGRect(x: x, y: y, width: ballDiameter, height: ballDiameter)
-                        
+
                         guard let cgImage = snapshotImage.cgImage?.cropping(to: rect) else { continue }
-                        
+
                         let ball = UIImageView(image: UIImage(cgImage: cgImage))
                         ball.frame = view.convert(rect, to: superview)
                         ball.layer.cornerRadius = ballDiameter / 2
@@ -647,15 +647,15 @@ public class PushwooshForegroundPushImplementation: NSObject {
                         balls.append(ball)
                     }
                 }
-                
+
                 view.removeFromSuperview()
-                
+
                 for ball in balls {
                     let dx = CGFloat.random(in: -150...150)
                     let dy = CGFloat.random(in: -200...50)
                     let rotation = CGFloat.random(in: -CGFloat.pi...CGFloat.pi)
                     let duration = Double.random(in: 0.5...1.2)
-                    
+
                     UIView.animate(withDuration: duration, delay: 0, options: .curveEaseOut, animations: {
                         ball.center = CGPoint(x: ball.center.x + dx, y: ball.center.y + dy)
                         ball.transform = CGAffineTransform(rotationAngle: rotation).scaledBy(x: 0.1, y: 0.1)
@@ -666,7 +666,7 @@ public class PushwooshForegroundPushImplementation: NSObject {
                 }
             }
         }
-        
+
         // MARK: - Load attachment (image or GIF)
         if let urlString = attachmentURL, let url = URL(string: urlString) {
             DispatchQueue.global().async {
@@ -674,11 +674,11 @@ public class PushwooshForegroundPushImplementation: NSObject {
                 if url.pathExtension.lowercased() == "gif",
                    let data = try? Data(contentsOf: url),
                    let source = CGImageSourceCreateWithData(data as CFData, nil) {
-                    
+
                     let count = CGImageSourceGetCount(source)
                     var images: [UIImage] = []
                     var duration: Double = 0
-                    
+
                     for i in 0..<count {
                         if let cgImage = CGImageSourceCreateImageAtIndex(source, i, nil) {
                             images.append(UIImage(cgImage: cgImage))
@@ -688,12 +688,12 @@ public class PushwooshForegroundPushImplementation: NSObject {
                             duration += delay
                         }
                     }
-                    
+
                     loadedImage = UIImage.animatedImage(with: images, duration: duration)
                 } else if let data = try? Data(contentsOf: url) {
                     loadedImage = UIImage(data: data)
                 }
-                
+
                 DispatchQueue.main.async {
                     if useLiquidView, #available(iOS 26.0, *) {
                         showGlassNotification(with: loadedImage, animation: self.disappearedPushAnimation)
@@ -711,8 +711,8 @@ public class PushwooshForegroundPushImplementation: NSObject {
             }
         }
     }
-    
-    
+
+
     private static func appIconImage() -> UIImage? {
         if let iconsDictionary = Bundle.main.infoDictionary?["CFBundleIcons"] as? [String: Any],
            let primaryIconsDictionary = iconsDictionary["CFBundlePrimaryIcon"] as? [String: Any],
@@ -722,12 +722,12 @@ public class PushwooshForegroundPushImplementation: NSObject {
         }
         return nil
     }
-    
+
     @objc private static func handleTap(_ sender: UITapGestureRecognizer) {
         guard let view = sender.view,
               let elements = view.accessibilityElements,
               let userInfo = elements.first as? [AnyHashable: Any] else { return }
-        
+
         if let delegate = PushwooshForegroundPushImplementation.delegate {
             if delegate.responds(to: #selector(PWForegroundPushDelegate.didTapForegroundPush(_:))) {
                 delegate.didTapForegroundPush(userInfo)
@@ -735,7 +735,7 @@ public class PushwooshForegroundPushImplementation: NSObject {
             }
         }
     }
-    
+
     /// Returns the foreground push implementation class.
     @objc
     public static func foregroundPush() -> AnyClass {

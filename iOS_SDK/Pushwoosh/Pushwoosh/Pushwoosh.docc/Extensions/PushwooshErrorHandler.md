@@ -40,4 +40,3 @@ func setUserPreferences(_ preferences: [String: Any], retryCount: Int = 0) {
 
 - ``PushwooshRegistrationHandler``
 - ``PushwooshGetTagsHandler``
-

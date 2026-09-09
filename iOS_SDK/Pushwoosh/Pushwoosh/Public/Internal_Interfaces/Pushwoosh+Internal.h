@@ -49,4 +49,3 @@
 + (void)_resetEnsureInitializedForTesting;
 
 @end
-

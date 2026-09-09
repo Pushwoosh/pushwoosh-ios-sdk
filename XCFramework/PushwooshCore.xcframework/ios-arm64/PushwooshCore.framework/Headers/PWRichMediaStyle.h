@@ -32,7 +32,7 @@ FOUNDATION_EXPORT NSTimeInterval const PWRichMediaStyleDefaultAnimationDuration;
 
 /**
  Built-in Rich Media presenting animations.
- 
+
  Example:
  @code
  style.animationDelegate = [PWRichMediaStyleSlideLeftAnimation new];
@@ -87,7 +87,7 @@ typedef PWLoadingView *(^PWRichMediaLoadingViewBlock)(void);
 
 /**
  Block to customize Rich Media loading view.
- 
+
  Example:
  @code
  style.loadingViewBlock = ^PWLoadingView *{
@@ -119,4 +119,3 @@ typedef PWLoadingView *(^PWRichMediaLoadingViewBlock)(void);
 @property (nonatomic) NSNumber *mediaPlaybackRequiresUserAction;
 
 @end
-

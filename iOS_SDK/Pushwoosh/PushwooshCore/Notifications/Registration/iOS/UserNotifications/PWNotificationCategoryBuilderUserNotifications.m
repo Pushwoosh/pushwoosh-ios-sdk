@@ -48,7 +48,7 @@
 
 - (void)pushCategory {
     [self prepare];
-    
+
     _categoryActions = [NSMutableArray new];
 }
 
@@ -68,10 +68,10 @@
         if (_actionAuth) {
             options |= UNNotificationActionOptionAuthenticationRequired;
         }
-        
+
         UNNotificationAction *action = nil;
         if (_actionTextInputTitle) {
-            
+
             action = [UNTextInputNotificationAction actionWithIdentifier:_actionId
                                                                    title:_actionTitle
                                                                  options:options
@@ -83,7 +83,7 @@
         }
         [_categoryActions addObject:action];
     }
-    
+
     _actionId = nil;
     _actionTitle = nil;
     _actionDestruct = NO;
@@ -120,7 +120,7 @@
 
 - (void)addCurrentCategoriesWithCompletion:(dispatch_block_t)completion {
     [self prepare];
-    
+
     [[UNUserNotificationCenter currentNotificationCenter] getNotificationCategoriesWithCompletionHandler:^(NSSet<UNNotificationCategory *> * _Nonnull categories) {
         for (UNNotificationCategory *category in categories) {
             NSString *categoryId = category.identifier;
@@ -128,7 +128,7 @@
                 [self.result addObject:category];
             }
         }
-        
+
         if (completion) {
             dispatch_async(dispatch_get_main_queue(), ^{
                 completion();
@@ -139,13 +139,13 @@
 
 - (NSSet*)build {
     [self prepare];
-    
+
     return [super build];
 }
 
 - (void)prepare {
     [self pushAction];
-    
+
     if (_categoryId) {
         UNNotificationCategory *category = [UNNotificationCategory categoryWithIdentifier:_categoryId
                                                                                   actions:_categoryActions
@@ -154,7 +154,7 @@
         [_categoriesId addObject:_categoryId];
         [self.result addObject:category];
     }
-    
+
     _categoryId = nil;
     _categoryActions = nil;
 }
@@ -164,11 +164,11 @@
     if (string) {
         result = [NSString localizedUserNotificationStringForKey:string arguments:@[]];
     }
-    
+
     if ([result length] == 0) {
         result = defaultString;
     }
-    
+
     return result;
 }
 

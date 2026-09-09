@@ -52,7 +52,7 @@
 
 - (void)internalRegisterForPushNotifications {
     [PWUtils getAPSProductionStatus:YES];
-    
+
     [PWInteractivePush getCategoriesWithCompletion:^(NSSet *categories) {
         [self.notificationManagerCompat registerUserNotifications:categories completion:^{
             [self.notificationManagerCompat registerForPushNotifications];

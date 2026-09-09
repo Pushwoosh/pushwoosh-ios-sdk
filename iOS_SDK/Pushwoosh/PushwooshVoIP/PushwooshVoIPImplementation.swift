@@ -193,11 +193,11 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         settings.voipPushToken = newToken
         handleVoIPToken(pushCredentials.token)
     }
-    
+
     public func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
         unregisterVoIPDeviceRequest()
     }
-    
+
     public func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
         let voipMessage = PWVoIPMessage(rawPayload: payload.dictionaryPayload)
 
@@ -262,7 +262,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
             completion()
         }
     }
-    
+
     // MARK: - CallKit Delegate
 
     // MARK: - Start Outgoing Call
@@ -270,7 +270,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         PushwooshVoIPImplementation.delegate?.startCall?(provider, perform: action)
         action.fulfill()
     }
-    
+
     // MARK: - End Call
     public func provider(_ provider: CXProvider, perform action: CXEndCallAction) {
         let uuidString = action.callUUID.uuidString
@@ -299,7 +299,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
             }
         }
     }
-    
+
     // MARK: - Answer Call
     public func provider(_ provider: CXProvider, perform action: CXAnswerCallAction) {
         let uuidString = action.callUUID.uuidString
@@ -327,7 +327,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
             }
         }
     }
-    
+
     // MARK: - Muted Call
     public func provider(_ provider: CXProvider, perform action: CXSetMutedCallAction) {
         PushwooshVoIPImplementation.delegate?.mutedCall?(provider, perform: action)
@@ -345,7 +345,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         PushwooshVoIPImplementation.delegate?.playDTMF?(provider, perform: action)
         action.fulfill()
     }
-    
+
     // MARK: - Activate Audio Session
     public func provider(_ provider: CXProvider, didActivate audioSession: AVAudioSession) {
         PushwooshVoIPImplementation.delegate?.activatedAudioSession(provider, didActivate: audioSession)
@@ -355,11 +355,11 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     public func provider(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession) {
         PushwooshVoIPImplementation.delegate?.deactivatedAudioSession(provider, didDeactivate: audioSession)
     }
-        
+
     public func providerDidReset(_ provider: CXProvider) {
         PushwooshVoIPImplementation.delegate?.pwProviderDidReset(provider)
     }
-    
+
     public func providerDidBegin(_ provider: CXProvider) {
         PushwooshVoIPImplementation.delegate?.pwProviderDidBegin(provider)
     }
@@ -423,11 +423,11 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         let message = error == nil ?
             "Successfully sent voip token." :
             "Failed to send voip token. Error: \(error!.localizedDescription)"
-        
-        PushwooshLog.pushwooshLog(logLevel, 
+
+        PushwooshLog.pushwooshLog(logLevel,
                                   className: self,
                                   message: message)
-        
+
         if let error = error {
             PushwooshVoIPImplementation.callDelegate { delegate in
                 if delegate.responds(to: #selector(PWVoIPCallDelegate.voipDidFailToRegisterToken(error:))) {
@@ -442,7 +442,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
             }
         }
     }
-    
+
     private func handleVoIPToken(_ token: Data) {
         let tokenString = hexString(from: token)
         PWPreferences.preferencesInstance().voipPushToken = tokenString
@@ -461,7 +461,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
             self.handleVoIPDeviceUnregisterResult(error: error)
         }
     }
-    
+
     private func handleVoIPDeviceUnregisterResult(error: Error?) {
         if let error = error {
             PushwooshLog.pushwooshLog(.PW_LL_ERROR,
@@ -474,7 +474,7 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
                                       message: "VoIP device successfully unregistered.")
         }
     }
-    
+
     private func hexString(from deviceToken: Data) -> String {
         return deviceToken.map { String(format: "%02hhx", $0) }.joined()
     }

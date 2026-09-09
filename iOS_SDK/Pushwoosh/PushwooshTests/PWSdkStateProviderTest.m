@@ -1,4 +1,3 @@
-
 #import <XCTest/XCTest.h>
 #import "PWSdkStateProvider.h"
 

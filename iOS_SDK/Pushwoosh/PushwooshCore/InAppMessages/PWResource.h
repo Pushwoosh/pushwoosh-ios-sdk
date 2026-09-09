@@ -44,6 +44,13 @@ typedef NS_ENUM(unsigned int, IAResourcePresentationStyle) {
 - (IAResourcePresentationStyle)presentationStyle:(NSString *)presentationKey;
 - (BOOL)isDownloaded;
 - (void)downloadDataWithCompletion:(PWResourceDownloadCompleteBlock)completion;
+
+/// YES between the start of a zip download and its completion.
+- (BOOL)isDownloading;
+
+/// Reports when this resource's zip is on disk, without deleting a partial file or starting a
+/// second download for the same resource, unlike -downloadDataWithCompletion:.
+- (void)awaitDownloadWithCompletion:(PWResourceDownloadCompleteBlock)completion;
 - (void)getHTMLDataWithCompletion:(void (^)(NSString *, NSError *))completion;
 
 - (BOOL)hasNativeConfig;

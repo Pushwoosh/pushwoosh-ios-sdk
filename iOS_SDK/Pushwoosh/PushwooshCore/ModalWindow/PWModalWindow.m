@@ -62,7 +62,7 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
 
 - (void)commonInit {
     self.clipsToBounds = YES;
-    
+
     _settings = [PWModalWindowSettings sharedSettings];
 }
 
@@ -70,7 +70,7 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
 
 - (ModalWindowPosition)effectiveModalWindowPositionForResource:(PWResource *)resource {
     [resource readConfig];
-    
+
     if (resource.config && resource.position != PWModalWindowPositionDefault) {
         return resource.position;
     }
@@ -79,7 +79,7 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
 
 - (PresentModalWindowAnimation)effectivePresentAnimationForResource:(PWResource *)resource {
     [resource readConfig];
-    
+
     if (resource.config && resource.presentAnimation != PWAnimationPresentUnset) {
         return resource.presentAnimation;
     }
@@ -88,7 +88,7 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
 
 - (DismissModalWindowAnimation)effectiveDismissAnimationForResource:(PWResource *)resource {
     [resource readConfig];
-    
+
     if (resource.config && resource.dismissAnimation != PWAnimationDismissUnset) {
         return resource.dismissAnimation;
     }
@@ -97,7 +97,7 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
 
 - (NSArray<NSNumber *> *)effectiveSwipeDirectionsForResource:(PWResource *)resource {
     [resource readConfig];
-    
+
     if (resource.config && resource.swipeToDismiss.count > 0) {
         return resource.swipeToDismiss;
     }
@@ -147,7 +147,7 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
     _closeButton = [PWUtils webViewCloseButton];
     _closeButton.alpha = 0.0;
     [_closeButton addTarget:self action:@selector(closeModalWindowWithButton) forControlEvents:UIControlEventTouchUpInside];
-    
+
     _closeButton.translatesAutoresizingMaskIntoConstraints = NO;
     [modalWindow.superview addSubview:_closeButton];
 }
@@ -155,7 +155,7 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
 - (void)setupModalWindowConstraintsInWindow:(UIWindow *)window {
     UILayoutGuide *safe = window.safeAreaLayoutGuide;
     ModalWindowPosition effectivePosition = [self effectiveModalWindowPositionForResource:_currentResource];
-    
+
     [NSLayoutConstraint activateConstraints:@[
         [self.trailingAnchor constraintEqualToAnchor:safe.trailingAnchor],
         [self.leadingAnchor constraintEqualToAnchor:safe.leadingAnchor]
@@ -241,24 +241,24 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
     self.richMediaView.alpha = 0.0f;
     self.richMediaView.userInteractionEnabled = YES;
     self.richMediaView.exclusiveTouch = YES;
-        
+
     if (!_richMedia.resource.locked) {
         __weak typeof(self) weakSelf = self;
-        
+
         self.richMediaView.closeActionBlock = ^{
             [weakSelf didCloseModalWindow:nil];
         };
-        
+
         self.richMediaView.contentSizeDidChangeBlock = ^{
             [weakSelf invalidateIntrinsicContentSize];
             [weakSelf.superview setNeedsLayout];
             [weakSelf.superview layoutIfNeeded];
-            
+
             [weakSelf animateViewWithCompletion:nil];
         };
-        
+
         [self addSubview:self.richMediaView];
-                
+
         [self.richMediaView loadRichMedia:richMedia completion:^(NSError *error) {
             if (!error) {
                 [weakSelf animateViewWithCompletion:^{
@@ -359,15 +359,15 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
 
     CGFloat radius = _settings.cornerRadius;
     [view layoutIfNeeded];
-    
+
     UIBezierPath *path = [UIBezierPath bezierPathWithRoundedRect:view.bounds
                                                byRoundingCorners:corners
                                                      cornerRadii:CGSizeMake(radius, radius)];
-    
+
     CAShapeLayer *maskLayer = [CAShapeLayer layer];
     maskLayer.path = path.CGPath;
     maskLayer.frame = view.bounds;
-    
+
     view.layer.mask = maskLayer;
 }
 
@@ -397,9 +397,9 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
     if (_settings.hapticFeedbackType == PWHapticFeedbackNone) {
         return;
     }
-    
+
     UIImpactFeedbackStyle feedbackStyle;
-    
+
     switch (_settings.hapticFeedbackType) {
         case PWHapticFeedbackLight:
             feedbackStyle = UIImpactFeedbackStyleLight;
@@ -414,7 +414,7 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
             feedbackStyle = UIImpactFeedbackStyleLight;
             break;
     }
-    
+
     UIImpactFeedbackGenerator *feedbackGenerator = [[UIImpactFeedbackGenerator alloc] initWithStyle:feedbackStyle];
     [feedbackGenerator prepare];
     [feedbackGenerator impactOccurred];
@@ -516,7 +516,7 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
         }];
         return;
     }
-    
+
     [UIView animateWithDuration:[self effectiveAnimationDurationForResource:_currentResource fallback:kPWModalDefaultAnimationDuration] animations:^{
         CGFloat screenHeight = [UIScreen mainScreen].bounds.size.height;
         CGFloat screenWidth = [UIScreen mainScreen].bounds.size.width;
@@ -582,7 +582,7 @@ static const NSTimeInterval kPWModalDefaultAnimationDuration = 0.3;
     if (!self.richMediaView.richMedia) { // User closed the view
         [self.richMediaView removeFromSuperview];
         self.richMediaView = nil;
-        
+
         if ([[[PWManagerBridge shared] richMediaManager].delegate respondsToSelector:@selector(richMediaManager:didCloseRichMedia:)]) {
             [[[PWManagerBridge shared] richMediaManager].delegate richMediaManager:[[PWManagerBridge shared] richMediaManager] didCloseRichMedia:self.richMedia];
         }

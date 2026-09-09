@@ -60,10 +60,10 @@
 
 - (void)testCheckTagsAreExistWhenRegisterForNotifyCalled {
     NSDictionary *customTags = @{@"k1":@"v1", @"k2": @"v2"};
-    
+
     [[Pushwoosh sharedInstance] registerForPushNotificationsWith:customTags
                                                       completion:^(NSString * _Nullable token, NSError * _Nullable error) {}];
-    
+
     XCTAssertEqual(customTags, [[PWPreferences preferences] customTags]);
 }
 
@@ -144,8 +144,6 @@
     XCTAssertNotNil(version);
     XCTAssertTrue(version.length > 0);
 }
-
-
 
 - (void)testPWTagsBuilderIncrementalTag {
     NSDictionary *tag = [PWTagsBuilder incrementalTagWithInteger:5];

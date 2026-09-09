@@ -20,7 +20,7 @@
 
 - (void)registerUserNotifications:(NSSet*)categories completion:(dispatch_block_t)completion {
     [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
-    
+
     [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *settings) {
         UNAuthorizationOptions options = 0;
         if (settings != nil) {
@@ -36,11 +36,11 @@
             if (settings.carPlaySetting == UNNotificationSettingEnabled) {
                 options |= UNAuthorizationOptionCarPlay;
             }
-            
-            
+
+
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wpartial-availability"
-            
+
             if ([settings respondsToSelector:@selector(providesAppNotificationSettings)]) {
                 if (settings.providesAppNotificationSettings) {
                     options |= UNAuthorizationOptionProvidesAppNotificationSettings;
@@ -53,20 +53,20 @@
                 }
             }
         }
-        
+
         if (options == 0) {
             options = UNAuthorizationOptionBadge| UNAuthorizationOptionAlert | UNAuthorizationOptionSound | UNAuthorizationOptionCarPlay;
         }
-        
+
         options |= [PWManagerBridge shared].additionalAuthorizationOptions;
-        
+
 #pragma clang diagnostic pop
-        
+
         [[UNUserNotificationCenter currentNotificationCenter] requestAuthorizationWithOptions:options completionHandler:^(BOOL granted, NSError * _Nullable error) {
             [PushwooshLog pushwooshLog:PW_LL_INFO
                              className:self
                                message:[NSString stringWithFormat:@"NotificationCenter authorization granted: %d", granted]];
-                        
+
             dispatch_async(dispatch_get_main_queue(), ^{
                 [[NSNotificationCenter defaultCenter] postNotificationName:kNotificationAuthorizationStatusUpdated object:nil];
 

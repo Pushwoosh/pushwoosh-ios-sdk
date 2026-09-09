@@ -28,6 +28,8 @@
 
 @property (nonatomic, strong) NSError *lastError;
 
+@property (nonatomic, assign, getter=isDownloading) BOOL downloading;
+
 @end
 
 /// ISO codes as `/getTags` returns them, mapped to names. Kept byte-identical to Android's
@@ -259,13 +261,21 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
 
     @synchronized(_downloadListeners) {
         _lastError = nil;
+        self.downloading = YES;
     }
 
     [self registerDownloadListener:completion];
 
+    [self beginNetworkDownload];
+}
+
+/// Fires the zip request and wires its completion into `_downloadListeners`. Assumes the caller has
+/// already raised `downloading` and registered its own listener under `@synchronized(_downloadListeners)`.
+- (void)beginNetworkDownload {
     void (^innerCompletionHandler)(NSError *error) = ^(NSError *error) {
         @synchronized(_downloadListeners) {
             _lastError = error;
+            self.downloading = NO;
             for (PWResourceDownloadCompleteBlock listener in _downloadListeners) {
                 dispatch_async(dispatch_get_main_queue(), ^{
                     listener(error);
@@ -287,6 +297,41 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
             innerCompletionHandler(error);
         }
     }];
+}
+
+- (void)awaitDownloadWithCompletion:(PWResourceDownloadCompleteBlock)completion {
+    BOOL alreadyOnDisk = NO;
+    BOOL shouldStartDownload = NO;
+
+    @synchronized(_downloadListeners) {
+        if ([self isDownloaded]) {
+            alreadyOnDisk = YES;
+        } else if (self.downloading) {
+            if (completion) {
+                [_downloadListeners addObject:completion];
+            }
+        } else {
+            /// Flip downloading in the same lock as the check, closing the start-vs-park race.
+            shouldStartDownload = YES;
+            _lastError = nil;
+            self.downloading = YES;
+            if (completion) {
+                [_downloadListeners addObject:completion];
+            }
+        }
+    }
+
+    if (alreadyOnDisk) {
+        if (completion) {
+            completion(nil);
+        }
+        return;
+    }
+
+    if (shouldStartDownload) {
+        [self deleteData];
+        [self beginNetworkDownload];
+    }
 }
 
 - (void)processZipFileAtLocation:(NSString *)location completion:(void (^)(NSError *error))completion{

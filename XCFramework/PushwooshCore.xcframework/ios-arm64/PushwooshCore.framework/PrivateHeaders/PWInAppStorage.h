@@ -18,7 +18,12 @@
 
 - (PWResource *)resourceForDictionary:(NSDictionary *)dict;
 
+/// Reports after every resource in the getInApps response has been downloaded and unpacked.
 - (void)synchronize:(void(^)(NSError *error))completion;
+
+/// Reports as soon as the getInApps response has been stored, with the resource downloads it
+/// started still running in the background.
+- (void)synchronizeCatalog:(void(^)(NSError *error))completion;
 - (void)resetBlocks;
 
 + (void)destroy;

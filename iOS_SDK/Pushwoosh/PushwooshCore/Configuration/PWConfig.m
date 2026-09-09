@@ -1,4 +1,3 @@
-
 #import "PWConfig.h"
 
 static NSString * const kPWRichMediaStyleModalKey = @"PWRichMediaStyleModal";
@@ -143,7 +142,7 @@ static BOOL _isInitializing = NO;
 		self.appName = [self trimmedStringForKey:@"Pushwoosh_APPNAME"];
 
         self.appGroupsName = [self trimmedStringForKey:@"PW_APP_GROUPS_NAME"];
-        
+
         self.isUsingPluginForPushHandling = [self getBoolean:@"Pushwoosh_PLUGIN_NOTIFICATION_HANDLER" default:NO];
 
 		self.showAlert = [self getBoolean:@"Pushwoosh_SHOW_ALERT" default:YES];
@@ -155,15 +154,15 @@ static BOOL _isInitializing = NO;
 		self.requestUrl = [self trimmedStringForKey:@"Pushwoosh_BASEURL"];
 
 		self.useRuntime = [self getBoolean:@"Pushwoosh_AUTO" default:NO];
-        
+
         self.sendPurchaseTrackingEnabled = [self getBoolean:@"Pushwoosh_PURCHASE_TRACKING_ENABLED" default:NO];
-        
+
         self.acceptedDeepLinkForSilentPush = [self getBoolean:@"Pushwoosh_AUTO_ACCEPT_DEEP_LINK_FOR_SILENT_PUSH" default:YES];
         // supporting backwards compatibility with previous flag name
         if (self.acceptedDeepLinkForSilentPush == YES) {
             self.acceptedDeepLinkForSilentPush = [self getBoolean:@"PWAutoAcceptDeepLinkForSilentPush" default:YES];
         }
-        
+
         // this key is used to allow server communication (by default it is allowed)
         self.allowServerCommunication = [self getBoolean:@"Pushwoosh_ALLOW_SERVER_COMMUNICATION" default: YES];
         self.preHandleNotificationsWithUrl = [self getBoolean:@"Pushwoosh_PREHANDLE_URL_NOTIFICATIONS" default:YES];
@@ -171,7 +170,7 @@ static BOOL _isInitializing = NO;
 
         // this key is used to allow collecting and sending device data (by default it is allowed)
         self.allowCollectingDeviceData = [self getBoolean:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_DATA" default: YES];
-        
+
         if (self.allowCollectingDeviceData == NO) {
             self.allowCollectingDeviceOsVersion = NO;
             self.allowCollectingDeviceLocale = NO;
@@ -215,7 +214,7 @@ static BOOL _isInitializing = NO;
 		}
 
 		self.logLevel = (PUSHWOOSH_LOG_LEVEL)logLevelObject.integerValue;
-        
+
         self.lazyInitialization = [self getBoolean:@"Pushwoosh_LAZY_INITIALIZATION" default:NO];
 
         self.allowReverseProxy = [self getBoolean:@"Pushwoosh_ALLOW_REVERSE_PROXY" default:NO];
@@ -278,7 +277,7 @@ static BOOL _isInitializing = NO;
 + (PWConfig *)config {
 	static PWConfig *instance = nil;
 	static dispatch_once_t pred;
-    
+
     NSBundle *bundle = [NSBundle mainBundle];
 
 	dispatch_once(&pred, ^{

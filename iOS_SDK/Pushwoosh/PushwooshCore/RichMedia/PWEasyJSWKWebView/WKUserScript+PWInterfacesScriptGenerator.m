@@ -15,15 +15,15 @@
 
 + (instancetype)pw_generateScriptForInterfaces:(NSDictionary *)interfaces {
     NSMutableString* injection = [NSMutableString new];
-    
+
     //inject the javascript interface
     for(NSString *key in [interfaces allKeys]) {
         NSObject* interface = [interfaces objectForKey:key];
-        
+
         [injection appendString:@"EasyJS.inject(\""];
         [injection appendString:key];
         [injection appendString:@"\", ["];
-        
+
         unsigned int mc = 0;
         Class cls = object_getClass(interface);
         Method * mlist = class_copyMethodList(cls, &mc);
@@ -31,17 +31,17 @@
             [injection appendString:@"\""];
             [injection appendString:[NSString stringWithUTF8String:sel_getName(method_getName(mlist[i]))]];
             [injection appendString:@"\""];
-            
+
             if (i != mc - 1){
                 [injection appendString:@", "];
             }
         }
-        
+
         free(mlist);
-        
+
         [injection appendString:@"]);"];
     }
-    
+
     WKUserScript *script = [[WKUserScript alloc] initWithSource:injection injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
     return script;
 }
@@ -119,9 +119,9 @@
     }\n\
     };\n\
     ";
-    
+
     WKUserScript *script = [[WKUserScript alloc] initWithSource:content injectionTime:WKUserScriptInjectionTimeAtDocumentStart forMainFrameOnly:YES];
-    
+
     return script;
 }
 @end

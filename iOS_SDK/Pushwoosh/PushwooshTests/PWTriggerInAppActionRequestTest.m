@@ -32,9 +32,9 @@
 
 - (void)testRequestDictionaryHasParameters {
     [self.request setInAppCode:@"code"];
-    
+
     NSDictionary *parameters = [self.request requestDictionary];
-    
+
     assertThat(parameters, hasKey(@"action"));
     assertThat(parameters, hasKey(@"code"));
     assertThat(parameters, hasKey(@"timestampUTC"));
@@ -43,9 +43,9 @@
 
 - (void)testRequestDictionaryHasParameterRichMediaCode {
     [self.request setRichMediaCode:@"r-XXXXX-XXXXX"];
-    
+
     NSDictionary *parameters = [self.request requestDictionary];
-    
+
     assertThat(parameters, hasKey(@"action"));
     assertThat(parameters, hasKey(@"richMediaCode"));
     assertThat(parameters, hasKey(@"timestampUTC"));
@@ -54,9 +54,9 @@
 
 - (void)testRequestDictionaryHasParameterMessageHash {
     [self.request setMessageHash:@"__some_message_hash"];
-    
+
     NSDictionary *parameters = [self.request requestDictionary];
-    
+
     assertThat(parameters, hasKey(@"action"));
     assertThat(parameters, hasKey(@"messageHash"));
     assertThat(parameters, hasKey(@"timestampUTC"));
@@ -65,7 +65,7 @@
 
 - (void)testMethodNameIsCorret {
     NSString *methodName = [self.request methodName];
-    
+
     XCTAssertEqualObjects(methodName, @"triggerInAppAction");
 }
 

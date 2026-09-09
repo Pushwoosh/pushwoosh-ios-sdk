@@ -52,4 +52,3 @@ func syncPushTokenWithBackend(_ token: String) {
 
 - ``Pushwoosh/registerForPushNotifications(withCompletion:)``
 - ``PushwooshErrorHandler``
-

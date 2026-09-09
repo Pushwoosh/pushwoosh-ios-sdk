@@ -28,8 +28,6 @@
 #if TARGET_OS_IOS || TARGET_OS_OSX
 @property (nonatomic, strong) PWPurchaseManager *originalPurchaseManager;
 #endif
-@property (nonatomic, copy) void (^originalSetEmailBlock)(NSString *);
-@property (nonatomic, copy) void (^originalSendTransactionsBlock)(NSArray *);
 @property (nonatomic, copy) NSDictionary *originalLaunchNotification;
 
 @end
@@ -47,8 +45,6 @@
 #if TARGET_OS_IOS || TARGET_OS_OSX
     _originalPurchaseManager = _bridge.purchaseManager;
 #endif
-    _originalSetEmailBlock = _bridge.setEmailBlock;
-    _originalSendTransactionsBlock = _bridge.sendTransactionsBlock;
     _originalLaunchNotification = _bridge.launchNotification;
 }
 
@@ -61,8 +57,6 @@
 #if TARGET_OS_IOS || TARGET_OS_OSX
     _bridge.purchaseManager = _originalPurchaseManager;
 #endif
-    _bridge.setEmailBlock = _originalSetEmailBlock;
-    _bridge.sendTransactionsBlock = _originalSendTransactionsBlock;
     _bridge.launchNotification = _originalLaunchNotification;
     [super tearDown];
 }
@@ -86,46 +80,85 @@
     XCTAssertEqual(fresh.additionalAuthorizationOptions, 0);
 }
 
-#pragma mark - Block-based delegation
+#pragma mark - Email / transactions delegation
 
-/// Verifies that setEmail invokes setEmailBlock with the supplied email argument.
-- (void)testSetEmail_invokesBlockWithEmail {
-    __block NSString *captured = nil;
-    self.bridge.setEmailBlock = ^(NSString *email) {
-        captured = email;
-    };
+#if TARGET_OS_IOS || TARGET_OS_TV
+
+/// Verifies that setEmail wraps the single email into an array and forwards it to inAppManager.
+- (void)testSetEmail_forwardsSingleEmailArrayToInAppManager {
+    id mockInApp = OCMClassMock([PWInAppManager class]);
+    OCMExpect([mockInApp setEmails:@[@"test@example.com"] completion:[OCMArg isNil]]);
+    self.bridge.inAppManager = mockInApp;
 
     [self.bridge setEmail:@"test@example.com"];
 
-    XCTAssertEqualObjects(captured, @"test@example.com");
+    OCMVerifyAll(mockInApp);
 }
 
-/// Verifies that setEmail with nil setEmailBlock is a safe no-op.
-- (void)testSetEmail_nilBlock_doesNotCrash {
-    self.bridge.setEmailBlock = nil;
+/// Verifies that setEmail with a nil email forwards an empty array instead of building an array with nil.
+- (void)testSetEmail_nilEmail_forwardsEmptyArray {
+    id mockInApp = OCMClassMock([PWInAppManager class]);
+    OCMExpect([mockInApp setEmails:@[] completion:[OCMArg isNil]]);
+    self.bridge.inAppManager = mockInApp;
+
+    XCTAssertNoThrow([self.bridge setEmail:nil]);
+
+    OCMVerifyAll(mockInApp);
+}
+
+/// Verifies that setEmail with a whitespace-only email forwards an empty array instead of registering a blank address.
+- (void)testSetEmail_whitespaceOnlyEmail_forwardsEmptyArray {
+    id mockInApp = OCMClassMock([PWInAppManager class]);
+    OCMExpect([mockInApp setEmails:@[] completion:[OCMArg isNil]]);
+    self.bridge.inAppManager = mockInApp;
+
+    [self.bridge setEmail:@"   "];
+
+    OCMVerifyAll(mockInApp);
+}
+
+/// Verifies that setEmail trims the email before handing it to inAppManager.
+- (void)testSetEmail_trimsEmailBeforeForwarding {
+    id mockInApp = OCMClassMock([PWInAppManager class]);
+    OCMExpect([mockInApp setEmails:@[@"test@example.com"] completion:[OCMArg isNil]]);
+    self.bridge.inAppManager = mockInApp;
+
+    [self.bridge setEmail:@"  test@example.com  "];
+
+    OCMVerifyAll(mockInApp);
+}
+
+/// Verifies that setEmail is a safe no-op when inAppManager is nil.
+- (void)testSetEmail_nilInAppManager_doesNotCrash {
+    self.bridge.inAppManager = nil;
 
     XCTAssertNoThrow([self.bridge setEmail:@"test@example.com"]);
 }
 
-/// Verifies that sendSKPaymentTransactions invokes sendTransactionsBlock with the supplied array.
-- (void)testSendSKPaymentTransactions_invokesBlockWithArray {
+#endif
+
+#if TARGET_OS_IOS || TARGET_OS_OSX
+
+/// Verifies that sendSKPaymentTransactions forwards the transactions array to purchaseManager.
+- (void)testSendSKPaymentTransactions_forwardsToPurchaseManager {
+    id mockPurchase = OCMClassMock([PWPurchaseManager class]);
     NSArray *transactions = @[@"tx1", @"tx2"];
-    __block NSArray *captured = nil;
-    self.bridge.sendTransactionsBlock = ^(NSArray *tx) {
-        captured = tx;
-    };
+    OCMExpect([mockPurchase sendSKPaymentTransactions:transactions]);
+    self.bridge.purchaseManager = mockPurchase;
 
     [self.bridge sendSKPaymentTransactions:transactions];
 
-    XCTAssertEqualObjects(captured, transactions);
+    OCMVerifyAll(mockPurchase);
 }
 
-/// Verifies that sendSKPaymentTransactions with nil sendTransactionsBlock is a safe no-op.
-- (void)testSendSKPaymentTransactions_nilBlock_doesNotCrash {
-    self.bridge.sendTransactionsBlock = nil;
+/// Verifies that sendSKPaymentTransactions is a safe no-op when purchaseManager is nil.
+- (void)testSendSKPaymentTransactions_nilPurchaseManager_doesNotCrash {
+    self.bridge.purchaseManager = nil;
 
     XCTAssertNoThrow([self.bridge sendSKPaymentTransactions:@[]]);
 }
+
+#endif
 
 #pragma mark - Preferences-backed getters
 

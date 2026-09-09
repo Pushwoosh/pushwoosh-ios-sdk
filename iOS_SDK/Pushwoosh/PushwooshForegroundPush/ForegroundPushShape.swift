@@ -12,9 +12,9 @@ import PushwooshBridge
 
 @available(iOS 13.0, *)
 class ForegroundPushShape {
-    
+
     static var useLiquidView: Bool = false
-    
+
     static func applyStyle(_ style: PWForegroundPushStyle, to view: UIView, gradientColors: [UIColor]? = nil, backgroundColor: UIColor? = nil, usePushAnimation: Bool, useLiquidView: Bool) {
         self.useLiquidView = useLiquidView
         applyBackground(to: view, gradientColors: gradientColors, backgroundColor: backgroundColor)
@@ -26,14 +26,14 @@ class ForegroundPushShape {
             break
         }
     }
-    
+
     private static func applyBackground(
         to view: UIView,
         gradientColors: [UIColor]?,
         backgroundColor: UIColor?
     ) {
         view.layer.sublayers?.removeAll(where: { $0 is CAGradientLayer })
-        
+
         if let userColors = gradientColors, !userColors.isEmpty {
             let gradient = CAGradientLayer()
             gradient.colors = userColors.map { $0.cgColor }
@@ -49,7 +49,7 @@ class ForegroundPushShape {
             }
         }
     }
-    
+
     private static func applyGradient(to view: UIView) {
         let gradient = CAGradientLayer()
         gradient.colors = [UIColor.systemBlue.cgColor, UIColor.systemGreen.cgColor]
@@ -58,7 +58,7 @@ class ForegroundPushShape {
         gradient.frame = view.bounds
         view.layer.insertSublayer(gradient, at: 0)
     }
-    
+
     private static func applyStyle1(to view: UIView, usePushAnimation: Bool) {
         if (self.useLiquidView) {
             createLiquidNotificationShapeWithEffectView(for: view, usePushAnimation: usePushAnimation)
@@ -66,7 +66,7 @@ class ForegroundPushShape {
             createLiquidNotificationShape(for: view, usePushAnimation: usePushAnimation)
         }
     }
-    
+
     private static func createLiquidNotificationShapeWithEffectView(for inputView: UIView, usePushAnimation: Bool) {
         let targetView: UIView
         if let effectView = inputView as? UIVisualEffectView {
@@ -90,7 +90,7 @@ class ForegroundPushShape {
 
         func wavePath(topOffset: CGFloat, rightOffset: CGFloat, bottomOffset: CGFloat, leftOffset: CGFloat) -> UIBezierPath {
             let path = UIBezierPath()
-            
+
             path.move(to: CGPoint(x: cornerRadius, y: 0 + topOffset))
             path.addCurve(to: CGPoint(x: w - cornerRadius, y: 0 - topOffset),
                           controlPoint1: CGPoint(x: w * 0.25, y: 0 + topOffset * 1.5),
@@ -138,7 +138,7 @@ class ForegroundPushShape {
         mask.add(animation, forKey: "liquidWaveAnimation")
     }
 
-    
+
     private static func createLiquidNotificationShape(for view: UIView, usePushAnimation: Bool) {
         if !usePushAnimation {
             let cornerRadius: CGFloat = min(view.bounds.width, view.bounds.height) * 0.1
@@ -155,7 +155,7 @@ class ForegroundPushShape {
 
         func wavePath(topOffset: CGFloat, rightOffset: CGFloat, bottomOffset: CGFloat, leftOffset: CGFloat) -> UIBezierPath {
             let path = UIBezierPath()
-            
+
             path.move(to: CGPoint(x: cornerRadius, y: 0 + topOffset))
             path.addCurve(to: CGPoint(x: w - cornerRadius, y: 0 - topOffset),
                           controlPoint1: CGPoint(x: w * 0.25, y: 0 + topOffset * 1.5),
@@ -228,7 +228,7 @@ class ForegroundPushShape {
         mask.path = path.cgPath
         view.layer.mask = mask
     }
-    
+
     private static func createTopWaveShape(for view: UIView) {
         let w = view.bounds.width
         let h = view.bounds.height
@@ -236,20 +236,20 @@ class ForegroundPushShape {
         guard w > 0 && h > 0 else { return }
 
         let path = UIBezierPath()
-        
+
         path.move(to: CGPoint(x: 0, y: h * 0.2))
         path.addCurve(to: CGPoint(x: w, y: h * 0.2),
                       controlPoint1: CGPoint(x: w * 0.25, y: 0),
                       controlPoint2: CGPoint(x: w * 0.75, y: h * 0.4))
-        
+
         path.addLine(to: CGPoint(x: w, y: h - cornerRadius))
         path.addQuadCurve(to: CGPoint(x: w - cornerRadius, y: h),
                           controlPoint: CGPoint(x: w, y: h))
-        
+
         path.addLine(to: CGPoint(x: cornerRadius, y: h))
         path.addQuadCurve(to: CGPoint(x: 0, y: h - cornerRadius),
                           controlPoint: CGPoint(x: 0, y: h))
-        
+
         path.addLine(to: CGPoint(x: 0, y: h * 0.2))
         path.close()
 
@@ -257,45 +257,45 @@ class ForegroundPushShape {
         mask.path = path.cgPath
         view.layer.mask = mask
     }
-    
+
     private static func createCustomBlobShape(for view: UIView) {
         let w = view.bounds.width
         let h = view.bounds.height
         guard w > 0 && h > 0 else { return }
-        
+
         let path = UIBezierPath()
         path.move(to: CGPoint(x: 0.2, y: h * 0.45))
-        
+
         path.addCurve(to: CGPoint(x: w * 0.28, y: 0.1),
                       controlPoint1: CGPoint(x: 0.05, y: 0),
                       controlPoint2: CGPoint(x: w * 0.15, y: 0.05))
-        
+
         path.addCurve(to: CGPoint(x: w * 0.8, y: 0),
                       controlPoint1: CGPoint(x: w * 0.35, y: h * 0.1),
                       controlPoint2: CGPoint(x: w * 0.65, y: -h * 0.1))
-        
+
         path.addCurve(to: CGPoint(x: w, y: h * 0.3),
                       controlPoint1: CGPoint(x: w * 0.9, y: 0.05),
                       controlPoint2: CGPoint(x: w, y: 0.1))
-        
+
         path.addCurve(to: CGPoint(x: w, y: h * 0.8),
                       controlPoint1: CGPoint(x: w + w * 0.15, y: h * 0.5),
                       controlPoint2: CGPoint(x: w + w * 0.15, y: h * 0.5))
-        
+
         path.addCurve(to: CGPoint(x: w * 0.85, y: h),
                       controlPoint1: CGPoint(x: w, y: h),
                       controlPoint2: CGPoint(x: w * 0.9, y: h))
-        
+
         path.addCurve(to: CGPoint(x: w * 0.25, y: h),
                       controlPoint1: CGPoint(x: w * 0.65, y: h + h * 0.3),
                       controlPoint2: CGPoint(x: w * 0.46, y: h + h * 0.2))
-        
+
         path.addCurve(to: CGPoint(x: 0, y: h * 0.8),
                       controlPoint1: CGPoint(x: w * 0.1, y: h),
                       controlPoint2: CGPoint(x: 0, y: h))
-        
+
         path.close()
-        
+
         let mask = CAShapeLayer()
         mask.path = path.cgPath
         view.layer.mask = mask
@@ -303,4 +303,3 @@ class ForegroundPushShape {
 
 
 }
-

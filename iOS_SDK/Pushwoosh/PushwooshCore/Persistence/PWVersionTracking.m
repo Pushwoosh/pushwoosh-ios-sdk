@@ -51,49 +51,49 @@ static NSString * const kPWBuildsKey =                        @"kPWBuild";
 
 + (void)track {
     BOOL needsSync = NO;
-    
+
     //load history
     NSDictionary *oldVersionTrail = [[NSUserDefaults standardUserDefaults] objectForKey:kPWUserDefaultsVersionTrailKey];
-    
+
     //check if its the first ever launch
     if (oldVersionTrail == nil) {
         _controller.isFirstLaunchEver = YES;
-        
+
         _controller.versionTrail = @{kPWVersionsKey: [NSMutableArray new], kPWBuildsKey: [NSMutableArray new]};
     }
     else {
         _controller.isFirstLaunchEver = NO;
-        
+
         //read the old datastructure out but make a deeply mutable copy of it first
         _controller.versionTrail = @{kPWVersionsKey: [oldVersionTrail[kPWVersionsKey] mutableCopy], kPWBuildsKey: [oldVersionTrail[kPWBuildsKey] mutableCopy]};
-        
+
         needsSync = YES;
     }
-    
+
     //check if this version was previously launched
     if ([_controller.versionTrail[kPWVersionsKey] containsObject:[self currentVersion]]) {
         _controller.isFirstLaunchForVersion = NO;
     }
     else {
         _controller.isFirstLaunchForVersion = YES;
-        
+
         [_controller.versionTrail[kPWVersionsKey] addObject:[self currentVersion]];
-        
+
         needsSync = YES;
     }
-    
+
     //check if this build was previously launched
     if ([_controller.versionTrail[kPWBuildsKey] containsObject:[self currentBuild]]) {
         _controller.isFirstLaunchForBuild = NO;
     }
     else {
         _controller.isFirstLaunchForBuild = YES;
-        
+
         [_controller.versionTrail[kPWBuildsKey] addObject:[self currentBuild]];
-        
+
         needsSync = YES;
     }
-    
+
     //store the new version stuff
     if (needsSync) {
         [[NSUserDefaults standardUserDefaults] setObject:_controller.versionTrail forKey:kPWUserDefaultsVersionTrailKey];

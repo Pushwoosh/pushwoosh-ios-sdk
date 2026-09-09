@@ -16,11 +16,11 @@
 
 - (NSDictionary *)requestDictionary {
     NSMutableDictionary *dict = [self baseDictionary];
-    
+
     dict[@"lat"] = [NSNull null];
     dict[@"lng"] = [NSNull null];
     dict[@"more"] = @(1);
-    
+
     return dict;
 }
 

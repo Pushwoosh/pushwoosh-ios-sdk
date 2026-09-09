@@ -21,7 +21,7 @@
 		NSArray *paths = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
 		NSString *cacheDir = paths[0];
 		self.tagsCacheFile = [cacheDir stringByAppendingPathComponent:@"pwtags"];
-        
+
         NSArray *emailPath = NSSearchPathForDirectoriesInDomains(NSCachesDirectory, NSUserDomainMask, YES);
         NSString *emailCacheDir = emailPath[0];
         self.emailTagsCacheFile = [emailCacheDir stringByAppendingPathComponent:@"pwemailtags"];
@@ -111,7 +111,7 @@
     if (!oldEmailTags) {
         oldEmailTags = @{};
     }
-    
+
     NSDictionary *updatedEmailTags = [PWCache mergeTags:tags to:oldEmailTags];
     [self setEmailTags:updatedEmailTags];
 }

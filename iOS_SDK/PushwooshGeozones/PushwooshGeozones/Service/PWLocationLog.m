@@ -52,12 +52,12 @@
 + (void)logDebug:(NSString *)message withTracker:(NSObject *)tracker {
 #ifdef DEBUG
     [self log:message withTracker:tracker];
-    
+
     UILocalNotification *localNotification = [[UILocalNotification alloc] init];
-    
+
     // Set the fire date/time
     [localNotification setFireDate:[NSDate date]];
-    
+
     // Setup alert notification
     [localNotification setAlertBody:message];
     localNotification.soundName = UILocalNotificationDefaultSoundName;
@@ -77,7 +77,7 @@
 
 + (void)reportLocation:(CLLocation *)location withMessage:(NSString *)message tracker:(NSObject *)tracker {
     NSDateFormatter *dateFormat = [self dateFormatter];
-    
+
     NSString *msg = [NSString stringWithFormat:@"%@: %@ <%+.6f, %+.6f> (+/-%.0fm) %.1fkm/h",
                      message,
                      [dateFormat stringFromDate:location.timestamp],
@@ -85,27 +85,27 @@
                      location.coordinate.longitude,
                      location.horizontalAccuracy,
                      location.speed * 3.6];
-    
+
     if (location.altitude > 0) {
         msg = [NSString stringWithFormat:@"%@ alt: %.2fm (+/-%.0fm)",
                msg,
                location.altitude,
                location.verticalAccuracy];
     }
-    
+
     [self logDebug:msg withTracker:tracker];
 }
 
 + (void)log:(NSString *)message withTracker:(NSObject *)tracker {
     message = [NSString stringWithFormat:@"%@:\n%@\n ", NSStringFromClass([tracker class]), message];
     PWLogInfo(@"%@", message);
-    
+
     NSString *path = [self path];
     NSDateFormatter *dateFormat = [self dateFormatter];
     [self createFileAtPathIfNeeded:path];
-    
+
     message = [NSString stringWithFormat:@"%@: %@", [dateFormat stringFromDate:[NSDate date]], [message stringByAppendingString:@"\n"]];
-    
+
     NSFileHandle *file = [NSFileHandle fileHandleForUpdatingAtPath:path];
     NSData *data = [message dataUsingEncoding:NSUTF8StringEncoding];
     [file seekToEndOfFile];

@@ -279,7 +279,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"7.2.5"
+#define PUSHWOOSH_VERSION @"7.2.6"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy, PushwooshConfig;
@@ -434,9 +434,6 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 @end
 #endif
 
-
-
-
 /**
  Main SDK interface for push notification management.
 
@@ -529,7 +526,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 + (Class<PWVoIP>_Nonnull)VoIP NS_REFINED_FOR_SWIFT;
 
 #pragma mark - Configuration
-+ (Class _Nonnull)configure NS_REFINED_FOR_SWIFT;
++ (Class<PWConfiguration> _Nonnull)configure NS_REFINED_FOR_SWIFT;
 
 #pragma mark - Custom Foreground Push Notifications
 + (Class<PWForegroundPush>_Nonnull)ForegroundPush NS_REFINED_FOR_SWIFT;

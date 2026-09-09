@@ -58,7 +58,7 @@
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_LOG_LEVEL"]).andReturn(nil);
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
-    
+
     XCTAssertEqual(appId, _config.appId);
     XCTAssertEqual(appIdDev, _config.appIdDev);
     XCTAssertEqual(appName, _config.appName);
@@ -81,7 +81,7 @@
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_DATA"]).andReturn(@NO);
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
-    
+
     XCTAssertEqual(false, _config.allowCollectingDeviceOsVersion);
     XCTAssertEqual(false, _config.allowCollectingDeviceLocale);
     XCTAssertEqual(false, _config.allowCollectingDeviceModel);
@@ -94,7 +94,7 @@
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_DATA"]).andReturn(@YES);
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
-    
+
     XCTAssertTrue(_config.allowCollectingDeviceOsVersion);
     XCTAssertTrue(_config.allowCollectingDeviceLocale);
     XCTAssertTrue(_config.allowCollectingDeviceModel);
@@ -108,7 +108,7 @@
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_LOG_LEVEL"]).andReturn(logLevel);
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
-    
+
     XCTAssertEqual(PW_LL_NONE, _config.logLevel);
     [mockNSBundle stopMocking];
 }
@@ -119,7 +119,7 @@
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_LOG_LEVEL"]).andReturn(logLevel);
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
-    
+
     XCTAssertEqual(PW_LL_ERROR, _config.logLevel);
     [mockNSBundle stopMocking];
 }
@@ -130,7 +130,7 @@
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_LOG_LEVEL"]).andReturn(logLevel);
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
-    
+
     XCTAssertEqual(PW_LL_WARN, _config.logLevel);
     [mockNSBundle stopMocking];
 }
@@ -141,7 +141,7 @@
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_LOG_LEVEL"]).andReturn(logLevel);
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
-    
+
     XCTAssertEqual(PW_LL_INFO, _config.logLevel);
     [mockNSBundle stopMocking];
 }
@@ -152,7 +152,7 @@
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_LOG_LEVEL"]).andReturn(logLevel);
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
-    
+
     XCTAssertEqual(PW_LL_DEBUG, _config.logLevel);
     [mockNSBundle stopMocking];
 }
@@ -163,7 +163,7 @@
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"Pushwoosh_LOG_LEVEL"]).andReturn(logLevel);
 
     _config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
-    
+
     XCTAssertEqual(PW_LL_VERBOSE, _config.logLevel);
     [mockNSBundle stopMocking];
 }
@@ -173,7 +173,7 @@
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"SOME_KEY"]).andReturn(@0);
 
     BOOL returnValue = [_config getBoolean:@"SOME_KEY" default:YES];
-    
+
     XCTAssertFalse(returnValue);
     [mockNSBundle stopMocking];
 }
@@ -183,7 +183,7 @@
     OCMStub([mockNSBundle objectForInfoDictionaryKey:@"SOME_KEY"]).andDo(nil);
 
     BOOL returnValue = [_config getBoolean:@"SOME_KEY" default:YES];
-    
+
     XCTAssertTrue(returnValue);
     [mockNSBundle stopMocking];
 }

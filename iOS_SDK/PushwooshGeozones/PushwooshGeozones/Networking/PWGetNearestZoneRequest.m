@@ -76,16 +76,15 @@ static double getDistanceInMeters(CLLocationCoordinate2D start, CLLocationCoordi
 - (void)parseResponse:(NSDictionary *)response {
 	NSArray *geozones = [response pw_arrayForKey:@"geozones"];
     NSMutableArray<PWGeozone *> *nearestGeozones = [NSMutableArray new];
-    
+
 	for (NSDictionary *geozone in geozones) {
 		PWGeozone *zone = [self processGeozone:geozone];
         if (zone) {
             [nearestGeozones addObject:zone];
         }
 	}
-    
+
     self.nearestGeozones = nearestGeozones;
 }
 
 @end
-

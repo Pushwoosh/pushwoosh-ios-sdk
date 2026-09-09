@@ -7,7 +7,7 @@ body:
     attributes:
       value: |
         Thank you for taking the time to create this request.
-        
+
         This form is for iOS native SDK only. If this is a feature for another platform or framework — please create it in the corresponded [repository](https://github.com/orgs/Pushwoosh/repositories). We appreciate your cooperation!
 
   - type: textarea

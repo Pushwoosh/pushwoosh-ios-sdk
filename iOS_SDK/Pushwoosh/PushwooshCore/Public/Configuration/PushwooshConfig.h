@@ -3610,96 +3610,6 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 + (PWPushPrimerBuilder * _Nonnull)pushPrimer NS_REFINED_FOR_SWIFT;
 #endif
 
-@end
-
-/**
- Configuration interface for Pushwoosh SDK.
-
- @discussion
- PushwooshConfig provides access to all SDK configuration methods through class methods.
- All configuration operations should be performed through `Pushwoosh.configure`.
-
- ## Quick Start
-
- ```swift
- // Basic setup in AppDelegate
- func application(_ application: UIApplication,
-                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-
-     Pushwoosh.configure.setDelegate(self)
-     Pushwoosh.configure.registerForPushNotifications()
-
-     return true
- }
- ```
-
- ## Complete Integration Example
-
- ```swift
- class PushwooshIntegration {
-
-     static func configure(delegate: PWMessagingDelegate) {
-         // Set delegates
-         Pushwoosh.configure.setDelegate(delegate)
-
-         // Configure foreground display
-         Pushwoosh.configure.setShowPushnotificationAlert(true)
-
-         // Register for push
-         Pushwoosh.configure.registerForPushNotifications()
-     }
-
-     static func handleUserLogin(user: User) {
-         // Set user identity
-         Pushwoosh.configure.setUserId(user.id)
-
-         if let email = user.email {
-             Pushwoosh.configure.setEmail(email)
-         }
-
-         // Set user tags
-         Pushwoosh.configure.setTags([
-             "logged_in": true,
-             "user_type": user.type.rawValue,
-             "signup_date": user.createdAt
-         ])
-     }
-
-     static func handleUserLogout() {
-         Pushwoosh.configure.unregisterForPushNotifications { _ in
-             Pushwoosh.configure.setTags([
-                 "logged_in": false,
-                 "user_id": NSNull()
-             ])
-         }
-     }
- }
- ```
-
- @see PWConfiguration
- */
-@interface PushwooshConfig : NSObject<PWConfiguration>
-
-/**
- Returns the configuration interface.
-
- @discussion
- Access this property to perform SDK configuration operations.
- All methods defined in PWConfiguration protocol are available.
-
- @return The PWConfiguration interface (Class type)
-
- ## Example
-
- ```swift
- // Access via Pushwoosh.configure
- Pushwoosh.configure.registerForPushNotifications()
- Pushwoosh.configure.setUserId("user123")
- Pushwoosh.configure.setTags(["premium": true])
- ```
- */
-+ (Class _Nonnull)configure;
-
 /**
  Adds a custom ``UNUserNotificationCenterDelegate`` to the Pushwoosh notification center delegate proxy.
 
@@ -3962,5 +3872,101 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see setAdditionalAuthorizationOptions:
  */
 + (UNAuthorizationOptions)getAdditionalAuthorizationOptions;
+
+@end
+
+/**
+ Configuration interface for Pushwoosh SDK.
+
+ @discussion
+ PushwooshConfig provides access to all SDK configuration methods through class methods.
+ All configuration operations should be performed through `Pushwoosh.configure`.
+
+ ## Quick Start
+
+ ```swift
+ // Basic setup in AppDelegate
+ func application(_ application: UIApplication,
+                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+
+     Pushwoosh.configure.setDelegate(self)
+     Pushwoosh.configure.registerForPushNotifications()
+
+     return true
+ }
+ ```
+
+ ## Complete Integration Example
+
+ ```swift
+ class PushwooshIntegration {
+
+     static func configure(delegate: PWMessagingDelegate) {
+         // Set delegates
+         Pushwoosh.configure.setDelegate(delegate)
+
+         // Configure foreground display
+         Pushwoosh.configure.setShowPushnotificationAlert(true)
+
+         // Register for push
+         Pushwoosh.configure.registerForPushNotifications()
+     }
+
+     static func handleUserLogin(user: User) {
+         // Set user identity
+         Pushwoosh.configure.setUserId(user.id)
+
+         if let email = user.email {
+             Pushwoosh.configure.setEmail(email)
+         }
+
+         // Set user tags
+         Pushwoosh.configure.setTags([
+             "logged_in": true,
+             "user_type": user.type.rawValue,
+             "signup_date": user.createdAt
+         ])
+     }
+
+     static func handleUserLogout() {
+         Pushwoosh.configure.unregisterForPushNotifications { _ in
+             Pushwoosh.configure.setTags([
+                 "logged_in": false,
+                 "user_id": NSNull()
+             ])
+         }
+     }
+ }
+ ```
+
+ @see PWConfiguration
+ */
+@interface PushwooshConfig : NSObject<PWConfiguration>
+
+/**
+ Returns the configuration interface.
+
+ @discussion
+ Access this property to perform SDK configuration operations.
+ All methods defined in PWConfiguration protocol are available.
+
+ @return A class conforming to PWConfiguration, exposing all SDK configuration methods.
+
+ ## Example
+
+ ```swift
+ // Access via Pushwoosh.configure
+ Pushwoosh.configure.registerForPushNotifications()
+ Pushwoosh.configure.setUserId("user123")
+ Pushwoosh.configure.setTags(["premium": true])
+ ```
+
+ ```objc
+ // Access via [Pushwoosh configure]
+ Class<PWConfiguration> config = [Pushwoosh configure];
+ [config setDelegate:self];
+ ```
+ */
++ (Class<PWConfiguration> _Nonnull)configure;
 
 @end

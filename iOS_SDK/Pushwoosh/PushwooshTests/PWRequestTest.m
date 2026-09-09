@@ -42,9 +42,9 @@
 - (void)testBaseDictionaryHasCorrectParameters {
     id mockPWSettings = OCMPartialMock([PWPreferences preferences]);
     OCMStub([mockPWSettings appCode]).andReturn(@"appCode");
-    
+
     NSDictionary *parameters = [self.request baseDictionary];
-    
+
     assertThat(parameters, hasKey(@"userId"));
     assertThat(parameters, hasKey(@"application"));
     assertThat(parameters, hasKey(@"hwid"));

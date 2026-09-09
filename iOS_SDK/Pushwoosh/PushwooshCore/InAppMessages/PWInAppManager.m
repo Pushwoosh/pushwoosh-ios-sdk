@@ -51,11 +51,11 @@ static PWInAppManager *inAppManagerInstance;
 static dispatch_once_t inAppManagerOnceToken;
 
 + (instancetype)sharedManager {
-	
+
 	dispatch_once(&inAppManagerOnceToken, ^{
 		inAppManagerInstance = [PWInAppManager new];
 	});
-	
+
 	return inAppManagerInstance;
 }
 

@@ -46,6 +46,7 @@ public struct PushwooshInboxCarouselSlide {
     /// { "u": { "carousel": [...] } }
     /// { "u": "{\"carousel\":[...]}" }   // JSON-encoded `u` string
     /// ```
+    /// At most ``maxSlides`` slides are returned, in payload order.
     public static func decode(from message: PWInboxMessageProtocol) -> [PushwooshInboxCarouselSlide] {
         guard let params = message.actionParams as NSDictionary? else { return [] }
 
@@ -66,17 +67,25 @@ public struct PushwooshInboxCarouselSlide {
         return []
     }
 
+    /// Slides past this many are dropped: every slide costs a view, a page dot and an
+    /// image request, so a mis-authored campaign must not freeze the list. Only decodable
+    /// slides count — an image-less item is skipped without using up a place.
+    public static let maxSlides = 5
+
     private static func parse(_ raw: [Any]) -> [PushwooshInboxCarouselSlide] {
-        raw.compactMap { item -> PushwooshInboxCarouselSlide? in
-            guard let dict = item as? [String: Any] else { return nil }
-            guard let image = dict["image"] as? String, !image.isEmpty else { return nil }
+        var slides: [PushwooshInboxCarouselSlide] = []
+        for item in raw {
+            if slides.count == maxSlides { break }
+            guard let dict = item as? [String: Any] else { continue }
+            guard let image = dict["image"] as? String, !image.isEmpty else { continue }
             let title = (dict["title"] as? String).flatMap { $0.isEmpty ? nil : $0 }
             let url = (dict["url"] as? String)
                 .flatMap { $0.isEmpty ? nil : $0 }
                 .flatMap(URL.init(string:))
                 .flatMap { $0.scheme != nil ? $0 : nil }
-            return PushwooshInboxCarouselSlide(imageUrl: image, title: title, url: url)
+            slides.append(PushwooshInboxCarouselSlide(imageUrl: image, title: title, url: url))
         }
+        return slides
     }
 }
 #endif
