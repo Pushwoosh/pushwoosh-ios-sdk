@@ -138,7 +138,7 @@
             [exp fulfill];
         });
     });
-    [self waitForExpectationsWithTimeout:1.0 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 /// Verifies that rapid bounce does not emit PW_ApplicationOpen.

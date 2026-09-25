@@ -480,6 +480,10 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
         return;
     }
 
+    if ([self refuseWhileServerCommunicationIsDisabled:completion]) {
+        return;
+    }
+
     [self pinApplicationForRequest:request];
 
     // Use gRPC automatically when module is linked and supports this method
@@ -661,17 +665,26 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 #endif
 }
 
+/// Checked in sendRequest: before the transport is chosen, and again on the REST path, which the
+/// setTags drain and the retry queue enter directly.
+- (BOOL)refuseWhileServerCommunicationIsDisabled:(void (^)(NSError *error))completion {
+    if ([[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
+        return NO;
+    }
+
+    NSString *errorStr = @"Communication with Pushwoosh is disabled. To send the request you have to enable the server communication using method startServerCommunication of Pushwoosh class.";
+    if (completion) {
+        PWDeliverCompletionOnMain(completion, [PWUtils pushwooshErrorWithCode:PWErrorCommunicationDisabled description:errorStr]);
+    } else {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorStr];
+    }
+    return YES;
+}
+
 - (void)sendRequestInternal:(PWRequest *)request completion:(void (^)(NSError *error))completion {
     [self pinApplicationForRequest:request];
 
-    //check server communication enabled
-    if (![[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
-        NSString *errorStr = @"Communication with Pushwoosh is disabled. To send the request you have to enable the server communication using method startServerCommunication of Pushwoosh class.";
-        if (completion) {
-            PWDeliverCompletionOnMain(completion, [PWUtils pushwooshErrorWithCode:PWErrorCommunicationDisabled description:errorStr]);
-        } else {
-            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorStr];
-        }
+    if ([self refuseWhileServerCommunicationIsDisabled:completion]) {
         return;
     }
 

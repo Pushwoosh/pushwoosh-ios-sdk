@@ -55,12 +55,10 @@
 		0534FED337A0830ECA92934A /* PWKnockPatternDetector.h in Headers */ = {isa = PBXBuildFile; fileRef = 6ACCD753677D2C4EE1D2ACE9 /* PWKnockPatternDetector.h */; };
 		054ADF0852CD6609FEFEAE6B /* PWRetryTransport.h in Headers */ = {isa = PBXBuildFile; fileRef = 0C575E146C4787A7F6AF104C /* PWRetryTransport.h */; settings = {ATTRIBUTES = (Project, ); }; };
 		0559E57D7F615E825DFFFA81 /* PWModalInAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2070F00F89CE3F170F3E024F /* PWModalInAppView.swift */; };
-		0592F1607683D069A3437C23 /* InboxKitTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC938CAF7CD7A261A6C42809 /* InboxKitTestSupport.swift */; };
 		0593BBFF5CFD583F9739662B /* PWGetResourcesRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 605D32D79447004D195F1D27 /* PWGetResourcesRequest.m */; };
 		05E98D50725070420B89B77B /* StoryPayloadParserTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = E7A060DD8043A3DE5819D8BA /* StoryPayloadParserTests.swift */; };
 		0612A74E0F2A92DE942EE7BD /* GRPCResponseConvertersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = ADD715738D80586C9699FE7C /* GRPCResponseConvertersTests.swift */; };
 		0646F04FDF0CC9AB30A6732F /* PWNotificationAppSettings_Private.h in Headers */ = {isa = PBXBuildFile; fileRef = C34847005E8ACA1451BAAD56 /* PWNotificationAppSettings_Private.h */; };
-		06F2C958A9CBE513C832230B /* PWInAppFrequencyStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B41856F294D45BCD4252C3 /* PWInAppFrequencyStoreTest.swift */; };
 		07066A3BA9D8648B7BE5A222 /* PWRetryQueue.m in Sources */ = {isa = PBXBuildFile; fileRef = 3753FFB39490340C44AA3EFD /* PWRetryQueue.m */; };
 		07B6D60D4A6B939AC886ECFC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D89523501BD6677BCA46C61 /* Foundation.framework */; };
 		08C59AE0E8A7211AC67C4DD2 /* PWInteractionDisabledView.m in Sources */ = {isa = PBXBuildFile; fileRef = A949405A76CBDC59020B0E14 /* PWInteractionDisabledView.m */; };
@@ -96,6 +94,7 @@
 		1B10B4EEF6461EB06A253A05 /* PWUtils.h in Headers */ = {isa = PBXBuildFile; fileRef = E2888D63BE46DBB13826E365 /* PWUtils.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		1B3B0701001FABF7C0E0B28D /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 6D2B8E621ACFDEA001AC3E8B /* PrivacyInfo.xcprivacy */; };
 		1B7B3DE8EC286F7609CA1C75 /* PWRichMediaView.m in Sources */ = {isa = PBXBuildFile; fileRef = 6F430C390524BD0F16148F48 /* PWRichMediaView.m */; };
+		0ACFB4EE00C6FE4B35BC9755 /* PWRichMediaColorSchemeResolver.m in Sources */ = {isa = PBXBuildFile; fileRef = AA734D7270E8094F50908084 /* PWRichMediaColorSchemeResolver.m */; };
 		1C04931B5C415570F0BB52B4 /* PWMessage.m in Sources */ = {isa = PBXBuildFile; fileRef = E434401C4D1372101A15F225 /* PWMessage.m */; };
 		1C2EB0EFFECA785106F8C2F3 /* PWEasyJSWKWebView.m in Sources */ = {isa = PBXBuildFile; fileRef = BEEDE09B464258AC1EB60C73 /* PWEasyJSWKWebView.m */; };
 		1C70822AA657ACF0D85F480C /* PWPushPrimerPresenter.h in Headers */ = {isa = PBXBuildFile; fileRef = 03CA22DDE6562BA037DBFA33 /* PWPushPrimerPresenter.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -377,7 +376,6 @@
 		737EFE583C877CDDFB5CA154 /* ioapi.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 4FF3AED9F25C8E01576EA74A /* ioapi.cpp */; };
 		73E38EB6F6EB64FA9FC041A1 /* PWBaseInboxRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = BD8B947C10BE7AA96AE1A210 /* PWBaseInboxRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7401463C64F9BBD2E60ACF94 /* WKWebView+PWSynchronousEvaluateJavaScript.m in Sources */ = {isa = PBXBuildFile; fileRef = 13E01103134CE1C4B3F5CF3C /* WKWebView+PWSynchronousEvaluateJavaScript.m */; };
-		74FB7D6B164A7EC43CBA6573 /* PushwooshInboxKitImplementationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DA0642C03E0AC5F985699D /* PushwooshInboxKitImplementationTest.swift */; };
 		768EB053B0EB1B3D886DA7E8 /* PWCache.h in Headers */ = {isa = PBXBuildFile; fileRef = 171A0C2F5A57DF230456F3D3 /* PWCache.h */; };
 		769082F33E77786767E6422C /* PWGetTagsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = BB5C6A2F3EDB3846C465D603 /* PWGetTagsRequest.h */; };
 		76FA5EB5A2B53BAE98EB2519 /* PWAlphabetUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 43ED06CC8E78A8E8AEE512A7 /* PWAlphabetUtils.m */; };
@@ -399,6 +397,7 @@
 		7777000200000000000003A2 /* PWMissingModuleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7777000100000000000003A2 /* PWMissingModuleTest.m */; };
 		789012345678901AB2C3D4E5 /* PWLegacyRichMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = C3D4E5F6789012345678901A /* PWLegacyRichMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		789012345678901AB2C3D4E6 /* PWMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C3D4E5F6789012345678901B /* PWMediaTest.m */; };
+		FF6319184C6F253112EFAACB /* PWRichMediaColorSchemeResolverTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 29D3DDAE6C4EF896C9A5D6EC /* PWRichMediaColorSchemeResolverTest.m */; };
 		79D643AE87EE5AB6C4CEC12B /* PWRequestManager.h in Headers */ = {isa = PBXBuildFile; fileRef = D20FAB28354777A48F56AEAA /* PWRequestManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		7A11FE3D9B2C4E5F8A0D1B2D /* PWInAppRewardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A11FE3D9B2C4E5F8A0D1B2C /* PWInAppRewardView.swift */; };
 		7A22FE3D9B2C4E5F8A0D2B2D /* PWScratchCardInAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 7A22FE3D9B2C4E5F8A0D2B2C /* PWScratchCardInAppView.swift */; };
@@ -409,9 +408,7 @@
 		7D825F797ED3A84E0C115A71 /* PushwooshBridge.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 447CEF972D77883300CD410A /* PushwooshBridge.framework */; };
 		7DDAC3D010A9AC90C851172B /* PWPushPrimerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B5A0A122D016D51A018E3A47 /* PWPushPrimerTest.m */; };
 		7EE7B6DB4C56FF22A2237B9E /* PWAppOpenRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = EE82B39D405D0E277D2FEF96 /* PWAppOpenRequest.h */; };
-		7F8A5956FCCAF501055490BD /* PWInAppHexColorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2877AA4421D03D49FE8F3609 /* PWInAppHexColorTest.swift */; };
 		7F8B982D887E52587DF948D6 /* PWRegisterUserRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 1FABD4C33FA5D0F8604538BC /* PWRegisterUserRequest.h */; };
-		7FD0EA6C12ECEF3BC67F8E26 /* PWModalInAppViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2008400CF5B800692FCCD8BB /* PWModalInAppViewTest.swift */; };
 		7FDB3F268F1C45D48D6A94BF /* PWScreenTrackingManager.h in Headers */ = {isa = PBXBuildFile; fileRef = EFB80C8138517D81635EAB71 /* PWScreenTrackingManager.h */; };
 		82BA1882CB597296E5C1EA28 /* PWBannerInAppView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 414BD9D0742AB60AB99A55CC /* PWBannerInAppView.swift */; };
 		8430000200000000000000A1 /* PWIntegrationValidator.h in Headers */ = {isa = PBXBuildFile; fileRef = 8430000100000000000000A1 /* PWIntegrationValidator.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -426,7 +423,6 @@
 		88FBD03610FC4BECA957CFAC /* PWMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = 9565B350F98B45628AA6489B /* PWMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		89012345678901AB2C3D4E5F /* PWLegacyRichMedia.m in Sources */ = {isa = PBXBuildFile; fileRef = D4E5F6789012345678901AB2 /* PWLegacyRichMedia.m */; };
 		891B91386E018D3489C49BC6 /* GRPCRequestBuildersTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = BB2BAF1956C6FD432C5F3BEA /* GRPCRequestBuildersTests.swift */; };
-		8AA107BB79A9BC909F19153A /* PushwooshInAppUIQueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49569063FAB9C6A37A85BB67 /* PushwooshInAppUIQueueTest.swift */; };
 		8ACB382A2D2A37279C49930A /* StoryProgressBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 720BBFB24B57CBD820052A37 /* StoryProgressBarView.swift */; };
 		8AE4755C3D2BA6FFE03C26AF /* PWNotificationCategoryBuilderUserNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 115F75312955D5507C2F4416 /* PWNotificationCategoryBuilderUserNotifications.m */; };
 		8AEB9A420151710EA98EE96E /* PWSdkStateProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D1586811677B868917CA58A /* PWSdkStateProvider.m */; };
@@ -445,8 +441,6 @@
 		95D94139A3EEA9731A091D5D /* PWTriggerInAppActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 887CB6962C2E88991CDA43CF /* PWTriggerInAppActionRequest.m */; };
 		95F7562F4F53C98C64E1CB2C /* PWSetLogLevelCommandHandler.h in Headers */ = {isa = PBXBuildFile; fileRef = 4B463525B0EAE8FA7572820E /* PWSetLogLevelCommandHandler.h */; };
 		963EA33183D62A9F414BAB9A /* PWReachability.h in Headers */ = {isa = PBXBuildFile; fileRef = A4B9EA51E220DC6BC4974B1A /* PWReachability.h */; };
-		96B149E062C8E910D2B63EFB /* PushwooshInboxKitViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4896244362D9B18D2048BAF1 /* PushwooshInboxKitViewControllerTest.swift */; };
-		96CF863DDFCDC15BB84AE18D /* PWCardInAppViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2160374CD18F3B74E278D133 /* PWCardInAppViewsTest.swift */; };
 		9703585F27A2793100DEA758 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		9703586227A2796400DEA758 /* BuildFile in Sources */ = {isa = PBXBuildFile; };
 		972C9AA827F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 972C9AA727F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m */; };
@@ -471,7 +465,6 @@
 		9CA1AD6C39B759E0ABDBB716 /* PWGetResourcesRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 708968CAC27200D21FECC1FC /* PWGetResourcesRequest.h */; };
 		9CA4ADE8679F9BA3F7E3E717 /* PWInAppMessageDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = FEADA75C36CAD7036C4A53F5 /* PWInAppMessageDelegate.swift */; };
 		9D6F640F29D6094DFF0EDEA5 /* PWTriggerInAppActionRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 37C532557000C267B290A57E /* PWTriggerInAppActionRequest.h */; };
-		9D9FC4F36E14E011EE53D38A /* PushwooshInboxKitAttributesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B542B04254DF6D219078B1F /* PushwooshInboxKitAttributesTest.swift */; };
 		9E0FDA7493A15AEABF85CD24 /* PWModalWindowSettings.h in Headers */ = {isa = PBXBuildFile; fileRef = 69A41C0D32D1D6CDCD9498C8 /* PWModalWindowSettings.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		9F11AFF2BAA9325B15AA9E8E /* PWInAppMessagesManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 86A2CD014E6319596B433044 /* PWInAppMessagesManager.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		A01E271E9F2CCACF425844FE /* StoryPage.swift in Sources */ = {isa = PBXBuildFile; fileRef = BD35B6C920F1A5004D9D9DB4 /* StoryPage.swift */; };
@@ -529,7 +522,6 @@
 		AA8400000000000000000031 /* PWNotificationServiceProcessorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = AA8400000000000000000030 /* PWNotificationServiceProcessorTest.m */; };
 		AA905B2A910348ACB3F4D673 /* unzip.h in Headers */ = {isa = PBXBuildFile; fileRef = 22B4EDD98CE34C9715D25C4E /* unzip.h */; };
 		AAEABEE1CB89A318CF7E08AC /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 7D89523501BD6677BCA46C61 /* Foundation.framework */; };
-		AB1AB1AB1AB1AB1AB1AB1AB1 /* PushwooshInboxRichCardsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2AB2AB2AB2AB2AB2AB2AB2 /* PushwooshInboxRichCardsTest.swift */; };
 		ABDA3540AFD5ECC3C382080B /* PWInAppWindow.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5D0D21E9EA4AC6929AFDE9F5 /* PWInAppWindow.swift */; };
 		AD2FA2E4EECE6F45F91D979A /* PWVersionTracking.h in Headers */ = {isa = PBXBuildFile; fileRef = 28C4D1B66110A3217A6EA913 /* PWVersionTracking.h */; settings = {ATTRIBUTES = (Private, ); }; };
 		AD47C2351F310064F1D14791 /* PWPushNotificationsManager.common.h in Headers */ = {isa = PBXBuildFile; fileRef = 4E94DCCA40719723A3F0D164 /* PWPushNotificationsManager.common.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -592,8 +584,6 @@
 		BD660E8A7B0299960B3BED9E /* PushwooshGRPCImplementation.swift in Sources */ = {isa = PBXBuildFile; fileRef = E8E77F98A129019BF50337F2 /* PushwooshGRPCImplementation.swift */; };
 		BE0F34EE1D1466E5FC7CD64B /* PWInboxMessageInternal+Status.h in Headers */ = {isa = PBXBuildFile; fileRef = CF338187D3026443257CCF08 /* PWInboxMessageInternal+Status.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		BEC126E027985F5C5518FEA9 /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; };
-		BFDE7AB1921DF325ED6F6BDE /* PWInAppConfigParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161B576A27FE5B999879459 /* PWInAppConfigParserTest.swift */; };
-		C02B757466FADB6AC24DEC23 /* MessageImageLoaderTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 984EF845C8D1F22F9818C745 /* MessageImageLoaderTest.swift */; };
 		C02C8DD32B6CDE1FA7947C32 /* WKUserScript+PWInterfacesScriptGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 35B1A0500E71C8117D2D7A25 /* WKUserScript+PWInterfacesScriptGenerator.h */; };
 		C0E12DAB5AE177161329C74C /* PWIdleDetectorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6F77136079F1C6310A0188 /* PWIdleDetectorTest.m */; };
 		C286E11210FE01134ADE5340 /* PWInboxTypes.h in Sources */ = {isa = PBXBuildFile; fileRef = E75A70EA5C56A834D4BD74F7 /* PWInboxTypes.h */; };
@@ -607,12 +597,12 @@
 		C69D9CDD91F62C5C4D7C8DB8 /* PWInAppPurchaseHelper.h in Headers */ = {isa = PBXBuildFile; fileRef = 489B2908C16B8A5078C854A5 /* PWInAppPurchaseHelper.h */; };
 		C750593F9A06320514072794 /* device_service.pb.swift in Sources */ = {isa = PBXBuildFile; fileRef = 43E448A198116BB9C515E32A /* device_service.pb.swift */; };
 		C7B71D887FE708C182CA4586 /* PWRichMediaManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 55A05D12875B14916AA3A23B /* PWRichMediaManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
-		C808A2AFE9477251E5C0FFED /* PWGamifiedInAppViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F3991A0CD27AB27326668 /* PWGamifiedInAppViewsTest.swift */; };
 		C91A54ED17990346B626BFD3 /* PWUtils.common.m in Sources */ = {isa = PBXBuildFile; fileRef = 7C75C1F0DC16F0A3FAD7495F /* PWUtils.common.m */; };
 		CC1F7D1D175B0443791BA94A /* PWInAppRenderable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6ED0BCC997DF37D80D6FBDAB /* PWInAppRenderable.swift */; };
 		CC2EF0F126F10D6F5C8DBCF1 /* PushwooshConfigGateTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 862C94B23AA09B022B9AB057 /* PushwooshConfigGateTest.m */; };
 		CC2F6D2AD96A1E1D6B5F6C2A /* PWRichMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = E71BEE0F83AFA83D08311BFA /* PWRichMediaTest.m */; };
 		CC4244895550257591B6AD6F /* PWInteractionDisabledWindow.h in Headers */ = {isa = PBXBuildFile; fileRef = 9B4CC80B0A467FFC7362E279 /* PWInteractionDisabledWindow.h */; };
+		27450A90184C4859B57A40B5 /* PWRichMediaColorSchemeResolver.h in Headers */ = {isa = PBXBuildFile; fileRef = 9997EAFF8E3134C0F860675F /* PWRichMediaColorSchemeResolver.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		CD62A24FCC8F912DF90E2250 /* NSDate+PWDateUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = 58D4774C7DC9FD651DE80EED /* NSDate+PWDateUtils.m */; };
 		CD843CEE72E386EF5B8F76BF /* PushwooshInAppUI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 8DAE47A7BAD543F196FFFA84 /* PushwooshInAppUI.swift */; };
 		CDE5F08BDCAD27BF67F0A781 /* PWUserNotificationCenterDelegate.h in Headers */ = {isa = PBXBuildFile; fileRef = EA1380F43DE98E946035F35C /* PWUserNotificationCenterDelegate.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -647,7 +637,6 @@
 		DDA5AF1AF87FA7213389522B /* WKUserScript+PWInterfacesScriptGenerator.m in Sources */ = {isa = PBXBuildFile; fileRef = 6498C61154E386D42BC289A6 /* WKUserScript+PWInterfacesScriptGenerator.m */; };
 		DE2129C69F8C4BE531ABBF62 /* PWNotificationManagerCompat.m in Sources */ = {isa = PBXBuildFile; fileRef = 7D378EE277A0653882799479 /* PWNotificationManagerCompat.m */; };
 		DE4B8B3F31C89E6C3AA5D8F4 /* PWPurchaseManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 033C7FB38DF19FC21123C93F /* PWPurchaseManager.m */; };
-		DFDFA2E441A0EE06339671D4 /* PWItemInAppViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F70968A01CB1E8188317E1 /* PWItemInAppViewsTest.swift */; };
 		E0C7286607144B6E3FDEFF76 /* PWLoadingViewController.h in Headers */ = {isa = PBXBuildFile; fileRef = 5630DF646CDF9CF04148325B /* PWLoadingViewController.h */; };
 		E124FB452DD52E9700737A6D /* PWRequestVoIPDeviceUnregister.swift in Sources */ = {isa = PBXBuildFile; fileRef = E124FB442DD52E9700737A6D /* PWRequestVoIPDeviceUnregister.swift */; };
 		E15185C72E018F6A00CE8936 /* PushwooshConfig.h in Headers */ = {isa = PBXBuildFile; fileRef = E15185C42E018F6A00CE8936 /* PushwooshConfig.h */; settings = {ATTRIBUTES = (Public, ); }; };
@@ -677,10 +666,12 @@
 		E1FE18AD2E0559AB004A8639 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = E1FE18AC2E0559AB004A8639 /* PrivacyInfo.xcprivacy */; };
 		E2FA808F3348CED19B75B763 /* PWSystemCommandDispatcher.h in Headers */ = {isa = PBXBuildFile; fileRef = E541D7F1C9FD549CAA6B7309 /* PWSystemCommandDispatcher.h */; };
 		E36767029E82D5BB37F56258 /* PWInAppConfigParser.swift in Sources */ = {isa = PBXBuildFile; fileRef = E436104048CACB642FC8A99D /* PWInAppConfigParser.swift */; };
+		AA971D06BAC0DE0000000001 /* PWInAppDarkOverlay.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA971D06BAC0DE0000000002 /* PWInAppDarkOverlay.swift */; };
 		E574051EB38C3445F5289A6E /* PWUtils+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 46AE9EFDCD14B8D72080E3A6 /* PWUtils+Internal.h */; };
 		E5F6789012345678901AB2C3 /* PWModalRichMedia.h in Headers */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6789012345678 /* PWModalRichMedia.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		E5F6789012345678901AB2C4 /* PWModalRichMediaTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A1B2C3D4E5F6789012345679 /* PWModalRichMediaTest.m */; };
-		E5FA19380DA64687834D77F1 /* PWUtilsSwizzleTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 649BB2A1E9BC4C348BBD4696 /* PWUtilsSwizzleTest.m */; };
+		969A0002AAAA0002BBBB0002 /* PWMessageViewControllerGeometryTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 969A0001AAAA0001BBBB0001 /* PWMessageViewControllerGeometryTest.m */; };
+		969A0004AAAA0004BBBB0004 /* PWRichMediaViewTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 969A0003AAAA0003BBBB0003 /* PWRichMediaViewTest.m */; };
 		E64C4C018D1792DF872420E2 /* PWLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCEDFFD0E105B1C251C402E /* PWLiveActivityRequest.m */; };
 		E6C78CBC2A51ECF4D63B6E06 /* PWMessageDeliveryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D9585520866B07334AADBCC7 /* PWMessageDeliveryRequest.m */; };
 		E751D05A4D810F920E626FDA /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB867A8D79C49DEB33E43D7 /* InboxDataSource.swift */; };
@@ -723,6 +714,24 @@
 		GRPC0013A1B2C3D4E5F67890 /* GRPCRequestBuilders.swift in Sources */ = {isa = PBXBuildFile; fileRef = GRPC0003A1B2C3D4E5F67890 /* GRPCRequestBuilders.swift */; };
 		GRPC0014A1B2C3D4E5F67890 /* GRPCResponseConverters.swift in Sources */ = {isa = PBXBuildFile; fileRef = GRPC0004A1B2C3D4E5F67890 /* GRPCResponseConverters.swift */; };
 		GRPC0015A1B2C3D4E5F67890 /* GRPCLogger.swift in Sources */ = {isa = PBXBuildFile; fileRef = GRPC0005A1B2C3D4E5F67890 /* GRPCLogger.swift */; };
+		486685192E741C6F214907EB /* PushwooshInboxKitAttributesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B542B04254DF6D219078B1F /* PushwooshInboxKitAttributesTest.swift */; };
+		144AB4F63A424995D7577A59 /* PushwooshInboxRichCardsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2AB2AB2AB2AB2AB2AB2AB2 /* PushwooshInboxRichCardsTest.swift */; };
+		3F78C25E2A0570915934B83E /* PushwooshInboxKitViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4896244362D9B18D2048BAF1 /* PushwooshInboxKitViewControllerTest.swift */; };
+		28F3E4B67AD02EB23A7E0FB5 /* PushwooshInboxKitImplementationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DA0642C03E0AC5F985699D /* PushwooshInboxKitImplementationTest.swift */; };
+		FFB045EC96310232C9806628 /* InboxKitTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC938CAF7CD7A261A6C42809 /* InboxKitTestSupport.swift */; };
+		175DA745A4FA2C386E2A057A /* PushwooshInboxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A61A2728123230C24117EF /* PushwooshInboxKit.framework */; };
+		6C4EA7627FA1ED74BC9B027B /* PushwooshInboxKit.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = F7A61A2728123230C24117EF /* PushwooshInboxKit.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		DF1BDB6CC7D9DBF5CB00CE3F /* PWInAppConfigParserTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = D161B576A27FE5B999879459 /* PWInAppConfigParserTest.swift */; };
+		A11E009C8687E39DB649E728 /* PWInAppDarkOverlayTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AA971D06BAC0DE0000000004 /* PWInAppDarkOverlayTest.swift */; };
+		56B3B7EBDAB8E9F2577327E8 /* PWInAppFrequencyStoreTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = C4B41856F294D45BCD4252C3 /* PWInAppFrequencyStoreTest.swift */; };
+		B2817075F6524F266D29A6A5 /* PWModalInAppViewTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2008400CF5B800692FCCD8BB /* PWModalInAppViewTest.swift */; };
+		832346B58A95FFB3487AEBE4 /* PWInAppHexColorTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2877AA4421D03D49FE8F3609 /* PWInAppHexColorTest.swift */; };
+		F91514BFD0F4EF15DD5514D6 /* PushwooshInAppUIQueueTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 49569063FAB9C6A37A85BB67 /* PushwooshInAppUIQueueTest.swift */; };
+		5EFAC8AE8DEA5BE9CCD0AF39 /* PWCardInAppViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 2160374CD18F3B74E278D133 /* PWCardInAppViewsTest.swift */; };
+		0BCA61475BE43DF3018DC39E /* PWItemInAppViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 04F70968A01CB1E8188317E1 /* PWItemInAppViewsTest.swift */; };
+		B6C9608F2777151C39A6DB8A /* PWGamifiedInAppViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F3991A0CD27AB27326668 /* PWGamifiedInAppViewsTest.swift */; };
+		50B6E462C63C0CD2733BB4E4 /* PushwooshInApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786428D9B4E7112F4DA4DF16 /* PushwooshInApp.framework */; };
+		F60797CA3CBF1B413D4D5F9F /* PushwooshInApp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 786428D9B4E7112F4DA4DF16 /* PushwooshInApp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -936,6 +945,20 @@
 			remoteGlobalIDString = C05196C3BFC135C135D3F255;
 			remoteInfo = PushwooshInboxKit;
 		};
+		7065781DEC9210CE16504C1A /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = C05196C3BFC135C135D3F255;
+			remoteInfo = PushwooshInboxKit;
+		};
+		789109E2EC8CB2BF19837F58 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 0867D690FE84028FC02AAC07 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 254ED2FD4E4F0C0F379D51A6;
+			remoteInfo = PushwooshInApp;
+		};
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXCopyFilesBuildPhase section */
@@ -1004,6 +1027,28 @@
 			dstSubfolderSpec = 10;
 			files = (
 				E19B8FB42EAB9BD500A0577E /* PushwooshVoIP.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		15CF4240A5F6C05C4020B1D3 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				6C4EA7627FA1ED74BC9B027B /* PushwooshInboxKit.framework in Embed Frameworks */,
+			);
+			name = "Embed Frameworks";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		343DE40BEE47113445D494F0 /* Embed Frameworks */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 10;
+			files = (
+				F60797CA3CBF1B413D4D5F9F /* PushwooshInApp.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -1269,6 +1314,7 @@
 		59D6E0076A34FED35D91332E /* PWConfig.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWConfig.m; sourceTree = "<group>"; };
 		5A0EA398EAAE8D476C9A5CB4 /* PWRegisterEmailUser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRegisterEmailUser.m; sourceTree = "<group>"; };
 		5A49AD7DBC579740D3AD5252 /* PWRichMediaView.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWRichMediaView.h; sourceTree = "<group>"; };
+		9997EAFF8E3134C0F860675F /* PWRichMediaColorSchemeResolver.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWRichMediaColorSchemeResolver.h; sourceTree = "<group>"; };
 		5C2B687F80BC9075F5CB5958 /* PWInboxMessageInternal+Status.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "PWInboxMessageInternal+Status.m"; sourceTree = "<group>"; };
 		5D0D21E9EA4AC6929AFDE9F5 /* PWInAppWindow.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PWInAppWindow.swift; path = Presentation/PWInAppWindow.swift; sourceTree = "<group>"; };
 		5D12C21C23F54429009A655A /* PushNotificationManager.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PushNotificationManager.m; sourceTree = "<group>"; };
@@ -1307,7 +1353,6 @@
 		632D909692DF764BFB9EEB8A /* PWRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRequest.m; sourceTree = "<group>"; };
 		63B0AD03DC411D956CD5A578 /* PWInboxService.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInboxService.m; sourceTree = "<group>"; };
 		6498C61154E386D42BC289A6 /* WKUserScript+PWInterfacesScriptGenerator.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "WKUserScript+PWInterfacesScriptGenerator.m"; sourceTree = "<group>"; };
-		649BB2A1E9BC4C348BBD4696 /* PWUtilsSwizzleTest.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = PWUtilsSwizzleTest.m; sourceTree = "<group>"; };
 		651050A55E73A34338AE6D08 /* PWInboxMerge.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInboxMerge.h; sourceTree = "<group>"; };
 		652F387DA6AAB6EB24A93C02 /* PWUnregisterDeviceRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWUnregisterDeviceRequest.h; sourceTree = "<group>"; };
 		68AB808CF84CC6EFCC9AEAAC /* PWNotificationManagerCompatUserNotifications.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWNotificationManagerCompatUserNotifications.h; sourceTree = "<group>"; };
@@ -1332,6 +1377,7 @@
 		6E981FF10906F9A36789D3DB /* PWSystemCommandDispatcher.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWSystemCommandDispatcher.m; sourceTree = "<group>"; };
 		6ED0BCC997DF37D80D6FBDAB /* PWInAppRenderable.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PWInAppRenderable.swift; path = Views/PWInAppRenderable.swift; sourceTree = "<group>"; };
 		6F430C390524BD0F16148F48 /* PWRichMediaView.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRichMediaView.m; sourceTree = "<group>"; };
+		AA734D7270E8094F50908084 /* PWRichMediaColorSchemeResolver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRichMediaColorSchemeResolver.m; sourceTree = "<group>"; };
 		6F44DC12AC24B15857D5E7B8 /* PWTransport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PWTransport.swift; sourceTree = "<group>"; };
 		708968CAC27200D21FECC1FC /* PWGetResourcesRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWGetResourcesRequest.h; sourceTree = "<group>"; };
 		715E70D8FDC6CEC41ACDB6CE /* PWCombinedSetTagsRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWCombinedSetTagsRequest.h; sourceTree = "<group>"; };
@@ -1418,7 +1464,6 @@
 		97A59FEB257F6A650022359C /* libz.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = libz.tbd; path = Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libz.tbd; sourceTree = DEVELOPER_DIR; };
 		97A59FED257F6A830022359C /* libc++.tbd */ = {isa = PBXFileReference; lastKnownFileType = "sourcecode.text-based-dylib-definition"; name = "libc++.tbd"; path = "Platforms/MacOSX.platform/Developer/SDKs/MacOSX10.15.sdk/usr/lib/libc++.tbd"; sourceTree = DEVELOPER_DIR; };
 		97DA684422A2DE3CE932BD61 /* PWInAppHandler.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInAppHandler.h; sourceTree = "<group>"; };
-		984EF845C8D1F22F9818C745 /* MessageImageLoaderTest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = MessageImageLoaderTest.swift; sourceTree = "<group>"; };
 		98CF40956BFF192025F8E723 /* PWInAppStyle.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PWInAppStyle.swift; path = Views/PWInAppStyle.swift; sourceTree = "<group>"; };
 		99208F3609C0330D163C7CFC /* PushwooshNotificationUI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = PushwooshNotificationUI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		99D7CDD86CAC3D6814BF6CB1 /* PWResource.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWResource.m; sourceTree = "<group>"; };
@@ -1438,6 +1483,8 @@
 		3ACE78B5C52C467BB09F518E /* PWUniversalLinkResolver.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWUniversalLinkResolver.m; sourceTree = "<group>"; };
 		A1B2C3D4E5F6789012345678 /* PWModalRichMedia.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWModalRichMedia.h; sourceTree = "<group>"; };
 		A1B2C3D4E5F6789012345679 /* PWModalRichMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWModalRichMediaTest.m; path = RichMedia/PWModalRichMediaTest.m; sourceTree = "<group>"; };
+		969A0001AAAA0001BBBB0001 /* PWMessageViewControllerGeometryTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWMessageViewControllerGeometryTest.m; path = RichMedia/PWMessageViewControllerGeometryTest.m; sourceTree = "<group>"; };
+		969A0003AAAA0003BBBB0003 /* PWRichMediaViewTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWRichMediaViewTest.m; path = RichMedia/PWRichMediaViewTest.m; sourceTree = "<group>"; };
 		A22A22A22A22A22A22A22A22 /* PushwooshInboxCaptionedCell.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshInboxCaptionedCell.swift; sourceTree = "<group>"; };
 		A2B1407DF0180FEF7CF2681D /* NSDictionary+PWDictUtils.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = "NSDictionary+PWDictUtils.m"; sourceTree = "<group>"; };
 		A305440EC3587EF47C92AC80 /* PWInApp.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PWInApp.swift; sourceTree = "<group>"; };
@@ -1541,6 +1588,7 @@
 		C34847005E8ACA1451BAAD56 /* PWNotificationAppSettings_Private.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWNotificationAppSettings_Private.h; sourceTree = "<group>"; };
 		C3D4E5F6789012345678901A /* PWLegacyRichMedia.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWLegacyRichMedia.h; sourceTree = "<group>"; };
 		C3D4E5F6789012345678901B /* PWMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWMediaTest.m; path = RichMedia/PWMediaTest.m; sourceTree = "<group>"; };
+		29D3DDAE6C4EF896C9A5D6EC /* PWRichMediaColorSchemeResolverTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWRichMediaColorSchemeResolverTest.m; path = RichMedia/PWRichMediaColorSchemeResolverTest.m; sourceTree = "<group>"; };
 		C42A20691D06CBB800CC3BCB /* libPushwoosh.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPushwoosh.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		C4414F26F3A0784456B71FE8 /* PWInboxFacade.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PWInboxFacade.swift; sourceTree = "<group>"; };
 		C4B41856F294D45BCD4252C3 /* PWInAppFrequencyStoreTest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PWInAppFrequencyStoreTest.swift; sourceTree = "<group>"; };
@@ -1607,6 +1655,8 @@
 		E39673600D1E34D612ECAC99 /* PushwooshInboxKit.docc */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = folder.documentationcatalog; path = PushwooshInboxKit.docc; sourceTree = "<group>"; };
 		E434401C4D1372101A15F225 /* PWMessage.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWMessage.m; sourceTree = "<group>"; };
 		E436104048CACB642FC8A99D /* PWInAppConfigParser.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PWInAppConfigParser.swift; path = Model/PWInAppConfigParser.swift; sourceTree = "<group>"; };
+		AA971D06BAC0DE0000000002 /* PWInAppDarkOverlay.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PWInAppDarkOverlay.swift; path = Model/PWInAppDarkOverlay.swift; sourceTree = "<group>"; };
+		AA971D06BAC0DE0000000004 /* PWInAppDarkOverlayTest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PWInAppDarkOverlayTest.swift; sourceTree = "<group>"; };
 		E467FDBA36CBAECD53A8CE84 /* PWInAppFrequencyStore.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PWInAppFrequencyStore.swift; path = Presentation/PWInAppFrequencyStore.swift; sourceTree = "<group>"; };
 		E541D7F1C9FD549CAA6B7309 /* PWSystemCommandDispatcher.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWSystemCommandDispatcher.h; sourceTree = "<group>"; };
 		E63AA2BD305DADC499B80110 /* PWButtonExt.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWButtonExt.m; sourceTree = "<group>"; };
@@ -1660,6 +1710,8 @@
 		GRPC0003A1B2C3D4E5F67890 /* GRPCRequestBuilders.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRPCRequestBuilders.swift; sourceTree = "<group>"; };
 		GRPC0004A1B2C3D4E5F67890 /* GRPCResponseConverters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRPCResponseConverters.swift; sourceTree = "<group>"; };
 		GRPC0005A1B2C3D4E5F67890 /* GRPCLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRPCLogger.swift; sourceTree = "<group>"; };
+		C6051D0F3B41190778C5956A /* PushwooshInboxKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushwooshInboxKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		A697A19F39DD7F9D11D5C4B8 /* PushwooshInAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushwooshInAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -1852,6 +1904,22 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		75E2476C67EFF1A0C1B4FEF1 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				175DA745A4FA2C386E2A057A /* PushwooshInboxKit.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		FDD121824080BBB305AEC265 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				50B6E462C63C0CD2733BB4E4 /* PushwooshInApp.framework in Frameworks */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -1906,6 +1974,8 @@
 				4413A5842FD1B545006E86FD /* Pushwoosh.framework */,
 				4413A5852FD1B545006E86FD /* Pushwoosh.framework */,
 				786428D9B4E7112F4DA4DF16 /* PushwooshInApp.framework */,
+				A697A19F39DD7F9D11D5C4B8 /* PushwooshInAppTests.xctest */,
+				C6051D0F3B41190778C5956A /* PushwooshInboxKitTests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -1934,6 +2004,8 @@
 				46FA9E351C7DB1AA00741A11 /* PushwooshTests */,
 				E19B8F9C2EA9460800A0577E /* PushwooshTVOSTests */,
 				E19B8FAA2EAB9BBA00A0577E /* PushwooshVoIPTests */,
+				AF764ED16A462E839E050C17 /* PushwooshInAppTests */,
+				FAE4DA3B9B6A10AAA9637356 /* PushwooshInboxKitTests */,
 				A820A00000000000A0820003 /* PushwooshLiveActivitiesTests */,
 				034768DFFF38A50411DB9C8B /* Products */,
 				467F62A41EB883A400548315 /* Frameworks */,
@@ -2022,6 +2094,8 @@
 				4E41742D39B2C320521269CF /* PWShowLoading.h */,
 				2FA1588D6EF518239F0B4240 /* PWMessageViewController.ios.h */,
 				6F430C390524BD0F16148F48 /* PWRichMediaView.m */,
+				9997EAFF8E3134C0F860675F /* PWRichMediaColorSchemeResolver.h */,
+				AA734D7270E8094F50908084 /* PWRichMediaColorSchemeResolver.m */,
 				4BDF1A84BA1FA641FF3DFBA7 /* PWMessageViewController.h */,
 				5630DF646CDF9CF04148325B /* PWLoadingViewController.h */,
 				E63AA2BD305DADC499B80110 /* PWButtonExt.m */,
@@ -2089,6 +2163,7 @@
 			isa = PBXGroup;
 			children = (
 				E436104048CACB642FC8A99D /* PWInAppConfigParser.swift */,
+				AA971D06BAC0DE0000000002 /* PWInAppDarkOverlay.swift */,
 				C5CE62E062B47696D405BD17 /* PWInAppMessageModel.swift */,
 				1D12DB4B1EEF5344DA058DFA /* UIColor+PWInAppHex.swift */,
 				330D69CC78B990D970CE6B97 /* PWInAppPresenting.swift */,
@@ -2584,7 +2659,6 @@
 			isa = PBXGroup;
 			children = (
 				449CAA242877272B00B4EEEF /* PWConfigurationTest.m */,
-				649BB2A1E9BC4C348BBD4696 /* PWUtilsSwizzleTest.m */,
 				2C9719DA0748456C9D376E2D /* PWUtilsCommonTest.m */,
 				177205DEC0694B509AFB4DF8 /* PWUtilsMobileMergeTest.m */,
 			);
@@ -2856,7 +2930,6 @@
 				862C94B23AA09B022B9AB057 /* PushwooshConfigGateTest.m */,
 				56A869C6A3204349BFF12764 /* PushwooshConfigTrimTest.m */,
 				3F8CCAE3BE9DFF5FC1278624 /* PWSetBaseUrlCommandHandlerTest.m */,
-				FAE4DA3B9B6A10AAA9637356 /* PushwooshInboxKit */,
 				7777000100000000000003A1 /* PushwooshModuleRegistryTest.m */,
 				8430000100000000000003A1 /* PWIntegrationValidatorTest.m */,
 				7777000100000000000003A2 /* PWMissingModuleTest.m */,
@@ -2877,7 +2950,6 @@
 				B777PH2000000000000003T1 /* RegistryTVoSHandlerLookupTest.m */,
 				B777PH2000000000000003V1 /* RegistryVoIPHandlerLookupTest.m */,
 				B5A0A122D016D51A018E3A47 /* PWPushPrimerTest.m */,
-				AF764ED16A462E839E050C17 /* PushwooshInApp */,
 			);
 			path = PushwooshTests;
 			sourceTree = "<group>";
@@ -3368,10 +3440,11 @@
 			path = Proto;
 			sourceTree = "<group>";
 		};
-		AF764ED16A462E839E050C17 /* PushwooshInApp */ = {
+		AF764ED16A462E839E050C17 /* PushwooshInAppTests */ = {
 			isa = PBXGroup;
 			children = (
 				D161B576A27FE5B999879459 /* PWInAppConfigParserTest.swift */,
+				AA971D06BAC0DE0000000004 /* PWInAppDarkOverlayTest.swift */,
 				C4B41856F294D45BCD4252C3 /* PWInAppFrequencyStoreTest.swift */,
 				2008400CF5B800692FCCD8BB /* PWModalInAppViewTest.swift */,
 				2877AA4421D03D49FE8F3609 /* PWInAppHexColorTest.swift */,
@@ -3380,8 +3453,7 @@
 				04F70968A01CB1E8188317E1 /* PWItemInAppViewsTest.swift */,
 				040F3991A0CD27AB27326668 /* PWGamifiedInAppViewsTest.swift */,
 			);
-			name = PushwooshInApp;
-			path = PushwooshInApp;
+			path = PushwooshInAppTests;
 			sourceTree = "<group>";
 		};
 		AFB0025229F7ED620083A3E6 /* Persistence */ = {
@@ -3685,10 +3757,13 @@
 			children = (
 				E71BEE0F83AFA83D08311BFA /* PWRichMediaTest.m */,
 				A1B2C3D4E5F6789012345679 /* PWModalRichMediaTest.m */,
+				969A0001AAAA0001BBBB0001 /* PWMessageViewControllerGeometryTest.m */,
+				969A0003AAAA0003BBBB0003 /* PWRichMediaViewTest.m */,
 				E1E2E3E4E5E6E7E8E9EAEBEC /* PWRichMediaManagerTest.m */,
 				0B2F2A6DEE034E4CBEA9A795 /* PWWebClientLinkActionTest.m */,
 				B2C3D4E5F678901234567891 /* PWLegacyRichMediaTest.m */,
 				C3D4E5F6789012345678901B /* PWMediaTest.m */,
+				29D3DDAE6C4EF896C9A5D6EC /* PWRichMediaColorSchemeResolverTest.m */,
 			);
 			name = RichMedia;
 			sourceTree = "<group>";
@@ -3755,17 +3830,16 @@
 			path = "Hash Decoder";
 			sourceTree = "<group>";
 		};
-		FAE4DA3B9B6A10AAA9637356 /* PushwooshInboxKit */ = {
+		FAE4DA3B9B6A10AAA9637356 /* PushwooshInboxKitTests */ = {
 			isa = PBXGroup;
 			children = (
 				9B542B04254DF6D219078B1F /* PushwooshInboxKitAttributesTest.swift */,
 				AB2AB2AB2AB2AB2AB2AB2AB2 /* PushwooshInboxRichCardsTest.swift */,
 				4896244362D9B18D2048BAF1 /* PushwooshInboxKitViewControllerTest.swift */,
 				33DA0642C03E0AC5F985699D /* PushwooshInboxKitImplementationTest.swift */,
-				984EF845C8D1F22F9818C745 /* MessageImageLoaderTest.swift */,
 				FC938CAF7CD7A261A6C42809 /* InboxKitTestSupport.swift */,
 			);
-			path = PushwooshInboxKit;
+			path = PushwooshInboxKitTests;
 			sourceTree = "<group>";
 		};
 		GRPC0021A1B2C3D4E5F67890 /* Transport */ = {
@@ -3893,6 +3967,7 @@
 				CC4244895550257591B6AD6F /* PWInteractionDisabledWindow.h in Headers */,
 				5B6FC6D68108E7EA13063D07 /* PWButtonExt.h in Headers */,
 				6BE29FEE7BF60E13F2616E72 /* PWRichMediaView.h in Headers */,
+				27450A90184C4859B57A40B5 /* PWRichMediaColorSchemeResolver.h in Headers */,
 				675FE50A0CA4AF046806682E /* PWBaseLoadingViewController.h in Headers */,
 				FD55608E333015A882899CE8 /* PWShowLoading.h in Headers */,
 				FBF5215E7ECD74F3C8F91F4F /* PWMessageViewController.ios.h in Headers */,
@@ -4530,6 +4605,44 @@
 			productReference = 99208F3609C0330D163C7CFC /* PushwooshNotificationUI.framework */;
 			productType = "com.apple.product-type.framework";
 		};
+		F872CA81940FE56A4BC431B5 /* PushwooshInboxKitTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = E7A0AF4710CDE356526A2C15 /* Build configuration list for PBXNativeTarget "PushwooshInboxKitTests" */;
+			buildPhases = (
+				CA75D54146DE1A8555151B3F /* Sources */,
+				75E2476C67EFF1A0C1B4FEF1 /* Frameworks */,
+				C2413630FB93C11F82148619 /* Resources */,
+				15CF4240A5F6C05C4020B1D3 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				F778BB8DD28313EC66046DC2 /* PBXTargetDependency */,
+			);
+			name = PushwooshInboxKitTests;
+			productName = PushwooshInboxKitTests;
+			productReference = C6051D0F3B41190778C5956A /* PushwooshInboxKitTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+		839D4E5D2FD63DB43840F41C /* PushwooshInAppTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 25A6539D314876A2D642EF14 /* Build configuration list for PBXNativeTarget "PushwooshInAppTests" */;
+			buildPhases = (
+				2427C93E61F254F9BB9186F0 /* Sources */,
+				FDD121824080BBB305AEC265 /* Frameworks */,
+				4D1C73ACB8C34E24839E30E5 /* Resources */,
+				343DE40BEE47113445D494F0 /* Embed Frameworks */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				6009AAFC1A74D166890C1A2C /* PBXTargetDependency */,
+			);
+			name = PushwooshInAppTests;
+			productName = PushwooshInAppTests;
+			productReference = A697A19F39DD7F9D11D5C4B8 /* PushwooshInAppTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
@@ -4541,6 +4654,12 @@
 				LastUpgradeCheck = 0510;
 				ORGANIZATIONNAME = Pushwoosh;
 				TargetAttributes = {
+					839D4E5D2FD63DB43840F41C = {
+						CreatedOnToolsVersion = 15.4;
+					};
+					F872CA81940FE56A4BC431B5 = {
+						CreatedOnToolsVersion = 15.4;
+					};
 					441806DE2D7B285900DE71A7 = {
 						CreatedOnToolsVersion = 15.4;
 					};
@@ -4631,6 +4750,8 @@
 				46FA9E331C7DB1AA00741A11 /* PushwooshTests */,
 				E19B8F9A2EA9460800A0577E /* PushwooshTVOSTests */,
 				E19B8FA82EAB9BBA00A0577E /* PushwooshVoIPTests */,
+				839D4E5D2FD63DB43840F41C /* PushwooshInAppTests */,
+				F872CA81940FE56A4BC431B5 /* PushwooshInboxKitTests */,
 				A820A00000000000A0820001 /* PushwooshLiveActivitiesTests */,
 				A2A8F6AC6C7CC7C96F967EAE /* PushwooshGRPCTests */,
 				E3C871F492D36BE83230F081 /* PushwooshNotificationUITests */,
@@ -4790,6 +4911,20 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		C2413630FB93C11F82148619 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		4D1C73ACB8C34E24839E30E5 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
@@ -4924,6 +5059,7 @@
 				33EA645E3921BBA104EDB58C /* PWLoadingViewController.m in Sources */,
 				08C59AE0E8A7211AC67C4DD2 /* PWInteractionDisabledView.m in Sources */,
 				1B7B3DE8EC286F7609CA1C75 /* PWRichMediaView.m in Sources */,
+				0ACFB4EE00C6FE4B35BC9755 /* PWRichMediaColorSchemeResolver.m in Sources */,
 				C6339D0B73DB2E28FBBF4CBA /* PWButtonExt.m in Sources */,
 				5A25EC43B6E4EBC79079AE43 /* PWInteractionDisabledWindow.m in Sources */,
 				492975E92C9D7AECE06D5C33 /* PWPushManagerJSBridge.m in Sources */,
@@ -5136,7 +5272,6 @@
 				4649F4E01ED5531B00D3D90C /* PWPostEventTest.m in Sources */,
 				449CAA05287725BD00B4EEEF /* PWRegisterEmailUserTest.m in Sources */,
 				449CAA252877272B00B4EEEF /* PWConfigurationTest.m in Sources */,
-				E5FA19380DA64687834D77F1 /* PWUtilsSwizzleTest.m in Sources */,
 				9945C08A2FD04A65BCA08F4D /* PWUtilsCommonTest.m in Sources */,
 				6E2DF9EA905D44058CDE7BA9 /* PWUtilsMobileMergeTest.m in Sources */,
 				9703585F27A2793100DEA758 /* BuildFile in Sources */,
@@ -5157,10 +5292,13 @@
 				446894C32C51286A0060AE0D /* PWDataManagerTest.m in Sources */,
 				CC2F6D2AD96A1E1D6B5F6C2A /* PWRichMediaTest.m in Sources */,
 				E5F6789012345678901AB2C4 /* PWModalRichMediaTest.m in Sources */,
+				969A0002AAAA0002BBBB0002 /* PWMessageViewControllerGeometryTest.m in Sources */,
+				969A0004AAAA0004BBBB0004 /* PWRichMediaViewTest.m in Sources */,
 				D1D2D3D4D5D6D7D8D9DADBDC /* PWRichMediaManagerTest.m in Sources */,
 				E049EA16DD9B48968B394F39 /* PWWebClientLinkActionTest.m in Sources */,
 				F6789012345678901AB2C3D5 /* PWLegacyRichMediaTest.m in Sources */,
 				789012345678901AB2C3D4E6 /* PWMediaTest.m in Sources */,
+				FF6319184C6F253112EFAACB /* PWRichMediaColorSchemeResolverTest.m in Sources */,
 				D80FC0F68662C9C948B36738 /* PWModalWindowSettingsTest.m in Sources */,
 				28DCB954528CDA3B1CD9B885 /* PWSdkStateProviderTest.m in Sources */,
 				7AE3308985BE35140F1876E4 /* PWRequestManagerStateTest.m in Sources */,
@@ -5168,12 +5306,6 @@
 				CC2EF0F126F10D6F5C8DBCF1 /* PushwooshConfigGateTest.m in Sources */,
 				D1627DB46FAB44349BA2476B /* PushwooshConfigTrimTest.m in Sources */,
 				2C62CF0DB33850837B0030F0 /* PWSetBaseUrlCommandHandlerTest.m in Sources */,
-				9D9FC4F36E14E011EE53D38A /* PushwooshInboxKitAttributesTest.swift in Sources */,
-				AB1AB1AB1AB1AB1AB1AB1AB1 /* PushwooshInboxRichCardsTest.swift in Sources */,
-				96B149E062C8E910D2B63EFB /* PushwooshInboxKitViewControllerTest.swift in Sources */,
-				74FB7D6B164A7EC43CBA6573 /* PushwooshInboxKitImplementationTest.swift in Sources */,
-				C02B757466FADB6AC24DEC23 /* MessageImageLoaderTest.swift in Sources */,
-				0592F1607683D069A3437C23 /* InboxKitTestSupport.swift in Sources */,
 				7777000200000000000003A1 /* PushwooshModuleRegistryTest.m in Sources */,
 				8430000200000000000003A1 /* PWIntegrationValidatorTest.m in Sources */,
 				7777000200000000000003A2 /* PWMissingModuleTest.m in Sources */,
@@ -5204,14 +5336,6 @@
 				5127CD6198787B803E75853D /* PWModalWindowTest.m in Sources */,
 				3E684054C5463FBF32AD882E /* PWResourceNativeConfigTest.m in Sources */,
 				F0695F85057EA8A5A2A68747 /* PWNativeInAppRouteTest.m in Sources */,
-				BFDE7AB1921DF325ED6F6BDE /* PWInAppConfigParserTest.swift in Sources */,
-				06F2C958A9CBE513C832230B /* PWInAppFrequencyStoreTest.swift in Sources */,
-				7FD0EA6C12ECEF3BC67F8E26 /* PWModalInAppViewTest.swift in Sources */,
-				7F8A5956FCCAF501055490BD /* PWInAppHexColorTest.swift in Sources */,
-				8AA107BB79A9BC909F19153A /* PushwooshInAppUIQueueTest.swift in Sources */,
-				96CF863DDFCDC15BB84AE18D /* PWCardInAppViewsTest.swift in Sources */,
-				DFDFA2E441A0EE06339671D4 /* PWItemInAppViewsTest.swift in Sources */,
-				C808A2AFE9477251E5C0FFED /* PWGamifiedInAppViewsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5241,6 +5365,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				E36767029E82D5BB37F56258 /* PWInAppConfigParser.swift in Sources */,
+				AA971D06BAC0DE0000000001 /* PWInAppDarkOverlay.swift in Sources */,
 				E992370E6B05FA73F48DD42B /* PWInAppMessageModel.swift in Sources */,
 				4CA22DB24B4EB99EF5072DAD /* UIColor+PWInAppHex.swift in Sources */,
 				A28D982331714EA7A274A525 /* PWInAppPresenting.swift in Sources */,
@@ -5409,6 +5534,34 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		CA75D54146DE1A8555151B3F /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				486685192E741C6F214907EB /* PushwooshInboxKitAttributesTest.swift in Sources */,
+				144AB4F63A424995D7577A59 /* PushwooshInboxRichCardsTest.swift in Sources */,
+				3F78C25E2A0570915934B83E /* PushwooshInboxKitViewControllerTest.swift in Sources */,
+				28F3E4B67AD02EB23A7E0FB5 /* PushwooshInboxKitImplementationTest.swift in Sources */,
+				FFB045EC96310232C9806628 /* InboxKitTestSupport.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		2427C93E61F254F9BB9186F0 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				DF1BDB6CC7D9DBF5CB00CE3F /* PWInAppConfigParserTest.swift in Sources */,
+				A11E009C8687E39DB649E728 /* PWInAppDarkOverlayTest.swift in Sources */,
+				56B3B7EBDAB8E9F2577327E8 /* PWInAppFrequencyStoreTest.swift in Sources */,
+				B2817075F6524F266D29A6A5 /* PWModalInAppViewTest.swift in Sources */,
+				832346B58A95FFB3487AEBE4 /* PWInAppHexColorTest.swift in Sources */,
+				F91514BFD0F4EF15DD5514D6 /* PushwooshInAppUIQueueTest.swift in Sources */,
+				5EFAC8AE8DEA5BE9CCD0AF39 /* PWCardInAppViewsTest.swift in Sources */,
+				0BCA61475BE43DF3018DC39E /* PWItemInAppViewsTest.swift in Sources */,
+				B6C9608F2777151C39A6DB8A /* PWGamifiedInAppViewsTest.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -5572,6 +5725,16 @@
 			target = FE6CFB94F4443110A98738BC /* PushwooshNotificationUI */;
 			targetProxy = BC0434854BD373EBF98800D3 /* PBXContainerItemProxy */;
 		};
+		F778BB8DD28313EC66046DC2 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = C05196C3BFC135C135D3F255 /* PushwooshInboxKit */;
+			targetProxy = 7065781DEC9210CE16504C1A /* PBXContainerItemProxy */;
+		};
+		6009AAFC1A74D166890C1A2C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 254ED2FD4E4F0C0F379D51A6 /* PushwooshInApp */;
+			targetProxy = 789109E2EC8CB2BF19837F58 /* PBXContainerItemProxy */;
+		};
 /* End PBXTargetDependency section */
 
 /* Begin XCBuildConfiguration section */
@@ -5599,7 +5762,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = "";
@@ -5631,7 +5794,7 @@
 				GCC_WARN_UNUSED_FUNCTION = YES;
 				GCC_WARN_UNUSED_VARIABLE = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = YES;
 				MACOSX_DEPLOYMENT_TARGET = 10.10;
 				OTHER_CFLAGS = "";
@@ -5682,9 +5845,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -5716,7 +5879,7 @@
 					"$(SRCROOT)/PushwooshCore/Public",
 				);
 				INFOPLIST_FILE = PushwooshGRPCTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -5793,7 +5956,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5801,7 +5964,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -5837,7 +6000,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				PRODUCT_NAME = PushwooshFramework;
 				WRAPPER_EXTENSION = framework;
@@ -5860,7 +6023,7 @@
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				GENERATE_MASTER_OBJECT_FILE = YES;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				PRODUCT_NAME = PushwooshFramework;
 				WRAPPER_EXTENSION = framework;
@@ -5928,7 +6091,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -5936,7 +6099,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6012,7 +6175,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6020,7 +6183,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6096,7 +6259,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6104,7 +6267,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6180,7 +6343,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6188,7 +6351,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6271,7 +6434,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6279,7 +6442,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6359,7 +6522,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6367,7 +6530,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6453,7 +6616,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -6539,7 +6702,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -6643,7 +6806,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6651,7 +6814,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6726,7 +6889,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -6734,7 +6897,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6813,14 +6976,14 @@
 				);
 				INFOPLIST_FILE = "Supporting_Files/PushwooshiOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
@@ -6899,14 +7062,14 @@
 				);
 				INFOPLIST_FILE = "Supporting_Files/PushwooshiOS-Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = (
@@ -6968,7 +7131,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/PushwooshTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7025,7 +7188,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/PushwooshTests/Info.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7091,7 +7254,7 @@
 					"$(PROJECT_DIR)/usr/include",
 				);
 				INFOPLIST_FILE = PushwooshTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7157,7 +7320,7 @@
 					"$(PROJECT_DIR)/usr/include",
 				);
 				INFOPLIST_FILE = PushwooshTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7199,7 +7362,7 @@
 					"$(SRCROOT)/PushwooshCore/Public",
 				);
 				INFOPLIST_FILE = PushwooshGRPCTests/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -7273,7 +7436,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7281,7 +7444,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -7318,7 +7481,7 @@
 				ENABLE_TESTABILITY = YES;
 				INFOPLIST_FILE = PushwooshGRPC/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7349,7 +7512,7 @@
 				DYLIB_INSTALL_NAME_BASE = "@rpath";
 				INFOPLIST_FILE = PushwooshGRPC/Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7423,7 +7586,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7431,7 +7594,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7494,7 +7657,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -7548,7 +7711,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshLiveActivitiesTests;
@@ -7579,14 +7742,14 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshKeychain;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -7651,7 +7814,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7659,7 +7822,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7683,7 +7846,7 @@
 			buildSettings = {
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Pushwoosh;
 				SUPPORTED_PLATFORMS = macosx;
@@ -7696,7 +7859,7 @@
 			buildSettings = {
 				GCC_TREAT_WARNINGS_AS_ERRORS = YES;
 				INFOPLIST_FILE = Pushwoosh/Info.plist;
-				IPHONEOS_DEPLOYMENT_TARGET = 11.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				MACOSX_DEPLOYMENT_TARGET = 10.8;
 				PRODUCT_NAME = Pushwoosh;
 				SUPPORTED_PLATFORMS = macosx;
@@ -7742,9 +7905,9 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshNotificationUITests;
@@ -7816,7 +7979,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7824,7 +7987,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -7897,7 +8060,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7905,7 +8068,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7987,7 +8150,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -7995,7 +8158,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -8072,7 +8235,7 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "Copyright © 2025 Pushwoosh. All rights reserved.";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
@@ -8080,7 +8243,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -8163,7 +8326,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -8177,7 +8340,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
 			};
@@ -8242,7 +8405,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -8255,7 +8418,7 @@
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 				VALIDATE_PRODUCT = YES;
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
@@ -8305,7 +8468,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -8317,7 +8480,7 @@
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 			};
 			name = Debug;
 		};
@@ -8360,7 +8523,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshTVOSTests;
@@ -8370,7 +8533,7 @@
 				SWIFT_EMIT_LOC_STRINGS = NO;
 				SWIFT_VERSION = 5.0;
 				TARGETED_DEVICE_FAMILY = 3;
-				TVOS_DEPLOYMENT_TARGET = 12.0;
+				TVOS_DEPLOYMENT_TARGET = 15.0;
 				VALIDATE_PRODUCT = YES;
 			};
 			name = Release;
@@ -8419,7 +8582,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -8473,7 +8636,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshVoIPTests;
@@ -8504,14 +8667,14 @@
 				);
 				INFOPLIST_KEY_NSHumanReadableCopyright = "";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				IPHONEOS_DEPLOYMENT_TARGET = 13.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				KEEP_PRIVATE_EXTERNS = NO;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.2.6;
+				MARKETING_VERSION = 7.2.7;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshKeychain;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -8521,6 +8684,228 @@
 				TARGETED_DEVICE_FAMILY = "1,2";
 			};
 			name = Debug;
+		};
+		A07E5FB9C0724795333CA3C7 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 7.2.7;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshInboxKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		D2D420BA6A9C2EBC3E8DBA30 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 7.2.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshInboxKitTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		3AEC06136720ED0B96262B7D /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 7.2.7;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshInAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = "DEBUG $(inherited)";
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		3263E3EEEBE9EBC76136D090 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				ASSETCATALOG_COMPILER_GENERATE_SWIFT_ASSET_SYMBOL_EXTENSIONS = YES;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++20";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_QUOTED_INCLUDE_IN_FRAMEWORK_HEADER = YES;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CODE_SIGN_STYLE = Automatic;
+				COPY_PHASE_STRIP = NO;
+				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_USER_SCRIPT_SANDBOXING = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu17;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
+				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
+				MARKETING_VERSION = 7.2.7;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshInAppTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_EMIT_LOC_STRINGS = NO;
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
 		};
 /* End XCBuildConfiguration section */
 
@@ -8737,6 +9122,24 @@
 			buildConfigurations = (
 				DFF50503A6C3F223DABBAF32 /* Release */,
 				554B087A0FD6DE9EF259BF6F /* Debug */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		E7A0AF4710CDE356526A2C15 /* Build configuration list for PBXNativeTarget "PushwooshInboxKitTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				A07E5FB9C0724795333CA3C7 /* Debug */,
+				D2D420BA6A9C2EBC3E8DBA30 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		25A6539D314876A2D642EF14 /* Build configuration list for PBXNativeTarget "PushwooshInAppTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				3AEC06136720ED0B96262B7D /* Debug */,
+				3263E3EEEBE9EBC76136D090 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;

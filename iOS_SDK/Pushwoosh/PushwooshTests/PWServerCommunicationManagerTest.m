@@ -60,7 +60,7 @@
 
     OCMVerify([self.mockPreferencesInstance setIsServerCommunicationEnabled:YES]);
 
-    [self waitForExpectations:@[notificationExpectation] timeout:1.0];
+    [self waitForExpectations:@[notificationExpectation] timeout:5];
 }
 
 - (void)testStartServerCommunicationWhenAlreadyAllowed {

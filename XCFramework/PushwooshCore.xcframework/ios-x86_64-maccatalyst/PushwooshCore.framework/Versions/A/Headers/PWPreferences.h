@@ -75,6 +75,8 @@ FOUNDATION_EXPORT NSString * const kPWActiveApplicationBaseUrlKey;
 
 @property (nonatomic) BOOL isServerCommunicationEnabled;
 
+@property (nonatomic) BOOL isAutoDeviceTokenRegistrationEnabled;
+
 @property (copy) NSString *language;
 
 @property (copy) NSDictionary *customTags;

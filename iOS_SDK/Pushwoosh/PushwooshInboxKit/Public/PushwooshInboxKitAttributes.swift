@@ -34,6 +34,10 @@ public struct PushwooshInboxKitAttributes {
     /// when the controller disappears (single batch, idempotent server-side).
     public var automaticReadOnDisappear: Bool = true
 
+    /// When `true`, messages are marked as read once they are on screen: the rows visible when
+    /// the inbox appears or finishes loading, and the rows a scroll comes to rest on.
+    public var automaticReadOnDisplay: Bool = true
+
     /// When `true`, dynamic colors resolve against the current trait collection.
     /// When `false`, the controller and cells force light-mode color resolution.
     public var enableDarkTheme: Bool = true

@@ -24,6 +24,7 @@
     self.mockConfig = nil;
     // Reset to default style
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PWRichMediaPresentationStyle"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PWRichMediaColorScheme"];
     [super tearDown];
 }
 

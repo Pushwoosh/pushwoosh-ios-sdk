@@ -89,7 +89,7 @@
 - (void)testLocalizeConfigSubstitutesTagsNestedInLocalizedStrings {
     self.cacheMock = OCMPartialMock([PWCache cache]);
     OCMStub([self.cacheMock getTags]).andReturn(@{ @"UserName": @"alexey" });
-    [@"{\"default_language\":\"default\",\"localization\":{\"default\":{\"t3.text\":\"Button {UserName|CapitalizeAllFirst|пес}\"}}}"
+    [@"{\"default_language\":\"default\",\"localization\":{\"default\":{\"t3.text\":\"Button {UserName|CapitalizeAllFirst|Hündchen}\"}}}"
         writeToFile:[self.resource configUrl] atomically:YES encoding:NSUTF8StringEncoding error:nil];
     NSDictionary *config = @{ @"modal": @{ @"buttons": @[ @{ @"text": @{ @"text": @"{{t3.text|text}}" } } ] } };
 
@@ -106,7 +106,7 @@
                                                                      @"url": @"https://example.com/test.zip",
                                                                      @"updated": @1,
                                                                      @"tags": @{} }];
-    [@"{\"default_language\":\"default\",\"localization\":{\"default\":{\"t3.text\":\"Button {UserName|CapitalizeAllFirst|пес}\"}}}"
+    [@"{\"default_language\":\"default\",\"localization\":{\"default\":{\"t3.text\":\"Button {UserName|CapitalizeAllFirst|Hündchen}\"}}}"
         writeToFile:[resource configUrl] atomically:YES encoding:NSUTF8StringEncoding error:nil];
     NSDictionary *config = @{ @"modal": @{ @"title": @"{{t3.text|text}}" } };
 

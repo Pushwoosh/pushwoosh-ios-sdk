@@ -32,7 +32,33 @@ enum PWInAppConfigParser {
         case key(String)
     }
 
-    static func parse(_ config: [AnyHashable: Any]) -> PWInAppMessageModel? {
+    /// Entry point. In dark theme applies the block's sparse `dark` overlay before
+    /// strict validation. The overlay is the single fail-open exception: a broken
+    /// overlay or a merged config the strict parser rejects falls back to the
+    /// light variant with a WARN — the light config itself stays fail-closed.
+    static func parse(_ config: [AnyHashable: Any], isDark: Bool = false) -> PWInAppMessageModel? {
+        if isDark {
+            switch PWInAppDarkOverlay.apply(to: config) {
+            case .none:
+                break
+            case .broken(let label):
+                warnDarkFallback(label)
+            case .merged(let merged):
+                if let model = parseValidated(merged) {
+                    return model
+                }
+                warnDarkFallback("merged config rejected")
+            }
+        }
+        return parseValidated(config)
+    }
+
+    private static func warnDarkFallback(_ reason: String) {
+        PushwooshLog.pushwooshLog(.PW_LL_WARN, className: "PWInAppConfigParser",
+                                  message: "Invalid dark overlay (\(reason)), falling back to light variant")
+    }
+
+    private static func parseValidated(_ config: [AnyHashable: Any]) -> PWInAppMessageModel? {
         guard let displayType = config["displayType"] as? String else {
             return warnAndDrop("displayType")
         }

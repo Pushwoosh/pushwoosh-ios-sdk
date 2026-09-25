@@ -20,6 +20,20 @@
       },
       {
         "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshInApp"
+      },
+      {
+        "kind": "Import",
+        "name": "PushwooshCore",
+        "printedName": "PushwooshCore",
+        "declKind": "Import",
+        "moduleName": "PushwooshInApp"
+      },
+      {
+        "kind": "Import",
         "name": "UIKit",
         "printedName": "UIKit",
         "declKind": "Import",
@@ -1127,6 +1141,34 @@
     "json_format_version": 8
   },
   "ConstValues": [
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInApp\/Model\/PWInAppConfigParser.swift",
+      "kind": "BooleanLiteral",
+      "offset": 1779,
+      "length": 5,
+      "value": "false"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInApp\/Model\/PWInAppDarkOverlay.swift",
+      "kind": "Array",
+      "offset": 1367,
+      "length": 158,
+      "value": "[\"modal\", \"sheet\", \"carousel\", \"stories\", \"banner\", \"fullscreen\", \"video\", \"pip\", \"scratchcard\", \"spinwheel\"]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInApp\/Model\/PWInAppDarkOverlay.swift",
+      "kind": "Array",
+      "offset": 1688,
+      "length": 54,
+      "value": "[\"background\", \"color\", \"image\", \"poster\", \"fallback\"]"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInApp\/Model\/PWInAppDarkOverlay.swift",
+      "kind": "Array",
+      "offset": 1922,
+      "length": 20,
+      "value": "[\"buttons\", \"items\"]"
+    },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshInApp\/Model\/PWInAppMessageModel.swift",
       "kind": "IntegerLiteral",

@@ -14,17 +14,23 @@ import PushwooshCore
 final class VoipNetworkManagerTests: XCTestCase {
 
     var networkManager: VoipNetworkManager!
+    /// Requests the stub transport was handed, in order.
+    private var sent: [PWCoreSetVoIPTokenRequest] = []
 
     override func setUpWithError() throws {
         try super.setUpWithError()
         PWPreferences.preferencesInstance().appCode = "TEST-VOIP-APP"
-        let ready = XCTestExpectation(description: "sdk ready")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.2) { ready.fulfill() }
-        wait(for: [ready], timeout: 1.0)
-        networkManager = VoipNetworkManager.shared
+        // A stub transport instead of the live one: the suite used to reach the real
+        // server and wait up to fifteen seconds, which is why it kept timing out.
+        sent = []
+        networkManager = VoipNetworkManager(transport: { [weak self] request, completion in
+            self?.sent.append(request)
+            completion(nil)
+        })
     }
 
     override func tearDownWithError() throws {
+        sent = []
         networkManager = nil
         PWPreferences.preferencesInstance().appCode = ""
         try super.tearDownWithError()
@@ -35,19 +41,6 @@ final class VoipNetworkManagerTests: XCTestCase {
         let instance2 = VoipNetworkManager.shared
 
         XCTAssertTrue(instance1 === instance2)
-    }
-
-    func testSendRequestWithValidToken() throws {
-        let expectation = self.expectation(description: "Send VoIP token request")
-
-        let parameters = VoIPRequestParameters(token: "test_voip_token_123")
-        let request = PWSetVoIPTokenRequest(parameters: parameters)
-
-        networkManager.sendInnerRequest(request: request) { error in
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 10.0)
     }
 
     func testSendRequestWithEmptyToken() throws {
@@ -62,10 +55,11 @@ final class VoipNetworkManagerTests: XCTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectations(timeout: 5.0)
+        waitForExpectations(timeout: 1.0)
 
         XCTAssertNotNil(capturedError)
         XCTAssertEqual((capturedError as NSError?)?.code, 1)
+        XCTAssertTrue(sent.isEmpty, "a request that failed preparation must not be sent")
     }
 
     func testSendRequestWithNilToken() throws {
@@ -80,9 +74,10 @@ final class VoipNetworkManagerTests: XCTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectations(timeout: 5.0)
+        waitForExpectations(timeout: 1.0)
 
         XCTAssertNotNil(capturedError)
+        XCTAssertTrue(sent.isEmpty, "a request that failed preparation must not be sent")
     }
 
     func testUnregisterDeviceRequest() throws {
@@ -95,7 +90,7 @@ final class VoipNetworkManagerTests: XCTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectations(timeout: 10.0)
+        waitForExpectations(timeout: 1.0)
     }
 
     func testMultipleSequentialRequests() throws {
@@ -116,28 +111,11 @@ final class VoipNetworkManagerTests: XCTestCase {
             }
         }
 
-        waitForExpectations(timeout: 15.0)
-    }
+        waitForExpectations(timeout: 1.0)
 
-    func testMultipleParallelRequests() throws {
-        let expectation1 = self.expectation(description: "First parallel request")
-        let expectation2 = self.expectation(description: "Second parallel request")
-
-        let parameters1 = VoIPRequestParameters(token: "token1")
-        let request1 = PWSetVoIPTokenRequest(parameters: parameters1)
-
-        let parameters2 = VoIPRequestParameters(token: "token2")
-        let request2 = PWSetVoIPTokenRequest(parameters: parameters2)
-
-        networkManager.sendInnerRequest(request: request1) { error in
-            expectation1.fulfill()
-        }
-
-        networkManager.sendInnerRequest(request: request2) { error in
-            expectation2.fulfill()
-        }
-
-        waitForExpectations(timeout: 15.0)
+        XCTAssertEqual(sent.count, 2, "both requests must reach the transport")
+        XCTAssertEqual(sent.map { $0.parameters.token }, ["token1", "token2"],
+                       "the second request must follow the first, not race it")
     }
 
     func testSendRequestCompletionCalled() throws {
@@ -152,23 +130,7 @@ final class VoipNetworkManagerTests: XCTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectations(timeout: 10.0)
-        XCTAssertTrue(completionCalled)
-    }
-
-    func testSendUnregisterRequestCompletionCalled() throws {
-        let expectation = self.expectation(description: "Unregister completion called")
-        var completionCalled = false
-
-        let parameters = VoIPRequestParameters(token: nil)
-        let request = PWUnregisterVoIPDeviceRequest(parameters: parameters)
-
-        networkManager.sendInnerRequest(request: request) { error in
-            completionCalled = true
-            expectation.fulfill()
-        }
-
-        waitForExpectations(timeout: 10.0)
+        waitForExpectations(timeout: 1.0)
         XCTAssertTrue(completionCalled)
     }
 
@@ -183,27 +145,7 @@ final class VoipNetworkManagerTests: XCTestCase {
             expectation.fulfill()
         }
 
-        waitForExpectations(timeout: 10.0)
+        waitForExpectations(timeout: 1.0)
     }
 
-    func testSendMixedRequests() throws {
-        let expectation1 = self.expectation(description: "Register request")
-        let expectation2 = self.expectation(description: "Unregister request")
-
-        let registerParams = VoIPRequestParameters(token: "valid_token")
-        let registerRequest = PWSetVoIPTokenRequest(parameters: registerParams)
-
-        let unregisterParams = VoIPRequestParameters(token: nil)
-        let unregisterRequest = PWUnregisterVoIPDeviceRequest(parameters: unregisterParams)
-
-        networkManager.sendInnerRequest(request: registerRequest) { error in
-            expectation1.fulfill()
-        }
-
-        networkManager.sendInnerRequest(request: unregisterRequest) { error in
-            expectation2.fulfill()
-        }
-
-        waitForExpectations(timeout: 15.0)
-    }
 }

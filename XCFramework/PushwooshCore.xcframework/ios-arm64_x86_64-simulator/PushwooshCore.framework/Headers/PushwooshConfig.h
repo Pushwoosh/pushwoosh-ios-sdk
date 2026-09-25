@@ -2626,6 +2626,17 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 + (void)handlePushRegistrationFailure:(NSError *_Nonnull)error;
 
 /**
+ Turns the SDK's own pick-up of the APNs device token on or off (default `YES`, kept across launches).
+ Info.plist key `Pushwoosh_AUTO_DEVICE_TOKEN_REGISTRATION` sets the initial value; `handlePushRegistration:` still works with it off.
+ */
++ (void)setAutoDeviceTokenRegistrationEnabled:(BOOL)enabled;
+
+/**
+ Tells whether the SDK picks up the APNs device token itself when the app does not pass it through `handlePushRegistration:`.
+ */
++ (BOOL)isAutoDeviceTokenRegistrationEnabled;
+
+/**
  Handles a received push notification.
 
  @discussion

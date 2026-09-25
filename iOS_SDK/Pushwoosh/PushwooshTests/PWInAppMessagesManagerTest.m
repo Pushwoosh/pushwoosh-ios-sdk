@@ -9,6 +9,7 @@
 
 - (void)setUserId:(NSString *)userId completion:(void(^)(NSError * error))completion;
 - (void)registerEmailUser:(NSString *)email userId:(NSString *)userId;
++ (NSDictionary *)richMediaDescriptorFrom:(id)rawRichMedia;
 
 @end
 
@@ -82,6 +83,58 @@
     XCTAssertNil(request.richMediaCode);
 
     [mockPWTriggerInAppActionRequest stopMocking];
+}
+
+#pragma mark - richMediaDescriptorFrom
+
+/// Verifies that a dictionary rm value is returned unchanged.
+- (void)testRichMediaDescriptorFrom_dictionary_returnsSameDictionary {
+    NSDictionary *rm = @{ @"url" : @"https://richmedia.pushwoosh.com/0/6/06883-1BC29.zip", @"ts" : @"1784034924" };
+
+    NSDictionary *result = [PWInAppMessagesManager richMediaDescriptorFrom:rm];
+
+    XCTAssertEqualObjects(result, rm);
+}
+
+/// Verifies that a zip URL string with a ts query item becomes a descriptor carrying that ts.
+- (void)testRichMediaDescriptorFrom_urlStringWithTs_returnsDescriptorWithTs {
+    NSString *url = @"https://richmedia.pushwoosh.com/0/6/06883-1BC29.zip?ts=1784034924";
+
+    NSDictionary *result = [PWInAppMessagesManager richMediaDescriptorFrom:url];
+
+    XCTAssertEqualObjects(result, (@{ @"url" : url, @"ts" : @"1784034924" }));
+}
+
+/// Verifies that a zip URL string without a ts query item gets ts "0".
+- (void)testRichMediaDescriptorFrom_urlStringWithoutTs_returnsDescriptorWithZeroTs {
+    NSString *url = @"https://richmedia.pushwoosh.com/0/6/06883-1BC29.zip";
+
+    NSDictionary *result = [PWInAppMessagesManager richMediaDescriptorFrom:url];
+
+    XCTAssertEqualObjects(result, (@{ @"url" : url, @"ts" : @"0" }));
+}
+
+/// Verifies that a JSON object string is parsed into a dictionary.
+- (void)testRichMediaDescriptorFrom_jsonString_returnsParsedDictionary {
+    NSString *json = @"{\"url\":\"https://richmedia.pushwoosh.com/0/6/06883-1BC29.zip\",\"ts\":\"1784034924\"}";
+
+    NSDictionary *result = [PWInAppMessagesManager richMediaDescriptorFrom:json];
+
+    XCTAssertEqualObjects(result, (@{ @"url" : @"https://richmedia.pushwoosh.com/0/6/06883-1BC29.zip", @"ts" : @"1784034924" }));
+}
+
+/// Verifies that a string without a host is returned as-is so the caller's type check rejects it.
+- (void)testRichMediaDescriptorFrom_nonUrlString_returnsSameString {
+    NSString *raw = @"not-a-url";
+
+    id result = [PWInAppMessagesManager richMediaDescriptorFrom:raw];
+
+    XCTAssertEqualObjects(result, raw);
+}
+
+/// Verifies that nil input yields nil.
+- (void)testRichMediaDescriptorFrom_nil_returnsNil {
+    XCTAssertNil([PWInAppMessagesManager richMediaDescriptorFrom:nil]);
 }
 
 @end

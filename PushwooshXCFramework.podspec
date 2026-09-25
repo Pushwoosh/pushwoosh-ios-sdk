@@ -5,7 +5,7 @@
 Pod::Spec.new do |s|
 
   s.name         = "PushwooshXCFramework"
-  s.version      = "7.2.6"
+  s.version      = "7.2.7"
   s.summary      = "Push notifications library by Pushwoosh."
 
   s.description  = "Push notifications iOS library by Pushwoosh - cross platform push notifications service. " \
@@ -20,8 +20,8 @@ Pod::Spec.new do |s|
   s.requires_arc = true
   s.xcconfig = { 'OTHER_LDFLAGS' => '-ObjC' }
   s.default_subspec = 'Core'
-  s.ios.deployment_target = "13.0"
-  s.tvos.deployment_target = "12.0"
+  s.ios.deployment_target = "15.0"
+  s.tvos.deployment_target = "15.0"
 
   # Core Subspec
   s.subspec 'Core' do |core|
@@ -58,7 +58,7 @@ Pod::Spec.new do |s|
     inboxkit.dependency 'PushwooshXCFramework/PushwooshCore'
     inboxkit.dependency 'PushwooshXCFramework/PushwooshBridge'
     inboxkit.frameworks = 'UIKit'
-    inboxkit.ios.deployment_target = "13.0"
+    inboxkit.ios.deployment_target = "15.0"
     inboxkit.ios.vendored_frameworks = 'XCFramework/PushwooshInboxKit.xcframework'
   end
 
@@ -67,14 +67,14 @@ Pod::Spec.new do |s|
     inapp.dependency 'PushwooshXCFramework/PushwooshCore'
     inapp.dependency 'PushwooshXCFramework/PushwooshBridge'
     inapp.frameworks = 'UIKit', 'AVFoundation'
-    inapp.ios.deployment_target = "13.0"
+    inapp.ios.deployment_target = "15.0"
     inapp.ios.vendored_frameworks = 'XCFramework/PushwooshInApp.xcframework'
   end
 
   # PushwooshNotificationUI subspec (optional, standalone — no Pushwoosh dependencies)
   s.subspec 'PushwooshNotificationUI' do |notificationui|
     notificationui.frameworks = 'UIKit', 'UserNotifications', 'UserNotificationsUI'
-    notificationui.ios.deployment_target = "13.0"
+    notificationui.ios.deployment_target = "15.0"
     notificationui.ios.vendored_frameworks = 'XCFramework/PushwooshNotificationUI.xcframework'
   end
 
@@ -90,7 +90,7 @@ Pod::Spec.new do |s|
     tvos.dependency 'PushwooshXCFramework/PushwooshCore'
     tvos.dependency 'PushwooshXCFramework/PushwooshBridge'
     tvos.tvos.vendored_frameworks = 'XCFramework/PushwooshTVOS.xcframework'
-    tvos.tvos.deployment_target = "12.0"
+    tvos.tvos.deployment_target = "15.0"
   end
 
   # PushwooshForegroundPush subspec (optional)

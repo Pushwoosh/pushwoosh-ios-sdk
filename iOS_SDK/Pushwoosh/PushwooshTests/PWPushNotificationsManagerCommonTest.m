@@ -31,6 +31,8 @@ static BOOL isBackground;
 
 - (void)sendDevTokenToServer:(NSString *)deviceID;
 - (NSURL *)deepLinkUrlForUserInfo:(NSDictionary *)userInfo;
+- (BOOL)presentRichContentForUserInfo:(NSDictionary *)userInfo;
+- (void)openDeepLinkForUserInfo:(NSDictionary *)userInfo;
 
 @end
 
@@ -190,6 +192,20 @@ static BOOL isBackground;
     [mockPWRequestManager stopMocking];
 }
 
+/// Verifies that every device token handed to the manager is counted, whichever entry point delivered it.
+- (void)testPushRegistrationCountGrowsWithEveryDelivery {
+    PWPushNotificationsManagerCommon *notificationManager = [[PWPushNotificationsManagerCommon alloc] init];
+    id mockPWRequestManager = OCMPartialMock([notificationManager requestManager]);
+    OCMStub([mockPWRequestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]);
+
+    [notificationManager handlePushRegistration:[@"token" dataUsingEncoding:NSUTF8StringEncoding]];
+    [notificationManager handlePushRegistrationString:@"746f6b656e"];
+
+    XCTAssertEqual(notificationManager.pushRegistrationCount, 2);
+
+    [mockPWRequestManager stopMocking];
+}
+
 /// Verifies that unregisterForPushNotificationsWithCompletion clears the persisted push token.
 - (void)testUnregisterDeviceWithCompletion {
     PWPushNotificationsManagerCommon *notificationManager = [[PWPushNotificationsManagerCommon alloc] init];
@@ -287,6 +303,43 @@ static BOOL isBackground;
                           [NSURL URLWithString:@"https://example.com"]);
 
     [acceptingConfig stopMocking];
+}
+
+/// Verifies that an inbox card performs one destination: rich media wins and the `l` deep link
+/// stays closed, so a tap cannot open two places at once.
+- (void)testInboxActionPerformsRichMediaWithoutTheDeepLink {
+    id managerMock = OCMPartialMock(_pushManager);
+    OCMStub([managerMock presentRichContentForUserInfo:OCMOCK_ANY]).andReturn(YES);
+    OCMReject([managerMock openDeepLinkForUserInfo:OCMOCK_ANY]);
+
+    [_pushManager processInboxActionUserInfo:@{ @"rm" : @{ @"code" : @"RM-1" }, @"l" : @"https://example.com" }];
+
+    OCMVerify([managerMock presentRichContentForUserInfo:OCMOCK_ANY]);
+    [managerMock stopMocking];
+}
+
+/// Verifies that without rich content the inbox card falls through to its deep link.
+- (void)testInboxActionOpensTheDeepLinkWhenThereIsNoRichContent {
+    id managerMock = OCMPartialMock(_pushManager);
+    OCMStub([managerMock presentRichContentForUserInfo:OCMOCK_ANY]).andReturn(NO);
+
+    [_pushManager processInboxActionUserInfo:@{ @"l" : @"https://example.com" }];
+
+    OCMVerify([managerMock openDeepLinkForUserInfo:OCMOCK_ANY]);
+    [managerMock stopMocking];
+}
+
+/// Verifies that a plain push keeps doing both, unlike an inbox card: the split must not change
+/// what notifications did before.
+- (void)testPushActionStillPerformsRichMediaAndTheDeepLink {
+    id managerMock = OCMPartialMock(_pushManager);
+    OCMStub([managerMock presentRichContentForUserInfo:OCMOCK_ANY]).andReturn(YES);
+
+    [_pushManager processActionUserInfo:@{ @"rm" : @{ @"code" : @"RM-1" }, @"l" : @"https://example.com" }];
+
+    OCMVerify([managerMock presentRichContentForUserInfo:OCMOCK_ANY]);
+    OCMVerify([managerMock openDeepLinkForUserInfo:OCMOCK_ANY]);
+    [managerMock stopMocking];
 }
 
 @end

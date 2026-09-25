@@ -27,7 +27,6 @@
 
 static IMP pw_original_setApplicationIconBadgeNumber_Imp;
 static IMP pw_original_didReceiveRemoteNotification_Imp;
-static IMP pw_original_didRegisterForRemoteNotificationWithDeviceToken_Imp;
 static IMP pw_original_didFailToRegisterForRemoteNotificationsWithError_Imp;
 static IMP pw_original_didReceiveRemoteNotificationWithUserInfo_Imp;
 static IMP pw_original_didFinishLaunchingWithOptionsExtension;
@@ -38,6 +37,7 @@ static IMP pw_original_didFinishLaunchingWithOptions;
 - (BOOL)application:(UIApplication *)application pw_openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 - (BOOL)application:(UIApplication *)application pw_openURL:(NSURL *)url options:(NSDictionary<NSString *, id> *)options;
 - (BOOL)application:(UIApplication *)application pw_handleOpenURL:(NSURL *)url;
+- (void)application:(UIApplication *)application pw_didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
 
 - (id)getPushwooshDelegate;
 - (BOOL)pushwooshUseRuntimeMagic;  //use runtime to handle default push notifications callbacks (used in plugins)
@@ -248,6 +248,10 @@ static BOOL openURLSwizzled = NO;
 
     [self swizzle_didFinishLaunchingWithOptionsForExtensionRequest:[delegate class]];
 
+    /// Before the gate below: a device token has to reach the SDK in every integration,
+    /// not only in plugins and in apps that opted into the rest of the runtime magic.
+    [PWPushRuntime swizzleDeviceTokenHandlerForDelegateClass:[delegate class]];
+
     //override runtime functions only if requested (used in plugins or by user decision)
     if (![[UIApplication sharedApplication] respondsToSelector:@selector(pushwooshUseRuntimeMagic)] && !useRuntime) {
         [self pw_swizzleOpenURLMethods:[delegate class]];
@@ -269,7 +273,6 @@ static BOOL openURLSwizzled = NO;
     Class delegateClass = [delegate class];
 
     [self swizzle_didFinishLaunchingWithOptions:delegateClass];
-    [self swizzle_didRegisterForRemoteNotificationsWithDeviceToken:delegateClass];
     [self swizzle_didFailToRegisterForRemoteNotificationsWithError:delegateClass];
     [self swizzle_didReceiveRemoteNotification:delegateClass];
     [self swizzle_didReceiveRemoteNotificationWithFetchBlock:delegateClass];
@@ -309,13 +312,31 @@ static BOOL openURLSwizzled = NO;
 }
 
 void _replacement_didRegisterForRemoteNotificationWithToken(id self, SEL _cmd, UIApplication *application, NSData *deviceToken) {
-    if ([self respondsToSelector:@selector(application:didRegisterForRemoteNotificationsWithDeviceToken:)]) {
-        ((void(*)(id, SEL, UIApplication*, NSData*))pw_original_didRegisterForRemoteNotificationWithDeviceToken_Imp)(self, _cmd, application, deviceToken);
+    SEL original = @selector(application:pw_didRegisterForRemoteNotificationsWithDeviceToken:);
+    NSUInteger registrationsBefore = [[PWManagerBridge shared] pushRegistrationCount];
+
+    if ([self respondsToSelector:original]) {
+        ((void(*)(id, SEL, UIApplication *, NSData *))objc_msgSend)(self, original, application, deviceToken);
+    } else {
+        /// A forwarding wrapper (SwiftUI's @UIApplicationDelegateAdaptor) owns no real method, and
+        /// our method stops the runtime asking it anything — so ask where the message belonged.
+        id target = [self forwardingTargetForSelector:_cmd];
+
+        if (target && target != self && [target respondsToSelector:_cmd]) {
+            ((void(*)(id, SEL, UIApplication *, NSData *))objc_msgSend)(target, _cmd, application, deviceToken);
+        }
     }
 
-    if ([[PWPreferences preferences] hasAppCode]) {
-        [[PWManagerBridge shared] handlePushRegistration:deviceToken];
-    }
+    /// A plugin swizzle wrapped around this hook, or the app hopping to the main queue, hands the token
+    /// over only after this call returns; one main-queue turn later the counter shows whether anyone did.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL tokenAlreadyDelivered = [[PWManagerBridge shared] pushRegistrationCount] != registrationsBefore;
+        BOOL autoRegistrationOn = [[PWPreferences preferences] isAutoDeviceTokenRegistrationEnabled];
+
+        if (autoRegistrationOn && [[PWPreferences preferences] hasAppCode] && !tokenAlreadyDelivered) {
+            [[PWManagerBridge shared] handlePushRegistration:deviceToken];
+        }
+    });
 }
 
 
@@ -397,11 +418,6 @@ void _replacement_setApplicationIconBadgeNumber(UIApplication * self, SEL _cmd, 
     [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:@"Initializing application runtime"];
 }
 
-- (void)swizzle_didRegisterForRemoteNotificationsWithDeviceToken:(Class)delegateClass {
-    Method originalMethod = class_getInstanceMethod(delegateClass, @selector(application:didRegisterForRemoteNotificationsWithDeviceToken:));
-    pw_original_didRegisterForRemoteNotificationWithDeviceToken_Imp = method_setImplementation(originalMethod, (IMP)_replacement_didRegisterForRemoteNotificationWithToken);
-}
-
 - (void)swizzle_didFailToRegisterForRemoteNotificationsWithError:(Class)delegateClass {
     Method originalMethod = class_getInstanceMethod(delegateClass, @selector(application:didFailToRegisterForRemoteNotificationsWithError:));
     pw_original_didFailToRegisterForRemoteNotificationsWithError_Imp = method_setImplementation(originalMethod, (IMP)_replacement_didFailToRegisterForRemoteNotificationsWithError);
@@ -415,6 +431,28 @@ void _replacement_setApplicationIconBadgeNumber(UIApplication * self, SEL _cmd, 
 @end
 
 @implementation PWPushRuntime
+
+static const void *kPWTokenSwizzleMark = &kPWTokenSwizzleMark;
+
++ (void)swizzleDeviceTokenHandlerForDelegateClass:(Class)delegateClass {
+    if (delegateClass == nil) {
+        return;
+    }
+
+    @synchronized (self) {
+        if (objc_getAssociatedObject(delegateClass, kPWTokenSwizzleMark)) {
+            return;
+        }
+
+        [PWUtils swizzle:delegateClass
+            fromSelector:@selector(application:didRegisterForRemoteNotificationsWithDeviceToken:)
+              toSelector:@selector(application:pw_didRegisterForRemoteNotificationsWithDeviceToken:)
+          implementation:(IMP)_replacement_didRegisterForRemoteNotificationWithToken
+            typeEncoding:"v@:@@"];
+
+        objc_setAssociatedObject(delegateClass, kPWTokenSwizzleMark, @YES, OBJC_ASSOCIATION_RETAIN);
+    }
+}
 
 #if TARGET_OS_IOS
 BOOL dynamicDidRegisterUserNotificationSettings(id self, SEL _cmd, id application, id notificationSettings) {

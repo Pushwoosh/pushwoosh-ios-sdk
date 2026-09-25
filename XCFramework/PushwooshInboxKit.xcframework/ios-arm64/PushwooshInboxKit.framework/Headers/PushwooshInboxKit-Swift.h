@@ -432,6 +432,7 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 - (void)setErrorImage:(UIImage * _Nullable)image;
 - (void)setDateFormatter:(NSString * _Nonnull (^ _Nonnull)(NSDate * _Nonnull))block;
 - (void)setAutomaticReadOnDisappear:(BOOL)enabled;
+- (void)setAutomaticReadOnDisplay:(BOOL)enabled;
 - (void)setSwipeToDeleteEnabled:(BOOL)enabled;
 - (void)setEnableDarkTheme:(BOOL)enabled;
 - (void)setPinningEnabled:(BOOL)enabled;
@@ -487,6 +488,9 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 - (NSInteger)numberOfSectionsInTableView:(UITableView * _Nonnull)tableView SWIFT_WARN_UNUSED_RESULT;
 - (NSInteger)tableView:(UITableView * _Nonnull)tableView numberOfRowsInSection:(NSInteger)section SWIFT_WARN_UNUSED_RESULT;
 - (UITableViewCell * _Nonnull)tableView:(UITableView * _Nonnull)tableView cellForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;
+- (void)scrollViewDidEndDecelerating:(UIScrollView * _Nonnull)scrollView;
+- (void)scrollViewDidEndDragging:(UIScrollView * _Nonnull)scrollView willDecelerate:(BOOL)decelerate;
+- (void)scrollViewDidScrollToTop:(UIScrollView * _Nonnull)scrollView;
 - (void)tableView:(UITableView * _Nonnull)tableView willDisplayCell:(UITableViewCell * _Nonnull)cell forRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (void)tableView:(UITableView * _Nonnull)tableView didSelectRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath;
 - (UISwipeActionsConfiguration * _Nullable)tableView:(UITableView * _Nonnull)tableView trailingSwipeActionsConfigurationForRowAtIndexPath:(NSIndexPath * _Nonnull)indexPath SWIFT_WARN_UNUSED_RESULT;

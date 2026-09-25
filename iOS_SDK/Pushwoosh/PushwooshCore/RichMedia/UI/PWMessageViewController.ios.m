@@ -80,6 +80,10 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
 
     __weak typeof (self) wself = self;
 
+    _richMediaView.contentSizeDidChangeBlock = ^{
+        [wself repositionRichMediaView];
+    };
+
     NSString *isDebug = [[NSBundle mainBundle] objectForInfoDictionaryKey:@"Pushwoosh_DEBUG"];
     dispatch_block_t block = ^{
         [_richMediaView loadRichMedia:_richMedia completion:^(NSError *error) {
@@ -247,27 +251,48 @@ extern const CGFloat PWRichMediaStyleDefaultAnimationDuration;
     return appeared && self.richMediaStyle.shouldHideStatusBar;
 }
 
+- (void)repositionRichMediaView {
+    IAResourcePresentationStyle style = _richMedia.resource.presentationStyle;
+    if (style != IAResourcePresentationCenter && style != IAResourcePresentationBottomBanner) {
+        return;
+    }
+
+    CGFloat contentHeight = _richMediaView.contentSize.height;
+    if (contentHeight <= 1.0) {
+        return;
+    }
+
+    CGRect frame = _richMediaView.webClient.webView.frame;
+    frame.origin = CGPointMake(0.0, [PWMessageViewController originYForPresentationStyle:style
+                                                                            contentHeight:contentHeight
+                                                                          containerHeight:self.view.frame.size.height]);
+    _richMediaView.webClient.webView.frame = frame;
+}
+
++ (CGFloat)originYForPresentationStyle:(IAResourcePresentationStyle)style
+                         contentHeight:(CGFloat)contentHeight
+                       containerHeight:(CGFloat)containerHeight {
+    if (style == IAResourcePresentationCenter) {
+        return containerHeight / 2.0 - contentHeight / 2.0;
+    }
+    if (style == IAResourcePresentationBottomBanner) {
+        return containerHeight - contentHeight;
+    }
+    return 0.0;
+}
+
 - (void)didLoadRichMediaView {
     if (_webContentLoaded) { //For some reason this method could be called several times for single Rich Media. Possibly because of iframe container.
         return;
     }
     _webContentLoaded = YES;
 
-    if (_richMedia.resource.presentationStyle != IAResourcePresentationFullScreen && _richMedia.resource.presentationStyle != IAResourcePresentationTopBanner) {
-        CGRect frame = _richMediaView.webClient.webView.frame;
-        CGFloat height = _richMediaView.contentSize.height;
-
-        if (height > 1.0) {
-            if (_richMedia.resource.presentationStyle == IAResourcePresentationCenter) {
-                frame.origin = CGPointMake(0.0, self.view.frame.size.height / 2.0 - height / 2.0);
-            } else if (_richMedia.resource.presentationStyle == IAResourcePresentationBottomBanner) {
-                frame.origin = CGPointMake(0.0, self.view.frame.size.height - height);
-            }
+    if (_richMedia.resource.presentationStyle == IAResourcePresentationCenter || _richMedia.resource.presentationStyle == IAResourcePresentationBottomBanner) {
+        if (_richMediaView.contentSize.height > 1.0) {
+            [self repositionRichMediaView];
         } else {
-            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Inapp measurement failed"];
+            [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Rich media content size is not ready yet, will reposition when WebKit reports it"];
         }
-
-        _richMediaView.webClient.webView.frame = frame;
     }
 
     if (_closeButtonTimerExpired) {

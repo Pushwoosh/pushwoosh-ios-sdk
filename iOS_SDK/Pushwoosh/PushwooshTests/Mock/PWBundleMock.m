@@ -23,6 +23,8 @@
         return @(_allowCollectingEvents);
     } else if ([key isEqualToString:@"Pushwoosh_PLUGIN_NOTIFICATION_HANDLER"] && _pluginNotificationHandlerSet) {
         return @(_pluginNotificationHandler);
+    } else if ([key isEqualToString:@"Pushwoosh_AUTO_DEVICE_TOKEN_REGISTRATION"] && _autoDeviceTokenRegistrationSet) {
+        return @(_autoDeviceTokenRegistration);
     } else if ([key isEqualToString:@"Pushwoosh_APPID"]) {
         return _appIdRaw ?: _appId;
     } else if ([key isEqualToString:@"PW_API_TOKEN"]) {
@@ -43,6 +45,8 @@
         return _logLevel;
     } else if ([key isEqualToString:@"Pushwoosh_RICH_MEDIA_STYLE"]) {
         return _richMediaStyle;
+    } else if ([key isEqualToString:@"Pushwoosh_RICH_MEDIA_COLOR_SCHEME"]) {
+        return _richMediaColorScheme;
     } else {
         return [[NSBundle mainBundle] objectForInfoDictionaryKey:key];
     }

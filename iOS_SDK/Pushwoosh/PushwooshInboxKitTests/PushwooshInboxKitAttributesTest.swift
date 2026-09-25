@@ -30,6 +30,11 @@ class PushwooshInboxKitAttributesTest: XCTestCase {
         XCTAssertTrue(attributes.cells["hero"] == HeroCell.self)
     }
 
+    /// Verifies that marking displayed messages as read is enabled by default.
+    func testAutomaticReadOnDisplayDefaultsToTrue() {
+        XCTAssertTrue(PushwooshInboxKitAttributes().automaticReadOnDisplay)
+    }
+
     /// Verifies that the transform closure is applied before publishing the data set.
     func testTransformIsAppliedBeforeReload() {
         var attributes = PushwooshInboxKitAttributes()

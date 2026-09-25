@@ -197,7 +197,7 @@
 - (void)testJsLiteralKeepsPlainValuesUnchanged {
     XCTAssertEqualObjects([PWWebClient pw_jsLiteralForString:@"user@example.com"], @"\"user@example.com\"");
     XCTAssertEqualObjects([PWWebClient pw_jsLiteralForString:@"r-abc123"], @"\"r-abc123\"");
-    XCTAssertEqualObjects([PWWebClient pw_jsLiteralForString:@"Пользователь"], @"\"Пользователь\"");
+    XCTAssertEqualObjects([PWWebClient pw_jsLiteralForString:@"Héllo wörld"], @"\"Héllo wörld\"");
     XCTAssertEqualObjects([PWWebClient pw_jsLiteralForString:@""], @"\"\"");
     XCTAssertEqualObjects([PWWebClient pw_jsLiteralForString:nil], @"\"\"");
 }

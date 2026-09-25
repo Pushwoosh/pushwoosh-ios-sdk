@@ -1,6 +1,6 @@
 // swift-interface-format-version: 1.0
 // swift-compiler-version: Apple Swift version 5.10 (swiftlang-5.10.0.13 clang-1500.3.9.4)
-// swift-module-flags: -target arm64-apple-ios13.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PushwooshInboxKit
+// swift-module-flags: -target arm64-apple-ios15.0-simulator -enable-objc-interop -enable-library-evolution -swift-version 5 -enforce-exclusivity=checked -O -enable-bare-slash-regex -module-name PushwooshInboxKit
 import AVFoundation
 import AVKit
 import CoreImage
@@ -37,6 +37,7 @@ public struct PushwooshInboxKitAttributes {
     }
   }
   public var automaticReadOnDisappear: Swift.Bool
+  public var automaticReadOnDisplay: Swift.Bool
   public var enableDarkTheme: Swift.Bool
   public var pullToRefreshEnabled: Swift.Bool
   public var swipeToDeleteEnabled: Swift.Bool
@@ -149,6 +150,7 @@ extension PushwooshInboxKit.PushwooshInboxKitDelegate {
   @objc @_Concurrency.MainActor(unsafe) public func setErrorImage(_ image: UIKit.UIImage?)
   @objc @_Concurrency.MainActor(unsafe) public func setDateFormatter(_ block: @escaping (Foundation.Date) -> Swift.String)
   @objc @_Concurrency.MainActor(unsafe) public func setAutomaticReadOnDisappear(_ enabled: Swift.Bool)
+  @objc @_Concurrency.MainActor(unsafe) public func setAutomaticReadOnDisplay(_ enabled: Swift.Bool)
   @objc @_Concurrency.MainActor(unsafe) public func setSwipeToDeleteEnabled(_ enabled: Swift.Bool)
   @objc @_Concurrency.MainActor(unsafe) public func setEnableDarkTheme(_ enabled: Swift.Bool)
   @objc @_Concurrency.MainActor(unsafe) public func setPinningEnabled(_ enabled: Swift.Bool)
@@ -169,6 +171,9 @@ extension PushwooshInboxKit.PushwooshInboxKitViewController : UIKit.UITableViewD
   @_Concurrency.MainActor(unsafe) @objc dynamic public func numberOfSections(in tableView: UIKit.UITableView) -> Swift.Int
   @_Concurrency.MainActor(unsafe) @objc dynamic public func tableView(_ tableView: UIKit.UITableView, numberOfRowsInSection section: Swift.Int) -> Swift.Int
   @_Concurrency.MainActor(unsafe) @objc dynamic public func tableView(_ tableView: UIKit.UITableView, cellForRowAt indexPath: Foundation.IndexPath) -> UIKit.UITableViewCell
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func scrollViewDidEndDecelerating(_ scrollView: UIKit.UIScrollView)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func scrollViewDidEndDragging(_ scrollView: UIKit.UIScrollView, willDecelerate decelerate: Swift.Bool)
+  @_Concurrency.MainActor(unsafe) @objc dynamic public func scrollViewDidScrollToTop(_ scrollView: UIKit.UIScrollView)
   @_Concurrency.MainActor(unsafe) @objc dynamic public func tableView(_ tableView: UIKit.UITableView, willDisplay cell: UIKit.UITableViewCell, forRowAt indexPath: Foundation.IndexPath)
   @_Concurrency.MainActor(unsafe) @objc dynamic public func tableView(_ tableView: UIKit.UITableView, didSelectRowAt indexPath: Foundation.IndexPath)
   @_Concurrency.MainActor(unsafe) @objc dynamic public func tableView(_ tableView: UIKit.UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: Foundation.IndexPath) -> UIKit.UISwipeActionsConfiguration?

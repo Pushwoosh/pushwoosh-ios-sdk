@@ -13,4 +13,7 @@
 
 + (void)swizzleNotificationSettingsHandler;
 
+/// Installs the device token hook on `delegateClass` once; a repeated call for the same class is a no-op.
++ (void)swizzleDeviceTokenHandlerForDelegateClass:(Class)delegateClass;
+
 @end

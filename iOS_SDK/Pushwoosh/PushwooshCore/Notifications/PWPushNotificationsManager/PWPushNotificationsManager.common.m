@@ -61,6 +61,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 
 @property (nonatomic) NSString *trackingAppCode;
 @property (nonatomic) NSString *pendingPushToken;
+@property (nonatomic, readwrite) NSUInteger pushRegistrationCount;
 
 @end
 
@@ -334,12 +335,14 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (void)handlePushRegistrationString:(NSString *)deviceID {
+    self.pushRegistrationCount += 1;
     [PWPreferences preferences].pushToken = deviceID;
 
     [self sendDevTokenToServer:deviceID];
 }
 
 - (void)handlePushRegistration:(NSData *)devToken {
+    self.pushRegistrationCount += 1;
     NSMutableString *deviceID = [NSMutableString stringWithCapacity:devToken.length];
     const uint8_t *tokenDataPtr = (const uint8_t *)devToken.bytes;
 
@@ -384,21 +387,41 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (void)processActionUserInfo:(NSDictionary *)userInfo {
+    [self presentRichContentForUserInfo:userInfo];
+    [self openDeepLinkForUserInfo:userInfo];
+}
+
+- (void)processInboxActionUserInfo:(NSDictionary *)userInfo {
+    if ([self presentRichContentForUserInfo:userInfo]) {
+        return;
+    }
+    [self openDeepLinkForUserInfo:userInfo];
+}
+
+/// Returns YES when a rich destination was presented, so a caller that allows only one
+/// destination knows to stop.
+- (BOOL)presentRichContentForUserInfo:(NSDictionary *)userInfo {
     NSString *htmlPageId = [userInfo pw_stringForKey:@"h"];
-    NSString *linkUrl = [userInfo pw_stringForKey:@"l"];
     NSString *customHtmlPageId = [userInfo pw_stringForKey:@"r"];
     NSDictionary *richMedia = userInfo[@"rm"];
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
     if (htmlPageId) {
         [[PWManagerBridge shared].richPushManager showPushPage:htmlPageId];
+        return YES;
     } else if (customHtmlPageId) {
         [[PWManagerBridge shared].richPushManager showCustomPushPageWithURLString:customHtmlPageId];
+        return YES;
     } else if (richMedia) {
         [[PWManagerBridge shared].inAppMessagesManager presentRichMediaFromPush:userInfo];
+        return YES;
     }
 #endif
 
+    return NO;
+}
+
+- (void)openDeepLinkForUserInfo:(NSDictionary *)userInfo {
     NSURL *deepLink = [self deepLinkUrlForUserInfo:userInfo];
     if (deepLink) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{

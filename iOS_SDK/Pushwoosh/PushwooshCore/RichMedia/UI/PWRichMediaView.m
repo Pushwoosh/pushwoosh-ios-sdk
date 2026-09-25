@@ -15,6 +15,7 @@
 #import "PWPushwooshJSBridge.h"
 #import "PWRichMediaManager.h"
 #import "PWRichMedia+Internal.h"
+#import "PWRichMediaColorSchemeResolver.h"
 
 @interface PWRichMediaView ()
 
@@ -26,6 +27,7 @@
 
 - (instancetype)initWithFrame:(CGRect)frame payload:(NSDictionary *)payload code:(NSString *)code inAppCode:(NSString *)inAppCode {
     if (self = [super initWithFrame:frame]) {
+        self.overrideUserInterfaceStyle = [PWRichMediaColorSchemeResolver resolvedInterfaceStyle];
         _webClient = [[PWWebClient alloc] initWithParentView:self payload:payload code:code inAppCode:inAppCode];
         _webClient.delegate = self;
 

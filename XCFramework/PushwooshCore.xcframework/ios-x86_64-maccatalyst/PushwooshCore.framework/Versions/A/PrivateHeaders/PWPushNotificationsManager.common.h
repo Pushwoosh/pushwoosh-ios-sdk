@@ -31,6 +31,9 @@
 - (BOOL)handlePushAccepted:(NSDictionary *)userInfo onStart:(BOOL)onStart;
 - (void)handlePushRegistration:(NSData *)devToken;
 
+/// How many device tokens were handed to the SDK in this process, by the app or by the runtime hook.
+@property (nonatomic, readonly) NSUInteger pushRegistrationCount;
+
 - (BOOL)isAppInBackground;
 
 - (NSString *)getCustomPushData:(NSDictionary *)pushNotification;
@@ -38,6 +41,10 @@
 - (NSDictionary *)getApnPayload:(NSDictionary *)pushNotification;
 
 - (void)processActionUserInfo:(NSDictionary *)userInfo;
+
+/// Same destinations, but only one of them: rich media wins over the `l` deep link.
+/// An inbox card is one tap with one outcome, while a push may legitimately do both.
+- (void)processInboxActionUserInfo:(NSDictionary *)userInfo;
 - (BOOL)dispatchInboxPushIfNeeded:(NSDictionary *)userInfo;
 
 + (void)clearNotificationCenter;

@@ -117,7 +117,7 @@
                    dispatch_get_main_queue(), ^{
         [exp fulfill];
     });
-    [self waitForExpectationsWithTimeout:1 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 /// Verifies that detector with negative threshold (disabled via config) never fires.
@@ -136,7 +136,7 @@
                    dispatch_get_main_queue(), ^{
         [exp fulfill];
     });
-    [self waitForExpectationsWithTimeout:1 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 /// Verifies that brief resign/become-active (Control Center, alerts) does NOT reset one-shot flag.

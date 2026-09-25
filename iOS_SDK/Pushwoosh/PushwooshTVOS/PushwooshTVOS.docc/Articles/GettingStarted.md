@@ -29,7 +29,7 @@ Modal Rich Media for tvOS provides interactive HTML-based content display optimi
         Add to your Podfile:
 
         ```ruby
-        platform :tvos, '11.0'
+        platform :tvos, '15.0'
         use_frameworks!
 
         target 'YourTVOSApp' do
@@ -54,7 +54,7 @@ Before you begin, ensure you have:
 - A Pushwoosh project set up in your account
 - A tvOS platform configured in your Pushwoosh project. We recommend using the Token-Based Authentication configuration as the simplest approach
 - Your Pushwoosh Application Code from the Control Panel
-- tvOS 11.0+ deployment target
+- tvOS 15.0+ deployment target
 - PushwooshFramework, PushwooshCore, and PushwooshBridge frameworks integrated in your project
 - SDK version 6.11.0 or higher
 

@@ -563,8 +563,32 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
 
+/// `rm` arrives as a dictionary from the push builder, but as a bare zip URL or a JSON string when it
+/// was set through root params; the URL form carries the timestamp as its `ts` query item.
++ (NSDictionary *)richMediaDescriptorFrom:(id)rawRichMedia {
+    if (![rawRichMedia isKindOfClass:[NSString class]]) {
+        return rawRichMedia;
+    }
+    NSString *string = [(NSString *)rawRichMedia stringByTrimmingCharactersInSet:[NSCharacterSet whitespaceAndNewlineCharacterSet]];
+    if ([string hasPrefix:@"{"]) {
+        id parsed = [NSJSONSerialization JSONObjectWithData:[string dataUsingEncoding:NSUTF8StringEncoding] options:0 error:nil];
+        return parsed;
+    }
+    NSURLComponents *components = [NSURLComponents componentsWithString:string];
+    if (!components.host.length) {
+        return rawRichMedia;
+    }
+    NSString *ts = nil;
+    for (NSURLQueryItem *item in components.queryItems) {
+        if ([item.name isEqualToString:@"ts"] && item.value.length) {
+            ts = item.value;
+        }
+    }
+    return @{ @"url" : string, @"ts" : ts ?: @"0" };
+}
+
 - (void)presentRichMediaFromPush:(NSDictionary *)userInfo {
-    NSDictionary *richMedia = userInfo[@"rm"];
+    NSDictionary *richMedia = [PWInAppMessagesManager richMediaDescriptorFrom:userInfo[@"rm"]];
 
     if (![richMedia isKindOfClass:[NSDictionary class]]) {
         [PushwooshLog pushwooshLog:PW_LL_ERROR

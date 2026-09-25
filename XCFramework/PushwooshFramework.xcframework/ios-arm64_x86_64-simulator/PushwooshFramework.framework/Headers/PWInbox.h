@@ -87,6 +87,19 @@ FOUNDATION_EXPORT NSString * const PWInboxMessagesDidReceiveInPushNotification;
 + (void)performActionForMessageWithCode:(NSString *)code;
 
 /**
+ Report that the user acted on a message, without running the message's own action.
+
+ Use this when the UI has already taken the user somewhere — an inline button or a
+ carousel slide carries its own URL and opens it itself. Calling
+ `performActionForMessageWithCode:` there would additionally run the message-level
+ action (`l` deep link, `rm` rich media), sending the user to a second, different
+ destination. This method sends the open (status 3) and nothing else.
+
+ @param code of the inboxMessage the user acted on
+ */
++ (void)reportActionForMessageWithCode:(NSString *)code;
+
+/**
  Call this method, when the user deletes the list of InboxMessageProtocol manually
 
  @param codes of the list of InboxMessageProtocol.code that the user deleted

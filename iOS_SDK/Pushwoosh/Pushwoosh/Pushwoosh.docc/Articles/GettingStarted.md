@@ -13,7 +13,7 @@ Before you begin, make sure you have:
 - A Pushwoosh account and application created
 - Apple Developer account with push notification certificate configured
 - Xcode 14.0 or later
-- iOS deployment target 11.0 or later
+- iOS deployment target 15.0 or later
 
 ## Installation
 

@@ -10,7 +10,7 @@ Before you begin, ensure you have:
 - A Pushwoosh project set up in your account
 - An iOS platform configured in your Pushwoosh project. We recommend using the Token-Based Authentication configuration as the simplest approach
 - Your Pushwoosh Application Code from the Control Panel
-- iOS 14.0+ deployment target
+- iOS 15.0+ deployment target
 - Pushwoosh SDK version 6.10.0 or higher
 - PushwooshFramework, PushwooshCore, and PushwooshBridge frameworks integrated in your project
 

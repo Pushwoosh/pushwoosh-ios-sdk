@@ -14,6 +14,7 @@
 - (NSTimeInterval)effectiveAnimationDurationForResource:(PWResource *)resource fallback:(NSTimeInterval)fallback;
 - (DismissModalWindowAnimation)animationDirectionForSwipeDirection:(UISwipeGestureRecognizerDirection)direction;
 - (BOOL)shouldShowCloseButtonForResource:(PWResource *)resource;
+- (void)setupModalWindowConstraintsInWindow:(UIWindow *)window;
 @end
 
 @interface PWModalWindowTest : XCTestCase
@@ -52,6 +53,84 @@
     self.settings = nil;
     self.modalWindow = nil;
     [super tearDown];
+}
+
+#pragma mark - resting geometry (SDK-988 parity)
+
+/// Position comes from safe-area constraints, the animation only drives `transform`.
+/// Android had the opposite: with NONE the window sat under the system bars.
+- (void)testRestingFrameIsTheSameForNoneAndFadeIn {
+    CGRect none = [self restingFrameForPresentAnimation:PWAnimationPresentNone
+                                               position:PWModalWindowPositionBottom];
+    CGRect fade = [self restingFrameForPresentAnimation:PWAnimationPresentFadeIn
+                                               position:PWModalWindowPositionBottom];
+
+    XCTAssertTrue(CGRectEqualToRect(none, fade),
+                  @"NONE landed at %@ and FADE_IN at %@", NSStringFromCGRect(none), NSStringFromCGRect(fade));
+}
+
+/// The bottom edge sits above the safe-area bottom, whatever the animation is.
+- (void)testBottomPositionRespectsTheSafeAreaUnderEveryAnimation {
+    UIWindow *window = [self windowWithRootController];
+    CGFloat safeBottom = CGRectGetHeight(window.bounds) - window.safeAreaInsets.bottom;
+
+    for (NSNumber *animation in @[@(PWAnimationPresentNone), @(PWAnimationPresentFadeIn), @(PWAnimationPresentSlideUp)]) {
+        CGRect frame = [self restingFrameForPresentAnimation:animation.integerValue
+                                                    position:PWModalWindowPositionBottom
+                                                    inWindow:window];
+        XCTAssertEqualWithAccuracy(CGRectGetMaxY(frame), safeBottom - 15, 0.5,
+                                   @"animation %@ put the bottom edge at %f", animation, CGRectGetMaxY(frame));
+    }
+}
+
+/// The top edge sits below the safe-area top, whatever the animation is.
+- (void)testTopPositionRespectsTheSafeAreaUnderEveryAnimation {
+    UIWindow *window = [self windowWithRootController];
+    CGFloat safeTop = window.safeAreaInsets.top;
+
+    for (NSNumber *animation in @[@(PWAnimationPresentNone), @(PWAnimationPresentDropDown)]) {
+        CGRect frame = [self restingFrameForPresentAnimation:animation.integerValue
+                                                    position:PWModalWindowPositionTop
+                                                    inWindow:window];
+        XCTAssertEqualWithAccuracy(CGRectGetMinY(frame), safeTop + 15, 0.5,
+                                   @"animation %@ put the top edge at %f", animation, CGRectGetMinY(frame));
+    }
+}
+
+- (UIWindow *)windowWithRootController {
+    UIWindow *window = [[UIWindow alloc] initWithFrame:CGRectMake(0, 0, 390, 844)];
+    UIViewController *root = [UIViewController new];
+    window.rootViewController = root;
+    [window makeKeyAndVisible];
+    // No insets are injected: `additionalSafeAreaInsets` on the root controller never reaches
+    // `window.safeAreaInsets`, so the natural insets of the destination are what gets measured.
+    [window layoutIfNeeded];
+    return window;
+}
+
+- (CGRect)restingFrameForPresentAnimation:(PresentModalWindowAnimation)animation
+                                 position:(ModalWindowPosition)position {
+    return [self restingFrameForPresentAnimation:animation position:position inWindow:[self windowWithRootController]];
+}
+
+- (CGRect)restingFrameForPresentAnimation:(PresentModalWindowAnimation)animation
+                                 position:(ModalWindowPosition)position
+                                 inWindow:(UIWindow *)window {
+    PWModalWindow *modal = [[PWModalWindow alloc] initWithFrame:CGRectZero];
+    PWModalWindowSettings *settings = [PWModalWindowSettings new];
+    settings.modalWindowPosition = position;
+    settings.presentAnimation = animation;
+    settings.dismissAnimation = PWAnimationDismissFadeOut;
+    settings.dismissSwipeDirections = @[@(PWSwipeDismissNone)];
+    settings.animationDuration = 0;
+    modal.settings = settings;
+    modal.translatesAutoresizingMaskIntoConstraints = NO;
+
+    [window addSubview:modal];
+    [NSLayoutConstraint activateConstraints:@[[modal.heightAnchor constraintEqualToConstant:400]]];
+    [modal setupModalWindowConstraintsInWindow:window];
+    [window layoutIfNeeded];
+    return modal.frame;
 }
 
 #pragma mark - effectivePresentAnimationForResource

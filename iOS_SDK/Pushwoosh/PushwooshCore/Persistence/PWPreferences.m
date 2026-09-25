@@ -41,6 +41,7 @@ static NSString *const KeyRegistrationEverOccured = @"PWRegistrationEverOccured"
 static NSString *const KeyLanguage = @"Pushwoosh_Language";
 static NSString *const KeyIsLoggerAvailable = @"Logger_available";
 static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_enabled";
+static NSString *const KeyIsAutoDeviceTokenRegistrationEnabled = @"Auto_device_token_registration_enabled";
 static NSString *const KeyAdvertisingId = @"PWAdvertisingId";
 static NSString *const KeyLastKnockTriggerTimestamp = @"PWKnockPatternDetectorLastTriggerTimestamp";
 static NSString *const KeyActiveApplication = @"Pushwoosh_ACTIVE_APPLICATION";
@@ -86,6 +87,7 @@ static BOOL _isInitializing = NO;
 @synthesize logLevel = _logLevel;
 @synthesize language = _language;
 @synthesize isServerCommunicationEnabled = _isServerCommunicationEnabled;
+@synthesize isAutoDeviceTokenRegistrationEnabled = _isAutoDeviceTokenRegistrationEnabled;
 @synthesize customTags = _customTags;
 @synthesize advertisingId = _advertisingId;
 @synthesize lastKnockTriggerTimestamp = _lastKnockTriggerTimestamp;
@@ -175,6 +177,12 @@ static BOOL _isInitializing = NO;
             _isServerCommunicationEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:KeyIsServerCommunicationEnabled];
         } else {
             _isServerCommunicationEnabled = [PWConfig config].allowServerCommunication;
+        }
+
+        if ([[NSUserDefaults standardUserDefaults] objectForKey:KeyIsAutoDeviceTokenRegistrationEnabled]) {
+            _isAutoDeviceTokenRegistrationEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:KeyIsAutoDeviceTokenRegistrationEnabled];
+        } else {
+            _isAutoDeviceTokenRegistrationEnabled = [PWConfig config].autoDeviceTokenRegistration;
         }
 
         _showForegroundNotifications = [PWConfig config].showAlert;
@@ -525,6 +533,20 @@ static BOOL _isInitializing = NO;
     }
 
     [[NSUserDefaults standardUserDefaults] setBool:isEnabled forKey:KeyIsServerCommunicationEnabled];
+}
+
+- (BOOL)isAutoDeviceTokenRegistrationEnabled {
+    @synchronized (_lock) {
+        return _isAutoDeviceTokenRegistrationEnabled;
+    }
+}
+
+- (void)setIsAutoDeviceTokenRegistrationEnabled:(BOOL)isEnabled {
+    @synchronized (_lock) {
+        _isAutoDeviceTokenRegistrationEnabled = isEnabled;
+    }
+
+    [[NSUserDefaults standardUserDefaults] setBool:isEnabled forKey:KeyIsAutoDeviceTokenRegistrationEnabled];
 }
 
 - (NSDate *)lastRegisterUserDate {

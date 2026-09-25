@@ -34,7 +34,13 @@ final class PushwooshInAppBackchannel: NSObject, PWInAppHandler {
                            onShown: (() -> Void)?,
                            onClicked: (() -> Void)?,
                            onClosed: (() -> Void)?) {
-        guard var message = PWInAppConfigParser.parse(config) else {
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async { [weak self] in
+                self?.handleInAppConfig(config, onShown: onShown, onClicked: onClicked, onClosed: onClosed)
+            }
+            return
+        }
+        guard var message = PWInAppConfigParser.parse(config, isDark: PWInAppDarkOverlay.isDarkNow()) else {
             return
         }
         message.onShown = onShown

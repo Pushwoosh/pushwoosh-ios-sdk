@@ -100,6 +100,10 @@ NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpda
     }
 }
 
+- (NSUInteger)pushRegistrationCount {
+    return self.pushNotificationManager.pushRegistrationCount;
+}
+
 - (void)handlePushRegistrationFailure:(NSError *)error {
     if (self.pushNotificationManager) {
         [self.pushNotificationManager handlePushRegistrationFailure:error];

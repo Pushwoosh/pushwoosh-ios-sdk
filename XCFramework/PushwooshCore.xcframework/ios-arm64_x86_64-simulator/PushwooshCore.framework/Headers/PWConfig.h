@@ -1,6 +1,7 @@
 #import <Foundation/Foundation.h>
 
 #import <PushwooshCore/PushwooshLog.h>
+#import <PushwooshCore/PWRichMediaTypes.h>
 
 typedef NS_ENUM(NSInteger, RichMediaStyleType) {
     PWRichMediaStyleTypeModal,
@@ -90,6 +91,12 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
 @property (nonatomic, assign, readonly) BOOL allowServerCommunication;
 
 /**
+ key: Pushwoosh_AUTO_DEVICE_TOKEN_REGISTRATION (boolean)
+ value: Lets the SDK pick up the APNs device token itself when the app does not pass it through handlePushRegistration (by default it does)
+ */
+@property (nonatomic, assign, readonly) BOOL autoDeviceTokenRegistration;
+
+/**
  key: Pushwoosh_ALLOW_COLLECTING_DEVICE_DATA
  type: boolean
  value: Allows the SDK to collect and to send device data (OS version status, locale and model) to the server (by default it is allowed)
@@ -171,6 +178,13 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
 @property (nonatomic, readonly) BOOL lazyInitialization;
 
 @property (nonatomic, assign) RichMediaStyleType richMediaStyle;
+
+/**
+ key: Pushwoosh_RICH_MEDIA_COLOR_SCHEME
+ values: APP | SYSTEM | LIGHT | DARK (case-insensitive), default APP.
+ A value set at runtime via `Pushwoosh.media.setRichMediaColorScheme(_:)` is persisted and takes precedence over Info.plist.
+ */
+@property (nonatomic, assign) PWRichMediaColorScheme richMediaColorScheme;
 
 /**
  key: Pushwoosh_PLUGIN_NOTIFICATION_HANDLER

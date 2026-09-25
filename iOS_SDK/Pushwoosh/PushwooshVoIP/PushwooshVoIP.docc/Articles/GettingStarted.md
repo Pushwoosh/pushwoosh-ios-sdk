@@ -45,7 +45,7 @@ Before you begin, ensure you have:
 - A separate VoIP Application created in your Pushwoosh project
 - Your Pushwoosh Application Code and VoIP Application Code from the Control Panel
 - VoIP Services Certificate (.p12) created in Apple Developer Portal
-- iOS 14.0+ deployment target
+- iOS 15.0+ deployment target
 - PushwooshFramework, PushwooshCore, and PushwooshBridge frameworks integrated in your project
 
 > **Important**: VoIP Applications are separate from regular push applications in Pushwoosh. You must create a dedicated VoIP Application and use its Application Code.

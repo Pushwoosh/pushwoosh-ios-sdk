@@ -93,13 +93,18 @@ open class PushwooshInboxCell: UITableViewCell {
             uiButton.titleLabel?.font = style.buttonFont
             uiButton.setTitleColor(resolvedTextColor, for: .normal)
             uiButton.setTitle(button.title, for: .normal)
+            // Without these the button is drawn and tappable but absent from the
+            // accessibility tree, so VoiceOver cannot reach it at all.
+            uiButton.isAccessibilityElement = true
+            uiButton.accessibilityLabel = button.title
+            uiButton.accessibilityTraits = .button
             uiButton.backgroundColor = resolvedBg
             uiButton.layer.cornerRadius = style.buttonCornerRadius
             uiButton.layer.cornerCurve = .continuous
-            // iOS 26: a Liquid Glass surface behind the title instead of a flat fill — the button
-            // shimmers with motion. The button still handles the tap (glass is decorative).
-            if #available(iOS 26.0, *) {
-                let glassFX = UIVisualEffectView(effect: pwInboxGlassEffect())
+            // Liquid Glass tinted with the button colour, so a host's text colour stays readable;
+            // without glass support the flat fill above is kept.
+            if style.isLiquidGlass, let tintedGlass = pwInboxTintedGlassEffect(tint: resolvedBg) {
+                let glassFX = UIVisualEffectView(effect: tintedGlass)
                 glassFX.translatesAutoresizingMaskIntoConstraints = false
                 glassFX.isUserInteractionEnabled = false
                 glassFX.clipsToBounds = true
@@ -502,6 +507,18 @@ func pwInboxGlassEffect(interactive: Bool = false) -> UIVisualEffect {
     }
 #endif
     return UIBlurEffect(style: .systemThinMaterial)
+}
+
+/// A `UIGlassEffect` tinted with `tint` on Xcode 26+/iOS 26+, else nil so the caller keeps a flat fill.
+func pwInboxTintedGlassEffect(tint: UIColor) -> UIVisualEffect? {
+#if compiler(>=6.2)
+    if #available(iOS 26.0, *) {
+        let effect = UIGlassEffect()
+        effect.tintColor = tint
+        return effect
+    }
+#endif
+    return nil
 }
 
 /// A `UIGlassContainerEffect` (glass elements merge within `spacing`) on Xcode 26+/iOS 26+, else blur.

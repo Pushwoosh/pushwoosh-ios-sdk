@@ -17,7 +17,7 @@ PushwooshTVOS is an optional module that extends the Pushwoosh SDK with tvOS-spe
 
 ### tvOS Requirements
 
-- tvOS 11.0 or later
+- tvOS 15.0 or later
 - Pushwoosh App Code configured for tvOS
 - Push Notification capability enabled in Xcode
 

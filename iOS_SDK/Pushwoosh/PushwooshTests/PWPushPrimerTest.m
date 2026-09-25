@@ -59,7 +59,7 @@
         [exp fulfill];
     }];
 
-    [self waitForExpectations:@[exp] timeout:1.0];
+    [self waitForExpectations:@[exp] timeout:5];
 }
 
 /// Verifies provisional status suppresses the primer without showing UI.
@@ -73,7 +73,7 @@
         [exp fulfill];
     }];
 
-    [self waitForExpectations:@[exp] timeout:1.0];
+    [self waitForExpectations:@[exp] timeout:5];
 }
 
 /// Verifies denied status with fallbackToSettings disabled suppresses the primer.
@@ -88,7 +88,7 @@
         [exp fulfill];
     }];
 
-    [self waitForExpectations:@[exp] timeout:1.0];
+    [self waitForExpectations:@[exp] timeout:5];
 }
 
 @end

@@ -68,6 +68,18 @@ typedef NS_ENUM(NSInteger, PWRichMediaPresentationStyle) {
 + (PWRichMediaPresentationStyle)richMediaPresentationStyle;
 
 /**
+ Sets the color scheme reported to Rich Media content.
+
+ @param colorScheme The color scheme to use.
+ */
++ (void)setRichMediaColorScheme:(PWRichMediaColorScheme)colorScheme;
+
+/**
+ Returns the current Rich Media color scheme.
+ */
++ (PWRichMediaColorScheme)richMediaColorScheme;
+
+/**
  Provides access to modal Rich Media configuration.
  */
 + (Class<PWModalRichMedia>)modalRichMedia NS_REFINED_FOR_SWIFT;
@@ -141,6 +153,48 @@ typedef NS_ENUM(NSInteger, PWRichMediaPresentationStyle) {
  @return The current presentation style configured via code or Info.plist.
  */
 + (PWRichMediaPresentationStyle)richMediaPresentationStyle;
+
+/**
+ Sets the color scheme reported to Rich Media content.
+
+ @discussion
+ Rich Media content reads the scheme through the `prefers-color-scheme` CSS media query.
+ The SDK never recolors content itself: a campaign without a dark variant stays light
+ regardless of this setting.
+
+ - `PWRichMediaColorSchemeApp` follows the interface style of your app UI (default).
+ - `PWRichMediaColorSchemeSystem` follows the device appearance setting, ignoring window- and
+   controller-level overrides such as SwiftUI's `preferredColorScheme(_:)`. An app-wide
+   `UIUserInterfaceStyle` in your Info.plist still applies, so with that key set `System` and `App`
+   report the same style.
+ - `PWRichMediaColorSchemeLight` / `PWRichMediaColorSchemeDark` force a fixed scheme.
+
+ The value is persisted across app launches and takes precedence over Info.plist.
+ The scheme is read when a Rich Media is presented and does not change while it is on screen.
+
+ You can also configure via Info.plist using the `Pushwoosh_RICH_MEDIA_COLOR_SCHEME` key
+ with values `APP`, `SYSTEM`, `LIGHT` or `DARK`.
+
+ @param colorScheme The color scheme to use.
+
+ ```swift
+ func application(_ application: UIApplication,
+                  didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+     Pushwoosh.media.setRichMediaColorScheme(.system)
+     return true
+ }
+ ```
+
+ @see PWRichMediaColorScheme
+ */
++ (void)setRichMediaColorScheme:(PWRichMediaColorScheme)colorScheme;
+
+/**
+ Returns the current Rich Media color scheme.
+
+ @return The scheme configured via code or Info.plist, `PWRichMediaColorSchemeApp` if neither is set.
+ */
++ (PWRichMediaColorScheme)richMediaColorScheme;
 
 /**
  Provides access to modal Rich Media configuration.

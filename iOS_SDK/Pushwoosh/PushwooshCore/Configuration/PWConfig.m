@@ -2,6 +2,7 @@
 
 static NSString * const kPWRichMediaStyleModalKey = @"PWRichMediaStyleModal";
 static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresentationStyle";
+static NSString * const kPWRichMediaColorSchemeKey = @"PWRichMediaColorScheme";
 
 /// Flag to prevent recursive dispatch_once entry during +config initialization.
 /// Set inside -initWithBundle: so that any pushwoosh_Log emitted from the initializer
@@ -10,6 +11,7 @@ static BOOL _isInitializing = NO;
 
 @interface PWConfig ()
 
+@property (nonatomic, assign) PWRichMediaColorScheme plistRichMediaColorScheme;
 @property (nonatomic, copy, readwrite) NSString *appId;
 @property (nonatomic, copy, readwrite) NSString *apiToken;
 @property (nonatomic, copy, readwrite) NSString *pushwooshApiToken;
@@ -20,6 +22,7 @@ static BOOL _isInitializing = NO;
 @property (nonatomic, copy, readwrite) NSString *requestUrl;
 @property (nonatomic, assign, readwrite) BOOL useRuntime;
 @property (nonatomic, assign, readwrite) BOOL allowServerCommunication;
+@property (nonatomic, assign, readwrite) BOOL autoDeviceTokenRegistration;
 @property (nonatomic, assign, readwrite) BOOL allowCollectingDeviceData;
 @property (nonatomic, assign, readwrite) BOOL allowCollectingDeviceOsVersion;
 @property (nonatomic, assign, readwrite) BOOL allowCollectingDeviceLocale;
@@ -150,6 +153,7 @@ static BOOL _isInitializing = NO;
         self.sendPushStatIfAlertsDisabled = [self getBoolean:@"Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED" default:NO];
 
         [self styleRichMediaTypeFromString:[self trimmedStringForKey:@"Pushwoosh_RICH_MEDIA_STYLE"]];
+        [self richMediaColorSchemeFromString:[self trimmedStringForKey:@"Pushwoosh_RICH_MEDIA_COLOR_SCHEME"]];
 
 		self.requestUrl = [self trimmedStringForKey:@"Pushwoosh_BASEURL"];
 
@@ -165,6 +169,7 @@ static BOOL _isInitializing = NO;
 
         // this key is used to allow server communication (by default it is allowed)
         self.allowServerCommunication = [self getBoolean:@"Pushwoosh_ALLOW_SERVER_COMMUNICATION" default: YES];
+        self.autoDeviceTokenRegistration = [self getBoolean:@"Pushwoosh_AUTO_DEVICE_TOKEN_REGISTRATION" default:YES];
         self.preHandleNotificationsWithUrl = [self getBoolean:@"Pushwoosh_PREHANDLE_URL_NOTIFICATIONS" default:YES];
         self.disableUrlFallback = [self getBoolean:@"Pushwoosh_DISABLE_URL_FALLBACK" default:NO];
 
@@ -272,6 +277,31 @@ static BOOL _isInitializing = NO;
     } else {
         self.richMediaStyle = PWRichMediaStyleTypeDefault;
     }
+}
+
+- (void)richMediaColorSchemeFromString:(NSString *)scheme {
+    NSDictionary<NSString *, NSNumber *> *schemeMap = @{ @"APP" : @(PWRichMediaColorSchemeApp),
+                                                          @"SYSTEM" : @(PWRichMediaColorSchemeSystem),
+                                                          @"LIGHT" : @(PWRichMediaColorSchemeLight),
+                                                          @"DARK" : @(PWRichMediaColorSchemeDark) };
+    NSNumber *mapped = scheme ? schemeMap[scheme.uppercaseString] : @(PWRichMediaColorSchemeApp);
+    if (!mapped) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:[NSString stringWithFormat:@"Invalid Pushwoosh_RICH_MEDIA_COLOR_SCHEME value '%@', expected APP | SYSTEM | LIGHT | DARK. Using APP.", scheme]];
+        mapped = @(PWRichMediaColorSchemeApp);
+    }
+    self.plistRichMediaColorScheme = mapped.integerValue;
+}
+
+- (PWRichMediaColorScheme)richMediaColorScheme {
+    NSNumber *saved = [[NSUserDefaults standardUserDefaults] objectForKey:kPWRichMediaColorSchemeKey];
+    if ([saved isKindOfClass:[NSNumber class]] && saved.integerValue >= PWRichMediaColorSchemeApp && saved.integerValue <= PWRichMediaColorSchemeDark) {
+        return saved.integerValue;
+    }
+    return self.plistRichMediaColorScheme;
+}
+
+- (void)setRichMediaColorScheme:(PWRichMediaColorScheme)richMediaColorScheme {
+    [[NSUserDefaults standardUserDefaults] setInteger:richMediaColorScheme forKey:kPWRichMediaColorSchemeKey];
 }
 
 + (PWConfig *)config {

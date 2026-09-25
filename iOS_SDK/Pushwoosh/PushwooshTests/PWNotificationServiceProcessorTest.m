@@ -25,6 +25,8 @@
 @interface PWNotificationServiceProcessorTest : XCTestCase
 
 @property (nonatomic) id mockNetworkModule;
+/// Class mock on NSUserDefaults: global while it lives, so tearDown owns its removal.
+@property (nonatomic) id mockUserDefaults;
 
 @end
 
@@ -36,6 +38,10 @@
 }
 
 - (void)tearDown {
+    // Dropped here rather than in the test body: an assertion failing before
+    // stopMocking left NSUserDefaults swapped for the rest of the bundle.
+    [_mockUserDefaults stopMocking];
+    _mockUserDefaults = nil;
     [_mockNetworkModule stopMocking];
 }
 
@@ -80,7 +86,8 @@
     id mockContent; id mockRequest;
     UNNotificationRequest *request = [self requestWithUserInfo:(@{@"aps": @{@"pw_badge": @"+2"}, @"pw_msg": @"1"}) content:&mockContent request:&mockRequest];
 
-    id mockDefaults = OCMClassMock([NSUserDefaults class]);
+    _mockUserDefaults = OCMClassMock([NSUserDefaults class]);
+    id mockDefaults = _mockUserDefaults;
     OCMStub([mockDefaults alloc]).andReturn(mockDefaults);
     OCMStub([mockDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockDefaults);
     OCMStub([mockDefaults integerForKey:@"badge_count"]).andReturn(2);
@@ -100,7 +107,6 @@
     dispatch_sync(processor.serialQueue, ^{});
     OCMVerify([mockDefaults setInteger:4 forKey:@"badge_count"]);
 
-    [mockDefaults stopMocking];
     [(id)processor.requestManager stopMocking];
     [mockContent stopMocking];
     [mockRequest stopMocking];
@@ -114,7 +120,8 @@
     id mockContent; id mockRequest;
     UNNotificationRequest *request = [self requestWithUserInfo:(@{@"aps": @{@"pw_badge": @"-2"}, @"pw_msg": @"1"}) content:&mockContent request:&mockRequest];
 
-    id mockDefaults = OCMClassMock([NSUserDefaults class]);
+    _mockUserDefaults = OCMClassMock([NSUserDefaults class]);
+    id mockDefaults = _mockUserDefaults;
     OCMStub([mockDefaults alloc]).andReturn(mockDefaults);
     OCMStub([mockDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockDefaults);
     OCMStub([mockDefaults integerForKey:@"badge_count"]).andReturn(4);
@@ -134,7 +141,6 @@
     dispatch_sync(processor.serialQueue, ^{});
     OCMVerify([mockDefaults setInteger:2 forKey:@"badge_count"]);
 
-    [mockDefaults stopMocking];
     [(id)processor.requestManager stopMocking];
     [mockContent stopMocking];
     [mockRequest stopMocking];
@@ -148,7 +154,8 @@
     id mockContent; id mockRequest;
     UNNotificationRequest *request = [self requestWithUserInfo:(@{@"aps": @{@"pw_badge": @"5"}, @"pw_msg": @"1"}) content:&mockContent request:&mockRequest];
 
-    id mockDefaults = OCMClassMock([NSUserDefaults class]);
+    _mockUserDefaults = OCMClassMock([NSUserDefaults class]);
+    id mockDefaults = _mockUserDefaults;
     OCMStub([mockDefaults alloc]).andReturn(mockDefaults);
     OCMStub([mockDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockDefaults);
     OCMStub([mockDefaults integerForKey:@"badge_count"]).andReturn(99);
@@ -168,7 +175,6 @@
     dispatch_sync(processor.serialQueue, ^{});
     OCMVerify([mockDefaults setInteger:5 forKey:@"badge_count"]);
 
-    [mockDefaults stopMocking];
     [(id)processor.requestManager stopMocking];
     [mockContent stopMocking];
     [mockRequest stopMocking];
@@ -301,7 +307,8 @@
     id mockContent; id mockRequest;
     UNNotificationRequest *request = [self requestWithUserInfo:(@{@"aps": @{@"pw_badge": @10}, @"pw_msg": @"1"}) content:&mockContent request:&mockRequest];
 
-    id mockDefaults = OCMClassMock([NSUserDefaults class]);
+    _mockUserDefaults = OCMClassMock([NSUserDefaults class]);
+    id mockDefaults = _mockUserDefaults;
     OCMStub([mockDefaults alloc]).andReturn(mockDefaults);
     OCMStub([mockDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockDefaults);
     OCMStub([mockDefaults integerForKey:@"badge_count"]).andReturn(3);
@@ -321,7 +328,6 @@
     dispatch_sync(processor.serialQueue, ^{});
     OCMVerify([mockDefaults setInteger:10 forKey:@"badge_count"]);
 
-    [mockDefaults stopMocking];
     [(id)processor.requestManager stopMocking];
     [mockContent stopMocking];
     [mockRequest stopMocking];
@@ -587,7 +593,8 @@
     id mockContent; id mockRequest;
     UNNotificationRequest *request = [self requestWithUserInfo:(@{@"aps": @{@"pw_badge": @"-100"}, @"pw_msg": @"1"}) content:&mockContent request:&mockRequest];
 
-    id mockDefaults = OCMClassMock([NSUserDefaults class]);
+    _mockUserDefaults = OCMClassMock([NSUserDefaults class]);
+    id mockDefaults = _mockUserDefaults;
     OCMStub([mockDefaults alloc]).andReturn(mockDefaults);
     OCMStub([mockDefaults initWithSuiteName:OCMOCK_ANY]).andReturn(mockDefaults);
     OCMStub([mockDefaults integerForKey:@"badge_count"]).andReturn(4);
@@ -607,7 +614,6 @@
     dispatch_sync(processor.serialQueue, ^{});
     OCMVerify([mockDefaults setInteger:0 forKey:@"badge_count"]);
 
-    [mockDefaults stopMocking];
     [(id)processor.requestManager stopMocking];
     [mockContent stopMocking];
     [mockRequest stopMocking];

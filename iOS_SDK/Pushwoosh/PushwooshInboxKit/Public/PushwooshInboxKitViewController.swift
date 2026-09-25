@@ -168,6 +168,7 @@ public class PushwooshInboxKitViewController: UIViewController {
         if didActivateAudioSessionForVideo, presentedViewController == nil {
             deactivateVideoAudioSession()
         }
+        markDisplayedAsRead()
     }
 
     public override func viewWillDisappear(_ animated: Bool) {
@@ -261,6 +262,7 @@ public class PushwooshInboxKitViewController: UIViewController {
                 self.tableView.reloadData()
                 self.updateStates()
                 self.delegate?.inboxKit(self, didRefreshWith: self.dataSource.messages, error: nil)
+                self.markDisplayedAsRead()
             case .failure(let error):
                 self.lastError = error
                 self.tableView.reloadData()
@@ -316,6 +318,10 @@ public class PushwooshInboxKitViewController: UIViewController {
 
     @objc public func setAutomaticReadOnDisappear(_ enabled: Bool) {
         attributes.automaticReadOnDisappear = enabled
+    }
+
+    @objc public func setAutomaticReadOnDisplay(_ enabled: Bool) {
+        attributes.automaticReadOnDisplay = enabled
     }
 
     @objc public func setSwipeToDeleteEnabled(_ enabled: Bool) {
@@ -498,6 +504,14 @@ public class PushwooshInboxKitViewController: UIViewController {
         tableView.isHidden = !hasContent
     }
 
+    /// Reads the rows on screen while the inbox is actually showing them. Off-window calls (a load
+    /// finishing before the first appearance) are skipped; `viewDidAppear` covers that case.
+    func markDisplayedAsRead() {
+        guard attributes.automaticReadOnDisplay, viewIfLoaded?.window != nil else { return }
+        tableView.layoutIfNeeded()
+        markVisibleAsRead()
+    }
+
     private func markVisibleAsRead() {
         let visibleIndexPaths = tableView.indexPathsForVisibleRows ?? []
         let messages = visibleIndexPaths
@@ -583,6 +597,12 @@ public class PushwooshInboxKitViewController: UIViewController {
 
 // MARK: - UITableViewDataSource & UITableViewDelegate
 
+/// What a card opens on its own, without the message payload.
+private enum CardDestination {
+    case video(URL)
+    case wallet(URL)
+}
+
 extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDelegate {
 
     public func numberOfSections(in tableView: UITableView) -> Int { 1 }
@@ -610,12 +630,22 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
             }
             if let videoCell = inboxCell as? PushwooshInboxVideoCell {
                 videoCell.onVideoTap = { [weak self] url in
-                    self?.handleVideoTap(url, on: message)
+                    guard let self = self else { return }
+                    if self.hasMessageAction(message) {
+                        self.performDefaultSelection(for: message)
+                    } else {
+                        self.handleVideoTap(url, on: message)
+                    }
                 }
             }
             if let walletCell = inboxCell as? PushwooshInboxWalletCell {
                 walletCell.onAddToWallet = { [weak self] url in
-                    self?.handleAddToWallet(url, on: message)
+                    guard let self = self else { return }
+                    if self.hasMessageAction(message) {
+                        self.performDefaultSelection(for: message)
+                    } else {
+                        self.handleAddToWallet(url, on: message)
+                    }
                 }
             }
         }
@@ -625,13 +655,40 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
     private func handleInlineButtonTap(_ button: PushwooshInboxButton,
                                        on message: PWInboxMessageProtocol,
                                        from cell: PushwooshInboxCell) {
+        // A link button on a message that carries its own l/rm runs the message action instead
+        // of the button URL, so one tap never opens two destinations. That path reports the open
+        // itself; reporting it here as well would count the tap twice.
+        let runsMessageAction: Bool
+        if case .openURL = button.action {
+            runsMessageAction = hasMessageAction(message)
+        } else {
+            runsMessageAction = false
+        }
+
+        // Any interaction with a card counts as an open, so this lands before the delegate can
+        // take the navigation away from us.
+        if !runsMessageAction {
+            facade.reportAction(message: message)
+            repaintRow(for: message)
+        }
+
         let shouldPerformDefault = delegate?.inboxKit(self, didTapButton: button, onMessage: message) ?? true
-        guard shouldPerformDefault else { return }
+        guard shouldPerformDefault else {
+            if runsMessageAction {
+                facade.reportAction(message: message)
+                repaintRow(for: message)
+            }
+            return
+        }
 
         switch button.action {
         case .openURL(let url):
-            openExternalURL(url)
-            markRead(messages: [message])
+            if runsMessageAction {
+                performMessageAction(for: message)
+            } else {
+                openExternalURL(url)
+                markRead(messages: [message])
+            }
 
         case .dismiss:
             // Message is being removed — read state is irrelevant.
@@ -650,13 +707,15 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
 
     /// Handles a carousel slide tap. A slide carrying its own URL opens it (honoring the
     /// `didSelect` opt-out, so the host can intercept the tap exactly like a full-row tap) and
-    /// marks the message read; a slide without a link falls through to the message's default
-    /// selection action, matching the row tap.
+    /// marks the message read; a slide without a link, or any slide of a message that carries
+    /// its own l/rm, falls through to the message's default selection action, matching the row tap.
     private func handleCarouselSlideTap(_ url: URL?, on message: PWInboxMessageProtocol) {
-        guard let url = url else {
+        guard let url = url, !hasMessageAction(message) else {
             performDefaultSelection(for: message)
             return
         }
+        facade.reportAction(message: message)
+        repaintRow(for: message)
         let shouldPerformDefault = delegate?.inboxKit(self, didSelect: message) ?? true
         guard shouldPerformDefault else { return }
         openExternalURL(url)
@@ -685,7 +744,19 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
     /// read, and refreshes the row. Shared by full-row taps and no-URL carousel slide taps.
     private func performDefaultSelection(for message: PWInboxMessageProtocol) {
         let shouldPerformDefault = delegate?.inboxKit(self, didSelect: message) ?? true
-        guard shouldPerformDefault else { return }
+        guard shouldPerformDefault else {
+            // The host navigates instead of us, but the tap happened: this is the path
+            // that was zeroing the open counter.
+            facade.reportAction(message: message)
+            facade.read(messages: [message])
+            repaintRow(for: message)
+            return
+        }
+        performMessageAction(for: message)
+    }
+
+    /// Reports the open and runs the message's own l/rm, then marks it read.
+    private func performMessageAction(for message: PWInboxMessageProtocol) {
         let wasUnread = !message.isRead
         facade.performAction(message: message)
         facade.read(messages: [message])
@@ -694,11 +765,27 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
         }
     }
 
+    /// Whether the message carries an action of its own (`l`, `rm`, `h` or `r`, the keys the SDK
+    /// runs on an inbox open). Such a message answers every tap with that action, so a card element
+    /// with a destination of its own (a link button, a slide URL, the video, the wallet pass) does
+    /// not open a second one.
+    private func hasMessageAction(_ message: PWInboxMessageProtocol) -> Bool {
+        guard let params = message.actionParams as NSDictionary? else { return false }
+        if let richMedia = params["rm"], !(richMedia is NSNull) { return true }
+        return ["l", "h", "r"].contains { key in
+            guard let value = params[key] as? String else { return false }
+            return !value.isEmpty
+        }
+    }
+
     /// Presents a full-screen player (sound on, transport controls) for a tapped video card and
     /// marks the carrying message read. Picture-in-Picture is disabled so closing the player
     /// slides it away cleanly instead of shrinking it into a screen corner. Plays even with the
     /// silent switch on (`.playback` audio session).
     private func handleVideoTap(_ url: URL, on message: PWInboxMessageProtocol) {
+        // The interaction happened; the open ships before the guards below.
+        facade.reportAction(message: message)
+        repaintRow(for: message)
         // Something is already presented (a player from a rapid double-tap, or a host sheet):
         // present() would silently fail, leaving the audio session activated with no player on
         // screen and the message wrongly marked read. Bail, mirroring the wallet-add guard.
@@ -741,6 +828,10 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
     /// Wallet "install link", which is a web URL — the URL is handed to the system, which adds the
     /// pass via Safari/Wallet. Either way the carrying message is marked read.
     private func handleAddToWallet(_ url: URL, on message: PWInboxMessageProtocol) {
+        // Before the serializing guard: otherwise a second tap during a download is
+        // lost to statistics entirely.
+        facade.reportAction(message: message)
+        repaintRow(for: message)
         // Serialize: ignore a second tap while a wallet add is already downloading/presenting, so a
         // concurrent completion can't overwrite pendingWalletPass/Message and mis-attribute the
         // success callback. Cleared in the failure/fallback branches and in addPassesViewControllerDidFinish.
@@ -807,6 +898,13 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
         }
     }
 
+    /// Repaints a row whose status changed. A reported open already makes `isRead` true,
+    /// so `markRead` returns early and no longer gets to redraw anything.
+    private func repaintRow(for message: PWInboxMessageProtocol) {
+        guard let indexPath = indexPath(for: message) else { return }
+        tableView.reloadRows(at: [indexPath], with: .none)
+    }
+
     private func performMarkReadAction(for message: PWInboxMessageProtocol) {
         guard !message.isRead else { return }
         facade.read(messages: [message])
@@ -825,6 +923,19 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
         return IndexPath(row: row, section: 0)
     }
 
+    public func scrollViewDidEndDecelerating(_ scrollView: UIScrollView) {
+        markDisplayedAsRead()
+    }
+
+    public func scrollViewDidEndDragging(_ scrollView: UIScrollView, willDecelerate decelerate: Bool) {
+        guard !decelerate else { return }
+        markDisplayedAsRead()
+    }
+
+    public func scrollViewDidScrollToTop(_ scrollView: UIScrollView) {
+        markDisplayedAsRead()
+    }
+
     public func tableView(_ tableView: UITableView, willDisplay cell: UITableViewCell, forRowAt indexPath: IndexPath) {
         guard let message = dataSource.message(at: indexPath) else { return }
         delegate?.inboxKit(self, willDisplay: message, at: indexPath)
@@ -833,7 +944,52 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
     public func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         tableView.deselectRow(at: indexPath, animated: true)
         guard let message = dataSource.message(at: indexPath) else { return }
+        if handleRowTapOwnedByCard(message) { return }
         performDefaultSelection(for: message)
+    }
+
+    /// A card that carries a destination of its own owns the whole row: the poster and the title
+    /// of one card must not lead to two different places, so the tap opens the card's destination.
+    /// A message with its own `l` / `rm` owns the row instead, and the row tap performs that action.
+    ///
+    /// The host keeps the same veto it has on every other tap — the card's destination is still a
+    /// default action, so `didSelect` is asked first and a `false` leaves navigation to the host.
+    private func handleRowTapOwnedByCard(_ message: PWInboxMessageProtocol) -> Bool {
+        guard let destination = ownDestination(for: message) else { return false }
+
+        let shouldPerformDefault = delegate?.inboxKit(self, didSelect: message) ?? true
+        guard shouldPerformDefault else {
+            facade.reportAction(message: message)
+            facade.read(messages: [message])
+            repaintRow(for: message)
+            return true
+        }
+
+        switch destination {
+        case .video(let url):
+            handleVideoTap(url, on: message)
+        case .wallet(let url):
+            handleAddToWallet(url, on: message)
+        }
+        return true
+    }
+
+    /// The destination a card carries by itself, or nil for a card that leaves the row to the
+    /// message payload.
+    private func ownDestination(for message: PWInboxMessageProtocol) -> CardDestination? {
+        guard !hasMessageAction(message) else { return nil }
+        switch cellKind(for: message) {
+        case PushwooshInboxKitAttributes.CellKind.video.rawValue:
+            guard let content = PushwooshInboxVideoContent.decode(from: message) else { return nil }
+            return .video(content.videoURL)
+
+        case PushwooshInboxKitAttributes.CellKind.wallet.rawValue:
+            guard let pass = PushwooshInboxWalletPass.decode(from: message) else { return nil }
+            return .wallet(pass.passURL)
+
+        default:
+            return nil
+        }
     }
 
     public func tableView(_ tableView: UITableView, trailingSwipeActionsConfigurationForRowAt indexPath: IndexPath) -> UISwipeActionsConfiguration? {
@@ -844,8 +1000,13 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
                 completion(false)
                 return
             }
+            // A swipe is the same interaction as the dismiss button, and counts the same.
+            self.facade.reportAction(message: message)
             let shouldDelete = self.delegate?.inboxKit(self, shouldDelete: message) ?? true
             if !shouldDelete {
+                // The row stays, and the open just made it read — repaint it, or it keeps
+                // drawing as unread until the next load.
+                self.repaintRow(for: message)
                 completion(false)
                 return
             }

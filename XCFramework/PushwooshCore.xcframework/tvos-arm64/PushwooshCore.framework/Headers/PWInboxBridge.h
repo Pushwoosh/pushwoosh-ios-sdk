@@ -34,6 +34,9 @@
 + (void)readMessagesWithCodes:(NSArray<NSString *> *)codes;
 + (void)deleteMessagesWithCodes:(NSArray<NSString *> *)codes;
 + (void)performActionForMessageWithCode:(NSString *)code;
+
+/// Reports the open alone; see `+[PWInbox reportActionForMessageWithCode:]`.
++ (void)reportActionForMessageWithCode:(NSString *)code;
 + (void)markAllMessagesAsRead;
 + (void)deleteAllReadMessages;
 

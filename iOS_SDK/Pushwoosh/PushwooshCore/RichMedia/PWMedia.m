@@ -47,6 +47,14 @@ static NSString * const kPWRichMediaPresentationStyleKey = @"PWRichMediaPresenta
     }
 }
 
++ (void)setRichMediaColorScheme:(PWRichMediaColorScheme)colorScheme {
+    [PWConfig config].richMediaColorScheme = colorScheme;
+}
+
++ (PWRichMediaColorScheme)richMediaColorScheme {
+    return [[PWConfig config] richMediaColorScheme];
+}
+
 + (Class<PWModalRichMedia>)modalRichMedia {
     return [PWModalRichMedia class];
 }

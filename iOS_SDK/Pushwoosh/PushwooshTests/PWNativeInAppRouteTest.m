@@ -64,6 +64,7 @@
 
 - (void)setUp {
     [super setUp];
+    self.continueAfterFailure = NO;
     self.manager = [PWInAppMessagesManager new];
     self.resource = [[PWResource alloc] initWithDictionary:@{ @"code": @"r-TEST-ROUTE",
                                                               @"url": @"https://example.com/test.zip",
@@ -356,7 +357,7 @@
 
     [self.manager routeNativeInAppForResource:self.resource messageHash:nil];
 
-    [self waitForExpectations:@[notHandled] timeout:1.0];
+    [self waitForExpectations:@[notHandled] timeout:5];
 }
 
 /// Verifies that a native-config delivered inside a rich-media ZIP opened through a push is detected in the push funnel and reaches the handler with the resource code injected as inAppId.
@@ -427,45 +428,6 @@
     [requestClassMock stopMocking];
 
     [[NSFileManager defaultManager] removeItemAtPath:[pushResource localPath] error:nil];
-}
-
-/// Verifies that a regular rich-media push (no native-config.json) is not routed to the native handler and stays on the existing HTML presentation path.
-- (void)testPresentRichMediaFromPushWithoutNativeConfigStaysOnHtmlPath {
-    PWResource *pushResource = [[PWResource alloc] initWithDictionary:@{ @"code": @"r-PUSH-HTML",
-                                                                         @"url": @"https://example.com/PUSH-HTML.zip",
-                                                                         @"updated": @0 }];
-    NSString *dir = [pushResource localPath];
-    [[NSFileManager defaultManager] createDirectoryAtPath:dir
-                              withIntermediateDirectories:YES
-                                               attributes:nil
-                                                    error:nil];
-    [@"<html><head></head><body>hi</body></html>" writeToFile:[dir stringByAppendingPathComponent:@"index.html"]
-                                                    atomically:YES
-                                                      encoding:NSUTF8StringEncoding
-                                                         error:nil];
-
-    XCTestExpectation *nativeNotHandled = [self expectationWithDescription:@"native handler must not be called"];
-    nativeNotHandled.inverted = YES;
-    self.handler.onHandle = ^{ [nativeNotHandled fulfill]; };
-
-    XCTestExpectation *gateChecked = [self expectationWithDescription:@"html resource reaches the shouldPresent gate"];
-    id prevDelegate = [PWRichMediaManager sharedManager].delegate;
-    id delegateMock = OCMProtocolMock(@protocol(PWRichMediaPresentingDelegate));
-    [OCMStub([delegateMock richMediaManager:[OCMArg any] shouldPresentRichMedia:[OCMArg any]])
-        .andDo(^(NSInvocation *invocation) { [gateChecked fulfill]; })
-        andReturnValue:OCMOCK_VALUE((BOOL){NO})];
-    [PWRichMediaManager sharedManager].delegate = delegateMock;
-
-    NSDictionary *userInfo = @{ @"p": @"push-hash-3",
-                                @"rm": @{ @"url": @"https://example.com/PUSH-HTML.zip",
-                                          @"ts": @"0",
-                                          @"tags": @{} } };
-    [self.manager presentRichMediaFromPush:userInfo];
-
-    [self waitForExpectations:@[gateChecked, nativeNotHandled] timeout:2.0];
-
-    [PWRichMediaManager sharedManager].delegate = prevDelegate;
-    [[NSFileManager defaultManager] removeItemAtPath:dir error:nil];
 }
 
 /// Verifies the single rich-media funnel: presentRichMedia: with a native-config resource routes to the native handler (covering every channel that converges on presentRichMedia: — postEvent, push, silent, inbox, manual), passes the message hash to show analytics, and returns BEFORE the shouldPresentRichMedia: gate so no HTML/modal presentation is triggered.

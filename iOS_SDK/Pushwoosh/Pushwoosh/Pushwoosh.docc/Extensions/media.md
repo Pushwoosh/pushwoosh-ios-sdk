@@ -4,7 +4,7 @@
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Provides access to Rich Media presentation configuration.
+Provides access to Rich Media presentation and color scheme configuration.
 
 ## Overview
 
@@ -19,6 +19,16 @@ Access style-specific configuration via `modalRichMedia` or `legacyRichMedia` su
 - `Pushwoosh.media.legacyRichMedia` - Legacy-specific settings (delegate)
 
 The presentation style is persisted across app launches. If you remove the configuration from your code, it reverts to Info.plist settings on the next launch.
+
+### Color scheme
+
+Rich Media content reads its theme through the `prefers-color-scheme` CSS media query. The color scheme setting controls which value the SDK reports; the SDK never recolors content, so a campaign without a dark variant stays light regardless of the setting.
+
+- `.app` - follows the interface style of your app UI (default)
+- `.system` - follows the device appearance setting, ignoring window- and controller-level overrides such as `preferredColorScheme(_:)`. An app-wide `UIUserInterfaceStyle` in Info.plist still applies, so with that key set `.system` and `.app` report the same style
+- `.light` / `.dark` - fixed scheme
+
+The value is persisted, takes precedence over Info.plist, and is read when a Rich Media is presented. The same options exist on Android, so both platforms render the same variant for the same setting.
 
 ## Example
 
@@ -67,9 +77,17 @@ func application(_ application: UIApplication,
 }
 ```
 
+Force a fixed color scheme, for example while dark campaign variants are not ready yet:
+
+```swift
+Pushwoosh.media.setRichMediaColorScheme(.light)
+```
+
 Configure via Info.plist instead of code:
 
 Add `Pushwoosh_RICH_MEDIA_STYLE` key with value `MODAL_RICH_MEDIA` or `LEGACY_RICH_MEDIA`.
+
+Add `Pushwoosh_RICH_MEDIA_COLOR_SCHEME` key with value `APP`, `SYSTEM`, `LIGHT` or `DARK`.
 
 ## Topics
 
@@ -77,6 +95,12 @@ Add `Pushwoosh_RICH_MEDIA_STYLE` key with value `MODAL_RICH_MEDIA` or `LEGACY_RI
 
 - ``PWMedia/setRichMediaPresentationStyle(_:)``
 - ``PWMedia/richMediaPresentationStyle()``
+
+### Color Scheme
+
+- ``PWMedia/setRichMediaColorScheme(_:)``
+- ``PWMedia/richMediaColorScheme()``
+- ``PWRichMediaColorScheme``
 
 ### Sub-interfaces
 

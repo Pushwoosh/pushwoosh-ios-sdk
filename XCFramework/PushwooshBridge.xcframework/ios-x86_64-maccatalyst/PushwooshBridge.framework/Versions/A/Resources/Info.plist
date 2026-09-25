@@ -17,7 +17,7 @@
 	<key>CFBundlePackageType</key>
 	<string>FMWK</string>
 	<key>CFBundleShortVersionString</key>
-	<string>7.2.6</string>
+	<string>7.2.7</string>
 	<key>CFBundleSupportedPlatforms</key>
 	<array>
 		<string>MacOSX</string>
@@ -27,7 +27,7 @@
 	<key>DTCompiler</key>
 	<string>com.apple.compilers.llvm.clang.1_0</string>
 	<key>DTPlatformBuild</key>
-	<string>21F77</string>
+	<string></string>
 	<key>DTPlatformName</key>
 	<string>macosx</string>
 	<key>DTPlatformVersion</key>
@@ -41,7 +41,7 @@
 	<key>DTXcodeBuild</key>
 	<string>15F31d</string>
 	<key>LSMinimumSystemVersion</key>
-	<string>10.15</string>
+	<string>12.0</string>
 	<key>NSHumanReadableCopyright</key>
 	<string>Copyright © 2025 Pushwoosh. All rights reserved.</string>
 	<key>UIDeviceFamily</key>

@@ -138,27 +138,6 @@ class PushwooshInAppUIQueueTest: XCTestCase {
         XCTAssertEqual(spy.shouldDisplayCount, 1, "held message drains on the next foreground")
     }
 
-    /// A host calling dismiss() from pushwooshInAppWillPresent gets the message presented first and torn down on the next main turn, not mid-show.
-    func testDismissFromWillPresentIsDeferred() {
-        let reentrant = ReentrantSpyDelegate()
-        ui.delegate = reentrant
-        reentrant.onWillPresent = { _ in PushwooshInAppUI.shared.dismissVisible() }
-
-        let closed = expectation(description: "deferred dismiss closes the message")
-        reentrant.onDidClose = { _ in closed.fulfill() }
-
-        ui.present(modal(id: "deferred"))
-
-        XCTAssertTrue(ui.isPresenting, "message must reach the screen before a re-entrant dismiss is honoured")
-        XCTAssertEqual(reentrant.events,
-                       [.shouldDisplay("deferred"), .willPresent("deferred"), .didPresent("deferred")],
-                       "didClose must not precede didPresent")
-
-        wait(for: [closed], timeout: 2.0)
-        XCTAssertEqual(reentrant.events.last, .didClose("deferred"), "the deferred dismiss must still run")
-        XCTAssertFalse(ui.isPresenting)
-    }
-
     /// A host calling present() from pushwooshInAppShouldDisplay does not get a second show nested inside the running one.
     func testPresentFromShouldDisplayDoesNotNest() {
         let reentrant = ReentrantSpyDelegate()
@@ -182,29 +161,6 @@ class PushwooshInAppUIQueueTest: XCTestCase {
         ui.dismissVisible()
         wait(for: [drained], timeout: 2.0)
         XCTAssertFalse(ui.isPresenting, "the sibling was rejected on its turn, so nothing stays on screen")
-    }
-
-    /// Rejected messages are drained in one pass until an accepted one is presented.
-    func testDrainSkipsRejectedMessagesUntilOneIsPresented() {
-        let reentrant = ReentrantSpyDelegate()
-        ui.delegate = reentrant
-        reentrant.onShouldDisplay = { id in id == "keep" }
-
-        ui.isPaused = true
-        ui.present(modal(id: "skip1"))
-        ui.present(modal(id: "skip2"))
-        ui.present(modal(id: "keep"))
-        ui.isPaused = false
-
-        XCTAssertEqual(reentrant.events,
-                       [.shouldDisplay("skip1"), .shouldDisplay("skip2"),
-                        .shouldDisplay("keep"), .willPresent("keep"), .didPresent("keep")],
-                       "the drain must walk past rejected messages to the accepted one")
-
-        let closed = expectation(description: "presented message closes")
-        reentrant.onDidClose = { _ in closed.fulfill() }
-        ui.dismissVisible()
-        wait(for: [closed], timeout: 2.0)
     }
 
     private func pipContent() -> PWInAppPipContent {

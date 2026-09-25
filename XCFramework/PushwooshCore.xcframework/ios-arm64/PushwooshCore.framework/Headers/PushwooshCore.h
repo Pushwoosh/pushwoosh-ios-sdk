@@ -28,6 +28,7 @@
 #import <PushwooshCore/PWLegacyRichMedia.h>
 #import <PushwooshCore/PWRichMediaStyle.h>
 #import <PushwooshCore/PWRichMediaTypes.h>
+#import <PushwooshCore/PWRichMediaColorSchemeResolver.h>
 #import <PushwooshCore/PWInboxTypes.h>
 #import <PushwooshCore/PWConfig.h>
 #import <PushwooshCore/PWInboxStorage.h>
@@ -44,7 +45,7 @@
 #import <PushwooshCore/PWIntegrationValidator.h>
 #import <PushwooshCore/PWPushPrimerBuilder.h>
 
-#define PUSHWOOSH_VERSION @"7.2.6"
+#define PUSHWOOSH_VERSION @"7.2.7"
 
 @interface PushwooshCoreManager : NSObject
 

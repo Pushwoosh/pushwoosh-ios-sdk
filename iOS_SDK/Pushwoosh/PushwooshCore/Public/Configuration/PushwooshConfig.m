@@ -244,6 +244,14 @@
     [[PWManagerBridge shared] handlePushRegistrationFailure:error];
 }
 
++ (void)setAutoDeviceTokenRegistrationEnabled:(BOOL)enabled {
+    [PWPreferences preferences].isAutoDeviceTokenRegistrationEnabled = enabled;
+}
+
++ (BOOL)isAutoDeviceTokenRegistrationEnabled {
+    return [PWPreferences preferences].isAutoDeviceTokenRegistrationEnabled;
+}
+
 + (BOOL)handlePushReceived:(NSDictionary *)userInfo {
     return [[PWManagerBridge shared] handlePushReceived:userInfo autoAcceptAllowed:YES];
 }

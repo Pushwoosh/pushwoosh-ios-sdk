@@ -102,3 +102,21 @@ typedef NS_OPTIONS(NSInteger, PWSupportedOrientations) {
     PWOrientationLandscapeLeft = 1 << 2,
     PWOrientationLandscapeRight = 1 << 3,
 };
+
+/**
+ Color scheme the SDK reports to Rich Media content via `prefers-color-scheme`.
+
+ The scheme only affects the CSS media query the content sees. Content without a dark variant stays light regardless of the value.
+ */
+typedef NS_ENUM(NSInteger, PWRichMediaColorScheme) {
+    /// Follows the app's own interface style: the top-most presented view controller of the app key window. Default.
+    PWRichMediaColorSchemeApp,
+    /// Follows the device appearance setting, ignoring window- and controller-level overrides.
+    /// An app-wide `UIUserInterfaceStyle` in Info.plist still applies: UIKit propagates it to the
+    /// screen traits this mode reads, so under that key `System` reports the same style as `App`.
+    PWRichMediaColorSchemeSystem,
+    /// Always light.
+    PWRichMediaColorSchemeLight,
+    /// Always dark.
+    PWRichMediaColorSchemeDark
+};

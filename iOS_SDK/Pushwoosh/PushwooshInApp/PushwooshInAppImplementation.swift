@@ -22,7 +22,11 @@ public final class PushwooshInAppImplementation: NSObject, PWInApp {
     /// back-channel (`native-config.json` from a postEvent resource ZIP).
     @objc
     public static func present(_ config: [AnyHashable: Any]) {
-        guard let message = PWInAppConfigParser.parse(config) else {
+        guard Thread.isMainThread else {
+            DispatchQueue.main.async { present(config) }
+            return
+        }
+        guard let message = PWInAppConfigParser.parse(config, isDark: PWInAppDarkOverlay.isDarkNow()) else {
             return
         }
         PushwooshInAppUI.shared.present(message)

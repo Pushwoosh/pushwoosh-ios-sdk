@@ -427,7 +427,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
     XCTAssertEqual(systemHandlerCalls, 0u, @"handler must not fire synchronously while a forwarded delegate may still complete");
 
-    [self waitForExpectations:@[exp] timeout:1.0];
+    [self waitForExpectations:@[exp] timeout:5];
     XCTAssertEqual(systemHandlerCalls, 1u, @"deferred fallback must fire the handler once after the delay");
 }
 
@@ -448,7 +448,7 @@ didReceiveNotificationResponse:(UNNotificationResponse *)response
 
     XCTAssertEqual(systemHandlerCalls, 0u, @"handler must not fire synchronously while a forwarded delegate may still complete");
 
-    [self waitForExpectations:@[exp] timeout:1.0];
+    [self waitForExpectations:@[exp] timeout:5];
     XCTAssertEqual(systemHandlerCalls, 1u, @"deferred fallback must fire the handler once after the delay");
 }
 

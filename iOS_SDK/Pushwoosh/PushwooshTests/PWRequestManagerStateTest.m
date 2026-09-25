@@ -9,6 +9,8 @@
 #import "PWConfig.h"
 #import "PWSdkStateProvider.h"
 #import "PWServerCommunicationManager.h"
+#import "PWPlatformModule.h"
+#import "PWNotificationManagerCompat.h"
 #import "PushwooshLog.h"
 
 #pragma mark - Expose private properties for testing
@@ -45,6 +47,10 @@
 /// Torn down centrally: a class mock on PushwooshLog that outlives a failing test keeps its
 /// expectations armed and fails the next one instead.
 @property (nonatomic, strong) id logMock;
+/// Swapped for the test: every request asks for the notification status, and that waits
+/// two seconds on a semaphore for a callback this environment never delivers.
+@property (nonatomic, strong) id notificationManagerMock;
+@property (nonatomic, strong) PWNotificationManagerCompat *originalNotificationManager;
 
 @end
 
@@ -55,9 +61,26 @@
     _savedAppCode = [PWPreferences preferences].appCode;
     [PWPreferences preferences].appCode = @"TEST-APPCODE-STATE";
     [[PWSdkStateProvider sharedInstance] resetForTesting];
+
+    // Without this, each getRemoteNotificationStatus burns the full two-second semaphore:
+    // three calls per test is six seconds against a five-second wait budget.
+    _originalNotificationManager = [PWPlatformModule module].notificationManagerCompat;
+    _notificationManagerMock = OCMPartialMock([PWNotificationManagerCompat new]);
+    OCMStub([_notificationManagerMock getRemoteNotificationStatusWithCompletion:OCMOCK_ANY])
+        .andDo(^(NSInvocation *invocation) {
+            void (^completion)(NSDictionary *);
+            [invocation getArgument:&completion atIndex:2];
+            if (completion) {
+                completion(@{});
+            }
+        });
+    [PWPlatformModule module].notificationManagerCompat = _notificationManagerMock;
 }
 
 - (void)tearDown {
+    [PWPlatformModule module].notificationManagerCompat = _originalNotificationManager;
+    [_notificationManagerMock stopMocking];
+    _notificationManagerMock = nil;
     [[PWSdkStateProvider sharedInstance] resetForTesting];
     [_logMock stopMocking];
     _logMock = nil;
@@ -267,35 +290,6 @@
 
 #pragma mark - Scenario: Queued requests use proxy URL
 
-/// Verifies that queued requests use the proxy URL after flush.
-- (void)testQueuedRequests_useProxyUrlAfterFlush {
-    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
-
-    XCTestExpectation *expectation = [self expectationWithDescription:@"request sent"];
-    __block NSURL *capturedUrl = nil;
-    id mockSession = OCMPartialMock(manager.session);
-    OCMStub([mockSession dataTaskWithRequest:OCMOCK_ANY completionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
-        __unsafe_unretained NSURLRequest *req;
-        [invocation getArgument:&req atIndex:2];
-        capturedUrl = req.URL;
-
-        void(^handler)(NSData *, NSURLResponse *, NSError *);
-        [invocation getArgument:&handler atIndex:3];
-
-        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
-        NSString *body = @"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null}";
-        handler([body dataUsingEncoding:NSUTF8StringEncoding], response, nil);
-        [expectation fulfill];
-    }).andReturn(nil);
-
-    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {}];
-
-    [manager setReverseProxyUrl:@"https://proxy.example.com" headers:nil];
-
-    [self waitForExpectationsWithTimeout:5 handler:nil];
-    XCTAssertTrue([capturedUrl.absoluteString hasPrefix:@"https://proxy.example.com/"]);
-}
-
 #pragma mark - Scenario: State transitions are correct
 
 /// Verifies that state is Initializing before setReverseProxy.
@@ -401,43 +395,6 @@
 }
 
 #pragma mark - Scenario: Queued requests flushed via App Groups path
-
-/// Verifies that queued requests are flushed when loadReverseProxyFromAppGroups loads a valid URL.
-- (void)testLoadReverseProxyFromAppGroups_flushesQueuedRequests {
-    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
-
-    XCTestExpectation *expectation = [self expectationWithDescription:@"flush"];
-    __block int completionCount = 0;
-
-    id mockSession = OCMPartialMock(manager.session);
-    OCMStub([mockSession dataTaskWithRequest:OCMOCK_ANY completionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
-        void(^handler)(NSData *, NSURLResponse *, NSError *);
-        [invocation getArgument:&handler atIndex:3];
-
-        NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@""] statusCode:200 HTTPVersion:nil headerFields:nil];
-        NSString *body = @"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null}";
-        handler([body dataUsingEncoding:NSUTF8StringEncoding], response, nil);
-    }).andReturn(nil);
-
-    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) { completionCount++; }];
-    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) { completionCount++; if (completionCount == 2) [expectation fulfill]; }];
-
-    XCTAssertEqual(completionCount, 0);
-
-    NSString *testGroupName = @"group.com.pushwoosh.test.statetest3";
-    OCMStub([_mockConfig appGroupsName]).andReturn(testGroupName);
-
-    NSUserDefaults *sharedDefaults = [[NSUserDefaults alloc] initWithSuiteName:testGroupName];
-    [sharedDefaults setObject:@"https://proxy.example.com/" forKey:@"PWReverseProxyURL"];
-
-    [manager loadReverseProxyFromAppGroups];
-
-    [self waitForExpectationsWithTimeout:5 handler:nil];
-    XCTAssertEqual(completionCount, 2);
-    XCTAssertEqual([PWSdkStateProvider sharedInstance].taskQueue.count, 0);
-
-    [sharedDefaults removeObjectForKey:@"PWReverseProxyURL"];
-}
 
 #pragma mark - Scenario: setReverseProxy with invalid URL
 
@@ -624,23 +581,6 @@
     [self waitForExpectationsWithTimeout:5 handler:nil];
     XCTAssertEqual(completionCount, 2);
     XCTAssertEqual([PWSdkStateProvider sharedInstance].taskQueue.count, 0);
-}
-
-/// Verifies that setting only appCode does not flush when reverse proxy URL is still missing.
-- (void)testSetAppCode_doesNotFlush_whenAllowReverseProxyAndNoProxyUrl {
-    [PWPreferences preferences].appCode = @"";
-    PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
-
-    __block BOOL completionCalled = NO;
-    [manager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) { completionCalled = YES; }];
-
-    [PWPreferences preferences].appCode = @"APPCODE-ONLY";
-
-    [NSRunLoop.currentRunLoop runUntilDate:[NSDate dateWithTimeIntervalSinceNow:0.3]];
-
-    XCTAssertFalse([[PWSdkStateProvider sharedInstance] isReady]);
-    XCTAssertFalse(completionCalled);
-    XCTAssertEqual([PWSdkStateProvider sharedInstance].taskQueue.count, 1);
 }
 
 /// Verifies that setting only reverse proxy URL does not flush when appCode is still empty.

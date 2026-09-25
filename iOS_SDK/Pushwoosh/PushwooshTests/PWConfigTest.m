@@ -14,6 +14,11 @@
 
 @implementation PWConfigTest
 
+- (void)tearDown {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PWRichMediaColorScheme"];
+    [super tearDown];
+}
+
 /// Verifies an extension inherits Pushwoosh_APPID from the host app bundle when its own bundle lacks the key.
 - (void)testAppIdInheritedFromHostBundleWhenMissingInExtension {
     PWBundleMock *extensionBundle = (id)[PWBundleMock new];
@@ -57,6 +62,26 @@
     _config = [[PWConfig alloc] initWithBundle:bundleMock];
 
     XCTAssertFalse(_config.sendPushStatIfAlertsDisabled);
+}
+
+/// Verifies that autoDeviceTokenRegistration defaults to YES when the Pushwoosh_AUTO_DEVICE_TOKEN_REGISTRATION Info.plist key is absent.
+- (void)testAutoDeviceTokenRegistrationDefaultsToYes {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+
+    XCTAssertTrue(_config.autoDeviceTokenRegistration);
+}
+
+/// Verifies that autoDeviceTokenRegistration reads back NO from the Pushwoosh_AUTO_DEVICE_TOKEN_REGISTRATION Info.plist key.
+- (void)testAutoDeviceTokenRegistrationNo {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.autoDeviceTokenRegistrationSet = YES;
+    bundleMock.autoDeviceTokenRegistration = NO;
+
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+
+    XCTAssertFalse(_config.autoDeviceTokenRegistration);
 }
 
 /// Verifies that sendPushStatIfAlertsDisabled reads back YES from the Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED Info.plist key.
@@ -469,6 +494,58 @@
     bundleMock.pluginNotificationHandler = YES;
     _config = [[PWConfig alloc] initWithBundle:bundleMock];
     XCTAssertTrue(_config.isUsingPluginForPushHandling);
+}
+
+/// Verifies that a missing Pushwoosh_RICH_MEDIA_COLOR_SCHEME key defaults to PWRichMediaColorSchemeApp.
+- (void)testRichMediaColorSchemeDefaultsToAppWhenKeyMissing {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(PWRichMediaColorSchemeApp, _config.richMediaColorScheme);
+}
+
+/// Verifies that all four plist values map to their scheme regardless of letter case.
+- (void)testRichMediaColorSchemeParsesAllValuesCaseInsensitively {
+    NSDictionary<NSString *, NSNumber *> *expectations = @{ @"app" : @(PWRichMediaColorSchemeApp),
+                                                            @"SYSTEM" : @(PWRichMediaColorSchemeSystem),
+                                                            @"Light" : @(PWRichMediaColorSchemeLight),
+                                                            @"dArK" : @(PWRichMediaColorSchemeDark) };
+    for (NSString *value in expectations) {
+        PWBundleMock *bundleMock = (id)[PWBundleMock new];
+        bundleMock.richMediaColorScheme = value;
+        _config = [[PWConfig alloc] initWithBundle:bundleMock];
+        XCTAssertEqual(expectations[value].integerValue, _config.richMediaColorScheme, @"value: %@", value);
+    }
+}
+
+/// Verifies that an unknown plist value falls back to PWRichMediaColorSchemeApp.
+- (void)testRichMediaColorSchemeInvalidValueFallsBackToApp {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.richMediaColorScheme = @"NIGHT";
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(PWRichMediaColorSchemeApp, _config.richMediaColorScheme);
+}
+
+/// Verifies that a scheme set at runtime is persisted and wins over the plist value for later PWConfig instances.
+- (void)testRichMediaColorSchemeSetterPersistsAndOverridesPlist {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.richMediaColorScheme = @"DARK";
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+
+    _config.richMediaColorScheme = PWRichMediaColorSchemeLight;
+    XCTAssertEqual(PWRichMediaColorSchemeLight, _config.richMediaColorScheme);
+
+    PWConfig *relaunched = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(PWRichMediaColorSchemeLight, relaunched.richMediaColorScheme);
+    XCTAssertNotNil([[NSUserDefaults standardUserDefaults] objectForKey:@"PWRichMediaColorScheme"]);
+}
+
+/// Verifies that an out-of-range persisted value is ignored in favour of the plist scheme.
+- (void)testRichMediaColorSchemeIgnoresOutOfRangeSavedValue {
+    [[NSUserDefaults standardUserDefaults] setInteger:42 forKey:@"PWRichMediaColorScheme"];
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.richMediaColorScheme = @"SYSTEM";
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+    XCTAssertEqual(PWRichMediaColorSchemeSystem, _config.richMediaColorScheme);
 }
 
 @end

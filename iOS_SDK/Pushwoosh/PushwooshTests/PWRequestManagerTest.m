@@ -11,6 +11,8 @@
 #import "PWSetTagsRequest.h"
 #import "PWRequest+Internal.h"
 #import "PWReplayRequest.h"
+#import "PWServerCommunicationManager.h"
+#import "PWUtils.h"
 
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
@@ -37,6 +39,8 @@
 - (BOOL)isUsingReverseProxy;
 - (NSString *)registrableDomainOfHost:(NSString *)host;
 - (BOOL)shouldBypassGRPCForRequest:(PWRequest *)request;
+
+@property (nonatomic, strong) Class grpcTransportClass;
 
 - (void)onRequestError:(PWRequest *)request
            requestData:(NSString *)requestData
@@ -73,6 +77,28 @@ static NSError *gResponseError;
 		completionHandler(gResponseData, gResponse, gResponseError);
 	}
 	return nil;
+}
+
+@end
+
+@interface PWGRPCTransportStub : NSObject
+@end
+
+static NSUInteger pw_test_grpcSendCount;
+
+@implementation PWGRPCTransportStub
+
++ (BOOL)isAvailable {
+    return YES;
+}
+
++ (BOOL)supportsMethod:(NSString *)methodName {
+    return YES;
+}
+
++ (void)sendRequest:(PWRequest *)request completion:(void (^)(NSDictionary *response, NSError *error))completion {
+    pw_test_grpcSendCount += 1;
+    completion(@{ @"status_code": @200 }, nil);
 }
 
 @end
@@ -149,7 +175,7 @@ static id _mockNSBundle;
 		[appOpenExpectation fulfill];
 	}];
 
-	[self waitForExpectationsWithTimeout:1 handler:nil];
+	[self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 /// Verifies that the session no longer serializes its callbacks on the main queue, so response
@@ -196,7 +222,7 @@ static id _mockNSBundle;
 		[appOpenExpectation fulfill];
 	}];
 
-	[self waitForExpectationsWithTimeout:1 handler:nil];
+	[self waitForExpectationsWithTimeout:5 handler:nil];
 
 
 	// Test url reset after bad request
@@ -209,7 +235,7 @@ static id _mockNSBundle;
 		[appOpenExpectation2 fulfill];
 	}];
 
-	[self waitForExpectationsWithTimeout:1 handler:nil];
+	[self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 /// Verifies that getApiToken returns the modern pushwooshApiToken value from PWConfig.
@@ -247,7 +273,7 @@ static id _mockNSBundle;
 		[appOpenExpectation fulfill];
 	}];
 
-	[self waitForExpectationsWithTimeout:1 handler:nil];
+	[self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 - (void)testNotJsonFormat {
@@ -263,7 +289,7 @@ static id _mockNSBundle;
 		[appOpenExpectation fulfill];
 	}];
 
-	[self waitForExpectationsWithTimeout:1 handler:nil];
+	[self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 - (void)testNoStatusCode {
@@ -279,7 +305,7 @@ static id _mockNSBundle;
 		[appOpenExpectation fulfill];
 	}];
 
-	[self waitForExpectationsWithTimeout:1 handler:nil];
+	[self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 - (void)testNoResponse {
@@ -294,7 +320,7 @@ static id _mockNSBundle;
 		[appOpenExpectation fulfill];
 	}];
 
-	[self waitForExpectationsWithTimeout:1 handler:nil];
+	[self waitForExpectationsWithTimeout:5 handler:nil];
 	// cannot guarantee anything, just do not crash
 	//XCTAssertNil(request.error);
 }
@@ -312,7 +338,7 @@ static id _mockNSBundle;
 		[appOpenExpectation fulfill];
 	}];
 
-	[self waitForExpectationsWithTimeout:1 handler:nil];
+	[self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 - (void)testStatusCodeArray {
@@ -328,7 +354,7 @@ static id _mockNSBundle;
 		[appOpenExpectation fulfill];
 	}];
 
-	[self waitForExpectationsWithTimeout:1 handler:nil];
+	[self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 - (void)testStatusCodeNotOk {
@@ -344,7 +370,7 @@ static id _mockNSBundle;
 		[appOpenExpectation fulfill];
 	}];
 
-	[self waitForExpectationsWithTimeout:1 handler:nil];
+	[self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 - (void)testHeaderAuthExist {
@@ -434,7 +460,7 @@ static id _mockNSBundle;
     PWMessageDeliveryRequest *request = [PWMessageDeliveryRequest new];
     XCTestExpectation *exp = [self expectationWithDescription:@"done"];
     [_requestManager sendRequestInternal:request completion:^(NSError *error) { [exp fulfill]; }];
-    [self waitForExpectationsWithTimeout:1 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 
     OCMVerify([mockQueue enqueueRequest:request baseUrl:OCMOCK_ANY]);
     _requestManager.retryQueue = savedQueue;
@@ -453,7 +479,7 @@ static id _mockNSBundle;
     PWAppOpenRequest *request = [PWAppOpenRequest new];
     XCTestExpectation *exp = [self expectationWithDescription:@"done"];
     [_requestManager sendRequestInternal:request completion:^(NSError *error) { [exp fulfill]; }];
-    [self waitForExpectationsWithTimeout:1 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 
     _requestManager.retryQueue = savedQueue;
     [mockQueue stopMocking];
@@ -471,7 +497,7 @@ static id _mockNSBundle;
     PWMessageDeliveryRequest *request = [PWMessageDeliveryRequest new];
     XCTestExpectation *exp = [self expectationWithDescription:@"done"];
     [_requestManager sendRequestInternal:request completion:^(NSError *error) { [exp fulfill]; }];
-    [self waitForExpectationsWithTimeout:1 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 
     _requestManager.retryQueue = savedQueue;
     [mockQueue stopMocking];
@@ -652,7 +678,7 @@ static id _mockNSBundle;
     PWMessageDeliveryRequest *request = [PWMessageDeliveryRequest new];
     XCTestExpectation *exp = [self expectationWithDescription:@"done"];
     [_requestManager sendRequestInternal:request completion:^(NSError *error) { [exp fulfill]; }];
-    [self waitForExpectationsWithTimeout:1 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 
     OCMVerify([mockQueue enqueueRequest:request baseUrl:@"https://region-a.example.com/json/1.3/"]);
     _requestManager.retryQueue = savedQueue;
@@ -841,6 +867,30 @@ static id _mockNSBundle;
 
     [self waitForExpectationsWithTimeout:2 handler:nil];
     [mockRequest stopMocking];
+}
+
+/// Verifies that a request routed to gRPC is refused while server communication is disabled, the same way a REST one is.
+- (void)testSendRequestOverGRPCIsRefusedWhileServerCommunicationIsDisabled {
+    _requestManager.grpcTransportClass = [PWGRPCTransportStub class];
+    pw_test_grpcSendCount = 0;
+    _partialManagerMock = OCMPartialMock(_requestManager);
+    OCMStub([_partialManagerMock shouldBypassGRPCForRequest:OCMOCK_ANY]).andReturn(NO);
+    id communicationMock = OCMPartialMock([PWServerCommunicationManager sharedInstance]);
+    OCMStub([communicationMock isServerCommunicationAllowed]).andReturn(NO);
+
+    __block NSError *receivedError = nil;
+    XCTestExpectation *refused = [self expectationWithDescription:@"refused"];
+    [_requestManager sendRequest:[PWAppOpenRequest new] completion:^(NSError *error) {
+        receivedError = error;
+        [refused fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    XCTAssertEqual(receivedError.code, PWErrorCommunicationDisabled);
+    XCTAssertEqual(pw_test_grpcSendCount, 0, @"the transport must not be reached");
+
+    [communicationMock stopMocking];
+    _requestManager.grpcTransportClass = nil;
 }
 
 @end

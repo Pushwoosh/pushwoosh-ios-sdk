@@ -344,7 +344,9 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
     [PWInbox sendNotificationWithMessagesAdded:nil messagesDeleted:messages messagesUpdated:nil];
 }
 
-+ (void)performActionForMessageWithCode:(NSString *)code {
+// One body, because the message action has to keep running where it always ran:
+// after sendStaticMessage and before the update notification.
++ (void)actionForMessageWithCode:(NSString *)code runningMessageAction:(BOOL)runMessageAction {
     if (code.length == 0) {
         return;
     }
@@ -357,9 +359,19 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
 #endif
     [PWInbox sendStaticMessage:updateMessages];
 
-    [[Pushwoosh sharedInstance].pushNotificationManager processActionUserInfo:message.actionParams];
+    if (runMessageAction) {
+        [[Pushwoosh sharedInstance].pushNotificationManager processInboxActionUserInfo:message.actionParams];
+    }
 
     [PWInbox sendNotificationWithMessagesAdded:nil messagesDeleted:nil messagesUpdated:updateMessages];
+}
+
++ (void)reportActionForMessageWithCode:(NSString *)code {
+    [PWInbox actionForMessageWithCode:code runningMessageAction:NO];
+}
+
++ (void)performActionForMessageWithCode:(NSString *)code {
+    [PWInbox actionForMessageWithCode:code runningMessageAction:YES];
 }
 
 + (id<NSObject>)addObserverForDidReceiveInPushNotificationCompletion:(void (^)(NSArray<NSObject<PWInboxMessageProtocol> *> *messagesAdded))completion {

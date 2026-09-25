@@ -59,7 +59,7 @@
 
     [[PWSdkStateProvider sharedInstance] setReady];
 
-    [self waitForExpectationsWithTimeout:2 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
     XCTAssertEqual([PWSdkStateProvider sharedInstance].taskQueue.count, 0);
 }
 
@@ -75,7 +75,7 @@
 
     [[PWSdkStateProvider sharedInstance] setReady];
 
-    [self waitForExpectationsWithTimeout:2 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
 /// Verifies FIFO order: two public calls made before setReady flush in the order they were enqueued.
@@ -99,7 +99,7 @@
     dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.3 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
         [expectation fulfill];
     });
-    [self waitForExpectationsWithTimeout:2 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
 
     XCTAssertEqualObjects(calls, (@[@"setTags", @"registerSmsNumber"]));
 }

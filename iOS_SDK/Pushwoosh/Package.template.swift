@@ -6,7 +6,8 @@ import PackageDescription
 let package = Package(
     name: "PushwooshFramework",
     platforms: [
-        .iOS(.v13)
+        .iOS(.v15),
+        .tvOS(.v15)
     ],
     products: [
         .library(

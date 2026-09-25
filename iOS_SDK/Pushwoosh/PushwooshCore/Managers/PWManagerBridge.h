@@ -71,6 +71,7 @@
 - (void)handlePushReceived:(NSDictionary *)userInfo;
 - (BOOL)handlePushReceived:(NSDictionary *)userInfo autoAcceptAllowed:(BOOL)autoAcceptAllowed;
 - (void)handlePushRegistration:(NSData *)deviceToken;
+- (NSUInteger)pushRegistrationCount;
 - (void)handlePushRegistrationFailure:(NSError *)error;
 
 - (void)setTags:(NSDictionary *)tags;

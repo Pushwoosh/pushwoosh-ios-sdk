@@ -30,6 +30,16 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       codeCoverageEnabled = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "839D4E5D2FD63DB43840F41C"
+               BuildableName = "PushwooshInAppTests.xctest"
+               BlueprintName = "PushwooshInAppTests"
+               ReferencedContainer = "container:Pushwoosh.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction

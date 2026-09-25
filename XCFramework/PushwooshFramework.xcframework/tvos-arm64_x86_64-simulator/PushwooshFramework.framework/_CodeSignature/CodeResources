@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/PWInbox.h</key>
 		<data>
-		QTewKXrtkqI9BSgyMy6kVYVdGuA=
+		wBSRzNx0W3EKiFZoGVsP9Vsrgms=
 		</data>
 		<key>Headers/PWMessaging.h</key>
 		<data>
@@ -26,7 +26,7 @@
 		</data>
 		<key>Headers/PushwooshFramework.h</key>
 		<data>
-		YYSp0cnR5F8r6sFlQ8G2NvBfLRE=
+		mRUoFkjPe0bLAIakMeodysf3h3M=
 		</data>
 		<key>Headers/PushwooshNotificationServiceExtension.h</key>
 		<data>
@@ -34,7 +34,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		bHMWq3n9N7RB5ycWJO9LBR7e5Nk=
+		mCnrD1To8QY3sIyQrHAX3JhzAcY=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
 		<data>
@@ -54,7 +54,7 @@
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/arm64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		h3L+Jd/0Tue1BE6T9FheU5v+uFU=
+		jjHFHqlPQE0U5Zyuv89djKDfkhE=
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
 		<data>
@@ -74,7 +74,7 @@
 		</data>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		OiBdq6Fh6XBDlNJAOXh2Nzcmz3E=
+		ko1WE52oBXGvd0f5f4npiv5a9qc=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -91,7 +91,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			6dPy9THeYQt9xbMQoAs6qlLidlNbwoQQ3MnCptsMnjs=
+			UtXrUeuEKY4oCn1rgnLFNBjofPt0qRx2MVk9YR3HsEg=
 			</data>
 		</dict>
 		<key>Headers/PWMessaging.h</key>
@@ -126,7 +126,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			12Z047msXIrmhdILTltAhppC9XMURiCIS0LCHvpje2w=
+			2Kon6QX2qQDG63NgaDUKdXz6PaLKKvL7iL6L5/W5P5M=
 			</data>
 		</dict>
 		<key>Headers/PushwooshNotificationServiceExtension.h</key>
@@ -168,7 +168,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			IfKhwiVz1zxFfXKFbPIpt/Lw+JhotOuxYuCtdHRz8Tc=
+			yviRGDfIdQbOInVHm3QqFZ0gFDXTv2+UcD/wGEQ7GHw=
 			</data>
 		</dict>
 		<key>Modules/PushwooshFramework.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
@@ -203,7 +203,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			LPjHuAGGtdwzJWjoifVATMy/Er6+4+/3ukyAGYBXrnE=
+			zlJwYV5DXFbmjGLnpY+C+V0FLusDPxR8mB/OlX6qGMg=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

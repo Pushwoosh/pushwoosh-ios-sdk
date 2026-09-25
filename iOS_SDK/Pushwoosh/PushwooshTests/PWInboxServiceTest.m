@@ -10,6 +10,10 @@
 
 @property (nonatomic) PWRequestManager *requestManager;
 
+/// Stubbed in tests: it talks to UNUserNotificationCenter and has nothing to do with
+/// the request under test.
+- (void)removeMessagesFromNotificationCenter:(NSArray<PWInboxMessageInternal *> *)messages;
+
 @end
 
 @interface PWInboxUpdateStatusRequest (TEST)
@@ -55,6 +59,64 @@
     XCTAssertFalse(message.isRead);
 
     [mockPWInboxMessageInternal stopMocking];
+}
+
+#pragma mark - SDK-998: the status 3 packet
+
+/// The packet Control Panel counts opens by, asserted where the SDK hands it to the
+/// transport — the last point that is still the SDK and not the network.
+- (void)testActionMessagesSendsStatusThreeWithTheMessageSortOrder {
+    PWInboxMessageInternal *message = [self messageWithSortOrder];
+    __block PWInboxUpdateStatusRequest *sent = nil;
+    id requestManager = OCMClassMock([PWRequestManager class]);
+    OCMStub([requestManager sendRequest:[OCMArg checkWithBlock:^BOOL(id request) {
+        sent = request;
+        return YES;
+    }] completion:[OCMArg any]]);
+    id service = OCMPartialMock(self.service);
+    OCMStub([service removeMessagesFromNotificationCenter:OCMOCK_ANY]);
+    self.service.requestManager = requestManager;
+
+    [self.service actionMessages:@[message]];
+
+    XCTAssertTrue([sent isKindOfClass:[PWInboxUpdateStatusRequest class]], @"the open never left for the backend");
+    XCTAssertEqual([[sent valueForKey:@"status"] integerValue], 3, @"Control Panel counts opens by status 3");
+    XCTAssertEqualObjects([sent valueForKey:@"inboxCode"], message.sortOrder);
+
+    [service stopMocking];
+}
+
+/// Negative control: with no sortOrder there is nowhere to send, so nothing is sent.
+/// Without it the test above would pass against a stub that fires on everything.
+- (void)testActionMessagesSkipsAMessageWithoutSortOrder {
+    PWInboxMessageInternal *message = [PWInboxMessageInternal messageWithPushNotification:self.parameters];
+    id requestManager = OCMClassMock([PWRequestManager class]);
+    OCMReject([requestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]);
+    id service = OCMPartialMock(self.service);
+    OCMStub([service removeMessagesFromNotificationCenter:OCMOCK_ANY]);
+    self.service.requestManager = requestManager;
+
+    XCTAssertNil(message.sortOrder, @"case built wrong: the message must have no sortOrder");
+    [self.service actionMessages:@[message]];
+
+    [service stopMocking];
+}
+
+- (PWInboxMessageInternal *)messageWithSortOrder {
+    // Every key here is required by +validateDictionary:, which returns nil for the whole
+    // message if one is missing — status included, easy to leave out and hard to read back.
+    PWInboxMessageInternal *message = [PWInboxMessageInternal messageWithDictionary:@{
+        @"inbox_id": _code,
+        @"order": @1,
+        @"rt": @2000000000,
+        @"send_date": @1700000000,
+        @"text": @"text",
+        @"title": @"title",
+        @"action_type": _type,
+        @"status": @(PWInboxMessageStatusDelivered),
+    }];
+    XCTAssertNotNil(message, @"the fixture is invalid, not the code under test");
+    return message;
 }
 
 - (NSDictionary *)parameters {

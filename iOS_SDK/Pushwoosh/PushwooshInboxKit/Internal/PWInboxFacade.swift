@@ -63,6 +63,12 @@ class PWInboxFacade {
         bridge.performActionForMessage(withCode: code)
     }
 
+    /// Reports the open (status 3) alone; see `PWInbox.reportActionForMessageWithCode:`.
+    func reportAction(message: PWInboxMessageProtocol) {
+        guard let code = message.code, let bridge = bridge else { return }
+        bridge.reportActionForMessage(withCode: code)
+    }
+
     /// Deletes the supplied messages. The bridge persists the deleted flag
     /// to `PWInboxStorage` before sending the network request, so a
     /// process restart before the backend acknowledges the delete will not

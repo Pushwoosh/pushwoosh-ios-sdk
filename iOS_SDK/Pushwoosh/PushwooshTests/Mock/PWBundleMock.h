@@ -18,6 +18,8 @@
 @property (nonatomic) BOOL allowCollectingEvents;
 @property (nonatomic) BOOL pluginNotificationHandlerSet;
 @property (nonatomic) BOOL pluginNotificationHandler;
+@property (nonatomic) BOOL autoDeviceTokenRegistrationSet;
+@property (nonatomic) BOOL autoDeviceTokenRegistration;
 
 @property (nonatomic, copy, nullable) NSString *appId;
 @property (nonatomic, copy, nullable) NSString *apiToken;
@@ -29,6 +31,7 @@
 @property (nonatomic, copy, nullable) NSString *grpcHost;
 @property (nonatomic, copy, nullable) NSString *logLevel;
 @property (nonatomic, copy, nullable) NSString *richMediaStyle;
+@property (nonatomic, copy, nullable) NSString *richMediaColorScheme;
 
 @property (nonatomic, strong, nullable) id appIdRaw;
 

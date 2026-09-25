@@ -4,7 +4,8 @@ import PackageDescription
 let package = Package(
     name: "Pushwoosh",
     platforms: [
-        .iOS(.v13),
+        .iOS(.v15),
+        .tvOS(.v15),
         .macOS(.v10_15)
     ],
     products: [

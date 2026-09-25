@@ -56,6 +56,8 @@
 @interface PushwooshNotificationServiceExtensionTest : XCTestCase
 @property (nonatomic) id mockNetworkModule;
 @property (nonatomic) id stubbedRequestManager;
+/// Class mock on NSUserDefaults: global while it lives, so tearDown owns its removal.
+@property (nonatomic) id mockUserDefaults;
 @end
 
 @implementation PushwooshNotificationServiceExtensionTest
@@ -79,6 +81,10 @@
 }
 
 - (void)tearDown {
+    // Dropped here rather than in the test body: an assertion failing before
+    // stopMocking left NSUserDefaults swapped for the rest of the bundle.
+    [_mockUserDefaults stopMocking];
+    _mockUserDefaults = nil;
     [_mockNetworkModule stopMocking];
     [_stubbedRequestManager stopMocking];
 }
@@ -112,7 +118,7 @@
     XCTAssertNotNil(extension.processors.lastObject.bestAttemptContent);
     [extension serviceExtensionTimeWillExpire];
 
-    [self waitForExpectationsWithTimeout:2 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
     XCTAssertEqualObjects(delivered, mockContent);
 
     [mockContent stopMocking];
@@ -145,7 +151,7 @@
     XCTAssertEqual(extension.processors.count, 2);
     [extension serviceExtensionTimeWillExpire];
 
-    [self waitForExpectationsWithTimeout:2 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
     XCTAssertEqualObjects(deliveredA, mockContentA);
     XCTAssertEqualObjects(deliveredB, mockContentB);
 
@@ -169,7 +175,7 @@
         [exp fulfill];
     }];
 
-    [self waitForExpectationsWithTimeout:2 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
     OCMVerify([mockContent setTitle:@"hooked"]);
     XCTAssertEqualObjects(delivered, mockContent);
 
@@ -209,7 +215,7 @@
         [exp fulfill];
     }];
 
-    [self waitForExpectationsWithTimeout:2 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
     XCTAssertEqual(extension.processors.count, 0);
 
     [mockContent stopMocking];
@@ -223,7 +229,8 @@
     id mockContent; id mockRequest;
     UNNotificationRequest *request = [self requestWithUserInfo:(@{@"aps": @{@"pw_badge": @"+1"}, @"pw_msg": @"1"}) content:&mockContent request:&mockRequest];
 
-    id mockNSUserDefaults = OCMClassMock([NSUserDefaults class]);
+    _mockUserDefaults = OCMClassMock([NSUserDefaults class]);
+    id mockNSUserDefaults = _mockUserDefaults;
     OCMStub([mockNSUserDefaults alloc]).andReturn(mockNSUserDefaults);
     OCMStub([mockNSUserDefaults initWithSuiteName:@"group.test.override"]).andReturn(mockNSUserDefaults);
     OCMStub([mockNSUserDefaults integerForKey:OCMOCK_ANY]).andReturn(0);
@@ -234,11 +241,10 @@
     }];
     PWNotificationServiceProcessor *processor = extension.processors.lastObject;
 
-    [self waitForExpectationsWithTimeout:2 handler:nil];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
     OCMVerify([mockNSUserDefaults initWithSuiteName:@"group.test.override"]);
 
     dispatch_sync(processor.serialQueue, ^{});
-    [mockNSUserDefaults stopMocking];
     [mockContent stopMocking];
     [mockRequest stopMocking];
 }

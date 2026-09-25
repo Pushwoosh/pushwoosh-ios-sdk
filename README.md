@@ -208,6 +208,13 @@ func application(_ application: UIApplication,
 }
 ```
 
+The SDK picks up the APNs device token itself when the app never passes it through
+`handlePushRegistration(_:)`, so a delegate with no push code still gets the device registered. An app
+that wants to choose the moment (consent first, Pushwoosh for some users only) sets
+`Pushwoosh_AUTO_DEVICE_TOKEN_REGISTRATION = NO` in Info.plist or calls
+`Pushwoosh.configure.setAutoDeviceTokenRegistrationEnabled(false)`, and registers by calling
+`handlePushRegistration(_:)` when ready.
+
 ### 3. Process Notifications
 
 ```swift
@@ -318,12 +325,12 @@ keep going to the Info.plist application.
 ### [Pushwoosh](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshiOS/documentation/pushwooshframework/)
 Core SDK for push notifications, in-app messages, and analytics.
 
-**Requirements:** iOS 11.0+ | Swift 5.0+
+**Requirements:** iOS 15.0+ | Swift 5.0+
 
 ### [PushwooshVoIP](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshVoIP/documentation/pushwooshvoip/)
 VoIP push notifications with CallKit integration.
 
-**Requirements:** iOS 14.0+ | CallKit
+**Requirements:** iOS 15.0+ | CallKit
 
 ### [PushwooshLiveActivities](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshLiveActivities/documentation/pushwooshliveactivities/)
 Live Activities support with push-to-start (iOS 17.2+) and real-time updates.
@@ -333,37 +340,37 @@ Live Activities support with push-to-start (iOS 17.2+) and real-time updates.
 ### [PushwooshInboxKit](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshInboxKit/documentation/pushwooshinboxkit/)
 Modern UIKit inbox UI with three default cells (Banner / Captioned / Classic), inline CTA buttons, pinning, and code- or server-driven cell selection.
 
-**Requirements:** iOS 13.0+ | UIKit
+**Requirements:** iOS 15.0+ | UIKit
 
 ### [PushwooshTVOS](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshTVOS/documentation/pushwooshtvos/)
 Push notifications and Rich Media HTML for Apple TV.
 
-**Requirements:** tvOS 11.0+
+**Requirements:** tvOS 15.0+
 
 ### [PushwooshForegroundPush](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshForegroundPush/documentation/pushwooshforegroundpush/)
 Custom foreground notifications with animations, haptic feedback, and visual effects.
 
-**Requirements:** iOS 13.0+ | Supports Liquid Glass effect on iOS 26+
+**Requirements:** iOS 15.0+ | Supports Liquid Glass effect on iOS 26+
 
 ### [PushwooshKeychain](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshKeychain/documentation/pushwooshkeychain/)
 Persistent device identification (HWID) that survives app reinstallation using Keychain storage.
 
-**Requirements:** iOS 11.0+
+**Requirements:** iOS 15.0+
 
 ### PushwooshGRPC
 Optional gRPC transport layer for improved network performance. Automatically falls back to REST if unavailable.
 
-**Requirements:** iOS 13.0+
+**Requirements:** iOS 15.0+
 
 ### [PushwooshNotificationUI](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshNotificationUI/documentation/pushwooshnotificationui/)
 Full-screen, Instagram-style push stories rendered in a Notification Content Extension. Subclass `PushwooshStoriesViewController` and drive it with a `pw_stories` payload.
 
-**Requirements:** iOS 13.0+ | UIKit
+**Requirements:** iOS 15.0+ | UIKit
 
 ### [PushwooshInApp](https://pushwoosh.github.io/pushwoosh-ios-sdk/PushwooshInApp/documentation/pushwooshinapp/)
 Native in-app messages rendered without a webview - modal, sheet, carousel, stories, banner, fullscreen, video, PiP, scratch card and spin wheel. Presented automatically from campaigns, or manually via `Pushwoosh.inApp.present(_:)`.
 
-**Requirements:** iOS 13.0+ | UIKit
+**Requirements:** iOS 15.0+ | UIKit
 
 ## Support
 

@@ -57,6 +57,7 @@ final class TestableInboxFacade: PWInboxFacade {
     private(set) var readCalls: [[PWInboxMessageProtocol]] = []
     private(set) var deleteCalls: [[PWInboxMessageProtocol]] = []
     private(set) var actionCalls: [PWInboxMessageProtocol] = []
+    private(set) var reportedActions: [PWInboxMessageProtocol] = []
 
     override func loadMessages(_ completion: @escaping (Result<[PWInboxMessageProtocol], Error>) -> Void) {
         loadCallCount += 1
@@ -70,6 +71,9 @@ final class TestableInboxFacade: PWInboxFacade {
 
     override func read(messages: [PWInboxMessageProtocol]) {
         readCalls.append(messages)
+        for case let message as FakeMessage in messages {
+            message.isRead = true
+        }
     }
 
     override func delete(messages: [PWInboxMessageProtocol]) {
@@ -79,12 +83,23 @@ final class TestableInboxFacade: PWInboxFacade {
     override func performAction(message: PWInboxMessageProtocol) {
         actionCalls.append(message)
     }
+
+    override func reportAction(message: PWInboxMessageProtocol) {
+        reportedActions.append(message)
+        // What storage does: a message at status Action is already read and acted on.
+        // The view's branches key off exactly that, so the double has to do it too.
+        if let fake = message as? FakeMessage {
+            fake.isRead = true
+            fake.isActionPerformed = true
+        }
+    }
 }
 
 /// Spy delegate for ``PushwooshInboxKitDelegate`` callbacks.
 final class SpyInboxDelegate: PushwooshInboxKitDelegate {
     var didSelectReturn: Bool = true
     var shouldDeleteReturn: Bool = true
+    var didTapButtonReturn: Bool = true
     private(set) var willDisplayCalls: [(IndexPath, PWInboxMessageProtocol)] = []
     private(set) var didSelectCalls: [PWInboxMessageProtocol] = []
     private(set) var shouldDeleteCalls: [PWInboxMessageProtocol] = []
@@ -111,5 +126,11 @@ final class SpyInboxDelegate: PushwooshInboxKitDelegate {
 
     func inboxKit(didDismiss vc: PushwooshInboxKitViewController) {
         didDismissCallCount += 1
+    }
+
+    func inboxKit(_ vc: PushwooshInboxKitViewController,
+                  didTapButton button: PushwooshInboxButton,
+                  onMessage message: PWInboxMessageProtocol) -> Bool {
+        didTapButtonReturn
     }
 }
