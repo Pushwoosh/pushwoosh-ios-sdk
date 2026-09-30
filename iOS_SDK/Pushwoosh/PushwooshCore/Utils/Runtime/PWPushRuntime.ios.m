@@ -37,7 +37,6 @@ static IMP pw_original_didFinishLaunchingWithOptions;
 - (BOOL)application:(UIApplication *)application pw_openURL:(NSURL *)url sourceApplication:(NSString *)sourceApplication annotation:(id)annotation;
 - (BOOL)application:(UIApplication *)application pw_openURL:(NSURL *)url options:(NSDictionary<NSString *, id> *)options;
 - (BOOL)application:(UIApplication *)application pw_handleOpenURL:(NSURL *)url;
-- (void)application:(UIApplication *)application pw_didRegisterForRemoteNotificationsWithDeviceToken:(NSData *)deviceToken;
 
 - (id)getPushwooshDelegate;
 - (BOOL)pushwooshUseRuntimeMagic;  //use runtime to handle default push notifications callbacks (used in plugins)
@@ -311,35 +310,6 @@ static BOOL openURLSwizzled = NO;
     [self performSwizzlingForDelegate:delegate proxy:nil];
 }
 
-void _replacement_didRegisterForRemoteNotificationWithToken(id self, SEL _cmd, UIApplication *application, NSData *deviceToken) {
-    SEL original = @selector(application:pw_didRegisterForRemoteNotificationsWithDeviceToken:);
-    NSUInteger registrationsBefore = [[PWManagerBridge shared] pushRegistrationCount];
-
-    if ([self respondsToSelector:original]) {
-        ((void(*)(id, SEL, UIApplication *, NSData *))objc_msgSend)(self, original, application, deviceToken);
-    } else {
-        /// A forwarding wrapper (SwiftUI's @UIApplicationDelegateAdaptor) owns no real method, and
-        /// our method stops the runtime asking it anything — so ask where the message belonged.
-        id target = [self forwardingTargetForSelector:_cmd];
-
-        if (target && target != self && [target respondsToSelector:_cmd]) {
-            ((void(*)(id, SEL, UIApplication *, NSData *))objc_msgSend)(target, _cmd, application, deviceToken);
-        }
-    }
-
-    /// A plugin swizzle wrapped around this hook, or the app hopping to the main queue, hands the token
-    /// over only after this call returns; one main-queue turn later the counter shows whether anyone did.
-    dispatch_async(dispatch_get_main_queue(), ^{
-        BOOL tokenAlreadyDelivered = [[PWManagerBridge shared] pushRegistrationCount] != registrationsBefore;
-        BOOL autoRegistrationOn = [[PWPreferences preferences] isAutoDeviceTokenRegistrationEnabled];
-
-        if (autoRegistrationOn && [[PWPreferences preferences] hasAppCode] && !tokenAlreadyDelivered) {
-            [[PWManagerBridge shared] handlePushRegistration:deviceToken];
-        }
-    });
-}
-
-
 BOOL _replacement_didFinishLaunchingWithOptions(id self, SEL _cmd, UIApplication *application, NSDictionary *launchOptions) {
     BOOL result = YES;
 
@@ -434,6 +404,68 @@ void _replacement_setApplicationIconBadgeNumber(UIApplication * self, SEL _cmd, 
 
 static const void *kPWTokenSwizzleMark = &kPWTokenSwizzleMark;
 
+typedef void (*PWDeviceTokenIMP)(id, SEL, UIApplication *, NSData *);
+
+static Method PWOwnInstanceMethod(Class cls, SEL selector) {
+    Method method = class_getInstanceMethod(cls, selector);
+    return method != class_getInstanceMethod(class_getSuperclass(cls), selector) ? method : NULL;
+}
+
+static Class PWClassOwningInstanceMethod(Class cls, SEL selector) {
+    for (Class current = cls; current != Nil; current = class_getSuperclass(current)) {
+        if (PWOwnInstanceMethod(current, selector)) {
+            return current;
+        }
+    }
+    return Nil;
+}
+
+static BOOL PWIsProxyClass(Class cls) {
+    for (Class current = cls; current != Nil; current = class_getSuperclass(current)) {
+        if (current == [NSProxy class]) {
+            return YES;
+        }
+    }
+    return NO;
+}
+
+static void PWForwardDeviceToken(id receiver, SEL selector, UIApplication *application, NSData *deviceToken) {
+    if (PWIsProxyClass(object_getClass(receiver))) {
+        NSMethodSignature *signature = [receiver methodSignatureForSelector:selector];
+
+        if (signature) {
+            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+            invocation.target = receiver;
+            invocation.selector = selector;
+            [invocation setArgument:&application atIndex:2];
+            [invocation setArgument:&deviceToken atIndex:3];
+            [receiver forwardInvocation:invocation];
+        }
+        return;
+    }
+
+    /// A forwarding wrapper (SwiftUI's @UIApplicationDelegateAdaptor) owns no real method, and
+    /// our method stops the runtime asking it anything — so ask where the message belonged.
+    id target = [receiver forwardingTargetForSelector:selector];
+
+    if (target && target != receiver && [target respondsToSelector:selector]) {
+        ((PWDeviceTokenIMP)objc_msgSend)(target, selector, application, deviceToken);
+    }
+}
+
+static void PWDeliverDeviceTokenUnlessDelivered(NSData *deviceToken, NSUInteger registrationsBefore) {
+    /// A plugin swizzle wrapped around this hook, or the app hopping to the main queue, hands the token
+    /// over only after this call returns; one main-queue turn later the counter shows whether anyone did.
+    dispatch_async(dispatch_get_main_queue(), ^{
+        BOOL tokenAlreadyDelivered = [[PWManagerBridge shared] pushRegistrationCount] != registrationsBefore;
+        BOOL autoRegistrationOn = [[PWPreferences preferences] isAutoDeviceTokenRegistrationEnabled];
+
+        if (autoRegistrationOn && [[PWPreferences preferences] hasAppCode] && !tokenAlreadyDelivered) {
+            [[PWManagerBridge shared] handlePushRegistration:deviceToken];
+        }
+    });
+}
+
 + (void)swizzleDeviceTokenHandlerForDelegateClass:(Class)delegateClass {
     if (delegateClass == nil) {
         return;
@@ -444,11 +476,44 @@ static const void *kPWTokenSwizzleMark = &kPWTokenSwizzleMark;
             return;
         }
 
-        [PWUtils swizzle:delegateClass
-            fromSelector:@selector(application:didRegisterForRemoteNotificationsWithDeviceToken:)
-              toSelector:@selector(application:pw_didRegisterForRemoteNotificationsWithDeviceToken:)
-          implementation:(IMP)_replacement_didRegisterForRemoteNotificationWithToken
-            typeEncoding:"v@:@@"];
+        SEL selector = @selector(application:didRegisterForRemoteNotificationsWithDeviceToken:);
+        Class owner = PWClassOwningInstanceMethod(delegateClass, selector);
+
+        /// The hooked ancestor already runs for this class, and a method here makes Firebase's token donor
+        /// fail to install (I-SWZ001009); left unmarked, so the next reassignment checks the class again.
+        if (owner != Nil && owner != delegateClass && objc_getAssociatedObject(owner, kPWTokenSwizzleMark)) {
+            return;
+        }
+
+        Method ownMethod = owner == delegateClass ? class_getInstanceMethod(delegateClass, selector) : NULL;
+        IMP ownImplementation = ownMethod ? method_getImplementation(ownMethod) : NULL;
+
+        IMP hook = imp_implementationWithBlock(^(id receiver, UIApplication *application, NSData *deviceToken) {
+            NSUInteger registrationsBefore = [[PWManagerBridge shared] pushRegistrationCount];
+            IMP next = ownImplementation;
+
+            if (next == NULL) {
+                /// Resolved per call from the hooked class, not the receiver's: a subclass receiver would find this hook
+                /// again, and a base class swizzled after us would be skipped by a snapshot.
+                Method inherited = class_getInstanceMethod(class_getSuperclass(delegateClass), selector);
+                next = inherited ? method_getImplementation(inherited) : NULL;
+            }
+
+            if (next) {
+                ((PWDeviceTokenIMP)next)(receiver, selector, application, deviceToken);
+            } else {
+                PWForwardDeviceToken(receiver, selector, application, deviceToken);
+            }
+
+            PWDeliverDeviceTokenUnlessDelivered(deviceToken, registrationsBefore);
+        });
+
+        if (ownMethod) {
+            method_setImplementation(ownMethod, hook);
+        } else if (!class_addMethod(delegateClass, selector, hook, "v@:@@")) {
+            imp_removeBlock(hook);
+            return;
+        }
 
         objc_setAssociatedObject(delegateClass, kPWTokenSwizzleMark, @YES, OBJC_ASSOCIATION_RETAIN);
     }
