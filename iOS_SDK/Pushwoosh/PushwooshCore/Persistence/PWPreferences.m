@@ -930,7 +930,7 @@ static BOOL _isInitializing = NO;
         } else {
             return userDefaultsAppCode;
         }
-    } else if (userDefaultsAppCode) {
+    } else if (userDefaultsAppCode.length > 0) {
         return userDefaultsAppCode;
     } else if (infoPlistAppCode) {
         [[NSUserDefaults standardUserDefaults] setObject:infoPlistAppCode forKey:KeyInfoPlistAppId];
@@ -1308,6 +1308,7 @@ static BOOL _isInitializing = NO;
         record = [self.class validatedActiveApplicationRecord:[shared objectForKey:KeyActiveApplication]];
     }
     if (record == nil) {
+        [self adoptSharedAppCodeIfMissing:[shared objectForKey:KeyAppId]];
         return;
     }
 
@@ -1322,6 +1323,21 @@ static BOOL _isInitializing = NO;
                 _appCode = [recordAppCode copy];
             }
             _baseUrl = [recordBaseUrl copy];
+        }
+    }
+}
+
+/// The plain code `setAppCode:` shares fills only an empty slot: Info.plist and the extension's own code outrank it.
+- (void)adoptSharedAppCodeIfMissing:(id)sharedAppCode {
+    if (![sharedAppCode isKindOfClass:[NSString class]] || [sharedAppCode length] == 0) {
+        return;
+    }
+
+    @synchronized (_switchLock) {
+        @synchronized (_lock) {
+            if (_appCode.length == 0) {
+                _appCode = [sharedAppCode copy];
+            }
         }
     }
 }

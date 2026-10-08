@@ -66,9 +66,30 @@
     return _payload.description;
 }
 
-+ (BOOL)isContentAvailablePush:(NSDictionary *)userInfo {
++ (BOOL)hasContentAvailableFlag:(NSDictionary *)userInfo {
+    id contentAvailable = [userInfo pw_dictionaryForKey:@"aps"][@"content-available"];
+    return ([contentAvailable isKindOfClass:[NSNumber class]] || [contentAvailable isKindOfClass:[NSString class]]) && [contentAvailable boolValue];
+}
+
++ (BOOL)isSilentPush:(NSDictionary *)userInfo {
+    if (![self hasContentAvailableFlag:userInfo]) {
+        return NO;
+    }
+
     NSDictionary *apsDict = [userInfo pw_dictionaryForKey:@"aps"];
-    return apsDict[@"content-available"] != nil;
+
+    id alert = apsDict[@"alert"];
+    if ([alert isKindOfClass:[NSString class]]) {
+        return ((NSString *)alert).length == 0;
+    }
+    if ([alert isKindOfClass:[NSDictionary class]]) {
+        return ((NSDictionary *)alert).count == 0;
+    }
+    return alert == nil || [alert isKindOfClass:[NSNull class]];
+}
+
++ (BOOL)isVisibleContentAvailablePush:(NSDictionary *)userInfo {
+    return [self hasContentAvailableFlag:userInfo] && ![self isSilentPush:userInfo];
 }
 
 + (BOOL)isPushwooshMessage:(NSDictionary *)userInfo {

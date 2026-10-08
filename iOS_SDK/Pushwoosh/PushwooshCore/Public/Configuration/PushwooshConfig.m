@@ -8,6 +8,7 @@
 
 #import "PushwooshConfig.h"
 #import <PushwooshCore/PWManagerBridge.h>
+#import "PWPushNotificationsManager.h"
 #import <PushwooshCore/PWInAppManager.h>
 #import "PWSetAdvertisingIdRequest.h"
 #import "PWNetworkModule.h"
@@ -253,7 +254,7 @@
 }
 
 + (BOOL)handlePushReceived:(NSDictionary *)userInfo {
-    return [[PWManagerBridge shared] handlePushReceived:userInfo autoAcceptAllowed:YES];
+    return [[PWManagerBridge shared].pushNotificationManager handlePushReceivedFromApp:userInfo];
 }
 
 + (NSDictionary *)getRemoteNotificationStatus {

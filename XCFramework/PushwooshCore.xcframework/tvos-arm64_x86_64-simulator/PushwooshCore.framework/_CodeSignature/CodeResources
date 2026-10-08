@@ -82,7 +82,7 @@
 		</data>
 		<key>Headers/PWMessage+Internal.h</key>
 		<data>
-		nSRk/nMpd7kblrI7kvk4pwtXVrY=
+		9WHr8WMnw2eFeP32w7WF6pLFsv0=
 		</data>
 		<key>Headers/PWMessage.h</key>
 		<data>
@@ -118,7 +118,7 @@
 		</data>
 		<key>Headers/PWRequestManager.h</key>
 		<data>
-		M02GBS+pjWrhV/p2IGVCw6/Oz8w=
+		XHe8c9eb2uI88qnlMUe3tpvoZqg=
 		</data>
 		<key>Headers/PWRichMedia.h</key>
 		<data>
@@ -150,7 +150,7 @@
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		pPwtQda/TI4kChEZg4SB4bfwY8k=
+		9NsGgKwhsM91qtQp3/dPJgE2fkU=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -158,7 +158,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		vpsBjcRqYumSQ98SSmSqeEIi/Dc=
+		lKX+CAmoey4AxjPiUBLJVpT+rYI=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -230,7 +230,7 @@
 		</data>
 		<key>PrivateHeaders/PWPushNotificationsManager.common.h</key>
 		<data>
-		EsE4DMWKjovqGzy6IWBXmtEbZBo=
+		mhMv54TQ7Isn/CfpqfgohWUU0Dw=
 		</data>
 		<key>PrivateHeaders/PWPushNotificationsManager.h</key>
 		<data>
@@ -436,7 +436,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			vcAnfx6bWfA4Wy3ZxMfeYJEAJXy1J5teRy66aimBPig=
+			XHsNzNsRO/Jje/yRkK/u4oEVH+0Wh4LlpwF9+FC7360=
 			</data>
 		</dict>
 		<key>Headers/PWMessage.h</key>
@@ -499,7 +499,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			BulySOZIoNT3c63RMDbFfEO4uDdVYrK5maVmNvfCMyk=
+			X1rcm63OewpCxmJvCRBAfA+pNB2+Ph2Y637X/bdRMb0=
 			</data>
 		</dict>
 		<key>Headers/PWRichMedia.h</key>
@@ -555,7 +555,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			5gKYnujxaV9MItOLkP58y6gYPl6RlQZASyZuW8G2InA=
+			nvR9EA6xg04sWecUB7s3nSa3dDcu/gAwE+8Y7ynEEqs=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -688,7 +688,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Aiaqjqa+XH3AnI5H26N1vr4IYmP3Im5A1gmaEjhyClI=
+			wbqxe+uDK1GGKxAz2T+PYwclY+sP1vIzxIF1ChOj120=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWPushNotificationsManager.h</key>

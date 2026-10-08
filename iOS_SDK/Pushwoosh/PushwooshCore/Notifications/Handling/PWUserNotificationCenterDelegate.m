@@ -43,9 +43,8 @@
 
         [[UNUserNotificationCenter currentNotificationCenter] addNotificationRequest:request withCompletionHandler:nil];
 
-        //newsstand push
-        if (![PWMessage isContentAvailablePush:userInfo]) {
-             [_notificationManager handlePushReceived:[self pushPayloadFromContent:content] autoAcceptAllowed:NO];
+        if (![PWMessage isSilentPush:userInfo]) {
+            [_notificationManager handlePushReceived:[self pushPayloadFromContent:content] autoAcceptAllowed:NO];
         }
 
         completionHandler(UNNotificationPresentationOptionNone);
@@ -88,7 +87,7 @@
     };
 
     if ([self isRemoteNotification:response.notification]  && [PWMessage isPushwooshMessage:response.notification.request.content.userInfo]) {
-        if (![PWMessage isContentAvailablePush:response.notification.request.content.userInfo]) {
+        if (![PWMessage isSilentPush:response.notification.request.content.userInfo]) {
             [_notificationManager handlePushReceived:[self pushPayloadFromContent:response.notification.request.content] autoAcceptAllowed:NO];
         }
 

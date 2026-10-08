@@ -354,7 +354,7 @@
     XCTAssertEqual([PWSdkStateProvider sharedInstance].currentState, PWSdkStateInitializing);
 }
 
-/// Verifies an error is logged when reverse proxy is enabled but no proxy URL is available in the App Group.
+/// Verifies the missing-proxy error says the extension skips the delivery event instead of holding it.
 - (void)testLoadReverseProxyFromAppGroups_noUrl_logsError {
     PWRequestManager *manager = [self createManagerWithAllowReverseProxy:YES];
 
@@ -366,7 +366,8 @@
 
     self.logMock = OCMClassMock([PushwooshLog class]);
     OCMExpect([self.logMock pushwooshLog:PW_LL_ERROR className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *msg) {
-        return [msg containsString:@"Reverse proxy is enabled"] && [msg containsString:testGroupName];
+        return [msg containsString:@"Reverse proxy is enabled"] && [msg containsString:testGroupName]
+            && [msg containsString:@"Notification Service Extension skips the message delivery event"];
     }]]);
 
     [manager loadReverseProxyFromAppGroups];

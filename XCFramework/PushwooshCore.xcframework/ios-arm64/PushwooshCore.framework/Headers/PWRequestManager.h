@@ -33,6 +33,10 @@ typedef void (^PWRequestDownloadCompleteBlock)(NSString *, NSError *);
 /// When `appGroupsName` is nil or empty, falls back to `PWConfig.appGroupsName`.
 - (void)loadReverseProxyFromAppGroups:(NSString *)appGroupsName;
 
+/// Internal, for the Notification Service Extension: re-checks readiness after settings were loaded from
+/// the App Group without a setter. Returns nil when `sendRequest:` sends at once, otherwise why it would queue.
+- (NSString *)refreshReadiness;
+
 /// YES while a reverse proxy URL is configured. Callers that may move the base URL must not do so
 /// behind a proxy — the proxy URL is the transport-level override and outranks it anyway.
 - (BOOL)isUsingReverseProxy;

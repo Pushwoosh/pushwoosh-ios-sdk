@@ -34,6 +34,9 @@
 
 const NSTimeInterval kRegistrationUpdateInterval = 24 * 60 * 60;
 
+NSString * const kPWReceivedPushHashesKey = @"PWReceivedPushHashes";
+static const NSUInteger kPWReceivedPushHashesLimit = 100;
+
 typedef NS_ENUM(NSInteger, PWPlatform) {
     iOS = 1,
     SMS = 18,
@@ -44,6 +47,16 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 @interface PWPushNotificationsManagerCommon ()
 
 @property (nonatomic, strong) NSDictionary *lastPushMessage;
+
+/// Hash of the push the app handed over last, for the pushes deduped by hash.
+@property (nonatomic, strong) NSString *lastAppPushHash;
+
+/// One push can be delivered more than once (the runtime swizzle plus an app that also calls
+/// handlePushReceived: itself), and its content must reach the user only once.
+@property (nonatomic) BOOL lastPushContentProcessed;
+
+/// The same memory for the pushes deduped by hash, which another push can interleave with.
+@property (nonatomic, strong) NSMutableArray<NSString *> *processedContentHashes;
 
 // @Inject
 @property (nonatomic, strong) PWRequestManager *requestManager;
@@ -451,7 +464,27 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (BOOL)isSilentPush:(NSDictionary *)userInfo {
-    return [[[self getApnPayload:userInfo] objectForKey:@"content-available"] boolValue];
+    return [PWMessage isSilentPush:userInfo];
+}
+
+/// On iOS a visible content-available push is opened by the tap, so waking the app with it only counts as
+/// received; any other push auto-accepts on delivery as before.
+- (BOOL)autoAcceptsOnDelivery:(NSDictionary *)userInfo {
+#if TARGET_OS_IOS
+    return ![PWMessage isVisibleContentAvailablePush:userInfo];
+#else
+    return YES;
+#endif
+}
+
+/// On iOS a visible content-available push is received once per hash across its wake-up and tap,
+/// any other push keeps the previous dedup against the last push as a whole.
+- (BOOL)receivesOncePerHash:(NSDictionary *)userInfo {
+#if TARGET_OS_IOS
+    return [userInfo pw_stringForKey:@"p"].length > 0 && [PWMessage isVisibleContentAvailablePush:userInfo];
+#else
+    return NO;
+#endif
 }
 
 - (NSDictionary *)startPushInfoFromInfoDictionary:(NSDictionary *)userInfo {
@@ -495,40 +528,57 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         return NO;
     }
 
-    if (![self checkDuplicate:userInfo]) {
+    BOOL receivedOncePerHash = [self receivesOncePerHash:userInfo];
+    BOOL firstDelivery = [self checkDuplicate:userInfo];
+
+    if (!firstDelivery && !receivedOncePerHash) {
         return NO;
     }
 
-    [self dispatchInboxPushIfNeeded:userInfo];
+    BOOL processesContent = autoAcceptAllowed && !isPushFromBackground && ![self contentProcessedForPush:userInfo];
+
+    if (!firstDelivery && !processesContent) {
+        return YES;
+    }
+
+    BOOL acceptsOnDelivery = autoAcceptAllowed && isPushFromBackground && firstDelivery && [self autoAcceptsOnDelivery:userInfo];
+
+    if (processesContent) {
+        [self rememberContentProcessedForPush:userInfo];
+    }
+
+    if (firstDelivery) {
+        [self dispatchInboxPushIfNeeded:userInfo];
 
 #if TARGET_OS_IPHONE
-    if (![PWManagerBridge shared].showPushnotificationAlert && _config.sendPushStatIfAlertsDisabled && !isPushFromBackground && ![PWMessage isContentAvailablePush:userInfo]) {
-        [[PWManagerBridge shared].dataManager sendStatsForPush:userInfo];
-    }
+        if (![PWManagerBridge shared].showPushnotificationAlert && _config.sendPushStatIfAlertsDisabled && !isPushFromBackground && ![self isSilentPush:userInfo]) {
+            [[PWManagerBridge shared].dataManager sendStatsForPush:userInfo];
+        }
 #else
-    [[PWManagerBridge shared].dataManager sendStatsForPush:userInfo];
+        [[PWManagerBridge shared].dataManager sendStatsForPush:userInfo];
 #endif
 
-    [self preHandlePushReceived:userInfo onStart:isPushFromBackground];
+        [self preHandlePushReceived:userInfo onStart:isPushFromBackground];
 
-    if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(onPushReceived:withNotification:onStart:)]) {
-        PWManagerBridge *bridge = [PWManagerBridge shared];
-        id sender = bridge.delegateSender ?: bridge;
-        NSMethodSignature *signature = [bridge.delegate methodSignatureForSelector:@selector(onPushReceived:withNotification:onStart:)];
-        NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-        [invocation setSelector:@selector(onPushReceived:withNotification:onStart:)];
-        [invocation setTarget:bridge.delegate];
-        [invocation setArgument:&sender atIndex:2];
-        [invocation setArgument:&userInfo atIndex:3];
-        [invocation setArgument:&isPushFromBackground atIndex:4];
-        [invocation invoke];
+        if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(onPushReceived:withNotification:onStart:)]) {
+            PWManagerBridge *bridge = [PWManagerBridge shared];
+            id sender = bridge.delegateSender ?: bridge;
+            NSMethodSignature *signature = [bridge.delegate methodSignatureForSelector:@selector(onPushReceived:withNotification:onStart:)];
+            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+            [invocation setSelector:@selector(onPushReceived:withNotification:onStart:)];
+            [invocation setTarget:bridge.delegate];
+            [invocation setArgument:&sender atIndex:2];
+            [invocation setArgument:&userInfo atIndex:3];
+            [invocation setArgument:&isPushFromBackground atIndex:4];
+            [invocation invoke];
+        }
     }
 
     dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-        PWMessage *message = [[PWMessage alloc] initWithPayload:userInfo foreground:!isPushFromBackground];
+        PWMessage *message = firstDelivery ? [[PWMessage alloc] initWithPayload:userInfo foreground:!isPushFromBackground] : nil;
 
         dispatch_async(dispatch_get_main_queue(), ^{
-            if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(pushwoosh:onMessageReceived:)]) {
+            if (firstDelivery && [[PWManagerBridge shared].delegate respondsToSelector:@selector(pushwoosh:onMessageReceived:)]) {
                 id delegate = [PWManagerBridge shared].delegate;
                 SEL selector = @selector(pushwoosh:onMessageReceived:);
                 NSMethodSignature *signature = [delegate methodSignatureForSelector:selector];
@@ -546,17 +596,44 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
                                    message:[NSString stringWithFormat:@"Method 'pushwoosh:onMessageReceived:' was called with payload: %@", userInfo]];
             }
 
-            if (autoAcceptAllowed && ![self showForegroundAlert:userInfo onStart:isPushFromBackground]) {
-                if (isPushFromBackground) {
-                    [self handlePushAccepted:userInfo onStart:isPushFromBackground];
-                } else {
-                    [self processUserInfo:userInfo];
-                }
+            if (processesContent) {
+                [self processUserInfo:userInfo];
+            }
+
+            if (acceptsOnDelivery && ![self showForegroundAlert:userInfo onStart:isPushFromBackground]) {
+                [self handlePushAccepted:userInfo onStart:isPushFromBackground];
             }
         });
     });
 
     return YES;
+}
+
+- (BOOL)handlePushReceivedFromApp:(NSDictionary *)userInfo {
+    if (![userInfo isKindOfClass:[NSDictionary class]]) {
+        return NO;
+    }
+    if ([self isRepeatedAppPush:userInfo]) {
+        return NO;
+    }
+    if (![self handlePushReceived:userInfo autoAcceptAllowed:YES]) {
+        return NO;
+    }
+    if ([self receivesOncePerHash:userInfo]) {
+        _lastAppPushHash = [userInfo pw_stringForKey:@"p"];
+    } else {
+        _lastAppPushHash = nil;
+    }
+    return YES;
+}
+
+/// The app handing over the same push again. One push reaches the app as more than one dictionary (the SDK
+/// re-posts it with a pw_push marker), so the hash decides it, as it decides the delivery dedup.
+- (BOOL)isRepeatedAppPush:(NSDictionary *)userInfo {
+    if (![self receivesOncePerHash:userInfo]) {
+        return NO;
+    }
+    return [[userInfo pw_stringForKey:@"p"] isEqualToString:_lastAppPushHash];
 }
 
 - (BOOL)dispatchInboxPushIfNeeded:(NSDictionary *)userInfo {
@@ -567,10 +644,58 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     return NO;
 }
 
+/// A push received once per hash stays received across its deliveries, even in another process (recent hashes
+/// live in the user defaults); any other push is a duplicate only of the last push as a whole.
 - (BOOL)checkDuplicate:(NSDictionary *)userInfo {
-    if ([userInfo isEqualToDictionary:_lastPushMessage])
+    if ([self receivesOncePerHash:userInfo]) {
+        NSString *hash = [userInfo pw_stringForKey:@"p"];
+        if (![hash isEqualToString:[_lastPushMessage pw_stringForKey:@"p"]]) {
+            _lastPushMessage = userInfo;
+        }
+        return [self rememberReceivedPushHash:hash];
+    }
+    if ([userInfo isEqualToDictionary:_lastPushMessage]) {
         return NO;
+    }
     _lastPushMessage = userInfo;
+    _lastPushContentProcessed = NO;
+    return YES;
+}
+
+/// A push deduped by hash remembers its own content processing: another push between its deliveries must
+/// not let the content of this one through a second time.
+- (BOOL)contentProcessedForPush:(NSDictionary *)userInfo {
+    if (![self receivesOncePerHash:userInfo]) {
+        return _lastPushContentProcessed;
+    }
+    return [_processedContentHashes containsObject:[userInfo pw_stringForKey:@"p"]];
+}
+
+- (void)rememberContentProcessedForPush:(NSDictionary *)userInfo {
+    if (![self receivesOncePerHash:userInfo]) {
+        _lastPushContentProcessed = YES;
+        return;
+    }
+    if (!_processedContentHashes) {
+        _processedContentHashes = [NSMutableArray array];
+    }
+    [_processedContentHashes addObject:[userInfo pw_stringForKey:@"p"]];
+    if (_processedContentHashes.count > kPWReceivedPushHashesLimit) {
+        [_processedContentHashes removeObjectsInRange:NSMakeRange(0, _processedContentHashes.count - kPWReceivedPushHashesLimit)];
+    }
+}
+
+- (BOOL)rememberReceivedPushHash:(NSString *)hash {
+    NSUserDefaults *defaults = [NSUserDefaults standardUserDefaults];
+    NSMutableArray<NSString *> *hashes = [[defaults stringArrayForKey:kPWReceivedPushHashesKey] mutableCopy] ?: [NSMutableArray array];
+    if ([hashes containsObject:hash]) {
+        return NO;
+    }
+    [hashes addObject:hash];
+    if (hashes.count > kPWReceivedPushHashesLimit) {
+        [hashes removeObjectsInRange:NSMakeRange(0, hashes.count - kPWReceivedPushHashesLimit)];
+    }
+    [defaults setObject:hashes forKey:kPWReceivedPushHashesKey];
     return YES;
 }
 

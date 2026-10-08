@@ -444,11 +444,11 @@
     XCTAssertEqualObjects([PushwooshConfig version], [PWManagerBridge version]);
 }
 
-/// Verifies that handlePushReceived: forwards to PWManagerBridge with autoAcceptAllowed=YES (default).
-- (void)testHandlePushReceived_forwardsToBridgeWithAutoAcceptYes {
+/// Verifies that handlePushReceived: hands the push to the push manager as the app's own call.
+- (void)testHandlePushReceived_forwardsToManagerAsAppCall {
     id mockPushManager = OCMClassMock([PWPushNotificationsManager class]);
     NSDictionary *userInfo = @{@"aps": @{}};
-    OCMExpect([mockPushManager handlePushReceived:userInfo autoAcceptAllowed:YES]).andReturn(YES);
+    OCMExpect([mockPushManager handlePushReceivedFromApp:userInfo]).andReturn(YES);
     [PWManagerBridge shared].pushNotificationManager = mockPushManager;
 
     BOOL result = [PushwooshConfig handlePushReceived:userInfo];

@@ -255,6 +255,14 @@
     [[PWPreferences preferences] loadActiveApplicationFromAppGroups:self.appGroupsName];
     [_requestManager loadReverseProxyFromAppGroups:self.appGroupsName];
 
+    if ([_requestManager refreshReadiness] != nil) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:[self missingExtensionConfigurationMessage]];
+        if (completion) {
+            completion();
+        }
+        return;
+    }
+
     PWMessageDeliveryRequest *request = [PWMessageDeliveryRequest new];
     request.pushDict = pushNotification;
 
@@ -269,6 +277,15 @@
             completion();
         }
     }];
+}
+
+/// The extension runs in its own process: a queued request would hold the notification until the system
+/// timeout and then die with the process, so the integrator is told what to configure instead.
+- (NSString *)missingExtensionConfigurationMessage {
+    if ([PWPreferences preferences].appCode.length == 0) {
+        return @"messageDeliveryEvent skipped: the Notification Service Extension has no Pushwoosh app code. Set Pushwoosh_APPID in the Info.plist of the app or the extension, or add the same App Group to both targets and set it as PW_APP_GROUPS_NAME in both Info.plist files.";
+    }
+    return @"messageDeliveryEvent skipped: the Notification Service Extension has no reverse proxy URL. Add the same App Group to the app and the extension targets and set it as PW_APP_GROUPS_NAME in both Info.plist files, so the extension reads the URL the app passes to setReverseProxy().";
 }
 
 - (void)downloadAttachmentForRequest:(UNNotificationRequest *)request

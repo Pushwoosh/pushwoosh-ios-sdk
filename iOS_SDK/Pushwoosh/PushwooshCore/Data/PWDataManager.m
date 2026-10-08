@@ -21,6 +21,7 @@
 #import "PWSetEmailTagsRequest.h"
 #import "PWLiveActivityRequest.h"
 #import "PWStartLiveActivityRequest.h"
+#import "PWMessage+Internal.h"
 
 #import "PWAppLifecycleTrackingManager.h"
 
@@ -267,12 +268,7 @@
 }
 
 - (void)sendStatsForPush:(NSDictionary *)pushDict {
-    NSDictionary *apsDict = [pushDict pw_dictionaryForKey:@"aps"];
-    BOOL isContentAvailable = [[apsDict objectForKey:@"content-available"] boolValue];
-
-    NSString *alert = pushDict[@"alert"];
-
-    if (isContentAvailable && !alert) { //is silent push
+    if ([PWMessage isSilentPush:pushDict]) {
         return;
     }
 

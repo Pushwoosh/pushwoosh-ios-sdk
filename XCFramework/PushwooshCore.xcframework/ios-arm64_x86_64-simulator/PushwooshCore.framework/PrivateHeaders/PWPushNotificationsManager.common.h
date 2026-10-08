@@ -12,6 +12,9 @@
 #import <PushwooshCore/PWConfig.h>
 #import <PushwooshCore/PWTypes.h>
 
+/// User defaults key of the hashes of the last received pushes.
+FOUNDATION_EXPORT NSString * const kPWReceivedPushHashesKey;
+
 @interface PWPushNotificationsManagerCommon : NSObject
 
 - (instancetype)initWithConfig:(PWConfig *)config;
@@ -27,7 +30,14 @@
 
 - (void)handlePushRegistrationFailure:(NSError *)error;
 - (void)handlePushRegistrationString:(NSString *)deviceID;
+/// YES for a Pushwoosh push; a repeat of the last push returns NO as before, while a visible content-available
+/// push on iOS stays YES when it was already received through another delivery path.
 - (BOOL)handlePushReceived:(NSDictionary *)userInfo autoAcceptAllowed:(BOOL)autoAcceptAllowed;
+
+/// The app's own handlePushReceived: call. A visible content-available push on iOS returns NO only when the app
+/// passes it again, not after SDK deliveries; any other push is answered as before.
+- (BOOL)handlePushReceivedFromApp:(NSDictionary *)userInfo;
+
 - (BOOL)handlePushAccepted:(NSDictionary *)userInfo onStart:(BOOL)onStart;
 - (void)handlePushRegistration:(NSData *)devToken;
 

@@ -12,6 +12,7 @@
 #import "PWUnregisterDeviceRequest.h"
 #import "PWUtils.h"
 #import "PWPushStatRequest.h"
+#import "PWPushNotificationsManager.h"
 #import "PushwooshFramework.h"
 #import "PWBundleMock.h"
 #import "PWConfig.h"
@@ -38,6 +39,8 @@
 
 - (void)setUp {
     [super setUp];
+
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPWReceivedPushHashesKey];
 
     self.mockUIApplication = OCMClassMock([UIApplication class]);
     OCMStub([self.mockUIApplication sharedApplication]).andReturn(self.mockUIApplication);
@@ -78,6 +81,7 @@
     [PWPlatformModule module].notificationManagerCompat = self.originalNotificationManager;
     [PWPlatformModule module].NotificationCategoryBuilder = self.originalCategoryBuilder;
     [PWTestUtils tearDown];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:kPWReceivedPushHashesKey];
 
     [super tearDown];
 }

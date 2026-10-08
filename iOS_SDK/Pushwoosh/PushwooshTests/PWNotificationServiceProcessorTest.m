@@ -7,6 +7,9 @@
 #import "PWRequestManager.h"
 #import "PWMessageDeliveryRequest.h"
 #import "PWPreferences.h"
+#import "PWConfig.h"
+#import "PWSdkStateProvider.h"
+#import "PushwooshLog.h"
 
 #if TARGET_OS_IOS
 
@@ -22,11 +25,31 @@
 
 @end
 
+@interface PWRequestManager (ProcessorTest)
+
+- (void)sendRequestInternal:(PWRequest *)request completion:(void (^)(NSError *error))completion;
+
+@end
+
+@interface PWSdkStateProvider (ProcessorTest)
+
+- (void)resetForTesting;
+
+@end
+
+static NSString *const kGatedAppGroup = @"group.com.test.sdk1057";
+static NSString *const kGatedAppCode = @"GATED-10570";
+
 @interface PWNotificationServiceProcessorTest : XCTestCase
 
 @property (nonatomic) id mockNetworkModule;
 /// Class mock on NSUserDefaults: global while it lives, so tearDown owns its removal.
 @property (nonatomic) id mockUserDefaults;
+/// Real request manager behind a partial mock: the readiness gate under test is the production one.
+@property (nonatomic) id gatedRequestManager;
+@property (nonatomic) id mockConfig;
+@property (nonatomic) id mockLog;
+@property (nonatomic, copy) NSString *savedAppCode;
 
 @end
 
@@ -43,6 +66,47 @@
     [_mockUserDefaults stopMocking];
     _mockUserDefaults = nil;
     [_mockNetworkModule stopMocking];
+
+    if (_gatedRequestManager) {
+        [_mockLog stopMocking];
+        _mockLog = nil;
+        [_gatedRequestManager stopMocking];
+        _gatedRequestManager = nil;
+        [_mockConfig stopMocking];
+        _mockConfig = nil;
+        [[PWSdkStateProvider sharedInstance] resetForTesting];
+        NSUserDefaults *gatedGroup = [[NSUserDefaults alloc] initWithSuiteName:kGatedAppGroup];
+        [gatedGroup removeObjectForKey:@"Pushwoosh_EFFECTIVE_APPLICATION"];
+        [gatedGroup removeObjectForKey:@"Pushwoosh_APPID"];
+        [self switchAppCodeTo:_savedAppCode ?: @""];
+        [[PWPreferences preferences] updateBaseUrl:[[PWPreferences preferences] defaultBaseUrl]];
+    }
+}
+
+/// Through an empty code, so neither switch unregisters from the application being left.
+- (void)switchAppCodeTo:(NSString *)appCode {
+    [PWPreferences preferences].appCode = @"";
+    [PWPreferences preferences].appCode = appCode;
+}
+
+/// Only the transport is stubbed: everything up to it, the readiness queue included, is real.
+- (id)gatedRequestManagerWithAppCode:(NSString *)appCode {
+    _savedAppCode = [PWPreferences preferences].appCode;
+    [self switchAppCodeTo:appCode];
+    [[PWSdkStateProvider sharedInstance] resetForTesting];
+
+    _mockConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([_mockConfig allowReverseProxy]).andReturn(NO);
+
+    _gatedRequestManager = OCMPartialMock([PWRequestManager new]);
+    OCMStub([_gatedRequestManager sendRequestInternal:OCMOCK_ANY completion:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        void (^completion)(NSError *) = nil;
+        [invocation getArgument:&completion atIndex:3];
+        if (completion) {
+            completion(nil);
+        }
+    });
+    return _gatedRequestManager;
 }
 
 - (UNNotificationRequest *)requestWithUserInfo:(NSDictionary *)userInfo content:(id *)outContent request:(id *)outRequest {
@@ -615,6 +679,110 @@
     OCMVerify([mockDefaults setInteger:0 forKey:@"badge_count"]);
 
     [(id)processor.requestManager stopMocking];
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// SDK-1057: Verifies an extension with no app code delivers the notification at once, sends no delivery event and names the missing configuration.
+- (void)testNoAppCodeDeliversWithoutWaitingAndSkipsDeliveryEvent {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id requestManager = [self gatedRequestManagerWithAppCode:@""];
+    processor.requestManager = requestManager;
+    OCMReject([requestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]);
+
+    _mockLog = OCMClassMock([PushwooshLog class]);
+    OCMExpect([_mockLog pushwooshLog:PW_LL_WARN className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *message) {
+        return [message hasPrefix:@"messageDeliveryEvent skipped"] && [message containsString:@"Pushwoosh_APPID"] && [message containsString:@"PW_APP_GROUPS_NAME"];
+    }]]);
+
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:(@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash"}) content:&mockContent request:&mockRequest];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    __block UNNotificationContent *delivered = nil;
+    [processor processRequest:request appGroups:nil completion:^(UNNotificationContent *content) {
+        delivered = content;
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    XCTAssertEqualObjects(delivered, mockContent);
+    XCTAssertFalse([[PWSdkStateProvider sharedInstance] isReady]);
+    OCMVerifyAll(_mockLog);
+
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// SDK-1057: Verifies an app code that reaches the extension through the App Group after the request manager started still sends the delivery event.
+- (void)testAppCodeLoadedFromAppGroupAfterStartSendsDeliveryEvent {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id requestManager = [self gatedRequestManagerWithAppCode:@""];
+    processor.requestManager = requestManager;
+
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:kGatedAppGroup];
+    [shared setObject:@{ @"appCode": kGatedAppCode, @"baseUrl": @"https://region-b.example.com/json/1.3/" } forKey:@"Pushwoosh_EFFECTIVE_APPLICATION"];
+    [shared synchronize];
+
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:(@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash"}) content:&mockContent request:&mockRequest];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    [processor processRequest:request appGroups:kGatedAppGroup completion:^(UNNotificationContent *content) {
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    XCTAssertEqualObjects([PWPreferences preferences].appCode, kGatedAppCode);
+    OCMVerify([requestManager sendRequestInternal:[OCMArg isKindOfClass:[PWMessageDeliveryRequest class]] completion:OCMOCK_ANY]);
+
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// SDK-1057: Verifies an app code the app stores with plain setAppCode after the extension started still sends the delivery event.
+- (void)testAppCodeSharedByPlainSetAppCodeAfterStartSendsDeliveryEvent {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id requestManager = [self gatedRequestManagerWithAppCode:@""];
+    processor.requestManager = requestManager;
+
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:kGatedAppGroup];
+    [shared setObject:kGatedAppCode forKey:@"Pushwoosh_APPID"];
+    [shared synchronize];
+
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:(@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash"}) content:&mockContent request:&mockRequest];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    [processor processRequest:request appGroups:kGatedAppGroup completion:^(UNNotificationContent *content) {
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    XCTAssertEqualObjects([PWPreferences preferences].appCode, kGatedAppCode);
+    OCMVerify([requestManager sendRequestInternal:[OCMArg isKindOfClass:[PWMessageDeliveryRequest class]] completion:OCMOCK_ANY]);
+
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// Verifies an extension that knows the app code sends the delivery event and then delivers the notification.
+- (void)testConfiguredAppCodeSendsDeliveryEvent {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id requestManager = [self gatedRequestManagerWithAppCode:kGatedAppCode];
+    processor.requestManager = requestManager;
+
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:(@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash"}) content:&mockContent request:&mockRequest];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    [processor processRequest:request appGroups:nil completion:^(UNNotificationContent *content) {
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    OCMVerify([requestManager sendRequestInternal:[OCMArg isKindOfClass:[PWMessageDeliveryRequest class]] completion:OCMOCK_ANY]);
+
     [mockContent stopMocking];
     [mockRequest stopMocking];
 }

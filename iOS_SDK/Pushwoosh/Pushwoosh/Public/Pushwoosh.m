@@ -395,7 +395,7 @@ static dispatch_once_t ensureInitializedOncePredicate;
 #pragma mark - Receive Push
 
 - (BOOL)handlePushReceived:(NSDictionary *)userInfo {
-    return [self.pushNotificationManager handlePushReceived:userInfo autoAcceptAllowed:YES];
+    return [self.pushNotificationManager handlePushReceivedFromApp:userInfo];
 }
 
 #pragma mark - Tags

@@ -1132,6 +1132,37 @@ static void (^sInboxResetHook)(void) = nil;
     XCTAssertNil([reread objectForKey:kAppIdKey], @"the extension must not mirror the application code back into the suite");
 }
 
+/// SDK-1057: Verifies an extension that stored an empty code on an earlier start takes the app code shared by the app and leaves it in the App Group.
+- (void)testExtensionStartWithAStoredEmptyCodeTakesTheSharedAppCode {
+    id mockConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockConfig appGroupsName]).andReturn(kTestSuiteName);
+
+    [[NSUserDefaults standardUserDefaults] setObject:@"" forKey:kAppIdKey];
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:kTestSuiteName];
+    [shared setObject:kAppCodeB forKey:kAppIdKey];
+    [shared synchronize];
+
+    PWPreferences *extensionSide = [[PWPreferences alloc] init];
+
+    XCTAssertEqualObjects([extensionSide appCode], kAppCodeB);
+    XCTAssertEqualObjects([shared objectForKey:kAppIdKey], kAppCodeB);
+
+    [mockConfig stopMocking];
+}
+
+/// SDK-1057: Verifies the extension-side reload keeps an app code the extension already has over the plain code shared by the app.
+- (void)testLoadActiveApplicationFromAppGroupsKeepsTheExtensionsOwnAppCode {
+    [[NSUserDefaults standardUserDefaults] setObject:kAppCodeA forKey:kAppIdKey];
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:kTestSuiteName];
+    [shared setObject:kAppCodeB forKey:kAppIdKey];
+    [shared synchronize];
+
+    PWPreferences *extensionSide = [[PWPreferences alloc] init];
+    [extensionSide loadActiveApplicationFromAppGroups:kTestSuiteName];
+
+    XCTAssertEqualObjects([extensionSide appCode], kAppCodeA);
+}
+
 /// Verifies the extension-side reload applies both halves of the pair as one unit, so a request pinned in between can never see a torn pair.
 - (void)testLoadActiveApplicationFromAppGroupsAppliesPairAtomically {
     NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:kTestSuiteName];

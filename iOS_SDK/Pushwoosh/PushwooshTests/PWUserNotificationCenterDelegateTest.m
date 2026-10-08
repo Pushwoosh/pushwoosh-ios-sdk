@@ -163,6 +163,49 @@
     OCMVerifyAll(_mockManager);
 }
 
+/// Verifies that a visible push which also wakes the app (alert + content-available) is still a
+/// received push for the delegate: the content-available skip is for silent pushes only.
+- (void)testWillPresent_visibleContentAvailablePush_callsHandleReceived {
+    NSDictionary *userInfo = @{@"aps": @{@"alert": @"hi", @"content-available": @"1", @"mutable-content": @1}, @"pw_msg": @"1", @"p": @"h1"};
+    id notification = [self mockRemoteNotificationWithUserInfo:userInfo];
+    OCMExpect([_mockManager handlePushReceived:[OCMArg checkWithBlock:^BOOL(NSDictionary *payload) {
+        return [payload[@"p"] isEqualToString:@"h1"];
+    }] autoAcceptAllowed:NO]);
+    XCTestExpectation *expectation = [self expectationWithDescription:@"completion called"];
+
+    [_target userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+            willPresentNotification:notification
+              withCompletionHandler:^(UNNotificationPresentationOptions options) {
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    OCMVerifyAll(_mockManager);
+}
+
+/// Verifies that tapping a visible content-available push goes through received and then accepted,
+/// exactly like a push without the flag.
+- (void)testDidReceive_visibleContentAvailablePush_callsHandleReceivedThenAccepted {
+    OCMStub([_mockManager isAppInBackground]).andReturn(YES);
+    NSDictionary *userInfo = @{@"aps": @{@"alert": @{@"title": @"t", @"body": @"b"}, @"content-available": @1}, @"pw_msg": @"1", @"p": @"h3"};
+    id notification = [self mockRemoteNotificationWithUserInfo:userInfo];
+    id response = [self mockResponseForNotification:notification actionIdentifier:UNNotificationDefaultActionIdentifier];
+    OCMExpect([_mockManager handlePushReceived:[OCMArg any] autoAcceptAllowed:NO]);
+    OCMExpect([_mockManager handlePushAccepted:[OCMArg checkWithBlock:^BOOL(NSDictionary *payload) {
+        return [payload[@"p"] isEqualToString:@"h3"] && [payload[@"actionIdentifier"] isEqualToString:UNNotificationDefaultActionIdentifier];
+    }] onStart:YES]);
+    XCTestExpectation *expectation = [self expectationWithDescription:@"completion"];
+
+    [_target userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
+     didReceiveNotificationResponse:response
+              withCompletionHandler:^{
+        [expectation fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    OCMVerifyAll(_mockManager);
+}
+
 /// Verifies that a non-Pushwoosh remote push with showPushnotificationAlert=YES presents badge+alert+sound.
 - (void)testWillPresent_nonPushwooshShowAlertYes_presentsBadgeAlertSound {
     [PWManagerBridge shared].showPushnotificationAlert = YES;
