@@ -6,7 +6,7 @@
 	<dict>
 		<key>Headers/PushwooshBridge-Swift.h</key>
 		<data>
-		iChOf1Pt8556VG3SNtHgtIn2nCY=
+		E/9XxjpyUbbb8MDmygexJQcgFcM=
 		</data>
 		<key>Headers/PushwooshBridge.h</key>
 		<data>
@@ -14,47 +14,47 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		qv6XMthPHjvWTOZ6KLokTDiVKC0=
+		ikaLNMqTF/eOIgdoMETDilHbUyc=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
 		<data>
-		QskBGNap3aKCr+4EfiPHMMzhy/c=
+		BOE0501/ukTFyMvRjNUs+qJBp54=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.private.swiftinterface</key>
 		<data>
-		H6YJUu2nxIjgnhwgk61IUe0c2cM=
+		Ed8uZwZjmkNV6sqWhy/i4wZaXRo=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.swiftdoc</key>
 		<data>
-		8hxxr5YtOHYxmb7oQtjvCUIz1Uo=
+		Rdv27MRBcQv335xHeEKea2sviC4=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.swiftinterface</key>
 		<data>
-		H6YJUu2nxIjgnhwgk61IUe0c2cM=
+		Ed8uZwZjmkNV6sqWhy/i4wZaXRo=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		UID9JhrB1leyLhxAY+mA1oUpaZA=
+		PcBV3vt5tfe+JHbQ+qQN+NA+GFI=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
 		<data>
-		QskBGNap3aKCr+4EfiPHMMzhy/c=
+		BOE0501/ukTFyMvRjNUs+qJBp54=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.private.swiftinterface</key>
 		<data>
-		FmP+xQM2bjdmaQZovF/dRECon2g=
+		1zoyUVUo2Z9RF/dxBFoLFBchKQc=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.swiftdoc</key>
 		<data>
-		MaYM/GU4Ym98h92SI5tmErhVsA0=
+		hpHpVL0Gg3VYrKFUSuLELXcaMpA=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.swiftinterface</key>
 		<data>
-		FmP+xQM2bjdmaQZovF/dRECon2g=
+		1zoyUVUo2Z9RF/dxBFoLFBchKQc=
 		</data>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.swiftmodule</key>
 		<data>
-		u5VSoOgFXglWVp4drgOZAZOfn7o=
+		SDsfEDNkVGxcnwmISVDVqwKNCO8=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -71,7 +71,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YaTd2ocCgEMRcDGomgEgYVLIx2cKqpouejwmZqPfIik=
+			9kRAo6sYZRXbI2B3T5zHU1u1oqVDDBLo8gwTfGNyabA=
 			</data>
 		</dict>
 		<key>Headers/PushwooshBridge.h</key>
@@ -85,70 +85,70 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ruKaXMb9OWsuNW1n6jEwnPgiGK4NR12jGJB1QrNYx5w=
+			UoA5kKlGUtWVbg109sZ/o8Phra7dqeucZblPaRHFFpA=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ElEQECd6xlZ4aD9YtVKzw3T5sGiGBvZ3o4V+Q2mimyg=
+			9a/Y+oe+S8i21hmuCQ4OR7Sdy6ljTWZ6gbXPcM55iXw=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			C0zwY9PPC03AAJHFDJi16p/WvFm9aMjOl5dzRk05N5E=
+			O0VTPkSNd+x5V9nEiKSArenqufYf8Z4CD+EZl7VBQew=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ElEQECd6xlZ4aD9YtVKzw3T5sGiGBvZ3o4V+Q2mimyg=
+			9a/Y+oe+S8i21hmuCQ4OR7Sdy6ljTWZ6gbXPcM55iXw=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/arm64-apple-tvos-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			5bXLvOd2+cYwnlFHj398azK7kSNr+h53icrv7FOpKSc=
+			jpH0DThYEEE2WkzyJG/+xbgcjg7p3q+FjIzOvMUrHdg=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.abi.json</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			ruKaXMb9OWsuNW1n6jEwnPgiGK4NR12jGJB1QrNYx5w=
+			UoA5kKlGUtWVbg109sZ/o8Phra7dqeucZblPaRHFFpA=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.private.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2KLoJZLtrDpJpXNVTHWHvI7uorwB6mP859+tLZLsCh8=
+			75dah53dYj4wryR0W8l3cZbgdMslMLMCeOMFVKZ4e8A=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.swiftdoc</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			VFESNJ6ODPxCOLvyDlpzUXKM1TsyhNi0++B58QKtRSU=
+			GWV2qJboo/Bjs2hXN6IMdRTKu3hLiWtBV3nSF18jLhQ=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.swiftinterface</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			2KLoJZLtrDpJpXNVTHWHvI7uorwB6mP859+tLZLsCh8=
+			75dah53dYj4wryR0W8l3cZbgdMslMLMCeOMFVKZ4e8A=
 			</data>
 		</dict>
 		<key>Modules/PushwooshBridge.swiftmodule/x86_64-apple-tvos-simulator.swiftmodule</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			OH4wXi1C7yJ/Om1OFYgavM4dw87uLsy9gPcA44M9dHE=
+			jon51iQp//e2pG3Afd2dNemVqi+2VCttFoQihCujWes=
 			</data>
 		</dict>
 		<key>Modules/module.modulemap</key>

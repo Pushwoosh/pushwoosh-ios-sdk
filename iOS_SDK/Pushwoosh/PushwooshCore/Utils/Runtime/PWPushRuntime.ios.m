@@ -20,6 +20,7 @@
 #import "PWAppLifecycleTrackingManager.h"
 #import "PWModuleResolution.h"
 #if TARGET_OS_IOS
+#import "PWFeatureFlagsManager.h"
 #import "PWKnockPatternDetector.h"
 #import "PWIdleDetector.h"
 #import "PWApplicationExitDetector.h"
@@ -59,6 +60,7 @@ BOOL _replacement_didFinishLaunchingWithOptionsExtensionRequest(id self, SEL _cm
     [[PWAppLifecycleTrackingManager sharedManager] startTracking];
 #if TARGET_OS_IOS
     [[PWKnockPatternDetector sharedDetector] startDetection];
+    [[PWFeatureFlagsManager sharedManager] start];
     if ([PWConfig config].idleTimeoutSeconds > 0) {
         [[PWIdleDetector sharedDetector] startTracking];
     }

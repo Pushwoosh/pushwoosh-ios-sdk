@@ -190,10 +190,10 @@
     NSDictionary *userInfo = @{@"aps": @{@"alert": @{@"title": @"t", @"body": @"b"}, @"content-available": @1}, @"pw_msg": @"1", @"p": @"h3"};
     id notification = [self mockRemoteNotificationWithUserInfo:userInfo];
     id response = [self mockResponseForNotification:notification actionIdentifier:UNNotificationDefaultActionIdentifier];
-    OCMExpect([_mockManager handlePushReceived:[OCMArg any] autoAcceptAllowed:NO]);
+    OCMExpect([_mockManager handlePushReceived:[OCMArg any] autoAcceptAllowed:NO opensApplication:YES]);
     OCMExpect([_mockManager handlePushAccepted:[OCMArg checkWithBlock:^BOOL(NSDictionary *payload) {
         return [payload[@"p"] isEqualToString:@"h3"] && [payload[@"actionIdentifier"] isEqualToString:UNNotificationDefaultActionIdentifier];
-    }] onStart:YES]);
+    }] onStart:YES completion:[OCMArg any]]);
     XCTestExpectation *expectation = [self expectationWithDescription:@"completion"];
 
     [_target userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
@@ -324,8 +324,8 @@
     NSDictionary *userInfo = @{@"aps": @{@"alert": @"hi"}, @"pw_msg": @"1", @"p": @"hash"};
     id notification = [self mockRemoteNotificationWithUserInfo:userInfo];
     id response = [self mockResponseForNotification:notification actionIdentifier:UNNotificationDefaultActionIdentifier];
-    OCMExpect([_mockManager handlePushReceived:[OCMArg any] autoAcceptAllowed:NO]);
-    OCMExpect([_mockManager handlePushAccepted:[OCMArg any] onStart:NO]);
+    OCMExpect([_mockManager handlePushReceived:[OCMArg any] autoAcceptAllowed:NO opensApplication:YES]);
+    OCMExpect([_mockManager handlePushAccepted:[OCMArg any] onStart:NO completion:[OCMArg any]]);
     XCTestExpectation *expectation = [self expectationWithDescription:@"completion"];
 
     [_target userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
@@ -344,7 +344,7 @@
     NSDictionary *userInfo = @{@"aps": @{@"alert": @"hi"}, @"pw_msg": @"1"};
     id notification = [self mockRemoteNotificationWithUserInfo:userInfo];
     id response = [self mockResponseForNotification:notification actionIdentifier:UNNotificationDismissActionIdentifier];
-    OCMReject([_mockManager handlePushAccepted:[OCMArg any] onStart:NO]);
+    OCMReject([_mockManager handlePushAccepted:[OCMArg any] onStart:NO completion:[OCMArg any]]);
     XCTestExpectation *expectation = [self expectationWithDescription:@"completion"];
 
     [_target userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
@@ -365,7 +365,7 @@
     NSDictionary *userInfo = @{@"aps": @{@"alert": @"hi"}, @"pw_msg": @"1", @"p": @"hash-action"};
     id notification = [self mockRemoteNotificationWithUserInfo:userInfo];
     id response = [self mockResponseForNotification:notification actionIdentifier:@"REPLY_ACTION"];
-    OCMExpect([_mockManager handlePushAccepted:[OCMArg any] onStart:NO]);
+    OCMExpect([_mockManager handlePushAccepted:[OCMArg any] onStart:NO completion:[OCMArg any]]);
     XCTestExpectation *expectation = [self expectationWithDescription:@"completion"];
 
     [_target userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]
@@ -386,7 +386,7 @@
     NSDictionary *userInfo = @{@"aps": @{@"alert": @"hi"}, @"pw_push": @YES};
     id notification = [self mockRemoteNotificationWithUserInfo:userInfo];
     id response = [self mockResponseForNotification:notification actionIdentifier:UNNotificationDefaultActionIdentifier];
-    OCMExpect([_mockManager handlePushAccepted:[OCMArg any] onStart:NO]);
+    OCMExpect([_mockManager handlePushAccepted:[OCMArg any] onStart:NO completion:[OCMArg any]]);
     XCTestExpectation *expectation = [self expectationWithDescription:@"completion"];
 
     [_target userNotificationCenter:[UNUserNotificationCenter currentNotificationCenter]

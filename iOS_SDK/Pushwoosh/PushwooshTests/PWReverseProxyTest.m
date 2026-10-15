@@ -354,10 +354,9 @@
     XCTAssertEqualObjects([PWPreferences preferences].baseUrl, @"https://custom.pushwoosh.com/json/1.3/");
 }
 
-/// Verifies that missing status_code resets base_url to default when proxy is not active.
-- (void)testProcessResponse_noStatusCodeResetsUrlWhenProxyNotActive {
+/// Verifies that missing status_code keeps base_url when proxy is not active.
+- (void)testProcessResponse_noStatusCodeKeepsUrlWhenProxyNotActive {
     [PWPreferences preferences].baseUrl = @"https://custom.pushwoosh.com/json/1.3/";
-    NSString *defaultUrl = [[PWPreferences preferences] defaultBaseUrl];
 
     NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@"https://custom.pushwoosh.com"] statusCode:200 HTTPVersion:nil headerFields:nil];
     NSString *responseStr = @"{\"status_message\":\"OK\",\"response\":null}";
@@ -367,7 +366,7 @@
     NSError *error = nil;
     [_requestManager processResponse:httpResponse responseData:responseData request:request url:@"https://custom.pushwoosh.com/applicationOpen" requestData:@"{}" error:&error];
 
-    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, defaultUrl);
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, @"https://custom.pushwoosh.com/json/1.3/");
 }
 
 /// Verifies that multiple base_url change attempts are all blocked when proxy is active.

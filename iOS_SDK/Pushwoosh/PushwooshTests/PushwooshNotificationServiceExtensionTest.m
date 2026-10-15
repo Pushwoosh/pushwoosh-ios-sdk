@@ -7,6 +7,9 @@
 #import "PWNetworkModule.h"
 #import "PWRequestManager.h"
 #import "PWMessageDeliveryRequest.h"
+#import "PWActionButton.h"
+#import "PWActionButtonsParser.h"
+#import "PWActionButtonsRegistrar.h"
 
 #if TARGET_OS_IOS
 
@@ -19,6 +22,7 @@
 @property (nonatomic, strong, nullable) UNMutableNotificationContent *bestAttemptContent;
 @property (nonatomic, strong) dispatch_queue_t serialQueue;
 @property (nonatomic, copy, nullable) void (^completion)(UNNotificationContent *);
+@property (nonatomic, strong) PWActionButtonsRegistrar *actionButtonsRegistrar;
 @end
 
 @interface PWHookServiceExtension : PushwooshNotificationServiceExtension
@@ -58,6 +62,10 @@
 @property (nonatomic) id stubbedRequestManager;
 /// Class mock on NSUserDefaults: global while it lives, so tearDown owns its removal.
 @property (nonatomic) id mockUserDefaults;
+/// Backs every per-call processor's actionButtonsRegistrar, so tests never reach the real
+/// UNUserNotificationCenter, which does not call back inside the unit test host.
+@property (nonatomic) id mockNotificationCenter;
+@property (nonatomic, strong) PWActionButtonsRegistrar *fakeActionButtonsRegistrar;
 @end
 
 @implementation PushwooshNotificationServiceExtensionTest
@@ -72,11 +80,26 @@
         }
     });
 
+    _mockNotificationCenter = OCMClassMock([UNUserNotificationCenter class]);
+    OCMStub([_mockNotificationCenter getNotificationCategoriesWithCompletionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        void (^handler)(NSSet<UNNotificationCategory *> *) = nil;
+        [invocation getArgument:&handler atIndex:2];
+        handler([NSSet set]);
+    });
+    OCMStub([_mockNotificationCenter setNotificationCategories:OCMOCK_ANY]).andDo(nil);
+    NSString *suiteName = @"com.pushwoosh.tests.nse.extension.actionbuttons";
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:suiteName];
+    _fakeActionButtonsRegistrar = [[PWActionButtonsRegistrar alloc] initWithNotificationCenter:_mockNotificationCenter
+                                                                                       defaults:[[NSUserDefaults alloc] initWithSuiteName:suiteName]];
+
     _mockNetworkModule = OCMPartialMock([PWNetworkModule module]);
     OCMStub([_mockNetworkModule inject:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
         __unsafe_unretained PWNotificationServiceProcessor *processor = nil;
         [invocation getArgument:&processor atIndex:2];
         processor.requestManager = self.stubbedRequestManager;
+        if ([processor isKindOfClass:[PWNotificationServiceProcessor class]]) {
+            processor.actionButtonsRegistrar = self.fakeActionButtonsRegistrar;
+        }
     });
 }
 
@@ -87,6 +110,7 @@
     _mockUserDefaults = nil;
     [_mockNetworkModule stopMocking];
     [_stubbedRequestManager stopMocking];
+    [_mockNotificationCenter stopMocking];
 }
 
 - (UNNotificationRequest *)requestWithUserInfo:(NSDictionary *)userInfo content:(id *)outContent request:(id *)outRequest {
@@ -245,6 +269,34 @@
     OCMVerify([mockNSUserDefaults initWithSuiteName:@"group.test.override"]);
 
     dispatch_sync(processor.serialQueue, ^{});
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+#pragma mark - Action buttons
+
+/// Verifies the ready-made extension base class stamps the buttons category onto the content it
+/// delivers, which is the path the demo NSE takes.
+- (void)testServiceExtensionDeliversContentWithTheButtonsCategory {
+    PushwooshNotificationServiceExtension *extension = [PushwooshNotificationServiceExtension new];
+
+    NSDictionary *userInfo = @{ @"aps" : @{ @"alert" : @"hi" }, @"pw_msg" : @"1", @"p" : @"hash",
+                                @"pw_buttons" : @"[{\"id\":\"open_app\",\"label\":\"Open\",\"action\":\"open\"}]" };
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:userInfo content:&mockContent request:&mockRequest];
+    NSString *expectedCategory = [PWActionButtonsRegistrar categoryIdentifierForButtons:[PWActionButtonsParser buttonsFromUserInfo:userInfo]];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    __block UNNotificationContent *delivered = nil;
+    [extension didReceiveNotificationRequest:request withContentHandler:^(UNNotificationContent *content) {
+        delivered = content;
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+    XCTAssertEqualObjects(delivered, mockContent);
+    OCMVerify([mockContent setCategoryIdentifier:expectedCategory]);
+
     [mockContent stopMocking];
     [mockRequest stopMocking];
 }

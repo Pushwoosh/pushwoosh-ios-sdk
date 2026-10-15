@@ -14,6 +14,7 @@
 #import <Foundation/Foundation.h>
 #import "PushwooshModuleRegistry.h"
 #import "PushwooshModuleIdentifier.h"
+#import "Backchannels/PWKeychainPersistentHWIDProvider.h"
 
 @interface PushwooshKeychainImplementation : NSObject
 @property (class, nonatomic, strong, readonly) id backchannelProvider;
@@ -32,6 +33,8 @@
     if (handler) {
         [PushwooshModuleRegistry registerHandler:handler
                                    forIdentifier:PWModuleIdentifierKeychain];
+        [[NSNotificationCenter defaultCenter] postNotificationName:PWKeychainPersistentHWIDProviderDidRegisterNotification
+                                                            object:nil];
     }
 }
 

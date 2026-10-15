@@ -28,6 +28,7 @@
 
 #if TARGET_OS_IOS
 #import <PushwooshCore/PWMedia.h>
+#import "PWFeatureFlagsManager.h"
 #endif
 
 #if defined(__cplusplus)
@@ -237,6 +238,10 @@ static dispatch_once_t ensureInitializedOncePredicate;
         [PWManagerBridge shared].handleNotificationResponseBlock = ^(UNNotificationResponse *response, void (^completionHandler)(void)) {
             [weakSelf handleNotificationResponse:response withCompletionHandler:completionHandler];
         };
+
+        if ([PWConfig config].lazyInitialization) {
+            [[PWFeatureFlagsManager sharedManager] startAfterLaunch];
+        }
 #endif
 
         [PWIntegrationValidator scheduleValidationWithAppCode:appCode];

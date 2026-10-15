@@ -22,6 +22,7 @@
 #import "PWLiveActivityRequest.h"
 #import "PWStartLiveActivityRequest.h"
 #import "PWMessage+Internal.h"
+#import "PWUtils.h"
 
 #import "PWAppLifecycleTrackingManager.h"
 
@@ -268,15 +269,14 @@
 }
 
 - (void)sendStatsForPush:(NSDictionary *)pushDict {
-    if ([PWMessage isSilentPush:pushDict]) {
-        return;
-    }
+    [self sendStatsForPush:pushDict completion:nil];
+}
 
-    if (pushDict[@"pw_msg"] == nil) { // not Pushwoosh push
-        return;
-    }
-
-    if ([_lastHash isEqualToString:pushDict[@"p"]]){
+- (void)sendStatsForPush:(NSDictionary *)pushDict completion:(void (^)(void))completion {
+    if ([PWMessage isSilentPush:pushDict] || pushDict[@"pw_msg"] == nil || [_lastHash isEqualToString:pushDict[@"p"]]) {
+        if (completion) {
+            completion();
+        }
         return;
     }
 
@@ -304,11 +304,15 @@
                                  className:self
                                    message:[NSString stringWithFormat:@"sendStats executed with parameters: %@", pushDict]];
             }
+
+            if (completion) {
+                completion();
+            }
         }];
     };
 
 #if TARGET_OS_IOS
-    if ([UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
+    if (completion == nil && [UIApplication sharedApplication].applicationState != UIApplicationStateActive) {
         dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(1 * NSEC_PER_SEC)), dispatch_get_main_queue(), sendPushStatBlock);
     }
     else
@@ -330,6 +334,19 @@
 }
 
 - (void)startLiveActivityWithToken:(NSString *)token activityId:(NSString *)activityId completion:(void (^)(NSError * _Nullable))completion {
+    if (![token isKindOfClass:[NSString class]] || token.length == 0) {
+        NSString *message = @"Live Activity token is missing or empty";
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:message];
+
+        if (completion) {
+            NSError *error = [PWUtils pushwooshErrorWithCode:PWErrorUnknown description:message];
+            dispatch_async(dispatch_get_main_queue(), ^{
+                completion(error);
+            });
+        }
+        return;
+    }
+
     [self.requestManager sendRequest:[self sendLiveActivityRequestWithToken:token activityId:activityId] completion:^(NSError *error) {
         if (error) {
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"Live Activity request failed"];

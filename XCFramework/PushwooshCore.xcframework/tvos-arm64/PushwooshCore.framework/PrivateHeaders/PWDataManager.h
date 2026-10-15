@@ -36,6 +36,12 @@ NS_ASSUME_NONNULL_BEGIN
 
 - (void)sendStatsForPush:(NSDictionary *)pushDict;
 
+/// The same statistics, with an answer: completion runs once the request has been answered, success or
+/// error — the error path having already queued the request for retry — or right away when there is
+/// nothing to send. A caller with a completion is a notification response that iOS ends as soon as its
+/// own handler returns, so the one-second background delay is skipped for it.
+- (void)sendStatsForPush:(NSDictionary *)pushDict completion:(nullable void (^)(void))completion;
+
 - (void)sendPushToStartLiveActivityToken:(nullable NSString *)token completion:(nullable void (^)(NSError * _Nullable))completion;
 
 - (void)startLiveActivityWithToken:(nullable NSString *)token activityId:(nullable NSString *)activityId completion:(nullable void (^)(NSError * _Nullable error))completion;

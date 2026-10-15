@@ -12,6 +12,8 @@
 
 @interface PWAppOpenRequest ()
 
+@property (nonatomic, copy, readwrite) NSString *pushPermissionStatus;
+
 @end
 
 @implementation PWAppOpenRequest
@@ -25,6 +27,11 @@
 
 - (NSString *)methodName {
 	return @"applicationOpen";
+}
+
++ (NSString *)pushPermissionStatusFromNotificationStatus:(NSDictionary *)notificationStatus {
+    NSString *status = notificationStatus[@"push_permission_status"];
+    return [status isKindOfClass:[NSString class]] && status.length > 0 ? status : nil;
 }
 
 - (NSDictionary *)requestDictionary {
@@ -59,11 +66,7 @@
         dict[@"language"] = [PWPreferences preferences].language;
     }
 
-    NSDictionary *permissionsStatusDict = [PWManagerBridge getRemoteNotificationStatus];
-
-    BOOL soundsEnabled = [permissionsStatusDict[@"pushSound"] boolValue];
-    BOOL badgesEnabled = [permissionsStatusDict[@"pushBadge"] boolValue];
-    BOOL alertEnabled = [permissionsStatusDict[@"pushAlert"] boolValue];
+    NSDictionary *permissionsStatusDict = self.notificationStatus ?: [PWManagerBridge getRemoteNotificationStatus];
 
     if (TARGET_OS_IOS && [PWUtils isSystemVersionGreaterOrEqualTo:@"15.0"]) {
         BOOL timeSensitive = [permissionsStatusDict[@"time_sensitive_notifications"] boolValue];
@@ -73,22 +76,12 @@
         dict[@"scheduled_summary"] = @(scheduleSettings);
     }
 
-
-    NSInteger statusesMask = 0;
-
-    if (badgesEnabled) {
-        statusesMask |= 1;
+    self.pushPermissionStatus = [PWAppOpenRequest pushPermissionStatusFromNotificationStatus:permissionsStatusDict];
+    if (self.pushPermissionStatus) {
+        dict[@"push_permission_status"] = self.pushPermissionStatus;
     }
 
-    if (soundsEnabled) {
-        statusesMask |= 1 << 1;
-    }
-
-    if (alertEnabled) {
-        statusesMask |= 1 << 2;
-    }
-
-    dict[@"notificationTypes"] = @(statusesMask);
+    dict[@"notificationTypes"] = @([PWUtils statusesMaskFromNotificationStatus:permissionsStatusDict]);
 
 	return dict;
 }

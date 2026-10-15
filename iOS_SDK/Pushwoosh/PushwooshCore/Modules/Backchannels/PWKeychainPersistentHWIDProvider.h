@@ -22,7 +22,16 @@ NS_ASSUME_NONNULL_BEGIN
  */
 @protocol PWKeychainPersistentHWIDProvider <NSObject>
 @property (nonatomic, readonly) BOOL isPersistentHWIDEnabled;
+/// Creates a new HWID, stores it in the keychain and returns it; `nil` when the keychain rejects it.
 - (nullable NSString *)persistentHWID;
+/// Returns the HWID stored in the keychain without creating one; `nil` when absent or unreadable.
+- (nullable NSString *)storedPersistentHWID;
+/// Stores `hwid` in the keychain; `NO` when the keychain rejects it.
+- (BOOL)storePersistentHWID:(NSString *)hwid;
 @end
+
+/// Posted by the Keychain module loader right after it registers its handler, so a `PWPreferences`
+/// created before the module loaded can reconcile its HWID with the keychain.
+FOUNDATION_EXPORT NSNotificationName const PWKeychainPersistentHWIDProviderDidRegisterNotification;
 
 NS_ASSUME_NONNULL_END

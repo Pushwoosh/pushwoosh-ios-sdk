@@ -19,6 +19,12 @@
 #import <PushwooshCore/PWPreferences.h>
 #import <PushwooshCore/NSDictionary+PWDictUtils.h>
 #import <PushwooshCore/PushwooshLog.h>
+#import <PushwooshCore/PWActionButton.h>
+#import <PushwooshCore/PWActionButtonsParser.h>
+#import <PushwooshCore/PWActionButtonsRegistrar.h>
+
+/// How long the timeout fallback lets a category registration run before it delivers anyway.
+static const NSTimeInterval kPWFallbackRegistrationBudget = 0.1;
 
 @interface PWNotificationServiceProcessor ()
 
@@ -31,6 +37,8 @@
 @property (nonatomic, copy, nullable) void (^completion)(UNNotificationContent *);
 @property (nonatomic, assign) BOOL consumed;
 @property (nonatomic, assign) BOOL started;
+@property (nonatomic, strong) PWActionButtonsRegistrar *actionButtonsRegistrar;
+@property (nonatomic, copy) NSArray<PWActionButton *> *actionButtons;
 
 @end
 
@@ -40,6 +48,7 @@
     self = [super init];
     if (self) {
         _serialQueue = dispatch_queue_create("com.pushwoosh.nse.processor", DISPATCH_QUEUE_SERIAL);
+        _actionButtonsRegistrar = [PWActionButtonsRegistrar new];
         [[PWNetworkModule module] inject:self];
     }
     return self;
@@ -55,6 +64,7 @@
     self.originalContent = request.content;
     self.bestAttemptContent = [request.content mutableCopy];
     self.completion = completion;
+    [self stampActionButtonsCategory];
 }
 
 - (void)processRequest:(UNNotificationRequest *)request
@@ -76,6 +86,8 @@
     UNNotificationRequest *request = self.request;
     NSString *appGroupsName = self.appGroupsName;
     UNMutableNotificationContent *content = self.bestAttemptContent;
+    PWActionButtonsRegistrar *actionButtonsRegistrar = self.actionButtonsRegistrar;
+    NSArray<PWActionButton *> *actionButtons = self.actionButtons;
 
     if (![PWMessage isPushwooshMessage:content.userInfo]) {
         dispatch_async(self.serialQueue, ^{
@@ -103,6 +115,11 @@
         dispatch_group_leave(requestsGroup);
     }];
 
+    dispatch_group_enter(requestsGroup);
+    [actionButtonsRegistrar registerCategoryForButtons:actionButtons completion:^{
+        dispatch_group_leave(requestsGroup);
+    }];
+
     dispatch_group_notify(requestsGroup, self.serialQueue, ^{
         [self finalizeOnQueue];
     });
@@ -112,10 +129,27 @@
     [self consumeOnQueue];
 }
 
+/// Registers the stamped category once more and delivers on whichever lands first: it or the budget.
 - (void)expireWithFallback {
+    dispatch_queue_t queue = self.serialQueue;
     __weak typeof(self) weakSelf = self;
-    dispatch_async(self.serialQueue, ^{
-        [weakSelf consumeOnQueue];
+
+    dispatch_block_t consume = ^{
+        dispatch_async(queue, ^{
+            [weakSelf consumeOnQueue];
+        });
+    };
+
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(kPWFallbackRegistrationBudget * NSEC_PER_SEC)),
+                   dispatch_get_global_queue(QOS_CLASS_USER_INITIATED, 0),
+                   consume);
+
+    dispatch_async(queue, ^{
+        PWNotificationServiceProcessor *processor = weakSelf;
+        if (processor == nil || processor.consumed) {
+            return;
+        }
+        [processor.actionButtonsRegistrar registerCategoryForButtons:processor.actionButtons completion:consume];
     });
 }
 
@@ -137,6 +171,23 @@
 }
 
 #pragma mark - Processing
+
+/// Stamped while arming, not while processing: the timeout fallback can deliver before process runs,
+/// and a push that reached the user without its category has lost its buttons for good.
+- (void)stampActionButtonsCategory {
+    UNMutableNotificationContent *content = self.bestAttemptContent;
+
+    if (content == nil || ![PWMessage isPushwooshMessage:content.userInfo]) {
+        self.actionButtons = @[];
+        return;
+    }
+
+    self.actionButtons = [PWActionButtonsParser buttonsFromUserInfo:content.userInfo];
+
+    if (self.actionButtons.count > 0) {
+        content.categoryIdentifier = [PWActionButtonsRegistrar categoryIdentifierForButtons:self.actionButtons];
+    }
+}
 
 /// Computes the new badge value and hops the blocking flock + NSUserDefaults read-modify-write OFF
 /// the serial queue onto a global queue, so the serial queue stays free for finalizeOnQueue /

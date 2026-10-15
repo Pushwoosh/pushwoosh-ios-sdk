@@ -33,12 +33,19 @@ FOUNDATION_EXPORT NSString * const kPWReceivedPushHashesKey;
 /// YES for a Pushwoosh push; a repeat of the last push returns NO as before, while a visible content-available
 /// push on iOS stays YES when it was already received through another delivery path.
 - (BOOL)handlePushReceived:(NSDictionary *)userInfo autoAcceptAllowed:(BOOL)autoAcceptAllowed;
+/// opensApplication NO for the response to a background button: the push is then not reported as a start.
+- (BOOL)handlePushReceived:(NSDictionary *)userInfo autoAcceptAllowed:(BOOL)autoAcceptAllowed opensApplication:(BOOL)opensApplication;
 
 /// The app's own handlePushReceived: call. A visible content-available push on iOS returns NO only when the app
 /// passes it again, not after SDK deliveries; any other push is answered as before.
 - (BOOL)handlePushReceivedFromApp:(NSDictionary *)userInfo;
 
 - (BOOL)handlePushAccepted:(NSDictionary *)userInfo onStart:(BOOL)onStart;
+
+/// The same open, with an answer: completion runs once the open statistics were answered. iOS ends the
+/// response to a button that does not open the application as soon as its own handler returns, and that
+/// must not happen before the statistics left.
+- (BOOL)handlePushAccepted:(NSDictionary *)userInfo onStart:(BOOL)onStart completion:(void (^)(void))completion;
 - (void)handlePushRegistration:(NSData *)devToken;
 
 /// How many device tokens were handed to the SDK in this process, by the app or by the runtime hook.

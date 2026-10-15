@@ -96,6 +96,10 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
             break;
     }
 
+    if (_platform == SMS || _platform == Whatsapp) {
+        [dict removeObjectForKey:@"push_permission_status"];
+    }
+
     if (_customTags) {
         dict[@"tags"] = _customTags;
     }

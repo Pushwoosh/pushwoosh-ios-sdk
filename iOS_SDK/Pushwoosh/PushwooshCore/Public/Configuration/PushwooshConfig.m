@@ -18,6 +18,8 @@
 #import <PushwooshCore/PushwooshLog.h>
 #if TARGET_OS_IOS
 #import <PushwooshCore/PWPushPrimerBuilder.h>
+#import <PushwooshCore/PWFeatureFlags.h>
+#import "PWFeatureFlagsManager.h"
 #endif
 
 @implementation PushwooshConfig
@@ -185,6 +187,10 @@
 #if TARGET_OS_IOS
 + (PWPushPrimerBuilder *)pushPrimer {
     return [PWPushPrimerBuilder new];
+}
+
++ (PWFeatureFlags *)featureFlags {
+    return [PWFeatureFlags sharedFeatureFlags];
 }
 #endif
 

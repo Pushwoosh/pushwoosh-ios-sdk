@@ -870,17 +870,6 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     return [NSString stringWithFormat:@"%@.%@", labels[labels.count - 2], labels[labels.count - 1]];
 }
 
-/// One-shot: a gateway that strips `status_code` from every reply would otherwise fill production
-/// logs with the same line.
-- (void)logSuppressedMissingStatusCodeResetOnce:(PWRequest *)request {
-    static dispatch_once_t once;
-    dispatch_once(&once, ^{
-        [PushwooshLog pushwooshLog:PW_LL_WARN
-                         className:self
-                           message:[NSString stringWithFormat:@"Response to %@ carries no status_code. Keeping the endpoint of the selected Pushwoosh application instead of falling back to the default one. This is logged once per app run.", request.methodName]];
-    });
-}
-
 - (NSMutableURLRequest *)prepareRequest:(NSString *)requestUrl jsonRequestData:(NSString *)jsonRequestData {
     NSMutableURLRequest *urlRequest = [[NSMutableURLRequest alloc] initWithURL:[NSURL URLWithString:requestUrl]];
     [urlRequest setHTTPMethod:@"POST"];
@@ -945,28 +934,20 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 				error = [PWUtils pushwooshError:@"Bad response body"];
 			}
 		} else {
-			// honor base url switch
             BOOL isUsingProxy;
             @synchronized (self) {
                 isUsingProxy = (_reverseProxyUrl != nil);
             }
-            BOOL hasActiveApplication = [PWPreferences hasActiveApplicationRecord];
-			if (jsonResult[@"status_code"] == nil && !isUsingProxy) {
-                if (hasActiveApplication) {
-                    [self logSuppressedMissingStatusCodeResetOnce:request];
-                } else {
-                    NSString *defaultUrl = [[PWPreferences preferences] defaultBaseUrl];
-                    if (defaultUrl.length > 0) {
-                        [[PWPreferences preferences] updateBaseUrl:defaultUrl];
-                    }
-                }
-			}
-            if (!isUsingProxy) {
-                [self applyServerBaseUrl:jsonResult[@"base_url"] forRequest:request];
-			}
+            BOOL followsServerBaseUrl = !isUsingProxy && [request followsServerBaseUrl];
 
 			// check status
 			if (httpResponse.statusCode != 200 || ![jsonResult[@"status_code"] isKindOfClass:[NSNumber class]] || [jsonResult[@"status_code"] intValue] != 200) {
+
+                if (followsServerBaseUrl && [jsonResult[@"base_url"] isKindOfClass:[NSString class]]) {
+                    [PushwooshLog pushwooshLog:PW_LL_INFO
+                                     className:self
+                                       message:[NSString stringWithFormat:@"Ignoring base_url \"%@\" from the failed %@ response (HTTP %ld, status_code %@): only a successful response may move the endpoint", jsonResult[@"base_url"], request.methodName, (long)httpResponse.statusCode, jsonResult[@"status_code"] ?: @"missing"]];
+                }
 
                 NSString *statusMessage = jsonResult[@"status_message"];
 
@@ -976,6 +957,10 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
                     error = [PWUtils pushwooshError:[NSString stringWithFormat:@"Bad response status code: (%d, %@)", (int)httpResponse.statusCode, jsonResult[@"status_code"]]];
                 }
 			} else {
+                if (followsServerBaseUrl) {
+                    [self applyServerBaseUrl:jsonResult[@"base_url"] forRequest:request];
+                }
+
 				// optional response parsing
 				NSDictionary *responseDict = jsonResult[@"response"];
 

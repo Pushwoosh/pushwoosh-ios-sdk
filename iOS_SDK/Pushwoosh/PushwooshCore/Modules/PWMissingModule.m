@@ -175,6 +175,8 @@ static dispatch_queue_t _loggedSelectorsQueue;
 
             @"isPersistentHWIDEnabled":                         @"B@:",
             @"persistentHWID":                                  @"@@:",
+            @"storedPersistentHWID":                            @"@@:",
+            @"storePersistentHWID:":                            @"B@:@",
 
             @"inboxKit":                                        @"#@:",
 

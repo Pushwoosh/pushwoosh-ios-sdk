@@ -84,6 +84,26 @@
     XCTAssertFalse(_config.autoDeviceTokenRegistration);
 }
 
+/// Verifies that featureFlagsThrottleDisabled defaults to NO when the Pushwoosh_FEATURE_FLAGS_DISABLE_THROTTLE Info.plist key is absent.
+- (void)testFeatureFlagsThrottleDisabledDefaultsToNo {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+
+    XCTAssertFalse(_config.featureFlagsThrottleDisabled);
+}
+
+/// Verifies that featureFlagsThrottleDisabled reads back YES from the Pushwoosh_FEATURE_FLAGS_DISABLE_THROTTLE Info.plist key.
+- (void)testFeatureFlagsThrottleDisabledYes {
+    PWBundleMock *bundleMock = (id)[PWBundleMock new];
+    bundleMock.featureFlagsThrottleDisabledSet = YES;
+    bundleMock.featureFlagsThrottleDisabled = YES;
+
+    _config = [[PWConfig alloc] initWithBundle:bundleMock];
+
+    XCTAssertTrue(_config.featureFlagsThrottleDisabled);
+}
+
 /// Verifies that sendPushStatIfAlertsDisabled reads back YES from the Pushwoosh_SHOULD_SEND_PUSH_STATS_IF_ALERT_DISABLED Info.plist key.
 - (void)testSendPushStatIfAlertsDisabledYes {
     PWBundleMock *bundleMock = (id)[PWBundleMock new];

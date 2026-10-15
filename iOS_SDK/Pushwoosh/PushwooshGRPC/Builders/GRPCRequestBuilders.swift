@@ -27,6 +27,18 @@ enum GRPCRequestBuilders {
         request.sdkVersion = dict["v"] as? String ?? ""
         request.timezone = dict["timezone"] as? String ?? ""
 
+        let status = notificationStatus(from: dict)
+        if let pushAlertsEnabled = status.pushAlertsEnabled {
+            request.pushAlertsEnabled = pushAlertsEnabled
+        }
+        if let timeSensitive = status.timeSensitiveNotifications {
+            request.timeSensitiveNotifications = timeSensitive
+        }
+        if let scheduledSummary = status.scheduledSummary {
+            request.scheduledSummary = scheduledSummary
+        }
+        request.pushPermissionStatus = status.pushPermissionStatus
+
         if let tagsStruct = structFromDict(dict["tags"]) {
             request.tags = tagsStruct
         }
@@ -79,6 +91,18 @@ enum GRPCRequestBuilders {
         request.sdkVersion = dict["v"] as? String ?? ""
         request.timezone = dict["timezone"] as? String ?? ""
         request.userID = dict["userId"] as? String ?? ""
+
+        let status = notificationStatus(from: dict)
+        if let pushAlertsEnabled = status.pushAlertsEnabled {
+            request.pushAlertsEnabled = pushAlertsEnabled
+        }
+        if let timeSensitive = status.timeSensitiveNotifications {
+            request.timeSensitiveNotifications = timeSensitive
+        }
+        if let scheduledSummary = status.scheduledSummary {
+            request.scheduledSummary = scheduledSummary
+        }
+        request.pushPermissionStatus = status.pushPermissionStatus
         return request
     }
 
@@ -194,6 +218,23 @@ enum GRPCRequestBuilders {
     }
 
     // MARK: - Helpers
+
+    private struct NotificationStatus {
+        let pushAlertsEnabled: Google_Protobuf_BoolValue?
+        let timeSensitiveNotifications: Google_Protobuf_BoolValue?
+        let scheduledSummary: Google_Protobuf_BoolValue?
+        let pushPermissionStatus: String
+    }
+
+    /// Mirrors the REST relaxer: any non-zero `notificationTypes` mask means push alerts are enabled.
+    private static func notificationStatus(from dict: [String: Any]) -> NotificationStatus {
+        NotificationStatus(
+            pushAlertsEnabled: (dict["notificationTypes"] as? Int).map { Google_Protobuf_BoolValue($0 != 0) },
+            timeSensitiveNotifications: (dict["time_sensitive_notifications"] as? Bool).map { Google_Protobuf_BoolValue($0) },
+            scheduledSummary: (dict["scheduled_summary"] as? Bool).map { Google_Protobuf_BoolValue($0) },
+            pushPermissionStatus: dict["push_permission_status"] as? String ?? ""
+        )
+    }
 
     private static func structFromDict(_ value: Any?) -> Google_Protobuf_Struct? {
         guard let dict = value as? [String: Any],

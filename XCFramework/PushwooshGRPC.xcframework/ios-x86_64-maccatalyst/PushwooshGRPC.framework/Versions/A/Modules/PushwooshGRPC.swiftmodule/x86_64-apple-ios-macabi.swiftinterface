@@ -57,6 +57,7 @@ public struct Pushwoosh_DeviceApi_V2_ApplicationOpenRequest : Swift.Sendable {
   }
   public mutating func clearScheduledSummary()
   public var userID: Swift.String
+  public var pushPermissionStatus: Swift.String
   public var unknownFields: SwiftProtobuf.UnknownStorage
   public init()
 }
@@ -431,6 +432,10 @@ public struct Pushwoosh_DeviceApi_V2_RegisterDeviceRequest : @unchecked Swift.Se
   }
   public mutating func clearTags()
   public var voipPushToken: Swift.String {
+    get
+    set
+  }
+  public var pushPermissionStatus: Swift.String {
     get
     set
   }

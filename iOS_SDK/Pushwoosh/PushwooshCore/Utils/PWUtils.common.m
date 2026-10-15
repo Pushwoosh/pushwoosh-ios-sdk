@@ -157,6 +157,28 @@ void heavy_operation_impl(const char *function) {
     return 0;
 }
 
++ (NSInteger)statusesMaskFromNotificationStatus:(NSDictionary *)permissionsStatusDict {
+    BOOL soundsEnabled = [permissionsStatusDict[@"pushSound"] boolValue];
+    BOOL badgesEnabled = [permissionsStatusDict[@"pushBadge"] boolValue];
+    BOOL alertEnabled = [permissionsStatusDict[@"pushAlert"] boolValue];
+
+    NSInteger statusesMask = 0;
+
+    if (badgesEnabled) {
+        statusesMask |= 1;
+    }
+
+    if (soundsEnabled) {
+        statusesMask |= 1 << 1;
+    }
+
+    if (alertEnabled) {
+        statusesMask |= 1 << 2;
+    }
+
+    return statusesMask;
+}
+
 + (void)applicationOpenURL:(NSURL *)url {
 }
 

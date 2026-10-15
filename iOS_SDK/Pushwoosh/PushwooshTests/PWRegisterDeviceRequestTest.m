@@ -10,6 +10,7 @@
 #import "PWRetryPolicy.h"
 #import "PWRequestManager.h"
 #import "PWRequest.h"
+#import <PushwooshCore/PWManagerBridge.h>
 
 #import <OCHamcrest/OCHamcrest.h>
 #import <OCMockito/OCMockito.h>
@@ -240,6 +241,35 @@
     _requestDevice.platform = whatsapp;
 
     XCTAssertNil(_requestDevice.requestDictionary);
+}
+
+/// Verifies that an iOS registerDevice carries push_permission_status from the notification status dictionary.
+- (void)testRequestDictionaryIOSIncludesPushPermissionStatus {
+    id bridgeMock = OCMClassMock([PWManagerBridge class]);
+    OCMStub(ClassMethod([bridgeMock getRemoteNotificationStatus])).andReturn(@{@"push_permission_status": @"provisional"});
+    _requestDevice = [PWRegisterDeviceRequest new];
+    _requestDevice.token = @"apns_token";
+    _requestDevice.platform = 1;
+
+    XCTAssertEqualObjects(_requestDevice.requestDictionary[@"push_permission_status"], @"provisional");
+
+    [bridgeMock stopMocking];
+}
+
+/// Verifies that SMS and WhatsApp registrations do not carry the push permission status of the iOS device.
+- (void)testRequestDictionaryMessagingPlatformsDropPushPermissionStatus {
+    id bridgeMock = OCMClassMock([PWManagerBridge class]);
+    OCMStub(ClassMethod([bridgeMock getRemoteNotificationStatus])).andReturn(@{@"push_permission_status": @"granted_explicit"});
+
+    for (NSNumber *platform in @[@18, @21]) {
+        _requestDevice = [PWRegisterDeviceRequest new];
+        _requestDevice.token = @"+15551234567";
+        _requestDevice.platform = platform.integerValue;
+
+        XCTAssertNil(_requestDevice.requestDictionary[@"push_permission_status"], @"platform %@", platform);
+    }
+
+    [bridgeMock stopMocking];
 }
 
 @end

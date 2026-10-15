@@ -48,6 +48,8 @@ static NSString *const KeyActiveApplication = @"Pushwoosh_ACTIVE_APPLICATION";
 static NSString *const KeyEffectiveApplication = @"Pushwoosh_EFFECTIVE_APPLICATION";
 static NSString *const kPWActiveUpdatedAtField = @"updatedAt";
 
+NSNotificationName const PWKeychainPersistentHWIDProviderDidRegisterNotification = @"PWKeychainPersistentHWIDProviderDidRegisterNotification";
+
 NSString * const kPWActiveApplicationAppCodeKey = @"appCode";
 NSString * const kPWActiveApplicationBaseUrlKey = @"baseUrl";
 
@@ -64,6 +66,11 @@ static BOOL _isInitializing = NO;
 
 /// Suppresses the App Group mirror while the pair is half-applied. Access only under `switchLock`.
 @property (nonatomic, assign) BOOL isApplyingSwitch;
+
+/// Valid HWID saved by this installation before the current launch; the Keychain reconciliation keeps it.
+@property (nonatomic, copy) NSString *installationHWIDAtLaunch;
+@property (nonatomic, assign) BOOL awaitsKeychainProvider;
+@property (nonatomic, assign) BOOL usesDefaultUserId;
 @property (nonatomic) NSUserDefaults *defaults;
 
 @end
@@ -97,6 +104,10 @@ static BOOL _isInitializing = NO;
 }
 
 - (instancetype)init {
+    return [self initObservingKeychainProvider:NO];
+}
+
+- (instancetype)initObservingKeychainProvider:(BOOL)observesKeychainProvider {
     _isInitializing = YES;
 
     self = [super init];
@@ -107,13 +118,9 @@ static BOOL _isInitializing = NO;
         _switchLock = [NSObject new];
 
         NSString *previosHWID = [[NSUserDefaults standardUserDefaults] objectForKey:KeyDeviceId];
+        _installationHWIDAtLaunch = [PWUtils isValidHwid:previosHWID] ? [previosHWID copy] : nil;
 
-        NSString *persistentHWID = [self getPersistentHWIDIfAvailable];
-        if (persistentHWID) {
-            _hwid = persistentHWID;
-        } else {
-            _hwid = [PWUtils uniqueGlobalDeviceIdentifier];
-        }
+        _hwid = [PWUtils uniqueGlobalDeviceIdentifier];
 
         if (![PWUtils isValidHwid:previosHWID] ) {
             [self saveCurrentHWIDtoUserDefaults];
@@ -140,6 +147,7 @@ static BOOL _isInitializing = NO;
                     _userId = [_defaults objectForKey:KeyUserId];
                 } else {
                     _userId = _hwid;
+                    _usesDefaultUserId = YES;
                 }
             }
         } else {
@@ -148,6 +156,7 @@ static BOOL _isInitializing = NO;
                 _userId = userId;
             } else {
                 _userId = _hwid;
+                _usesDefaultUserId = YES;
             }
         }
 
@@ -190,6 +199,15 @@ static BOOL _isInitializing = NO;
         _advertisingId = [[NSUserDefaults standardUserDefaults] objectForKey:KeyAdvertisingId];
 
         _lastKnockTriggerTimestamp = [[NSUserDefaults standardUserDefaults] doubleForKey:KeyLastKnockTriggerTimestamp];
+
+        _awaitsKeychainProvider = YES;
+        if (observesKeychainProvider) {
+            [[NSNotificationCenter defaultCenter] addObserver:self
+                                                     selector:@selector(keychainProviderDidRegister:)
+                                                         name:PWKeychainPersistentHWIDProviderDidRegisterNotification
+                                                       object:nil];
+        }
+        [self keychainProviderDidRegister:nil];
     }
 
     _isInitializing = NO;
@@ -202,7 +220,7 @@ static BOOL _isInitializing = NO;
     static dispatch_once_t pred;
 
     dispatch_once(&pred, ^{
-        instance = [PWPreferences new];
+        instance = [[PWPreferences alloc] initObservingKeychainProvider:YES];
     });
 
     return instance;
@@ -379,6 +397,7 @@ static BOOL _isInitializing = NO;
 
     @synchronized(_lock) {
         _userId = [userId copy];
+        _usesDefaultUserId = NO;
     }
 
     if ([[PWConfig config] appGroupsName]) {
@@ -1343,6 +1362,66 @@ static BOOL _isInitializing = NO;
 }
 
 #pragma mark - Keychain Persistent HWID
+
+- (void)keychainProviderDidRegister:(NSNotification *)notification {
+    id<PWKeychainPersistentHWIDProvider> provider = [PushwooshModuleRegistry handlerForIdentifier:PWModuleIdentifierKeychain];
+    if (!provider) {
+        return;
+    }
+    @synchronized (_lock) {
+        if (!self.awaitsKeychainProvider) {
+            return;
+        }
+        self.awaitsKeychainProvider = NO;
+    }
+    [[NSNotificationCenter defaultCenter] removeObserver:self
+                                                    name:PWKeychainPersistentHWIDProviderDidRegisterNotification
+                                                  object:nil];
+    [self applyPersistentHWIDFromProvider:provider];
+}
+
+- (void)applyPersistentHWIDFromProvider:(id<PWKeychainPersistentHWIDProvider>)provider {
+    if (!provider.isPersistentHWIDEnabled) {
+        return;
+    }
+
+    NSString *installationHWID = self.installationHWIDAtLaunch;
+    NSString *keychainHWID = [provider storedPersistentHWID];
+    NSString *hwid;
+    NSString *source;
+
+    if (installationHWID) {
+        hwid = installationHWID;
+        if ([installationHWID isEqualToString:keychainHWID]) {
+            source = @"restored from Keychain";
+        } else if ([provider storePersistentHWID:installationHWID]) {
+            source = @"current HWID saved to Keychain";
+        } else {
+            source = @"current HWID kept, Keychain unavailable";
+        }
+    } else if ([PWUtils isValidHwid:keychainHWID]) {
+        hwid = keychainHWID;
+        source = @"restored from Keychain";
+    } else {
+        hwid = [self getPersistentHWIDIfAvailable];
+        source = @"new HWID saved to Keychain";
+    }
+
+    if (![PWUtils isValidHwid:hwid]) {
+        [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:@"Persistent HWID: Keychain unavailable, device identifier kept"];
+        return;
+    }
+
+    @synchronized (_lock) {
+        if (_usesDefaultUserId) {
+            _userId = [hwid copy];
+        }
+        _hwid = [hwid copy];
+        [self saveCurrentHWIDtoUserDefaults];
+    }
+
+    [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"Persistent HWID: %@", source]];
+}
 
 - (NSString *)getPersistentHWIDIfAvailable {
     id<PWKeychainPersistentHWIDProvider> provider =

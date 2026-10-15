@@ -144,6 +144,68 @@ final class GRPCRequestBuildersTests: XCTestCase {
         XCTAssertEqual(request.userID, "user123")
     }
 
+    func testApplicationOpenMapsNotificationStatus() {
+        let dict: [String: Any] = [
+            "notificationTypes": NSNumber(value: 6),
+            "time_sensitive_notifications": NSNumber(value: true),
+            "scheduled_summary": NSNumber(value: false),
+            "push_permission_status": "provisional"
+        ]
+
+        let request = GRPCRequestBuilders.applicationOpen(from: dict)
+
+        XCTAssertTrue(request.hasPushAlertsEnabled)
+        XCTAssertTrue(request.pushAlertsEnabled.value)
+        XCTAssertTrue(request.hasTimeSensitiveNotifications)
+        XCTAssertTrue(request.timeSensitiveNotifications.value)
+        XCTAssertTrue(request.hasScheduledSummary)
+        XCTAssertFalse(request.scheduledSummary.value)
+        XCTAssertEqual(request.pushPermissionStatus, "provisional")
+    }
+
+    func testApplicationOpenZeroMaskDisablesPushAlerts() {
+        let request = GRPCRequestBuilders.applicationOpen(from: ["notificationTypes": 0])
+
+        XCTAssertTrue(request.hasPushAlertsEnabled)
+        XCTAssertFalse(request.pushAlertsEnabled.value)
+    }
+
+    func testApplicationOpenWithoutStatusLeavesFieldsUnset() {
+        let request = GRPCRequestBuilders.applicationOpen(from: [:])
+
+        XCTAssertFalse(request.hasPushAlertsEnabled)
+        XCTAssertFalse(request.hasTimeSensitiveNotifications)
+        XCTAssertFalse(request.hasScheduledSummary)
+        XCTAssertEqual(request.pushPermissionStatus, "")
+    }
+
+    func testRegisterDeviceMapsNotificationStatus() {
+        let dict: [String: Any] = [
+            "push_token": "test-token",
+            "notificationTypes": NSNumber(value: 4),
+            "time_sensitive_notifications": NSNumber(value: false),
+            "scheduled_summary": NSNumber(value: true),
+            "push_permission_status": "granted_explicit"
+        ]
+
+        let request = GRPCRequestBuilders.registerDevice(from: dict)
+
+        XCTAssertTrue(request.pushAlertsEnabled.value)
+        XCTAssertTrue(request.hasTimeSensitiveNotifications)
+        XCTAssertFalse(request.timeSensitiveNotifications.value)
+        XCTAssertTrue(request.scheduledSummary.value)
+        XCTAssertEqual(request.pushPermissionStatus, "granted_explicit")
+    }
+
+    func testRegisterDeviceWithoutStatusLeavesFieldsUnset() {
+        let request = GRPCRequestBuilders.registerDevice(from: ["push_token": "test-token"])
+
+        XCTAssertFalse(request.hasPushAlertsEnabled)
+        XCTAssertFalse(request.hasTimeSensitiveNotifications)
+        XCTAssertFalse(request.hasScheduledSummary)
+        XCTAssertEqual(request.pushPermissionStatus, "")
+    }
+
     // MARK: - PushStat Tests
 
     func testPushStat() {

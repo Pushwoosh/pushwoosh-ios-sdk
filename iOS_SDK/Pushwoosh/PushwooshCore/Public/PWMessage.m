@@ -8,6 +8,7 @@
 #import <PushwooshCore/NSDictionary+PWDictUtils.h>
 #import <PushwooshCore/PWHashDecoder.h>
 #import <PushwooshCore/PWConfig.h>
+#import "PWActionButton.h"
 
 @implementation PWMessage
 
@@ -53,7 +54,7 @@
         }
 
         _payload = payload;
-        _actionIdentifier = [payload pw_stringForKey:@"actionIdentifier"];
+        _actionIdentifier = [payload pw_stringForKey:PWActionIdentifierKey];
         _contentAvailable = apsDict[@"content-available"] != nil;
         _foregroundMessage = foreground;
         _inboxMessage = apsDict[@"pw_inbox"] != nil;

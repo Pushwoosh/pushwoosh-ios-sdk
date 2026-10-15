@@ -11,6 +11,7 @@
 #import <OCHamcrest/OCHamcrest.h>
 
 #import "PWPushStatRequest.h"
+#import "PWActionButton.h"
 
 @interface PWPushStatRequestTest : XCTestCase
 
@@ -40,6 +41,57 @@
     NSDictionary *parameters = [self.request requestDictionary];
 
     assertThat(parameters, hasKey(@"metaData"));
+}
+
+#pragma mark - Action buttons
+
+- (NSDictionary *)pushWithButtonsTappedAs:(NSString *)actionIdentifier {
+    return @{ @"p" : @"hash",
+              @"pw_msg" : @"1",
+              @"pw_buttons" : @"[{\"id\":\"open_app\",\"label\":\"Open\",\"action\":\"open\"},"
+                               "{\"id\":\"cancel_order\",\"label\":\"Cancel\",\"action\":\"custom\"}]",
+              @"actionIdentifier" : actionIdentifier };
+}
+
+/// Verifies the open of a push sent by a button tap names that button, alongside the push's own hash.
+- (void)testTappedButtonIsNamedInTheRequest {
+    [self.request setPushDict:[self pushWithButtonsTappedAs:@"cancel_order"]];
+
+    NSDictionary *parameters = [self.request requestDictionary];
+
+    XCTAssertEqualObjects(parameters[@"button_id"], @"cancel_order");
+    XCTAssertEqualObjects(parameters[@"hash"], @"hash");
+}
+
+/// Verifies a tap on the notification itself names no button, so an ordinary open is still an
+/// ordinary open.
+- (void)testPlainTapNamesNoButton {
+    NSMutableDictionary *push = [[self pushWithButtonsTappedAs:@"x"] mutableCopy];
+    [push removeObjectForKey:@"actionIdentifier"];
+    [self.request setPushDict:push];
+
+    NSDictionary *parameters = [self.request requestDictionary];
+
+    XCTAssertNil(parameters[@"button_id"]);
+    XCTAssertEqualObjects(parameters[@"hash"], @"hash");
+}
+
+/// Verifies a button of an old Control Panel category names no button: that path has no pw_buttons and
+/// its statistics must not change shape.
+- (void)testLegacyCategoryButtonNamesNoButton {
+    [self.request setPushDict:@{ @"p" : @"hash", @"pw_msg" : @"1", @"actionIdentifier" : @"legacy_button" }];
+
+    NSDictionary *parameters = [self.request requestDictionary];
+
+    XCTAssertNil(parameters[@"button_id"]);
+}
+
+/// Verifies an action identifier this push does not carry names no button, so a stale response cannot
+/// invent a click.
+- (void)testUnknownActionIdentifierNamesNoButton {
+    [self.request setPushDict:[self pushWithButtonsTappedAs:@"not_in_this_push"]];
+
+    XCTAssertNil([self.request requestDictionary][@"button_id"]);
 }
 
 @end

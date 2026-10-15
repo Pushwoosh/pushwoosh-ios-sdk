@@ -77,6 +77,8 @@ public struct Pushwoosh_DeviceApi_V2_ApplicationOpenRequest: Sendable {
 
   public var userID: String = String()
 
+  public var pushPermissionStatus: String = String()
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -830,6 +832,11 @@ public struct Pushwoosh_DeviceApi_V2_RegisterDeviceRequest: @unchecked Sendable 
     set {_uniqueStorage()._voipPushToken = newValue}
   }
 
+  public var pushPermissionStatus: String {
+    get {return _storage._pushPermissionStatus}
+    set {_uniqueStorage()._pushPermissionStatus = newValue}
+  }
+
   public var unknownFields = SwiftProtobuf.UnknownStorage()
 
   public init() {}
@@ -1325,7 +1332,7 @@ fileprivate let _protobuf_package = "pushwoosh.device_api.v2"
 
 extension Pushwoosh_DeviceApi_V2_ApplicationOpenRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".ApplicationOpenRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}hwid\0\u{1}application\0\u{1}platform\0\u{1}language\0\u{3}app_version\0\u{3}device_model\0\u{3}os_version\0\u{3}sdk_version\0\u{3}push_alerts_enabled\0\u{1}timezone\0\u{3}time_sensitive_notifications\0\u{3}scheduled_summary\0\u{3}user_id\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}hwid\0\u{1}application\0\u{1}platform\0\u{1}language\0\u{3}app_version\0\u{3}device_model\0\u{3}os_version\0\u{3}sdk_version\0\u{3}push_alerts_enabled\0\u{1}timezone\0\u{3}time_sensitive_notifications\0\u{3}scheduled_summary\0\u{3}user_id\0\u{3}push_permission_status\0")
 
   public mutating func decodeMessage<D: SwiftProtobuf.Decoder>(decoder: inout D) throws {
     while let fieldNumber = try decoder.nextFieldNumber() {
@@ -1346,6 +1353,7 @@ extension Pushwoosh_DeviceApi_V2_ApplicationOpenRequest: SwiftProtobuf.Message, 
       case 11: try { try decoder.decodeSingularMessageField(value: &self._timeSensitiveNotifications) }()
       case 12: try { try decoder.decodeSingularMessageField(value: &self._scheduledSummary) }()
       case 13: try { try decoder.decodeSingularStringField(value: &self.userID) }()
+      case 14: try { try decoder.decodeSingularStringField(value: &self.pushPermissionStatus) }()
       default: break
       }
     }
@@ -1395,6 +1403,9 @@ extension Pushwoosh_DeviceApi_V2_ApplicationOpenRequest: SwiftProtobuf.Message, 
     if !self.userID.isEmpty {
       try visitor.visitSingularStringField(value: self.userID, fieldNumber: 13)
     }
+    if !self.pushPermissionStatus.isEmpty {
+      try visitor.visitSingularStringField(value: self.pushPermissionStatus, fieldNumber: 14)
+    }
     try unknownFields.traverse(visitor: &visitor)
   }
 
@@ -1412,6 +1423,7 @@ extension Pushwoosh_DeviceApi_V2_ApplicationOpenRequest: SwiftProtobuf.Message, 
     if lhs._timeSensitiveNotifications != rhs._timeSensitiveNotifications {return false}
     if lhs._scheduledSummary != rhs._scheduledSummary {return false}
     if lhs.userID != rhs.userID {return false}
+    if lhs.pushPermissionStatus != rhs.pushPermissionStatus {return false}
     if lhs.unknownFields != rhs.unknownFields {return false}
     return true
   }
@@ -2347,7 +2359,7 @@ extension Pushwoosh_DeviceApi_V2_GetPlatformConfigurationResponse.PlatformParamI
 
 extension Pushwoosh_DeviceApi_V2_RegisterDeviceRequest: SwiftProtobuf.Message, SwiftProtobuf._MessageImplementationBase, SwiftProtobuf._ProtoNameProviding {
   public static let protoMessageName: String = _protobuf_package + ".RegisterDeviceRequest"
-  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}hwid\0\u{1}application\0\u{1}platform\0\u{3}push_token\0\u{3}user_id\0\u{1}language\0\u{3}app_version\0\u{3}device_model\0\u{3}os_version\0\u{3}sdk_version\0\u{3}push_alerts_enabled\0\u{1}timezone\0\u{3}time_sensitive_notifications\0\u{3}scheduled_summary\0\u{3}public_key\0\u{3}auth_token\0\u{3}fcm_token\0\u{3}fcm_push_set\0\u{1}sounds\0\u{1}tags\0\u{3}voip_push_token\0")
+  public static let _protobuf_nameMap = SwiftProtobuf._NameMap(bytecode: "\0\u{1}hwid\0\u{1}application\0\u{1}platform\0\u{3}push_token\0\u{3}user_id\0\u{1}language\0\u{3}app_version\0\u{3}device_model\0\u{3}os_version\0\u{3}sdk_version\0\u{3}push_alerts_enabled\0\u{1}timezone\0\u{3}time_sensitive_notifications\0\u{3}scheduled_summary\0\u{3}public_key\0\u{3}auth_token\0\u{3}fcm_token\0\u{3}fcm_push_set\0\u{1}sounds\0\u{1}tags\0\u{3}voip_push_token\0\u{4}\u{3}push_permission_status\0")
 
   fileprivate class _StorageClass {
     var _hwid: String = String()
@@ -2371,6 +2383,7 @@ extension Pushwoosh_DeviceApi_V2_RegisterDeviceRequest: SwiftProtobuf.Message, S
     var _sounds: [String] = []
     var _tags: SwiftProtobuf.Google_Protobuf_Struct? = nil
     var _voipPushToken: String = String()
+    var _pushPermissionStatus: String = String()
 
       // This property is used as the initial default value for new instances of the type.
       // The type itself is protecting the reference to its storage via CoW semantics.
@@ -2402,6 +2415,7 @@ extension Pushwoosh_DeviceApi_V2_RegisterDeviceRequest: SwiftProtobuf.Message, S
       _sounds = source._sounds
       _tags = source._tags
       _voipPushToken = source._voipPushToken
+      _pushPermissionStatus = source._pushPermissionStatus
     }
   }
 
@@ -2441,6 +2455,7 @@ extension Pushwoosh_DeviceApi_V2_RegisterDeviceRequest: SwiftProtobuf.Message, S
         case 19: try { try decoder.decodeRepeatedStringField(value: &_storage._sounds) }()
         case 20: try { try decoder.decodeSingularMessageField(value: &_storage._tags) }()
         case 21: try { try decoder.decodeSingularStringField(value: &_storage._voipPushToken) }()
+        case 24: try { try decoder.decodeSingularStringField(value: &_storage._pushPermissionStatus) }()
         default: break
         }
       }
@@ -2516,6 +2531,9 @@ extension Pushwoosh_DeviceApi_V2_RegisterDeviceRequest: SwiftProtobuf.Message, S
       if !_storage._voipPushToken.isEmpty {
         try visitor.visitSingularStringField(value: _storage._voipPushToken, fieldNumber: 21)
       }
+      if !_storage._pushPermissionStatus.isEmpty {
+        try visitor.visitSingularStringField(value: _storage._pushPermissionStatus, fieldNumber: 24)
+      }
     }
     try unknownFields.traverse(visitor: &visitor)
   }
@@ -2546,6 +2564,7 @@ extension Pushwoosh_DeviceApi_V2_RegisterDeviceRequest: SwiftProtobuf.Message, S
         if _storage._sounds != rhs_storage._sounds {return false}
         if _storage._tags != rhs_storage._tags {return false}
         if _storage._voipPushToken != rhs_storage._voipPushToken {return false}
+        if _storage._pushPermissionStatus != rhs_storage._pushPermissionStatus {return false}
         return true
       }
       if !storagesAreEqual {return false}

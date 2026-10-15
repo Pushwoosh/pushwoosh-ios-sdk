@@ -267,27 +267,7 @@
 }
 
 + (NSInteger)getStatusesMask {
-    NSDictionary *permissionsStatusDict = [PWManagerBridge getRemoteNotificationStatus];
-
-    BOOL soundsEnabled = [permissionsStatusDict[@"pushSound"] boolValue];
-    BOOL badgesEnabled = [permissionsStatusDict[@"pushBadge"] boolValue];
-    BOOL alertEnabled = [permissionsStatusDict[@"pushAlert"] boolValue];
-
-    NSInteger statusesMask = 0;
-
-    if (badgesEnabled) {
-        statusesMask |= 1;
-    }
-
-    if (soundsEnabled) {
-        statusesMask |= 1 << 1;
-    }
-
-    if (alertEnabled) {
-        statusesMask |= 1 << 2;
-    }
-
-    return statusesMask;
+    return [self statusesMaskFromNotificationStatus:[PWManagerBridge getRemoteNotificationStatus]];
 }
 
 + (NSDictionary *)embeddedProvisioningProfileEntitlements {

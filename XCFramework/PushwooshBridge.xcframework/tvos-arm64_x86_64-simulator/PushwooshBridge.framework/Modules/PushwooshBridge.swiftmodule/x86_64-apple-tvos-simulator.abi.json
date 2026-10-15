@@ -6196,6 +6196,72 @@
             ],
             "reqNewWitnessTableEntry": true,
             "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "storedPersistentHWID",
+            "printedName": "storedPersistentHWID()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWKeychainPersistentHWIDProvider(im)storedPersistentHWID",
+            "mangledName": "$s15PushwooshBridge32PWKeychainPersistentHWIDProviderP06storedD4HWIDSSSgyF",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWKeychainPersistentHWIDProvider>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWKeychainPersistentHWIDProvider>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "storePersistentHWID",
+            "printedName": "storePersistentHWID(_:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWKeychainPersistentHWIDProvider(im)storePersistentHWID:",
+            "mangledName": "$s15PushwooshBridge32PWKeychainPersistentHWIDProviderP05storeD4HWIDySbSSF",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWKeychainPersistentHWIDProvider>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWKeychainPersistentHWIDProvider>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
           }
         ],
         "declKind": "Protocol",

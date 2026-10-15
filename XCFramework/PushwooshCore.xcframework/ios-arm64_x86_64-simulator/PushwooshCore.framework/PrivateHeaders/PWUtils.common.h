@@ -64,4 +64,6 @@ void heavy_operation_impl(const char *function);
 
 + (NSInteger)getStatusesMask;
 
++ (NSInteger)statusesMaskFromNotificationStatus:(NSDictionary *)notificationStatus;
+
 @end

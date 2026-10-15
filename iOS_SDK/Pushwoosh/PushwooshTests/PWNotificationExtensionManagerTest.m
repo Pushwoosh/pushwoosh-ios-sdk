@@ -7,18 +7,26 @@
 #import "PWNetworkModule.h"
 #import "PWRequestManager.h"
 #import "PWMessageDeliveryRequest.h"
+#import "PWActionButton.h"
+#import "PWActionButtonsParser.h"
+#import "PWActionButtonsRegistrar.h"
 
 #pragma clang diagnostic push
 #pragma clang diagnostic ignored "-Wdeprecated-declarations"
 
 @interface PWNotificationServiceProcessor (Test)
 @property (nonatomic, strong) PWRequestManager *requestManager;
+@property (nonatomic, strong) PWActionButtonsRegistrar *actionButtonsRegistrar;
 @end
 
 @interface PWNotificationExtensionManagerTest : XCTestCase
 
 @property (nonatomic) id mockPWNetworkModule;
 @property (nonatomic) id stubbedRequestManager;
+/// Backs every per-call processor's actionButtonsRegistrar, so tests never reach the real
+/// UNUserNotificationCenter, which does not call back inside the unit test host.
+@property (nonatomic) id mockNotificationCenter;
+@property (nonatomic, strong) PWActionButtonsRegistrar *fakeActionButtonsRegistrar;
 @property (nonatomic, strong) NSMutableArray *testMocks;
 
 @end
@@ -36,11 +44,24 @@
         }
     });
 
+    _mockNotificationCenter = [self track:OCMClassMock([UNUserNotificationCenter class])];
+    OCMStub([_mockNotificationCenter getNotificationCategoriesWithCompletionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        void (^handler)(NSSet<UNNotificationCategory *> *) = nil;
+        [invocation getArgument:&handler atIndex:2];
+        handler([NSSet set]);
+    });
+    OCMStub([_mockNotificationCenter setNotificationCategories:OCMOCK_ANY]).andDo(nil);
+    NSString *suiteName = @"com.pushwoosh.tests.nse.manager.actionbuttons";
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:suiteName];
+    _fakeActionButtonsRegistrar = [[PWActionButtonsRegistrar alloc] initWithNotificationCenter:_mockNotificationCenter
+                                                                                       defaults:[[NSUserDefaults alloc] initWithSuiteName:suiteName]];
+
     _mockPWNetworkModule = [self track:OCMPartialMock([PWNetworkModule module])];
     OCMStub([_mockPWNetworkModule inject:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
         __unsafe_unretained PWNotificationServiceProcessor *processor = nil;
         [invocation getArgument:&processor atIndex:2];
         processor.requestManager = self.stubbedRequestManager;
+        processor.actionButtonsRegistrar = self.fakeActionButtonsRegistrar;
     });
 }
 
@@ -279,6 +300,31 @@
 
     [self waitForExpectationsWithTimeout:2 handler:nil];
     OCMVerify([self.stubbedRequestManager sendRequest:[OCMArg isKindOfClass:[PWMessageDeliveryRequest class]] completion:OCMOCK_ANY]);
+}
+
+#pragma mark - Action buttons
+
+/// Verifies the deprecated low-level manager — the path the cross-platform wrappers take — stamps the
+/// buttons category too, so a Flutter or React Native application gets the same buttons.
+- (void)testDeprecatedManagerDeliversContentWithTheButtonsCategory {
+    UNNotificationRequest *request = [UNNotificationRequest alloc];
+    id mockContent = [self track:OCMPartialMock([UNMutableNotificationContent alloc])];
+    id mockRequest = [self track:OCMPartialMock(request)];
+    OCMStub([(UNNotificationRequest *)mockRequest content]).andReturn(mockContent);
+    OCMStub([mockContent mutableCopy]).andReturn(mockContent);
+
+    NSDictionary *userInfo = @{ @"aps" : @{ @"alert" : @"hi" }, @"pw_msg" : @"1", @"p" : @"hash",
+                                @"pw_buttons" : @"[{\"id\":\"open_app\",\"label\":\"Open\",\"action\":\"open\"}]" };
+    OCMStub([(UNMutableNotificationContent *)mockContent userInfo]).andReturn(userInfo);
+    NSString *expectedCategory = [PWActionButtonsRegistrar categoryIdentifierForButtons:[PWActionButtonsParser buttonsFromUserInfo:userInfo]];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    [[PWNotificationExtensionManager sharedManager] handleNotificationRequest:request contentHandler:^(UNNotificationContent *content) {
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    OCMVerify([mockContent setCategoryIdentifier:expectedCategory]);
 }
 
 @end

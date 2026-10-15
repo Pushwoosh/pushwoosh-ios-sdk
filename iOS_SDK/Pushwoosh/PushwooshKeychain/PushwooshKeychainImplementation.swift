@@ -103,6 +103,11 @@ public class PushwooshKeychainImplementation: NSObject, PWKeychain {
             return existingHWID
         }
 
+        return createPersistentHWID()
+    }
+
+    /// Generates a new HWID, saves it to Keychain and returns it, or nil if Keychain rejects it.
+    static func createPersistentHWID() -> String? {
         let newHWID = generateHWID()
 
         PushwooshLog.pushwooshLog(
@@ -149,7 +154,7 @@ public class PushwooshKeychainImplementation: NSObject, PWKeychain {
 ///
 /// Vended as a singleton via `PushwooshKeychainImplementation.backchannelProvider`
 /// and registered with `PushwooshModuleRegistry` at module load. `PWPreferences`
-/// looks the handler up and forwards `getPersistentHWIDIfAvailable` through it
+/// looks the handler up and reconciles its HWID with Keychain through it
 /// without touching the implementation class directly.
 @available(iOS 12.0, *)
 @objc(PushwooshKeychainBackchannel)
@@ -161,6 +166,16 @@ final class PushwooshKeychainBackchannel: NSObject, PWKeychainPersistentHWIDProv
 
     @objc
     func persistentHWID() -> String? {
-        return PushwooshKeychainImplementation.getPersistentHWID()
+        return PushwooshKeychainImplementation.createPersistentHWID()
+    }
+
+    @objc
+    func storedPersistentHWID() -> String? {
+        return PWKeychainHelper.read()
+    }
+
+    @objc
+    func storePersistentHWID(_ hwid: String) -> Bool {
+        return PWKeychainHelper.save(hwid)
     }
 }

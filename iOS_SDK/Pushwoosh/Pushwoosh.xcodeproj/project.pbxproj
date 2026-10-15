@@ -43,6 +43,15 @@
 /* End PBXAggregateTarget section */
 
 /* Begin PBXBuildFile section */
+		B7A623B8AC5FD2EF630FE754 /* PWActionButton.h in Headers */ = {isa = PBXBuildFile; fileRef = F3EAA92BC0ECBC0BE6FFE92B /* PWActionButton.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		072FDADD12D3B765D7A136D3 /* PWActionButton.m in Sources */ = {isa = PBXBuildFile; fileRef = 24B090E7ACB99E3727531A9D /* PWActionButton.m */; };
+		1A5473740258AF729907CA17 /* PWActionButtonsParser.h in Headers */ = {isa = PBXBuildFile; fileRef = 91CD3122ADB0B9558E5D963C /* PWActionButtonsParser.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		1104C0B387710AB0BB11E5C6 /* PWActionButtonsParser.m in Sources */ = {isa = PBXBuildFile; fileRef = 033CD74EE1C57AB82210EC42 /* PWActionButtonsParser.m */; };
+		A288B8B7F4D9315610A04E0C /* PWActionButtonsParserTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 5DAD34659AC1783AD057AC52 /* PWActionButtonsParserTest.m */; };
+		5AC15AA4C5254539AC58F418 /* PWActionButtonsRegistrar.h in Headers */ = {isa = PBXBuildFile; fileRef = 1A1CCB73157043658F746BBC /* PWActionButtonsRegistrar.h */; settings = {ATTRIBUTES = (Private, ); }; };
+		87916E81D0E14199A589F232 /* PWActionButtonsRegistrar.m in Sources */ = {isa = PBXBuildFile; fileRef = 3D95872B28384A719D1791F7 /* PWActionButtonsRegistrar.m */; };
+		AFB696D1F53C48F6B4802A05 /* PWActionButtonsRegistrarTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 31FE028885324F949E5A147F /* PWActionButtonsRegistrarTest.m */; };
+		3E71D12D3AAB40D2BAD7560A /* PWActionButtonTapTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 22753BCF0FE3495BB135DEB7 /* PWActionButtonTapTest.m */; };
 		006AE3A91ADE34CE76002729 /* PWLoadingView.m in Sources */ = {isa = PBXBuildFile; fileRef = 72B6165DF192FA6C912E20A4 /* PWLoadingView.m */; };
 		01A83928D3931BDD87544E01 /* PWRichMediaStyle.m in Sources */ = {isa = PBXBuildFile; fileRef = FF41CDCCD3E7D09CDFB33675 /* PWRichMediaStyle.m */; };
 		01CC6EEF29A0292CE31E2A19 /* PWUtils.ios.h in Headers */ = {isa = PBXBuildFile; fileRef = D8CA4700D50930259D82D879 /* PWUtils.ios.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -556,6 +565,7 @@
 		B777PC2000000000000003A6 /* PushwooshConfigTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B777PC1000000000000003A6 /* PushwooshConfigTest.m */; };
 		B777PH1000000000000001A2 /* PushwooshKeychainLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = B777PH1000000000000001A1 /* PushwooshKeychainLoader.m */; };
 		B777PH1000000000000003A3 /* PWPreferencesKeychainBackchannelTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B777PH1000000000000003A4 /* PWPreferencesKeychainBackchannelTest.m */; };
+		B777PH1000000000000003B3 /* PWPreferencesKeychainHWIDTest.m in Sources */ = {isa = PBXBuildFile; fileRef = B777PH1000000000000003B4 /* PWPreferencesKeychainHWIDTest.m */; };
 		B777PH2000000000000000F4 /* PushwooshForegroundPushLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = B777PH2000000000000000F3 /* PushwooshForegroundPushLoader.m */; };
 		B777PH2000000000000000I4 /* PushwooshInboxKitLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = B777PH2000000000000000I3 /* PushwooshInboxKitLoader.m */; };
 		B777PH2000000000000000L4 /* PushwooshLiveActivitiesLoader.m in Sources */ = {isa = PBXBuildFile; fileRef = B777PH2000000000000000L3 /* PushwooshLiveActivitiesLoader.m */; };
@@ -735,6 +745,17 @@
 		B6C9608F2777151C39A6DB8A /* PWGamifiedInAppViewsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 040F3991A0CD27AB27326668 /* PWGamifiedInAppViewsTest.swift */; };
 		50B6E462C63C0CD2733BB4E4 /* PushwooshInApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 786428D9B4E7112F4DA4DF16 /* PushwooshInApp.framework */; };
 		F60797CA3CBF1B413D4D5F9F /* PushwooshInApp.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 786428D9B4E7112F4DA4DF16 /* PushwooshInApp.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
+		16D11F0B91206854B4A94527 /* PWFeatureFlags.m in Sources */ = {isa = PBXBuildFile; fileRef = 1D398B4A4D05D4CA7749D8C9 /* PWFeatureFlags.m */; };
+		3F220D50F67454A12278A9D8 /* PWFeatureFlagsManager.m in Sources */ = {isa = PBXBuildFile; fileRef = DC89DD57F9B0700FD21426B3 /* PWFeatureFlagsManager.m */; };
+		43268C66E465036F3FCF8C0B /* PWFeatureFlag.m in Sources */ = {isa = PBXBuildFile; fileRef = 7A87992D90753914482123CB /* PWFeatureFlag.m */; };
+		674AC0357F3C5BC8E1EED857 /* feature_flags_contract.json in Resources */ = {isa = PBXBuildFile; fileRef = 2EFD809DF2DD0E015CAECF29 /* feature_flags_contract.json */; };
+		751CF4F019996912F771058E /* PWFeatureFlagsManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 5045DDEE047743374479A6BB /* PWFeatureFlagsManager.h */; };
+		926FD17AA9951F2EF192EB8C /* PWGetFeatureFlagsRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 2504EEAC5C69468FC0876D22 /* PWGetFeatureFlagsRequest.m */; };
+		984A896DEAF73B9B35E953AD /* PWFeatureFlag+Internal.h in Headers */ = {isa = PBXBuildFile; fileRef = 1F88862ABF28780285A1E70E /* PWFeatureFlag+Internal.h */; };
+		B96AB6B0A5485FBC079EBD9B /* PWFeatureFlag.h in Headers */ = {isa = PBXBuildFile; fileRef = A6CCA1869EB6CC2B486DFFF1 /* PWFeatureFlag.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E06E9D1ECC80835A376DA5A5 /* PWFeatureFlags.h in Headers */ = {isa = PBXBuildFile; fileRef = FEA5D8F4949854D8CB2C6C80 /* PWFeatureFlags.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		E077E05E4A91106C7F750382 /* PWGetFeatureFlagsRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = 30E880213E2461B83908625D /* PWGetFeatureFlagsRequest.h */; };
+		E86944B13121591B2789B3F1 /* PWFeatureFlagsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 9F904E809E81C883ADE0A5EC /* PWFeatureFlagsTest.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -1059,6 +1080,15 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		F3EAA92BC0ECBC0BE6FFE92B /* PWActionButton.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWActionButton.h; sourceTree = "<group>"; };
+		24B090E7ACB99E3727531A9D /* PWActionButton.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWActionButton.m; sourceTree = "<group>"; };
+		91CD3122ADB0B9558E5D963C /* PWActionButtonsParser.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWActionButtonsParser.h; sourceTree = "<group>"; };
+		033CD74EE1C57AB82210EC42 /* PWActionButtonsParser.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWActionButtonsParser.m; sourceTree = "<group>"; };
+		5DAD34659AC1783AD057AC52 /* PWActionButtonsParserTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PWActionButtonsParserTest.m; path = PushwooshTests/PWActionButtonsParserTest.m; sourceTree = SOURCE_ROOT; };
+		1A1CCB73157043658F746BBC /* PWActionButtonsRegistrar.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWActionButtonsRegistrar.h; sourceTree = "<group>"; };
+		3D95872B28384A719D1791F7 /* PWActionButtonsRegistrar.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWActionButtonsRegistrar.m; sourceTree = "<group>"; };
+		31FE028885324F949E5A147F /* PWActionButtonsRegistrarTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PWActionButtonsRegistrarTest.m; path = PushwooshTests/PWActionButtonsRegistrarTest.m; sourceTree = SOURCE_ROOT; };
+		22753BCF0FE3495BB135DEB7 /* PWActionButtonTapTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PWActionButtonTapTest.m; path = PushwooshTests/PWActionButtonTapTest.m; sourceTree = SOURCE_ROOT; };
 		00BFBB2625B34693C8281DAC /* PWAlphabetUtils.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWAlphabetUtils.h; sourceTree = "<group>"; };
 		00D9BCC1FEA548CDD0CF47AC /* PWEasyJSListener.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWEasyJSListener.h; sourceTree = "<group>"; };
 		02638F96D9572AA361C95675 /* PWPushwooshJSBridge.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWPushwooshJSBridge.m; sourceTree = "<group>"; };
@@ -1558,6 +1588,7 @@
 		B777PC1000000000000003A6 /* PushwooshConfigTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PushwooshConfigTest.m; path = PushwooshTests/PushwooshConfigTest.m; sourceTree = SOURCE_ROOT; };
 		B777PH1000000000000001A1 /* PushwooshKeychainLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushwooshKeychainLoader.m; sourceTree = "<group>"; };
 		B777PH1000000000000003A4 /* PWPreferencesKeychainBackchannelTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PWPreferencesKeychainBackchannelTest.m; path = PushwooshTests/PWPreferencesKeychainBackchannelTest.m; sourceTree = SOURCE_ROOT; };
+		B777PH1000000000000003B4 /* PWPreferencesKeychainHWIDTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; name = PWPreferencesKeychainHWIDTest.m; path = PushwooshTests/PWPreferencesKeychainHWIDTest.m; sourceTree = SOURCE_ROOT; };
 		B777PH2000000000000000F3 /* PushwooshForegroundPushLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushwooshForegroundPushLoader.m; sourceTree = "<group>"; };
 		B777PH2000000000000000I3 /* PushwooshInboxKitLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushwooshInboxKitLoader.m; sourceTree = "<group>"; };
 		B777PH2000000000000000L3 /* PushwooshLiveActivitiesLoader.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PushwooshLiveActivitiesLoader.m; sourceTree = "<group>"; };
@@ -1718,6 +1749,17 @@
 		GRPC0005A1B2C3D4E5F67890 /* GRPCLogger.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = GRPCLogger.swift; sourceTree = "<group>"; };
 		C6051D0F3B41190778C5956A /* PushwooshInboxKitTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushwooshInboxKitTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		A697A19F39DD7F9D11D5C4B8 /* PushwooshInAppTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PushwooshInAppTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		1D398B4A4D05D4CA7749D8C9 /* PWFeatureFlags.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWFeatureFlags.m; sourceTree = "<group>"; };
+		1F88862ABF28780285A1E70E /* PWFeatureFlag+Internal.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = "PWFeatureFlag+Internal.h"; sourceTree = "<group>"; };
+		2504EEAC5C69468FC0876D22 /* PWGetFeatureFlagsRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWGetFeatureFlagsRequest.m; sourceTree = "<group>"; };
+		2EFD809DF2DD0E015CAECF29 /* feature_flags_contract.json */ = {isa = PBXFileReference; includeInIndex = 1; path = feature_flags_contract.json; sourceTree = "<group>"; };
+		30E880213E2461B83908625D /* PWGetFeatureFlagsRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWGetFeatureFlagsRequest.h; sourceTree = "<group>"; };
+		5045DDEE047743374479A6BB /* PWFeatureFlagsManager.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWFeatureFlagsManager.h; sourceTree = "<group>"; };
+		7A87992D90753914482123CB /* PWFeatureFlag.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWFeatureFlag.m; sourceTree = "<group>"; };
+		9F904E809E81C883ADE0A5EC /* PWFeatureFlagsTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWFeatureFlagsTest.m; sourceTree = "<group>"; };
+		A6CCA1869EB6CC2B486DFFF1 /* PWFeatureFlag.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWFeatureFlag.h; sourceTree = "<group>"; };
+		DC89DD57F9B0700FD21426B3 /* PWFeatureFlagsManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWFeatureFlagsManager.m; sourceTree = "<group>"; };
+		FEA5D8F4949854D8CB2C6C80 /* PWFeatureFlags.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWFeatureFlags.h; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -2306,6 +2348,7 @@
 				77770001000000000000F0D2 /* Modules */,
 				8430000100000000000000D1 /* Diagnostics */,
 				C628B281338B8917B64951BA /* PushPrimer */,
+				10D65041546508CA8473C8FD /* FeatureFlags */,
 			);
 			path = PushwooshCore;
 			sourceTree = "<group>";
@@ -2945,6 +2988,7 @@
 				B777CV1000000000000003A0 /* PWMissingModuleProtocolCoverageTest.m */,
 				B777EI1000000000000003A0 /* PushwooshAccessorEnsureInitializedTest.m */,
 				B777PH1000000000000003A4 /* PWPreferencesKeychainBackchannelTest.m */,
+				B777PH1000000000000003B4 /* PWPreferencesKeychainHWIDTest.m */,
 				B777MB1000000000000003A5 /* PWManagerBridgeTest.m */,
 				B777PC1000000000000003A6 /* PushwooshConfigTest.m */,
 				B777UN1000000000000003A7 /* PWUserNotificationCenterDelegateTest.m */,
@@ -2959,6 +3003,10 @@
 				B777PH2000000000000003T1 /* RegistryTVoSHandlerLookupTest.m */,
 				B777PH2000000000000003V1 /* RegistryVoIPHandlerLookupTest.m */,
 				B5A0A122D016D51A018E3A47 /* PWPushPrimerTest.m */,
+				5DAD34659AC1783AD057AC52 /* PWActionButtonsParserTest.m */,
+				31FE028885324F949E5A147F /* PWActionButtonsRegistrarTest.m */,
+				22753BCF0FE3495BB135DEB7 /* PWActionButtonTapTest.m */,
+				5744F720B0E40EC33AA78BD1 /* FeatureFlags */,
 			);
 			path = PushwooshTests;
 			sourceTree = "<group>";
@@ -3629,9 +3677,23 @@
 			children = (
 				1305BD41110747C1BAD6A8F0 /* Registration */,
 				4E54E62DD8998DC782C6EC92 /* Handling */,
+				F9B799A7BCDF1B3E8D64A929 /* ActionButtons */,
 				F0D2BD759C28322BF71B092C /* PWPushNotificationsManager */,
 			);
 			path = Notifications;
+			sourceTree = "<group>";
+		};
+		F9B799A7BCDF1B3E8D64A929 /* ActionButtons */ = {
+			isa = PBXGroup;
+			children = (
+				F3EAA92BC0ECBC0BE6FFE92B /* PWActionButton.h */,
+				24B090E7ACB99E3727531A9D /* PWActionButton.m */,
+				91CD3122ADB0B9558E5D963C /* PWActionButtonsParser.h */,
+				033CD74EE1C57AB82210EC42 /* PWActionButtonsParser.m */,
+				1A1CCB73157043658F746BBC /* PWActionButtonsRegistrar.h */,
+				3D95872B28384A719D1791F7 /* PWActionButtonsRegistrar.m */,
+			);
+			path = ActionButtons;
 			sourceTree = "<group>";
 		};
 		CECC2535DF8573840A06BA21 /* PushwooshGRPC */ = {
@@ -3884,6 +3946,33 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		10D65041546508CA8473C8FD /* FeatureFlags */ = {
+			isa = PBXGroup;
+			children = (
+				A6CCA1869EB6CC2B486DFFF1 /* PWFeatureFlag.h */,
+				7A87992D90753914482123CB /* PWFeatureFlag.m */,
+				1F88862ABF28780285A1E70E /* PWFeatureFlag+Internal.h */,
+				FEA5D8F4949854D8CB2C6C80 /* PWFeatureFlags.h */,
+				1D398B4A4D05D4CA7749D8C9 /* PWFeatureFlags.m */,
+				5045DDEE047743374479A6BB /* PWFeatureFlagsManager.h */,
+				DC89DD57F9B0700FD21426B3 /* PWFeatureFlagsManager.m */,
+				30E880213E2461B83908625D /* PWGetFeatureFlagsRequest.h */,
+				2504EEAC5C69468FC0876D22 /* PWGetFeatureFlagsRequest.m */,
+			);
+			name = FeatureFlags;
+			path = FeatureFlags;
+			sourceTree = "<group>";
+		};
+		5744F720B0E40EC33AA78BD1 /* FeatureFlags */ = {
+			isa = PBXGroup;
+			children = (
+				9F904E809E81C883ADE0A5EC /* PWFeatureFlagsTest.m */,
+				2EFD809DF2DD0E015CAECF29 /* feature_flags_contract.json */,
+			);
+			name = FeatureFlags;
+			path = FeatureFlags;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -3913,6 +4002,9 @@
 			isa = PBXHeadersBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B7A623B8AC5FD2EF630FE754 /* PWActionButton.h in Headers */,
+				1A5473740258AF729907CA17 /* PWActionButtonsParser.h in Headers */,
+				5AC15AA4C5254539AC58F418 /* PWActionButtonsRegistrar.h in Headers */,
 				4425440E2D8872A8003DCB5F /* PWServerCommunicationManager.h in Headers */,
 				E15185C72E018F6A00CE8936 /* PushwooshConfig.h in Headers */,
 				44A29BA52D808DEA00FBF3D3 /* PushwooshLog.h in Headers */,
@@ -4060,6 +4152,11 @@
 				1C70822AA657ACF0D85F480C /* PWPushPrimerPresenter.h in Headers */,
 				93757D8A281D9564E94ECE68 /* PWPushPrimerViewController.h in Headers */,
 				AE9B956918BCC9D0686C3468 /* PWInAppHandler.h in Headers */,
+				B96AB6B0A5485FBC079EBD9B /* PWFeatureFlag.h in Headers */,
+				984A896DEAF73B9B35E953AD /* PWFeatureFlag+Internal.h in Headers */,
+				E06E9D1ECC80835A376DA5A5 /* PWFeatureFlags.h in Headers */,
+				751CF4F019996912F771058E /* PWFeatureFlagsManager.h in Headers */,
+				E077E05E4A91106C7F750382 /* PWGetFeatureFlagsRequest.h in Headers */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -4843,6 +4940,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				674AC0357F3C5BC8E1EED857 /* feature_flags_contract.json in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5001,6 +5099,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				072FDADD12D3B765D7A136D3 /* PWActionButton.m in Sources */,
+				1104C0B387710AB0BB11E5C6 /* PWActionButtonsParser.m in Sources */,
+				87916E81D0E14199A589F232 /* PWActionButtonsRegistrar.m in Sources */,
 				E15185C82E018F6A00CE8936 /* PushwooshConfig.m in Sources */,
 				441806F12D7B290E00DE71A7 /* PushwooshCore.m in Sources */,
 				44A29BA62D808DEA00FBF3D3 /* PushwooshLog.m in Sources */,
@@ -5131,6 +5232,10 @@
 				422ED983571ED747288A65D8 /* PWPushPrimerBuilder.m in Sources */,
 				1470FA39794B6D510426C95D /* PWPushPrimerPresenter.m in Sources */,
 				E16B9736CFB8E199FD1EC18C /* PWPushPrimerViewController.m in Sources */,
+				43268C66E465036F3FCF8C0B /* PWFeatureFlag.m in Sources */,
+				16D11F0B91206854B4A94527 /* PWFeatureFlags.m in Sources */,
+				3F220D50F67454A12278A9D8 /* PWFeatureFlagsManager.m in Sources */,
+				926FD17AA9951F2EF192EB8C /* PWGetFeatureFlagsRequest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5233,6 +5338,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				A288B8B7F4D9315610A04E0C /* PWActionButtonsParserTest.m in Sources */,
+				AFB696D1F53C48F6B4802A05 /* PWActionButtonsRegistrarTest.m in Sources */,
+				3E71D12D3AAB40D2BAD7560A /* PWActionButtonTapTest.m in Sources */,
 				449CAA142877267C00B4EEEF /* PWGetTagsRequestTest.m in Sources */,
 				449CA9FC2877253B00B4EEEF /* PWRequestTest.m in Sources */,
 				AFB0025129F7ED5A0083A3E6 /* PWPreferencesTest.m in Sources */,
@@ -5324,6 +5432,7 @@
 				B777CV2000000000000003A0 /* PWMissingModuleProtocolCoverageTest.m in Sources */,
 				B777EI2000000000000003A0 /* PushwooshAccessorEnsureInitializedTest.m in Sources */,
 				B777PH1000000000000003A3 /* PWPreferencesKeychainBackchannelTest.m in Sources */,
+				B777PH1000000000000003B3 /* PWPreferencesKeychainHWIDTest.m in Sources */,
 				B777MB2000000000000003A5 /* PWManagerBridgeTest.m in Sources */,
 				B777PC2000000000000003A6 /* PushwooshConfigTest.m in Sources */,
 				B777UN2000000000000003A7 /* PWUserNotificationCenterDelegateTest.m in Sources */,
@@ -5348,6 +5457,7 @@
 				5127CD6198787B803E75853D /* PWModalWindowTest.m in Sources */,
 				3E684054C5463FBF32AD882E /* PWResourceNativeConfigTest.m in Sources */,
 				F0695F85057EA8A5A2A68747 /* PWNativeInAppRouteTest.m in Sources */,
+				E86944B13121591B2789B3F1 /* PWFeatureFlagsTest.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5859,7 +5969,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -5976,7 +6086,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6111,7 +6221,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6195,7 +6305,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6279,7 +6389,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6363,7 +6473,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6454,7 +6564,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6542,7 +6652,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6628,7 +6738,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -6714,7 +6824,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -6826,7 +6936,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6909,7 +7019,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6995,7 +7105,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
@@ -7081,7 +7191,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = (
@@ -7456,7 +7566,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -7606,7 +7716,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7669,7 +7779,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -7723,7 +7833,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshLiveActivitiesTests;
@@ -7761,7 +7871,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshKeychain;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -7834,7 +7944,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7919,7 +8029,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshNotificationUITests;
@@ -7999,7 +8109,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -8080,7 +8190,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -8170,7 +8280,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -8255,7 +8365,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -8338,7 +8448,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -8417,7 +8527,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -8480,7 +8590,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -8535,7 +8645,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshTVOSTests;
@@ -8594,7 +8704,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -8648,7 +8758,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshVoIPTests;
@@ -8686,7 +8796,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshKeychain;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -8741,7 +8851,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -8795,7 +8905,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshInboxKitTests;
@@ -8852,7 +8962,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -8906,7 +9016,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.9;
+				MARKETING_VERSION = 7.2.10;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshInAppTests;

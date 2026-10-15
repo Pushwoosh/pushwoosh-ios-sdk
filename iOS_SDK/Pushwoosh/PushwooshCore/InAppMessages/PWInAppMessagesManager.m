@@ -22,6 +22,7 @@ extern NSString * const PWInboxMessagesDidUpdateNotification;
 #import <PushwooshCore/PWRichMediaManager.h>
 #import <PushwooshCore/PWInboxBridge.h>
 #import "PWDataManager.h"
+#import "PWFeatureFlagsManager.h"
 #import "PWRichMedia+Internal.h"
 #import "NSDictionary+PWDictUtils.h"
 #import "PWRegisterEmail.h"
@@ -392,6 +393,9 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error == nil) {
             [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"User \"%@\" was successfully registered", userId]];
+#if TARGET_OS_IOS
+            [[PWFeatureFlagsManager sharedManager] userIdUpdated];
+#endif
 
             [[PWManagerBridge shared].inboxBridge updateInboxForNewUserId:^(NSUInteger messagesCount) {
                 if (messagesCount == 0) {
@@ -407,6 +411,9 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Failed to update inbox for a new user. error: %@", error.localizedDescription]];
             [PWPreferences preferences].userId = previousUserId;
             [PWPreferences preferences].lastRegisterUserDate = previousRegisterUserDate;
+#if TARGET_OS_IOS
+            [[PWFeatureFlagsManager sharedManager] userIdUpdateFailed];
+#endif
         }
         if (completion)
             completion(error);

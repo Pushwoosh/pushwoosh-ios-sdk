@@ -44,8 +44,10 @@
 #import <PushwooshCore/PWMessage+Internal.h>
 #import <PushwooshCore/PWIntegrationValidator.h>
 #import <PushwooshCore/PWPushPrimerBuilder.h>
+#import <PushwooshCore/PWFeatureFlag.h>
+#import <PushwooshCore/PWFeatureFlags.h>
 
-#define PUSHWOOSH_VERSION @"7.2.9"
+#define PUSHWOOSH_VERSION @"7.2.10"
 
 @interface PushwooshCoreManager : NSObject
 

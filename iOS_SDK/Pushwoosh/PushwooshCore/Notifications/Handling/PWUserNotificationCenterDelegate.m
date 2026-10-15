@@ -10,11 +10,19 @@
 #import "PWMessage+Internal.h"
 #import <PushwooshCore/PWManagerBridge.h>
 #import <PushwooshCore/PushwooshLog.h>
+#import <PushwooshCore/PWActionButton.h>
+#import <PushwooshCore/PWActionButtonsParser.h>
+
+/// iOS ends the background launch as soon as the response handler returns; this keeps a request that
+/// never answers from taking the handler down with it.
+static const NSTimeInterval kPWActionButtonResponseTimeout = 20;
 
 @interface PWUserNotificationCenterDelegate()
 
 @property (nonatomic, strong) PWPushNotificationsManager *notificationManager;
 @property (nonatomic) NSString *lastHash;
+/// How long a background button's response waits for its statistics.
+@property (nonatomic) NSTimeInterval actionButtonResponseTimeout;
 
 @end
 
@@ -25,6 +33,7 @@
 	self = [super init];
 	if (self) {
 		_notificationManager = manager;
+		_actionButtonResponseTimeout = kPWActionButtonResponseTimeout;
 	}
 	return self;
 }
@@ -63,40 +72,71 @@
 }
 
 - (void)userNotificationCenter:(UNUserNotificationCenter *)center didReceiveNotificationResponse:(UNNotificationResponse *)response withCompletionHandler:(void(^)(void))completionHandler {
-    dispatch_block_t handlePushAcceptanceBlock = ^{
-        if (![response.actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
-            if (![response.actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier] && [[PWManagerBridge shared].delegate respondsToSelector:@selector(onActionIdentifierReceived:withNotification:)]) {
-                id delegate = [PWManagerBridge shared].delegate;
-                SEL selector = NSSelectorFromString(@"onActionIdentifierReceived:withNotification:");
-                NSMethodSignature *signature = [delegate methodSignatureForSelector:selector];
-                NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
-                [invocation setSelector:selector];
-                [invocation setTarget:delegate];
+    NSDictionary *payload = [self pushPayloadFromContent:response.notification.request.content];
+    PWActionButton *button = [PWActionButtonsParser buttonForActionIdentifier:response.actionIdentifier
+                                                                  inUserInfo:payload];
+    BOOL backgroundButton = button != nil && !button.opensApplication;
 
-                NSString *actionId = response.actionIdentifier;
-                NSDictionary *notification = [self pushPayloadFromContent:response.notification.request.content];
-                [invocation setArgument:&actionId atIndex:2];
-                [invocation setArgument:&notification atIndex:3];
-                [invocation invoke];
-            }
-            NSDictionary *userInfo = [self pushPayloadFromContent:response.notification.request.content];
-            NSMutableDictionary *userInfoWithActionIdentifier = [NSMutableDictionary dictionaryWithDictionary:userInfo];
-            [userInfoWithActionIdentifier addEntriesFromDictionary:@{@"actionIdentifier": response.actionIdentifier}];
-            [_notificationManager handlePushAccepted:userInfoWithActionIdentifier onStart:_notificationManager.isAppInBackground];
+    __block BOOL finished = NO;
+    /// This method and every completion that can end it run on the main thread, so the guard needs no lock.
+    void (^finish)(void) = ^{
+        if (finished) {
+            return;
         }
+        finished = YES;
+        completionHandler();
     };
 
-    if ([self isRemoteNotification:response.notification]  && [PWMessage isPushwooshMessage:response.notification.request.content.userInfo]) {
-        if (![PWMessage isSilentPush:response.notification.request.content.userInfo]) {
-            [_notificationManager handlePushReceived:[self pushPayloadFromContent:response.notification.request.content] autoAcceptAllowed:NO];
+    BOOL (^handlePushAcceptanceBlock)(void) = ^BOOL{
+        if ([response.actionIdentifier isEqualToString:UNNotificationDismissActionIdentifier]) {
+            return NO;
         }
 
-        handlePushAcceptanceBlock();
+        if (![response.actionIdentifier isEqualToString:UNNotificationDefaultActionIdentifier] && [[PWManagerBridge shared].delegate respondsToSelector:@selector(onActionIdentifierReceived:withNotification:)]) {
+            id delegate = [PWManagerBridge shared].delegate;
+            SEL selector = NSSelectorFromString(@"onActionIdentifierReceived:withNotification:");
+            NSMethodSignature *signature = [delegate methodSignatureForSelector:selector];
+            NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
+            [invocation setSelector:selector];
+            [invocation setTarget:delegate];
+
+            NSString *actionId = response.actionIdentifier;
+            NSDictionary *notification = payload;
+            [invocation setArgument:&actionId atIndex:2];
+            [invocation setArgument:&notification atIndex:3];
+            [invocation invoke];
+        }
+
+        if (button != nil) {
+            [center removeDeliveredNotificationsWithIdentifiers:@[ response.notification.request.identifier ]];
+        }
+
+        NSMutableDictionary *userInfoWithActionIdentifier = [NSMutableDictionary dictionaryWithDictionary:payload];
+        [userInfoWithActionIdentifier addEntriesFromDictionary:@{PWActionIdentifierKey: response.actionIdentifier}];
+        [self->_notificationManager handlePushAccepted:userInfoWithActionIdentifier
+                                               onStart:self->_notificationManager.isAppInBackground
+                                            completion:backgroundButton ? finish : nil];
+        return backgroundButton;
+    };
+
+    BOOL waitsForStats = NO;
+
+    if ([self isRemoteNotification:response.notification] && [PWMessage isPushwooshMessage:response.notification.request.content.userInfo]) {
+        if (![PWMessage isSilentPush:response.notification.request.content.userInfo]) {
+            [_notificationManager handlePushReceived:payload autoAcceptAllowed:NO opensApplication:!backgroundButton];
+        }
+
+        waitsForStats = handlePushAcceptanceBlock();
     } else if ([response.notification.request.content.userInfo objectForKey:@"pw_push"]) {
-        handlePushAcceptanceBlock();
+        waitsForStats = handlePushAcceptanceBlock();
     }
 
-    completionHandler();
+    if (waitsForStats) {
+        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(self.actionButtonResponseTimeout * NSEC_PER_SEC)), dispatch_get_main_queue(), finish);
+        return;
+    }
+
+    finish();
 }
 
 - (BOOL)isRemoteNotification:(UNNotification *)notification {

@@ -714,6 +714,54 @@
           },
           {
             "kind": "Var",
+            "name": "featureFlags",
+            "printedName": "featureFlags",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWFeatureFlags",
+                "printedName": "PushwooshCore.PWFeatureFlags",
+                "usr": "c:objc(cs)PWFeatureFlags"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So15PushwooshConfigC0A9FrameworkE12featureFlagsSo09PWFeatureE0CvpZ",
+            "mangledName": "$sSo15PushwooshConfigC0A9FrameworkE12featureFlagsSo09PWFeatureE0CvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWFeatureFlags",
+                    "printedName": "PushwooshCore.PWFeatureFlags",
+                    "usr": "c:objc(cs)PWFeatureFlags"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So15PushwooshConfigC0A9FrameworkE12featureFlagsSo09PWFeatureE0CvgZ",
+                "mangledName": "$sSo15PushwooshConfigC0A9FrameworkE12featureFlagsSo09PWFeatureE0CvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "delegate",
             "printedName": "delegate",
             "children": [

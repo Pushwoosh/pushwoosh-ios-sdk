@@ -14,6 +14,7 @@
 #if TARGET_OS_IOS
 @protocol PWPurchaseDelegate;
 @class PWPushPrimerBuilder;
+@class PWFeatureFlags;
 #endif
 
 /**
@@ -3619,6 +3620,78 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @return A new `PWPushPrimerBuilder` instance.
  */
 + (PWPushPrimerBuilder * _Nonnull)pushPrimer NS_REFINED_FOR_SWIFT;
+
+/**
+ Feature flags evaluated by Pushwoosh for this device and user.
+
+ @discussion
+ Pushwoosh evaluates rules, segments and rollout percentages on the server. The SDK fetches the
+ result, keeps the last response on disk and answers `get` synchronously from it, without a request.
+
+ The SDK refreshes the flags by itself: when a session starts (the first time the app becomes
+ active and after 30 minutes in background), every hour while the app stays in foreground, after
+ the first push registration if the previous request went without it, and after a user id change.
+ Call `refresh` to fetch on demand. While the cache is valid, a refresh within 5 minutes of the
+ last request completes from the cache without a request.
+
+ `get` returns `nil` until the first response arrives, when the cache is older than 24 hours, and
+ while the cache belongs to another user id or application code. Call `logImpression` when the
+ user actually sees a branch of the feature, including the disabled one: that is the control group.
+
+ Flags are requested from `api/v2/device-api/getFeatureFlags` in place of the `json/1.3/` tail of
+ the reverse proxy URL or of the SDK base URL. A reverse proxy URL must end with `json/1.3/`,
+ otherwise `refresh` fails without a request. A base URL without `json/1.3/` (a custom gateway, an
+ on-premise server) is not used for flags: they go to `https://<APP-CODE>.api.pushwoosh.com/`
+ and the SDK logs a warning. App extensions never request flags.
+
+ ## Example
+
+ Read a flag and log what the user saw:
+
+ ```swift
+ let flags = Pushwoosh.configure.featureFlags
+ if flags.isEnabled("new_checkout", default: false) {
+     showNewCheckout(color: flags.get("new_checkout")?.string(forProperty: "color", default: nil))
+ } else {
+     showOldCheckout()
+ }
+ flags.logImpression("new_checkout")
+ ```
+
+ Refresh on demand; the error code is the HTTP status, `0` when no response was received:
+
+ ```swift
+ Pushwoosh.configure.featureFlags.refresh { error in
+     if let error = error as NSError? {
+         print("Feature flags refresh failed: \(error.code)")
+     }
+ }
+ ```
+
+ React to new values:
+
+ ```swift
+ final class CheckoutModel: NSObject, PWFeatureFlagsUpdateListener {
+     func featureFlagsDidUpdate() {
+         reload()
+     }
+ }
+
+ Pushwoosh.configure.featureFlags.addUpdateListener(checkoutModel)
+ ```
+
+ @note To test refreshes without the 5-minute limit, set the Info.plist key
+ `Pushwoosh_FEATURE_FLAGS_DISABLE_THROTTLE` (Boolean) to `YES`.
+
+ @warning Update listeners are held weakly. Keep a strong reference to the listener, otherwise it
+ is released and never called.
+
+ @return The shared `PWFeatureFlags` instance. Available on iOS only.
+
+ @see PWFeatureFlags
+ @see PWFeatureFlag
+ */
++ (PWFeatureFlags * _Nonnull)featureFlags NS_REFINED_FOR_SWIFT;
 #endif
 
 /**

@@ -39,6 +39,7 @@
 - (BOOL)isUsingReverseProxy;
 - (NSString *)registrableDomainOfHost:(NSString *)host;
 - (BOOL)shouldBypassGRPCForRequest:(PWRequest *)request;
+- (void)sendRequestViaGRPC:(PWRequest *)request completion:(void (^)(NSError *error))completion;
 
 @property (nonatomic, strong) Class grpcTransportClass;
 
@@ -85,6 +86,7 @@ static NSError *gResponseError;
 @end
 
 static NSUInteger pw_test_grpcSendCount;
+static NSDictionary *pw_test_grpcResponse;
 
 @implementation PWGRPCTransportStub
 
@@ -98,7 +100,7 @@ static NSUInteger pw_test_grpcSendCount;
 
 + (void)sendRequest:(PWRequest *)request completion:(void (^)(NSDictionary *response, NSError *error))completion {
     pw_test_grpcSendCount += 1;
-    completion(@{ @"status_code": @200 }, nil);
+    completion(pw_test_grpcResponse ?: @{ @"status_code": @200 }, nil);
 }
 
 @end
@@ -206,6 +208,7 @@ static id _mockNSBundle;
 	[self waitForExpectationsWithTimeout:5 handler:nil];
 }
 
+/// Verifies that a successful response moves the endpoint and a later response without status_code keeps it.
 - (void)testUrlChange {
 	XCTAssertEqualObjects([PWPreferences preferences].baseUrl, [[PWPreferences preferences] defaultBaseUrl]);
 
@@ -224,14 +227,13 @@ static id _mockNSBundle;
 
 	[self waitForExpectationsWithTimeout:5 handler:nil];
 
-
-	// Test url reset after bad request
 	XCTestExpectation *appOpenExpectation2 = [self expectationWithDescription:@"applicationOpen resonse2"];
 	responseData = @"{\"status_message\":\"OK\",\"response\":null}";
 	[NSURLSession injectResponse:httpResponse data:[responseData dataUsingEncoding:NSUTF8StringEncoding] error:nil];
 	request = [PWAppOpenRequest new];
     [_requestManager sendRequest:request completion:^(NSError *error) {
-        XCTAssertEqualObjects([PWPreferences preferences].baseUrl, [[PWPreferences preferences] defaultBaseUrl]);
+        XCTAssertNotNil(error);
+        XCTAssertEqualObjects([PWPreferences preferences].baseUrl, @"https://test.pushwoosh.com/json/4.2/");
 		[appOpenExpectation2 fulfill];
 	}];
 
@@ -891,6 +893,164 @@ static id _mockNSBundle;
 
     [communicationMock stopMocking];
     _requestManager.grpcTransportClass = nil;
+}
+
+#pragma mark - Server base_url only from a successful response
+
+static NSString * const kPWTestCurrentBaseUrl = @"https://region-a.example.com/json/1.3/";
+static NSString * const kPWTestMovedBaseUrl = @"https://moved.example.com/json/1.3/";
+
+- (NSError *)deliverAppOpenResponseWithHTTPStatus:(NSInteger)httpStatus body:(NSString *)body {
+    NSHTTPURLResponse *httpResponse = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@"https://region-a.example.com"] statusCode:httpStatus HTTPVersion:nil headerFields:nil];
+    [NSURLSession injectResponse:httpResponse data:[body dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+
+    __block NSError *receivedError = nil;
+    XCTestExpectation *responded = [self expectationWithDescription:@"response processed"];
+    [_requestManager sendRequestInternal:[PWAppOpenRequest new] completion:^(NSError *error) {
+        receivedError = error;
+        [responded fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+    return receivedError;
+}
+
+- (NSError *)deliverAppOpenOverGRPCWithResponse:(NSDictionary *)response {
+    _requestManager.grpcTransportClass = [PWGRPCTransportStub class];
+    pw_test_grpcResponse = response;
+
+    __block NSError *receivedError = nil;
+    XCTestExpectation *responded = [self expectationWithDescription:@"gRPC response processed"];
+    [_requestManager sendRequestViaGRPC:[PWAppOpenRequest new] completion:^(NSError *error) {
+        receivedError = error;
+        [responded fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+
+    pw_test_grpcResponse = nil;
+    _requestManager.grpcTransportClass = nil;
+    return receivedError;
+}
+
+- (void)useCurrentBaseUrlWithoutAnActiveApplicationRecord {
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Pushwoosh_ACTIVE_APPLICATION"];
+    [[NSUserDefaults standardUserDefaults] synchronize];
+    [[PWPreferences preferences] updateBaseUrl:kPWTestCurrentBaseUrl];
+    XCTAssertFalse([PWPreferences hasActiveApplicationRecord]);
+    XCTAssertNotEqualObjects([PWPreferences preferences].baseUrl, [[PWPreferences preferences] defaultBaseUrl]);
+}
+
+/// Verifies that base_url from a 200 response with status_code 200 moves the endpoint.
+- (void)testServerBaseUrlFromASuccessfulResponseMovesTheEndpoint {
+    [self useCurrentBaseUrlWithoutAnActiveApplicationRecord];
+
+    NSError *error = [self deliverAppOpenResponseWithHTTPStatus:200 body:@"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null,\"base_url\":\"https://moved.example.com/json/1.3/\"}"];
+
+    XCTAssertNil(error);
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, kPWTestMovedBaseUrl);
+}
+
+/// Verifies that base_url from a response whose status_code is not 200 leaves the endpoint unchanged.
+- (void)testServerBaseUrlFromANotOkStatusCodeIsIgnored {
+    for (NSNumber *statusCode in @[ @210, @400, @500 ]) {
+        [self useCurrentBaseUrlWithoutAnActiveApplicationRecord];
+        NSString *body = [NSString stringWithFormat:@"{\"status_code\":%@,\"status_message\":\"Not OK\",\"response\":null,\"base_url\":\"https://moved.example.com/json/1.3/\"}", statusCode];
+
+        NSError *error = [self deliverAppOpenResponseWithHTTPStatus:200 body:body];
+
+        XCTAssertNotNil(error, @"status_code %@", statusCode);
+        XCTAssertEqualObjects([PWPreferences preferences].baseUrl, kPWTestCurrentBaseUrl, @"status_code %@", statusCode);
+    }
+}
+
+/// Verifies that base_url from an HTTP 500 response leaves the endpoint unchanged even with status_code 200 in the body.
+- (void)testServerBaseUrlFromAnHttpErrorIsIgnored {
+    [self useCurrentBaseUrlWithoutAnActiveApplicationRecord];
+
+    NSError *error = [self deliverAppOpenResponseWithHTTPStatus:500 body:@"{\"status_code\":200,\"status_message\":\"OK\",\"response\":null,\"base_url\":\"https://moved.example.com/json/1.3/\"}"];
+
+    XCTAssertNotNil(error);
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, kPWTestCurrentBaseUrl);
+}
+
+/// Verifies that a response without status_code does not reset the endpoint to the default one.
+- (void)testResponseWithoutStatusCodeDoesNotResetTheEndpoint {
+    [self useCurrentBaseUrlWithoutAnActiveApplicationRecord];
+
+    NSError *error = [self deliverAppOpenResponseWithHTTPStatus:200 body:@"{\"status_message\":\"OK\",\"response\":null}"];
+
+    XCTAssertNotNil(error);
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, kPWTestCurrentBaseUrl);
+}
+
+/// Verifies that base_url from a response without status_code leaves the endpoint unchanged.
+- (void)testServerBaseUrlFromAResponseWithoutStatusCodeIsIgnored {
+    [self useCurrentBaseUrlWithoutAnActiveApplicationRecord];
+
+    NSError *error = [self deliverAppOpenResponseWithHTTPStatus:200 body:@"{\"status_message\":\"OK\",\"response\":null,\"base_url\":\"https://moved.example.com/json/1.3/\"}"];
+
+    XCTAssertNotNil(error);
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, kPWTestCurrentBaseUrl);
+}
+
+/// Verifies that base_url from a response without status_code leaves the endpoint of the selected application unchanged.
+- (void)testServerBaseUrlFromAResponseWithoutStatusCodeIsIgnoredForTheSelectedApplication {
+    XCTAssertTrue([[PWPreferences preferences] switchToApplicationWithAppCode:@"AAAAA-11111" baseUrl:kPWTestCurrentBaseUrl]);
+
+    NSError *error = [self deliverAppOpenResponseWithHTTPStatus:200 body:@"{\"status_message\":\"OK\",\"response\":null,\"base_url\":\"https://moved.example.com/json/1.3/\"}"];
+
+    XCTAssertNotNil(error);
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, kPWTestCurrentBaseUrl);
+}
+
+/// Verifies that base_url ignored in a failed response is reported at info level with the method and both status codes.
+- (void)testIgnoredServerBaseUrlFromAFailedResponseIsLogged {
+    [self useCurrentBaseUrlWithoutAnActiveApplicationRecord];
+    id logMock = OCMClassMock([PushwooshLog class]);
+    OCMExpect([logMock pushwooshLog:PW_LL_INFO className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *message) {
+        return [message containsString:kPWTestMovedBaseUrl] && [message containsString:@"applicationOpen"] && [message containsString:@"502"] && [message containsString:@"400"];
+    }]]);
+
+    [self deliverAppOpenResponseWithHTTPStatus:502 body:@"{\"status_code\":400,\"status_message\":\"Not OK\",\"response\":null,\"base_url\":\"https://moved.example.com/json/1.3/\"}"];
+
+    OCMVerifyAll(logMock);
+    [logMock stopMocking];
+}
+
+/// Verifies that behind a reverse proxy a failed response with base_url logs no ignored-base_url line.
+- (void)testNoIgnoredServerBaseUrlLogBehindAReverseProxy {
+    [_requestManager setReverseProxyUrl:@"https://proxy.example.com/" headers:nil];
+    id logMock = OCMClassMock([PushwooshLog class]);
+    OCMReject([logMock pushwooshLog:PW_LL_INFO className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *message) {
+        return [message containsString:kPWTestMovedBaseUrl];
+    }]]);
+
+    [self deliverAppOpenResponseWithHTTPStatus:200 body:@"{\"status_code\":400,\"status_message\":\"Not OK\",\"response\":null,\"base_url\":\"https://moved.example.com/json/1.3/\"}"];
+
+    OCMVerifyAll(logMock);
+    [logMock stopMocking];
+    @synchronized (_requestManager) {
+        [_requestManager setValue:nil forKey:@"reverseProxyUrl"];
+    }
+}
+
+/// Verifies that base_url from a successful gRPC response moves the endpoint.
+- (void)testServerBaseUrlFromASuccessfulGRPCResponseMovesTheEndpoint {
+    [self useCurrentBaseUrlWithoutAnActiveApplicationRecord];
+
+    NSError *error = [self deliverAppOpenOverGRPCWithResponse:@{ @"status_code": @200, @"base_url": kPWTestMovedBaseUrl }];
+
+    XCTAssertNil(error);
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, kPWTestMovedBaseUrl);
+}
+
+/// Verifies that base_url from a failed gRPC response leaves the endpoint unchanged.
+- (void)testServerBaseUrlFromAFailedGRPCResponseIsIgnored {
+    [self useCurrentBaseUrlWithoutAnActiveApplicationRecord];
+
+    NSError *error = [self deliverAppOpenOverGRPCWithResponse:@{ @"status_code": @500, @"status_message": @"Not OK", @"base_url": kPWTestMovedBaseUrl }];
+
+    XCTAssertNotNil(error);
+    XCTAssertEqualObjects([PWPreferences preferences].baseUrl, kPWTestCurrentBaseUrl);
 }
 
 @end

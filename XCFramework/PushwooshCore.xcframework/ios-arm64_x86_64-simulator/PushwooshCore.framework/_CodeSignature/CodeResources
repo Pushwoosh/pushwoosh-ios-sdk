@@ -22,11 +22,19 @@
 		</data>
 		<key>Headers/PWConfig.h</key>
 		<data>
-		Uwbs2pCZg1zL9jEIegpC1MS40Dw=
+		KolMIMs7HhpIFpZiRIgfRhz4BB8=
 		</data>
 		<key>Headers/PWCoreUtils.h</key>
 		<data>
 		ZqRDTdc5zhoXbUeM/oiPAJS1B24=
+		</data>
+		<key>Headers/PWFeatureFlag.h</key>
+		<data>
+		/giRTrqBDcAbu7SBe8JPtlLroG4=
+		</data>
+		<key>Headers/PWFeatureFlags.h</key>
+		<data>
+		POaPl9o/kXJM95lX3bjLB9pEdN8=
 		</data>
 		<key>Headers/PWInAppManager.h</key>
 		<data>
@@ -146,11 +154,11 @@
 		</data>
 		<key>Headers/PushwooshConfig.h</key>
 		<data>
-		dJtBf30HvLjIh7iBwst0c7K7j2M=
+		NWpR11SDtcaWONhKQ+eJNklQACY=
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		9NsGgKwhsM91qtQp3/dPJgE2fkU=
+		+5jhYBGZPEMtWLIIB4OX61ECsUY=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -158,7 +166,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		teG4clHxgl3BdPR6AUszPIcJr3E=
+		Os7YbRUxB7A0NjmjgLEMuPqXq2E=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -168,13 +176,25 @@
 		<data>
 		7NzAl/qfKZwy0neaQU691RMQzrw=
 		</data>
+		<key>PrivateHeaders/PWActionButton.h</key>
+		<data>
+		9hgkeRr0WyxzuECARgog+jphMc4=
+		</data>
+		<key>PrivateHeaders/PWActionButtonsParser.h</key>
+		<data>
+		kdjoTIKp5kOeTK63BNHK30c1JnE=
+		</data>
+		<key>PrivateHeaders/PWActionButtonsRegistrar.h</key>
+		<data>
+		3sj0uA+aIuOG2cj0UKSxRvHCUxo=
+		</data>
 		<key>PrivateHeaders/PWBaseLoadingViewController.h</key>
 		<data>
 		jDV9QASPa0p8ZlLszlY8GlAk9sA=
 		</data>
 		<key>PrivateHeaders/PWDataManager.h</key>
 		<data>
-		d/vViSOdq7jP/eQNmCU1TiVSYqQ=
+		BW17Xs8hFWf99b7FLNKoHdxbY+8=
 		</data>
 		<key>PrivateHeaders/PWEasyJSWKWebView.h</key>
 		<data>
@@ -230,7 +250,7 @@
 		</data>
 		<key>PrivateHeaders/PWPushNotificationsManager.common.h</key>
 		<data>
-		mhMv54TQ7Isn/CfpqfgohWUU0Dw=
+		Sd3bSoFWUS5aXSMFPqKJ9tRICoo=
 		</data>
 		<key>PrivateHeaders/PWPushNotificationsManager.h</key>
 		<data>
@@ -278,7 +298,7 @@
 		</data>
 		<key>PrivateHeaders/PWUtils.common.h</key>
 		<data>
-		JhWCmCC1WOcVkVLpZhXX+K6oc2I=
+		QTFbjV3nq7ZYsXAFxsPrI2pyEyc=
 		</data>
 		<key>PrivateHeaders/PWUtils.h</key>
 		<data>
@@ -331,7 +351,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			8HeJt0SQN9zR1FIwUEoTu2PhOYfPOVo+gzzfo86SJak=
+			2tgwTipcSKrJfIoaetDmQIlAMbO4BduiU95hjLd1kqg=
 			</data>
 		</dict>
 		<key>Headers/PWCoreUtils.h</key>
@@ -339,6 +359,20 @@
 			<key>hash2</key>
 			<data>
 			GZ/BjobrZyX0dyp8hsIxmHwoK52E7xGxypWRsZ/aTjc=
+			</data>
+		</dict>
+		<key>Headers/PWFeatureFlag.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			JCq2PaOfLs/Ov1yWxMnCkP7kk2xbGQVve8AmkXYwUac=
+			</data>
+		</dict>
+		<key>Headers/PWFeatureFlags.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			uVBvWTmCCWC6Wb5/rHnQx1DguUsCm1G6HXYdb0VLPao=
 			</data>
 		</dict>
 		<key>Headers/PWInAppManager.h</key>
@@ -548,14 +582,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			HoK9gjDbzlOD1bf3O/AIYrMWEJjxa53RU86Gf9S5nHk=
+			pnm9xCmArz7cqGd4W1X8mIkCJvhoAXQu6QqR3fem0MI=
 			</data>
 		</dict>
 		<key>Headers/PushwooshCore.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			nvR9EA6xg04sWecUB7s3nSa3dDcu/gAwE+8Y7ynEEqs=
+			u5vv9AlKdPi+0tJ+avSXSsI4FPpze4GDi/xnZyov6qA=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -579,6 +613,27 @@
 			5JV1VLSsu0iGctH5UBK5JwFbMxxCcRJL5PJrqjkX+ZM=
 			</data>
 		</dict>
+		<key>PrivateHeaders/PWActionButton.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			Tq0fEIt/n9Hjuv3J6/JjFKEDb9WPJFpkqPlliBZ/oag=
+			</data>
+		</dict>
+		<key>PrivateHeaders/PWActionButtonsParser.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			TEDOQjLM/8ZySxgh62bj8JAPIcED1+lRxl3liAPIe0g=
+			</data>
+		</dict>
+		<key>PrivateHeaders/PWActionButtonsRegistrar.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			pBZDbCs5tQscXqQoKTZ9YoA+u2zzH8P/qUg8U68XBYI=
+			</data>
+		</dict>
 		<key>PrivateHeaders/PWBaseLoadingViewController.h</key>
 		<dict>
 			<key>hash2</key>
@@ -590,7 +645,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			Ig6mYECuZZGnN4PdkGOuDz+pzX+SpItamIE9z17Fz2M=
+			WhyLCmL+dCqVq0GBzN7OfUe7BLK//V/Iyb04Kj0JTic=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWEasyJSWKWebView.h</key>
@@ -688,7 +743,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			wbqxe+uDK1GGKxAz2T+PYwclY+sP1vIzxIF1ChOj120=
+			zk3NwalayAQoL7cUKvdZpMsjWECIu8j2vI8SG0DO/Q0=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWPushNotificationsManager.h</key>
@@ -772,7 +827,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			AewXBnXSW+q8mF6ZnkBsl9NfZgVCVb9BpjDg7zEv75g=
+			iIZF/ziVk0OQVs65bBZvotCCPGVR3+iLboNBbBLurg0=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWUtils.h</key>

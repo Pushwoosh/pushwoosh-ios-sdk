@@ -189,6 +189,29 @@ public extension PushwooshConfig {
     static var pushPrimer: PWPushPrimerBuilder {
         return __pushPrimer()
     }
+
+    /// Feature flags evaluated by Pushwoosh for this device and user.
+    ///
+    /// The SDK fetches the flags when a session starts, every hour in foreground, after the first push
+    /// registration and after a user id change, and keeps the last response on disk. `get` answers
+    /// synchronously from it and returns `nil` until the first response, when the cache is older than
+    /// 24 hours, or while it belongs to another user id or application code. Within 5 minutes of the
+    /// last request, `refresh` completes from a valid cache without a request.
+    ///
+    /// ```swift
+    /// let flags = Pushwoosh.configure.featureFlags
+    /// if flags.isEnabled("new_checkout", default: false) {
+    ///     showNewCheckout(color: flags.get("new_checkout")?.string(forProperty: "color", default: nil))
+    /// } else {
+    ///     showOldCheckout()
+    /// }
+    /// flags.logImpression("new_checkout")
+    /// ```
+    ///
+    /// Update listeners are held weakly: keep a strong reference to the listener.
+    static var featureFlags: PWFeatureFlags {
+        return __featureFlags()
+    }
 }
 #endif
 

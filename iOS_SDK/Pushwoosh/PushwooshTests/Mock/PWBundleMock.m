@@ -25,6 +25,8 @@
         return @(_pluginNotificationHandler);
     } else if ([key isEqualToString:@"Pushwoosh_AUTO_DEVICE_TOKEN_REGISTRATION"] && _autoDeviceTokenRegistrationSet) {
         return @(_autoDeviceTokenRegistration);
+    } else if ([key isEqualToString:@"Pushwoosh_FEATURE_FLAGS_DISABLE_THROTTLE"] && _featureFlagsThrottleDisabledSet) {
+        return @(_featureFlagsThrottleDisabled);
     } else if ([key isEqualToString:@"Pushwoosh_APPID"]) {
         return _appIdRaw ?: _appId;
     } else if ([key isEqualToString:@"PW_API_TOKEN"]) {

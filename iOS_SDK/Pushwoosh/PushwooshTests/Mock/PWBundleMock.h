@@ -20,6 +20,8 @@
 @property (nonatomic) BOOL pluginNotificationHandler;
 @property (nonatomic) BOOL autoDeviceTokenRegistrationSet;
 @property (nonatomic) BOOL autoDeviceTokenRegistration;
+@property (nonatomic) BOOL featureFlagsThrottleDisabledSet;
+@property (nonatomic) BOOL featureFlagsThrottleDisabled;
 
 @property (nonatomic, copy, nullable) NSString *appId;
 @property (nonatomic, copy, nullable) NSString *apiToken;

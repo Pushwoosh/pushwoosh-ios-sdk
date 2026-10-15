@@ -27,15 +27,22 @@
 #import "PWRequest+Internal.h"
 
 #import "PWDataManager.h"
+#import "PWFeatureFlagsManager.h"
 #import "PWRichPushManager.h"
 #import "PWInAppMessagesManager.h"
 #import "PWSystemCommandDispatcher.h"
+#import "PWActionButton.h"
+#import "PWActionButtonsParser.h"
 
 
 const NSTimeInterval kRegistrationUpdateInterval = 24 * 60 * 60;
 
 NSString * const kPWReceivedPushHashesKey = @"PWReceivedPushHashes";
 static const NSUInteger kPWReceivedPushHashesLimit = 100;
+
+/// Lets the push settle before the application is sent elsewhere.
+static const NSTimeInterval kPWPushUrlOpenDelay = 0.2;
+static NSString *const kPWLastPushPermissionStatusKey = @"PWLastPushPermissionStatus";
 
 typedef NS_ENUM(NSInteger, PWPlatform) {
     iOS = 1,
@@ -62,6 +69,9 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 @property (nonatomic, strong) PWRequestManager *requestManager;
 
 @property (nonatomic, strong) PWSessionRetrySender *sessionRetry;
+
+/// Last push permission status sent in registerDevice; touched on the main queue only.
+@property (nonatomic, copy) NSString *lastPushPermissionStatus;
 
 // @Inject
 @property (nonatomic, strong) PWNotificationManagerCompat *notificationManagerCompat;
@@ -210,9 +220,20 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     }
 }
 
+// A changed status goes out with registerDevice: every applicationOpen counts as an app open on the server.
 - (void)notificationStatusSyncCompleted:(NSNotification *)notification {
-    NSInteger actualStatusMask = [PWUtils getStatusesMask];
-    [PWPreferences preferences].lastStatusMask = actualStatusMask;
+    NSString *pushToken = [PWPreferences preferences].pushToken;
+    if (pushToken) {
+        [self sendDevTokenToServer:pushToken triggerCallbacks:NO];
+    }
+}
+
+- (NSString *)lastPushPermissionStatus {
+    return [[NSUserDefaults standardUserDefaults] stringForKey:kPWLastPushPermissionStatusKey];
+}
+
+- (void)setLastPushPermissionStatus:(NSString *)lastPushPermissionStatus {
+    [[NSUserDefaults standardUserDefaults] setObject:lastPushPermissionStatus forKey:kPWLastPushPermissionStatusKey];
 }
 
 - (void)sendDevTokenToServer:(NSString *)deviceID triggerCallbacks:(BOOL)triggerCallbacks {
@@ -223,16 +244,29 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         return;
     }
 
+    [[[PWPlatformModule module] notificationManagerCompat] getRemoteNotificationStatusWithCompletion:^(NSDictionary *status) {
+        dispatch_async(dispatch_get_main_queue(), ^{
+            [self sendDevTokenToServer:deviceID triggerCallbacks:triggerCallbacks notificationStatus:status];
+        });
+    }];
+}
+
+- (void)sendDevTokenToServer:(NSString *)deviceID triggerCallbacks:(BOOL)triggerCallbacks notificationStatus:(NSDictionary *)notificationStatus {
     //only 1 request per kRegistrationUpdateInterval!
     NSDate *lastReg = [PWPreferences preferences].lastRegTime;
     NSInteger lastStatusMask = [PWPreferences preferences].lastStatusMask;
+    NSInteger statusMask = [PWUtils statusesMaskFromNotificationStatus:notificationStatus];
+    NSString *permissionStatus = [PWAppOpenRequest pushPermissionStatusFromNotificationStatus:notificationStatus];
+    BOOL permissionStatusUnchanged = permissionStatus == nil ||
+        [permissionStatus isEqualToString:self.lastPushPermissionStatus];
 
     if (lastReg) {
         NSTimeInterval secondsBetween = [[NSDate date] timeIntervalSinceDate:lastReg];
 
         if ([[PWPreferences preferences].pushToken isEqualToString:deviceID] &&
             secondsBetween < kRegistrationUpdateInterval &&
-            lastStatusMask == [PWUtils getStatusesMask]) {
+            lastStatusMask == statusMask &&
+            permissionStatusUnchanged) {
 
             [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Registered for push notifications: %@", deviceID]];
 
@@ -242,10 +276,17 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         }
     }
 
-    [PWPreferences preferences].lastStatusMask = [PWUtils getStatusesMask];
+    [PWPreferences preferences].lastStatusMask = statusMask;
     [PWPreferences preferences].lastRegTime = [NSDate date];
+    NSString *previousPermissionStatus = self.lastPushPermissionStatus;
+    if (permissionStatus) {
+        self.lastPushPermissionStatus = permissionStatus;
+    }
 
-    [_sessionRetry sendWithRetry:[self requestParameters:deviceID platform:iOS] completion:^(NSError *error) {
+    PWRegisterDeviceRequest *request = [self requestParameters:deviceID platform:iOS];
+    request.notificationStatus = notificationStatus;
+
+    [_sessionRetry sendWithRetry:request completion:^(NSError *error) {
 
         [[PWPreferences preferences] setCustomTags:nil];
 
@@ -259,11 +300,18 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
                                         deviceID, [PWPreferences preferences].hwid]];
             //registered on server, save last registration time to prevent multiple register request
             [PWPreferences preferences].lastRegTime = [NSDate date];
+#if TARGET_OS_IOS
+            [[PWFeatureFlagsManager sharedManager] deviceRegistered];
+#endif
 
             [self sendTokenToDelegate:deviceID triggerCallbacks:triggerCallbacks];
         } else {
             //reset time
             [PWPreferences preferences].lastRegTime = NSDate.distantPast;
+            // distantPast already forces the retry; keep the last delivered status, not nil
+            if (permissionStatus && [permissionStatus isEqualToString:self.lastPushPermissionStatus]) {
+                self.lastPushPermissionStatus = previousPermissionStatus;
+            }
 
             [PushwooshLog pushwooshLog:PW_LL_ERROR
                              className:self
@@ -434,13 +482,46 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     return NO;
 }
 
+/// Both a push's own link and a tapped button's link open through here, so the delay stays one number.
+- (void)openUrl:(NSURL *)url afterDelay:(NSTimeInterval)delay {
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(delay * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        [PWUtils openUrl:url];
+    });
+}
+
 - (void)openDeepLinkForUserInfo:(NSDictionary *)userInfo {
     NSURL *deepLink = [self deepLinkUrlForUserInfo:userInfo];
     if (deepLink) {
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(0.2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            [PWUtils openUrl:deepLink];
-        });
+        [self openUrl:deepLink afterDelay:kPWPushUrlOpenDelay];
     }
+}
+
+/// A tapped button does its own action and nothing else: the push's `l` link and its rich media belong
+/// to a tap on the notification itself.
+- (void)processActionButton:(PWActionButton *)button {
+    NSURL *url = [self actionButtonUrl:button];
+
+    if (url != nil) {
+        [self openActionButtonUrl:url];
+    }
+}
+
+/// Resolves what the button should open, or nil. Separate from the opening itself so the decision can
+/// be asserted synchronously, the way deepLinkUrlForUserInfo: is.
+- (NSURL *)actionButtonUrl:(PWActionButton *)button {
+    if (button.action != PWActionButtonActionUrl && button.action != PWActionButtonActionDeeplink) {
+        return nil;
+    }
+
+    if (![[PWConfig config] preHandleNotificationsWithUrl]) {
+        return nil;
+    }
+
+    return [NSURL URLWithString:button.url];
+}
+
+- (void)openActionButtonUrl:(NSURL *)url {
+    [self openUrl:url afterDelay:kPWPushUrlOpenDelay];
 }
 
 /// Resolves the deep link a push should pre-handle, or nil when there is nothing to open.
@@ -500,6 +581,10 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (BOOL)handlePushReceived:(NSDictionary *)userInfo autoAcceptAllowed:(BOOL)autoAcceptAllowed {
+    return [self handlePushReceived:userInfo autoAcceptAllowed:autoAcceptAllowed opensApplication:YES];
+}
+
+- (BOOL)handlePushReceived:(NSDictionary *)userInfo autoAcceptAllowed:(BOOL)autoAcceptAllowed opensApplication:(BOOL)opensApplication {
     if (![userInfo isKindOfClass:[NSDictionary class]])
         return NO;
 
@@ -563,13 +648,14 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(onPushReceived:withNotification:onStart:)]) {
             PWManagerBridge *bridge = [PWManagerBridge shared];
             id sender = bridge.delegateSender ?: bridge;
+            BOOL startedApplication = isPushFromBackground && opensApplication;
             NSMethodSignature *signature = [bridge.delegate methodSignatureForSelector:@selector(onPushReceived:withNotification:onStart:)];
             NSInvocation *invocation = [NSInvocation invocationWithMethodSignature:signature];
             [invocation setSelector:@selector(onPushReceived:withNotification:onStart:)];
             [invocation setTarget:bridge.delegate];
             [invocation setArgument:&sender atIndex:2];
             [invocation setArgument:&userInfo atIndex:3];
-            [invocation setArgument:&isPushFromBackground atIndex:4];
+            [invocation setArgument:&startedApplication atIndex:4];
             [invocation invoke];
         }
     }
@@ -700,14 +786,35 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 }
 
 - (BOOL)handlePushAccepted:(NSDictionary *)userInfo onStart:(BOOL)onStart {
-    if (onStart) {
+    return [self handlePushAccepted:userInfo onStart:onStart completion:nil];
+}
+
+- (BOOL)handlePushAccepted:(NSDictionary *)userInfo onStart:(BOOL)onStart completion:(void (^)(void))completion {
+    PWActionButton *button = [PWActionButtonsParser buttonForActionIdentifier:userInfo[PWActionIdentifierKey]
+                                                                  inUserInfo:userInfo];
+    BOOL opensApplication = button == nil || button.opensApplication;
+    BOOL startedApplication = onStart && opensApplication;
+
+    if (startedApplication) {
         [PWManagerBridge shared].launchNotification = userInfo;
+    } else if (!opensApplication) {
+        [self forgetLaunchNotificationOfPush:userInfo];
     }
-    [self processUserInfo:userInfo];
+
+    if (button != nil) {
+        [self processActionButton:button];
+    } else {
+        [self processUserInfo:userInfo];
+    }
+
     [self dispatchActionInboxPushIfNeeded:userInfo];
 
 #if TARGET_OS_IPHONE
-    [[PWManagerBridge shared].dataManager sendStatsForPush:userInfo];
+    [[PWManagerBridge shared].dataManager sendStatsForPush:userInfo completion:completion];
+#else
+    if (completion) {
+        completion();
+    }
 #endif
 
     if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(onPushAccepted:withNotification:onStart:)]) {
@@ -718,7 +825,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         [invocation setTarget:bridge.delegate];
         [invocation setArgument:&bridge atIndex:2];
         [invocation setArgument:&userInfo atIndex:3];
-        [invocation setArgument:&onStart atIndex:4];
+        [invocation setArgument:&startedApplication atIndex:4];
         [invocation invoke];
     } else if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(onPushAccepted:withNotification:)]) {
 #pragma clang diagnostic push
@@ -755,6 +862,15 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     });
 
     return YES;
+}
+
+/// iOS can hand the push of a background button that launched the application in its launch options too.
+- (void)forgetLaunchNotificationOfPush:(NSDictionary *)userInfo {
+    NSString *hash = [userInfo pw_stringForKey:@"p"];
+
+    if (hash.length > 0 && [[[PWManagerBridge shared].launchNotification pw_stringForKey:@"p"] isEqualToString:hash]) {
+        [PWManagerBridge shared].launchNotification = nil;
+    }
 }
 
 - (NSDictionary *)getApnPayload:(NSDictionary *)pushNotification {

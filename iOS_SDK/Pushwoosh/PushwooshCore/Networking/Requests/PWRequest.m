@@ -38,6 +38,10 @@
 	return YES;
 }
 
+- (BOOL)followsServerBaseUrl {
+    return YES;
+}
+
 - (NSString *)requestIdentifier {
     @synchronized (self) {
         if (!_requestIdentifier) {

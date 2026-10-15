@@ -5,6 +5,8 @@
 //
 
 #import "PWPushStatRequest.h"
+#import "PWActionButton.h"
+#import "PWActionButtonsParser.h"
 
 @interface PWPushStatRequest ()
 
@@ -22,6 +24,13 @@
 
     if (metadata != nil) {
         dict[@"metaData"] = metadata;
+    }
+
+    PWActionButton *button = [PWActionButtonsParser buttonForActionIdentifier:self.pushDict[PWActionIdentifierKey]
+                                                                  inUserInfo:self.pushDict];
+
+    if (button != nil) {
+        dict[PWActionButtonStatField] = button.identifier;
     }
 
     return dict;

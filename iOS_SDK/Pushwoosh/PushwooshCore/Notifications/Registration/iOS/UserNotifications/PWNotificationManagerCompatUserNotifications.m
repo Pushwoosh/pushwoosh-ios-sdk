@@ -18,6 +18,22 @@
 
 @implementation PWNotificationManagerCompatUserNotifications
 
++ (NSString *)pushPermissionStatusForAuthorizationStatus:(UNAuthorizationStatus)authorizationStatus {
+    switch (authorizationStatus) {
+        case UNAuthorizationStatusAuthorized:
+            return @"granted_explicit";
+        case UNAuthorizationStatusProvisional:
+            return @"provisional";
+        case UNAuthorizationStatusEphemeral:
+            return @"ephemeral";
+        case UNAuthorizationStatusDenied:
+            return @"denied";
+        case UNAuthorizationStatusNotDetermined:
+            return @"not_determined";
+    }
+    return nil;
+}
+
 - (void)registerUserNotifications:(NSSet*)categories completion:(dispatch_block_t)completion {
     [[UNUserNotificationCenter currentNotificationCenter] setNotificationCategories:categories];
 
@@ -90,6 +106,11 @@
 
     [[UNUserNotificationCenter currentNotificationCenter] getNotificationSettingsWithCompletionHandler:^(UNNotificationSettings *settings) {
         if (settings != nil) {
+            NSString *permissionStatus = [PWNotificationManagerCompatUserNotifications pushPermissionStatusForAuthorizationStatus:settings.authorizationStatus];
+            if (permissionStatus) {
+                results[@"push_permission_status"] = permissionStatus;
+            }
+
             // Check enabled status based on authorization status, not just device token registration
             if (settings.authorizationStatus == UNAuthorizationStatusAuthorized ||
                 settings.authorizationStatus == UNAuthorizationStatusProvisional) {

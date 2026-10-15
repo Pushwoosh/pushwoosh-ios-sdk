@@ -78,14 +78,17 @@ static BOOL isBackground;
 
 @property (nonatomic) NSUInteger pushStatCount;
 
-- (void)sendStatsForPush:(NSDictionary *)pushDict;
+- (void)sendStatsForPush:(NSDictionary *)pushDict completion:(void (^)(void))completion;
 
 @end
 
 @implementation PWMockDataManager
 
-- (void)sendStatsForPush:(NSDictionary *)pushDict {
+- (void)sendStatsForPush:(NSDictionary *)pushDict completion:(void (^)(void))completion {
     _pushStatCount++;
+    if (completion) {
+        completion();
+    }
 }
 
 @end

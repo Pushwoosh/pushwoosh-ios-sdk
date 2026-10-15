@@ -175,6 +175,9 @@ typedef NS_ENUM(NSInteger, RichMediaStyleType) {
  */
 @property (nonatomic, assign, readonly) BOOL disableUrlFallback;
 
+/// key: Pushwoosh_FEATURE_FLAGS_DISABLE_THROTTLE (boolean). If YES, feature flags refresh skips the 5-minute throttle. Default is NO.
+@property (nonatomic, assign, readonly) BOOL featureFlagsThrottleDisabled;
+
 @property (nonatomic, readonly) BOOL lazyInitialization;
 
 @property (nonatomic, assign) RichMediaStyleType richMediaStyle;

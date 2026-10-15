@@ -183,6 +183,8 @@ extension PushwooshBridge.PWLiveActivities {
 @objc public protocol PWKeychainPersistentHWIDProvider {
   @objc var isPersistentHWIDEnabled: Swift.Bool { get }
   @objc func persistentHWID() -> Swift.String?
+  @objc func storedPersistentHWID() -> Swift.String?
+  @objc func storePersistentHWID(_ hwid: Swift.String) -> Swift.Bool
 }
 @objc public protocol PWVoIPConfigureHandler {
   @objc func configureVoIP()

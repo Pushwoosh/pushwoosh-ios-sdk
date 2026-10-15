@@ -134,6 +134,7 @@ message ApplicationOpenRequest {
   google.protobuf.BoolValue time_sensitive_notifications = 11;
   google.protobuf.BoolValue scheduled_summary = 12;
   string user_id = 13;
+  string push_permission_status = 14;
 }
 
 message ApplicationOpenResponse {
@@ -334,6 +335,8 @@ message RegisterDeviceRequest {
   google.protobuf.Struct tags = 20;
 
   string voip_push_token = 21;
+
+  string push_permission_status = 24;
 }
 
 message RegisterDeviceResponse {

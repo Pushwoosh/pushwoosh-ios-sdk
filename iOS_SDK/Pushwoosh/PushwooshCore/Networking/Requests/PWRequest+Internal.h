@@ -28,6 +28,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// re-addresses it. Today only the unregister of the previous application sets it.
 @property (nonatomic, assign) BOOL survivesApplicationChange;
 
+/// NO keeps the response's `base_url` from moving the SDK base URL: a request addressed outside the
+/// legacy API must not steer the host of every other request.
+- (BOOL)followsServerBaseUrl;
+
 @end
 
 NS_ASSUME_NONNULL_END

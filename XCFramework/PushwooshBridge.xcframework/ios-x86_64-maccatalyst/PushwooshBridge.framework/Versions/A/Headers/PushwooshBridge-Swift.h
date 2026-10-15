@@ -550,20 +550,18 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) enum PWAppEnvironmen
 @end
 
 
-/// Back-channel protocol that lets <code>PushwooshCore</code> resolve the persistent
-/// HWID stored by the optional <code>PushwooshKeychain</code> module without
-/// reflection.
-/// The keychain module registers an instance conforming to this protocol via
-/// <code>PushwooshModuleRegistry.registerHandler(_:forIdentifier:)</code> at load time.
-/// <code>PWPreferences</code> looks the handler up and forwards <code>getPersistentHWIDIfAvailable</code>
-/// through it. When the module is not linked the handler is <code>nil</code> and the
-/// caller falls back to its default behaviour.
+/// Back-channel through which <code>PWPreferences</code> reconciles its HWID with the optional <code>PushwooshKeychain</code> module.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge32PWKeychainPersistentHWIDProvider_")
 @protocol PWKeychainPersistentHWIDProvider
 /// <code>true</code> when persistent HWID storage is active in the current build.
 @property (nonatomic, readonly) BOOL isPersistentHWIDEnabled;
-/// Returns the HWID stored in the keychain, or <code>nil</code> when unavailable.
+/// Creates a new HWID, stores it in the keychain and returns it; <code>nil</code> when the keychain rejects it.
 - (NSString * _Nullable)persistentHWID SWIFT_WARN_UNUSED_RESULT;
+/// Returns the HWID stored in the keychain without creating one;
+/// <code>nil</code> when absent or unreadable.
+- (NSString * _Nullable)storedPersistentHWID SWIFT_WARN_UNUSED_RESULT;
+/// Stores <code>hwid</code> in the keychain; <code>false</code> when the keychain rejects it.
+- (BOOL)storePersistentHWID:(NSString * _Nonnull)hwid SWIFT_WARN_UNUSED_RESULT;
 @end
 
 @class NSDate;

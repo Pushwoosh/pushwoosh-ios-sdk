@@ -10,6 +10,9 @@
 #import "PWConfig.h"
 #import "PWSdkStateProvider.h"
 #import "PushwooshLog.h"
+#import "PWActionButton.h"
+#import "PWActionButtonsParser.h"
+#import "PWActionButtonsRegistrar.h"
 
 #if TARGET_OS_IOS
 
@@ -20,6 +23,7 @@
 @property (nonatomic, strong, nullable) UNMutableNotificationContent *bestAttemptContent;
 @property (nonatomic, assign) BOOL consumed;
 @property (nonatomic, copy, nullable) void (^completion)(UNNotificationContent *);
+@property (nonatomic, strong) PWActionButtonsRegistrar *actionButtonsRegistrar;
 
 - (NSString *)sanitizedFileNameComponent:(NSString *)name;
 
@@ -785,6 +789,318 @@ static NSString *const kGatedAppCode = @"GATED-10570";
 
     [mockContent stopMocking];
     [mockRequest stopMocking];
+}
+
+#pragma mark - Action buttons
+
+/// A registrar wired to a fake notification center, so the tests can see what iOS would be given.
+- (PWActionButtonsRegistrar *)trackingRegistrarRecordingInto:(NSMutableArray<NSSet<UNNotificationCategory *> *> *)sets {
+    id centerMock = OCMClassMock([UNUserNotificationCenter class]);
+    OCMStub([centerMock getNotificationCategoriesWithCompletionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        void (^handler)(NSSet<UNNotificationCategory *> *) = nil;
+        [invocation getArgument:&handler atIndex:2];
+        handler([NSSet set]);
+    });
+    OCMStub([centerMock setNotificationCategories:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        __unsafe_unretained NSSet<UNNotificationCategory *> *categories = nil;
+        [invocation getArgument:&categories atIndex:2];
+        [sets addObject:[categories copy]];
+    });
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:@"com.pushwoosh.tests.nse.actionbuttons"];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:@"com.pushwoosh.tests.nse.actionbuttons"];
+    return [[PWActionButtonsRegistrar alloc] initWithNotificationCenter:centerMock defaults:defaults];
+}
+
+/// Spins the run loop until the predicate holds or the wait runs out; the registrar answers from its
+/// own queue, so nothing it does is observable on the line after the call.
+- (BOOL)spinUntil:(BOOL (^)(void))predicate timeout:(NSTimeInterval)timeout {
+    NSDate *deadline = [NSDate dateWithTimeIntervalSinceNow:timeout];
+    while (!predicate() && [deadline timeIntervalSinceNow] > 0) {
+        [[NSRunLoop currentRunLoop] runMode:NSDefaultRunLoopMode beforeDate:[NSDate dateWithTimeIntervalSinceNow:0.005]];
+    }
+    return predicate();
+}
+
+- (NSString *)buttonsJSON {
+    return @"[{\"id\":\"open_app\",\"label\":\"Open\",\"action\":\"open\"},"
+            "{\"id\":\"site\",\"label\":\"Website\",\"action\":\"url\",\"url\":\"https://www.pushwoosh.com\"}]";
+}
+
+/// Verifies a push with pw_buttons is delivered with the category identifier of its own buttons, and
+/// that the category was registered with iOS before the content handler ran.
+- (void)testPushWithActionButtonsIsDeliveredWithItsCategoryRegistered {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id mockRequestManager = OCMClassMock([PWRequestManager class]);
+    OCMStub([mockRequestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        void (^completion)(NSError *) = nil;
+        [invocation getArgument:&completion atIndex:3];
+        if (completion) {
+            completion(nil);
+        }
+    });
+    processor.requestManager = mockRequestManager;
+
+    NSMutableArray<NSSet<UNNotificationCategory *> *> *registeredSets = [NSMutableArray array];
+    processor.actionButtonsRegistrar = [self trackingRegistrarRecordingInto:registeredSets];
+
+    NSDictionary *userInfo = @{ @"aps" : @{ @"alert" : @"hi" }, @"pw_msg" : @"1", @"p" : @"hash", @"pw_buttons" : [self buttonsJSON] };
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:userInfo content:&mockContent request:&mockRequest];
+
+    NSArray<PWActionButton *> *buttons = [PWActionButtonsParser buttonsFromUserInfo:userInfo];
+    NSString *expectedCategory = [PWActionButtonsRegistrar categoryIdentifierForButtons:buttons];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    [processor processRequest:request appGroups:nil completion:^(UNNotificationContent *content) {
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    OCMVerify([mockContent setCategoryIdentifier:expectedCategory]);
+    XCTAssertEqual(registeredSets.count, 1);
+    NSMutableSet *registeredIds = [NSMutableSet set];
+    for (UNNotificationCategory *category in registeredSets.firstObject) {
+        [registeredIds addObject:category.identifier];
+    }
+    XCTAssertTrue([registeredIds containsObject:expectedCategory]);
+
+    [mockRequestManager stopMocking];
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// Verifies a push whose buttons are there replaces whatever aps.category named, so the buttons the
+/// marketer put in this push are the ones the user sees.
+- (void)testActionButtonsOverrideTheIncomingCategory {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id mockRequestManager = OCMClassMock([PWRequestManager class]);
+    OCMStub([mockRequestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        void (^completion)(NSError *) = nil;
+        [invocation getArgument:&completion atIndex:3];
+        if (completion) {
+            completion(nil);
+        }
+    });
+    processor.requestManager = mockRequestManager;
+    processor.actionButtonsRegistrar = [self trackingRegistrarRecordingInto:[NSMutableArray array]];
+
+    NSDictionary *userInfo = @{ @"aps" : @{ @"alert" : @"hi", @"category" : @"ios_category_custom" },
+                                @"pw_msg" : @"1", @"p" : @"hash", @"pw_buttons" : [self buttonsJSON] };
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:userInfo content:&mockContent request:&mockRequest];
+
+    NSString *expectedCategory = [PWActionButtonsRegistrar categoryIdentifierForButtons:[PWActionButtonsParser buttonsFromUserInfo:userInfo]];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    [processor processRequest:request appGroups:nil completion:^(UNNotificationContent *content) {
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    OCMVerify([mockContent setCategoryIdentifier:expectedCategory]);
+
+    [mockRequestManager stopMocking];
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// Verifies a push without pw_buttons keeps the category it arrived with and registers nothing, so an
+/// application on the Control Panel category path is untouched.
+- (void)testPushWithoutActionButtonsLeavesTheCategoryAlone {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id mockRequestManager = OCMClassMock([PWRequestManager class]);
+    OCMStub([mockRequestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        void (^completion)(NSError *) = nil;
+        [invocation getArgument:&completion atIndex:3];
+        if (completion) {
+            completion(nil);
+        }
+    });
+    processor.requestManager = mockRequestManager;
+
+    NSMutableArray<NSSet<UNNotificationCategory *> *> *registeredSets = [NSMutableArray array];
+    processor.actionButtonsRegistrar = [self trackingRegistrarRecordingInto:registeredSets];
+
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:(@{ @"aps" : @{ @"alert" : @"hi", @"category" : @"9301" }, @"pw_msg" : @"1", @"p" : @"hash" })
+                                                      content:&mockContent
+                                                      request:&mockRequest];
+    OCMReject([mockContent setCategoryIdentifier:OCMOCK_ANY]);
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    [processor processRequest:request appGroups:nil completion:^(UNNotificationContent *content) {
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    XCTAssertEqual(registeredSets.count, 0);
+
+    [mockRequestManager stopMocking];
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// Verifies a pw_buttons value nobody can parse costs the push its buttons and nothing else: it is
+/// still delivered, with no category of ours and no registration.
+- (void)testBrokenActionButtonsStillDeliverThePush {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id mockRequestManager = OCMClassMock([PWRequestManager class]);
+    OCMStub([mockRequestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        void (^completion)(NSError *) = nil;
+        [invocation getArgument:&completion atIndex:3];
+        if (completion) {
+            completion(nil);
+        }
+    });
+    processor.requestManager = mockRequestManager;
+
+    NSMutableArray<NSSet<UNNotificationCategory *> *> *registeredSets = [NSMutableArray array];
+    processor.actionButtonsRegistrar = [self trackingRegistrarRecordingInto:registeredSets];
+
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:(@{ @"aps" : @{ @"alert" : @"hi" }, @"pw_msg" : @"1", @"p" : @"hash", @"pw_buttons" : @"[{\"id\":" })
+                                                      content:&mockContent
+                                                      request:&mockRequest];
+    OCMReject([mockContent setCategoryIdentifier:OCMOCK_ANY]);
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    __block UNNotificationContent *delivered = nil;
+    [processor processRequest:request appGroups:nil completion:^(UNNotificationContent *content) {
+        delivered = content;
+        [exp fulfill];
+    }];
+
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+    XCTAssertEqualObjects(delivered, mockContent);
+    XCTAssertEqual(registeredSets.count, 0);
+
+    [mockRequestManager stopMocking];
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// Verifies the timeout fallback registers the stamped category with iOS before it delivers, so a push
+/// that never reached process still expands with its buttons instead of naming a category nobody has.
+- (void)testExpireFallbackRegistersTheButtonsCategoryBeforeDelivering {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+
+    NSMutableArray<NSSet<UNNotificationCategory *> *> *registeredSets = [NSMutableArray array];
+    processor.actionButtonsRegistrar = [self trackingRegistrarRecordingInto:registeredSets];
+
+    NSDictionary *userInfo = @{ @"aps" : @{ @"alert" : @"hi" }, @"pw_msg" : @"1", @"p" : @"hash", @"pw_buttons" : [self buttonsJSON] };
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:userInfo content:&mockContent request:&mockRequest];
+    NSString *expectedCategory = [PWActionButtonsRegistrar categoryIdentifierForButtons:[PWActionButtonsParser buttonsFromUserInfo:userInfo]];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    __block NSUInteger registeredWhenDelivered = NSNotFound;
+    [processor armWithRequest:request appGroups:nil completion:^(UNNotificationContent *content) {
+        registeredWhenDelivered = registeredSets.count;
+        [exp fulfill];
+    }];
+
+    OCMVerify([mockContent setCategoryIdentifier:expectedCategory]);
+
+    [processor expireWithFallback];
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    XCTAssertEqual(registeredWhenDelivered, 1);
+
+    NSMutableSet *registeredIds = [NSMutableSet set];
+    for (UNNotificationCategory *category in registeredSets.lastObject) {
+        [registeredIds addObject:category.identifier];
+    }
+    XCTAssertTrue([registeredIds containsObject:expectedCategory]);
+
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// Verifies the timeout fallback delivers on its own deadline while another push is still holding the
+/// process-wide category gate, so a registration that cannot proceed never costs a push its delivery.
+- (void)testExpireFallbackDeliversWhileAnotherPushHoldsTheCategoryGate {
+    NSString *suite = @"com.pushwoosh.tests.nse.gatehold";
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:suite];
+    NSUserDefaults *defaults = [[NSUserDefaults alloc] initWithSuiteName:suite];
+
+    NSLock *lock = [NSLock new];
+    __block void (^parked)(NSSet<UNNotificationCategory *> *) = nil;
+    __block BOOL parksTheNextRead = YES;
+
+    id centerMock = OCMClassMock([UNUserNotificationCenter class]);
+    OCMStub([centerMock getNotificationCategoriesWithCompletionHandler:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        void (^handler)(NSSet<UNNotificationCategory *> *) = nil;
+        [invocation getArgument:&handler atIndex:2];
+
+        [lock lock];
+        BOOL park = parksTheNextRead;
+        if (park) {
+            parksTheNextRead = NO;
+            parked = [handler copy];
+        }
+        [lock unlock];
+
+        if (!park) {
+            handler([NSSet set]);
+        }
+    });
+    __block NSUInteger setCount = 0;
+    OCMStub([centerMock setNotificationCategories:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        [lock lock];
+        setCount++;
+        [lock unlock];
+    });
+
+    NSArray<PWActionButton *> *heldButtons = [PWActionButtonsParser buttonsFromUserInfo:@{ @"pw_msg" : @"1", @"pw_buttons" : [self buttonsJSON] }];
+    PWActionButtonsRegistrar *holder = [[PWActionButtonsRegistrar alloc] initWithNotificationCenter:centerMock defaults:defaults];
+    [holder registerCategoryForButtons:heldButtons completion:^{}];
+
+    XCTAssertTrue([self spinUntil:^BOOL {
+        [lock lock];
+        BOOL took = parked != nil;
+        [lock unlock];
+        return took;
+    } timeout:2], @"the holding registrar never took the gate");
+
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    processor.actionButtonsRegistrar = [[PWActionButtonsRegistrar alloc] initWithNotificationCenter:centerMock defaults:defaults];
+
+    NSDictionary *userInfo = @{ @"aps" : @{ @"alert" : @"hi" }, @"pw_msg" : @"1", @"p" : @"hash", @"pw_buttons" : [self buttonsJSON] };
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:userInfo content:&mockContent request:&mockRequest];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    [processor armWithRequest:request appGroups:nil completion:^(UNNotificationContent *content) {
+        [exp fulfill];
+    }];
+
+    [processor expireWithFallback];
+
+    /// Between the fallback's 100 ms deadline and the gate's 500 ms timeout, so only the deadline can
+    /// satisfy this: a pass cannot come from the gate giving up.
+    [self waitForExpectationsWithTimeout:0.35 handler:nil];
+
+    [lock lock];
+    void (^resume)(NSSet<UNNotificationCategory *> *) = parked;
+    parked = nil;
+    [lock unlock];
+
+    if (resume) {
+        resume([NSSet set]);
+    }
+
+    XCTAssertTrue([self spinUntil:^BOOL {
+        [lock lock];
+        BOOL bothWrote = setCount >= 2;
+        [lock unlock];
+        return bothWrote;
+    } timeout:2], @"a registration was still in flight; stopping the mock would leak the gate");
+
+    [centerMock stopMocking];
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:suite];
 }
 
 @end
