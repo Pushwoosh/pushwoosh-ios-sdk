@@ -12,7 +12,6 @@ import PushwooshCore
 import CallKit
 import PushKit
 
-@available(iOS 14.0, *)
 final class CallCancellationTests: XCTestCase {
 
     var implementation: PushwooshVoIPImplementation!
@@ -340,7 +339,6 @@ final class CallCancellationTests: XCTestCase {
 
 // MARK: - Mock Delegates
 
-@available(iOS 14.0, *)
 class MockVoIPDelegate: NSObject, PWVoIPCallDelegate {
     var onCancelCall: ((PWVoIPMessage) -> Void)?
     var onFailToCancelCall: ((String?, String) -> Void)?
@@ -363,7 +361,6 @@ class MockVoIPDelegate: NSObject, PWVoIPCallDelegate {
     func pwProviderDidBegin(_ provider: CXProvider) {}
 }
 
-@available(iOS 14.0, *)
 class MinimalMockDelegate: NSObject, PWVoIPCallDelegate {
     func voipDidReceiveIncomingCall(payload: PWVoIPMessage) {}
 

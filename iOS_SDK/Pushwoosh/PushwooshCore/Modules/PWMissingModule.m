@@ -179,6 +179,7 @@ static dispatch_queue_t _loggedSelectorsQueue;
             @"storePersistentHWID:":                            @"B@:@",
 
             @"inboxKit":                                        @"#@:",
+            @"makeViewController":                              @"@@:",
 
             @"voip":                                            @"#@:",
             @"initializeVoIP:ringtoneSound:handleTypes:":       @"v@:B@q",

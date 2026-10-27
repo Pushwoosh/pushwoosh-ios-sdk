@@ -168,6 +168,10 @@ static dispatch_once_t inAppStorageOncePred;
     PWGetResourcesRequest *request = [PWGetResourcesRequest new];
     __weak typeof(self) wSelf = self;
     [_requestManager sendRequest:request completion:^(NSError *error) {
+        if (!error && !request.resources) {
+            error = [PWUtils pushwooshError:@"getInApps response has no inApps list, keeping cached in-apps"];
+            [PushwooshLog pushwooshLog:PW_LL_ERROR className:wSelf message:error.localizedDescription];
+        }
         if (error) {
             [wSelf finishCatalogUpdate:nil];
             [wSelf finishFullSync:nil];

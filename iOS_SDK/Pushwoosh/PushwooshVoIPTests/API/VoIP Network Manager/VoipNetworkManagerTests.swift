@@ -10,7 +10,6 @@ import XCTest
 @testable import PushwooshVoIP
 import PushwooshCore
 
-@available(iOS 14.0, *)
 final class VoipNetworkManagerTests: XCTestCase {
 
     var networkManager: VoipNetworkManager!

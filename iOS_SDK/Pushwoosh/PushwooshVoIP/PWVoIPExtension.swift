@@ -19,7 +19,6 @@ public extension PWVoIP {
     /// about incoming calls, CallKit interactions, and call lifecycle events.
     ///
     /// - Note: The delegate is stored as a weak reference. Ensure your delegate object has a strong reference elsewhere.
-    @available(iOS 14.0, *)
     static var delegate: AnyObject? {
         get { PushwooshVoIPImplementation.delegate }
         set { PushwooshVoIPImplementation.delegate = newValue }
@@ -36,7 +35,6 @@ public extension PWVoIP {
     /// - Parameter handleTypes: The default handle type for caller identification. Use `PWVoIPHandleType.rawValue`.
     ///
     /// - Note: This method should be called once during app initialization, before receiving VoIP pushes.
-    @available(iOS 14.0, *)
     static func initializeVoIP(_ supportVideo: Bool,
                                ringtoneSound: String,
                                handleTypes: Int) {
@@ -54,7 +52,6 @@ public extension PWVoIP {
     ///
     /// - Note: The token registration result is reported via `voipDidRegisterTokenSuccessfully()` or
     ///         `voipDidFailToRegisterToken(error:)` delegate methods.
-    @available(iOS 14.0, *)
     static func setVoIPToken(_ token: Data) {
         PushwooshVoIPImplementation.setVoIPToken(token)
     }
@@ -64,7 +61,6 @@ public extension PWVoIP {
     ///
     /// - Parameter ringtoneSound: The name of the ringtone sound file (e.g., "ring.caf").
     ///                           The file must be included in your app bundle.
-    @available(iOS 14.0, *)
     static func setRingtone(_ ringtoneSound: String) {
         PushwooshVoIPImplementation.setRingtone(ringtoneSound as String?)
     }
@@ -77,7 +73,6 @@ public extension PWVoIP {
     /// - Parameter timeout: The timeout duration in seconds. Default is 30 seconds.
     ///
     /// - Note: Set this before initializing VoIP to ensure the timeout applies to all incoming calls.
-    @available(iOS 14.0, *)
     static func setIncomingCallTimeout(_ timeout: TimeInterval) {
         PushwooshVoIPImplementation.setIncomingCallTimeout(timeout)
     }

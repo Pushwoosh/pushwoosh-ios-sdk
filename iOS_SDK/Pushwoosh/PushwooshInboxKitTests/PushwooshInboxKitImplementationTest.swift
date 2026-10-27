@@ -7,6 +7,8 @@
 //
 
 import XCTest
+import UIKit
+import PushwooshBridge
 @testable import PushwooshInboxKit
 
 class PushwooshInboxKitImplementationTest: XCTestCase {
@@ -15,5 +17,17 @@ class PushwooshInboxKitImplementationTest: XCTestCase {
     func testFactoryReturnsConcreteVC() {
         let vc = PushwooshInboxKitImplementation.makeViewController()
         XCTAssertTrue(vc is PushwooshInboxKitViewController)
+    }
+
+    /// Verifies that the public factory keeps returning a non-optional controller to Swift callers.
+    func testFactoryKeepsNonOptionalReturnType() {
+        let vc: UIViewController = PushwooshInboxKitImplementation.makeViewController()
+        XCTAssertTrue(vc is PushwooshInboxKitViewController)
+    }
+
+    /// Verifies that the factory is reachable through the PWInboxKit bridge protocol behind Pushwoosh.InboxKit.
+    func testFactoryReachableThroughBridgeProtocol() {
+        let kit: PWInboxKit.Type = PushwooshInboxKitImplementation.self
+        XCTAssertTrue(kit.makeViewController() is PushwooshInboxKitViewController)
     }
 }

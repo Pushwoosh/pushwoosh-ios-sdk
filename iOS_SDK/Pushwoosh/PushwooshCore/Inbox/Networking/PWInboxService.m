@@ -53,6 +53,7 @@ static NSInteger minimalTimeinterval = 10;
 @property (nonatomic) PWRequestManager *requestManager;
 @property (nonatomic) NSDate *lastRequestTime;
 @property (nonatomic) NSString *currentUserID;
+@property (nonatomic, nullable) NSDictionary *lastInboxTabsPayload;
 
 @end
 
@@ -68,6 +69,7 @@ static NSInteger minimalTimeinterval = 10;
 - (void)reset {
     [self dependencySetup];
     _lastRequestTime = nil;
+    _lastInboxTabsPayload = nil;
 }
 
 - (void)dependencySetup {
@@ -137,11 +139,12 @@ static NSInteger minimalTimeinterval = 10;
     PWInboxAllMessagesRequest *request = [[PWInboxAllMessagesRequest alloc] initWithLastRequestTime:_lastRequestTime];
     [self sendMessagesRequest:request
                withCompletion:^(PWRequest *request, NSError *error) {
+                   PWInboxAllMessagesRequest *requestMessage = (PWInboxAllMessagesRequest *)request;
                    if (!error) {
                        wself.lastRequestTime = [NSDate date];
+                       wself.lastInboxTabsPayload = requestMessage.tabsPayload;
                    }
                    if (completion) {
-                       PWInboxAllMessagesRequest *requestMessage = (PWInboxAllMessagesRequest *)request;
                        completion(requestMessage.messages, error);
                    }
                }];

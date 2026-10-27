@@ -37,9 +37,7 @@ Deliver notifications silently without prompting the user for permission. This i
 func application(_ application: UIApplication,
                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-    if #available(iOS 12.0, *) {
-        Pushwoosh.configure.setAdditionalAuthorizationOptions([.provisional])
-    }
+    Pushwoosh.configure.setAdditionalAuthorizationOptions([.provisional])
 
     Pushwoosh.configure.registerForPushNotifications()
 
@@ -55,9 +53,7 @@ Add a "Configure in App" button to the system Settings > Notifications screen fo
 func application(_ application: UIApplication,
                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-    if #available(iOS 12.0, *) {
-        Pushwoosh.configure.setAdditionalAuthorizationOptions([.providesAppNotificationSettings])
-    }
+    Pushwoosh.configure.setAdditionalAuthorizationOptions([.providesAppNotificationSettings])
 
     Pushwoosh.configure.addNotificationCenterDelegate(self)
     Pushwoosh.configure.registerForPushNotifications()
@@ -77,9 +73,7 @@ func userNotificationCenter(_ center: UNUserNotificationCenter,
 For medical, health, and safety apps that need to bypass Do Not Disturb and the mute switch. Requires a special entitlement approved by Apple:
 
 ```swift
-if #available(iOS 12.0, *) {
-    Pushwoosh.configure.setAdditionalAuthorizationOptions([.criticalAlert])
-}
+Pushwoosh.configure.setAdditionalAuthorizationOptions([.criticalAlert])
 
 Pushwoosh.configure.registerForPushNotifications()
 ```
@@ -89,17 +83,13 @@ Pushwoosh.configure.registerForPushNotifications()
 Options can be combined:
 
 ```swift
-if #available(iOS 12.0, *) {
-    Pushwoosh.configure.setAdditionalAuthorizationOptions([.provisional, .providesAppNotificationSettings])
-}
+Pushwoosh.configure.setAdditionalAuthorizationOptions([.provisional, .providesAppNotificationSettings])
 ```
 
 Objective-C:
 
 ```objc
-if (@available(iOS 12.0, *)) {
-    [Pushwoosh.configure setAdditionalAuthorizationOptions:UNAuthorizationOptionProvisional | UNAuthorizationOptionProvidesAppNotificationSettings];
-}
+[Pushwoosh.configure setAdditionalAuthorizationOptions:UNAuthorizationOptionProvisional | UNAuthorizationOptionProvidesAppNotificationSettings];
 
 [Pushwoosh.configure registerForPushNotifications];
 ```

@@ -26,6 +26,9 @@
 
 - (void)parseResponse:(NSDictionary *)response {
 	NSArray *inApps = [response pw_arrayForKey:@"inApps"];
+	if (!inApps) {
+		return;
+	}
 
 	NSMutableDictionary *results = [NSMutableDictionary dictionary];
 	for (NSDictionary *dict in inApps) {

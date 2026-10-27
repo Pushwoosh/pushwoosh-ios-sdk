@@ -179,6 +179,7 @@ extension PushwooshBridge.PWLiveActivities {
 }
 @objc public protocol PWInboxKit {
   @objc static func inboxKit() -> Swift.AnyClass
+  @objc static func makeViewController() -> UIKit.UIViewController?
 }
 @objc public protocol PWKeychainPersistentHWIDProvider {
   @objc var isPersistentHWIDEnabled: Swift.Bool { get }

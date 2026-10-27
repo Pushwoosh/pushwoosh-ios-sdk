@@ -97,6 +97,68 @@
           },
           {
             "kind": "Var",
+            "name": "InboxKit",
+            "printedName": "InboxKit",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any PushwooshBridge.PWInboxKit.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInboxKit",
+                    "printedName": "PushwooshBridge.PWInboxKit",
+                    "usr": "c:@M@PushwooshBridge@objc(pl)PWInboxKit"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So9PushwooshC0A9FrameworkE8InboxKit0A6Bridge07PWInboxD0_pXpvpZ",
+            "mangledName": "$sSo9PushwooshC0A9FrameworkE8InboxKit0A6Bridge07PWInboxD0_pXpvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ExistentialMetatype",
+                    "printedName": "any PushwooshBridge.PWInboxKit.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWInboxKit",
+                        "printedName": "PushwooshBridge.PWInboxKit",
+                        "usr": "c:@M@PushwooshBridge@objc(pl)PWInboxKit"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So9PushwooshC0A9FrameworkE8InboxKit0A6Bridge07PWInboxD0_pXpvgZ",
+                "mangledName": "$sSo9PushwooshC0A9FrameworkE8InboxKit0A6Bridge07PWInboxD0_pXpvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
             "name": "debug",
             "printedName": "debug",
             "children": [
@@ -466,6 +528,68 @@
                 "accessorKind": "get"
               }
             ]
+          },
+          {
+            "kind": "Var",
+            "name": "inbox",
+            "printedName": "inbox",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Metatype",
+                "printedName": "PushwooshFramework.PWInboxCenter.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInboxCenter",
+                    "printedName": "PushwooshFramework.PWInboxCenter",
+                    "usr": "c:objc(cs)PWInboxCenter"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So9PushwooshC0A9FrameworkE5inboxSo13PWInboxCenterCmvpZ",
+            "mangledName": "$sSo9PushwooshC0A9FrameworkE5inboxSo13PWInboxCenterCmvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshFramework.PWInboxCenter.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWInboxCenter",
+                        "printedName": "PushwooshFramework.PWInboxCenter",
+                        "usr": "c:objc(cs)PWInboxCenter"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So9PushwooshC0A9FrameworkE5inboxSo13PWInboxCenterCmvgZ",
+                "mangledName": "$sSo9PushwooshC0A9FrameworkE5inboxSo13PWInboxCenterCmvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
           }
         ],
         "declKind": "Class",
@@ -473,6 +597,211 @@
         "moduleName": "PushwooshFramework",
         "isOpen": true,
         "objc_name": "Pushwoosh",
+        "declAttributes": [
+          "ObjC",
+          "Dynamic"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "isExternal": true,
+        "inheritsConvenienceInitializers": true,
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWInboxCenter",
+        "printedName": "PWInboxCenter",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "loadMessages",
+            "printedName": "loadMessages()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[any PushwooshCore.PWInboxMessageProtocol]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInboxMessageProtocol",
+                    "printedName": "any PushwooshCore.PWInboxMessageProtocol",
+                    "usr": "c:objc(pl)PWInboxMessageProtocol"
+                  }
+                ],
+                "usr": "s:Sa"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:So13PWInboxCenterC18PushwooshFrameworkE12loadMessagesSaySo0A15MessageProtocol_pGyYaKFZ",
+            "mangledName": "$sSo13PWInboxCenterC18PushwooshFrameworkE12loadMessagesSaySo0A15MessageProtocol_pGyYaKFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "unreadMessagesCount",
+            "printedName": "unreadMessagesCount()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:So13PWInboxCenterC18PushwooshFrameworkE19unreadMessagesCountSiyYaKFZ",
+            "mangledName": "$sSo13PWInboxCenterC18PushwooshFrameworkE19unreadMessagesCountSiyYaKFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "messagesCount",
+            "printedName": "messagesCount()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:So13PWInboxCenterC18PushwooshFrameworkE13messagesCountSiyYaKFZ",
+            "mangledName": "$sSo13PWInboxCenterC18PushwooshFrameworkE13messagesCountSiyYaKFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "messagesWithNoActionPerformedCount",
+            "printedName": "messagesWithNoActionPerformedCount()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:So13PWInboxCenterC18PushwooshFrameworkE34messagesWithNoActionPerformedCountSiyYaKFZ",
+            "mangledName": "$sSo13PWInboxCenterC18PushwooshFrameworkE34messagesWithNoActionPerformedCountSiyYaKFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "throwing": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "resyncInboxForNewUserId",
+            "printedName": "resyncInboxForNewUserId()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "UInt",
+                "printedName": "Swift.UInt",
+                "usr": "s:Su"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:So13PWInboxCenterC18PushwooshFrameworkE23resyncInboxForNewUserIdSuyYaFZ",
+            "mangledName": "$sSo13PWInboxCenterC18PushwooshFrameworkE23resyncInboxForNewUserIdSuyYaFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:objc(cs)PWInboxCenter",
+        "moduleName": "PushwooshFramework",
+        "isOpen": true,
+        "objc_name": "PWInboxCenter",
         "declAttributes": [
           "ObjC",
           "Dynamic"
@@ -566,8 +895,7 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final",
-              "RawDocComment"
+              "Final"
             ],
             "isFromExtension": true,
             "throwing": true,
@@ -591,8 +919,7 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final",
-              "RawDocComment"
+              "Final"
             ],
             "isFromExtension": true,
             "throwing": true,
@@ -616,8 +943,7 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final",
-              "RawDocComment"
+              "Final"
             ],
             "isFromExtension": true,
             "throwing": true,
@@ -641,8 +967,7 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final",
-              "RawDocComment"
+              "Final"
             ],
             "isFromExtension": true,
             "throwing": true,
@@ -666,8 +991,7 @@
             "moduleName": "PushwooshFramework",
             "static": true,
             "declAttributes": [
-              "Final",
-              "RawDocComment"
+              "Final"
             ],
             "isFromExtension": true,
             "funcSelfKind": "NonMutating"
@@ -867,6 +1191,63 @@
                 "accessorKind": "_modify"
               }
             ]
+          },
+          {
+            "kind": "Function",
+            "name": "unregisterForPushNotifications",
+            "printedName": "unregisterForPushNotifications(completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(((any Swift.Error)?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "((any Swift.Error)?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "(any Swift.Error)?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Error",
+                            "printedName": "any Swift.Error",
+                            "usr": "s:s5ErrorP"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "s:So15PushwooshConfigC0A9FrameworkE30unregisterForPushNotifications10completionyys5Error_pSgYbcSg_tFZ",
+            "mangledName": "$sSo15PushwooshConfigC0A9FrameworkE30unregisterForPushNotifications10completionyys5Error_pSgYbcSg_tFZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "funcSelfKind": "NonMutating"
           }
         ],
         "declKind": "Class",

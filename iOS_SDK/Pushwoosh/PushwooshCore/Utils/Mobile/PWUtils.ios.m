@@ -74,7 +74,7 @@
     return userActivity;
 }
 
-+ (UIScene *)sceneForUniversalLinkDelivery API_AVAILABLE(ios(13.0)) {
++ (UIScene *)sceneForUniversalLinkDelivery {
     NSArray<NSNumber *> *activationStatePriority = @[@(UISceneActivationStateForegroundActive),
                                                      @(UISceneActivationStateForegroundInactive),
                                                      @(UISceneActivationStateBackground),
@@ -104,13 +104,11 @@
 + (void)deliverActivityForURL:(NSURL *)url logPrefix:(NSString *)logPrefix logLevel:(PUSHWOOSH_LOG_LEVEL)logLevel {
     NSUserActivity *userActivity = [self browsingActivityWithURL:url];
 
-    if (@available(iOS 13.0, *)) {
-        UIScene *scene = [self sceneForUniversalLinkDelivery];
-        if (scene) {
-            [scene.delegate scene:scene continueUserActivity:userActivity];
-            [PushwooshLog pushwooshLog:logLevel className:self message:[NSString stringWithFormat:@"%@ -> delivered to scene delegate %@ (scene state %ld); outcome is unobservable on the scene path", logPrefix, NSStringFromClass([scene.delegate class]), (long)scene.activationState]];
-            return;
-        }
+    UIScene *scene = [self sceneForUniversalLinkDelivery];
+    if (scene) {
+        [scene.delegate scene:scene continueUserActivity:userActivity];
+        [PushwooshLog pushwooshLog:logLevel className:self message:[NSString stringWithFormat:@"%@ -> delivered to scene delegate %@ (scene state %ld); outcome is unobservable on the scene path", logPrefix, NSStringFromClass([scene.delegate class]), (long)scene.activationState]];
+        return;
     }
 
     if ([self appDelegateRespondsToContinueUserActivity]) {

@@ -414,6 +414,26 @@ static BOOL _isInitializing = NO;
     }
 }
 
+- (BOOL)usesDefaultUserId {
+    @synchronized(_lock) {
+        return _usesDefaultUserId;
+    }
+}
+
+- (void)resetUserIdToHwid {
+    @synchronized(_lock) {
+        _userId = [_hwid copy];
+        _usesDefaultUserId = YES;
+
+        if ([[PWConfig config] appGroupsName]) {
+            _defaults = [[NSUserDefaults alloc] initWithSuiteName:[[PWConfig config] appGroupsName]];
+            [_defaults removeObjectForKey:KeyUserId];
+        } else {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyUserId];
+        }
+    }
+}
+
 - (void)setCategories:(NSArray *)categories {
     if (![PWPreferences verifyObject:categories]) {
         [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"Unable to save categories: %@", categories]];
@@ -604,7 +624,7 @@ static BOOL _isInitializing = NO;
     _customTags = nil;
 
     @synchronized (_lock) {
-        _customTags = [customTags copy];
+        _customTags = customTags.count > 0 ? [customTags copy] : nil;
     }
 }
 

@@ -236,10 +236,8 @@
                 "moduleName": "PushwooshVoIP",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "14.0",
                 "declAttributes": [
-                  "Final",
-                  "Available"
+                  "Final"
                 ],
                 "accessorKind": "_modify"
               }
@@ -998,12 +996,10 @@
         "usr": "c:@M@PushwooshVoIP@objc(cs)PushwooshVoIPImplementation",
         "mangledName": "$s13PushwooshVoIP0aB16IPImplementationC",
         "moduleName": "PushwooshVoIP",
-        "intro_iOS": "14.0",
         "objc_name": "PushwooshVoIPImplementation",
         "declAttributes": [
           "AccessControl",
           "ObjC",
-          "Available",
           "RawDocComment"
         ],
         "superclassUsr": "c:objc(cs)NSObject",
@@ -2911,9 +2907,7 @@
             "mangledName": "$s15PushwooshBridge6PWVoIPP0a2VoD0E8delegateyXlSgvpZ",
             "moduleName": "PushwooshVoIP",
             "static": true,
-            "intro_iOS": "14.0",
             "declAttributes": [
-              "Available",
               "RawDocComment"
             ],
             "isFromExtension": true,
@@ -3000,10 +2994,6 @@
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "14.0",
-                "declAttributes": [
-                  "Available"
-                ],
                 "isFromExtension": true,
                 "accessorKind": "_modify"
               }
@@ -3045,9 +3035,7 @@
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
             "static": true,
-            "intro_iOS": "14.0",
             "declAttributes": [
-              "Available",
               "RawDocComment"
             ],
             "isFromExtension": true,
@@ -3077,9 +3065,7 @@
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
             "static": true,
-            "intro_iOS": "14.0",
             "declAttributes": [
-              "Available",
               "RawDocComment"
             ],
             "isFromExtension": true,
@@ -3109,9 +3095,7 @@
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
             "static": true,
-            "intro_iOS": "14.0",
             "declAttributes": [
-              "Available",
               "RawDocComment"
             ],
             "isFromExtension": true,
@@ -3141,9 +3125,7 @@
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWVoIP>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWVoIP>",
             "static": true,
-            "intro_iOS": "14.0",
             "declAttributes": [
-              "Available",
               "RawDocComment"
             ],
             "isFromExtension": true,
@@ -3175,49 +3157,49 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "Array",
-      "offset": 1748,
+      "offset": 1724,
       "length": 2,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "Dictionary",
-      "offset": 2001,
+      "offset": 1977,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "Dictionary",
-      "offset": 2055,
+      "offset": 2031,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "FloatLiteral",
-      "offset": 2112,
+      "offset": 2088,
       "length": 4,
       "value": "30.0"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "Dictionary",
-      "offset": 2184,
+      "offset": 2160,
       "length": 3,
       "value": "[]"
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "StringLiteral",
-      "offset": 2298,
+      "offset": 2274,
       "length": 25,
       "value": "\"com.pushwoosh.voip.sync\""
     },
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshVoIP\/PushwooshVoIPImplementation.swift",
       "kind": "StringLiteral",
-      "offset": 3661,
+      "offset": 3637,
       "length": 23,
       "value": "\"PushwooshVoIPRingtone\""
     },

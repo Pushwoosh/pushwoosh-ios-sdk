@@ -12,6 +12,9 @@
 
 #import "PWUserNotificationCenterDelegate.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 @implementation PWTags
 
 + (NSDictionary *)incrementalTagWithInteger:(NSInteger)delta {
@@ -275,3 +278,5 @@ static dispatch_once_t pushManagerOncePredicate;
 }
 
 @end
+
+#pragma clang diagnostic pop

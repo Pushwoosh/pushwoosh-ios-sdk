@@ -9,11 +9,18 @@
 #import <Foundation/Foundation.h>
 #import <PushwooshCore/PushwooshLog.h>
 #import <PushwooshCore/PWInboxMessageInternal.h>
+#import <PushwooshCore/PWInboxTabs.h>
 
 @interface PWInboxStorage : NSObject
 
 - (void)reset;
 - (NSInteger)count;
+
+/// Replaces the cached Inbox tab list with the given raw payload, persisting it to disk. A `nil` payload clears the cache.
+- (void)updateTabsFromPayload:(NSDictionary *)payload;
+
+/// The parsed Inbox tab list kept in memory, safe to call from any thread. `nil` when no payload has been cached, or the cached one failed to parse.
+- (PWInboxTabs *)tabs;
 - (void)updateInboxMessagesFromService:(NSDictionary<NSString *, PWInboxMessageInternal *> *)messages
                             completion:(void (^)(NSArray<PWInboxMessageInternal *> *needUpdateStatusMessages,
                                                  NSArray<NSString *> *messagesDeleted,

@@ -305,7 +305,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 /// Implementation of persistent HWID storage using iOS Keychain.
 /// This module provides persistent device identification that survives app reinstallation.
 /// It automatically disables itself in App Store builds.
-SWIFT_CLASS_NAMED("PushwooshKeychainImplementation") SWIFT_AVAILABILITY(ios,introduced=12.0)
+SWIFT_CLASS_NAMED("PushwooshKeychainImplementation")
 @interface PushwooshKeychainImplementation : NSObject <PWKeychain>
 /// Shared singleton instance.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) PushwooshKeychainImplementation * _Nonnull shared;)

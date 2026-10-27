@@ -30,7 +30,7 @@ Unregister when user logs out:
 
 ```swift
 func handleLogout() {
-    Pushwoosh.configure.setUserId("")
+    Pushwoosh.configure.resetUserId()
     Pushwoosh.configure.unregisterForPushNotifications()
 
     clearLocalUserData()

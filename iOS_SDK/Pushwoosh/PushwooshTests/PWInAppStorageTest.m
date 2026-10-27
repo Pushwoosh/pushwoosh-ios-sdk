@@ -299,4 +299,80 @@ static NSString *const KeyInAppSavedResources = @"InAppSavedResources";
     XCTAssertEqual(fullSyncCalls, 1u);
 }
 
+#pragma mark - Broken catalog response
+
+- (PWInAppStorage *)storageSyncedWithTwoResources {
+    self.mockRequestManager.responsesByMethod = @{ @"getInApps": [self twoResourceCatalogResponse] };
+    PWInAppStorage *storage = [PWInAppStorage storage];
+    XCTAssertNil([self synchronizeReportingError:storage]);
+    XCTAssertEqual(storage.resources.count, 2u);
+    return storage;
+}
+
+- (NSError *)synchronizeReportingError:(PWInAppStorage *)storage {
+    __block NSError *reported = nil;
+    XCTestExpectation *synced = [self expectationWithDescription:@"sync finished"];
+    [storage synchronize:^(NSError *error) {
+        reported = error;
+        [synced fulfill];
+    }];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[synced] timeout:2], XCTWaiterResultCompleted);
+    [self drainMainOperationQueue];
+    return reported;
+}
+
+- (void)drainMainOperationQueue {
+    XCTestExpectation *drained = [self expectationWithDescription:@"main operation queue drained"];
+    [[NSOperationQueue mainQueue] addOperationWithBlock:^{
+        [drained fulfill];
+    }];
+    XCTAssertEqual([XCTWaiter waitForExpectations:@[drained] timeout:2], XCTWaiterResultCompleted);
+}
+
+- (void)assertCatalogKeptAfterBrokenSyncOf:(PWInAppStorage *)storage {
+    NSSet *cachedCodes = [NSSet setWithArray:@[@"sync-1", @"sync-2"]];
+
+    XCTAssertNotNil([self synchronizeReportingError:storage]);
+    XCTAssertEqualObjects([NSSet setWithArray:storage.resources.allKeys], cachedCodes);
+
+    [PWInAppStorage destroy];
+    XCTAssertEqualObjects([NSSet setWithArray:[PWInAppStorage storage].resources.allKeys], cachedCodes);
+}
+
+/// Verifies that a getInApps success without a response dictionary reports an error and keeps the cached catalog.
+- (void)testSynchronize_successWithoutResponse_keepsCachedCatalogAndReportsError {
+    PWInAppStorage *storage = [self storageSyncedWithTwoResources];
+    self.mockRequestManager.methodsWithoutResponse = [NSSet setWithObject:@"getInApps"];
+
+    [self assertCatalogKeptAfterBrokenSyncOf:storage];
+}
+
+/// Verifies that a getInApps response without inApps reports an error and keeps the cached catalog.
+- (void)testSynchronize_responseWithoutInApps_keepsCachedCatalogAndReportsError {
+    PWInAppStorage *storage = [self storageSyncedWithTwoResources];
+    self.mockRequestManager.responsesByMethod = @{ @"getInApps": @{} };
+
+    [self assertCatalogKeptAfterBrokenSyncOf:storage];
+}
+
+/// Verifies that a getInApps response with a non-array inApps reports an error and keeps the cached catalog.
+- (void)testSynchronize_inAppsNotArray_keepsCachedCatalogAndReportsError {
+    PWInAppStorage *storage = [self storageSyncedWithTwoResources];
+    self.mockRequestManager.responsesByMethod = @{ @"getInApps": @{ @"inApps": @"sync-1" } };
+
+    [self assertCatalogKeptAfterBrokenSyncOf:storage];
+}
+
+/// Verifies that an empty inApps list still clears the cached catalog without an error.
+- (void)testSynchronize_emptyInAppsList_clearsCachedCatalog {
+    PWInAppStorage *storage = [self storageSyncedWithTwoResources];
+    self.mockRequestManager.responsesByMethod = @{ @"getInApps": @{ @"inApps": @[] } };
+
+    XCTAssertNil([self synchronizeReportingError:storage]);
+    XCTAssertEqual(storage.resources.count, 0u);
+
+    [PWInAppStorage destroy];
+    XCTAssertEqual([PWInAppStorage storage].resources.count, 0u);
+}
+
 @end

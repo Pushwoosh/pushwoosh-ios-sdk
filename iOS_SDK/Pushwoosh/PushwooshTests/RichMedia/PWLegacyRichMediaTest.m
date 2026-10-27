@@ -69,6 +69,42 @@
     OCMVerifyAll(self.mockManager);
 }
 
+#pragma mark - richMediaStyle
+
+/// Verifies that getRichMediaStyle returns the style held by the rich media manager.
+- (void)testGetRichMediaStyleReturnsManagerStyle {
+    PWRichMediaStyle *style = [PWRichMediaStyle new];
+    OCMStub([self.mockManager richMediaStyle]).andReturn(style);
+
+    XCTAssertEqual([PWLegacyRichMedia getRichMediaStyle], style);
+}
+
+/// Verifies that getRichMediaStyle falls back to a default style when the manager holds none.
+- (void)testGetRichMediaStyleFallsBackToDefaultStyle {
+    OCMStub([self.mockManager richMediaStyle]).andReturn(nil);
+
+    XCTAssertTrue([[PWLegacyRichMedia getRichMediaStyle] isKindOfClass:[PWRichMediaStyle class]]);
+}
+
+/// Verifies that setRichMediaStyle: hands the style to the rich media manager.
+- (void)testSetRichMediaStyle {
+    PWRichMediaStyle *style = [PWRichMediaStyle new];
+    OCMExpect([self.mockManager setRichMediaStyle:style]);
+
+    [PWLegacyRichMedia setRichMediaStyle:style];
+
+    OCMVerifyAll(self.mockManager);
+}
+
+/// Verifies that setRichMediaStyle:nil resets the manager to a default style instead of clearing it.
+- (void)testSetRichMediaStyleNilResetsToDefaultStyle {
+    OCMExpect([self.mockManager setRichMediaStyle:[OCMArg isKindOfClass:[PWRichMediaStyle class]]]);
+
+    [PWLegacyRichMedia setRichMediaStyle:nil];
+
+    OCMVerifyAll(self.mockManager);
+}
+
 #pragma mark - presentRichMedia
 
 - (void)testPresentRichMedia {

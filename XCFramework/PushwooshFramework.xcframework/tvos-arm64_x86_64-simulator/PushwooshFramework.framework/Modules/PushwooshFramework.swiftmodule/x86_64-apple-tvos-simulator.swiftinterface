@@ -13,6 +13,9 @@ extension PushwooshFramework.Pushwoosh {
   public static var LiveActivities: any PushwooshBridge.PWLiveActivities.Type {
     get
   }
+  public static var InboxKit: any PushwooshBridge.PWInboxKit.Type {
+    get
+  }
   public static var debug: any PushwooshCore.PWDebug.Type {
     get
   }
@@ -31,8 +34,30 @@ extension PushwooshFramework.Pushwoosh {
   public static var configure: PushwooshCore.PushwooshConfig.Type {
     get
   }
+  public static var inbox: PushwooshFramework.PWInboxCenter.Type {
+    get
+  }
 }
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+extension PushwooshFramework.PWInboxCenter {
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func loadMessages() async throws -> [any PushwooshCore.PWInboxMessageProtocol]
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func unreadMessagesCount() async throws -> Swift.Int
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func messagesCount() async throws -> Swift.Int
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func messagesWithNoActionPerformedCount() async throws -> Swift.Int
+  #endif
+  #if compiler(>=5.3) && $AsyncAwait
+  public static func resyncInboxForNewUserId() async -> Swift.UInt
+  #endif
+}
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(*, deprecated, message: "Since 7.3.0: Use Pushwoosh.inbox instead.")
 extension PushwooshFramework.PWInbox {
   #if compiler(>=5.3) && $AsyncAwait
   public static func loadMessages() async throws -> [any PushwooshCore.PWInboxMessageProtocol]
@@ -55,4 +80,7 @@ extension PushwooshCore.PushwooshConfig {
     get
     set
   }
+  #if compiler(>=5.3) && $Sendable
+  public static func unregisterForPushNotifications(completion: (@Sendable ((any Swift.Error)?) -> Swift.Void)?)
+  #endif
 }

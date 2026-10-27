@@ -506,12 +506,167 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
     return tags;
 }
 
+/// The closing tag of an inline <script> block, matched the way a browser's parser matches it —
+/// quoting inside the JavaScript is not honoured.
+static NSRegularExpression *PWScriptClosingTagRegex(void) {
+    static NSRegularExpression *regex;
+    static dispatch_once_t onceToken;
+    dispatch_once(&onceToken, ^{
+        NSError *error = nil;
+        regex = [NSRegularExpression regularExpressionWithPattern:@"</script\\s*>"
+                                                          options:NSRegularExpressionCaseInsensitive
+                                                            error:&error];
+        if (error) {
+            regex = nil;
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:[PWResource class]
+                               message:[NSString stringWithFormat:@"Failed to create inline script regex, error: %@", [error localizedDescription]]];
+        }
+    });
+    return regex;
+}
+
+static BOOL PWMatchesAt(NSString *content, NSUInteger index, NSString *text) {
+    if (index + text.length > content.length) {
+        return NO;
+    }
+    return [content compare:text options:NSCaseInsensitiveSearch range:NSMakeRange(index, text.length)] == NSOrderedSame;
+}
+
+/// YES when the "<" at `tagStart` opens a tag rather than being a stray less-than sign.
+static BOOL PWStartsTag(NSString *content, NSUInteger tagStart) {
+    NSUInteger name = tagStart + 1;
+    if (name < content.length && [content characterAtIndex:name] == '/') {
+        name++;
+    }
+    return name < content.length && [[NSCharacterSet letterCharacterSet] characterIsMember:[content characterAtIndex:name]];
+}
+
+/// YES when the tag at `tagStart` is a <script> element, not one whose name merely starts with it.
+static BOOL PWOpensScript(NSString *content, NSUInteger tagStart) {
+    static NSString *const scriptTag = @"<script";
+    if (!PWMatchesAt(content, tagStart, scriptTag)) {
+        return NO;
+    }
+    NSUInteger afterName = tagStart + scriptTag.length;
+    if (afterName >= content.length) {
+        return YES;
+    }
+    unichar character = [content characterAtIndex:afterName];
+    return !([[NSCharacterSet alphanumericCharacterSet] characterIsMember:character] || character == '_');
+}
+
+/// Index past the ">" that closes the tag opened at `tagStart`, or NSNotFound if it is unterminated.
+/// A ">" inside a quoted attribute value does not close the tag — `onload="if(1>0)go()"` is one
+/// attribute, not the end of the element.
+static NSUInteger PWEndOfTag(NSString *content, NSUInteger tagStart) {
+    unichar quote = 0;
+    for (NSUInteger index = tagStart; index < content.length; index++) {
+        unichar character = [content characterAtIndex:index];
+        if (quote != 0) {
+            if (character == quote) {
+                quote = 0;
+            }
+        } else if (character == '"' || character == '\'') {
+            quote = character;
+        } else if (character == '>') {
+            return index + 1;
+        }
+    }
+    return NSNotFound;
+}
+
+/// Body start and block end of the next inline script element at or after `from`, NO when the rest of
+/// `content` holds none. The document is walked tag by tag instead of searched for the next "<script",
+/// so only a real element opens a block — the same text inside a comment or inside another tag's
+/// attribute value stays ordinary markup.
+static BOOL PWNextScriptBlock(NSString *content, NSUInteger from, NSUInteger *bodyStart, NSUInteger *blockEnd) {
+    static NSString *const commentOpen = @"<!--";
+    static NSString *const commentClose = @"-->";
+
+    NSRegularExpression *closingRegex = PWScriptClosingTagRegex();
+    if (closingRegex == nil) {
+        return NO;
+    }
+
+    NSUInteger length = content.length;
+    NSUInteger cursor = from;
+    while (cursor < length) {
+        NSRange opening = [content rangeOfString:@"<" options:0 range:NSMakeRange(cursor, length - cursor)];
+        if (opening.location == NSNotFound) {
+            return NO;
+        }
+        NSUInteger tagStart = opening.location;
+        if (PWMatchesAt(content, tagStart, commentOpen)) {
+            NSUInteger afterOpen = tagStart + commentOpen.length;
+            NSRange close = [content rangeOfString:commentClose options:0 range:NSMakeRange(afterOpen, length - afterOpen)];
+            cursor = close.location == NSNotFound ? length : NSMaxRange(close);
+            continue;
+        }
+        if (!PWStartsTag(content, tagStart)) {
+            cursor = tagStart + 1;
+            continue;
+        }
+        NSUInteger tagEnd = PWEndOfTag(content, tagStart);
+        if (tagEnd == NSNotFound) {
+            return NO;
+        }
+        if (!PWOpensScript(content, tagStart)) {
+            cursor = tagEnd;
+            continue;
+        }
+        NSRange closing = [closingRegex rangeOfFirstMatchInString:content options:0 range:NSMakeRange(tagEnd, length - tagEnd)];
+        if (closing.location == NSNotFound) {
+            return NO;
+        }
+        *bodyStart = tagEnd;
+        *blockEnd = NSMaxRange(closing);
+        return YES;
+    }
+    return NO;
+}
+
+/// Runs `doubleBraceBlock` over the whole document and `singleBraceBlock` over everything outside an
+/// inline script body. The double-brace passes apply to every part of the document, so they run before
+/// it is split — a placeholder whose default value contains a script block is still resolved as one
+/// placeholder instead of being cut by a segment boundary. The single-brace passes cannot tell a
+/// placeholder from JavaScript such as `function f(){ return A|B|C; }`, so a script body and its
+/// closing tag are copied out verbatim; the opening <script ...> tag stays with the markup, so a
+/// placeholder in an attribute such as `src` is substituted like any other markup.
+- (NSString *)pw_substituteInContent:(NSString *)content
+                         doubleBrace:(NSString *(^)(NSString *content))doubleBraceBlock
+                         singleBrace:(NSString *(^)(NSString *segment))singleBraceBlock {
+    content = doubleBraceBlock(content) ?: content;
+    if (content.length == 0) {
+        return singleBraceBlock(content) ?: content;
+    }
+
+    NSMutableString *result = nil;
+    NSUInteger cursor = 0;
+    NSUInteger bodyStart = 0;
+    NSUInteger blockEnd = 0;
+    while (PWNextScriptBlock(content, cursor, &bodyStart, &blockEnd)) {
+        if (result == nil) {
+            result = [NSMutableString stringWithCapacity:content.length];
+        }
+        NSString *markup = [content substringWithRange:NSMakeRange(cursor, bodyStart - cursor)];
+        [result appendString:singleBraceBlock(markup) ?: markup];
+        [result appendString:[content substringWithRange:NSMakeRange(bodyStart, blockEnd - bodyStart)]];
+        cursor = blockEnd;
+    }
+    if (result == nil) {
+        return singleBraceBlock(content) ?: content;
+    }
+    NSString *tail = [content substringFromIndex:cursor];
+    [result appendString:singleBraceBlock(tail) ?: tail];
+    return result;
+}
+
 - (NSString *)postProcessPageWithContent:(NSString *)pageContent {
     NSDictionary *localizedStrings = self.config.localizedStrings;
 
     // replace {{tagName|type|defaultValue}} with localization value
     NSString *localizationRegexString = @"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\|([^|\\}]*)\\}\\}";
-    pageContent = [self postProcessPageUsingParameters:localizedStrings regex:localizationRegexString pageContent:pageContent options:NSRegularExpressionDotMatchesLineSeparators];
 
     // replace {placeholderName|type|defaultValue} and {placeholderName|type|} with tag value
     NSString *tagsNoDefaultValueRegexString = @"\\{([^|\\}]+)\\|([^|\\}]+)\\|\\}";
@@ -520,12 +675,18 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
 
     // support template syntax like {{ Placeholder name | Type }}
     NSString *localizationRegexStringDefault = @"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\}\\}";
-    pageContent = [self postProcessPageUsingParameters:localizedStrings regex:localizationRegexStringDefault pageContent:pageContent options:NSRegularExpressionDotMatchesLineSeparators];
 
-    pageContent = [self postProcessPageUsingParameters:tags regex:tagsNoDefaultValueRegexString pageContent:pageContent options:0];
-    pageContent = [self postProcessPageUsingParameters:tags regex:tagsRegexString pageContent:pageContent options:0];
+    NSString *(^doubleBracePasses)(NSString *) = ^NSString *(NSString *segment) {
+        NSString *result = [self postProcessPageUsingParameters:localizedStrings regex:localizationRegexString pageContent:segment options:NSRegularExpressionDotMatchesLineSeparators];
+        return [self postProcessPageUsingParameters:localizedStrings regex:localizationRegexStringDefault pageContent:result options:NSRegularExpressionDotMatchesLineSeparators];
+    };
 
-    return [self injectHTMLCharset:pageContent];
+    NSString *substituted = [self pw_substituteInContent:pageContent doubleBrace:doubleBracePasses singleBrace:^NSString *(NSString *segment) {
+        NSString *result = [self postProcessPageUsingParameters:tags regex:tagsNoDefaultValueRegexString pageContent:segment options:0];
+        return [self postProcessPageUsingParameters:tags regex:tagsRegexString pageContent:result options:0];
+    }];
+
+    return [self injectHTMLCharset:substituted];
 }
 
 - (NSDictionary *)localizeConfig:(NSDictionary *)config {
@@ -568,23 +729,27 @@ static NSDictionary<NSString *, NSString *> *PWCountryNameByCode(void) {
         return string;
     }
     NSDictionary *localizedStrings = self.config.localizedStrings;
-    NSString *result = [self postProcessPageUsingParameters:localizedStrings
-                                                      regex:@"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\|([^|\\}]*)\\}\\}"
-                                                pageContent:string
-                                                    options:NSRegularExpressionDotMatchesLineSeparators] ?: string;
-    result = [self postProcessPageUsingParameters:localizedStrings
-                                            regex:@"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\}\\}"
-                                      pageContent:result
-                                          options:NSRegularExpressionDotMatchesLineSeparators] ?: result;
-    result = [self postProcessPageUsingParameters:tags
-                                            regex:@"\\{([^|\\}]+)\\|([^|\\}]+)\\|\\}"
-                                      pageContent:result
-                                          options:0] ?: result;
-    result = [self postProcessPageUsingParameters:tags
-                                            regex:@"\\{([^|\\}]+)\\|([^|\\}]+)\\|([^|\\}]*)\\}"
-                                      pageContent:result
-                                          options:0] ?: result;
-    return result;
+    NSString *(^doubleBracePasses)(NSString *) = ^NSString *(NSString *segment) {
+        NSString *result = [self postProcessPageUsingParameters:localizedStrings
+                                                          regex:@"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\|([^|\\}]*)\\}\\}"
+                                                    pageContent:segment
+                                                        options:NSRegularExpressionDotMatchesLineSeparators] ?: segment;
+        return [self postProcessPageUsingParameters:localizedStrings
+                                              regex:@"\\{\\{([^|\\}]+)\\|([^|\\}]+)\\}\\}"
+                                        pageContent:result
+                                            options:NSRegularExpressionDotMatchesLineSeparators] ?: result;
+    };
+
+    return [self pw_substituteInContent:string doubleBrace:doubleBracePasses singleBrace:^NSString *(NSString *segment) {
+        NSString *result = [self postProcessPageUsingParameters:tags
+                                                          regex:@"\\{([^|\\}]+)\\|([^|\\}]+)\\|\\}"
+                                                    pageContent:segment
+                                                        options:0] ?: segment;
+        return [self postProcessPageUsingParameters:tags
+                                              regex:@"\\{([^|\\}]+)\\|([^|\\}]+)\\|([^|\\}]*)\\}"
+                                        pageContent:result
+                                            options:0] ?: result;
+    }];
 }
 
 - (NSString *)pw_applyModifier:(NSString *)modifier toValue:(NSString *)value applyValueFormatters:(BOOL)applyValueFormatters {

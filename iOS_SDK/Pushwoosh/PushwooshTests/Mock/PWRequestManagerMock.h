@@ -21,6 +21,9 @@
 
 @property (nonatomic, assign) BOOL failed;
 
+/// Requests whose methodName is in this set succeed without a `response` dictionary, so parseResponse: is not called.
+@property (nonatomic, strong) NSSet<NSString *> *methodsWithoutResponse;
+
 /// Requests whose methodName is in this set are parked until -releaseDeferredRequests.
 @property (nonatomic, strong) NSSet<NSString *> *deferredMethods;
 @property (nonatomic, readonly) NSUInteger deferredRequestCount;

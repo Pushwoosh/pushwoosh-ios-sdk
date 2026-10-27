@@ -42,13 +42,13 @@ Before you begin, ensure you have:
 - A Pushwoosh account
 - A Pushwoosh project set up in your account
 - An iOS platform configured in your Pushwoosh project. We recommend using the Token-Based Authentication configuration as the simplest approach
-- A separate VoIP Application created in your Pushwoosh project
-- Your Pushwoosh Application Code and VoIP Application Code from the Control Panel
+- Your Pushwoosh Application Code from the Control Panel
 - VoIP Services Certificate (.p12) created in Apple Developer Portal
 - iOS 15.0+ deployment target
 - PushwooshFramework, PushwooshCore, and PushwooshBridge frameworks integrated in your project
+- The base Pushwoosh SDK set up with the same Application Code: `Pushwoosh_APPID` in `Info.plist` and a call to `Pushwoosh.configure.registerForPushNotifications()`. The VoIP token is attached to the device registered by the base SDK
 
-> **Important**: VoIP Applications are separate from regular push applications in Pushwoosh. You must create a dedicated VoIP Application and use its Application Code.
+> **Note**: VoIP pushes use the same Pushwoosh application and Application Code as regular pushes. No separate VoIP application is needed.
 
 ## Step 1: Add Required Capabilities
 
@@ -63,9 +63,9 @@ In Xcode:
 
 ![Required capabilities: Push Notifications and Background Modes with Remote notifications and Voice over IP enabled](ios-voip-2.png)
 
-## Step 2: Initialize the Module
+## Step 2: Set the Delegate
 
-Initialize in `application(_:didFinishLaunchingWithOptions:)`:
+The SDK sets up CallKit and PushKit and registers the VoIP token on its own at app launch. Set the delegate in `application(_:didFinishLaunchingWithOptions:)`:
 
 ```swift
 import UIKit
@@ -82,9 +82,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWVoIPCallDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
 
-        Pushwoosh.VoIP.initializeVoIP(true, ringtoneSound: "mySound.caf", handleTypes: 1)
-        Pushwoosh.VoIP.setPushwooshVoIPAppId("YOUR-VOIP-APP-CODE")
         Pushwoosh.VoIP.delegate = self
+        Pushwoosh.VoIP.setRingtone("mySound.caf")
 
         return true
     }
@@ -105,13 +104,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWVoIPCallDelegate {
 }
 ```
 
-### Parameters
+`setRingtone(_:)` is optional: it takes a sound file name from the app bundle and is saved across launches. Without it, CallKit plays the system ringtone.
 
-| Parameter | Type | Description |
-|-----------|------|-------------|
-| `supportVideo` | `Bool` | Enable video calling in CallKit UI |
-| `ringtoneSound` | `String?` | Custom ringtone filename from app bundle (e.g., `"mySound.caf"`). Pass `nil` for system default |
-| `handleTypes` | `Int` | Caller ID display format:<br>• `1` – Generic (usernames, custom IDs)<br>• `2` – Phone Number (formatted phone numbers)<br>• `3` – Email (email addresses) |
+Video support and the caller ID format are set per call in the push payload: `video` (`true` for a video call) and `handleType` (`1` – generic, `2` – phone number, `3` – email; generic by default).
+
+> **Note**: `initializeVoIP(_:ringtoneSound:handleTypes:)` is deprecated. It only sets the ringtone, and its `supportVideo` and `handleTypes` parameters are ignored. Use `setRingtone(_:)` instead.
 
 ## Step 3: Delegate Methods
 
@@ -122,15 +119,16 @@ The ``PWVoIPCallDelegate`` protocol provides callbacks for VoIP events:
 | `voipDidReceiveIncomingCall(payload:)` | Called when VoIP push arrives with call information |
 | `pwProviderDidReset(_:)` | Called when CallKit provider resets (end all active calls here) |
 | `pwProviderDidBegin(_:)` | Called when CallKit provider is ready |
+| `voipDidRegisterTokenSuccessfully()` | Optional. Called when the VoIP token is registered with Pushwoosh |
+| `voipDidFailToRegisterToken(error:)` | Optional. Called when VoIP token registration fails. This is the only place the registration error is reported |
 
 ## Step 4: Upload VoIP Certificate
 
 1. Create VoIP Services Certificate in Apple Developer Portal
 2. Export as .p12 file
-3. In Pushwoosh Control Panel, go to your VoIP Application settings
-4. Upload the .p12 certificate
-
-> **Important**: VoIP pushes require production gateway certificate. Sandbox certificates are not supported.
+3. In Pushwoosh Control Panel, go to **Settings → Configure platforms**, find **iOS**, and select **VoIP push notifications** in the dropdown
+4. Upload the .p12 certificate and enter its private key password
+5. Under **Gateway**, select **Sandbox** for development builds or **Production** for App Store and TestFlight builds
 
 ## Testing
 

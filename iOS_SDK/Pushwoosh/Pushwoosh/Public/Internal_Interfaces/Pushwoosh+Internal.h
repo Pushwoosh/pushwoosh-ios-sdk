@@ -42,6 +42,8 @@
 
 - (instancetype)initWithApplicationCode:(NSString *)appCode;
 
++ (instancetype)pw_sharedInstance;
+
 + (void)destroy;
 
 /// Test seam — resets the `+ensureInitialized` `dispatch_once` predicate so unit

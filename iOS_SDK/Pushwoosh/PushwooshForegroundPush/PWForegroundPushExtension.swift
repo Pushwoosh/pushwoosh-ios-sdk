@@ -11,7 +11,6 @@ import PushwooshCore
 import PushwooshBridge
 import UIKit
 
-@available(iOS 13.0, *)
 public extension PWForegroundPush {
 
     /// Delegate receiving foreground push events. Held weakly, so reading it back returns `nil`

@@ -1,0 +1,277 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        * {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            user-select: none;
+        }
+
+        html {
+            background: rgba(35, 31, 32, 0.44);
+            font-family: 'Roboto Regular', Arial, Helvetica, sans-serif;
+            color: #000000;
+        }
+
+        body {
+            height: 100vh;
+            width: 100%;
+            margin: 0;
+            display: block;
+        }
+
+        h3 {
+            font-family: 'Roboto Light', Arial, Helvetica, sans-serif;
+            font-style: normal;
+            font-size: 1.5em;
+            color: #{{Header text color|color|fff}};
+            line-height: 1.2em;
+            margin: 120px 20px 25px;
+        }
+
+        p {
+            font-size: 1.2em;
+            color: #{{Body text color|color|fff}};
+            line-height: 1.3em;
+            margin: 0 20px 30px;
+        }
+
+        .rates {
+            list-style: none;
+            text-decoration: none;
+            padding-left: 0;
+            margin: 0 20px 10px;
+        }
+
+        label {
+            margin: 0 1%;
+            display: inline-block;
+            cursor: pointer;
+            background-image: url(yellowstar.png);
+            background-size: 100%;
+            background-repeat: no-repeat;
+            width: 40px;
+            height: 40px;
+        }
+
+        input[type=radio] {
+            display: none;
+        }
+
+        input[type=radio]:checked ~ label {
+            background-image: url(star.png);
+            background-position: 40px -2px;
+            background-size: cover;
+            background-repeat: repeat;
+        }
+
+        a {
+            display: block;
+            font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            font-size: 0.88rem;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            padding: 0;
+            -webkit-box-shadow: 0 0;
+            box-shadow: 0 0;
+        }
+
+        .wrapper {
+            padding: 15px;
+            position: relative;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+        .template {
+            position: relative;
+            min-width: 260px;
+            max-width: 700px;
+            margin: 0 auto;
+            text-align: center;
+        }
+
+        .template-main {
+            border-radius: 16px;
+            overflow: hidden;
+            -webkit-box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.25);
+            box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.25);
+            padding-top: 20px;
+            margin-top: 60px;
+            background-color: #{{Background color|color|1b78ce}};
+        }
+
+        .button-wrapper {
+            text-align: center;
+            margin: 25px 10px;
+        }
+
+        .submit-button {
+            display: inline-block;
+            border: 1px solid;
+            font-size: 1.4rem;
+            font-weight: 500;
+            padding: 10px 30px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 50px;
+            text-decoration: none;
+            background-color: #{{Submit backgroun color|color|fff}};
+            color: #{{Submit text color|color|1b78ce}};
+            margin-bottom: 5px;
+        }
+
+        .icon-wrapper {
+            display: block;
+            position: absolute;
+            height: 281px;
+            width: 281px;
+            left: 50%;
+            text-align: center;
+            background-image: url(top.png);
+            transform: translateX(-50%);
+            top: -100px;
+        }
+
+        .icon {
+            position: relative;
+            top: 50%;
+            transform: translateY(-75%);
+            height: 88px;
+            width: 100px;
+        }
+
+        .close-button {
+            display: inline-block;
+            border: none;
+            font-size: 1rem;
+            font-weight: 400;
+            padding: 6px 30px;
+            text-transform: uppercase;
+            cursor: pointer;
+            text-decoration: none;
+            background-color: #{{Close button background|color|1b78ce}};
+            color: #{{Close button color|color|fff}};
+            margin-bottom: 0px;
+        }
+
+        .hide {
+            display: none;
+        }
+
+        h1 {
+            color: #fff;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="wrapper">
+        <div class="template">
+            <div class="template-main">
+                <form id="page-rate">
+                    <div class="icon-wrapper">
+                        <img class="icon" src="{{Logo|text|Pushwoosh.png}}" />
+                    </div>
+                    <h3>{{Header text|text|Hey Jen, <br /> do you enjoy Push On? :)}}</h3>
+                    <div class="rates">
+                        <label for="rate-1"></label><input type="radio" id="rate-1" name="rate" value="1">
+                        <label for="rate-2"></label><input type="radio" id="rate-2" name="rate" value="2">
+                        <label for="rate-3"></label><input type="radio" id="rate-3" name="rate" value="3">
+                        <label for="rate-4"></label><input type="radio" id="rate-4" name="rate" value="4" checked>
+                        <label for="rate-5"></label><input type="radio" id="rate-5" name="rate" value="5">
+                    </div>
+
+                    <p>{{Body text|text|Tap the number of stars to rate us in the App Store}}</p>
+                    <div class="button-wrapper">
+                        <a href="#" id="submit" class="submit-button">{{Submit button text|text|SUBMIT}}</a>
+                    </div>
+                </form>
+                <div id="page-detractor" class="hide">
+                    <h1>{{Detractor header|text|Thank You!}}</h1>
+                    <p>{{Detractor text|text|Your feedback will help us create a better application experience.}}</p>
+                    <div class="button-wrapper">
+                        <a href="pushwoosh://close" class="submit-button">{{Close text|text|CLOSE}}</a>
+                    </div>
+                </div>
+                <div id="page-promoter" class="hide">
+                    <h1>{{Promoter header|text|Rate Us!}}</h1>
+                    <p>{{Promoter text|text|Would you take a moment to rate Our App in the Store?}}</p>
+                    <div class="button-wrapper">
+                        <div class="column">
+                            <a href="{{Rate url iOS|text|https://appsto.re/ru/Omt4cb.i}}" id="rate-ios" class="submit-button">{{Rate text|text|RATE NOW}}</a>
+                            <a href="{{Rate url Android|text|https://play.google.com/store/apps/details?id=com.pushwoosh.pushon}}" id="rate-android" class="submit-button hide">{{Rate text|text|RATE NOW}}</a>
+                        </div>
+                        <div class="column">
+                            <a href="pushwoosh://close" class="close-button">{{Close text|text|CLOSE}}</a>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <script type="text/javascript" src="fastclick.js"></script>
+    <script type="text/javascript">
+        var pageRate = document.getElementById('page-rate');
+        var pagePromoter = document.getElementById('page-promoter');
+        var pageDetractor = document.getElementById('page-detractor');
+
+        var submitButton = document.getElementById('submit');
+
+        var rateAndroid = document.getElementById('rate-android');
+        var rateIOS = document.getElementById('rate-ios');
+        var iOS = /iPad|iPhone|iPod/.test(window.navigator.userAgent) && !window.MSStream;
+
+        if (!iOS) {
+            rateIOS.classList.add('hide');
+            rateAndroid.classList.remove('hide');
+        }
+
+        function submitPageRate(event) {
+            event.preventDefault();
+            var rate = +pageRate.elements.rate.value;
+
+            switch (rate) {
+                case 4:
+                case 5:
+                    pagePromoter.classList.remove('hide');
+                    break;
+                case 0:
+                    return false;
+                    break;
+                default:
+                    pageDetractor.classList.remove('hide');
+            }
+
+            if (window.pushManager) {
+                window.pushManager.postEvent(JSON.stringify({
+                    event: 'Rate My App',
+                    attributes: {
+                        rating: rate
+                    }
+                }));
+            }
+
+            pageRate.classList.add('hide');
+        }
+
+        submitButton.onclick = submitPageRate;
+        FastClick.attach(document.body);
+    </script>
+</body>
+
+</html>

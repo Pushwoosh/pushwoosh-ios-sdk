@@ -34,8 +34,11 @@ public struct PushwooshInboxKitAttributes {
     /// when the controller disappears (single batch, idempotent server-side).
     public var automaticReadOnDisappear: Bool = true
 
-    /// When `true`, messages are marked as read once they are on screen: the rows visible when
-    /// the inbox appears or finishes loading, and the rows a scroll comes to rest on.
+    /// When `true`, messages are marked as read once they are on screen: the rows visible when the
+    /// inbox appears or finishes loading, and the rows a scroll comes to rest on.
+    /// With inbox tabs, also the rows a tab selection shows and messages that arrive while the inbox is
+    /// open; a load then reads the whole screen only on the first fill of the tab on screen, and a
+    /// refresh of a tab already on screen reads nothing beyond the messages it brings in.
     public var automaticReadOnDisplay: Bool = true
 
     /// When `true`, dynamic colors resolve against the current trait collection.
@@ -358,9 +361,12 @@ extension PushwooshInboxKitAttributes {
         /// branded look.
         public var pageBackgroundColor: UIColor = .systemGroupedBackground
 
-        /// When `true`, cards render with an Apple Liquid Glass background on iOS 26+ (falling back
-        /// to the solid `backgroundColor` on earlier OSes). Opt-in — defaults to `false` so existing
-        /// apps keep their current card surfaces unchanged.
+        /// When `true`, the whole inbox screen — cards, tab strip, error banner and the empty/error
+        /// state-label plates — renders with an Apple Liquid Glass background on iOS 26+ (falling
+        /// back to the solid `backgroundColor` on earlier OSes). Opt-in — defaults to `false` so
+        /// existing apps keep their current surfaces unchanged. Glass only appears when the SDK
+        /// binary itself was built with Xcode 26 or newer; the released XCFramework currently ships
+        /// built with Xcode 15.4, so this flag is inert there regardless of the host app's toolchain.
         public var isLiquidGlass: Bool = false
 
         public var separatorColor: UIColor

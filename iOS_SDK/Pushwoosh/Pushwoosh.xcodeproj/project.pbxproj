@@ -157,6 +157,10 @@
 		3D954049A8FBAF9C4443FD97 /* PWNotificationManagerCompatUserNotifications.m in Sources */ = {isa = PBXBuildFile; fileRef = 132FCEB0208153AA004FE8C0 /* PWNotificationManagerCompatUserNotifications.m */; };
 		3E2A8F67708A4EDAC50469E5 /* PWSetLogLevelCommandHandler.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E50BB4AAA8CA3ABF54C42E0 /* PWSetLogLevelCommandHandler.m */; };
 		3E684054C5463FBF32AD882E /* PWResourceNativeConfigTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 7FFF71B8F02D5553D5FF5279 /* PWResourceNativeConfigTest.m */; };
+		A1117B000000000000000001 /* PWResourceScriptSubstitutionTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A1117A000000000000000001 /* PWResourceScriptSubstitutionTest.m */; };
+		A1117B000000000000000002 /* PlaceholderCorpus in Resources */ = {isa = PBXBuildFile; fileRef = A1117A000000000000000002 /* PlaceholderCorpus */; };
+		A1117B000000000000000003 /* PWResourcePlaceholderCorpusTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A1117A000000000000000003 /* PWResourcePlaceholderCorpusTest.m */; };
+		A1117B000000000000000004 /* PWResourcePlaceholderParityTest.m in Sources */ = {isa = PBXBuildFile; fileRef = A1117A000000000000000004 /* PWResourcePlaceholderParityTest.m */; };
 		3FB1FE292C88DAE3FBC5B733 /* PWInteractivePush.m in Sources */ = {isa = PBXBuildFile; fileRef = 088D545A28A1EED63AE1D21F /* PWInteractivePush.m */; };
 		4048D4F1C2F8F2A889377CDB /* PWHtmlWebViewController.ios.m in Sources */ = {isa = PBXBuildFile; fileRef = CF3609AD6ACEA7009ED257D0 /* PWHtmlWebViewController.ios.m */; };
 		422ED983571ED747288A65D8 /* PWPushPrimerBuilder.m in Sources */ = {isa = PBXBuildFile; fileRef = D52339862C58CF4D2B47F43A /* PWPushPrimerBuilder.m */; };
@@ -599,7 +603,16 @@
 		BEC126E027985F5C5518FEA9 /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; };
 		C02C8DD32B6CDE1FA7947C32 /* WKUserScript+PWInterfacesScriptGenerator.h in Headers */ = {isa = PBXBuildFile; fileRef = 35B1A0500E71C8117D2D7A25 /* WKUserScript+PWInterfacesScriptGenerator.h */; };
 		C0E12DAB5AE177161329C74C /* PWIdleDetectorTest.m in Sources */ = {isa = PBXBuildFile; fileRef = EB6F77136079F1C6310A0188 /* PWIdleDetectorTest.m */; };
+		FB2B3593D9BF21FEA2460434 /* PWInboxTabsTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6D091068C14CAC7053E09279 /* PWInboxTabsTest.m */; };
+		FB2B3594D9BF21FEA2460435 /* PWInboxTabsSwiftApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 6D091069C14CAC7053E09280 /* PWInboxTabsSwiftApiTest.swift */; };
+		A1F97E5B78E1A2F081093AEF /* PWModulesSwiftApiTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = A22064D32B2F5BAB5E2B2E7F /* PWModulesSwiftApiTest.swift */; };
+		B59EC32A223D7486E86923BD /* PWInboxTabsStorageTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 29051BF7D29AB97260774566 /* PWInboxTabsStorageTest.m */; };
+		0B3FC4656B275313D2A5CF64 /* PWInboxTabsIntegrationTest.m in Sources */ = {isa = PBXBuildFile; fileRef = 1E7C3D4C3924789A99DA2745 /* PWInboxTabsIntegrationTest.m */; };
+		B87548EEF7FA0D01A5738882 /* PWInboxCenterTest.m in Sources */ = {isa = PBXBuildFile; fileRef = C4C1BE69E2AAB01E57867B21 /* PWInboxCenterTest.m */; };
 		C286E11210FE01134ADE5340 /* PWInboxTypes.h in Sources */ = {isa = PBXBuildFile; fileRef = E75A70EA5C56A834D4BD74F7 /* PWInboxTypes.h */; };
+		50CAD0FFAD2F83F7A3980DCC /* PWInboxTabs.h in Sources */ = {isa = PBXBuildFile; fileRef = 9204E49360F667BB821A7436 /* PWInboxTabs.h */; };
+		D10C1886BD7F3AD2C9A1BE1A /* PWInboxTabs.m in Sources */ = {isa = PBXBuildFile; fileRef = AF2D7934C12F516691F910C8 /* PWInboxTabs.m */; };
+		63B1BCE39E225E8508E56E30 /* PWInboxTabsFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 0127AF19EB8AE8E788DC5419 /* PWInboxTabsFactory.m */; };
 		C28735449B3BD1C80842A4A8 /* PushwooshCore.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 441806DF2D7B285900DE71A7 /* PushwooshCore.framework */; };
 		C37FD536AD4FD5302DB25F2F /* PushwooshGRPC.h in Headers */ = {isa = PBXBuildFile; fileRef = 41708EC77044105C99EB8CDF /* PushwooshGRPC.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		C3C60039242B0F57F06A16B0 /* NSDictionary+PWDictUtils.m in Sources */ = {isa = PBXBuildFile; fileRef = A2B1407DF0180FEF7CF2681D /* NSDictionary+PWDictUtils.m */; };
@@ -688,6 +701,8 @@
 		E64C4C018D1792DF872420E2 /* PWLiveActivityRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = CBCEDFFD0E105B1C251C402E /* PWLiveActivityRequest.m */; };
 		E6C78CBC2A51ECF4D63B6E06 /* PWMessageDeliveryRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = D9585520866B07334AADBCC7 /* PWMessageDeliveryRequest.m */; };
 		E751D05A4D810F920E626FDA /* InboxDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = FDB867A8D79C49DEB33E43D7 /* InboxDataSource.swift */; };
+		3E086C8D36D146BA8094D377 /* InboxTabBarView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 5F4F7F9447B14C328D5042F2 /* InboxTabBarView.swift */; };
+		53A179E5FA2F856AF0873C40 /* InboxErrorBannerView.swift in Sources */ = {isa = PBXBuildFile; fileRef = A5EB72B58771D0A6B0EF27AD /* InboxErrorBannerView.swift */; };
 		E91376C66B8611071FEAEB27 /* PushwooshInboxCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = EE2EFDB24B6DA563CC792276 /* PushwooshInboxCell.swift */; };
 		E988A236BE35BE6F0F7187E3 /* PWRichMediaActionRequest.m in Sources */ = {isa = PBXBuildFile; fileRef = 6AFFB17C939911BF73DC1545 /* PWRichMediaActionRequest.m */; };
 		E992370E6B05FA73F48DD42B /* PWInAppMessageModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = C5CE62E062B47696D405BD17 /* PWInAppMessageModel.swift */; };
@@ -710,6 +725,8 @@
 		F276D91BC74E441B663C25D3 /* PWRichMediaTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = EC31EF46980BB4BEA9867A3B /* PWRichMediaTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F2F47FD7A3A840B402DFAAD8 /* PWInboxUpdateStatusRequest.h in Headers */ = {isa = PBXBuildFile; fileRef = D159048D6063EE3877B96BA7 /* PWInboxUpdateStatusRequest.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		F36431E37990AECCF273D269 /* PWInboxTypes.h in Headers */ = {isa = PBXBuildFile; fileRef = E75A70EA5C56A834D4BD74F7 /* PWInboxTypes.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		858D9AD81157A7744684B606 /* PWInboxTabs.h in Headers */ = {isa = PBXBuildFile; fileRef = 9204E49360F667BB821A7436 /* PWInboxTabs.h */; settings = {ATTRIBUTES = (Public, ); }; };
+		423A6B551DFD1ED1A5B34D2B /* PWInboxTabsFactory.h in Headers */ = {isa = PBXBuildFile; fileRef = 7A65915B17429A94F98FA981 /* PWInboxTabsFactory.h */; };
 		F49D19D107BC53D72703398E /* PWPurchaseRuntime.m in Sources */ = {isa = PBXBuildFile; fileRef = EED9413E71126F748F0DC476 /* PWPurchaseRuntime.m */; };
 		F50D8FC45DD057BDAA6BA932 /* PrivacyInfo.xcprivacy in Resources */ = {isa = PBXBuildFile; fileRef = 7950D5B5AC34D7DE1BB35D1D /* PrivacyInfo.xcprivacy */; };
 		F638548EB5D2EB0859A71806 /* PWWebClient.h in Headers */ = {isa = PBXBuildFile; fileRef = 17AC27ABBF3AEB0E7E41F9B5 /* PWWebClient.h */; settings = {ATTRIBUTES = (Private, ); }; };
@@ -730,6 +747,7 @@
 		486685192E741C6F214907EB /* PushwooshInboxKitAttributesTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9B542B04254DF6D219078B1F /* PushwooshInboxKitAttributesTest.swift */; };
 		144AB4F63A424995D7577A59 /* PushwooshInboxRichCardsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = AB2AB2AB2AB2AB2AB2AB2AB2 /* PushwooshInboxRichCardsTest.swift */; };
 		3F78C25E2A0570915934B83E /* PushwooshInboxKitViewControllerTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4896244362D9B18D2048BAF1 /* PushwooshInboxKitViewControllerTest.swift */; };
+		C5BF910972334002AC0DFD66 /* PushwooshInboxKitTabsTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = E6F908D96E734C569A5A6E43 /* PushwooshInboxKitTabsTest.swift */; };
 		28F3E4B67AD02EB23A7E0FB5 /* PushwooshInboxKitImplementationTest.swift in Sources */ = {isa = PBXBuildFile; fileRef = 33DA0642C03E0AC5F985699D /* PushwooshInboxKitImplementationTest.swift */; };
 		FFB045EC96310232C9806628 /* InboxKitTestSupport.swift in Sources */ = {isa = PBXBuildFile; fileRef = FC938CAF7CD7A261A6C42809 /* InboxKitTestSupport.swift */; };
 		175DA745A4FA2C386E2A057A /* PushwooshInboxKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = F7A61A2728123230C24117EF /* PushwooshInboxKit.framework */; };
@@ -1320,6 +1338,7 @@
 		4791CC56CC5431EFC163B290 /* GRPCServiceTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = GRPCServiceTests.swift; sourceTree = "<group>"; };
 		488B59CB5638330FC644591B /* PWIdleDetector.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWIdleDetector.m; sourceTree = "<group>"; };
 		4896244362D9B18D2048BAF1 /* PushwooshInboxKitViewControllerTest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshInboxKitViewControllerTest.swift; sourceTree = "<group>"; };
+		E6F908D96E734C569A5A6E43 /* PushwooshInboxKitTabsTest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshInboxKitTabsTest.swift; sourceTree = "<group>"; };
 		489B2908C16B8A5078C854A5 /* PWInAppPurchaseHelper.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInAppPurchaseHelper.h; sourceTree = "<group>"; };
 		49569063FAB9C6A37A85BB67 /* PushwooshInAppUIQueueTest.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PushwooshInAppUIQueueTest.swift; path = ./PushwooshInAppUIQueueTest.swift; sourceTree = "<group>"; };
 		49C50E5E8A993D99ABB1AF81 /* PWBasePushTrackingRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWBasePushTrackingRequest.m; sourceTree = "<group>"; };
@@ -1463,6 +1482,10 @@
 		7F0ACC0FB1F5BE7251C5A288 /* PWEasyJSWKDataFunction.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWEasyJSWKDataFunction.m; sourceTree = "<group>"; };
 		7F491B7A689156D0631335F0 /* PWAppOpenRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWAppOpenRequest.m; sourceTree = "<group>"; };
 		7FFF71B8F02D5553D5FF5279 /* PWResourceNativeConfigTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWResourceNativeConfigTest.m; sourceTree = "<group>"; };
+		A1117A000000000000000001 /* PWResourceScriptSubstitutionTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWResourceScriptSubstitutionTest.m; sourceTree = "<group>"; };
+		A1117A000000000000000002 /* PlaceholderCorpus */ = {isa = PBXFileReference; lastKnownFileType = folder; path = PlaceholderCorpus; sourceTree = "<group>"; };
+		A1117A000000000000000003 /* PWResourcePlaceholderCorpusTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWResourcePlaceholderCorpusTest.m; sourceTree = "<group>"; };
+		A1117A000000000000000004 /* PWResourcePlaceholderParityTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWResourcePlaceholderParityTest.m; sourceTree = "<group>"; };
 		8145A68C02232BFA4AB6E90D /* PWAdvertisingIdTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWAdvertisingIdTest.m; sourceTree = "<group>"; };
 		81B45F12194C047266C8FA3E /* PWRetryEntryTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWRetryEntryTest.m; path = ../Networking/RetryQueue/PWRetryEntryTest.m; sourceTree = "<group>"; };
 		81F4279FC84C97FB67D6025F /* PWPushRuntime.ios.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWPushRuntime.ios.m; sourceTree = "<group>"; };
@@ -1701,11 +1724,21 @@
 		E6C1014BE7B29F5F248CB6B7 /* PWIdleDetector.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWIdleDetector.h; sourceTree = "<group>"; };
 		E71BEE0F83AFA83D08311BFA /* PWRichMediaTest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWRichMediaTest.m; path = RichMedia/PWRichMediaTest.m; sourceTree = "<group>"; };
 		E75A70EA5C56A834D4BD74F7 /* PWInboxTypes.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInboxTypes.h; sourceTree = "<group>"; };
+		9204E49360F667BB821A7436 /* PWInboxTabs.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInboxTabs.h; sourceTree = "<group>"; };
+		AF2D7934C12F516691F910C8 /* PWInboxTabs.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInboxTabs.m; sourceTree = "<group>"; };
+		7A65915B17429A94F98FA981 /* PWInboxTabsFactory.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWInboxTabsFactory.h; sourceTree = "<group>"; };
+		0127AF19EB8AE8E788DC5419 /* PWInboxTabsFactory.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWInboxTabsFactory.m; sourceTree = "<group>"; };
 		E7A060DD8043A3DE5819D8BA /* StoryPayloadParserTests.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = StoryPayloadParserTests.swift; sourceTree = "<group>"; };
 		E8E77F98A129019BF50337F2 /* PushwooshGRPCImplementation.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = PushwooshGRPCImplementation.swift; sourceTree = "<group>"; };
 		E911493EB531BE14CD2ECAB2 /* PWReplayRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; name = PWReplayRequest.m; path = ../../PushwooshCore/Networking/RetryQueue/PWReplayRequest.m; sourceTree = "<group>"; };
 		EA1380F43DE98E946035F35C /* PWUserNotificationCenterDelegate.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWUserNotificationCenterDelegate.h; sourceTree = "<group>"; };
 		EB6F77136079F1C6310A0188 /* PWIdleDetectorTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWIdleDetectorTest.m; sourceTree = "<group>"; };
+		6D091068C14CAC7053E09279 /* PWInboxTabsTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInboxTabsTest.m; sourceTree = "<group>"; };
+		6D091069C14CAC7053E09280 /* PWInboxTabsSwiftApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWInboxTabsSwiftApiTest.swift; sourceTree = "<group>"; };
+		A22064D32B2F5BAB5E2B2E7F /* PWModulesSwiftApiTest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PWModulesSwiftApiTest.swift; sourceTree = "<group>"; };
+		29051BF7D29AB97260774566 /* PWInboxTabsStorageTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInboxTabsStorageTest.m; sourceTree = "<group>"; };
+		1E7C3D4C3924789A99DA2745 /* PWInboxTabsIntegrationTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInboxTabsIntegrationTest.m; sourceTree = "<group>"; };
+		C4C1BE69E2AAB01E57867B21 /* PWInboxCenterTest.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PWInboxCenterTest.m; sourceTree = "<group>"; };
 		EBA9ABC38F296AC61B361D15 /* PWRequestManager.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRequestManager.m; sourceTree = "<group>"; };
 		EBF4E8D01136CF1D9D6FAD58 /* PWRetryEntry.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRetryEntry.m; sourceTree = "<group>"; };
 		EC0B4B813B1ABBEE5E269EDA /* PWPushStatRequest.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWPushStatRequest.m; sourceTree = "<group>"; };
@@ -1735,6 +1768,8 @@
 		FC938CAF7CD7A261A6C42809 /* InboxKitTestSupport.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InboxKitTestSupport.swift; sourceTree = "<group>"; };
 		FCE1B07F6118CF11C0DBD394 /* PWRegisterEmail.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWRegisterEmail.m; sourceTree = "<group>"; };
 		FDB867A8D79C49DEB33E43D7 /* InboxDataSource.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InboxDataSource.swift; sourceTree = "<group>"; };
+		5F4F7F9447B14C328D5042F2 /* InboxTabBarView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InboxTabBarView.swift; sourceTree = "<group>"; };
+		A5EB72B58771D0A6B0EF27AD /* InboxErrorBannerView.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; path = InboxErrorBannerView.swift; sourceTree = "<group>"; };
 		FDD1F0C5C14AE76850F010F6 /* PWVersionTracking.m */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.objc; path = PWVersionTracking.m; sourceTree = "<group>"; };
 		FE888348F6F6AB5444D0D3CD /* PWMessageDeliveryRequest.h */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.c.h; path = PWMessageDeliveryRequest.h; sourceTree = "<group>"; };
 		FEADA75C36CAD7036C4A53F5 /* PWInAppMessageDelegate.swift */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = sourcecode.swift; name = PWInAppMessageDelegate.swift; path = Public/PWInAppMessageDelegate.swift; sourceTree = "<group>"; };
@@ -2964,6 +2999,10 @@
 				44659B802EAA755500ED66B7 /* PWEasyJSListenerTest.m */,
 				4649F4ED1ED5534200D3D90C /* PWJSInterfaceTest.m */,
 				4649F4EF1ED5534200D3D90C /* PWResourceTest.m */,
+				A1117A000000000000000001 /* PWResourceScriptSubstitutionTest.m */,
+				A1117A000000000000000003 /* PWResourcePlaceholderCorpusTest.m */,
+				A1117A000000000000000004 /* PWResourcePlaceholderParityTest.m */,
+				A1117A000000000000000002 /* PlaceholderCorpus */,
 				5D84AD102153A04E005D7432 /* PWConfigTest.m */,
 				972C9AA727F2045800F9ABE8 /* PWNotificationExtensionManagerTest.m */,
 				AA8400000000000000000007 /* PushwooshNotificationServiceExtensionTest.m */,
@@ -2977,6 +3016,12 @@
 				3616F1BA272D375A25348A9A /* PWRequestManagerStateTest.m */,
 				8145A68C02232BFA4AB6E90D /* PWAdvertisingIdTest.m */,
 				EB6F77136079F1C6310A0188 /* PWIdleDetectorTest.m */,
+				6D091068C14CAC7053E09279 /* PWInboxTabsTest.m */,
+				6D091069C14CAC7053E09280 /* PWInboxTabsSwiftApiTest.swift */,
+				A22064D32B2F5BAB5E2B2E7F /* PWModulesSwiftApiTest.swift */,
+				29051BF7D29AB97260774566 /* PWInboxTabsStorageTest.m */,
+				1E7C3D4C3924789A99DA2745 /* PWInboxTabsIntegrationTest.m */,
+				C4C1BE69E2AAB01E57867B21 /* PWInboxCenterTest.m */,
 				A0E1B7C400000004A0E1B7C4 /* PWApplicationExitDetectorTest.m */,
 				882A09B7102AD82AE2BDFD2D /* PWAppLifecycleTrackingManagerTest.m */,
 				862C94B23AA09B022B9AB057 /* PushwooshConfigGateTest.m */,
@@ -3163,6 +3208,10 @@
 				D6EB1082B7B14463B1C23FF0 /* Database */,
 				5D7F23685FD0A479160F6EDA /* Networking */,
 				E75A70EA5C56A834D4BD74F7 /* PWInboxTypes.h */,
+				9204E49360F667BB821A7436 /* PWInboxTabs.h */,
+				AF2D7934C12F516691F910C8 /* PWInboxTabs.m */,
+				7A65915B17429A94F98FA981 /* PWInboxTabsFactory.h */,
+				0127AF19EB8AE8E788DC5419 /* PWInboxTabsFactory.m */,
 			);
 			path = Inbox;
 			sourceTree = "<group>";
@@ -3875,6 +3924,8 @@
 			isa = PBXGroup;
 			children = (
 				FDB867A8D79C49DEB33E43D7 /* InboxDataSource.swift */,
+				5F4F7F9447B14C328D5042F2 /* InboxTabBarView.swift */,
+				A5EB72B58771D0A6B0EF27AD /* InboxErrorBannerView.swift */,
 				68B35BACB71CE00E049C6B50 /* MessageImageLoader.swift */,
 				C4414F26F3A0784456B71FE8 /* PWInboxFacade.swift */,
 			);
@@ -3909,6 +3960,7 @@
 				4896244362D9B18D2048BAF1 /* PushwooshInboxKitViewControllerTest.swift */,
 				33DA0642C03E0AC5F985699D /* PushwooshInboxKitImplementationTest.swift */,
 				FC938CAF7CD7A261A6C42809 /* InboxKitTestSupport.swift */,
+				E6F908D96E734C569A5A6E43 /* PushwooshInboxKitTabsTest.swift */,
 			);
 			path = PushwooshInboxKitTests;
 			sourceTree = "<group>";
@@ -4115,6 +4167,8 @@
 				5CD074E70DD8FD4519F29542 /* PWPushNotificationsManager.h in Headers */,
 				AD47C2351F310064F1D14791 /* PWPushNotificationsManager.common.h in Headers */,
 				F36431E37990AECCF273D269 /* PWInboxTypes.h in Headers */,
+				858D9AD81157A7744684B606 /* PWInboxTabs.h in Headers */,
+				423A6B551DFD1ED1A5B34D2B /* PWInboxTabsFactory.h in Headers */,
 				48E4A2EFF8720AD0F66DF965 /* PWInAppManager.h in Headers */,
 				500AEE921B038C19C8CD68F7 /* PWModalWindowConfiguration.h in Headers */,
 				C7B71D887FE708C182CA4586 /* PWRichMediaManager.h in Headers */,
@@ -4941,6 +4995,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				674AC0357F3C5BC8E1EED857 /* feature_flags_contract.json in Resources */,
+				A1117B000000000000000002 /* PlaceholderCorpus in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5202,6 +5257,9 @@
 				88E766210E4A4006BA0BF5E2 /* PWRichMedia.m in Sources */,
 				4488D0422ED88A20005B798B /* PushwooshCore.docc in Sources */,
 				C286E11210FE01134ADE5340 /* PWInboxTypes.h in Sources */,
+				50CAD0FFAD2F83F7A3980DCC /* PWInboxTabs.h in Sources */,
+				D10C1886BD7F3AD2C9A1BE1A /* PWInboxTabs.m in Sources */,
+				63B1BCE39E225E8508E56E30 /* PWInboxTabsFactory.m in Sources */,
 				681BA252B24F642E471410A3 /* PWInAppManager.m in Sources */,
 				176086182D00572BFA97CC48 /* PWModalWindowConfiguration.m in Sources */,
 				93C9B3E189B720308606CA0D /* PWRichMediaManager.m in Sources */,
@@ -5403,6 +5461,12 @@
 				449CAA22287726ED00B4EEEF /* PWRegisterTestDeviceRequestTest.m in Sources */,
 				D0485AB30C266AC2EFD17C8D /* PWKnockPatternDetectorTest.m in Sources */,
 				C0E12DAB5AE177161329C74C /* PWIdleDetectorTest.m in Sources */,
+				FB2B3593D9BF21FEA2460434 /* PWInboxTabsTest.m in Sources */,
+				FB2B3594D9BF21FEA2460435 /* PWInboxTabsSwiftApiTest.swift in Sources */,
+				A1F97E5B78E1A2F081093AEF /* PWModulesSwiftApiTest.swift in Sources */,
+				B59EC32A223D7486E86923BD /* PWInboxTabsStorageTest.m in Sources */,
+				0B3FC4656B275313D2A5CF64 /* PWInboxTabsIntegrationTest.m in Sources */,
+				B87548EEF7FA0D01A5738882 /* PWInboxCenterTest.m in Sources */,
 				A0E1B7C400000007A0E1B7C4 /* PWApplicationExitDetectorTest.m in Sources */,
 				3B763094AFF90C4C4BDD1BEA /* PWAppLifecycleTrackingManagerTest.m in Sources */,
 				44378CC628BE347300175DE2 /* PWInAppPurchaseHelperTest.m in Sources */,
@@ -5456,6 +5520,9 @@
 				7DDAC3D010A9AC90C851172B /* PWPushPrimerTest.m in Sources */,
 				5127CD6198787B803E75853D /* PWModalWindowTest.m in Sources */,
 				3E684054C5463FBF32AD882E /* PWResourceNativeConfigTest.m in Sources */,
+				A1117B000000000000000001 /* PWResourceScriptSubstitutionTest.m in Sources */,
+				A1117B000000000000000003 /* PWResourcePlaceholderCorpusTest.m in Sources */,
+				A1117B000000000000000004 /* PWResourcePlaceholderParityTest.m in Sources */,
 				F0695F85057EA8A5A2A68747 /* PWNativeInAppRouteTest.m in Sources */,
 				E86944B13121591B2789B3F1 /* PWFeatureFlagsTest.m in Sources */,
 			);
@@ -5651,6 +5718,8 @@
 				A91A91A91A91A91A91A91A91 /* PushwooshInboxWalletPass.swift in Sources */,
 				AA1AA1AA1AA1AA1AA1AA1AA1 /* PushwooshInboxWalletCell.swift in Sources */,
 				E751D05A4D810F920E626FDA /* InboxDataSource.swift in Sources */,
+				3E086C8D36D146BA8094D377 /* InboxTabBarView.swift in Sources */,
+				53A179E5FA2F856AF0873C40 /* InboxErrorBannerView.swift in Sources */,
 				DAE5413D14B5A0DE9B187BCD /* MessageImageLoader.swift in Sources */,
 				98AE20C7848488C66C25EEC0 /* PWInboxFacade.swift in Sources */,
 			);
@@ -5665,6 +5734,7 @@
 				3F78C25E2A0570915934B83E /* PushwooshInboxKitViewControllerTest.swift in Sources */,
 				28F3E4B67AD02EB23A7E0FB5 /* PushwooshInboxKitImplementationTest.swift in Sources */,
 				FFB045EC96310232C9806628 /* InboxKitTestSupport.swift in Sources */,
+				C5BF910972334002AC0DFD66 /* PushwooshInboxKitTabsTest.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -5969,7 +6039,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -6086,7 +6156,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6221,7 +6291,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6305,7 +6375,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6389,7 +6459,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6473,7 +6543,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6564,7 +6634,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -6652,7 +6722,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -6738,7 +6808,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -6824,7 +6894,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
@@ -6936,7 +7006,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -7019,7 +7089,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7105,7 +7175,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = YES;
 				ONLY_ACTIVE_ARCH = NO;
@@ -7191,7 +7261,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULEMAP_FILE = "$(SRCROOT)/modulemap/module.modulemap";
 				MTL_ENABLE_DEBUG_INFO = NO;
 				OTHER_CFLAGS = (
@@ -7566,7 +7636,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -7716,7 +7786,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -7779,7 +7849,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -7833,7 +7903,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshLiveActivitiesTests;
@@ -7871,7 +7941,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshKeychain;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -7944,7 +8014,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -8029,7 +8099,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 15.0;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshNotificationUITests;
@@ -8109,7 +8179,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -8190,7 +8260,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -8280,7 +8350,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -8365,7 +8435,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -8448,7 +8518,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
@@ -8527,7 +8597,7 @@
 					"@loader_path/Frameworks",
 				);
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MODULE_VERIFIER_SUPPORTED_LANGUAGES = "objective-c objective-c++";
 				MODULE_VERIFIER_SUPPORTED_LANGUAGE_STANDARDS = "gnu17 gnu++20";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -8590,7 +8660,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -8645,7 +8715,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_INFOPLIST_FILE = YES;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshTVOSTests;
@@ -8704,7 +8774,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -8758,7 +8828,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshVoIPTests;
@@ -8796,7 +8866,7 @@
 					"@executable_path/Frameworks",
 					"@loader_path/Frameworks",
 				);
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshKeychain;
 				PRODUCT_NAME = "$(TARGET_NAME:c99extidentifier)";
 				SKIP_INSTALL = YES;
@@ -8851,7 +8921,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -8905,7 +8975,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshInboxKitTests;
@@ -8962,7 +9032,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
 				MTL_FAST_MATH = YES;
 				ONLY_ACTIVE_ARCH = YES;
@@ -9016,7 +9086,7 @@
 				GENERATE_INFOPLIST_FILE = YES;
 				IPHONEOS_DEPLOYMENT_TARGET = 17.5;
 				LOCALIZATION_PREFERS_STRING_CATALOGS = YES;
-				MARKETING_VERSION = 7.2.10;
+				MARKETING_VERSION = 7.3.0;
 				MTL_ENABLE_DEBUG_INFO = NO;
 				MTL_FAST_MATH = YES;
 				PRODUCT_BUNDLE_IDENTIFIER = com.pushwoosh.PushwooshInAppTests;

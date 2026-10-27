@@ -50,6 +50,21 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     Whatsapp = 21
 };
 
+/// A registerDevice on its way to the server; a repeat under the same conditions waits for its outcome.
+@interface PWRegistrationInFlight : NSObject
+
+@property (nonatomic, copy) NSString *pushToken;
+@property (nonatomic, copy) NSString *appCode;
+@property (nonatomic, copy) NSString *hwid;
+@property (nonatomic) NSInteger statusMask;
+@property (nonatomic, copy) NSDictionary *customTags;
+@property (nonatomic) BOOL triggerCallbacks;
+
+@end
+
+@implementation PWRegistrationInFlight
+@end
+
 
 @interface PWPushNotificationsManagerCommon ()
 
@@ -82,6 +97,12 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 
 @property (nonatomic) PWRegisterDeviceRequest *request;
 
+/// Dropped by its answer, by a lastRegTime reset through KVO and by an app code change, which resets lastRegTime without KVO.
+@property (atomic, strong) PWRegistrationInFlight *registrationInFlight;
+
+/// The newest registerDevice still without an answer; a newer one takes its callbacks over.
+@property (nonatomic, strong) PWRegistrationInFlight *registrationAwaitingAnswer;
+
 @property (nonatomic) NSString *trackingAppCode;
 @property (nonatomic) NSString *pendingPushToken;
 @property (nonatomic, readwrite) NSUInteger pushRegistrationCount;
@@ -105,16 +126,22 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(notificationStatusSyncCompleted:) name:kNotificationAuthorizationStatusUpdated object:nil];
 
         [[PWPreferences preferences] addObserver:self forKeyPath:@"appCode" options:NSKeyValueObservingOptionNew | NSKeyValueObservingOptionInitial context:nil];
+        [[PWPreferences preferences] addObserver:self forKeyPath:@"lastRegTime" options:0 context:nil];
     }
     return self;
 }
 
 - (void)observeValueForKeyPath:(NSString *)keyPath ofObject:(id)object change:(NSDictionary<NSKeyValueChangeKey,id> *)change context:(void *)context {
+    if ([keyPath isEqualToString:@"lastRegTime"]) {
+        self.registrationInFlight = nil;
+    }
+
     if ([keyPath isEqualToString:@"appCode"]) {
         NSString *appCode = [PWPreferences preferences].appCode;
 
         if (appCode && ![appCode isEqualToString:@""] && ![[PWPreferences preferences].appCode isEqualToString:_trackingAppCode]) {
             _trackingAppCode = [PWPreferences preferences].appCode;
+            self.registrationInFlight = nil;
 
             dispatch_async(dispatch_get_main_queue(), ^{
                 [self updateRegistration];
@@ -130,6 +157,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
 
 - (void)dealloc {
     [[PWPreferences preferences] removeObserver:self forKeyPath:@"appCode"];
+    [[PWPreferences preferences] removeObserver:self forKeyPath:@"lastRegTime"];
 }
 
 - (BOOL)isAppInBackground {
@@ -259,8 +287,24 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     NSString *permissionStatus = [PWAppOpenRequest pushPermissionStatusFromNotificationStatus:notificationStatus];
     BOOL permissionStatusUnchanged = permissionStatus == nil ||
         [permissionStatus isEqualToString:self.lastPushPermissionStatus];
+    NSString *appCode = [PWPreferences preferences].appCode;
+    NSString *hwid = [PWPreferences preferences].hwid;
+    PWRegistrationInFlight *inFlight = self.registrationInFlight;
+    NSDictionary *customTags = [PWPreferences preferences].customTags;
+    BOOL customTagsUnsent = customTags != nil && ![customTags isEqualToDictionary:inFlight.customTags];
 
-    if (lastReg) {
+    if ([inFlight.pushToken isEqualToString:deviceID] &&
+        [inFlight.appCode isEqualToString:appCode] &&
+        [inFlight.hwid isEqualToString:hwid] &&
+        inFlight.statusMask == statusMask &&
+        permissionStatusUnchanged &&
+        !customTagsUnsent) {
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Registration for push notifications is in progress, waiting for its result: %@", deviceID]];
+        inFlight.triggerCallbacks = inFlight.triggerCallbacks || triggerCallbacks;
+        return;
+    }
+
+    if (lastReg && inFlight == nil && customTags == nil) {
         NSTimeInterval secondsBetween = [[NSDate date] timeIntervalSinceDate:lastReg];
 
         if ([[PWPreferences preferences].pushToken isEqualToString:deviceID] &&
@@ -277,7 +321,6 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     }
 
     [PWPreferences preferences].lastStatusMask = statusMask;
-    [PWPreferences preferences].lastRegTime = [NSDate date];
     NSString *previousPermissionStatus = self.lastPushPermissionStatus;
     if (permissionStatus) {
         self.lastPushPermissionStatus = permissionStatus;
@@ -286,9 +329,42 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     PWRegisterDeviceRequest *request = [self requestParameters:deviceID platform:iOS];
     request.notificationStatus = notificationStatus;
 
-    [_sessionRetry sendWithRetry:request completion:^(NSError *error) {
+    PWRegistrationInFlight *registration = [PWRegistrationInFlight new];
+    registration.pushToken = deviceID;
+    registration.appCode = appCode;
+    registration.hwid = hwid;
+    registration.statusMask = statusMask;
+    registration.customTags = request.customTags;
+    registration.triggerCallbacks = triggerCallbacks || self.registrationAwaitingAnswer.triggerCallbacks;
+    self.registrationAwaitingAnswer.triggerCallbacks = NO;
+    self.registrationAwaitingAnswer = registration;
+    self.registrationInFlight = registration;
 
-        [[PWPreferences preferences] setCustomTags:nil];
+    [_sessionRetry sendWithRetry:request completion:^(NSError *error) {
+        if (self.registrationAwaitingAnswer == registration) {
+            self.registrationAwaitingAnswer = nil;
+        }
+
+        NSString *currentAppCode = [PWPreferences preferences].appCode;
+        BOOL sameApplication = registration.appCode == currentAppCode || [registration.appCode isEqualToString:currentAppCode];
+        NSInteger httpCode = request.httpCode;
+        BOOL deviceNetworkRefused = httpCode == 407 || httpCode == 511;
+        BOOL rejected = request.answeredByPushwoosh || (httpCode >= 400 && httpCode < 500 && !deviceNetworkRefused);
+        BOOL tagsSettled = error == nil || (rejected && ![[PWRetryPolicy new] shouldRetryStatusCode:httpCode error:error]);
+        if (sameApplication && tagsSettled && [[PWPreferences preferences].customTags isEqualToDictionary:registration.customTags]) {
+            [[PWPreferences preferences] setCustomTags:nil];
+        }
+
+        if (self.registrationInFlight == registration) {
+            self.registrationInFlight = nil;
+            if (sameApplication) {
+                [PWPreferences preferences].lastRegTime = error ? NSDate.distantPast : [NSDate date];
+                // distantPast already forces the retry; keep the last delivered status, not nil
+                if (error && permissionStatus && [permissionStatus isEqualToString:self.lastPushPermissionStatus]) {
+                    self.lastPushPermissionStatus = previousPermissionStatus;
+                }
+            }
+        }
 
         if (error == nil) {
             [PushwooshLog pushwooshLog:PW_LL_INFO
@@ -298,26 +374,19 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
                                         "Device ID: %@\n"
                                         "HWID: %@\n",
                                         deviceID, [PWPreferences preferences].hwid]];
-            //registered on server, save last registration time to prevent multiple register request
-            [PWPreferences preferences].lastRegTime = [NSDate date];
 #if TARGET_OS_IOS
-            [[PWFeatureFlagsManager sharedManager] deviceRegistered];
+            if (sameApplication) {
+                [[PWFeatureFlagsManager sharedManager] deviceRegistered];
+            }
 #endif
 
-            [self sendTokenToDelegate:deviceID triggerCallbacks:triggerCallbacks];
+            [self sendTokenToDelegate:deviceID triggerCallbacks:registration.triggerCallbacks];
         } else {
-            //reset time
-            [PWPreferences preferences].lastRegTime = NSDate.distantPast;
-            // distantPast already forces the retry; keep the last delivered status, not nil
-            if (permissionStatus && [permissionStatus isEqualToString:self.lastPushPermissionStatus]) {
-                self.lastPushPermissionStatus = previousPermissionStatus;
-            }
-
             [PushwooshLog pushwooshLog:PW_LL_ERROR
                              className:self
                                message:@"Registered for push notifications failed"];
 
-            if (triggerCallbacks) {
+            if (registration.triggerCallbacks) {
                 if ([[PWManagerBridge shared].delegate respondsToSelector:@selector(onDidFailToRegisterForRemoteNotificationsWithError:)]) {
                     [[PWManagerBridge shared].delegate performSelectorOnMainThread:@selector(onDidFailToRegisterForRemoteNotificationsWithError:) withObject:error waitUntilDone:NO];
                 }
@@ -672,8 +741,9 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
                 [invocation setSelector:selector];
                 [invocation setTarget:delegate];
 
-                id bridge = [PWManagerBridge shared];
-                [invocation setArgument:&bridge atIndex:2];
+                PWManagerBridge *bridge = [PWManagerBridge shared];
+                id sender = bridge.messagingSender ?: bridge;
+                [invocation setArgument:&sender atIndex:2];
                 [invocation setArgument:&message atIndex:3];
                 [invocation invoke];
 
@@ -853,8 +923,9 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
                 [invocation setSelector:selector];
                 [invocation setTarget:delegate];
 
-                id bridge = [PWManagerBridge shared];
-                [invocation setArgument:&bridge atIndex:2];
+                PWManagerBridge *bridge = [PWManagerBridge shared];
+                id sender = bridge.messagingSender ?: bridge;
+                [invocation setArgument:&sender atIndex:2];
                 [invocation setArgument:&message atIndex:3];
                 [invocation invoke];
             }

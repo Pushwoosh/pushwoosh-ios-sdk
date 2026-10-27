@@ -14,6 +14,9 @@
 @property (nonatomic) NSMutableDictionary<NSString *, PWInboxMessageInternal *> *messages;
 @property (nonatomic) NSInteger count;
 
+/// The raw `inbox_tabs` dictionary of the response, `nil` when the key is absent or is not a dictionary.
+@property (nonatomic) NSDictionary *tabsPayload;
+
 - (instancetype)initWithLastRequestTime:(NSDate *)lastRequestTime;
 
 @end

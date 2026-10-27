@@ -64,7 +64,6 @@ NS_ASSUME_NONNULL_BEGIN
    For full control, skip `super` and drive everything yourself (in that case send the delivery
    event via `PWNotificationExtensionManager`).
  */
-API_AVAILABLE(ios(10.0))
 @interface PushwooshNotificationServiceExtension : UNNotificationServiceExtension
 
 /**

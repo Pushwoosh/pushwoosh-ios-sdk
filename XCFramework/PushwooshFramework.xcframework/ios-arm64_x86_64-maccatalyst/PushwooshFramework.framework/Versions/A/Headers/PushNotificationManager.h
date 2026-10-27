@@ -157,7 +157,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
  @param pushManager PushNotificationManager instance
  @param notification Source notification
  */
-- (void)pushManager:(PushNotificationManager *)pushManager openSettingsForNotification:(UNNotification *)notification __IOS_AVAILABLE(12.0);
+- (void)pushManager:(PushNotificationManager *)pushManager openSettingsForNotification:(UNNotification *)notification;
 
 #endif
 
@@ -267,7 +267,7 @@ typedef void (^PushwooshErrorHandler)(NSError *error);
 /**
  Authorization options in addition to UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionCarPlay.
  */
-@property (nonatomic) UNAuthorizationOptions additionalAuthorizationOptions __IOS_AVAILABLE(12.0);
+@property (nonatomic) UNAuthorizationOptions additionalAuthorizationOptions;
 
 #endif
 

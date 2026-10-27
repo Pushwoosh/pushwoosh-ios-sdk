@@ -18,6 +18,9 @@
 - (void)getAllMessagesWithCompletion:(void (^)(NSDictionary<NSString *, PWInboxMessageInternal *> *messages, NSError *error))completion;
 - (void)getMessages:(NSString *)lastMessageCode limit:(NSInteger)limit completion:(void (^)(NSDictionary<NSString *, PWInboxMessageInternal *> *messages, NSError *error))completion;
 
+/// The raw `inbox_tabs` dictionary of the most recent successful all-messages response, `nil` when that response had none.
+- (NSDictionary *)lastInboxTabsPayload;
+
 - (void)sendStatusInDiffMessages:(NSArray<PWInboxMessageInternal *> *)messages;
 - (void)readMessages:(NSArray<PWInboxMessageInternal *> *)messages;
 - (void)actionMessages:(NSArray<PWInboxMessageInternal *> *)messages;

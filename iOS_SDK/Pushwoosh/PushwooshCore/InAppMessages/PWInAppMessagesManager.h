@@ -17,6 +17,8 @@ FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 
 - (void)setUserId:(NSString*)userId completion:(void (^)(NSError* error))completion;
 
+- (void)resetUserIdWithCompletion:(void (^)(NSError* error))completion;
+
 - (void)mergeUserId:(NSString*)oldUserId to:(NSString*)newUserId doMerge:(BOOL)doMerge completion:(void (^)(NSError* error))completion;
 
 - (void)setUser:(NSString *)userId emails:(NSArray *)emails completion:(void(^)(NSError * error))completion;

@@ -12,6 +12,8 @@ extern NSString * const PWInboxMessagesDidUpdateNotification;
 
 #import "PWPostEventRequest.h"
 #import "PWRegisterUserRequest.h"
+#import "PWRequest+Internal.h"
+#import "PWSdkStateProvider.h"
 #import "PWMergeUserRequest.h"
 #import "PWUtils.h"
 #import "PWPreferences.h"
@@ -57,6 +59,13 @@ NSString * const PW_INAPP_ACTION_SHOW = @"com.pushwoosh.PW_INAPP_ACTION_SHOW";
 NSString * const PW_DEVICE_RESTORED_KEY = @"device_restored_key";
 
 const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
+
+static NSMutableArray<dispatch_block_t> *waitingRegisterUserRequests;
+static BOOL registerUserRequestInFlight;
+static NSString *confirmedUserId;
+static BOOL confirmedUsesDefaultUserId;
+static NSDate *confirmedRegisterUserDate;
+static NSArray<NSString *> *confirmedRegisterUserApplication;
 
 
 @interface PWInAppMessagesManager()
@@ -369,6 +378,64 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 #endif
 
 - (void)setUserId:(NSString *)userId completion:(void(^)(NSError * error))completion {
+    [self registerUserId:userId resetsToHwid:NO completion:completion];
+}
+
+- (void)resetUserIdWithCompletion:(void(^)(NSError * error))completion {
+    [self registerUserId:[PWPreferences preferences].hwid resetsToHwid:YES completion:completion];
+}
+
+- (void)registerUserId:(NSString *)userId resetsToHwid:(BOOL)resetsToHwid completion:(void(^)(NSError * error))completion {
+    BOOL skipsRequest = NO;
+    BOOL sendsNow = NO;
+    @synchronized ([PWInAppMessagesManager class]) {
+        PWPreferences *preferences = [PWPreferences preferences];
+        if (userId == nil) {
+            userId = preferences.userId;
+            resetsToHwid = preferences.usesDefaultUserId;
+        }
+        if (!registerUserRequestInFlight) {
+            skipsRequest = [self isUserIdRegisteredToday:userId];
+            if (skipsRequest) {
+                if (resetsToHwid)
+                    [preferences resetUserIdToHwid];
+            } else {
+                confirmedUserId = preferences.userId;
+                confirmedUsesDefaultUserId = preferences.usesDefaultUserId;
+                confirmedRegisterUserDate = preferences.lastRegisterUserDate;
+                confirmedRegisterUserApplication = [PWInAppMessagesManager registerUserApplication];
+                registerUserRequestInFlight = YES;
+                sendsNow = YES;
+            }
+        }
+        if (!skipsRequest) {
+            if (resetsToHwid) {
+                [preferences resetUserIdToHwid];
+            } else {
+                preferences.userId = userId;
+            }
+            preferences.lastRegisterUserDate = nil;
+        }
+        if (!skipsRequest && !sendsNow) {
+            if (!waitingRegisterUserRequests) {
+                waitingRegisterUserRequests = [NSMutableArray array];
+            }
+            [waitingRegisterUserRequests addObject:[^{
+                [self sendRegisterUserId:userId resetsToHwid:resetsToHwid completion:completion];
+            } copy]];
+        }
+    }
+
+    if (skipsRequest) {
+        [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"/registerUser with same id already sent this day"];
+        if (completion)
+            completion(nil);
+    } else if (sendsNow) {
+        [self sendRegisterUserId:userId resetsToHwid:resetsToHwid completion:completion];
+    }
+}
+
+- (BOOL)isUserIdRegisteredToday:(NSString *)userId {
     NSDate *lastRegDate = [PWPreferences preferences].lastRegisterUserDate;
     NSTimeInterval lastRegPeriod = kRegisterUserUpdateInterval + 1;
     if (lastRegDate) {
@@ -377,47 +444,87 @@ const NSTimeInterval kRegisterUserUpdateInterval = 24 * 60 * 60;
 
     if ([self isDeviceRestored]) {
         [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"Device is restored from iCloud backup"];
-    } else if ([[PWPreferences preferences].userId isEqualToString:userId] && (lastRegPeriod < kRegisterUserUpdateInterval)) {
-        [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:@"/registerUser with same id already sent this day"];
-        if (completion)
-            completion(nil);
+        return NO;
+    }
+    return [[PWPreferences preferences].userId isEqualToString:userId] && (lastRegPeriod < kRegisterUserUpdateInterval);
+}
 
+- (void)sendRegisterUserId:(NSString *)userId resetsToHwid:(BOOL)resetsToHwid completion:(void(^)(NSError * error))completion {
+    if ([PWSdkStateProvider sharedInstance].currentState == PWSdkStateError) {
+        NSError *error = [PWUtils pushwooshErrorWithCode:PWErrorRequestNotReady description:@"SDK is in ERROR state, /registerUser is not sent"];
+        [self finishRegisterUserId:userId resetsToHwid:resetsToHwid error:error completion:completion];
         return;
     }
-    NSString *previousUserId = [PWPreferences preferences].userId;
-    [PWPreferences preferences].userId = userId;
-    NSDate *previousRegisterUserDate = [PWPreferences preferences].lastRegisterUserDate;
-    [PWPreferences preferences].lastRegisterUserDate = [NSDate date];
 
     PWRegisterUserRequest *request = [PWRegisterUserRequest new];
+    request.pinnedUserId = userId;
     [_requestManager sendRequest:request completion:^(NSError *error) {
-        if (error == nil) {
-            [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"User \"%@\" was successfully registered", userId]];
+        [self finishRegisterUserId:userId resetsToHwid:resetsToHwid error:error completion:completion];
+    }];
+}
+
+- (void)finishRegisterUserId:(NSString *)userId resetsToHwid:(BOOL)resetsToHwid error:(NSError *)error completion:(void(^)(NSError * error))completion {
+    dispatch_block_t nextRequest = [PWInAppMessagesManager settleRegisterUserId:userId usesDefaultUserId:resetsToHwid confirmed:error == nil];
+    if (error == nil) {
+        [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"User \"%@\" was successfully registered", userId]];
 #if TARGET_OS_IOS
-            [[PWFeatureFlagsManager sharedManager] userIdUpdated];
+        [[PWFeatureFlagsManager sharedManager] userIdUpdated];
 #endif
 
-            [[PWManagerBridge shared].inboxBridge updateInboxForNewUserId:^(NSUInteger messagesCount) {
-                if (messagesCount == 0) {
-                    [[NSNotificationCenter defaultCenter] postNotificationName:PWInboxMessagesDidUpdateNotification
-                                                                        object:self
-                                                                      userInfo:@{@"messagesAdded" : @[] ?: @[],
-                                                                                 @"messagesDeleted" : @[] ?: @[],
-                                                                                 @"messagesUpdated" : @[] ?: @[]
-                                                                               }];
-                }
-            }];
-        } else {
-            [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Failed to update inbox for a new user. error: %@", error.localizedDescription]];
-            [PWPreferences preferences].userId = previousUserId;
-            [PWPreferences preferences].lastRegisterUserDate = previousRegisterUserDate;
+        [[PWManagerBridge shared].inboxBridge updateInboxForNewUserId:^(NSUInteger messagesCount) {
+            if (messagesCount == 0) {
+                [[NSNotificationCenter defaultCenter] postNotificationName:PWInboxMessagesDidUpdateNotification
+                                                                    object:self
+                                                                  userInfo:@{@"messagesAdded" : @[] ?: @[],
+                                                                             @"messagesDeleted" : @[] ?: @[],
+                                                                             @"messagesUpdated" : @[] ?: @[]
+                                                                           }];
+            }
+        }];
+    } else {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Failed to update inbox for a new user. error: %@", error.localizedDescription]];
 #if TARGET_OS_IOS
-            [[PWFeatureFlagsManager sharedManager] userIdUpdateFailed];
+        [[PWFeatureFlagsManager sharedManager] userIdUpdateFailed];
 #endif
+    }
+    if (completion)
+        completion(error);
+    if (nextRequest)
+        nextRequest();
+}
+
++ (dispatch_block_t)settleRegisterUserId:(NSString *)userId usesDefaultUserId:(BOOL)usesDefaultUserId confirmed:(BOOL)confirmed {
+    @synchronized ([PWInAppMessagesManager class]) {
+        if (confirmed) {
+            confirmedUserId = userId;
+            confirmedUsesDefaultUserId = usesDefaultUserId;
+            confirmedRegisterUserDate = [NSDate date];
         }
-        if (completion)
-            completion(error);
-    }];
+
+        dispatch_block_t nextRequest = waitingRegisterUserRequests.firstObject;
+        if (nextRequest) {
+            [waitingRegisterUserRequests removeObjectAtIndex:0];
+            return nextRequest;
+        }
+
+        registerUserRequestInFlight = NO;
+        PWPreferences *preferences = [PWPreferences preferences];
+        if (confirmedUsesDefaultUserId) {
+            [preferences resetUserIdToHwid];
+        } else {
+            preferences.userId = confirmedUserId;
+        }
+        if (![confirmedRegisterUserApplication isEqualToArray:[PWInAppMessagesManager registerUserApplication]]) {
+            confirmedRegisterUserDate = nil;
+        }
+        preferences.lastRegisterUserDate = confirmedRegisterUserDate;
+        return nil;
+    }
+}
+
++ (NSArray<NSString *> *)registerUserApplication {
+    PWPreferences *preferences = [PWPreferences preferences];
+    return @[preferences.appCode ?: @"", preferences.baseUrl ?: @""];
 }
 
 - (BOOL)isDeviceRestored {

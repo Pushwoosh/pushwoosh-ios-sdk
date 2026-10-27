@@ -14,7 +14,6 @@ import CallKit
 import AVFoundation
 
 /// Orchestrates VoIP push notifications and CallKit integration for iOS applications.
-@available(iOS 14.0, *)
 @objc(PushwooshVoIPImplementation)
 public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelegate, CXProviderDelegate {
 
@@ -195,7 +194,11 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
     }
 
     public func pushRegistry(_ registry: PKPushRegistry, didInvalidatePushTokenFor type: PKPushType) {
-        unregisterVoIPDeviceRequest()
+        // unregisterDevice would drop the regular push token on the backend; APNs 410 retires the dead VoIP token there.
+        PWPreferences.preferencesInstance().voipPushToken = nil
+        PushwooshLog.pushwooshLog(.PW_LL_INFO,
+                                  className: self,
+                                  message: "VoIP token invalidated, cleared locally.")
     }
 
     public func pushRegistry(_ registry: PKPushRegistry, didReceiveIncomingPushWith payload: PKPushPayload, for type: PKPushType, completion: @escaping () -> Void) {
@@ -451,27 +454,6 @@ public class PushwooshVoIPImplementation: NSObject, PWVoIP, PKPushRegistryDelega
         let request = PWSetVoIPTokenRequest(parameters: requestParameters)
         VoipNetworkManager.shared.sendInnerRequest(request: request) { error in
             self.handleVoIPTokenResult(error: error)
-        }
-    }
-
-    private func unregisterVoIPDeviceRequest() {
-        let requestParameters = VoIPRequestParameters(token: nil)
-        let request = PWUnregisterVoIPDeviceRequest(parameters: requestParameters)
-        VoipNetworkManager.shared.sendInnerRequest(request: request) { error in
-            self.handleVoIPDeviceUnregisterResult(error: error)
-        }
-    }
-
-    private func handleVoIPDeviceUnregisterResult(error: Error?) {
-        if let error = error {
-            PushwooshLog.pushwooshLog(.PW_LL_ERROR,
-                                      className: self,
-                                      message: "Failed device unregistered. Error: \(error.localizedDescription)")
-        } else {
-            PWPreferences.preferencesInstance().voipPushToken = nil
-            PushwooshLog.pushwooshLog(.PW_LL_INFO,
-                                      className: self,
-                                      message: "VoIP device successfully unregistered.")
         }
     }
 

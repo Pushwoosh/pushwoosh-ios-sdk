@@ -1,0 +1,252 @@
+<!doctype html>
+<html class="no-js" lang="">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <title></title>
+    <meta name="description" content="">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link href="https://fonts.googleapis.com/css?family=Roboto:400,300,500,700" rel="stylesheet" type="text/css">
+    <link href="https://fonts.googleapis.com/css?family=Roboto+Condensed:400,700,300" rel="stylesheet" type="text/css">
+    <style type="text/css">
+        * {
+            -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
+            user-select: none;
+        }
+
+        html {
+            background: rgba(35, 31, 32, 0.44);
+            font-family: 'Roboto Regular', Arial, Helvetica, sans-serif;
+            color: #000000;
+        }
+
+        body {
+            height: 100vh;
+            width: 100%;
+            margin: 0;
+            display: block;
+        }
+
+        h2 {
+            font-family: 'Roboto Light', Arial, Helvetica, sans-serif;
+            font-style: normal;
+            color: #{{Header text color|color|334d5c}};
+            line-height: 1.2em;
+            margin: 5px 20px 5px;
+            text-align: center;
+        }
+
+        p {
+            text-align: center;
+            font-size: 1em;
+            color: #{{Body text color|color|000000}};
+            line-height: 1.5em;
+            margin: 0 20px 25px;
+        }
+
+        .checkbox-list {
+            display: block;
+            position: relative;
+            overflow: hidden;
+            margin-left: 15%;
+            margin-right: 5%;
+        }
+
+        .checkbox-wrapper {
+            position: relative;
+            width: 50%;
+            display: inline-block;
+            float: left;
+        }
+
+        label {
+            display: inline-block;
+            vertical-align: middle;
+            cursor: pointer;
+            background-image: url(check1.png);
+            background-size: contain;
+            width: 30px;
+            height: 30px;
+            margin-right: 5px;
+        }
+
+        .upper-background {
+            display: block;
+            overflow: hidden;
+            background: url(bg.png) no-repeat;
+            background-size: cover;
+            min-height: 100px;
+            margin-top: 0;
+        }
+
+        input[type=checkbox] {
+            display: none;
+        }
+
+        input[type=checkbox]:checked + label {
+            background-image: url(check2.png);
+        }
+
+        a {
+            display: block;
+            font-family: 'Roboto Condensed', Arial, Helvetica, sans-serif;
+            font-weight: 700;
+            font-size: 0.88rem;
+            letter-spacing: 1px;
+            text-decoration: none;
+            cursor: pointer;
+            border: none;
+            outline: none;
+            padding: 0;
+            -webkit-box-shadow: 0 0;
+            box-shadow: 0 0;
+        }
+
+        .wrapper {
+            padding: 15px;
+            position: relative;
+            top: 50%;
+            -webkit-transform: translateY(-50%);
+            -moz-transform: translateY(-50%);
+            transform: translateY(-50%);
+        }
+
+        .template {
+            position: relative;
+            min-width: 260px;
+            max-width: 700px;
+            margin: 0 auto;
+        }
+
+        .template-main {
+            border-radius: 16px;
+            overflow: hidden;
+            background-color: #{{Background color|color|fff}};
+            -webkit-box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.25);
+            box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.25);
+        }
+
+        .button-wrapper {
+            text-align: center;
+            margin: 25px 10px;
+        }
+
+        .submit-button {
+            display: inline-block;
+            font-size: 1.2rem;
+            font-weight: 500;
+            padding: 10px 30px;
+            text-transform: uppercase;
+            cursor: pointer;
+            border-radius: 50px;
+            text-decoration: none;
+            border: 1px solid #{{Button border color|color|fff}};
+            background-color: #{{Button background color|color|0571C5}};
+            color: #{{Button text color|color|ffffff}};
+        }
+
+        .hide {
+            display: none;
+        }
+
+        .logo {
+            display: block;
+            position: absolute;
+            height: 88px;
+            width: 100px;
+            left: 50%;
+            text-align: center;
+            background-image: url(top.png);
+            transform: translateX(-50%);
+            top: -20px;
+        }
+
+    </style>
+</head>
+
+<body>
+<div class="wrapper">
+    <div class="template">
+        <div class="template-main">
+            <form id="page-preferences">
+                <img class="logo" src="{{Logo image|text|Pushwoosh.png}}" />
+                <div class="upper-background"></div>
+                <h2>{{Header text|text|Welcome to Push On!}}</h2>
+                <p>{{Body text|text|Tell us what you're interested in}}</p>
+                <div class="checkbox-list">
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="checkbox-1" name="checkbox" value="#{{First checkbox|text|Tops}}" checked><label for="checkbox-1"></label><span>{{First checkbox|text|Tops}}</span>
+                    </div>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="checkbox-2" name="checkbox" value="#{{Second checkbox|text|Dresses}}"><label for="checkbox-2"></label><span>{{Second checkbox|text|Dresses}}</span>
+                    </div>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="checkbox-3" name="checkbox" value="#{{Third checkbox|text|Skirts}}" checked><label for="checkbox-3"></label><span>{{Third checkbox|text|Skirts}}</span>
+                    </div>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="checkbox-4" name="checkbox" value="#{{Fourth checkbox|text|Jeans}}"><label for="checkbox-4"></label><span>{{Fourth checkbox|text|Jeans}}</span>
+                    </div>
+                    <div class="checkbox-wrapper">
+                        <input type="checkbox" id="checkbox-5" name="checkbox" value="#{{Fifth checkbox|text|Hats}}"><label for="checkbox-5"></label><span>{{Fifth checkbox|text|Hats}}</span>
+                    </div>
+                </div>
+                <div class="button-wrapper">
+                    <a href="#" id="submit" class="submit-button">
+                        {{Submit button text|text|SUBMIT}}
+                    </a>
+                </div>
+            </form>
+
+            <div id="page-thank-you" class="hide">
+                <div class="upper-background"></div>
+                <h2>{{Thank you header|text|Thank you!}}</h2>
+                <p>{{Thank you body text|text|We hope you'll enjoy our store!}}</p>
+                <div class="buttons">
+                    <div class="button-wrapper">
+                        <a href="pushwoosh://close">{{Close button text|text|CLOSE}}</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/javascript" src="fastclick.js"></script>
+<script type="text/javascript">
+    const pagePreferences = document.getElementById('page-preferences');
+    const pageThankYou = document.getElementById('page-thank-you');
+    const submitButton = document.getElementById('submit');
+
+
+    function submitPagePref(event) {
+        event.preventDefault();
+
+        pageThankYou.classList.remove('hide');
+
+        const prefList = [];
+
+        pagePreferences.elements.checkbox.forEach((checkbox) => {
+            if (checkbox.checked) {
+                prefList.push(checkbox.value);
+            }
+        });
+
+        console.log(prefList);
+
+        if (window.pushManager) {
+            window.pushManager.sendTags(JSON.stringify({
+                "WishList": prefList
+            }));
+        }
+
+
+        pagePreferences.classList.add('hide');
+    }
+
+    submitButton.onclick = submitPagePref;
+    FastClick.attach(document.body);
+</script>
+</body>
+
+</html>
+

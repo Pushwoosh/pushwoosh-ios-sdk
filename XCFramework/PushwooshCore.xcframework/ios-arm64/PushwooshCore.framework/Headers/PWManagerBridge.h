@@ -53,6 +53,7 @@
 
 @property (nonatomic, weak) id delegate;
 @property (nonatomic, weak) id delegateSender;
+@property (nonatomic, weak) id messagingSender;
 @property (nonatomic, weak) id purchaseDelegate;
 @property (nonatomic, copy) NSDictionary * (^getRemoteNotificationStatusBlock)(void);
 @property (nonatomic, copy) NSString *appName;
@@ -112,6 +113,7 @@
 
 - (void)setUserId:(NSString *)userId;
 - (void)setUserId:(NSString *)userId completion:(void (^)(NSError *error))completion;
+- (void)resetUserIdWithCompletion:(void (^_Nullable)(NSError *_Nullable error))completion;
 - (void)setEmails:(NSArray *)emails;
 - (void)setEmails:(NSArray *)emails completion:(void (^)(NSError *error))completion;
 - (void)setUser:(NSString *)userId emails:(NSArray *)emails;

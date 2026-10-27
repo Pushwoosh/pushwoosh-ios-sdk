@@ -908,6 +908,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 
 	NSError *error = *outError;
 	request.httpCode = httpResponse.statusCode;
+    request.answeredByPushwoosh = NO;
 
     if (error == nil) {
         NSString *responseString = [[NSString alloc] initWithData:responseData encoding:NSUTF8StringEncoding];
@@ -934,6 +935,7 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
 				error = [PWUtils pushwooshError:@"Bad response body"];
 			}
 		} else {
+            request.answeredByPushwoosh = [jsonResult[@"status_code"] isKindOfClass:[NSNumber class]];
             BOOL isUsingProxy;
             @synchronized (self) {
                 isUsingProxy = (_reverseProxyUrl != nil);

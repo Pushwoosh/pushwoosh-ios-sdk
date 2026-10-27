@@ -34,44 +34,45 @@
 	XCTAssertEqual(resource.closeButton, YES);
 }
 
+/// Verifies that a response without inApps leaves resources nil, so the cached catalog is not replaced.
 - (void)testNoInApps {
     NSDictionary *response = [self responseFromString:@"{ }"];
 
 	PWGetResourcesRequest *request = [PWGetResourcesRequest new];
-
-	XCTAssertNil(request.resources);
 	[request parseResponse:response];
 
-	[self assertNilOrEmpty:request.resources];
+	XCTAssertNil(request.resources);
 }
 
+/// Verifies that a null inApps leaves resources nil, so the cached catalog is not replaced.
 - (void)testNullInApps {
     NSDictionary *response = [self responseFromString:@"{ \"inApps\":null }"];
 
 	PWGetResourcesRequest *request = [PWGetResourcesRequest new];
-
-	XCTAssertNil(request.resources);
 	[request parseResponse:response];
 
-	[self assertNilOrEmpty:request.resources];
+	XCTAssertNil(request.resources);
 }
 
+/// Verifies that inApps of a non-array type leaves resources nil, so the cached catalog is not replaced.
+- (void)testInAppsNotArray {
+    NSDictionary *response = [self responseFromString:@"{ \"inApps\":\"FE293-BA62E\" }"];
+
+	PWGetResourcesRequest *request = [PWGetResourcesRequest new];
+	[request parseResponse:response];
+
+	XCTAssertNil(request.resources);
+}
+
+/// Verifies that an empty inApps list yields an empty catalog, which clears the cache as before.
 - (void)testEmptyInApps {
     NSDictionary *response = [self responseFromString:@"{ \"inApps\":[] }"];
 
 	PWGetResourcesRequest *request = [PWGetResourcesRequest new];
-
-	XCTAssertNil(request.resources);
 	[request parseResponse:response];
 
-	[self assertNilOrEmpty:request.resources];
-}
-
-- (void)assertNilOrEmpty:(NSDictionary*)dict {
-	if (dict) {
-		XCTAssertTrue([dict isKindOfClass:[NSDictionary class]]);
-	}
-	XCTAssertTrue(dict == nil || [dict count] == 0);
+	XCTAssertNotNil(request.resources);
+	XCTAssertEqual(request.resources.count, 0u);
 }
 
 @end

@@ -25,8 +25,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWVoIPCallDelegate {
         didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
     ) -> Bool {
 
-        Pushwoosh.VoIP.initializeVoIP(false, ringtoneSound: nil, handleTypes: 2)
-        Pushwoosh.VoIP.setPushwooshVoIPAppId("YOUR-VOIP-APP-CODE")
         Pushwoosh.VoIP.delegate = self
 
         return true
@@ -212,32 +210,17 @@ extension AppDelegate: PWVoIPCallDelegate {
 
 ### Monitor Token Registration
 
+The SDK gets the VoIP token from PushKit and registers it with Pushwoosh under your main Application Code. Both callbacks are optional:
+
 ```swift
 extension AppDelegate: PWVoIPCallDelegate {
 
-    func voipDidRegisterVoIPToken(token: String) {
-        print("VoIP token registered: \(token)")
-
-        UserDefaults.standard.set(token, forKey: "voip_token")
-        UserDefaults.standard.set(Date(), forKey: "voip_token_date")
-
-        sendTokenToBackend(token)
+    func voipDidRegisterTokenSuccessfully() {
+        print("VoIP token registered")
     }
 
-    func voipDidFailRegisterVoIPToken(error: String) {
-        print("Token registration failed: \(error)")
-
-        DispatchQueue.main.asyncAfter(deadline: .now() + 10.0) {
-            self.retryTokenRegistration()
-        }
-    }
-
-    private func sendTokenToBackend(_ token: String) {
-        print("Sending token to backend")
-    }
-
-    private func retryTokenRegistration() {
-        Pushwoosh.VoIP.setPushwooshVoIPAppId("YOUR-VOIP-APP-CODE")
+    func voipDidFailToRegisterToken(error: Error) {
+        print("VoIP token registration failed: \(error.localizedDescription)")
     }
 }
 ```
@@ -246,19 +229,9 @@ extension AppDelegate: PWVoIPCallDelegate {
 
 ### Enable Video Support
 
+A call is shown as a video call when the push payload has `"video": true`. Check it in the delegate:
+
 ```swift
-func application(
-    _ application: UIApplication,
-    didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?
-) -> Bool {
-
-    Pushwoosh.VoIP.initializeVoIP(true, ringtoneSound: nil, handleTypes: 2)
-    Pushwoosh.VoIP.setPushwooshVoIPAppId("YOUR-VOIP-APP-CODE")
-    Pushwoosh.VoIP.delegate = self
-
-    return true
-}
-
 extension AppDelegate: PWVoIPCallDelegate {
 
     func voipDidReceiveIncomingCall(payload: PushwooshVoIP.PWVoIPMessage) {
@@ -285,23 +258,13 @@ extension AppDelegate: PWVoIPCallDelegate {
 
 ## Handle Types
 
-### Phone Number Format
+The caller ID format comes from the `handleType` field of the push payload and is available as `payload.handleType`:
 
-```swift
-Pushwoosh.VoIP.initializeVoIP(true, ringtoneSound: nil, handleTypes: 2)
-```
-
-### Email Format
-
-```swift
-Pushwoosh.VoIP.initializeVoIP(true, ringtoneSound: nil, handleTypes: 3)
-```
-
-### Generic Format
-
-```swift
-Pushwoosh.VoIP.initializeVoIP(true, ringtoneSound: nil, handleTypes: 1)
-```
+| `handleType` | ``PWVoIPHandleType`` | Format |
+|---|---|---|
+| `1` (default) | `.generic` | Usernames, custom IDs |
+| `2` | `.phoneNumber` | Phone numbers |
+| `3` | `.email` | Email addresses |
 
 ## Error Handling
 

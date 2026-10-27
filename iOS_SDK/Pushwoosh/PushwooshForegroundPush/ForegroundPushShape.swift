@@ -10,7 +10,6 @@ import Foundation
 import UIKit
 import PushwooshBridge
 
-@available(iOS 13.0, *)
 class ForegroundPushShape {
 
     static var useLiquidView: Bool = false

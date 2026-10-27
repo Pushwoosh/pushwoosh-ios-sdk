@@ -17,6 +17,7 @@
 @property (nonatomic, copy) NSString *pinnedBaseUrl;
 @property (nonatomic, copy) NSString *pinnedUserId;
 @property (nonatomic, assign) BOOL survivesApplicationChange;
+@property (nonatomic, assign) BOOL answeredByPushwoosh;
 
 @end
 

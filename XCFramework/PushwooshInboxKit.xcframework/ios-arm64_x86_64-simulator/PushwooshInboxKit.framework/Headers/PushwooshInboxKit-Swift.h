@@ -380,17 +380,8 @@ SWIFT_CLASS_NAMED("PushwooshInboxClassicCell")
 SWIFT_CLASS_NAMED("PushwooshInboxKitImplementation")
 @interface PushwooshInboxKitImplementation : NSObject <PWInboxKit>
 + (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
-/// Convenience factory for Obj-C hosts that want a default-configured
-/// controller without touching the Swift <code>Attributes</code> struct.
-/// Reserved scaffold — not currently wired into an integration path:
-/// it is intentionally NOT declared on the <code>PWInboxKit</code> bridge protocol,
-/// so it is not reachable through <code>Pushwoosh.InboxKit</code> today. Current
-/// integrations build the controller directly
-/// (<code>PushwooshInboxKitViewController(attributes:)</code>, or <code>[[… alloc] init]</code>
-/// from Obj-C). Kept for a possible future Obj-C entry point: to activate
-/// it, add <code>static func makeViewController() -> UIViewController</code> to the
-/// <code>PWInboxKit</code> protocol so <code>[[Pushwoosh InboxKit] makeViewController]</code>
-/// resolves end-to-end.
+/// Default-configured controller behind <code>Pushwoosh.InboxKit.makeViewController()</code>
+/// (Objective-C: <code>[[Pushwoosh InboxKit] makeViewController]</code>).
 + (UIViewController * _Nonnull)makeViewController SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -456,7 +447,7 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 /// pending acknowledgment.
 - (void)markReadWithMessages:(NSArray<id <PWInboxMessageProtocol>> * _Nonnull)messages;
 /// Marks every currently-stored unread inbox message as read. Routes
-/// through <code>PWInbox.markAllMessagesAsRead</code> so storage and server stay
+/// through <code>Pushwoosh.inbox.markAllMessagesAsRead()</code> so storage and server stay
 /// in sync. Suitable for a “Mark all as read” toolbar button.
 - (void)markAllAsRead;
 /// Deletes every read message from the inbox in one batch. Useful for a
@@ -907,17 +898,8 @@ SWIFT_CLASS_NAMED("PushwooshInboxClassicCell")
 SWIFT_CLASS_NAMED("PushwooshInboxKitImplementation")
 @interface PushwooshInboxKitImplementation : NSObject <PWInboxKit>
 + (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
-/// Convenience factory for Obj-C hosts that want a default-configured
-/// controller without touching the Swift <code>Attributes</code> struct.
-/// Reserved scaffold — not currently wired into an integration path:
-/// it is intentionally NOT declared on the <code>PWInboxKit</code> bridge protocol,
-/// so it is not reachable through <code>Pushwoosh.InboxKit</code> today. Current
-/// integrations build the controller directly
-/// (<code>PushwooshInboxKitViewController(attributes:)</code>, or <code>[[… alloc] init]</code>
-/// from Obj-C). Kept for a possible future Obj-C entry point: to activate
-/// it, add <code>static func makeViewController() -> UIViewController</code> to the
-/// <code>PWInboxKit</code> protocol so <code>[[Pushwoosh InboxKit] makeViewController]</code>
-/// resolves end-to-end.
+/// Default-configured controller behind <code>Pushwoosh.InboxKit.makeViewController()</code>
+/// (Objective-C: <code>[[Pushwoosh InboxKit] makeViewController]</code>).
 + (UIViewController * _Nonnull)makeViewController SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
 @end
@@ -983,7 +965,7 @@ SWIFT_CLASS_NAMED("PushwooshInboxKitViewController")
 /// pending acknowledgment.
 - (void)markReadWithMessages:(NSArray<id <PWInboxMessageProtocol>> * _Nonnull)messages;
 /// Marks every currently-stored unread inbox message as read. Routes
-/// through <code>PWInbox.markAllMessagesAsRead</code> so storage and server stay
+/// through <code>Pushwoosh.inbox.markAllMessagesAsRead()</code> so storage and server stay
 /// in sync. Suitable for a “Mark all as read” toolbar button.
 - (void)markAllAsRead;
 /// Deletes every read message from the inbox in one batch. Useful for a

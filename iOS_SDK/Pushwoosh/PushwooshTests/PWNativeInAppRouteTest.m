@@ -60,6 +60,9 @@
 
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 @implementation PWNativeInAppRouteTest
 
 - (void)setUp {
@@ -504,3 +507,5 @@
 }
 
 @end
+
+#pragma clang diagnostic pop

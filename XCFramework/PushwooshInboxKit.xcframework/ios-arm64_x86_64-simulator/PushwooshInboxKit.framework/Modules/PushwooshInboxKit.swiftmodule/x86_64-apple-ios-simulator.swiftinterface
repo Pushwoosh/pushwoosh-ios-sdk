@@ -137,7 +137,6 @@ extension PushwooshInboxKit.PushwooshInboxKitDelegate {
   @_Concurrency.MainActor(unsafe) @objc override dynamic public func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
   @objc @_Concurrency.MainActor(unsafe) public func reloadData()
   #if compiler(>=5.3) && $AsyncAwait
-  @available(iOS 13.0, *)
   @_Concurrency.MainActor(unsafe) public func reload() async throws
   #endif
   @objc @_Concurrency.MainActor(unsafe) public func setBackgroundColor(_ color: UIKit.UIColor)

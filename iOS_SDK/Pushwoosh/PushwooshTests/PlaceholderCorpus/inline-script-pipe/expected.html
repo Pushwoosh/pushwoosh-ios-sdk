@@ -1,0 +1,30 @@
+<!DOCTYPE html>
+<html lang="en">
+<head><meta charset='UTF-8'>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<style>
+  html, body { margin: 0; height: 100%; background: transparent; font-family: sans-serif; }
+  .backdrop { position: fixed; inset: 0; background: rgba(0, 0, 0, .5); }
+  .sheet { position: fixed; left: 0; right: 0; bottom: 0; padding: 24px; background: #F0D03C; border-radius: 16px 16px 0 0; }
+  .sheet h1 { margin: 0 0 16px; font-size: 24px; }
+  .sheet a { display: block; padding: 16px; text-align: center; background: #1D252D; color: #fff; text-decoration: none; border-radius: 8px; }
+</style>
+</head>
+<body>
+<a id="repro-backdrop" class="backdrop" href="pushwoosh://close"></a>
+<div class="sheet">
+  <h1 id="repro-title" data-pw="Repro sheet">Repro sheet</h1>
+  <a id="repro-close" href="pushwoosh://close">Close</a>
+</div>
+<script>
+(function(){
+  "use strict";
+  function resolve(value,fallback){if(!value)return fallback;if(value.indexOf("{"+"{")!==0)return value;var parts=value.slice(2,-2).split("|");return parts.length>2?parts.slice(2).join("|").trim():fallback;}
+  var title=document.getElementById("repro-title");
+  title.textContent=resolve(title.getAttribute("data-pw"),title.textContent);
+  console.log("Inline script executed");
+})();
+</script>
+</body>
+</html>

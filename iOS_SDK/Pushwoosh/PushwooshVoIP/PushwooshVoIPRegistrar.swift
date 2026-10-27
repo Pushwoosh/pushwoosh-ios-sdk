@@ -14,7 +14,6 @@ import PushwooshBridge
 /// registered with `PushwooshModuleRegistry` from `PushwooshVoIPLoader.m` at
 /// module load. `PWPushRuntime` triggers VoIP setup through this handler
 /// without touching the implementation class directly.
-@available(iOS 14.0, *)
 @objc(PushwooshVoIPConfigureBackchannel)
 final class PushwooshVoIPConfigureBackchannel: NSObject, PWVoIPConfigureHandler {
     @objc
@@ -23,7 +22,6 @@ final class PushwooshVoIPConfigureBackchannel: NSObject, PWVoIPConfigureHandler 
     }
 }
 
-@available(iOS 14.0, *)
 extension PushwooshVoIPImplementation {
     /// Singleton back-channel adapter used by `PWPushRuntime` to trigger
     /// VoIP configuration without reflection.

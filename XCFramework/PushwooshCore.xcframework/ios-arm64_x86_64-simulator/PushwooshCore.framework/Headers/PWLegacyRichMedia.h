@@ -34,6 +34,18 @@ NS_ASSUME_NONNULL_BEGIN
  */
 + (void)setDelegate:(nullable id<PWRichMediaPresentingDelegate>)delegate;
 
+#if TARGET_OS_IOS
+/**
+ Returns the style of the legacy Rich Media presentation.
+ */
++ (PWRichMediaStyle *)getRichMediaStyle NS_SWIFT_NAME(getRichMediaStyle());
+
+/**
+ Sets the style of the legacy Rich Media presentation; nil restores the default style.
+ */
++ (void)setRichMediaStyle:(nullable PWRichMediaStyle *)style NS_SWIFT_NAME(setRichMediaStyle(_:));
+#endif
+
 /**
  Presents the Rich Media content.
 
@@ -115,6 +127,40 @@ NS_ASSUME_NONNULL_BEGIN
  @see PWRichMediaPresentingDelegate
  */
 + (void)setDelegate:(nullable id<PWRichMediaPresentingDelegate>)delegate;
+
+#if TARGET_OS_IOS
+/**
+ Returns the style of the legacy Rich Media presentation.
+
+ @discussion
+ The style controls the loading backdrop, the close button delay, the status bar and inline
+ media playback of full-screen Rich Media. Swift exposes it as the `richMediaStyle` property.
+
+ @return The current style, or a default style if none is set.
+
+ @see PWRichMediaStyle
+ */
++ (PWRichMediaStyle *)getRichMediaStyle NS_SWIFT_NAME(getRichMediaStyle());
+
+/**
+ Sets the style of the legacy Rich Media presentation.
+
+ @discussion
+ Replaces `PWRichMediaManager.shared().richMediaStyle`. Passing nil restores the default style.
+
+ @param style The style to apply, or nil to restore the default style.
+
+ ```swift
+ let style = PWRichMediaStyle()
+ style.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+ style.closeButtonPresentingDelay = 2
+ Pushwoosh.media.legacyRichMedia.richMediaStyle = style
+ ```
+
+ @see PWRichMediaStyle
+ */
++ (void)setRichMediaStyle:(nullable PWRichMediaStyle *)style NS_SWIFT_NAME(setRichMediaStyle(_:));
+#endif
 
 /**
  Presents the Rich Media content.

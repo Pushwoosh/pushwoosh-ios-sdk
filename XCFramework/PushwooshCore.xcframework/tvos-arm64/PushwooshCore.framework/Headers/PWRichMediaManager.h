@@ -82,7 +82,11 @@
 /**
  A singleton object that represents the rich media manager.
  */
+#if TARGET_OS_IOS
++ (instancetype)sharedManager __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.media.legacyRichMedia (Objective-C: [[Pushwoosh media] legacyRichMedia]) instead.")));
+#else
 + (instancetype)sharedManager;
+#endif
 
 /**
  Presents the rich media object. Must be called on the main thread.

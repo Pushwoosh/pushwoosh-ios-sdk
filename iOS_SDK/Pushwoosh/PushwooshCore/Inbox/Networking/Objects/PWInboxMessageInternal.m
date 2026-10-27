@@ -251,4 +251,9 @@ typedef NS_ENUM(NSInteger, PWInboxMessageSourceType) {
     return (self.sortOrder != nil);
 }
 
+- (NSString *)tabId {
+    NSString *tabId = [_actionParams pw_stringForKey:@"pw_inbox_tab"];
+    return tabId.length > 0 ? tabId : nil;
+}
+
 @end

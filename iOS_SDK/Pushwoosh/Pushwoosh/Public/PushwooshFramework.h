@@ -279,7 +279,7 @@
 
 #endif
 
-#define PUSHWOOSH_VERSION @"7.2.10"
+#define PUSHWOOSH_VERSION @"7.3.0"
 
 
 @class Pushwoosh, PWMessage, PWNotificationCenterDelegateProxy, PushwooshConfig;
@@ -487,7 +487,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  ## Topics
 
  ### SDK Access
- - sharedInstance()
+ - configure
 
  ### Registration
  - registerForPushNotifications()
@@ -537,6 +537,9 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 #pragma mark - Keychain Persistent HWID
 + (Class<PWKeychain>_Nonnull)Keychain NS_REFINED_FOR_SWIFT;
 
+#pragma mark - Inbox
++ (Class<PWInboxCenter> _Nonnull)inbox NS_REFINED_FOR_SWIFT;
+
 #if TARGET_OS_IOS
 #pragma mark - Rich Media
 + (Class<PWMedia>_Nonnull)media NS_REFINED_FOR_SWIFT;
@@ -550,19 +553,19 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 /**
  Pushwoosh Application ID. Usually retrieved automatically from Info.plist parameter `Pushwoosh_APPID`
  */
-@property (nonatomic, copy, readonly) NSString * _Nonnull applicationCode;
+@property (nonatomic, copy, readonly) NSString * _Nonnull applicationCode __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.getApplicationCode() instead.")));
 
 /**
  `PushNotificationDelegate` protocol delegate that would receive the information about events for push notification manager such as registering with APS services, receiving push notifications or working with the received notification.
  Pushwoosh Runtime sets it to ApplicationDelegate by default
  */
-@property (nonatomic, weak) NSObject<PWMessagingDelegate> * _Nullable delegate;
+@property (nonatomic, weak) NSObject<PWMessagingDelegate> * _Nullable delegate __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.delegate (Objective-C: [[Pushwoosh configure] setDelegate:] and getDelegate) instead.")));
 
 #if TARGET_OS_IOS
 /**
  `PushPurchaseDelegate` protocol delegate that would receive the information about events related to purchasing InApp products from rich medias
  */
-@property (nonatomic, weak) NSObject<PWPurchaseDelegate> * _Nullable purchaseDelegate;
+@property (nonatomic, weak) NSObject<PWPurchaseDelegate> * _Nullable purchaseDelegate __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.purchaseDelegate (Objective-C: [[Pushwoosh configure] setPurchaseDelegate:] and getPurchaseDelegate) instead.")));
 #endif
 
 #if TARGET_OS_IOS || TARGET_OS_TV
@@ -570,7 +573,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 /**
  Show push notifications alert when push notification is received while the app is running, default is `YES`
  */
-@property (nonatomic, assign) BOOL showPushnotificationAlert;
+@property (nonatomic, assign) BOOL showPushnotificationAlert __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setShowPushnotificationAlert(_:) and getShowPushnotificationAlert() instead.")));
 
 #endif
 
@@ -579,14 +582,14 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 /**
  Authorization options in addition to UNAuthorizationOptionBadge | UNAuthorizationOptionSound | UNAuthorizationOptionAlert | UNAuthorizationOptionCarPlay.
  */
-@property (nonatomic) UNAuthorizationOptions additionalAuthorizationOptions __IOS_AVAILABLE(12.0);
+@property (nonatomic) UNAuthorizationOptions additionalAuthorizationOptions __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setAdditionalAuthorizationOptions(_:) and getAdditionalAuthorizationOptions() instead.")));
 
 #endif
 
 /**
  Returns push notification payload if the app was started in response to push notification or null otherwise
  */
-@property (nonatomic, copy, readonly) NSDictionary * _Nullable launchNotification;
+@property (nonatomic, copy, readonly) NSDictionary * _Nullable launchNotification __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.launchNotification() (Objective-C: [[Pushwoosh configure] getLaunchNotification]) instead.")));
 
 /**
  Proxy that manages ``UNUserNotificationCenterDelegate`` objects.
@@ -600,23 +603,17 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  ## Example
 
  ```swift
- Pushwoosh.sharedInstance().notificationCenterDelegateProxy?.add(myDelegate)
- ```
-
- - Note: For SDK 7.0+, use ``Pushwoosh.configure.addNotificationCenterDelegate(_:)`` instead.
-
- ```swift
  Pushwoosh.configure.addNotificationCenterDelegate(myDelegate)
  ```
 */
-@property (nonatomic, readonly) PWNotificationCenterDelegateProxy * _Nullable notificationCenterDelegateProxy;
+@property (nonatomic, readonly) PWNotificationCenterDelegateProxy * _Nullable notificationCenterDelegateProxy __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.addNotificationCenterDelegate(_:) instead.")));
 
 /**
  Set custom application language. Must be a lowercase two-letter code according to ISO-639-1 standard ("en", "de", "fr", etc.).
  Device language used by default.
  Set to nil if you want to use device language again.
  */
-@property (nonatomic) NSString * _Nonnull language;
+@property (nonatomic) NSString * _Nonnull language __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setLanguage(_:) and getLanguage() instead.")));
 
 /**
  Initializes the Pushwoosh SDK with your application code.
@@ -624,9 +621,9 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @param appCode Your Pushwoosh Application Code from the Pushwoosh Control Panel
 
  @note You can configure the Application Code in Info.plist with key `Pushwoosh_APPID` instead of calling this method.
- @see sharedInstance() to access the configured SDK instance
+ @see configure to access the SDK
  */
-+ (void)initializeWithAppCode:(NSString *_Nonnull)appCode;
++ (void)initializeWithAppCode:(NSString *_Nonnull)appCode __attribute__((deprecated("Since 7.3.0: Set Pushwoosh_APPID in Info.plist or use Pushwoosh.configure.setAppCode(_:) instead.")));
 
 /**
  Returns the shared Pushwoosh SDK instance.
@@ -644,10 +641,10 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  Pushwoosh.configure.setTags(["user_type": "premium"])
  ```
 
- @note The SDK must be initialized with initializeWithAppCode: or via Info.plist before accessing the shared instance.
- @see initializeWithAppCode: for SDK initialization
+ @note Set `Pushwoosh_APPID` in Info.plist or call `Pushwoosh.configure.setAppCode(_:)` before using the SDK.
+ @see configure
  */
-+ (instancetype _Nonnull )sharedInstance;
++ (instancetype _Nonnull )sharedInstance __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure (Objective-C: [Pushwoosh configure]) instead.")));
 
 /**
  Registers the device for push notifications.
@@ -675,14 +672,14 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see registerForPushNotificationsWithCompletion: for a version with completion handler
  @see unregisterForPushNotifications for disabling push notifications
  */
-- (void)registerForPushNotifications;
+- (void)registerForPushNotifications __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.registerForPushNotifications() instead.")));
 
 /**
  Registers the device for push notifications with a completion handler.
 
  @param completion Block called when registration completes, providing the push token or an error
  */
-- (void)registerForPushNotificationsWithCompletion:(PushwooshRegistrationHandler _Nullable )completion;
+- (void)registerForPushNotificationsWithCompletion:(PushwooshRegistrationHandler _Nullable )completion __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.registerForPushNotifications(completion:) instead.")));
 
 /**
  Registers the device for push notifications and sets initial tags.
@@ -708,7 +705,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see registerForPushNotificationsWithCompletion: for registration with completion callback
  @see setTags: for setting tags after registration
  */
-- (void)registerForPushNotificationsWith:(NSDictionary * _Nonnull)tags;
+- (void)registerForPushNotificationsWith:(NSDictionary * _Nonnull)tags __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.registerForPushNotifications(with:) instead.")));
 
 /**
  Registers the device for push notifications with initial tags and a completion handler.
@@ -733,14 +730,14 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see registerForPushNotificationsWith: for version without completion handler
  @see registerForPushNotificationsWithCompletion: for registration without tags
  */
-- (void)registerForPushNotificationsWith:(NSDictionary * _Nonnull)tags completion:(PushwooshRegistrationHandler _Nullable )completion;
+- (void)registerForPushNotificationsWith:(NSDictionary * _Nonnull)tags completion:(PushwooshRegistrationHandler _Nullable )completion __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.registerForPushNotifications(with:completion:) instead.")));
 
 
 /**
  Registration methods for Whatsapp and SMS
  */
-- (void)registerSmsNumber:(NSString * _Nonnull) number;
-- (void)registerWhatsappNumber:(NSString * _Nonnull) number;
+- (void)registerSmsNumber:(NSString * _Nonnull) number __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.registerSmsNumber(_:) instead.")));
+- (void)registerWhatsappNumber:(NSString * _Nonnull) number __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.registerWhatsappNumber(_:) instead.")));
 
 /**
  Unregisters the device from push notifications.
@@ -760,7 +757,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see unregisterForPushNotificationsWithCompletion: for a version with completion handler
  @see registerForPushNotifications() to re-enable push notifications
  */
-- (void)unregisterForPushNotifications;
+- (void)unregisterForPushNotifications __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.unregisterForPushNotifications(completion: nil) (Objective-C: [[Pushwoosh configure] unregisterForPushNotifications:nil]) instead.")));
 
 /**
  Unregisters the device from push notifications with a completion handler.
@@ -787,7 +784,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  @see unregisterForPushNotifications() for a version without completion handler
  */
-- (void)unregisterForPushNotificationsWithCompletion:(void (^_Nullable)(NSError * _Nullable error))completion;
+- (void)unregisterForPushNotificationsWithCompletion:(void (^_Nullable)(NSError * _Nullable error))completion __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.unregisterForPushNotifications(completion:) (Objective-C: [[Pushwoosh configure] unregisterForPushNotifications:]) instead.")));
 
 /**
  Manually handles the device push token registration.
@@ -811,7 +808,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see registerForPushNotifications() for automatic registration
  @see handlePushRegistrationFailure: for handling registration errors
  */
-- (void)handlePushRegistration:(NSData * _Nonnull)devToken;
+- (void)handlePushRegistration:(NSData * _Nonnull)devToken __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.handlePushRegistration(_:) instead.")));
 
 /**
  Handles push notification registration failures.
@@ -832,12 +829,12 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  @see handlePushRegistration: for successful registration handling
  */
-- (void)handlePushRegistrationFailure:(NSError * _Nonnull)error;
+- (void)handlePushRegistrationFailure:(NSError * _Nonnull)error __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.handlePushRegistrationFailure(_:) instead.")));
 
 /**
  Handle received push notification.
 */
-- (BOOL)handlePushReceived:(NSDictionary * _Nonnull)userInfo;
+- (BOOL)handlePushReceived:(NSDictionary * _Nonnull)userInfo __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.handlePushReceived(_:) instead.")));
 
 /**
  * Change default base url to reverse proxy url
@@ -895,7 +892,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see getTags:onFailure: to retrieve current tag values
  @see PWTagsBuilder for creating special tag types
  */
-- (void)setTags:(NSDictionary * _Nonnull)tags;
+- (void)setTags:(NSDictionary * _Nonnull)tags __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setTags(_:) instead.")));
 
 /**
  Sets user tags with a completion handler.
@@ -926,7 +923,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  @see setTags: for setting tags without a completion handler
  */
-- (void)setTags:(NSDictionary * _Nonnull)tags completion:(void (^_Nullable)(NSError * _Nullable error))completion;
+- (void)setTags:(NSDictionary * _Nonnull)tags completion:(void (^_Nullable)(NSError * _Nullable error))completion __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setTags(_:completion:) instead.")));
 
 /**
  Sets tags for a specific email address.
@@ -934,7 +931,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @param tags Dictionary of tag names and values
  @param email The email address to associate tags with
  */
-- (void)setEmailTags:(NSDictionary * _Nonnull)tags forEmail:(NSString * _Nonnull)email;
+- (void)setEmailTags:(NSDictionary * _Nonnull)tags forEmail:(NSString * _Nonnull)email __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setEmailTags(_:forEmail:) instead.")));
 
 /**
  Sets tags for a specific email address with a completion handler.
@@ -943,7 +940,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @param email The email address to associate tags with
  @param completion Block called when the operation completes
  */
-- (void)setEmailTags:(NSDictionary * _Nonnull)tags forEmail:(NSString * _Nonnull)email completion:(void(^ _Nullable)(NSError * _Nullable error))completion;
+- (void)setEmailTags:(NSDictionary * _Nonnull)tags forEmail:(NSString * _Nonnull)email completion:(void(^ _Nullable)(NSError * _Nullable error))completion __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setEmailTags(_:forEmail:completion:) instead.")));
 
 /**
  Retrieves the current device's tags from the Pushwoosh server.
@@ -973,7 +970,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see setTags: for setting device tags
  @see setTags:completion: for setting tags with completion confirmation
  */
-- (void)getTags:(PushwooshGetTagsHandler _Nullable)successHandler onFailure:(PushwooshErrorHandler _Nullable)errorHandler;
+- (void)getTags:(PushwooshGetTagsHandler _Nullable)successHandler onFailure:(PushwooshErrorHandler _Nullable)errorHandler __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.getTags(_:onFailure:) instead.")));
 
 /**
  Synchronizes the application badge number with Pushwoosh servers.
@@ -996,12 +993,12 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @note The SDK automatically intercepts `UIApplication.applicationIconBadgeNumber` changes, so manual calls are rarely needed.
  @see setBadgeNumber: for a convenience method to set and sync the badge in one call
  */
-- (void)sendBadges:(NSInteger)badge __API_AVAILABLE(macos(10.10), ios(8.0));
+- (void)sendBadges:(NSInteger)badge __API_AVAILABLE(macos(10.10)) __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.sendBadges(_:) instead.")));
 
 /**
  Pushwoosh SDK version.
 */
-+ (NSString * _Nonnull)version;
++ (NSString * _Nonnull)version __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.version() instead.")));
 
 #if TARGET_OS_IOS
 /**
@@ -1017,7 +1014,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  @param transactions Array of SKPaymentTransaction items as received in the payment queue.
  */
-- (void)sendSKPaymentTransactions:(NSArray * _Nonnull)transactions;
+- (void)sendSKPaymentTransactions:(NSArray * _Nonnull)transactions __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.sendSKPaymentTransactions(_:) instead.")));
 
 /**
  Tracks individual in-app purchase. See recommended `sendSKPaymentTransactions:` method.
@@ -1027,7 +1024,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @param currencyCode currency of the price (ex: @"USD")
  @param date time of the purchase (ex: [NSDate now])
  */
-- (void)sendPurchase:(NSString * _Nonnull)productIdentifier withPrice:(NSDecimalNumber * _Nonnull)price currencyCode:(NSString * _Nonnull)currencyCode andDate:(NSDate * _Nonnull)date;
+- (void)sendPurchase:(NSString * _Nonnull)productIdentifier withPrice:(NSDecimalNumber * _Nonnull)price currencyCode:(NSString * _Nonnull)currencyCode andDate:(NSDate * _Nonnull)date __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.sendPurchase(_:withPrice:currencyCode:andDate:) instead.")));
 
 #endif
 /**
@@ -1053,7 +1050,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see getHWID() for the Pushwoosh Hardware ID
  @see registerForPushNotifications() to initiate registration
  */
-- (NSString * _Nullable)getPushToken;
+- (NSString * _Nullable)getPushToken __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.getPushToken() instead.")));
 
 /**
  Returns the Pushwoosh Hardware ID (HWID) for this device.
@@ -1073,7 +1070,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @note The HWID is generated on first SDK initialization and persists across app launches. Use this identifier to reference the device in Pushwoosh API calls.
  @see getPushToken() for the APNs device token
  */
-- (NSString * _Nonnull)getHWID;
+- (NSString * _Nonnull)getHWID __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.getHWID() instead.")));
 
 /**
  Returns the current user identifier.
@@ -1096,7 +1093,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see setUserId: for setting a custom user identifier
  @see getHWID() for the device's Hardware ID
  */
-- (NSString * _Nonnull)getUserId;
+- (NSString * _Nonnull)getUserId __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.getUserId() instead.")));
 
 /**
  Returns dictionary with enabled remote notification types.
@@ -1129,12 +1126,12 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Note: In the latter example "enabled" field means that device can receive push notification but could not display alerts (ex: silent push)
  */
-+ (NSMutableDictionary * _Nullable)getRemoteNotificationStatus;
++ (NSMutableDictionary * _Nullable)getRemoteNotificationStatus __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.getRemoteNotificationStatus() instead.")));
 
 /**
  Clears the notifications from the notification center.
  */
-+ (void)clearNotificationCenter;
++ (void)clearNotificationCenter __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.clearNotificationCenter() instead.")));
 
 /**
  Register emails list associated to the current user.
@@ -1142,14 +1139,14 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  @param emails user's emails array
  */
-- (void)setEmails:(NSArray * _Nonnull)emails completion:(void(^ _Nullable)(NSError * _Nullable error))completion;
+- (void)setEmails:(NSArray * _Nonnull)emails completion:(void(^ _Nullable)(NSError * _Nullable error))completion __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setEmails(_:completion:) instead.")));
 
 /**
  Register emails list associated to the current user.
 
  @param emails user's emails array
  */
-- (void)setEmails:(NSArray * _Nonnull)emails;
+- (void)setEmails:(NSArray * _Nonnull)emails __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setEmails(_:) instead.")));
 
 /**
  Register email associated to the current user. Email should be a string and could not be null or empty.
@@ -1157,7 +1154,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  @param email user's email string
  */
-- (void)setEmail:(NSString * _Nonnull)email completion:(void(^ _Nullable)(NSError * _Nullable error))completion;
+- (void)setEmail:(NSString * _Nonnull)email completion:(void(^ _Nullable)(NSError * _Nullable error))completion __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setEmail(_:completion:) instead.")));
 
 /**
  Associates an email address with the current device.
@@ -1178,7 +1175,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @note The email is sent to Pushwoosh servers during the next network sync.
  @see setUserId: for setting a unique user identifier
  */
-- (void)setEmail:(NSString * _Nonnull)email;
+- (void)setEmail:(NSString * _Nonnull)email __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setEmail(_:) instead.")));
 
 /**
  Associates a unique identifier with the current device.
@@ -1205,7 +1202,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @note The user ID is synchronized with Pushwoosh servers asynchronously.
  @see setEmail: for setting a user email address
  */
-- (void)setUserId:(NSString * _Nonnull)userId completion:(void(^ _Nullable)(NSError * _Nullable error))completion;
+- (void)setUserId:(NSString * _Nonnull)userId completion:(void(^ _Nullable)(NSError * _Nullable error))completion __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setUserId(_:completion:) instead; to reset the user use Pushwoosh.configure.resetUserId(completion:).")));
 
 /**
  Associates a unique identifier with the current device.
@@ -1228,7 +1225,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see setEmail: for setting a user email address
  @see setUserId:completion: for a version with completion handler
  */
-- (void)setUserId:(NSString * _Nonnull)userId;
+- (void)setUserId:(NSString * _Nonnull)userId __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setUserId(_:) instead; to reset the user use Pushwoosh.configure.resetUserId().")));
 
 /**
  Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
@@ -1238,7 +1235,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @param userId user identifier
  @param emails user's emails array
  */
-- (void)setUser:(NSString * _Nonnull)userId emails:(NSArray * _Nonnull)emails completion:(void(^ _Nullable)(NSError * _Nullable error))completion;
+- (void)setUser:(NSString * _Nonnull)userId emails:(NSArray * _Nonnull)emails completion:(void(^ _Nullable)(NSError * _Nullable error))completion __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setUser(_:emails:completion:) instead.")));
 
 
 /**
@@ -1248,7 +1245,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @param userId user identifier
  @param emails user's emails array
  */
-- (void)setUser:(NSString * _Nonnull)userId emails:(NSArray * _Nonnull)emails;
+- (void)setUser:(NSString * _Nonnull)userId emails:(NSArray * _Nonnull)emails __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setUser(_:emails:) instead.")));
 
 /**
  Set User indentifier. This could be Facebook ID, username or email, or any other user ID.
@@ -1258,7 +1255,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @param userId user identifier
  @param email user's email string
  */
-- (void)setUser:(NSString * _Nonnull)userId email:(NSString * _Nonnull)email completion:(void(^ _Nullable)(NSError * _Nullable error))completion;
+- (void)setUser:(NSString * _Nonnull)userId email:(NSString * _Nonnull)email completion:(void(^ _Nullable)(NSError * _Nullable error))completion __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.setUser(_:email:completion:) instead.")));
 
 /**
  Move all events from oldUserId to newUserId if doMerge is true. If doMerge is false all events for oldUserId are removed.
@@ -1268,17 +1265,17 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @param doMerge if false all events for oldUserId are removed, if true all events for oldUserId are moved to newUserId
  @param completion callback
  */
-- (void)mergeUserId:(NSString * _Nonnull)oldUserId to:(NSString * _Nonnull)newUserId doMerge:(BOOL)doMerge completion:(void (^ _Nullable)(NSError * _Nullable error))completion;
+- (void)mergeUserId:(NSString * _Nonnull)oldUserId to:(NSString * _Nonnull)newUserId doMerge:(BOOL)doMerge completion:(void (^ _Nullable)(NSError * _Nullable error))completion __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.mergeUserId(_:to:doMerge:completion:) instead.")));
 
 /**
  Starts communication with Pushwoosh server.
  */
-- (void)startServerCommunication;
+- (void)startServerCommunication __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.startServerCommunication() instead.")));
 
 /**
  Stops communication with Pushwoosh server.
 */
-- (void)stopServerCommunication;
+- (void)stopServerCommunication __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.stopServerCommunication() instead.")));
 
 /**
  Process URL of some deep link. Primarly used for register test devices.
@@ -1286,7 +1283,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @param url Deep Link URL
 */
 #if TARGET_OS_IOS
-- (BOOL)handleOpenURL:(NSURL * _Nonnull)url;
+- (BOOL)handleOpenURL:(NSURL * _Nonnull)url __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure.handleOpen(_:) instead.")));
 #endif
 
 /**

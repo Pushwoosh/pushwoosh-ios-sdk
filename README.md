@@ -182,14 +182,14 @@ import PushwooshFramework
 func application(_ application: UIApplication,
                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-    Pushwoosh.sharedInstance().registerForPushNotifications()
+    Pushwoosh.configure.registerForPushNotifications()
 
     return true
 }
 ```
 
 > **Changing the Application Code at runtime now unregisters the device from the one it leaves.**
-> If your app calls `Pushwoosh.configure.setAppCode(_:)` or `Pushwoosh.initializeWithAppCode(_:)` with a
+> If your app calls `Pushwoosh.configure.setAppCode(_:)` with a
 > **different** code than the one already in use (a dev/prod toggle, an A/B setup, a multi-tenant host
 > app), the SDK sends an `unregisterDevice` to the previous application, addressed to that
 > application's own host, so the device stops receiving its pushes. The push token is kept, so the
@@ -204,7 +204,7 @@ func application(_ application: UIApplication,
 ```swift
 func application(_ application: UIApplication,
                 didRegisterForRemoteNotificationsWithDeviceToken deviceToken: Data) {
-    Pushwoosh.sharedInstance().handlePushRegistration(deviceToken)
+    Pushwoosh.configure.handlePushRegistration(deviceToken)
 }
 ```
 
@@ -222,7 +222,7 @@ func application(_ application: UIApplication,
                 didReceiveRemoteNotification userInfo: [AnyHashable: Any],
                 fetchCompletionHandler completionHandler: @escaping (UIBackgroundFetchResult) -> Void) {
 
-    Pushwoosh.sharedInstance().handlePushReceived(userInfo)
+    Pushwoosh.configure.handlePushReceived(userInfo)
     completionHandler(.newData)
 }
 ```
@@ -290,10 +290,10 @@ the device from the application it leaves, exactly like the two-argument form. U
 `setAppCode(_:baseUrl:)` to move an application and its endpoint together.
 
 > **Do not keep passing a build-time Application Code at launch.** Once you use
-> `setAppCode(_:baseUrl:)`, a one-argument `setAppCode(_:)` or `Pushwoosh.initializeWithAppCode(_:)`
-> call on every launch (the default shape of most cross-platform wrappers — the legacy initializer
-> routes into the same setter) carries a static build-time code, which stops matching the moment the
-> user selects another application. From then on every launch is an application change: the device is
+> `setAppCode(_:baseUrl:)`, a one-argument `setAppCode(_:)` call on every launch (the default shape of
+> most cross-platform wrappers, whose deprecated legacy initializer routes into the same setter)
+> carries a static build-time code, which stops matching the moment the user selects another
+> application. From then on every launch is an application change: the device is
 > unregistered from the selected application and the chosen endpoint is dropped, so the selection does
 > not survive a restart. Remove that call, or replace it with the two-argument form carrying the pair
 > you actually want, since repeating the same pair is a no-op and is safe on every launch.

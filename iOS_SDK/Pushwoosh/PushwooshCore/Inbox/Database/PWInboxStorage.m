@@ -9,12 +9,15 @@
 #import "PWInboxStorage.h"
 #import "PWInboxMerge.h"
 #import "PWInboxMessageInternal+Status.h"
+#import "PWInboxTabsFactory.h"
 
 @interface PWInboxStorage ()
 
 @property (nonatomic) NSMutableDictionary<NSString *, PWInboxMessageInternal *> *pushNotificationMessages;
 @property (nonatomic) NSMutableDictionary<NSString *, PWInboxMessageInternal *> *serviceMessages;
 @property (nonatomic) NSMutableDictionary<NSString *, PWInboxMessageInternal *> *allMessages;
+
+@property (atomic, nullable) PWInboxTabs *tabs;
 
 @property (nonatomic) PWInboxMerge *mergeController;
 
@@ -27,8 +30,23 @@
         _mergeController = [PWInboxMerge new];
         [self loadMessages];
         [self updateAllMessages];
+        _tabs = [PWInboxTabsFactory tabsFromPayload:[self loadTabsPayload]];
     }
     return self;
+}
+
+- (void)updateTabsFromPayload:(nullable NSDictionary *)payload {
+    PWInboxTabs *parsedTabs = [PWInboxTabsFactory tabsFromPayload:payload];
+    if (parsedTabs != nil && [parsedTabs isEqual:self.tabs]) {
+        return;
+    }
+    if (![self saveTabsPayload:payload]) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:@"Failed to persist the Inbox tabs cache, keeping the list already stored"];
+        return;
+    }
+    self.tabs = parsedTabs;
 }
 
 - (NSInteger)count {
@@ -198,6 +216,8 @@
     _pushNotificationMessages = [NSMutableDictionary new];
     [self updateAllMessages];
     [self saveMessages];
+    self.tabs = nil;
+    [self saveTabsPayload:nil];
 }
 
 #pragma mark -
@@ -268,6 +288,69 @@
         return nil;
     } else {
         return dict;
+    }
+#else
+    return nil;
+#endif
+}
+
+- (BOOL)saveTabsPayload:(nullable NSDictionary *)payload {
+    NSString *path = [self pathForFileName:@"PWInbox.tabs"];
+
+#if TARGET_OS_IOS
+    if (payload == nil) {
+        NSFileManager *fileManager = [NSFileManager defaultManager];
+        if (![fileManager fileExistsAtPath:path]) {
+            return YES;
+        }
+        NSError *removeError = nil;
+        if (![fileManager removeItemAtPath:path error:&removeError]) {
+            [PushwooshLog pushwooshLog:PW_LL_ERROR
+                             className:self
+                               message:[NSString stringWithFormat:@"Failed to clear the Inbox tabs cache: %@", removeError.localizedDescription]];
+            return NO;
+        }
+        return YES;
+    }
+
+    NSError *error = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:payload requiringSecureCoding:YES error:&error];
+    return [data writeToFile:path options:NSDataWritingAtomic error:&error];
+#else
+    // No on-disk tabs cache off iOS, so there is nothing that can fail to persist.
+    return YES;
+#endif
+}
+
+- (nullable id)loadTabsPayload {
+    NSString *path = [self pathForFileName:@"PWInbox.tabs"];
+
+#if TARGET_OS_IOS
+    NSURL *url = [NSURL fileURLWithPath:path];
+    NSData *data = [NSData dataWithContentsOfURL:url];
+
+    if (data.length == 0) {
+        return nil;
+    }
+
+    NSSet *allowedClasses = [NSSet setWithObjects:
+                             [NSDictionary class],
+                             [NSMutableDictionary class],
+                             [NSArray class],
+                             [NSMutableArray class],
+                             [NSString class],
+                             [NSNumber class],
+                             [NSNull class],
+                             nil];
+    NSError *error = nil;
+    id payload = [NSKeyedUnarchiver unarchivedObjectOfClasses:allowedClasses fromData:data error:&error];
+    if (error != nil) {
+        [PushwooshLog pushwooshLog:PW_LL_ERROR
+                         className:self
+                           message:[NSString stringWithFormat:@"Deserialization failed: %@", error.localizedDescription]];
+        return nil;
+    } else {
+        return payload;
     }
 #else
     return nil;

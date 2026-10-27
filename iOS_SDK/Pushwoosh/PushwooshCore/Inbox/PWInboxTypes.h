@@ -19,15 +19,18 @@ typedef NS_ENUM(NSInteger, PWInboxMessageType) {
 
 @required
 
-@property (readonly, nonatomic) NSString *code;
-@property (readonly, nonatomic) NSString *title;
-@property (readonly, nonatomic) NSString *imageUrl;
-@property (readonly, nonatomic) NSString *message;
-@property (readonly, nonatomic) NSDate *sendDate;
+@property (readonly, nonatomic, null_unspecified) NSString *code;
+@property (readonly, nonatomic, null_unspecified) NSString *title;
+@property (readonly, nonatomic, null_unspecified) NSString *imageUrl;
+@property (readonly, nonatomic, null_unspecified) NSString *message;
+@property (readonly, nonatomic, null_unspecified) NSDate *sendDate;
 @property (readonly, nonatomic) PWInboxMessageType type;
 @property (readonly, nonatomic) BOOL isRead;
 @property (readonly, nonatomic) BOOL isActionPerformed;
-@property (readonly, nonatomic) NSDictionary *actionParams;
-@property (readonly, nonatomic) NSString *attachmentUrl;
+@property (readonly, nonatomic, null_unspecified) NSDictionary *actionParams;
+@property (readonly, nonatomic, null_unspecified) NSString *attachmentUrl;
+
+/// The tab this message belongs to, an `identifier` of `Pushwoosh.inbox.getTabs()`; `nil` or an unknown id = "All" only.
+@property (readonly, nonatomic, nullable) NSString *tabId;
 
 @end

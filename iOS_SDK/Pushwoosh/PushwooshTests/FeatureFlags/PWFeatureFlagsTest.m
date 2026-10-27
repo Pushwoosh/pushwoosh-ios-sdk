@@ -451,7 +451,7 @@ static NSTimeInterval const kHour = 60 * 60;
         return active;
     };
     [Pushwoosh destroy];
-    (void)[Pushwoosh sharedInstance];
+    (void)[Pushwoosh pw_sharedInstance];
     [self drainMainQueue];
 }
 

@@ -10,7 +10,6 @@ import UIKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-@available(iOS 13.0, *)
 extension PushwooshBridge.PWForegroundPush {
   public static var delegate: (any PushwooshForegroundPush.PWForegroundPushDelegate)? {
     get
@@ -58,8 +57,7 @@ extension PushwooshBridge.PWForegroundPush {
   @objc public init(style: PushwooshBridge.PWForegroundPushStyle, duration: Swift.Int, vibration: PushwooshBridge.PWForegroundPushHapticFeedback, disappearedAnimation: PushwooshBridge.PWForegroundPushDisappearedAnimation, gradientColors: [UIKit.UIColor]? = nil, backgroundColor: UIKit.UIColor? = nil, usePushAnimation: Swift.Bool = true, titlePushColor: UIKit.UIColor? = nil, messagePushColor: UIKit.UIColor? = nil, titlePushFont: UIKit.UIFont? = nil, messagePushFont: UIKit.UIFont? = nil, useLiquidView: Swift.Bool = false)
   @objc deinit
 }
-@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @available(iOS 13.0, *)
-@objc(PushwooshForegroundPushImplementation) public class PushwooshForegroundPushImplementation : ObjectiveC.NSObject {
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(PushwooshForegroundPushImplementation) public class PushwooshForegroundPushImplementation : ObjectiveC.NSObject {
   @objc(shared) public static let shared: PushwooshForegroundPush.PushwooshForegroundPushImplementation
   @objc weak public static var delegate: Swift.AnyObject? {
     @objc get

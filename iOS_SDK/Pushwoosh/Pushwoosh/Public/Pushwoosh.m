@@ -94,6 +94,10 @@
     return (Class<PWKeychain>)[PushwooshModuleRegistry classForIdentifier:PWModuleIdentifierKeychain];
 }
 
++ (Class<PWInboxCenter>)inbox {
+    return [PWInboxCenter class];
+}
+
 #if TARGET_OS_IOS
 + (Class<PWMedia>)media {
     return [PWMedia media];
@@ -109,7 +113,7 @@
 
 + (Class<PWConfiguration>)configure {
     [self ensureInitialized];
-    [self sharedInstance];
+    [self pw_sharedInstance];
     return [PushwooshConfig configure];
 }
 
@@ -134,6 +138,10 @@ static dispatch_once_t ensureInitializedOncePredicate;
 }
 
 + (instancetype)sharedInstance {
+    return [self pw_sharedInstance];
+}
+
++ (instancetype)pw_sharedInstance {
     [self ensureInitialized];
 
     dispatch_once(&pushwooshOncePredicate, ^{
@@ -149,7 +157,7 @@ static dispatch_once_t ensureInitializedOncePredicate;
         [Pushwoosh initializeWithNewAppCode:appCode];
     }
 
-    [Pushwoosh sharedInstance];
+    [Pushwoosh pw_sharedInstance];
 }
 
 + (void)initializeWithNewAppCode:(NSString *)appCode {
@@ -157,7 +165,7 @@ static dispatch_once_t ensureInitializedOncePredicate;
 
     [[PWPreferences preferences] setAppCode:appCode];
     [PWInAppManager updateInAppManagerInstance];
-    [[Pushwoosh sharedInstance].dataManager sendAppOpenWithCompletion:nil];
+    [[Pushwoosh pw_sharedInstance].dataManager sendAppOpenWithCompletion:nil];
 
 }
 
@@ -191,11 +199,17 @@ static dispatch_once_t ensureInitializedOncePredicate;
 #endif
 
 #if TARGET_OS_IOS
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [PushwooshLog pushwooshLog:PW_LL_DEBUG className:self message:[NSString stringWithFormat:@"Will show foreground notifications: %d", self.showPushnotificationAlert]];
+#pragma clang diagnostic pop
 #endif
 
 #if TARGET_OS_IOS || TARGET_OS_TV
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         self.inAppManager = [PWInAppManager sharedManager];
+#pragma clang diagnostic pop
 #endif
 
         self.pushNotificationManager = [[PWPushNotificationsManager alloc] initWithConfig:[PWConfig config]];
@@ -203,8 +217,12 @@ static dispatch_once_t ensureInitializedOncePredicate;
         self.dataManager = [PWDataManager new];
 
         [PWManagerBridge shared].dataManager = self.dataManager;
+        [PWManagerBridge shared].messagingSender = self;
         [PWManagerBridge shared].pushNotificationManager = self.pushNotificationManager;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [PWManagerBridge shared].showPushnotificationAlert = self.showPushnotificationAlert;
+#pragma clang diagnostic pop
 #if TARGET_OS_IOS || TARGET_OS_TV
         [PWManagerBridge shared].inAppManager = self.inAppManager;
         [PWManagerBridge shared].inAppMessagesManager = self.inAppManager.inAppMessagesManager;
@@ -212,7 +230,10 @@ static dispatch_once_t ensureInitializedOncePredicate;
 #if TARGET_OS_IOS || TARGET_OS_OSX
         [PWManagerBridge shared].purchaseManager = self.purchaseManager;
         [PWManagerBridge shared].richPushManager = self.richPushManager;
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
         [PWManagerBridge shared].richMediaManager = [PWRichMediaManager sharedManager];
+#pragma clang diagnostic pop
 #endif
 
         if (![PWConfig config].isUsingPluginForPushHandling) {
@@ -415,6 +436,10 @@ static dispatch_once_t ensureInitializedOncePredicate;
 
 - (void)getTags:(PushwooshGetTagsHandler)successHandler onFailure:(PushwooshErrorHandler)errorHandler {
     [self.dataManager loadTags:successHandler error:errorHandler];
+}
+
+- (void)sendBadges:(NSInteger)badge {
+    [PushwooshConfig sendBadges:badge];
 }
 
 #pragma mark - Email Tags

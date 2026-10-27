@@ -39,11 +39,11 @@ func handleLoginSuccess(user: User) {
 }
 ```
 
-Clear user ID on logout (reset to HWID):
+Reset the user ID to the HWID on logout (an empty string is ignored):
 
 ```swift
 func handleLogout() {
-    Pushwoosh.configure.setUserId("")
+    Pushwoosh.configure.resetUserId()
 
     Pushwoosh.configure.unregisterForPushNotifications { _ in
         self.navigateToLogin()

@@ -11,7 +11,7 @@ import UIKit
 import PushwooshCore
 @testable import PushwooshInboxKit
 
-class PushwooshInboxKitViewControllerTest: XCTestCase {
+class PushwooshInboxKitViewControllerTest: XCTestCase, InboxScreenTesting {
 
     var sut: PushwooshInboxKitViewController!
     var facade: TestableInboxFacade!
@@ -49,7 +49,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
 
     /// Verifies that the empty-state label appears when zero messages are returned.
     func testEmptyStateShownWhenNoMessages() {
-        facade.outcome = .success([])
+        facade.outcome = .loaded([], nil)
         sut.reloadData()
         let exp = expectation(description: "empty")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -63,7 +63,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
 
     /// Verifies that the error-state label appears when the facade fails.
     func testErrorStateShownOnError() {
-        facade.outcome = .failure(NSError(domain: "test", code: 1, userInfo: nil))
+        facade.outcome = .loaded([], NSError(domain: "test", code: 1, userInfo: nil))
         sut.reloadData()
         let exp = expectation(description: "error")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -78,11 +78,11 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// Verifies that a refresh failure after content was already loaded keeps the list visible
     /// instead of blanking it behind the error screen.
     func testRefreshFailureAfterContentKeepsListVisible() {
-        facade.outcome = .success([FakeMessage(code: "a"), FakeMessage(code: "b")])
+        facade.outcome = .loaded([FakeMessage(code: "a"), FakeMessage(code: "b")], nil)
         loadAndWait()
         XCTAssertFalse(sut.tableView.isHidden)
 
-        facade.outcome = .failure(NSError(domain: "test", code: 1, userInfo: nil))
+        facade.outcome = .loaded([], NSError(domain: "test", code: 1, userInfo: nil))
         sut.reloadData()
         let exp = expectation(description: "failed refresh")
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
@@ -97,7 +97,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// Verifies that returning false from the delegate suppresses the default tap action.
     func testTapDelegatesToHostFirst() {
         let m = FakeMessage(code: "x")
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         delegate.didSelectReturn = false
         loadAndWait()
 
@@ -109,7 +109,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// Verifies that returning true from the delegate routes through the default action path.
     func testTapFallsThroughWhenDelegateReturnsTrue() {
         let m = FakeMessage(code: "x")
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         delegate.didSelectReturn = true
         loadAndWait()
 
@@ -120,7 +120,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// Verifies that swipe-to-delete invokes the facade.
     func testSwipeDeleteInvokesFacade() {
         let m = FakeMessage(code: "del")
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
 
         let cfg = sut.tableView(sut.tableView, trailingSwipeActionsConfigurationForRowAt: IndexPath(row: 0, section: 0))
@@ -136,7 +136,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// Verifies that visible unread rows are read on disappear.
     func testAutomaticReadOnDisappearMarksVisibleRows() {
         let m = FakeMessage(code: "u", isRead: false)
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
         sut.attributes.automaticReadOnDisappear = true
         sut.attributes.automaticReadOnDisplay = false
@@ -144,7 +144,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
         let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 320, height: 480))
         window.rootViewController = sut
         window.makeKeyAndVisible()
-        sut.tableView.layoutIfNeeded()
+        sut.view.layoutIfNeeded()
         sut.viewWillDisappear(false)
         XCTAssertEqual(facade.readCalls.count, 1)
     }
@@ -152,7 +152,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// Verifies that disabling automaticReadOnDisappear suppresses the read call.
     func testAutomaticReadOnDisappearFalseSkipsMarkRead() {
         let m = FakeMessage(code: "u", isRead: false)
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
         sut.attributes.automaticReadOnDisappear = false
         sut.viewWillDisappear(false)
@@ -161,6 +161,8 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
 
     /// Verifies that the inbox refreshes after a real background → active cycle.
     func testInboxRefreshesAfterRealBackgroundCycle() {
+        hostInWindow()
+        waitAFrame()
         let initial = facade.loadCallCount
         NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -172,6 +174,8 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
 
     /// Verifies that DidBecomeActive without a preceding DidEnterBackground (Control Center / Face ID / system overlay) does NOT reload the inbox.
     func testInboxDoesNotRefreshOnDidBecomeActiveWithoutBackground() {
+        hostInWindow()
+        waitAFrame()
         let initial = facade.loadCallCount
         for _ in 0..<6 {
             NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
@@ -184,6 +188,8 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
 
     /// Verifies that the background flag is single-use: after one background+active reload, a second active without background does not reload again.
     func testInboxBackgroundFlagIsSingleUse() {
+        hostInWindow()
+        waitAFrame()
         NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
         NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
         let exp1 = expectation(description: "first reload")
@@ -202,6 +208,8 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// `scheduleInboxRefresh` debounces by 1.5s on the first call to give the
     /// server time to sync after APNS delivery, so we wait past that window.
     func testInboxRefreshesOnInboxMessagesDidUpdateNotification() {
+        hostInWindow()
+        waitAFrame()
         let initial = facade.loadCallCount
         NotificationCenter.default.post(
             name: NSNotification.Name(rawValue: "PWInboxMessagesDidUpdateNotification.com.pushwoosh.inbox"),
@@ -213,10 +221,330 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
         XCTAssertGreaterThan(facade.loadCallCount, initial)
     }
 
+    /// Verifies that the update posted by the inbox's own auto-read does not start a server reload.
+    func testAutoReadDoesNotScheduleAServerReload() {
+        facade.stubbedTabs = oneTab()
+        facade.outcome = .loaded(unreadFeed(count: 20), nil)
+        loadAndWait()
+        hostInWindow()
+        waitPastRefreshDebounce()
+        let afterHosting = facade.loadCallCount
+        let readCallsBeforeExplicitRead = facade.readCalls.count
+
+        sut.tableView.contentOffset = CGPoint(x: 0, y: (sut.tableView.contentSize.height - sut.tableView.bounds.height) / 2)
+        sut.markDisplayedAsRead()
+        waitPastRefreshDebounce()
+
+        XCTAssertGreaterThan(facade.readCalls.count, readCallsBeforeExplicitRead,
+                              "the explicit call must actually read something for this test to mean anything")
+        XCTAssertEqual(facade.loadCallCount, afterHosting)
+    }
+
+    /// Verifies that an inbox left open does not read the unread rows below the fold.
+    func testAutoReadLeavesTheRowsBelowTheFoldUnread() {
+        facade.stubbedTabs = oneTab()
+        facade.outcome = .loaded(unreadFeed(count: 20), nil)
+        loadAndWait()
+        hostInWindow()
+
+        sut.markDisplayedAsRead()
+        waitPastRefreshDebounce()
+
+        sut.tableView.layoutIfNeeded()
+        let onScreenCount = sut.tableView.indexPathsForVisibleRows?.count ?? 0
+        let readCodes = Set(facade.readCalls.flatMap { $0 }.map { $0.code })
+
+        XCTAssertGreaterThan(onScreenCount, 0, "the window must actually show rows for this test to mean anything")
+        let tail = Set(unreadFeed(count: 20).suffix(onScreenCount).map { $0.code })
+        XCTAssertTrue(readCodes.isDisjoint(with: tail), "auto-read reached the unread tail below the fold: \(readCodes)")
+        XCTAssertLessThanOrEqual(readCodes.count, onScreenCount,
+                                  "auto-read touched more rows than one screen of this window can hold: \(readCodes)")
+    }
+
+    /// Verifies that a load completing while the window shows nothing does not re-arm the first-fill gate.
+    func testOffScreenLoadDoesNotReArmTheFirstFillGate() {
+        facade.stubbedTabs = oneTab()
+        let feed = unreadFeed(count: 20)
+        facade.outcome = .loaded(feed, nil)
+        loadAndWait()
+        hostInWindow()
+        sut.markDisplayedAsRead()
+        waitPastRefreshDebounce()
+        let readAfterFirstFill = Set(facade.readCalls.flatMap { $0 }.map { $0.code })
+        XCTAssertFalse(readAfterFirstFill.isEmpty, "the first fill must have read something for this test to mean anything")
+
+        // Zero the window (not the table) so onScreenRect() sees nothing without detaching the view, which would itself refire viewWillAppear/viewDidAppear and confound the read set.
+        guard let window = window else { return XCTFail("hostInWindow() must have created a window") }
+        let originalWindowFrame = window.frame
+        window.frame = .zero
+        sut.loadMessages(mode: .merge)
+        waitPastRefreshDebounce()
+
+        // Back on screen: this load must still be a refresh of an already-shown feed, not a first fill that auto-reads whatever the re-sort moved under the old offset.
+        window.frame = originalWindowFrame
+        sut.loadMessages(mode: .replace)
+        waitPastRefreshDebounce()
+
+        let readAfterReturn = Set(facade.readCalls.flatMap { $0 }.map { $0.code })
+        XCTAssertEqual(readAfterReturn, readAfterFirstFill,
+                       "an off-screen load re-armed the gate: \(readAfterReturn.subtracting(readAfterFirstFill)) got auto-read on return")
+    }
+
+    /// Verifies that the first load to fill an initially empty feed reads the first screen.
+    func testColdStartFirstFillStillReadsTheFirstScreen() {
+        hostInWindow()
+        facade.outcome = .loaded(unreadFeed(count: 3), nil)
+        sut.loadMessages(mode: .replace)
+        waitPastRefreshDebounce()
+
+        XCTAssertEqual(Set(facade.readCalls.flatMap { $0 }.map { $0.code }), Set(["m0", "m1", "m2"]))
+    }
+
+    /// Verifies that a refresh of a populated feed does not auto-read the rows its re-sort lifts into view.
+    func testRefreshOfAnAlreadyPopulatedFeedDoesNotAutoReadTheResortedRows() {
+        facade.stubbedTabs = oneTab()
+        hostInWindow()
+        facade.outcome = .loaded(unreadFeed(count: 20), nil)
+        sut.loadMessages(mode: .replace)
+        waitPastRefreshDebounce()
+        let firstRead = Set(facade.readCalls.flatMap { $0 }.map { $0.code })
+        XCTAssertFalse(firstRead.isEmpty, "the cold-start fill should have read the first screen")
+
+        sut.loadMessages(mode: .replace)
+        waitPastRefreshDebounce()
+
+        let readAfterRefresh = Set(facade.readCalls.flatMap { $0 }.map { $0.code })
+        XCTAssertEqual(readAfterRefresh, firstRead, "a refresh of an already-populated feed auto-read more rows")
+    }
+
+    /// Verifies that an auto-read repaints the rows it read.
+    func testAutoReadRepaintsTheRowsItRead() {
+        facade.stubbedTabs = oneTab()
+        facade.outcome = .loaded(unreadFeed(count: 3), nil)
+        loadAndWait()
+        hostInWindow()
+        let visible = sut.tableView.indexPathsForVisibleRows ?? []
+        XCTAssertFalse(visible.isEmpty, "the window must actually show rows for this test to mean anything")
+
+        sut.markDisplayedAsRead()
+
+        XCTAssertFalse(facade.readCalls.isEmpty, "nothing was read, so there is nothing to repaint")
+        for indexPath in visible {
+            let cell = sut.tableView.cellForRow(at: indexPath) as? PushwooshInboxCell
+            XCTAssertEqual(cell?.unreadIndicatorView.isHidden, true,
+                           "row \(indexPath.row) is still painted as unread after being read")
+        }
+    }
+
+    /// Verifies that a message arriving in an open inbox is read like any row coming on screen.
+    func testMessageArrivingInAnOpenInboxIsRead() {
+        facade.stubbedTabs = oneTab()
+        facade.outcome = .loaded(unreadFeed(count: 3), nil)
+        loadAndWait()
+        hostInWindow()
+        sut.markDisplayedAsRead()
+        XCTAssertFalse(readCodes().contains("push"))
+
+        NotificationCenter.default.post(
+            name: NSNotification.Name(rawValue: "PWInboxMessagesDidReceiveInPushNotification.com.pushwoosh.inbox"),
+            object: nil,
+            userInfo: ["messagesAdded": [FakeMessage(code: "push", sendDate: Date(timeIntervalSince1970: 3_000_000))]]
+        )
+        waitAFrame()
+
+        XCTAssertTrue(readCodes().contains("push"), "a push that landed under the user's eyes stayed unread")
+    }
+
+    /// Verifies that a refresh reads only the messages it brings in.
+    func testRefreshReadsOnlyTheMessagesItBringsIn() {
+        facade.stubbedTabs = oneTab()
+        hostInWindow()
+        let feed = unreadFeed(count: 20)
+        facade.outcome = .loaded(feed, nil)
+        sut.loadMessages(mode: .replace)
+        waitAFrame()
+        let readAfterFill = readCodes()
+        XCTAssertFalse(readAfterFill.isEmpty, "the first fill must have read the first screen")
+
+        facade.outcome = .loaded([FakeMessage(code: "new", sendDate: Date(timeIntervalSince1970: 3_000_000))] + feed, nil)
+        sut.loadMessages(mode: .replace)
+        waitAFrame()
+
+        XCTAssertEqual(readCodes().subtracting(readAfterFill), ["new"])
+    }
+
+    /// Verifies that the async `reload()` runs the same first-fill gate as `reloadData()`.
+    func testAsyncReloadFillRunsTheGateLikeASyncLoad() {
+        facade.stubbedTabs = oneTab()
+        hostInWindow()
+        facade.outcome = .loaded(unreadFeed(count: 20), nil)
+        let fill = expectation(description: "async fill")
+        Task { try? await self.sut.reload(); fill.fulfill() }
+        wait(for: [fill], timeout: 2.0)
+
+        let readAfterFill = readCodes()
+        XCTAssertFalse(readAfterFill.isEmpty, "the async fill must auto-read the first screen like reloadData does")
+
+        sut.loadMessages(mode: .replace)
+        waitAFrame()
+
+        XCTAssertEqual(readCodes(), readAfterFill,
+                       "the load after the async fill auto-read the re-sorted rows: the gate never latched")
+    }
+
+    /// Verifies that without tabs every successful load reads the unread rows it leaves on screen, as before tabs existed.
+    func testWithoutTabsEveryLoadReadsTheUnreadRowsOnScreen() {
+        hostInWindow()
+        facade.outcome = .loaded(unreadFeed(count: 30), nil)
+        sut.reloadData()
+        waitAFrame()
+        let readAfterFirstLoad = readCodes()
+        XCTAssertFalse(readAfterFirstLoad.isEmpty, "the first load must read the first screen for this test to mean anything")
+
+        sut.reloadData()
+        waitAFrame()
+
+        XCTAssertGreaterThan(readCodes().count, readAfterFirstLoad.count,
+                             "the second load read nothing although the re-sort put unread rows on screen")
+    }
+
+    /// Verifies that without tabs the auto-read is converged with the server by the usual debounced reload.
+    func testWithoutTabsAutoReadSchedulesAServerReload() {
+        hostInWindow()
+        facade.outcome = .loaded(unreadFeed(count: 3), nil)
+        sut.reloadData()
+        waitAFrame()
+        XCTAssertFalse(readCodes().isEmpty, "the load must auto-read for this test to mean anything")
+        let afterRead = facade.loadCallCount
+
+        waitPastRefreshDebounce()
+
+        XCTAssertEqual(facade.loadCallCount, afterRead + 1)
+    }
+
+    /// Verifies that without tabs a pushed message is read by the next successful load, not on arrival.
+    func testWithoutTabsArrivingMessageIsNotReadWhileTheSyncFails() {
+        facade.outcome = .loaded(unreadFeed(count: 3), nil)
+        loadAndWait()
+        hostInWindow()
+        waitAFrame()
+        facade.outcome = .loaded([], NSError(domain: "test", code: -1009))
+
+        NotificationCenter.default.post(
+            name: NSNotification.Name(rawValue: "PWInboxMessagesDidReceiveInPushNotification.com.pushwoosh.inbox"),
+            object: nil,
+            userInfo: ["messagesAdded": [FakeMessage(code: "push", sendDate: Date(timeIntervalSince1970: 3_000_000))]]
+        )
+        waitPastRefreshDebounce()
+
+        XCTAssertFalse(readCodes().contains("push"))
+    }
+
+    /// Verifies that without tabs the async `reload()` fills the feed without auto-reading it, as before tabs existed.
+    func testWithoutTabsAsyncReloadDoesNotAutoRead() {
+        hostInWindow()
+        waitAFrame()
+        facade.outcome = .loaded(unreadFeed(count: 3), nil)
+        let fill = expectation(description: "async fill")
+        Task { try? await self.sut.reload(); fill.fulfill() }
+        wait(for: [fill], timeout: 2.0)
+        waitAFrame()
+
+        XCTAssertEqual(sut.tableView.numberOfRows(inSection: 0), 3)
+        XCTAssertTrue(readCodes().isEmpty)
+    }
+
+    /// Verifies that without tabs a page its host keeps in the window but scrolled off screen (a horizontal pager) reads its rows on load, as before tabs existed.
+    func testWithoutTabsInWindowOffScreenPageReadsOnLoad() {
+        let pager = UIViewController()
+        let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 320, height: 480))
+        window.rootViewController = pager
+        window.makeKeyAndVisible()
+        self.window = window
+        pager.addChild(sut)
+        sut.view.frame = CGRect(x: 320, y: 0, width: 320, height: 480)
+        pager.view.addSubview(sut.view)
+        sut.didMove(toParent: pager)
+        sut.view.layoutIfNeeded()
+        facade.outcome = .loaded(unreadFeed(count: 10), nil)
+
+        sut.reloadData()
+        waitAFrame()
+
+        XCTAssertNotNil(sut.view.window)
+        XCTAssertFalse(readCodes().isEmpty)
+    }
+
+    /// Verifies that an inbox kept off screen by its host (a background tab) still converges a foreign update and reports it to the delegate.
+    func testOffWindowInboxReloadsOnAForeignUpdate() {
+        facade.outcome = .loaded(unreadFeed(count: 3), nil)
+        loadAndWait()
+        let initialLoads = facade.loadCallCount
+        let initialRefreshes = delegate.didRefreshCalls.count
+
+        NotificationCenter.default.post(
+            name: NSNotification.Name(rawValue: "PWInboxMessagesDidUpdateNotification.com.pushwoosh.inbox"),
+            object: nil
+        )
+        waitPastRefreshDebounce()
+
+        XCTAssertEqual(facade.loadCallCount, initialLoads + 1)
+        XCTAssertEqual(delegate.didRefreshCalls.count, initialRefreshes + 1)
+    }
+
+    /// Verifies that an inbox kept off screen by its host still re-syncs after a real background → active cycle.
+    func testOffWindowInboxReloadsAfterRealBackgroundCycle() {
+        facade.outcome = .loaded(unreadFeed(count: 3), nil)
+        loadAndWait()
+        let initial = facade.loadCallCount
+
+        NotificationCenter.default.post(name: UIApplication.didEnterBackgroundNotification, object: nil)
+        NotificationCenter.default.post(name: UIApplication.didBecomeActiveNotification, object: nil)
+        waitAFrame()
+
+        XCTAssertEqual(facade.loadCallCount, initial + 1)
+    }
+
+    /// Verifies that an update notification posted from a background thread still schedules a reload.
+    func testForeignUpdateFromABackgroundThreadStillSchedulesAReload() {
+        facade.outcome = .loaded(unreadFeed(count: 3), nil)
+        loadAndWait()
+        hostInWindow()
+        waitAFrame()
+        let initial = facade.loadCallCount
+
+        DispatchQueue.global().async {
+            NotificationCenter.default.post(
+                name: NSNotification.Name(rawValue: "PWInboxMessagesDidUpdateNotification.com.pushwoosh.inbox"),
+                object: nil
+            )
+        }
+        waitPastRefreshDebounce()
+
+        XCTAssertGreaterThan(facade.loadCallCount, initial)
+    }
+
+    /// Verifies that a host-initiated read still schedules a reload.
+    func testHostInitiatedMarkReadStillSchedulesAReload() {
+        let feed = unreadFeed(count: 3)
+        facade.outcome = .loaded(feed, nil)
+        // Auto-read off: it would read the whole screen on appearance and leave markRead nothing to do.
+        sut.attributes.automaticReadOnDisplay = false
+        loadAndWait()
+        hostInWindow()
+        waitAFrame()
+        let initial = facade.loadCallCount
+
+        sut.markRead(messages: [feed[0]])
+        waitPastRefreshDebounce()
+
+        XCTAssertGreaterThan(facade.loadCallCount, initial)
+    }
+
     /// Verifies that a trait collection change re-applies attributes to visible cells.
     func testTraitCollectionChangeRepaintsCells() {
         let m = FakeMessage(code: "tc")
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
         sut.tableView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
         sut.tableView.layoutIfNeeded()
@@ -247,7 +575,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     func testPinIndicatorVisibleTrueShowsChipOnPinnedMessage() {
         let m = FakeMessage(code: "p")
         m.actionParams = ["pinned": true]
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         sut.attributes.forceCellKind = .classic
         loadAndWait()
         sut.tableView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
@@ -263,7 +591,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
         sut.setPinIndicatorVisible(false)
         let m = FakeMessage(code: "p")
         m.actionParams = ["pinned": true]
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         sut.attributes.forceCellKind = .classic
         loadAndWait()
         sut.tableView.frame = CGRect(x: 0, y: 0, width: 320, height: 200)
@@ -299,15 +627,12 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
 
     // MARK: - Helpers
 
-    private func loadAndWait() {
-        sut.reloadData()
-        let exp = expectation(description: "load")
-        DispatchQueue.main.asyncAfter(deadline: .now() + 0.1) {
-            self.sut.tableView.reloadData()
-            self.sut.tableView.layoutIfNeeded()
-            exp.fulfill()
-        }
-        wait(for: [exp], timeout: 1.0)
+    private func readCodes() -> Set<String> {
+        Set(facade.readCalls.flatMap { $0 }.compactMap { $0.code })
+    }
+
+    private func oneTab() -> PWInboxTabs {
+        PWInboxTabs(allTitle: "All", tabs: [PWInboxTab(identifier: "t1", title: "Tab One")])
     }
 
     // MARK: - SDK-998: every interaction with a card reports the open
@@ -316,7 +641,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// This is the path that was zeroing the open counter.
     func testHostInterceptStillReportsTheOpen() {
         let m = FakeMessage(code: "x")
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         delegate.didSelectReturn = false
         loadAndWait()
 
@@ -329,7 +654,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// action, which would open a second one.
     func testInlineButtonReportsWithoutPerformingTheMessageAction() {
         let m = FakeMessage(code: "x")
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
 
         let cell = sut.tableView(sut.tableView, cellForRowAt: IndexPath(row: 0, section: 0))
@@ -349,7 +674,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
         let m = FakeMessage(code: "video")
         m.actionParams = ["u": ["displayType": "video",
                                 "video": ["url": "https://cdn.example.com/clip.mp4"]]]
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         delegate.didSelectReturn = true
         loadAndWait()
 
@@ -366,7 +691,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
         let m = FakeMessage(code: "video-veto")
         m.actionParams = ["u": ["displayType": "video",
                                 "video": ["url": "https://cdn.example.com/clip.mp4"]]]
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         delegate.didSelectReturn = false
         loadAndWait()
 
@@ -382,7 +707,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     func testVideoCardWithoutDescriptorFallsBackToTheRowAction() {
         let m = FakeMessage(code: "video-broken")
         m.actionParams = ["u": ["displayType": "video"]]
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         delegate.didSelectReturn = true
         loadAndWait()
 
@@ -394,7 +719,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// The ordinary path must not report twice: performAction sends the status itself.
     func testNormalTapReportsExactlyOnce() {
         let m = FakeMessage(code: "x")
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         delegate.didSelectReturn = true
         loadAndWait()
 
@@ -407,7 +732,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// Action the message is already read, and the state machine rejects 3 -> 2 anyway.
     func testMarkReadButtonReportsTheOpenInsteadOfASecondStatus() {
         let m = FakeMessage(code: "x")
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
 
         tapInlineButton(.markRead)
@@ -420,7 +745,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// Dismissing a card is an interaction, so the open ships before the row goes.
     func testDismissButtonReportsTheOpenBeforeRemovingTheRow() {
         let m = FakeMessage(code: "x")
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
 
         tapInlineButton(.dismiss)
@@ -432,7 +757,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// A custom action runs on the host's side, but the tap is still ours to report.
     func testCustomButtonReportsTheOpenWithoutPerformingTheMessageAction() {
         let m = FakeMessage(code: "x")
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
 
         tapInlineButton(.custom(["tag": "promo"]))
@@ -444,7 +769,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// A swipe throws the card away exactly like the dismiss button, and counts the same.
     func testSwipeDeleteReportsTheOpenLikeTheDismissButton() {
         let m = FakeMessage(code: "del")
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
 
         let cfg = sut.tableView(sut.tableView, trailingSwipeActionsConfigurationForRowAt: IndexPath(row: 0, section: 0))
@@ -494,7 +819,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
                                                           line: UInt = #line) -> Cell? {
         let message = FakeMessage(code: "x")
         message.actionParams = actionParams
-        facade.outcome = .success([message])
+        facade.outcome = .loaded([message], nil)
         sut.attributes.forceCellKind = kind
         loadAndWait()
 
@@ -510,7 +835,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// is already reported, which is what makes the row read.
     func testSwipeRefusedByTheHostStillReportsTheOpen() {
         let m = FakeMessage(code: "keep")
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         delegate.shouldDeleteReturn = false
         loadAndWait()
 
@@ -542,7 +867,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// Verifies that markDisplayedAsRead reads the visible unread rows while the view is in a window.
     func testMarkDisplayedAsRead_inWindow_readsVisibleUnreadRows() {
         let m = FakeMessage(code: "u", isRead: false)
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
         hostInWindow()
 
@@ -554,7 +879,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// Verifies that markDisplayedAsRead does nothing when automaticReadOnDisplay is disabled.
     func testMarkDisplayedAsRead_disabled_doesNotRead() {
         let m = FakeMessage(code: "u", isRead: false)
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         sut.attributes.automaticReadOnDisplay = false
         loadAndWait()
         hostInWindow()
@@ -567,7 +892,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     /// Verifies that markDisplayedAsRead does nothing while the view is not in a window.
     func testMarkDisplayedAsRead_notInWindow_doesNotRead() {
         let m = FakeMessage(code: "u", isRead: false)
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
         sut.tableView.frame = CGRect(x: 0, y: 0, width: 320, height: 480)
 
@@ -582,7 +907,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     func testInlineLinkButton_messageWithLink_performsMessageActionOnce() {
         let m = FakeMessage(code: "x")
         m.actionParams = ["l": "https://example.com/message"]
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
 
         tapInlineButton(.openURL(URL(string: "https://example.com/button")!))
@@ -595,7 +920,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     func testInlineLinkButton_messageWithRichMedia_performsMessageAction() {
         let m = FakeMessage(code: "x")
         m.actionParams = ["rm": ["url": "https://example.com/rm.zip"]]
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
 
         tapInlineButton(.openURL(URL(string: "https://example.com/button")!))
@@ -608,7 +933,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
     func testInlineLinkButton_messageWithLinkVetoedByHost_reportsOpenOnce() {
         let m = FakeMessage(code: "x")
         m.actionParams = ["l": "https://example.com/message"]
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         delegate.didTapButtonReturn = false
         loadAndWait()
 
@@ -634,7 +959,7 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
         m.actionParams = ["u": ["displayType": "video",
                                 "video": ["url": "https://cdn.example.com/clip.mp4"]],
                           "rm": ["url": "https://example.com/rm.zip"]]
-        facade.outcome = .success([m])
+        facade.outcome = .loaded([m], nil)
         loadAndWait()
 
         sut.tableView(sut.tableView, didSelectRowAt: IndexPath(row: 0, section: 0))
@@ -651,14 +976,6 @@ class PushwooshInboxKitViewControllerTest: XCTestCase {
 
         XCTAssertEqual(facade.actionCalls.count, 1)
         XCTAssertNil(sut.presentedViewController)
-    }
-
-    private func hostInWindow() {
-        let window = UIWindow(frame: CGRect(x: 0, y: 0, width: 320, height: 480))
-        window.rootViewController = sut
-        window.makeKeyAndVisible()
-        sut.tableView.layoutIfNeeded()
-        self.window = window
     }
 }
 

@@ -219,4 +219,80 @@
     };
 }
 
+#pragma mark - tabId
+
+/// Verifies that tabId is read from the root of the service message's action_params.
+- (void)testTabIdFromActionParams {
+    PWInboxMessageInternal *message = [PWInboxMessageInternal messageWithDictionary:@{
+        @"inbox_id": @"c1", @"order": @1, @"rt": @2000000000, @"text": @"Statement is ready",
+        @"action_type": @1, @"status": @1,
+        @"action_params": @"{\"l\":\"https://example.com\",\"pw_inbox_tab\":\"a1b2c3\"}"}];
+    XCTAssertEqualObjects(message.tabId, @"a1b2c3");
+}
+
+/// Verifies that tabId is read from the root of a push payload.
+- (void)testTabIdFromPushPayloadRoot {
+    PWInboxMessageInternal *message = [PWInboxMessageInternal messageWithPushNotification:@{
+        @"pw_inbox": @"c2",
+        @"inbox_params": @{@"rt": @"2033-05-18"},
+        @"aps": @{@"alert": @"hi"},
+        @"pw_inbox_tab": @"a1b2c3"}];
+    XCTAssertEqualObjects(message.tabId, @"a1b2c3");
+}
+
+/// Verifies that a missing key, a key only under u/userdata, a numeric value, NSNull and an empty string all read as no tab.
+- (void)testTabIdAbsentOrInvalid {
+    PWInboxMessageInternal *missingKey = [PWInboxMessageInternal messageWithDictionary:@{
+        @"inbox_id": @"c1", @"order": @1, @"rt": @2000000000, @"text": @"test",
+        @"action_type": @1, @"status": @1,
+        @"action_params": @"{\"l\":\"https://example.com\"}"}];
+    XCTAssertNil(missingKey.tabId);
+
+    PWInboxMessageInternal *underUserdata = [PWInboxMessageInternal messageWithDictionary:@{
+        @"inbox_id": @"c1", @"order": @1, @"rt": @2000000000, @"text": @"test",
+        @"action_type": @1, @"status": @1,
+        @"action_params": @"{\"u\":{\"pw_inbox_tab\":\"a1b2c3\"}}"}];
+    XCTAssertNil(underUserdata.tabId);
+
+    PWInboxMessageInternal *numericValue = [PWInboxMessageInternal messageWithDictionary:@{
+        @"inbox_id": @"c1", @"order": @1, @"rt": @2000000000, @"text": @"test",
+        @"action_type": @1, @"status": @1,
+        @"action_params": @"{\"pw_inbox_tab\":12345}"}];
+    XCTAssertNil(numericValue.tabId);
+
+    PWInboxMessageInternal *nullValue = [PWInboxMessageInternal messageWithDictionary:@{
+        @"inbox_id": @"c1", @"order": @1, @"rt": @2000000000, @"text": @"test",
+        @"action_type": @1, @"status": @1,
+        @"action_params": @"{\"pw_inbox_tab\":null}"}];
+    XCTAssertNil(nullValue.tabId);
+
+    PWInboxMessageInternal *emptyString = [PWInboxMessageInternal messageWithDictionary:@{
+        @"inbox_id": @"c1", @"order": @1, @"rt": @2000000000, @"text": @"test",
+        @"action_type": @1, @"status": @1,
+        @"action_params": @"{\"pw_inbox_tab\":\"\"}"}];
+    XCTAssertNil(emptyString.tabId);
+}
+
+/// Verifies that pw_inbox_tab nested inside inbox_params is not treated as a tab.
+- (void)testTabIdNotReadFromNestedInboxParams {
+    PWInboxMessageInternal *message = [PWInboxMessageInternal messageWithPushNotification:@{
+        @"pw_inbox": @"c3",
+        @"inbox_params": @{@"rt": @"2033-05-18", @"pw_inbox_tab": @"a1b2c3"},
+        @"aps": @{@"alert": @"hi"}}];
+    XCTAssertNil(message.tabId);
+}
+
+/// Verifies that a message archived before tabs existed still reports its tabId after unarchiving.
+- (void)testTabIdSurvivesLegacyArchive {
+    PWInboxMessageInternal *message = [PWInboxMessageInternal messageWithDictionary:@{
+        @"inbox_id": @"c1", @"order": @1, @"rt": @2000000000, @"text": @"test",
+        @"action_type": @1, @"status": @1,
+        @"action_params": @"{\"pw_inbox_tab\":\"a1b2c3\"}"}];
+
+    NSData *archived = [NSKeyedArchiver archivedDataWithRootObject:message requiringSecureCoding:YES error:nil];
+    PWInboxMessageInternal *restored = [NSKeyedUnarchiver unarchivedObjectOfClass:[PWInboxMessageInternal class] fromData:archived error:nil];
+
+    XCTAssertEqualObjects(restored.tabId, @"a1b2c3");
+}
+
 @end

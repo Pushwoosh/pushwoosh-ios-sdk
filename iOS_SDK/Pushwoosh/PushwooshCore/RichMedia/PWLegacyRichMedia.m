@@ -11,6 +11,9 @@
 #import "PWLegacyRichMedia.h"
 #import "PWRichMediaManager.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 @implementation PWLegacyRichMedia
 
 + (Class<PWLegacyRichMedia>)legacyRichMedia {
@@ -25,10 +28,20 @@
     [PWRichMediaManager sharedManager].delegate = delegate;
 }
 
++ (PWRichMediaStyle *)getRichMediaStyle {
+    return [PWRichMediaManager sharedManager].richMediaStyle ?: [PWRichMediaStyle new];
+}
+
++ (void)setRichMediaStyle:(PWRichMediaStyle *)style {
+    [PWRichMediaManager sharedManager].richMediaStyle = style ?: [PWRichMediaStyle new];
+}
+
 + (void)presentRichMedia:(PWRichMedia *)richMedia {
     [[PWRichMediaManager sharedManager] presentRichMedia:richMedia];
 }
 
 @end
+
+#pragma clang diagnostic pop
 
 #endif

@@ -30,6 +30,7 @@ typedef NS_ENUM(NSInteger, PWInboxMessageStatus) {
 @property (readonly, nonatomic) BOOL isActionPerformed;
 @property (readonly, nonatomic) BOOL deleted;
 @property (readonly, nonatomic) NSString *attachmentUrl;
+@property (readonly, nonatomic) NSString *tabId;
 
 //internal
 @property (readonly, nonatomic) BOOL isExpired;

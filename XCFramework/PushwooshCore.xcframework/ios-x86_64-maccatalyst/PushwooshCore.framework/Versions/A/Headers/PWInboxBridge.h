@@ -9,6 +9,7 @@
 #import <Foundation/Foundation.h>
 
 @protocol PWInboxMessageProtocol;
+@class PWInboxTabs;
 
 /// Bridge protocol exposing the inbox backend (PushwooshFramework's `PWInbox`)
 /// to the optional UI module `PushwooshInboxKit` without a hard compile-time
@@ -35,9 +36,15 @@
 + (void)deleteMessagesWithCodes:(NSArray<NSString *> *)codes;
 + (void)performActionForMessageWithCode:(NSString *)code;
 
-/// Reports the open alone; see `+[PWInbox reportActionForMessageWithCode:]`.
+/// Reports the open alone; see `[[Pushwoosh inbox] reportActionForMessageWithCode:]`.
 + (void)reportActionForMessageWithCode:(NSString *)code;
 + (void)markAllMessagesAsRead;
 + (void)deleteAllReadMessages;
+
+@optional
+
+/// The Control-Panel-configured Inbox tab list, as fresh as the last completed
+/// `loadMessagesWithCompletion:`. `nil` means this app has no tabs configured.
++ (PWInboxTabs *)getTabs;
 
 @end

@@ -46,6 +46,8 @@
     [[PWModalWindowConfiguration shared] setAnimationDuration:duration];
 }
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
 + (id<PWRichMediaPresentingDelegate>)getDelegate {
     return [PWRichMediaManager sharedManager].delegate;
 }
@@ -57,6 +59,7 @@
 + (void)presentRichMedia:(PWRichMedia *)richMedia {
     [[PWRichMediaManager sharedManager] presentRichMedia:richMedia];
 }
+#pragma clang diagnostic pop
 
 @end
 

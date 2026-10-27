@@ -1,4 +1,4 @@
-# ``Pushwoosh/configure``
+# ``Pushwoosh/configure-type.property``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -54,6 +54,6 @@ func application(_ application: UIApplication,
 
 ## See Also
 
-- ``Pushwoosh/sharedInstance()``
-- ``Pushwoosh/registerForPushNotifications()``
-- ``Pushwoosh/delegate``
+- ``Pushwoosh/media-type.property``
+- ``Pushwoosh/inbox-type.property``
+- <doc:QuickStart>

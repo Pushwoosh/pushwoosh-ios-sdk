@@ -37,6 +37,12 @@ FOUNDATION_EXPORT NSString * const kPWActiveApplicationBaseUrlKey;
 
 @property (copy) NSString *userId;
 
+/// YES while the user ID is the HWID default; the user ID then follows HWID changes.
+@property (nonatomic, readonly) BOOL usesDefaultUserId;
+
+/// Returns the user ID to the HWID default of a fresh install and drops the stored custom user ID.
+- (void)resetUserIdToHwid;
+
 @property (copy, nullable) NSDate *lastRegTime;
 
 @property (nonatomic) NSInteger lastStatusMask;

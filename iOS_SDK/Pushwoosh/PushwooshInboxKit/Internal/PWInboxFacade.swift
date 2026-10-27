@@ -10,6 +10,14 @@
 import Foundation
 import PushwooshCore
 
+/// Result of a `PWInboxFacade.loadMessages` call. `messages` is the storage-owned
+/// list regardless of `error` — a network failure does not imply an empty list,
+/// since `PWInbox` falls back to the locally cached messages.
+struct InboxLoadResult {
+    let messages: [PWInboxMessageProtocol]
+    let error: Error?
+}
+
 /// Internal Swift wrapper around the inbox backend exposed by
 /// `PushwooshFramework`'s `PWInbox` class via the `PWInboxBridge` protocol.
 ///
@@ -32,20 +40,27 @@ class PWInboxFacade {
     /// Loads all messages through the bridge → `PWInbox.loadMessagesWithCompletion`,
     /// which merges the network response into `PWInboxStorage` (preserving
     /// locally-set deleted/read flags) and returns the storage-owned refs.
-    func loadMessages(_ completion: @escaping (Result<[PWInboxMessageProtocol], Error>) -> Void) {
+    ///
+    /// `PWInbox` already hands back the storage-owned messages next to a
+    /// network error, so `messages` and `error` are forwarded verbatim —
+    /// callers decide what an error with cached content means for them.
+    func loadMessages(_ completion: @escaping (InboxLoadResult) -> Void) {
         guard let bridge = bridge else {
-            DispatchQueue.main.async { completion(.success([])) }
+            DispatchQueue.main.async { completion(InboxLoadResult(messages: [], error: nil)) }
             return
         }
         bridge.loadMessages { messages, error in
             DispatchQueue.main.async {
-                if let error = error {
-                    completion(.failure(error))
-                } else {
-                    completion(.success(messages ?? []))
-                }
+                completion(InboxLoadResult(messages: messages ?? [], error: error))
             }
         }
+    }
+
+    /// The Control-Panel-configured Inbox tab list, as fresh as the last completed
+    /// `loadMessages`. `nil` when the bridge is absent (unit tests) or the app has
+    /// no tabs configured.
+    func tabs() -> PWInboxTabs? {
+        bridge?.getTabs?()
     }
 
     /// Marks the supplied messages as read — both server-side and locally

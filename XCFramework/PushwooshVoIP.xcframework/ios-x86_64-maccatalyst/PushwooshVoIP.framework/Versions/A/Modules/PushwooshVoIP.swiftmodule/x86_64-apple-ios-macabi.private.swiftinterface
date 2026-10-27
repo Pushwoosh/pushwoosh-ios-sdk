@@ -12,8 +12,7 @@ import Swift
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
-@_inheritsConvenienceInitializers @available(iOS 14.0, *)
-@objc(PushwooshVoIPImplementation) public class PushwooshVoIPImplementation : ObjectiveC.NSObject, PushwooshBridge.PWVoIP, PushKit.PKPushRegistryDelegate, CallKit.CXProviderDelegate {
+@_inheritsConvenienceInitializers @objc(PushwooshVoIPImplementation) public class PushwooshVoIPImplementation : ObjectiveC.NSObject, PushwooshBridge.PWVoIP, PushKit.PKPushRegistryDelegate, CallKit.CXProviderDelegate {
   @objc(shared) public static let shared: PushwooshVoIP.PushwooshVoIPImplementation
   @objc weak public static var delegate: Swift.AnyObject? {
     @objc get
@@ -43,18 +42,13 @@ import _SwiftConcurrencyShims
   @objc deinit
 }
 extension PushwooshBridge.PWVoIP {
-  @available(iOS 14.0, *)
   public static var delegate: Swift.AnyObject? {
     get
     set
   }
-  @available(iOS 14.0, *)
   public static func initializeVoIP(_ supportVideo: Swift.Bool, ringtoneSound: Swift.String, handleTypes: Swift.Int)
-  @available(iOS 14.0, *)
   public static func setVoIPToken(_ token: Foundation.Data)
-  @available(iOS 14.0, *)
   public static func setRingtone(_ ringtoneSound: Swift.String)
-  @available(iOS 14.0, *)
   public static func setIncomingCallTimeout(_ timeout: Foundation.TimeInterval)
 }
 @objc public protocol PWVoIPCallDelegate : ObjectiveC.NSObjectProtocol {
@@ -101,7 +95,6 @@ extension PushwooshBridge.PWVoIP {
   public init(rawPayload: [Swift.AnyHashable : Any])
   @objc deinit
 }
-@available(iOS 14.0, *)
 extension PushwooshVoIP.PushwooshVoIPImplementation {
   @objc public static let configureBackchannel: any PushwooshBridge.PWVoIPConfigureHandler
 }

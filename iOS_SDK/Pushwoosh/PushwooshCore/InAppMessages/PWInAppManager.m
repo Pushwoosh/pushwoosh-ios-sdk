@@ -70,7 +70,10 @@ static dispatch_once_t inAppManagerOnceToken;
 // used only to update instance when app code changes dynamically, so we can still keep dispatch_once in sharedManager
 + (void)updateInAppManagerInstance {
     [PWInAppManager destroy];
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
     [PWInAppManager sharedManager];
+#pragma clang diagnostic pop
 }
 
 - (void)setUserId:(NSString *)userId {

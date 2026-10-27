@@ -577,10 +577,8 @@
                 "moduleName": "PushwooshForegroundPush",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
                 "declAttributes": [
-                  "Final",
-                  "Available"
+                  "Final"
                 ],
                 "accessorKind": "_modify"
               }
@@ -757,10 +755,8 @@
                 "moduleName": "PushwooshForegroundPush",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
                 "declAttributes": [
-                  "Final",
-                  "Available"
+                  "Final"
                 ],
                 "accessorKind": "_modify"
               }
@@ -882,10 +878,8 @@
                 "moduleName": "PushwooshForegroundPush",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
                 "declAttributes": [
-                  "Final",
-                  "Available"
+                  "Final"
                 ],
                 "accessorKind": "_modify"
               }
@@ -983,10 +977,8 @@
                 "moduleName": "PushwooshForegroundPush",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
                 "declAttributes": [
-                  "Final",
-                  "Available"
+                  "Final"
                 ],
                 "accessorKind": "_modify"
               }
@@ -1108,10 +1100,8 @@
                 "moduleName": "PushwooshForegroundPush",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
                 "declAttributes": [
-                  "Final",
-                  "Available"
+                  "Final"
                 ],
                 "accessorKind": "_modify"
               }
@@ -1233,10 +1223,8 @@
                 "moduleName": "PushwooshForegroundPush",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
                 "declAttributes": [
-                  "Final",
-                  "Available"
+                  "Final"
                 ],
                 "accessorKind": "_modify"
               }
@@ -1358,10 +1346,8 @@
                 "moduleName": "PushwooshForegroundPush",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
                 "declAttributes": [
-                  "Final",
-                  "Available"
+                  "Final"
                 ],
                 "accessorKind": "_modify"
               }
@@ -1483,10 +1469,8 @@
                 "moduleName": "PushwooshForegroundPush",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
                 "declAttributes": [
-                  "Final",
-                  "Available"
+                  "Final"
                 ],
                 "accessorKind": "_modify"
               }
@@ -1584,10 +1568,8 @@
                 "moduleName": "PushwooshForegroundPush",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
                 "declAttributes": [
-                  "Final",
-                  "Available"
+                  "Final"
                 ],
                 "accessorKind": "_modify"
               }
@@ -1598,12 +1580,10 @@
         "usr": "c:@M@PushwooshForegroundPush@objc(cs)PushwooshForegroundPushImplementation",
         "mangledName": "$s23PushwooshForegroundPush0abC14ImplementationC",
         "moduleName": "PushwooshForegroundPush",
-        "intro_iOS": "13.0",
         "objc_name": "PushwooshForegroundPushImplementation",
         "declAttributes": [
           "AccessControl",
           "ObjC",
-          "Available",
           "RawDocComment"
         ],
         "superclassUsr": "c:objc(cs)NSObject",
@@ -1783,10 +1763,6 @@
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
-                "declAttributes": [
-                  "Available"
-                ],
                 "isFromExtension": true,
                 "accessorKind": "_modify"
               }
@@ -2012,10 +1988,6 @@
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
-                "declAttributes": [
-                  "Available"
-                ],
                 "isFromExtension": true,
                 "accessorKind": "_modify"
               }
@@ -2132,10 +2104,6 @@
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
-                "declAttributes": [
-                  "Available"
-                ],
                 "isFromExtension": true,
                 "accessorKind": "_modify"
               }
@@ -2228,10 +2196,6 @@
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
-                "declAttributes": [
-                  "Available"
-                ],
                 "isFromExtension": true,
                 "accessorKind": "_modify"
               }
@@ -2348,10 +2312,6 @@
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
-                "declAttributes": [
-                  "Available"
-                ],
                 "isFromExtension": true,
                 "accessorKind": "_modify"
               }
@@ -2468,10 +2428,6 @@
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
-                "declAttributes": [
-                  "Available"
-                ],
                 "isFromExtension": true,
                 "accessorKind": "_modify"
               }
@@ -2588,10 +2544,6 @@
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
-                "declAttributes": [
-                  "Available"
-                ],
                 "isFromExtension": true,
                 "accessorKind": "_modify"
               }
@@ -2708,10 +2660,6 @@
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
-                "declAttributes": [
-                  "Available"
-                ],
                 "isFromExtension": true,
                 "accessorKind": "_modify"
               }
@@ -2804,10 +2752,6 @@
                 "sugared_genericSig": "<Self where Self : PushwooshBridge.PWForegroundPush>",
                 "static": true,
                 "implicit": true,
-                "intro_iOS": "13.0",
-                "declAttributes": [
-                  "Available"
-                ],
                 "isFromExtension": true,
                 "accessorKind": "_modify"
               }
@@ -2832,7 +2776,7 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshForegroundPush\/ForegroundPushShape.swift",
       "kind": "BooleanLiteral",
-      "offset": 306,
+      "offset": 282,
       "length": 5,
       "value": "false"
     },
@@ -2860,7 +2804,7 @@
     {
       "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshForegroundPush\/PushwooshForegroundPushImplementation.swift",
       "kind": "IntegerLiteral",
-      "offset": 34378,
+      "offset": 34326,
       "length": 1,
       "value": "3"
     }

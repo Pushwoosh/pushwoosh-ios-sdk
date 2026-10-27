@@ -17,7 +17,7 @@
  Example:
 
  Objective-C:
- @code
+ ```objc
  @implementation JavaScriptInterface
 
  - (void)nativeCall:(NSString*)str :(PWJavaScriptCallback*)callback {
@@ -28,15 +28,15 @@
 
  ...
 
- [[PWInAppManager sharedManager] addJavascriptInterface:[JavaScriptInterface new] withName:@"ObjC"];
- @endcode
+ [[Pushwoosh configure] addJavascriptInterface:[JavaScriptInterface new] withName:@"ObjC"];
+ ```
 
  JavaScript:
- @code
+ ```javascript
  ObjC.nativeCall("exampleString", function(str) {
 	console.log(str);
  });
- @endcode
+ ```
  */
 @protocol PWJavaScriptInterface
 
@@ -89,7 +89,7 @@
  */
 @interface PWInAppManager : NSObject
 
-+ (instancetype)sharedManager;
++ (instancetype)sharedManager __attribute__((deprecated("Since 7.3.0: Use Pushwoosh.configure (Objective-C: [Pushwoosh configure]) instead.")));
 
 + (void)updateInAppManagerInstance;
 
@@ -136,10 +136,10 @@
  Post events for In-App Messages. This can trigger In-App message display as specified in Pushwoosh Control Panel.
 
  Example:
- @code
- [[PWInAppManager sharedManager] setUserId:@"96da2f590cd7246bbde0051047b0d6f7"];
- [[PWInAppManager sharedManager] postEvent:@"buttonPressed" withAttributes:@{ @"buttonNumber" : @"4", @"buttonLabel" : @"Banner" } completion:nil];
- @endcode
+ ```objc
+ [[Pushwoosh configure] setUserId:@"96da2f590cd7246bbde0051047b0d6f7"];
+ [[Pushwoosh configure] postEvent:@"buttonPressed" withAttributes:@{ @"buttonNumber" : @"4", @"buttonLabel" : @"Banner" } completion:nil];
+ ```
 
  @param event name of the event
  @param attributes NSDictionary of event attributes

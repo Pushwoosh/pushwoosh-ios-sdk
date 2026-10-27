@@ -43,6 +43,7 @@
         }
     }
     _messages = list;
+    _tabsPayload = [response pw_dictionaryForKey:@"inbox_tabs"];
 }
 
 @end

@@ -271,24 +271,22 @@ Adjust colors based on user interface style:
 
 ```swift
 func configureForegroundPushColors() {
-    if #available(iOS 13.0, *) {
-        let isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
+    let isDarkMode = UITraitCollection.current.userInterfaceStyle == .dark
 
-        if isDarkMode {
-            Pushwoosh.ForegroundPush.gradientColors = [
-                UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1.0),
-                UIColor(red: 0.25, green: 0.25, blue: 0.25, alpha: 1.0)
-            ]
-            Pushwoosh.ForegroundPush.titlePushColor = .white
-            Pushwoosh.ForegroundPush.messagePushColor = UIColor(white: 0.85, alpha: 1.0)
-        } else {
-            Pushwoosh.ForegroundPush.gradientColors = [
-                UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0),
-                UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
-            ]
-            Pushwoosh.ForegroundPush.titlePushColor = .black
-            Pushwoosh.ForegroundPush.messagePushColor = UIColor(white: 0.15, alpha: 1.0)
-        }
+    if isDarkMode {
+        Pushwoosh.ForegroundPush.gradientColors = [
+            UIColor(red: 0.15, green: 0.15, blue: 0.15, alpha: 1.0),
+            UIColor(red: 0.25, green: 0.25, blue: 0.25, alpha: 1.0)
+        ]
+        Pushwoosh.ForegroundPush.titlePushColor = .white
+        Pushwoosh.ForegroundPush.messagePushColor = UIColor(white: 0.85, alpha: 1.0)
+    } else {
+        Pushwoosh.ForegroundPush.gradientColors = [
+            UIColor(red: 0.95, green: 0.95, blue: 0.95, alpha: 1.0),
+            UIColor(red: 0.85, green: 0.85, blue: 0.85, alpha: 1.0)
+        ]
+        Pushwoosh.ForegroundPush.titlePushColor = .black
+        Pushwoosh.ForegroundPush.messagePushColor = UIColor(white: 0.15, alpha: 1.0)
     }
 }
 ```

@@ -639,7 +639,7 @@ SWIFT_CLASS("_TtC13PushwooshVoIP13PWVoIPMessage")
 @class PKPushPayload;
 
 /// Orchestrates VoIP push notifications and CallKit integration for iOS applications.
-SWIFT_CLASS_NAMED("PushwooshVoIPImplementation") SWIFT_AVAILABILITY(ios,introduced=14.0)
+SWIFT_CLASS_NAMED("PushwooshVoIPImplementation")
 @interface PushwooshVoIPImplementation : NSObject <CXProviderDelegate, PKPushRegistryDelegate, PWVoIP>
 /// Shared singleton instance.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) PushwooshVoIPImplementation * _Nonnull shared;)
@@ -678,7 +678,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, weak) id _Nullable delegate;)
 
 @protocol PWVoIPConfigureHandler;
 
-SWIFT_AVAILABILITY(ios,introduced=14.0)
 @interface PushwooshVoIPImplementation (SWIFT_EXTENSION(PushwooshVoIP))
 /// Singleton back-channel adapter used by <code>PWPushRuntime</code> to trigger
 /// VoIP configuration without reflection.
@@ -1335,7 +1334,7 @@ SWIFT_CLASS("_TtC13PushwooshVoIP13PWVoIPMessage")
 @class PKPushPayload;
 
 /// Orchestrates VoIP push notifications and CallKit integration for iOS applications.
-SWIFT_CLASS_NAMED("PushwooshVoIPImplementation") SWIFT_AVAILABILITY(ios,introduced=14.0)
+SWIFT_CLASS_NAMED("PushwooshVoIPImplementation")
 @interface PushwooshVoIPImplementation : NSObject <CXProviderDelegate, PKPushRegistryDelegate, PWVoIP>
 /// Shared singleton instance.
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) PushwooshVoIPImplementation * _Nonnull shared;)
@@ -1374,7 +1373,6 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, weak) id _Nullable delegate;)
 
 @protocol PWVoIPConfigureHandler;
 
-SWIFT_AVAILABILITY(ios,introduced=14.0)
 @interface PushwooshVoIPImplementation (SWIFT_EXTENSION(PushwooshVoIP))
 /// Singleton back-channel adapter used by <code>PWPushRuntime</code> to trigger
 /// VoIP configuration without reflection.

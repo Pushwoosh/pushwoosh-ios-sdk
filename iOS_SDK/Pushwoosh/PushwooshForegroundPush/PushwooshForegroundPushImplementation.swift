@@ -71,7 +71,6 @@ public class ForegroundPushConfiguration: NSObject {
 }
 
 /// Main implementation class that manages foreground push notifications display and configuration.
-@available(iOS 13.0, *)
 @objc(PushwooshForegroundPushImplementation)
 public class PushwooshForegroundPushImplementation: NSObject {
     /// The shared singleton instance.
@@ -126,7 +125,6 @@ public class PushwooshForegroundPushImplementation: NSObject {
 
     private weak var _delegate: PWForegroundPushDelegate?
 
-    @available(iOS 13.0, *)
     private static func drawPush(style: PWForegroundPushStyle,
                                  duration: Int,
                                  vibration: PWForegroundPushHapticFeedback,
@@ -823,13 +821,9 @@ extension PWForegroundPushHapticFeedback {
         case .heavy:
             UIImpactFeedbackGenerator(style: .heavy).impactOccurred()
         case .soft:
-            if #available(iOS 13.0, *) {
-                UIImpactFeedbackGenerator(style: .soft).impactOccurred()
-            }
+            UIImpactFeedbackGenerator(style: .soft).impactOccurred()
         case .rigid:
-            if #available(iOS 13.0, *) {
-                UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
-            }
+            UIImpactFeedbackGenerator(style: .rigid).impactOccurred()
         case .notification:
             let generator = UINotificationFeedbackGenerator()
             generator.notificationOccurred(.warning)

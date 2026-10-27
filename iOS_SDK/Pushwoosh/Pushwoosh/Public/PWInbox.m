@@ -20,6 +20,9 @@
 #import <PushwooshCore/PWInboxBridge.h>
 #import "Pushwoosh+Internal.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpdateNotification.com.pushwoosh.inbox";
 NSString * const PWInboxMessagesDidReceiveInPushNotification = @"PWInboxMessagesDidReceiveInPushNotification.com.pushwoosh.inbox";
 
@@ -159,6 +162,7 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
                                                                 NSArray<NSString *> *messagesDeleted,
                                                                 NSArray<PWInboxMessageInternal *> *messagesAdded,
                                                                 NSArray<PWInboxMessageInternal *> *messagesUpdated) {
+                                                       [wself.storage updateTabsFromPayload:[wself.service lastInboxTabsPayload]];
                                                        [wself.class sendNotificationWithMessagesAdded:messagesAdded
                                                                                       messagesDeleted:messagesDeleted
                                                                                       messagesUpdated:messagesUpdated];
@@ -238,7 +242,7 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
 + (void)sendStaticMessage:(NSArray<PWInboxMessageInternal *> *)messages {
     for (PWInboxMessageInternal *message in messages) {
         if (message.canUpdateStatus) {
-            [[Pushwoosh sharedInstance].dataManager sendStatsForPush:message.actionParams];
+            [[Pushwoosh pw_sharedInstance].dataManager sendStatsForPush:message.actionParams];
         }
     }
 }
@@ -287,6 +291,10 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
 
 + (void)loadMessagesWithCompletion:(PWMessageCompletion)completion {
     [[PWInbox sharedInstance] getMessagesWithCompletion:completion];
+}
+
++ (PWInboxTabs * _Nullable)getTabs {
+    return [PWInbox sharedInstance].storage.tabs;
 }
 
 + (void)readMessagesWithCodes:(NSArray<NSString *> *)codes {
@@ -360,7 +368,7 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
     [PWInbox sendStaticMessage:updateMessages];
 
     if (runMessageAction) {
-        [[Pushwoosh sharedInstance].pushNotificationManager processInboxActionUserInfo:message.actionParams];
+        [[Pushwoosh pw_sharedInstance].pushNotificationManager processInboxActionUserInfo:message.actionParams];
     }
 
     [PWInbox sendNotificationWithMessagesAdded:nil messagesDeleted:nil messagesUpdated:updateMessages];
@@ -451,3 +459,83 @@ typedef void (^PWMessageCompletion)(NSArray<NSObject<PWInboxMessageProtocol> *> 
 }
 
 @end
+
+@implementation PWInboxCenter
+
++ (void)messagesWithNoActionPerformedCountWithCompletion:(void (^)(NSInteger count, NSError *error))completion {
+    [PWInbox messagesWithNoActionPerformedCountWithCompletion:completion];
+}
+
++ (void)unreadMessagesCountWithCompletion:(void (^)(NSInteger count, NSError *error))completion {
+    [PWInbox unreadMessagesCountWithCompletion:completion];
+}
+
++ (void)messagesCountWithCompletion:(void (^)(NSInteger count, NSError *error))completion {
+    [PWInbox messagesCountWithCompletion:completion];
+}
+
++ (void)loadMessagesWithCompletion:(PWMessageCompletion)completion {
+    [PWInbox loadMessagesWithCompletion:completion];
+}
+
++ (PWInboxTabs * _Nullable)getTabs {
+    return [PWInbox getTabs];
+}
+
++ (void)readMessagesWithCodes:(NSArray<NSString *> *)codes {
+    [PWInbox readMessagesWithCodes:codes];
+}
+
++ (void)markAllMessagesAsRead {
+    [PWInbox markAllMessagesAsRead];
+}
+
++ (id<PWInboxMessageProtocol>)messageForCode:(NSString *)code {
+    return [PWInbox messageForCode:code];
+}
+
++ (void)performActionForMessageWithCode:(NSString *)code {
+    [PWInbox performActionForMessageWithCode:code];
+}
+
++ (void)reportActionForMessageWithCode:(NSString *)code {
+    [PWInbox reportActionForMessageWithCode:code];
+}
+
++ (void)deleteMessagesWithCodes:(NSArray<NSString *> *)codes {
+    [PWInbox deleteMessagesWithCodes:codes];
+}
+
++ (void)deleteAllReadMessages {
+    [PWInbox deleteAllReadMessages];
+}
+
++ (id<NSObject>)addObserverForDidReceiveInPushNotificationCompletion:(void (^)(NSArray<NSObject<PWInboxMessageProtocol> *> *messagesAdded))completion {
+    return [PWInbox addObserverForDidReceiveInPushNotificationCompletion:completion];
+}
+
++ (id<NSObject>)addObserverForUpdateInboxMessagesCompletion:(void (^)(NSArray<NSObject<PWInboxMessageProtocol> *> *messagesDeleted,
+                                                                      NSArray<NSObject<PWInboxMessageProtocol> *> *messagesAdded,
+                                                                      NSArray<NSObject<PWInboxMessageProtocol> *> *messagesUpdated))completion {
+    return [PWInbox addObserverForUpdateInboxMessagesCompletion:completion];
+}
+
++ (id<NSObject>)addObserverForUnreadMessagesCountUsingBlock:(void (^)(NSUInteger count))block {
+    return [PWInbox addObserverForUnreadMessagesCountUsingBlock:block];
+}
+
++ (id<NSObject>)addObserverForNoActionPerformedMessagesCountUsingBlock:(void (^)(NSUInteger count))block {
+    return [PWInbox addObserverForNoActionPerformedMessagesCountUsingBlock:block];
+}
+
++ (void)removeObserver:(id<NSObject>)observer {
+    [PWInbox removeObserver:observer];
+}
+
++ (void)updateInboxForNewUserId:(void (^)(NSUInteger messagesCount))completion {
+    [PWInbox updateInboxForNewUserId:completion];
+}
+
+@end
+
+#pragma clang diagnostic pop

@@ -553,6 +553,47 @@
     XCTAssertEqualWithAccuracy([fresh lastKnockTriggerTimestamp], 0.0, 0.001);
 }
 
+/// Verifies that resetUserIdToHwid leaves the HWID as the default user, also after a relaunch, like a fresh install.
+- (void)testResetUserIdToHwidSurvivesRelaunchAsDefaultUser {
+    id mockConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockConfig appGroupsName]).andReturn(nil);
+    NSString *savedUserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"PWInAppUserId"];
+    PWPreferences *launchOne = [[PWPreferences alloc] init];
+    launchOne.userId = @"bob";
+
+    [launchOne resetUserIdToHwid];
+    PWPreferences *launchTwo = [[PWPreferences alloc] init];
+
+    XCTAssertEqualObjects(launchOne.userId, launchOne.hwid);
+    XCTAssertTrue(launchOne.usesDefaultUserId);
+    XCTAssertEqualObjects(launchTwo.userId, launchTwo.hwid);
+    XCTAssertTrue(launchTwo.usesDefaultUserId);
+
+    [self restoreDefaultsKey:@"PWInAppUserId" value:savedUserId];
+    [mockConfig stopMocking];
+}
+
+/// Verifies that resetUserIdToHwid with an App Group leaves the HWID as the default user after a relaunch.
+- (void)testResetUserIdToHwidInAppGroupSurvivesRelaunchAsDefaultUser {
+    NSString *appGroupName = @"group.com.pushwoosh.tests.resetUserId";
+    id mockConfig = OCMPartialMock([PWConfig config]);
+    OCMStub([mockConfig appGroupsName]).andReturn(appGroupName);
+    NSString *savedUserId = [[NSUserDefaults standardUserDefaults] objectForKey:@"PWInAppUserId"];
+    [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"PWInAppUserId"];
+    PWPreferences *launchOne = [[PWPreferences alloc] init];
+    launchOne.userId = @"bob";
+
+    [launchOne resetUserIdToHwid];
+    PWPreferences *launchTwo = [[PWPreferences alloc] init];
+
+    XCTAssertEqualObjects(launchTwo.userId, launchTwo.hwid);
+    XCTAssertTrue(launchTwo.usesDefaultUserId);
+
+    [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appGroupName];
+    [self restoreDefaultsKey:@"PWInAppUserId" value:savedUserId];
+    [mockConfig stopMocking];
+}
+
 @end
 
 #pragma clang diagnostic pop

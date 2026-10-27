@@ -1,0 +1,142 @@
+<!doctype html>
+<html class="no-js" lang="">
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="x-ua-compatible" content="ie=edge">
+        <title></title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!-- Place favicon.ico in the root directory -->
+        <style type="text/css">
+            html {
+                background: rgba(0, 0, 0, 0.80);
+                color: rgba(0, 0, 0, 0.78);
+                font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+            }
+
+            body {
+                height: 100vh;
+                width: 100%;
+                margin: 0;
+                display: block;
+            }
+            h1 {
+                font-family: 'Trebuchet MS', Arial, Helvetica, sans-serif;
+                font-style: normal;
+                font-size: 2.5em;
+                text-transform: uppercase;
+                color: #{{Header text color|color|292929}};
+                line-height: 1.2em;
+                margin: 10px auto 20px;
+            }
+            p {
+                font-size: 1em;
+                color: #{{Text color|color|292929}};
+                line-height: 1.5em;
+                margin: 0 auto 10px;
+            }
+            .wrapper {
+                padding: 20px;
+                position: relative;
+                top: 50%;
+                -webkit-transform: translateY(-50%);
+                -moz-transform: translateY(-50%);
+                transform: translateY(-50%);
+            }
+            .template {
+                position: relative;
+                min-width: 260px;
+                max-width: 700px;
+                margin: 0 auto;
+                text-align: center;
+            }
+            .template-main {
+              border-radius: 12px;
+              background-color: #{{Background color|color|ffffff}};
+              -webkit-box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.25);
+              box-shadow: 0 0 14px 0 rgba(0, 0, 0, 0.25);
+              padding: 15px;
+              text-align: center;
+            }
+            .icon {
+              display: inline-block;
+              background: center center no-repeat;
+              background-size: 100% 100%;
+              margin: 0 auto;
+            }
+            .icon-subscribe {
+              display: block;
+              margin-top: 20px;
+              height: 132px;
+              width: 132px;
+              background: url({{Image url|text|icon_subscribe.svg}}) no-repeat center;
+              background-size: contain;
+            }
+            .buttons {
+                display: block;
+                margin: 20px auto 35px;
+                text-align: center;
+            }
+            .ok-button {
+                padding: 12px;
+                font-size: 1em;
+                border: 2px solid #311c3a;
+                display: block;
+                text-decoration: none;
+                border-radius: 12px;
+                text-transform: uppercase;
+                background-color: #{{Button color|color|ffb817}};
+                color: #{{Text color|color|292929}};
+            }
+            a {
+              padding: 12px;
+              color: #292929;
+              font-size: 1em;
+              display: block;
+              text-decoration: none;
+              text-transform: uppercase;
+            }
+            .ok-button:hover {
+              background-color: #fbcd64;
+            }
+            button {
+                cursor: pointer;
+                width: 100%;
+            }
+            .filled-button:hover {
+                background-color: #fbcd64;
+            }
+        </style>
+    </head>
+    <body >
+        <div class="wrapper">
+            <div class="template">
+                <div class="template-main">
+                  <div class="icon-subscribe icon"></div>
+                  <h1>{{Header text|text|Stay Tuned}}</h1>
+                  <p>{{Sub-header text|text|Opt in for push notifications!}}</p>
+                  <p>{{Main text|text|We'll keep you posted about our news and special offers.}}</p>
+                  <div class="buttons">
+                    <a class="ok-button" id="submit" href="#">{{Button text|text|Subscribe}}</a>
+                  </div>
+                </div>
+            </div>
+        </div>
+        <script type="text/javascript" src="fastclick.js"></script>
+        <script type="text/javascript">
+            var submitButton = document.getElementById('submit');
+
+            submitButton.onclick = function(event) {
+                event.preventDefault();
+                if (window.pushwoosh && window.pushwoosh.registerForPushNotifications) {
+                    window.pushwoosh.registerForPushNotifications();
+                }
+
+                if (window.pushManager && window.pushManager.closeInApp) {
+                    window.pushManager.closeInApp();
+                }
+            };
+            FastClick.attach(document.body);
+        </script>
+    </body>
+</html>

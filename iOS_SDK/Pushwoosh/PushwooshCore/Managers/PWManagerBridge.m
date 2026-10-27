@@ -15,6 +15,7 @@
 #import "PWPushNotificationsManager.h"
 #import "PWServerCommunicationManager.h"
 #import "PWInAppManager.h"
+#import "PWInAppMessagesManager.h"
 #import "PWUtils.h"
 
 #if TARGET_OS_IOS || TARGET_OS_OSX
@@ -228,6 +229,12 @@ NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpda
     if (self.inAppManager) {
         [self.inAppManager setUserId:userId completion:completion];
     }
+#endif
+}
+
+- (void)resetUserIdWithCompletion:(void (^)(NSError *error))completion {
+#if TARGET_OS_IOS || TARGET_OS_TV
+    [self.inAppMessagesManager resetUserIdWithCompletion:completion];
 #endif
 }
 

@@ -30,6 +30,7 @@
 #import <PushwooshCore/PWRichMediaTypes.h>
 #import <PushwooshCore/PWRichMediaColorSchemeResolver.h>
 #import <PushwooshCore/PWInboxTypes.h>
+#import <PushwooshCore/PWInboxTabs.h>
 #import <PushwooshCore/PWConfig.h>
 #import <PushwooshCore/PWInboxStorage.h>
 #import <PushwooshCore/PWInboxService.h>
@@ -47,7 +48,7 @@
 #import <PushwooshCore/PWFeatureFlag.h>
 #import <PushwooshCore/PWFeatureFlags.h>
 
-#define PUSHWOOSH_VERSION @"7.2.10"
+#define PUSHWOOSH_VERSION @"7.3.0"
 
 @interface PushwooshCoreManager : NSObject
 

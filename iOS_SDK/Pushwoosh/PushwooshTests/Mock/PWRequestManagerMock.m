@@ -38,8 +38,10 @@
             completion([NSError errorWithDomain:@"pushwoosh" code:-1 userInfo:@{NSLocalizedDescriptionKey : @"Testing error"}]);
             return;
         }
-        NSDictionary *response = self.responsesByMethod[[request methodName]] ?: self.response;
-        [request parseResponse:response];
+        if (![self.methodsWithoutResponse containsObject:[request methodName]]) {
+            NSDictionary *response = self.responsesByMethod[[request methodName]] ?: self.response;
+            [request parseResponse:response];
+        }
         completion(nil);
     };
 

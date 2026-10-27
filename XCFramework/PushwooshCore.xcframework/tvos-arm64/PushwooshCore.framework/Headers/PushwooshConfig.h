@@ -13,6 +13,7 @@
 @protocol PWMessagingDelegate;
 #if TARGET_OS_IOS
 @protocol PWPurchaseDelegate;
+@protocol PWJavaScriptInterface;
 @class PWPushPrimerBuilder;
 @class PWFeatureFlags;
 #endif
@@ -1958,8 +1959,8 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
      }
 
      func handleAccountDeletion() {
-         // Clear user identity
-         Pushwoosh.configure.setUserId("")
+         // Reset the user identity to the HWID
+         Pushwoosh.configure.resetUserId()
 
          // Clear all user data tags
          Pushwoosh.configure.setTags([
@@ -1977,8 +1978,9 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  ```
 
  @note The user ID is sent to Pushwoosh servers asynchronously.
- @note Setting nil or empty string will reset to using HWID as the user identifier.
+ @note An empty string is ignored. To reset the user identifier to the HWID, use `resetUserId`.
 
+ @see resetUserId
  @see getUserId
  @see setEmail:
  @see getHWID
@@ -2046,6 +2048,72 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see setUser:emails:completion:
  */
 + (void)setUserId:(NSString *_Nonnull)userId completion:(void (^_Nullable)(NSError *_Nullable error))completion;
+
+/**
+ Resets the user identifier to the HWID.
+
+ @discussion
+ Use this on logout or account deletion. The user ID becomes the HWID again, as on a fresh install,
+ and the SDK sends `/registerUser` with the HWID so the server stops attributing the device to the
+ previous user. `setUserId("")` does not reset the user: an empty value is ignored.
+
+ The call waits until the SDK is ready, like `setUserId:`. If the HWID was already registered
+ as the user less than a day ago, no request is sent.
+
+ ## Example
+
+ ```swift
+ func handleLogout() {
+     Pushwoosh.configure.resetUserId()
+     Pushwoosh.configure.setTags(["logged_in": false])
+ }
+ ```
+
+ ```objc
+ [[Pushwoosh configure] resetUserId];
+ ```
+
+ @see resetUserIdWithCompletion:
+ @see setUserId:
+ @see getUserId
+ */
++ (void)resetUserId;
+
+/**
+ Resets the user identifier to the HWID and reports when the server confirms it.
+
+ @discussion
+ Same as `resetUserId` with a callback. On failure the previous user ID is restored locally.
+
+ @param completion Block called when the operation completes.
+                   Receives nil on success, or an NSError on failure.
+
+ ## Example
+
+ ```swift
+ func deleteAccount() async {
+     do {
+         try await Pushwoosh.configure.resetUserId()
+     } catch {
+         Logger.warning("User reset failed: \(error.localizedDescription)")
+     }
+ }
+ ```
+
+ ```objc
+ [[Pushwoosh configure] resetUserIdWithCompletion:^(NSError *error) {
+     if (error) {
+         NSLog(@"User reset failed: %@", error);
+     }
+ }];
+ ```
+
+ @note The completion block is called on an arbitrary queue.
+
+ @see resetUserId
+ @see setUserId:completion:
+ */
++ (void)resetUserIdWithCompletion:(void (^_Nullable)(NSError *_Nullable error))completion;
 
 /**
  Sets user identifier and emails together in a single operation.
@@ -2304,7 +2372,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
                  return
              }
 
-             Pushwoosh.configure.setUserId("")
+             Pushwoosh.configure.resetUserId()
              Pushwoosh.configure.stopServerCommunication()
              completion(.success(()))
          }
@@ -3158,6 +3226,110 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  */
 + (void)sendBadges:(NSInteger)badge;
 
+#pragma mark - In-App Messages
+
+/**
+ Posts an event for In-App Messages.
+
+ @discussion
+ An event can trigger an In-App Message configured in the Pushwoosh Control Panel.
+ The call waits until the SDK is ready, like the other network methods of `Pushwoosh.configure`.
+
+ Inside an `async` function Swift picks the `async` variant of this method: call it with `try await`.
+
+ @param event The name of the event.
+ @param attributes Event attributes, or `nil`.
+ @param completion Called with `nil` when the event is posted, or with an error.
+
+ ## Example
+
+ ```swift
+ Pushwoosh.configure.postEvent("buttonPressed", withAttributes: ["buttonNumber": "4"]) { error in
+     if let error = error {
+         print("postEvent failed: \(error.localizedDescription)")
+     }
+ }
+
+ // Inside an async function
+ try await Pushwoosh.configure.postEvent("buttonPressed", withAttributes: ["buttonNumber": "4"])
+ ```
+
+ ```objc
+ [[Pushwoosh configure] postEvent:@"buttonPressed"
+                   withAttributes:@{ @"buttonNumber" : @"4" }
+                       completion:^(NSError *error) {}];
+ ```
+ */
++ (void)postEvent:(NSString *_Nonnull)event withAttributes:(NSDictionary *_Nullable)attributes completion:(void (^_Nullable)(NSError *_Nullable error))completion;
+
+/**
+ Posts an event for In-App Messages without a completion.
+
+ @param event The name of the event.
+ @param attributes Event attributes, or `nil`.
+
+ ## Example
+
+ ```swift
+ Pushwoosh.configure.postEvent("appOpen")
+ Pushwoosh.configure.postEvent("productOpened", withAttributes: ["productId": "42"])
+ ```
+
+ @see postEvent:withAttributes:completion:
+ */
++ (void)postEvent:(NSString *_Nonnull)event withAttributes:(NSDictionary *_Nullable)attributes;
+
+#if TARGET_OS_IOS
+/**
+ Reloads In-App Messages resources on the device.
+
+ @discussion
+ The call waits until the SDK is ready. Inside an `async` function call it with `try await`.
+
+ @param completion Called with `nil` when the resources are reloaded, or with an error.
+
+ ## Example
+
+ ```swift
+ Pushwoosh.configure.reloadInApps { error in
+     print(error == nil ? "In-Apps reloaded" : "Reload failed")
+ }
+
+ // Inside an async function
+ try await Pushwoosh.configure.reloadInApps()
+ ```
+ */
++ (void)reloadInAppsWithCompletion:(void (^_Nullable)(NSError *_Nullable error))completion;
+
+/**
+ Adds a JavaScript interface for In-App Messages.
+
+ @discussion
+ The interface is available to the In-App Message HTML as an object with the given `name`
+ and the methods of the `interface` class. Registration is local and does not wait for the SDK.
+
+ @param interface An object conforming to `PWJavaScriptInterface`.
+ @param name The name of the JavaScript object.
+
+ ## Example
+
+ ```swift
+ final class JavaScriptInterface: NSObject, PWJavaScriptInterface {
+     @objc func nativeCall(_ str: String, _ callback: PWJavaScriptCallback) {
+         callback.execute(withParam: str)
+     }
+ }
+
+ Pushwoosh.configure.addJavascriptInterface(JavaScriptInterface(), withName: "native")
+ ```
+
+ ```objc
+ [[Pushwoosh configure] addJavascriptInterface:[JavaScriptInterface new] withName:@"native"];
+ ```
+ */
++ (void)addJavascriptInterface:(NSObject<PWJavaScriptInterface> *_Nonnull)interface withName:(NSString *_Nonnull)name;
+#endif
+
 #pragma mark - URL Handling
 
 #if TARGET_OS_IOS
@@ -3438,8 +3610,8 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
          // Unregister from push
          Pushwoosh.configure.unregisterForPushNotifications { _ in }
 
-         // Clear user identity
-         Pushwoosh.configure.setUserId("")
+         // Reset the user identity to the HWID
+         Pushwoosh.configure.resetUserId()
      }
 
      func markAllAsRead() {
@@ -3891,9 +4063,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  func application(_ application: UIApplication,
                  didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-     if #available(iOS 12.0, *) {
-         Pushwoosh.configure.setAdditionalAuthorizationOptions([.provisional])
-     }
+     Pushwoosh.configure.setAdditionalAuthorizationOptions([.provisional])
 
      Pushwoosh.configure.registerForPushNotifications()
 
@@ -3907,9 +4077,7 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  func application(_ application: UIApplication,
                  didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-     if #available(iOS 12.0, *) {
-         Pushwoosh.configure.setAdditionalAuthorizationOptions([.providesAppNotificationSettings])
-     }
+     Pushwoosh.configure.setAdditionalAuthorizationOptions([.providesAppNotificationSettings])
 
      Pushwoosh.configure.addNotificationCenterDelegate(self)
      Pushwoosh.configure.registerForPushNotifications()
@@ -3927,17 +4095,13 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  ## Example — Combining Multiple Options
 
  ```swift
- if #available(iOS 12.0, *) {
-     Pushwoosh.configure.setAdditionalAuthorizationOptions([.provisional, .providesAppNotificationSettings])
- }
+ Pushwoosh.configure.setAdditionalAuthorizationOptions([.provisional, .providesAppNotificationSettings])
  ```
 
  Objective-C:
 
  ```objc
- if (@available(iOS 12.0, *)) {
-     [Pushwoosh.configure setAdditionalAuthorizationOptions:UNAuthorizationOptionProvisional | UNAuthorizationOptionProvidesAppNotificationSettings];
- }
+ [Pushwoosh.configure setAdditionalAuthorizationOptions:UNAuthorizationOptionProvisional | UNAuthorizationOptionProvidesAppNotificationSettings];
 
  [Pushwoosh.configure registerForPushNotifications];
  ```

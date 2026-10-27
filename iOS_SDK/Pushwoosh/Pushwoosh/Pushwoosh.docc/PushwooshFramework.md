@@ -18,6 +18,8 @@ Key features include:
 - Geolocation tracking
 - Inbox functionality
 
+The SDK API is reached through `Pushwoosh.configure`: registration (`registerForPushNotifications()`), user data (`setUserId(_:)`, `setEmail(_:)`), tags (`setTags(_:)`) and the rest of the settings. Feature modules have their own accessors, such as `Pushwoosh.media` and `Pushwoosh.inbox`.
+
 ## Topics
 
 ### Getting Started
@@ -36,9 +38,9 @@ Key features include:
 
   Encapsulates push notification payload data.
 
-- ``PWInbox``
+- ``PWInboxCenter``
 
-  Manages inbox messages and notifications.
+  Inbox messages and notifications, reached through `Pushwoosh.inbox`.
 
 ### Delegates
 
@@ -62,33 +64,9 @@ Key features include:
 
 ### Initialization
 
-- ``Pushwoosh/sharedInstance()``
+- ``Pushwoosh/configure-type.property``
 
-  Returns the shared Pushwoosh instance.
-
-### Registration
-
-- ``Pushwoosh/registerForPushNotifications()``
-
-  Registers for push notifications and requests user permission.
-
-- ``Pushwoosh/unregisterForPushNotifications()``
-
-  Unregisters from push notifications.
-
-### User Management
-
-- ``Pushwoosh/setUserId(_:)``
-
-  Associates a user ID with the device.
-
-- ``Pushwoosh/setEmail(_:)``
-
-  Associates an email with the device.
-
-- ``Pushwoosh/setTags(_:)``
-
-  Sets custom tags for user segmentation.
+  Entry point to the SDK API: registration, user data, tags and settings.
 
 ### Messaging
 

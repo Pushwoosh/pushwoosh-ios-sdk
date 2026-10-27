@@ -157,7 +157,7 @@ open class PushwooshInboxCarouselCell: PushwooshInboxCell {
                 dots.bottomAnchor.constraint(equalTo: collectionView.bottomAnchor, constant: -12)
             ])
         } else {
-            if #available(iOS 14.0, *) { pageControl.backgroundStyle = .minimal }
+            pageControl.backgroundStyle = .minimal
             card.addSubview(pageControl)
             NSLayoutConstraint.activate([
                 pageControl.centerXAnchor.constraint(equalTo: collectionView.centerXAnchor),

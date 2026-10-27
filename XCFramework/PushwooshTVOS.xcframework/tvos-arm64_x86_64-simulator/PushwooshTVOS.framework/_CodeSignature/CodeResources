@@ -6,7 +6,7 @@
 	<dict>
 		<key>Frameworks/PushwooshBridge.framework/Info.plist</key>
 		<data>
-		ikaLNMqTF/eOIgdoMETDilHbUyc=
+		Jin8WjDXqiNMjMHBZL5ozKwN6MY=
 		</data>
 		<key>Frameworks/PushwooshBridge.framework/PrivacyInfo.xcprivacy</key>
 		<data>
@@ -14,15 +14,15 @@
 		</data>
 		<key>Frameworks/PushwooshBridge.framework/PushwooshBridge</key>
 		<data>
-		LAD/+KyhVyBe1vKFZhmGjnEljM0=
+		ErOeNuiLU/vQHoeXCXz01RvXaag=
 		</data>
 		<key>Frameworks/PushwooshBridge.framework/_CodeSignature/CodeResources</key>
 		<data>
-		P57TIb0MnRhuhXbP1f8gUZeZ2Lk=
+		lgA1wsI3gWR2LppzZB2Xsn3D61M=
 		</data>
 		<key>Frameworks/PushwooshCore.framework/Info.plist</key>
 		<data>
-		bsfOR2Qz1GtC/9aqM0lx0qk+R0w=
+		97PVBSXlmnvIfiTJSzil1bc/eGQ=
 		</data>
 		<key>Frameworks/PushwooshCore.framework/PrivacyInfo.xcprivacy</key>
 		<data>
@@ -30,11 +30,11 @@
 		</data>
 		<key>Frameworks/PushwooshCore.framework/PushwooshCore</key>
 		<data>
-		2gPIznioQj/FQyR6OrylNDFOfyQ=
+		WDq9fbs3+kwQFkCy+pnVbsMEGQ0=
 		</data>
 		<key>Frameworks/PushwooshCore.framework/_CodeSignature/CodeResources</key>
 		<data>
-		I8O9RQX1ka2UdS9MBt9vcD4m8wo=
+		X66ZwOJz7fGMvPpPjpCby4eWJVw=
 		</data>
 		<key>Headers/PushwooshTVOS-Swift.h</key>
 		<data>
@@ -46,7 +46,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		+WPFl83ogLn1bqIJqvhv5REF8+8=
+		nyhgdfUfYLV4brmSti/wN/PSmwU=
 		</data>
 		<key>Modules/PushwooshTVOS.swiftmodule/arm64-apple-tvos-simulator.abi.json</key>
 		<data>
@@ -103,7 +103,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			YYbqTwDJsJkz7trKzTwziRoEtT4O1yKZdGcThqIRgV8=
+			68AYEt8yP2yYuv+HTh815E2m04fvpgFPwJX2W158zv8=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshBridge.framework/PrivacyInfo.xcprivacy</key>
@@ -117,21 +117,21 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			ygg74xa7YcgRS0p20ddmcBVD/IglVqHTwjotp0nxgUM=
+			UMsBAhlo+4MyUZa846Dz2All0oGZjS1lgFJzhx/SWQU=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshBridge.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			lkqlAHI4fSJB6oXc9Sjkar72vBGONuQvoWS9FQHYl2s=
+			5JlClUz/u4WZk9V/s88cm4+pPCTtdkX2H6VR+WNyeYE=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshCore.framework/Info.plist</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			mAQBK2oeWcrQKD3yoYrAJr2MAqURmazrsa4tIpLfsFA=
+			HGV/EKeV11oyaixYzpOHizi2HYLbhZn67oCzznjny9Y=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshCore.framework/PrivacyInfo.xcprivacy</key>
@@ -145,14 +145,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			1zb9H4hXOMMLUR+KM8jf8v86rfqpLLIoRpMhpBHe3qw=
+			fNwRCkN0hpvN2y+x90fBZFvvbUTuxUDDUiDURrcOK38=
 			</data>
 		</dict>
 		<key>Frameworks/PushwooshCore.framework/_CodeSignature/CodeResources</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			RFawfUVOJIpBn2ZTZLMqyHzx+jlge5FV0vPuSdkU2WY=
+			Ni91SE0Wx2NHQsteOE01IwbZbPUQGMywSE8QrOeDA+E=
 			</data>
 		</dict>
 		<key>Headers/PushwooshTVOS-Swift.h</key>

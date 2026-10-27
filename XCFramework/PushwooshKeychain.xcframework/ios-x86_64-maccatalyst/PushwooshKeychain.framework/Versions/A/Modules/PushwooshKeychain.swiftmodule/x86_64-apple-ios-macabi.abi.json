@@ -397,12 +397,10 @@
         "usr": "c:@M@PushwooshKeychain@objc(cs)PushwooshKeychainImplementation",
         "mangledName": "$s17PushwooshKeychain0aB14ImplementationC",
         "moduleName": "PushwooshKeychain",
-        "intro_iOS": "12.0",
         "objc_name": "PushwooshKeychainImplementation",
         "declAttributes": [
           "AccessControl",
           "ObjC",
-          "Available",
           "RawDocComment"
         ],
         "superclassUsr": "c:objc(cs)NSObject",

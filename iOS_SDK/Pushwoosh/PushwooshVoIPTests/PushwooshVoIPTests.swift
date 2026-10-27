@@ -10,8 +10,8 @@ import XCTest
 @testable import PushwooshVoIP
 import PushwooshCore
 import CallKit
+import PushKit
 
-@available(iOS 14.0, *)
 final class PushwooshVoIPTests: XCTestCase {
 
     var implementation: PushwooshVoIPImplementation!
@@ -130,4 +130,69 @@ final class PushwooshVoIPTests: XCTestCase {
 
         PushwooshVoIPImplementation.setRingtone(nil)
     }
+
+    /// Verifies that a revoked VoIP token is forgotten at once without any request and the regular push token stays.
+    func testInvalidatedVoIPTokenIsClearedLocallyWithoutRequests() throws {
+        let preferences = PWPreferences.preferencesInstance()
+        preserveRegularPushToken()
+        preferences.pushToken = "regular_push_token"
+        preferences.voipPushToken = "0badc0de"
+        let requestManager = installRecordingRequestManager()
+
+        implementation.pushRegistry(PKPushRegistry(queue: nil), didInvalidatePushTokenFor: .voIP)
+
+        XCTAssertEqual(requestManager.sentRequests.map { $0.methodName() }, [])
+        XCTAssertNil(preferences.voipPushToken)
+        XCTAssertEqual(preferences.pushToken, "regular_push_token")
+    }
+
+    /// Verifies that a VoIP token delivered after a revocation is registered with the server.
+    func testNewVoIPTokenAfterInvalidationIsRegistered() throws {
+        PWPreferences.preferencesInstance().voipPushToken = "0badc0de"
+        let requestManager = installRecordingRequestManager()
+        let registry = PKPushRegistry(queue: nil)
+
+        implementation.pushRegistry(registry, didInvalidatePushTokenFor: .voIP)
+        implementation.pushRegistry(registry, didUpdate: FakePushCredentials(token: Data([0xca, 0xfe])), for: .voIP)
+
+        let registrations = requestManager.sentRequests.filter { $0.methodName() == "registerDevice" }
+        XCTAssertEqual(registrations.count, 1)
+        XCTAssertEqual(registrations.first?.requestDictionary()["voip_push_token"] as? String, "cafe")
+    }
+
+    private func installRecordingRequestManager() -> RecordingRequestManager {
+        // Swift imports +module as init(), which builds a new module instead of the shared one.
+        let networkModule = (PWNetworkModule.self as AnyObject).value(forKey: "module") as! PWNetworkModule
+        let liveRequestManager = networkModule.requestManager
+        let recorder = RecordingRequestManager()
+        networkModule.requestManager = recorder
+        addTeardownBlock { networkModule.requestManager = liveRequestManager }
+        return recorder
+    }
+
+    private func preserveRegularPushToken() {
+        let originalPushToken = PWPreferences.preferencesInstance().pushToken
+        addTeardownBlock { PWPreferences.preferencesInstance().pushToken = originalPushToken }
+    }
+}
+
+/// Records what reaches the network layer and never answers, like a server that has not replied yet.
+private final class RecordingRequestManager: PWRequestManager {
+    private(set) var sentRequests: [PWRequest] = []
+
+    override func send(_ request: PWRequest!, completion: ((Error?) -> Void)!) {
+        sentRequests.append(request)
+    }
+}
+
+private final class FakePushCredentials: PKPushCredentials {
+    private let fakeToken: Data
+
+    init(token: Data) {
+        fakeToken = token
+        super.init()
+    }
+
+    override var token: Data { fakeToken }
+    override var type: PKPushType { .voIP }
 }

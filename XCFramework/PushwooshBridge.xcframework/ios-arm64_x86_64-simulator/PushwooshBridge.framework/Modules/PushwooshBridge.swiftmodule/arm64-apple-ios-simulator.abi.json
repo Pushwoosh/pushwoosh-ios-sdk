@@ -6049,6 +6049,13 @@
         ]
       },
       {
+        "kind": "Import",
+        "name": "UIKit",
+        "printedName": "UIKit",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge"
+      },
+      {
         "kind": "TypeDecl",
         "name": "PWInboxKit",
         "printedName": "PWInboxKit",
@@ -6074,6 +6081,41 @@
             "declKind": "Func",
             "usr": "c:@M@PushwooshBridge@objc(pl)PWInboxKit(cm)inboxKit",
             "mangledName": "$s15PushwooshBridge10PWInboxKitP05inboxD0yXlXpyFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInboxKit>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInboxKit>",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "makeViewController",
+            "printedName": "makeViewController()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "UIKit.UIViewController?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "UIViewController",
+                    "printedName": "UIKit.UIViewController",
+                    "usr": "c:objc(cs)UIViewController"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInboxKit(cm)makeViewController",
+            "mangledName": "$s15PushwooshBridge10PWInboxKitP18makeViewControllerSo06UIViewG0CSgyFZ",
             "moduleName": "PushwooshBridge",
             "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInboxKit>",
             "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInboxKit>",

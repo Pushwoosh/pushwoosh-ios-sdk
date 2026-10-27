@@ -20,6 +20,11 @@
 
 - (NSDictionary *)requestDictionary {
 	NSMutableDictionary *dict = [self baseDictionary];
+	dict[@"tags"] = [PWSetTagsRequest sanitizedTags:tags];
+	return dict;
+}
+
++ (NSDictionary *)sanitizedTags:(NSDictionary *)tags {
 	NSDictionary *tagsSnapshot = [tags copy];
 	NSMutableDictionary *sanitizedTags = [NSMutableDictionary dictionary];
 
@@ -52,8 +57,7 @@
 		}
 	}
 
-	dict[@"tags"] = sanitizedTags;
-	return dict;
+	return sanitizedTags;
 }
 
 @end

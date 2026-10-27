@@ -29,6 +29,20 @@ public extension Pushwoosh {
         return __liveActivities()
     }
 
+    /// Provides access to the inbox UI module (`PushwooshInboxKit`).
+    ///
+    /// Use this property to get a default inbox screen. Without the module linked it returns `nil`.
+    /// To customize the screen, `import PushwooshInboxKit` and build `PushwooshInboxKitViewController(attributes:)`.
+    ///
+    /// ```swift
+    /// if let inbox = Pushwoosh.InboxKit.makeViewController() {
+    ///     navigationController?.pushViewController(inbox, animated: true)
+    /// }
+    /// ```
+    static var InboxKit: PWInboxKit.Type {
+        return __inboxKit()
+    }
+
     /// Provides access to debugging and logging functionality.
     ///
     /// Use this property to control SDK logging for development and troubleshooting.
@@ -118,6 +132,24 @@ public extension Pushwoosh {
     /// ```
     static var configure: PushwooshConfig.Type {
         return __configure() as! PushwooshConfig.Type
+    }
+
+    /// Provides access to the inbox messages.
+    ///
+    /// Use this property to load, read and delete inbox messages and to observe their counters.
+    /// It replaces the deprecated `PWInbox` class methods: the calls and their Swift names are the same.
+    ///
+    /// ```swift
+    /// let messages: [PWInboxMessageProtocol] = try await Pushwoosh.inbox.loadMessages()
+    /// Pushwoosh.inbox.readMessages(withCodes: messages.compactMap { $0.code })
+    ///
+    /// let token = Pushwoosh.inbox.addObserverForUnreadMessagesCount { count in
+    ///     badge.text = "\(count)"
+    /// }
+    /// Pushwoosh.inbox.removeObserver(token)
+    /// ```
+    static var inbox: PWInboxCenter.Type {
+        return __inbox() as! PWInboxCenter.Type
     }
 
     #if os(iOS)
@@ -329,23 +361,42 @@ public extension PWLegacyRichMedia {
             self.setDelegate(newValue)
         }
     }
+
+    /// The style of the legacy Rich Media presentation; assigning nil restores the default style.
+    ///
+    /// Replaces `PWRichMediaManager.shared().richMediaStyle`.
+    ///
+    /// ```swift
+    /// let style = PWRichMediaStyle()
+    /// style.backgroundColor = UIColor.black.withAlphaComponent(0.5)
+    /// style.closeButtonPresentingDelay = 2
+    /// Pushwoosh.media.legacyRichMedia.richMediaStyle = style
+    /// ```
+    static var richMediaStyle: PWRichMediaStyle! {
+        get {
+            return self.getRichMediaStyle()
+        }
+        set {
+            self.setRichMediaStyle(newValue)
+        }
+    }
 }
 #endif
 
-// MARK: - PWInbox async/await
+// MARK: - Pushwoosh.inbox async/await
 
-/// Modern Swift wrappers around the completion-based `PWInbox` API.
+/// Modern Swift wrappers around the completion-based `Pushwoosh.inbox` API.
 /// The original completion methods stay untouched so existing integrators
 /// keep working — these `async` variants just bridge to them.
 @available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
-public extension PWInbox {
+public extension PWInboxCenter {
 
     /// Loads every inbox message currently visible to the user (cached +
     /// freshly merged from the server). Maps the completion-based
     /// `loadMessagesWithCompletion(_:)` into an async throwing call.
     static func loadMessages() async throws -> [PWInboxMessageProtocol] {
         try await withCheckedThrowingContinuation { continuation in
-            PWInbox.loadMessages { messages, error in
+            PWInboxCenter.loadMessages { messages, error in
                 if let error = error {
                     continuation.resume(throwing: error)
                 } else {
@@ -359,7 +410,7 @@ public extension PWInbox {
     /// `unreadMessagesCountWithCompletion(_:)`.
     static func unreadMessagesCount() async throws -> Int {
         try await withCheckedThrowingContinuation { continuation in
-            PWInbox.unreadMessagesCount { count, error in
+            PWInboxCenter.unreadMessagesCount { count, error in
                 if let error = error {
                     continuation.resume(throwing: error)
                 } else {
@@ -372,7 +423,7 @@ public extension PWInbox {
     /// Returns the total number of stored messages.
     static func messagesCount() async throws -> Int {
         try await withCheckedThrowingContinuation { continuation in
-            PWInbox.messagesCount { count, error in
+            PWInboxCenter.messagesCount { count, error in
                 if let error = error {
                     continuation.resume(throwing: error)
                 } else {
@@ -385,7 +436,7 @@ public extension PWInbox {
     /// Returns the count of messages whose action has not yet been performed.
     static func messagesWithNoActionPerformedCount() async throws -> Int {
         try await withCheckedThrowingContinuation { continuation in
-            PWInbox.messagesWithNoActionPerformedCount { count, error in
+            PWInboxCenter.messagesWithNoActionPerformedCount { count, error in
                 if let error = error {
                     continuation.resume(throwing: error)
                 } else {
@@ -400,10 +451,37 @@ public extension PWInbox {
     /// underlying API does not surface errors.
     static func resyncInboxForNewUserId() async -> UInt {
         await withCheckedContinuation { continuation in
-            PWInbox.updateInbox(forNewUserId: { count in
+            PWInboxCenter.updateInbox(forNewUserId: { count in
                 continuation.resume(returning: count)
             })
         }
+    }
+}
+
+// MARK: - PWInbox async/await (deprecated)
+
+@available(iOS 13.0, macOS 10.15, tvOS 13.0, watchOS 6.0, *)
+@available(*, deprecated, message: "Since 7.3.0: Use Pushwoosh.inbox instead.")
+public extension PWInbox {
+
+    static func loadMessages() async throws -> [PWInboxMessageProtocol] {
+        try await PWInboxCenter.loadMessages()
+    }
+
+    static func unreadMessagesCount() async throws -> Int {
+        try await PWInboxCenter.unreadMessagesCount()
+    }
+
+    static func messagesCount() async throws -> Int {
+        try await PWInboxCenter.messagesCount()
+    }
+
+    static func messagesWithNoActionPerformedCount() async throws -> Int {
+        try await PWInboxCenter.messagesWithNoActionPerformedCount()
+    }
+
+    static func resyncInboxForNewUserId() async -> UInt {
+        await PWInboxCenter.resyncInboxForNewUserId()
     }
 }
 
@@ -438,6 +516,20 @@ public extension PushwooshConfig {
         set {
             self.setDelegate(newValue)
         }
+    }
+
+    /// Unregisters the device from push notifications and reports the result to `completion`.
+    ///
+    /// Swift imports the Objective-C `unregisterForPushNotifications:` as `unregister(forPushNotifications:)`;
+    /// this name keeps the trailing closure form compiling in sync and async functions.
+    ///
+    /// ```swift
+    /// Pushwoosh.configure.unregisterForPushNotifications { error in
+    ///     if let error { print("Unregister failed: \(error)") }
+    /// }
+    /// ```
+    static func unregisterForPushNotifications(completion: (@Sendable (Error?) -> Void)?) {
+        unregister(forPushNotifications: completion)
     }
 
     #if os(iOS)

@@ -9,6 +9,7 @@
 #import "PWUtils.h"
 #import "PWPushRuntime.h"
 #import "PWPreferences.h"
+#import "PWSetTagsRequest.h"
 
 #import "PWPlatformModule.h"
 #import "PWNotificationManagerCompat.h"
@@ -101,7 +102,7 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     }
 
     if (_customTags) {
-        dict[@"tags"] = _customTags;
+        dict[@"tags"] = [PWSetTagsRequest sanitizedTags:_customTags];
     }
 
     return dict;

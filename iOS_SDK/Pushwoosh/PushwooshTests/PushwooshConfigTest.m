@@ -11,6 +11,7 @@
 #import "PWDataManager.h"
 #import "PWPushNotificationsManager.h"
 #import "PWInAppManager.h"
+#import "PWInAppMessagesManager.h"
 #import "PWNetworkModule.h"
 #import "PWRequestManager.h"
 
@@ -38,6 +39,7 @@
 @property (nonatomic, strong) PWDataManager *originalDataManager;
 @property (nonatomic, strong) PWPushNotificationsManager *originalPushNotificationManager;
 @property (nonatomic, strong) PWInAppManager *originalInAppManager;
+@property (nonatomic, strong) PWInAppMessagesManager *originalInAppMessagesManager;
 @property (nonatomic, weak) id originalDelegate;
 @property (nonatomic, strong) NSMutableArray *networkMocks;
 #if TARGET_OS_IOS
@@ -58,6 +60,7 @@
     _originalDataManager = [PWManagerBridge shared].dataManager;
     _originalPushNotificationManager = [PWManagerBridge shared].pushNotificationManager;
     _originalInAppManager = [PWManagerBridge shared].inAppManager;
+    _originalInAppMessagesManager = [PWManagerBridge shared].inAppMessagesManager;
     _originalDelegate = [PWManagerBridge shared].delegate;
 #if TARGET_OS_IOS
     _originalHandleWillPresentBlock = [PWManagerBridge shared].handleWillPresentNotificationBlock;
@@ -91,6 +94,7 @@
     [PWManagerBridge shared].dataManager = _originalDataManager;
     [PWManagerBridge shared].pushNotificationManager = _originalPushNotificationManager;
     [PWManagerBridge shared].inAppManager = _originalInAppManager;
+    [PWManagerBridge shared].inAppMessagesManager = _originalInAppMessagesManager;
     [PWManagerBridge shared].delegate = _originalDelegate;
 #if TARGET_OS_IOS
     [PWManagerBridge shared].handleWillPresentNotificationBlock = _originalHandleWillPresentBlock;
@@ -436,6 +440,82 @@
 
     OCMVerifyAll(mockDataManager);
 }
+
+#pragma mark - resetUserId forwarding
+
+/// Verifies that resetUserId with a completion forwards the same completion to the in-app messages manager.
+- (void)testResetUserIdWithCompletion_forwardsToInAppMessagesManager {
+    void (^completion)(NSError *) = ^(NSError *error) {};
+    id mockMessages = OCMClassMock([PWInAppMessagesManager class]);
+    OCMExpect([mockMessages resetUserIdWithCompletion:completion]);
+    [PWManagerBridge shared].inAppMessagesManager = mockMessages;
+
+    [PushwooshConfig resetUserIdWithCompletion:completion];
+
+    OCMVerifyAll(mockMessages);
+}
+
+/// Verifies that resetUserId without a completion reaches the in-app messages manager with a nil completion.
+- (void)testResetUserId_forwardsToInAppMessagesManager {
+    id mockMessages = OCMClassMock([PWInAppMessagesManager class]);
+    OCMExpect([mockMessages resetUserIdWithCompletion:nil]);
+    [PWManagerBridge shared].inAppMessagesManager = mockMessages;
+
+    [PushwooshConfig resetUserId];
+
+    OCMVerifyAll(mockMessages);
+}
+
+#pragma mark - In-App Messages forwarding
+
+/// Verifies that postEvent with a completion forwards the event, attributes and completion to the inAppManager.
+- (void)testPostEventWithCompletion_forwardsToInAppManager {
+    void (^completion)(NSError *) = ^(NSError *error) {};
+    id mockInApp = OCMClassMock([PWInAppManager class]);
+    OCMExpect([mockInApp postEvent:@"purchase" withAttributes:@{@"price": @"10"} completion:completion]);
+    [PWManagerBridge shared].inAppManager = mockInApp;
+
+    [PushwooshConfig postEvent:@"purchase" withAttributes:@{@"price": @"10"} completion:completion];
+
+    OCMVerifyAll(mockInApp);
+}
+
+/// Verifies that postEvent without a completion forwards the event with nil attributes to the inAppManager.
+- (void)testPostEvent_nilAttributes_forwardsToInAppManager {
+    id mockInApp = OCMClassMock([PWInAppManager class]);
+    OCMExpect([mockInApp postEvent:@"appOpen" withAttributes:nil]);
+    [PWManagerBridge shared].inAppManager = mockInApp;
+
+    [PushwooshConfig postEvent:@"appOpen" withAttributes:nil];
+
+    OCMVerifyAll(mockInApp);
+}
+
+#if TARGET_OS_IOS
+/// Verifies that reloadInApps forwards the completion to the inAppManager.
+- (void)testReloadInApps_forwardsToInAppManager {
+    void (^completion)(NSError *) = ^(NSError *error) {};
+    id mockInApp = OCMClassMock([PWInAppManager class]);
+    OCMExpect([mockInApp reloadInAppsWithCompletion:completion]);
+    [PWManagerBridge shared].inAppManager = mockInApp;
+
+    [PushwooshConfig reloadInAppsWithCompletion:completion];
+
+    OCMVerifyAll(mockInApp);
+}
+
+/// Verifies that addJavascriptInterface forwards the interface object and its name to the inAppManager.
+- (void)testAddJavascriptInterface_forwardsToInAppManager {
+    NSObject<PWJavaScriptInterface> *interface = (NSObject<PWJavaScriptInterface> *)[NSObject new];
+    id mockInApp = OCMClassMock([PWInAppManager class]);
+    OCMExpect([mockInApp addJavascriptInterface:interface withName:@"PushMart"]);
+    [PWManagerBridge shared].inAppManager = mockInApp;
+
+    [PushwooshConfig addJavascriptInterface:interface withName:@"PushMart"];
+
+    OCMVerifyAll(mockInApp);
+}
+#endif
 
 #pragma mark - Static delegation methods
 

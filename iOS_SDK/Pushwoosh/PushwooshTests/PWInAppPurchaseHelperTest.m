@@ -4,6 +4,9 @@
 
 #import "PWInAppPurchaseHelper.h"
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 @interface PWInAppPurchaseHelperTest : XCTestCase <PWPurchaseDelegate>
 
 @property (nonatomic) PWInAppPurchaseHelper *purchaseHelper;
@@ -167,3 +170,5 @@
 }
 
 @end
+
+#pragma clang diagnostic pop

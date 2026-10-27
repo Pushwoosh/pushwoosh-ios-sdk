@@ -22,7 +22,6 @@ NS_ASSUME_NONNULL_BEGIN
  Not part of the public API: this header is project-visibility and is excluded from the
  PushwooshFramework.h umbrella.
  */
-API_AVAILABLE(ios(10.0))
 @interface PWNotificationServiceProcessor : NSObject
 
 /**

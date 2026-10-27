@@ -33,13 +33,13 @@ The module handles PushKit token registration, CallKit provider configuration, a
 
 ### Configuration
 
+- ``PushwooshVoIPImplementation/setRingtone(_:)``
+
+  Sets a custom ringtone for incoming calls.
+
 - ``PushwooshVoIPImplementation/initializeVoIP(_:ringtoneSound:handleTypes:)``
 
-  Initializes the VoIP module with CallKit configuration.
-
-- ``PushwooshVoIPImplementation/setPushwooshVoIPAppId(_:)``
-
-  Sets the Pushwoosh VoIP Application Code.
+  Deprecated. Only sets the ringtone; use ``PushwooshVoIPImplementation/setRingtone(_:)``.
 
 - ``PushwooshVoIPImplementation/delegate``
 

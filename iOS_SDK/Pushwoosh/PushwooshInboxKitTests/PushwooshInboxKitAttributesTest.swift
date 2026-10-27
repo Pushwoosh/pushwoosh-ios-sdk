@@ -63,6 +63,11 @@ class PushwooshInboxKitAttributesTest: XCTestCase {
         XCTAssertFalse(attributes.enableDarkTheme)
     }
 
+    /// Verifies that the glass flag stays opt-in.
+    func testLiquidGlassIsOffByDefault() {
+        XCTAssertFalse(PushwooshInboxKitAttributes().style.isLiquidGlass)
+    }
+
     // MARK: - Default cell-kind resolver
 
     /// Resolver picks `banner` when server says so AND a non-empty image is present.

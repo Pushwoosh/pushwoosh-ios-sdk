@@ -30,6 +30,9 @@
 
 @end
 
+#pragma clang diagnostic push
+#pragma clang diagnostic ignored "-Wdeprecated-declarations"
+
 @implementation PWRichMediaManagerTest
 
 - (void)setUp {
@@ -286,3 +289,5 @@
 }
 
 @end
+
+#pragma clang diagnostic pop

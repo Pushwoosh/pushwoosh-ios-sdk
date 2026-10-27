@@ -40,7 +40,7 @@ typedef NS_ENUM(NSInteger, PWRichMediaPresentationStyle) {
      )
      Pushwoosh.media.modalRichMedia.delegate = self
 
-     Pushwoosh.sharedInstance().registerForPushNotifications()
+     Pushwoosh.configure.registerForPushNotifications()
      return true
  }
  ```

@@ -17,7 +17,6 @@ import UIKit
 ///
 /// This module provides persistent device identification that survives app reinstallation.
 /// It automatically disables itself in App Store builds.
-@available(iOS 12.0, *)
 @objc(PushwooshKeychainImplementation)
 public class PushwooshKeychainImplementation: NSObject, PWKeychain {
 
@@ -156,7 +155,6 @@ public class PushwooshKeychainImplementation: NSObject, PWKeychain {
 /// and registered with `PushwooshModuleRegistry` at module load. `PWPreferences`
 /// looks the handler up and reconciles its HWID with Keychain through it
 /// without touching the implementation class directly.
-@available(iOS 12.0, *)
 @objc(PushwooshKeychainBackchannel)
 final class PushwooshKeychainBackchannel: NSObject, PWKeychainPersistentHWIDProvider {
     @objc

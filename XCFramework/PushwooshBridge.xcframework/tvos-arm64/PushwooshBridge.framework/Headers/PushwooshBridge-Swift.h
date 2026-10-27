@@ -467,7 +467,7 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge14PWInAppHandler_")
 /// The host SDK discovers <code>PushwooshInboxKit</code> at runtime through
 /// <code>PushwooshModuleRegistry</code> — <code>PushwooshInboxKitLoader.+load</code> registers the
 /// implementation class at image load. The bridge protocol intentionally
-/// exposes only a class-level factory — the public UI surface
+/// exposes only class-level factories — the customizable UI surface
 /// (<code>PushwooshInboxKitViewController</code>, <code>PushwooshInboxKitAttributes</code>) is
 /// consumed directly from the <code>PushwooshInboxKit</code> module by the host app.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge10PWInboxKit_")

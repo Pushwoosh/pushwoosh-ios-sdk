@@ -52,8 +52,15 @@ public class PushwooshInboxKitViewController: UIViewController {
         return label
     }()
 
-    private let dataSource = InboxDataSource()
+    let dataSource = InboxDataSource()
     var facade: PWInboxFacade = .shared
+    private var emptyStatePlate: InboxStatePlateView?
+    private var errorStatePlate: InboxStatePlateView?
+    private let errorBanner = InboxErrorBannerView()
+    private var tabBar: InboxTabBarView?
+    private var currentTabs: PWInboxTabs?
+    private var tableTopToView: NSLayoutConstraint!
+    private var tableTopToTabBar: NSLayoutConstraint?
     private var refreshControl: UIRefreshControl?
     private var didActivateAudioSessionForVideo = false
     private var previousAudioCategory: AVAudioSession.Category?
@@ -64,6 +71,9 @@ public class PushwooshInboxKitViewController: UIViewController {
     private var didLogUnknownKindFallback = false
     private var lastError: Error?
     private var sawRealBackground = false
+    /// True once the visible tab has shown rows on screen, set by a successful load or by any read of the screen;
+    /// false again once a load leaves that tab empty, so a later refill is still treated as a first fill.
+    private var hasShownContentInWindow = false
 
     @objc public override init(nibName nibNameOrNil: String?, bundle nibBundleOrNil: Bundle?) {
         self.attributes = PushwooshInboxKitAttributes()
@@ -91,8 +101,11 @@ public class PushwooshInboxKitViewController: UIViewController {
         view.addSubview(emptyStateLabel)
         view.addSubview(errorStateLabel)
 
+        let tableTopToView = tableView.topAnchor.constraint(equalTo: view.topAnchor)
+        self.tableTopToView = tableTopToView
+
         NSLayoutConstraint.activate([
-            tableView.topAnchor.constraint(equalTo: view.topAnchor),
+            tableTopToView,
             tableView.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             tableView.trailingAnchor.constraint(equalTo: view.trailingAnchor),
             tableView.bottomAnchor.constraint(equalTo: view.bottomAnchor),
@@ -113,6 +126,7 @@ public class PushwooshInboxKitViewController: UIViewController {
         tableView.prefetchDataSource = self
         registerCells()
         applyAttributes()
+        applyTabs(facade.tabs())
 
         NotificationCenter.default.addObserver(
             self,
@@ -214,7 +228,6 @@ public class PushwooshInboxKitViewController: UIViewController {
     /// XCTest where bridging completion handlers is awkward. Throws on
     /// network failure; on success, the data source is hard-replaced with
     /// fresh server truth and the table view is reloaded.
-    @available(iOS 13.0, *)
     public func reload() async throws {
         try await withCheckedThrowingContinuation { (continuation: CheckedContinuation<Void, Error>) in
             facade.loadMessages { [weak self] result in
@@ -222,20 +235,11 @@ public class PushwooshInboxKitViewController: UIViewController {
                     continuation.resume()
                     return
                 }
-                switch result {
-                case .success(let messages):
-                    self.lastError = nil
-                    self.dataSource.replace(messages, transform: self.attributes.transform)
-                    self.tableView.reloadData()
-                    self.updateStates()
-                    self.delegate?.inboxKit(self, didRefreshWith: self.dataSource.messages, error: nil)
-                    continuation.resume()
-                case .failure(let error):
-                    self.lastError = error
-                    self.tableView.reloadData()
-                    self.updateStates()
-                    self.delegate?.inboxKit(self, didRefreshWith: self.dataSource.messages, error: error)
+                self.applyLoadResult(result, mode: .replace)
+                if let error = result.error {
                     continuation.resume(throwing: error)
+                } else {
+                    continuation.resume()
                 }
             }
         }
@@ -250,26 +254,64 @@ public class PushwooshInboxKitViewController: UIViewController {
     func loadMessages(mode: LoadMode) {
         facade.loadMessages { [weak self] result in
             guard let self = self else { return }
-            switch result {
-            case .success(let messages):
-                self.lastError = nil
-                switch mode {
-                case .replace:
-                    self.dataSource.replace(messages, transform: self.attributes.transform)
-                case .merge:
-                    self.dataSource.update(messages, transform: self.attributes.transform)
-                }
-                self.tableView.reloadData()
-                self.updateStates()
-                self.delegate?.inboxKit(self, didRefreshWith: self.dataSource.messages, error: nil)
+            self.applyLoadResult(result, mode: mode)
+            // Without tabs every successful load reads what it leaves on screen, as before tabs existed.
+            if self.currentTabs == nil, result.error == nil {
                 self.markDisplayedAsRead()
-            case .failure(let error):
-                self.lastError = error
-                self.tableView.reloadData()
-                self.updateStates()
-                self.delegate?.inboxKit(self, didRefreshWith: self.dataSource.messages, error: error)
             }
-            self.refreshControl?.endRefreshing()
+        }
+    }
+
+    /// Shared completion of both load entry points. With tabs it auto-reads the first screen only on the first
+    /// on-screen fill of a non-empty tab; later loads read only the messages they brought in.
+    private func applyLoadResult(_ result: InboxLoadResult, mode: LoadMode) {
+        // Read before the data source is reconciled: afterwards there is no way to tell which messages this load brought in.
+        let isFirstFill = !hasShownContentInWindow
+        let knownCodes = Set(dataSource.allMessages.compactMap { $0.code })
+        if let error = result.error {
+            lastError = error
+            // An empty cached list means storage has nothing, so the full-screen error state stands.
+            if !result.messages.isEmpty {
+                reconcile(result.messages, mode: mode)
+            }
+            applyTabs(facade.tabs())
+            tableView.reloadData()
+            updateStates()
+            showRefreshErrorBanner(for: error)
+            delegate?.inboxKit(self, didRefreshWith: dataSource.allMessages, error: error)
+        } else {
+            lastError = nil
+            reconcile(result.messages, mode: mode)
+            applyTabs(facade.tabs())
+            tableView.reloadData()
+            updateStates()
+            delegate?.inboxKit(self, didRefreshWith: dataSource.allMessages, error: nil)
+            if currentTabs != nil {
+                if isFirstFill {
+                    markDisplayedAsRead()
+                } else {
+                    let arrived = Set(result.messages.compactMap { $0.code }).subtracting(knownCodes)
+                    if !arrived.isEmpty {
+                        markDisplayedAsRead(codes: arrived)
+                    }
+                }
+            }
+            // The gate tracks the tab on screen, not the whole inbox: an emptied tab re-arms it, an off-screen load leaves it as it stands.
+            if dataSource.isEmpty {
+                hasShownContentInWindow = false
+            } else if onScreenRect() != nil {
+                hasShownContentInWindow = true
+            }
+        }
+        refreshControl?.endRefreshing()
+    }
+
+    private func reconcile(_ messages: [PWInboxMessageProtocol], mode: LoadMode) {
+        switch mode {
+        case .replace:
+            dataSource.replace(messages, transform: attributes.transform)
+        case .merge:
+            dataSource.update(messages, transform: attributes.transform)
         }
     }
 
@@ -406,9 +448,48 @@ public class PushwooshInboxKitViewController: UIViewController {
         emptyStateLabel.textColor = traits.map { attributes.style.titleColorRead.resolvedColor(with: $0) } ?? attributes.style.titleColorRead
         errorStateLabel.textColor = traits.map { attributes.style.titleColorRead.resolvedColor(with: $0) } ?? attributes.style.titleColorRead
 
+        syncStatePlates()
+
         registerCells()
         configureRefreshControl()
+        if let strip = tabBar, let tabs = currentTabs {
+            strip.configure(tabs: tabs, selectedTabId: dataSource.selectedTabId, style: attributes.style)
+            refreshTabBarCounts()
+        }
         updateStates()
+    }
+
+    /// Installs or tears down the backing plates behind the state labels. They are a Liquid Glass
+    /// affordance only: with the flag off nothing is added to the hierarchy, so a default-configured
+    /// inbox keeps the bare page background behind the empty/error text.
+    private func syncStatePlates() {
+        guard attributes.style.isLiquidGlass else {
+            emptyStatePlate?.removeFromSuperview()
+            emptyStatePlate = nil
+            errorStatePlate?.removeFromSuperview()
+            errorStatePlate = nil
+            return
+        }
+        let empty = emptyStatePlate ?? installStatePlate(behind: emptyStateLabel)
+        let error = errorStatePlate ?? installStatePlate(behind: errorStateLabel)
+        emptyStatePlate = empty
+        errorStatePlate = error
+        empty.apply(style: attributes.style)
+        error.apply(style: attributes.style)
+        empty.isHidden = emptyStateLabel.isHidden
+        error.isHidden = errorStateLabel.isHidden
+    }
+
+    private func installStatePlate(behind label: UILabel) -> InboxStatePlateView {
+        let plate = InboxStatePlateView()
+        view.insertSubview(plate, belowSubview: label)
+        NSLayoutConstraint.activate([
+            plate.topAnchor.constraint(equalTo: label.topAnchor, constant: -16),
+            plate.bottomAnchor.constraint(equalTo: label.bottomAnchor, constant: 16),
+            plate.leadingAnchor.constraint(equalTo: label.leadingAnchor, constant: -20),
+            plate.trailingAnchor.constraint(equalTo: label.trailingAnchor, constant: 20)
+        ])
+        return plate
     }
 
     private func registerCells() {
@@ -437,6 +518,8 @@ public class PushwooshInboxKitViewController: UIViewController {
 
     @objc private func handleInboxDidUpdate(_ note: Notification) {
         let userInfo = note.userInfo
+        // Captured before the async hop: the flag only holds for the duration of the synchronous call.
+        let isOwnRead = Thread.isMainThread && isApplyingOwnRead
         DispatchQueue.main.async { [weak self] in
             guard let self = self else { return }
 
@@ -452,11 +535,10 @@ public class PushwooshInboxKitViewController: UIViewController {
                 }
             }
 
-            // Belt-and-braces: also kick a server reload to converge any
-            // updates / deletions / read-state changes posted with the same
-            // notification name. This is debounced via `lastInboxRefreshAt` so
-            // we don't hammer the network when several pushes arrive together.
-            self.scheduleInboxRefresh()
+            // Debounced reload to converge other updates; skipped for our own auto-read to avoid re-reading the resorted tail.
+            if !isOwnRead {
+                self.scheduleInboxRefresh()
+            }
         }
     }
 
@@ -480,45 +562,219 @@ public class PushwooshInboxKitViewController: UIViewController {
     }
 
     private func mergeIncomingMessages(_ added: [PWInboxMessageProtocol]) {
-        let existingCodes = Set(dataSource.messages.compactMap { $0.code })
+        let existingCodes = Set(dataSource.allMessages.compactMap { $0.code })
         let fresh = added.filter { msg in
             guard let code = msg.code else { return false }
             return !existingCodes.contains(code)
         }
         guard !fresh.isEmpty else { return }
-        let merged = fresh + dataSource.messages
+        let merged = fresh + dataSource.allMessages
         dataSource.update(merged, transform: attributes.transform)
         tableView.reloadData()
         updateStates()
-        delegate?.inboxKit(self, didRefreshWith: dataSource.messages, error: nil)
+        delegate?.inboxKit(self, didRefreshWith: dataSource.allMessages, error: nil)
+        // Before the first fill the load completing next reads the screen; reading here too would read a second, re-sorted screen.
+        if currentTabs != nil, hasShownContentInWindow {
+            markDisplayedAsRead(codes: Set(fresh.compactMap { $0.code }))
+        }
     }
 
+    /// Recomputes empty/error/table visibility and may only hide the error banner. The table hides only for a
+    /// fully empty inbox, so an empty tab keeps pull-to-refresh.
     private func updateStates() {
-        let hasContent = !dataSource.isEmpty
+        let tabEmpty = dataSource.isEmpty
+        let allEmpty = dataSource.allMessages.isEmpty
         let hasError = lastError != nil
-        // A failed refresh must never blank an already-populated inbox: the full-screen empty/error
-        // state is only for when there is nothing to fall back on. With content present the table
-        // stays visible and the failure is surfaced through the didRefreshWith:error: delegate.
-        emptyStateLabel.isHidden = hasContent || hasError
-        errorStateLabel.isHidden = hasContent || !hasError
-        tableView.isHidden = !hasContent
+        // Full-screen error is reserved for a totally empty inbox; a non-empty one surfaces the failure via the banner.
+        let showFullScreenError = allEmpty && hasError
+
+        emptyStateLabel.isHidden = !tabEmpty || showFullScreenError
+        errorStateLabel.isHidden = !showFullScreenError
+        emptyStatePlate?.isHidden = emptyStateLabel.isHidden
+        errorStatePlate?.isHidden = errorStateLabel.isHidden
+        tableView.isHidden = allEmpty
+
+        if !hasError || allEmpty {
+            errorBanner.hide()
+        }
+
+        refreshTabBarCounts()
     }
 
-    /// Reads the rows on screen while the inbox is actually showing them. Off-window calls (a load
-    /// finishing before the first appearance) are skipped; `viewDidAppear` covers that case.
-    func markDisplayedAsRead() {
+    /// Surfaces a refresh that has just failed, while content is still on screen. An inbox with
+    /// nothing cached keeps the full-screen error instead.
+    private func showRefreshErrorBanner(for error: Error) {
+        guard !dataSource.allMessages.isEmpty else { return }
+        let message = attributes.errorMessage.isEmpty ? error.localizedDescription : attributes.errorMessage
+        errorBanner.show(text: message, style: attributes.style, in: view, duration: 2.5)
+    }
+
+    // MARK: - Tab strip
+
+    /// Test-only window onto the strip, so tests can read its rendered state without the
+    /// production-facing `tabBar` property becoming public.
+    var tabBarForTesting: InboxTabBarView? { tabBar }
+
+    /// Test-only window onto the bottom error banner, matching `tabBarForTesting`.
+    var errorBannerForTesting: InboxErrorBannerView { errorBanner }
+
+    /// Reconciles the strip with the Control-Panel tab list. `nil` or an empty list tears the
+    /// strip down and restores today's layout; an unchanged list (`PWInboxTabs.isEqual:`, which
+    /// compares every field and tab order) is left alone so a routine poll never flickers it.
+    private func applyTabs(_ newTabs: PWInboxTabs?) {
+        guard let newTabs = newTabs, !newTabs.tabs.isEmpty else {
+            currentTabs = nil
+            removeTabBar()
+            clearSelectedTab()
+            return
+        }
+        if let currentTabs = currentTabs, currentTabs.isEqual(newTabs) {
+            return
+        }
+        currentTabs = newTabs
+
+        let ids = Set(newTabs.tabs.map { $0.identifier })
+        if let selected = dataSource.selectedTabId, !ids.contains(selected) {
+            clearSelectedTab()
+        }
+
+        let strip = tabBar ?? makeTabBar()
+        strip.configure(tabs: newTabs, selectedTabId: dataSource.selectedTabId, style: attributes.style)
+        refreshTabBarCounts()
+    }
+
+    private func makeTabBar() -> InboxTabBarView {
+        let strip = InboxTabBarView()
+        strip.onSelect = { [weak self] tabId in
+            self?.selectTab(tabId)
+        }
+        view.addSubview(strip)
+        tableTopToView.isActive = false
+        let tableTop = tableView.topAnchor.constraint(equalTo: strip.bottomAnchor)
+        NSLayoutConstraint.activate([
+            strip.topAnchor.constraint(equalTo: view.safeAreaLayoutGuide.topAnchor),
+            strip.leadingAnchor.constraint(equalTo: view.leadingAnchor),
+            strip.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            tableTop
+        ])
+        tableTopToTabBar = tableTop
+        tabBar = strip
+        return strip
+    }
+
+    private func removeTabBar() {
+        guard let strip = tabBar else { return }
+        tableTopToTabBar?.isActive = false
+        tableTopToTabBar = nil
+        strip.removeFromSuperview()
+        tabBar = nil
+        tableTopToView.isActive = true
+    }
+
+    /// Handles a tap on the strip: filters the table, resyncs the empty/error state for the new
+    /// (possibly empty) filtered view, and reads whatever that filter now shows on screen. Both
+    /// `updateStates()` and the read itself refresh the badges, so the counts outlive the tap.
+    private func selectTab(_ tabId: String?) {
+        dataSource.selectedTabId = tabId
+        tableView.reloadData()
+        scrollToTop()
+        updateStates()
+        markDisplayedAsRead()
+    }
+
+    /// Drops the tab filter the way `applyTabs` needs it: the feed the user was scrolled into is
+    /// gone, so the offset goes with it before anything reads what is now under it.
+    private func clearSelectedTab() {
+        guard dataSource.selectedTabId != nil else { return }
+        dataSource.selectedTabId = nil
+        scrollToTop()
+    }
+
+    /// Drops the offset `reloadData()` keeps, so a switched tab opens at its first row and auto-read
+    /// does not reach rows the user never saw.
+    private func scrollToTop() {
+        view.layoutIfNeeded()
+        tableView.setContentOffset(CGPoint(x: 0, y: -tableView.adjustedContentInset.top), animated: false)
+        // The first layout pass after the reload can still move the offset, so pin it again once that pass has run.
+        tableView.layoutIfNeeded()
+        tableView.setContentOffset(CGPoint(x: 0, y: -tableView.adjustedContentInset.top), animated: false)
+    }
+
+    private func refreshTabBarCounts() {
+        guard let strip = tabBar, let tabs = currentTabs else { return }
+        var counts: [String?: Int] = [nil: dataSource.unreadCount(forTabId: nil)]
+        for tab in tabs.tabs {
+            counts[tab.identifier] = dataSource.unreadCount(forTabId: tab.identifier)
+        }
+        strip.updateUnreadCounts(counts)
+    }
+
+    /// Reads the rows on screen while the inbox is actually showing them, narrowed to `codes` when
+    /// the caller only means the messages it just brought in. Off-window calls (a load finishing
+    /// before the first appearance) are skipped; `viewDidAppear` covers that case.
+    func markDisplayedAsRead(codes: Set<String>? = nil) {
         guard attributes.automaticReadOnDisplay, viewIfLoaded?.window != nil else { return }
         tableView.layoutIfNeeded()
-        markVisibleAsRead()
+        markVisibleAsRead(limitedTo: codes)
     }
 
-    private func markVisibleAsRead() {
-        let visibleIndexPaths = tableView.indexPathsForVisibleRows ?? []
-        let messages = visibleIndexPaths
-            .compactMap { dataSource.message(at: $0) }
-            .filter { !$0.isRead }
+    /// Reads the unread rows currently on screen. With tabs only the rows inside the window, then repaints them and refreshes
+    /// the badges; without tabs the table's visible rows, converged through the usual debounced reload, as before tabs existed.
+    private func markVisibleAsRead(limitedTo codes: Set<String>? = nil) {
+        guard currentTabs != nil else {
+            let unread = (tableView.indexPathsForVisibleRows ?? []).filter { isUnread(at: $0, limitedTo: codes) }.compactMap { dataSource.message(at: $0) }
+            if !unread.isEmpty { facade.read(messages: unread) }
+            return
+        }
+        // A host that has not laid out yet leaves the table a provisional frame, and the rows read would not be the rows shown.
+        view.layoutIfNeeded()
+        guard let onScreen = onScreenRect() else { return }
+        let shown = (tableView.indexPathsForVisibleRows ?? []).filter { tableView.rectForRow(at: $0).intersects(onScreen) }
+        if !shown.isEmpty {
+            hasShownContentInWindow = true
+        }
+        let rows = shown.filter { isUnread(at: $0, limitedTo: codes) }
+        let messages = rows.compactMap { dataSource.message(at: $0) }
         guard !messages.isEmpty else { return }
+        readWithoutSelfRefresh(messages)
+        repaintRows(rows)
+        refreshTabBarCounts()
+    }
+
+    private func isUnread(at indexPath: IndexPath, limitedTo codes: Set<String>?) -> Bool {
+        guard let message = dataSource.message(at: indexPath), !message.isRead else { return false }
+        guard let codes = codes else { return true }
+        return message.code.map(codes.contains) ?? false
+    }
+
+    /// Repaints rows an auto-read just changed: `readWithoutSelfRefresh` silences the update
+    /// notification whose debounced reload used to redraw them.
+    private func repaintRows(_ indexPaths: [IndexPath]) {
+        for indexPath in indexPaths {
+            guard let cell = tableView.cellForRow(at: indexPath) as? PushwooshInboxCell,
+                  let message = dataSource.message(at: indexPath) else { continue }
+            cell.apply(message: message, attributes: attributes)
+        }
+    }
+
+    private var isApplyingOwnRead = false
+
+    /// Reads messages without the reload `handleInboxDidUpdate` would schedule: `PWInbox` posts its
+    /// update inline, before `facade.read` returns.
+    private func readWithoutSelfRefresh(_ messages: [PWInboxMessageProtocol]) {
+        isApplyingOwnRead = true
+        defer { isApplyingOwnRead = false }
         facade.read(messages: messages)
+    }
+
+    /// The table's bounds clipped to the window, in table coordinates, `nil` off-window: a provisional frame
+    /// taller than the screen would otherwise count rows below the fold as visible.
+    private func onScreenRect() -> CGRect? {
+        guard let window = tableView.window else { return nil }
+        let boundsInWindow = tableView.convert(tableView.bounds, to: window)
+        let onScreenInWindow = boundsInWindow.intersection(window.bounds)
+        guard !onScreenInWindow.isNull, !onScreenInWindow.isEmpty else { return nil }
+        return window.convert(onScreenInWindow, to: tableView)
     }
 
     /// Marks the given messages as read both server-side and locally
@@ -538,14 +794,16 @@ public class PushwooshInboxKitViewController: UIViewController {
         if !rowsToReload.isEmpty {
             tableView.reloadRows(at: rowsToReload, with: .none)
         }
+        refreshTabBarCounts()
     }
 
     /// Marks every currently-stored unread inbox message as read. Routes
-    /// through `PWInbox.markAllMessagesAsRead` so storage and server stay
+    /// through `Pushwoosh.inbox.markAllMessagesAsRead()` so storage and server stay
     /// in sync. Suitable for a "Mark all as read" toolbar button.
     @objc public func markAllAsRead() {
         facade.markAllAsRead()
         tableView.reloadData()
+        refreshTabBarCounts()
     }
 
     /// Deletes every read message from the inbox in one batch. Useful for a
@@ -557,7 +815,7 @@ public class PushwooshInboxKitViewController: UIViewController {
         // removes read messages from storage/server, but the background notification does
         // not refresh an open controller, so update the data source directly here (mirrors
         // `markAllAsRead`) — read rows drop out at once instead of only after a reopen.
-        let remaining = dataSource.messages.filter { !$0.isRead }
+        let remaining = dataSource.allMessages.filter { !$0.isRead }
         dataSource.replace(remaining, transform: attributes.transform)
         tableView.reloadData()
         updateStates()
@@ -567,7 +825,7 @@ public class PushwooshInboxKitViewController: UIViewController {
     /// open table immediately. Use for a "Clear all" / trash affordance, where the user expects
     /// the whole inbox to empty (unlike ``clearReadMessages``, which keeps unread messages).
     @objc public func deleteAllMessages() {
-        let all = dataSource.messages
+        let all = dataSource.allMessages
         guard !all.isEmpty else { return }
         facade.delete(messages: all)
         dataSource.replace([], transform: attributes.transform)
@@ -750,6 +1008,7 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
             facade.reportAction(message: message)
             facade.read(messages: [message])
             repaintRow(for: message)
+            refreshTabBarCounts()
             return
         }
         performMessageAction(for: message)
@@ -760,8 +1019,11 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
         let wasUnread = !message.isRead
         facade.performAction(message: message)
         facade.read(messages: [message])
-        if wasUnread, let indexPath = indexPath(for: message) {
-            tableView.reloadRows(at: [indexPath], with: .none)
+        if wasUnread {
+            if let indexPath = indexPath(for: message) {
+                tableView.reloadRows(at: [indexPath], with: .none)
+            }
+            refreshTabBarCounts()
         }
     }
 
@@ -914,6 +1176,7 @@ extension PushwooshInboxKitViewController: UITableViewDataSource, UITableViewDel
         if let indexPath = indexPath(for: message) {
             tableView.reloadRows(at: [indexPath], with: .none)
         }
+        refreshTabBarCounts()
     }
 
     private func indexPath(for message: PWInboxMessageProtocol) -> IndexPath? {
@@ -1063,6 +1326,58 @@ extension PushwooshInboxKitViewController: PKAddPassesViewControllerDelegate {
         pendingWalletPass = nil
         pendingWalletMessage = nil
         walletAddInProgress = false
+    }
+}
+
+// MARK: - State-label backing plate
+
+/// Rounded backing plate behind `emptyStateLabel` / `errorStateLabel`, installed only while
+/// `style.isLiquidGlass` is on: a `UIGlassEffect` surface under iOS 26+ (Xcode 26+ toolchain), and a
+/// flat `style.backgroundColor` fill where glass is unavailable, as in `InboxErrorBannerView`.
+final class InboxStatePlateView: UIView {
+    private var glassView: UIVisualEffectView?
+
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        translatesAutoresizingMaskIntoConstraints = false
+        isHidden = true
+        clipsToBounds = true
+        layer.cornerRadius = 16
+        layer.cornerCurve = .continuous
+    }
+
+    required init?(coder: NSCoder) {
+        super.init(coder: coder)
+    }
+
+    func apply(style: PushwooshInboxKitAttributes.Style) {
+        var effect: UIVisualEffect?
+#if compiler(>=6.2)
+        if style.isLiquidGlass, #available(iOS 26.0, *) {
+            effect = pwInboxGlassEffect()
+        }
+#endif
+        guard let effect = effect else {
+            glassView?.removeFromSuperview()
+            glassView = nil
+            backgroundColor = style.backgroundColor
+            return
+        }
+        backgroundColor = .clear
+        if let existing = glassView {
+            existing.effect = effect
+        } else {
+            let view = UIVisualEffectView(effect: effect)
+            view.translatesAutoresizingMaskIntoConstraints = false
+            insertSubview(view, at: 0)
+            NSLayoutConstraint.activate([
+                view.topAnchor.constraint(equalTo: topAnchor),
+                view.leadingAnchor.constraint(equalTo: leadingAnchor),
+                view.trailingAnchor.constraint(equalTo: trailingAnchor),
+                view.bottomAnchor.constraint(equalTo: bottomAnchor)
+            ])
+            glassView = view
+        }
     }
 }
 #endif

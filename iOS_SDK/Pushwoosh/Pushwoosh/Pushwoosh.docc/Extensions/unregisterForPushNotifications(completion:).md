@@ -21,7 +21,7 @@ Unregister on logout with confirmation:
 
 ```swift
 func handleLogout(completion: @escaping (Bool) -> Void) {
-    Pushwoosh.configure.setUserId("")
+    Pushwoosh.configure.resetUserId()
 
     Pushwoosh.configure.unregisterForPushNotifications { error in
         if let error = error {

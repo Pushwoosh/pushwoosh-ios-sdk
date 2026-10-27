@@ -462,12 +462,13 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge14PWInAppHandler_")
 - (void)handleInAppConfig:(NSDictionary * _Nonnull)config onShown:(void (^ _Nullable)(void))onShown onClicked:(void (^ _Nullable)(void))onClicked onClosed:(void (^ _Nullable)(void))onClosed;
 @end
 
+@class UIViewController;
 
 /// Protocol bridging the optional <code>PushwooshInboxKit</code> module to the umbrella SDK.
 /// The host SDK discovers <code>PushwooshInboxKit</code> at runtime through
 /// <code>PushwooshModuleRegistry</code> — <code>PushwooshInboxKitLoader.+load</code> registers the
 /// implementation class at image load. The bridge protocol intentionally
-/// exposes only a class-level factory — the public UI surface
+/// exposes only class-level factories — the customizable UI surface
 /// (<code>PushwooshInboxKitViewController</code>, <code>PushwooshInboxKitAttributes</code>) is
 /// consumed directly from the <code>PushwooshInboxKit</code> module by the host app.
 SWIFT_PROTOCOL("_TtP15PushwooshBridge10PWInboxKit_")
@@ -475,6 +476,8 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge10PWInboxKit_")
 /// Returns the implementation class. Used as a marker to confirm the
 /// optional module is linked.
 + (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
+/// Default inbox screen; <code>nil</code> when <code>PushwooshInboxKit</code> is not linked.
++ (UIViewController * _Nullable)makeViewController SWIFT_WARN_UNUSED_RESULT;
 @end
 
 @class NSString;

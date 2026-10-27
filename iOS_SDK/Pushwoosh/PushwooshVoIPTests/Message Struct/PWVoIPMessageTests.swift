@@ -10,7 +10,6 @@ import XCTest
 @testable import PushwooshVoIP
 import CallKit
 
-@available(iOS 14.0, *)
 final class PWVoIPMessageTests: XCTestCase {
 
     func testMessageParsingWithFullData() throws {

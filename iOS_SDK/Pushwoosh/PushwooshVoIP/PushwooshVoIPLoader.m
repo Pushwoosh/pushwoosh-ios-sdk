@@ -25,15 +25,13 @@
 @implementation PushwooshVoIPLoader
 
 + (void)load {
-    if (@available(iOS 14.0, *)) {
-        Class implClass = [PushwooshVoIPImplementation class];
-        [PushwooshModuleRegistry registerClass:implClass
-                                 forIdentifier:PWModuleIdentifierVoIP];
-        id handler = [PushwooshVoIPImplementation configureBackchannel];
-        if (handler) {
-            [PushwooshModuleRegistry registerHandler:handler
-                                       forIdentifier:PWModuleIdentifierVoIP];
-        }
+    Class implClass = [PushwooshVoIPImplementation class];
+    [PushwooshModuleRegistry registerClass:implClass
+                             forIdentifier:PWModuleIdentifierVoIP];
+    id handler = [PushwooshVoIPImplementation configureBackchannel];
+    if (handler) {
+        [PushwooshModuleRegistry registerHandler:handler
+                                   forIdentifier:PWModuleIdentifierVoIP];
     }
 }
 

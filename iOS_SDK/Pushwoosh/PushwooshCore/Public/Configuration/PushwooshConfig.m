@@ -385,6 +385,16 @@
     }];
 }
 
++ (void)resetUserId {
+    [self resetUserIdWithCompletion:nil];
+}
+
++ (void)resetUserIdWithCompletion:(void (^)(NSError *error))completion {
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared] resetUserIdWithCompletion:completion];
+    }];
+}
+
 + (void)setUser:(NSString *)userId emails:(NSArray *)emails {
     NSString *userIdValue = [self validateAndTrim:userId forSelector:_cmd];
     if (userId != nil && userIdValue == nil) return;
@@ -476,6 +486,32 @@ static NSString *const kZeroAdvertisingId = @"00000000-0000-0000-0000-0000000000
         [[PWManagerBridge shared] sendBadges:badge];
     }];
 }
+
+#pragma mark - In-App Messages
+
++ (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes completion:(void (^)(NSError *error))completion {
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared].inAppManager postEvent:event withAttributes:attributes completion:completion];
+    }];
+}
+
++ (void)postEvent:(NSString *)event withAttributes:(NSDictionary *)attributes {
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared].inAppManager postEvent:event withAttributes:attributes];
+    }];
+}
+
+#if TARGET_OS_IOS
++ (void)reloadInAppsWithCompletion:(void (^)(NSError *error))completion {
+    [self executeOrQueue:^{
+        [[PWManagerBridge shared].inAppManager reloadInAppsWithCompletion:completion];
+    }];
+}
+
++ (void)addJavascriptInterface:(NSObject<PWJavaScriptInterface> *)interface withName:(NSString *)name {
+    [[PWManagerBridge shared].inAppManager addJavascriptInterface:interface withName:name];
+}
+#endif
 
 #pragma mark - URL Handling
 
