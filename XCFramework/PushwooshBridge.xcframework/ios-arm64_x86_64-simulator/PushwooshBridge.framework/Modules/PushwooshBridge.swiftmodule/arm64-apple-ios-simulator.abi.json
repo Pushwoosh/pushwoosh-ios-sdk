@@ -7042,6 +7042,112 @@
             ],
             "reqNewWitnessTableEntry": true,
             "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "handleInlineSlots",
+            "printedName": "handleInlineSlots(_:userId:appCode:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.AnyHashable : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "AnyHashable",
+                    "printedName": "Swift.AnyHashable",
+                    "usr": "s:s11AnyHashableV"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInAppHandler(im)handleInlineSlots:userId:appCode:",
+            "mangledName": "$s15PushwooshBridge14PWInAppHandlerP17handleInlineSlots_6userId7appCodeySDys11AnyHashableVypG_S2StF",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInAppHandler>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInAppHandler>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "handleInlineUserChanged",
+            "printedName": "handleInlineUserChanged()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInAppHandler(im)handleInlineUserChanged",
+            "mangledName": "$s15PushwooshBridge14PWInAppHandlerP23handleInlineUserChangedyyF",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInAppHandler>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInAppHandler>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "handleInlineUserChangeFailed",
+            "printedName": "handleInlineUserChangeFailed()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInAppHandler(im)handleInlineUserChangeFailed",
+            "mangledName": "$s15PushwooshBridge14PWInAppHandlerP28handleInlineUserChangeFailedyyF",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInAppHandler>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInAppHandler>",
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
           }
         ],
         "declKind": "Protocol",
@@ -7054,6 +7160,1727 @@
           "AccessControl",
           "ObjC",
           "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWInlineColorScheme",
+        "printedName": "PWInlineColorScheme",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "app",
+            "printedName": "app",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWInlineColorScheme.Type) -> PushwooshBridge.PWInlineColorScheme",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInlineColorScheme",
+                    "printedName": "PushwooshBridge.PWInlineColorScheme",
+                    "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWInlineColorScheme.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWInlineColorScheme",
+                        "printedName": "PushwooshBridge.PWInlineColorScheme",
+                        "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme@PWInlineColorSchemeApp",
+            "mangledName": "$s15PushwooshBridge19PWInlineColorSchemeO3appyA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "RawDocComment",
+              "ObjC"
+            ],
+            "fixedbinaryorder": 0
+          },
+          {
+            "kind": "Var",
+            "name": "system",
+            "printedName": "system",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWInlineColorScheme.Type) -> PushwooshBridge.PWInlineColorScheme",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInlineColorScheme",
+                    "printedName": "PushwooshBridge.PWInlineColorScheme",
+                    "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWInlineColorScheme.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWInlineColorScheme",
+                        "printedName": "PushwooshBridge.PWInlineColorScheme",
+                        "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme@PWInlineColorSchemeSystem",
+            "mangledName": "$s15PushwooshBridge19PWInlineColorSchemeO6systemyA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "RawDocComment",
+              "ObjC"
+            ],
+            "fixedbinaryorder": 1
+          },
+          {
+            "kind": "Var",
+            "name": "light",
+            "printedName": "light",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWInlineColorScheme.Type) -> PushwooshBridge.PWInlineColorScheme",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInlineColorScheme",
+                    "printedName": "PushwooshBridge.PWInlineColorScheme",
+                    "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWInlineColorScheme.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWInlineColorScheme",
+                        "printedName": "PushwooshBridge.PWInlineColorScheme",
+                        "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme@PWInlineColorSchemeLight",
+            "mangledName": "$s15PushwooshBridge19PWInlineColorSchemeO5lightyA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "RawDocComment",
+              "ObjC"
+            ],
+            "fixedbinaryorder": 2
+          },
+          {
+            "kind": "Var",
+            "name": "dark",
+            "printedName": "dark",
+            "children": [
+              {
+                "kind": "TypeFunc",
+                "name": "Function",
+                "printedName": "(PushwooshBridge.PWInlineColorScheme.Type) -> PushwooshBridge.PWInlineColorScheme",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInlineColorScheme",
+                    "printedName": "PushwooshBridge.PWInlineColorScheme",
+                    "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Metatype",
+                    "printedName": "PushwooshBridge.PWInlineColorScheme.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWInlineColorScheme",
+                        "printedName": "PushwooshBridge.PWInlineColorScheme",
+                        "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme"
+                      }
+                    ]
+                  }
+                ]
+              }
+            ],
+            "declKind": "EnumElement",
+            "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme@PWInlineColorSchemeDark",
+            "mangledName": "$s15PushwooshBridge19PWInlineColorSchemeO4darkyA2CmF",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "RawDocComment",
+              "ObjC"
+            ],
+            "fixedbinaryorder": 3
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(rawValue:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshBridge.PWInlineColorScheme?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInlineColorScheme",
+                    "printedName": "PushwooshBridge.PWInlineColorScheme",
+                    "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:15PushwooshBridge19PWInlineColorSchemeO8rawValueACSgSi_tcfc",
+            "mangledName": "$s15PushwooshBridge19PWInlineColorSchemeO8rawValueACSgSi_tcfc",
+            "moduleName": "PushwooshBridge",
+            "implicit": true,
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Var",
+            "name": "rawValue",
+            "printedName": "rawValue",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:15PushwooshBridge19PWInlineColorSchemeO8rawValueSivp",
+            "mangledName": "$s15PushwooshBridge19PWInlineColorSchemeO8rawValueSivp",
+            "moduleName": "PushwooshBridge",
+            "implicit": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:15PushwooshBridge19PWInlineColorSchemeO8rawValueSivg",
+                "mangledName": "$s15PushwooshBridge19PWInlineColorSchemeO8rawValueSivg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "accessorKind": "get"
+              }
+            ]
+          }
+        ],
+        "declKind": "Enum",
+        "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme",
+        "mangledName": "$s15PushwooshBridge19PWInlineColorSchemeO",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "enumRawTypeName": "Int",
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "RawRepresentable",
+            "printedName": "RawRepresentable",
+            "children": [
+              {
+                "kind": "TypeWitness",
+                "name": "RawValue",
+                "printedName": "RawValue",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ]
+              }
+            ],
+            "usr": "s:SY",
+            "mangledName": "$sSY"
+          }
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWInline",
+        "printedName": "PWInline",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "delegate",
+            "printedName": "delegate",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(any PushwooshBridge.PWInlineDelegate)?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInlineDelegate",
+                    "printedName": "any PushwooshBridge.PWInlineDelegate",
+                    "usr": "c:@M@PushwooshBridge@objc(pl)PWInlineDelegate"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInline(cpy)delegate",
+            "mangledName": "$s15PushwooshBridge8PWInlineP8delegateAA0C8Delegate_pSgvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any PushwooshBridge.PWInlineDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWInlineDelegate",
+                        "printedName": "any PushwooshBridge.PWInlineDelegate",
+                        "usr": "c:@M@PushwooshBridge@objc(pl)PWInlineDelegate"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWInline(cm)delegate",
+                "mangledName": "$s15PushwooshBridge8PWInlineP8delegateAA0C8Delegate_pSgvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInline>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInline>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "(any PushwooshBridge.PWInlineDelegate)?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWInlineDelegate",
+                        "printedName": "any PushwooshBridge.PWInlineDelegate",
+                        "usr": "c:@M@PushwooshBridge@objc(pl)PWInlineDelegate"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWInline(cm)setDelegate:",
+                "mangledName": "$s15PushwooshBridge8PWInlineP8delegateAA0C8Delegate_pSgvsZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInline>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInline>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "colorScheme",
+            "printedName": "colorScheme",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PWInlineColorScheme",
+                "printedName": "PushwooshBridge.PWInlineColorScheme",
+                "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInline(cpy)colorScheme",
+            "mangledName": "$s15PushwooshBridge8PWInlineP11colorSchemeAA0c5ColorE0OvpZ",
+            "moduleName": "PushwooshBridge",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInlineColorScheme",
+                    "printedName": "PushwooshBridge.PWInlineColorScheme",
+                    "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWInline(cm)colorScheme",
+                "mangledName": "$s15PushwooshBridge8PWInlineP11colorSchemeAA0c5ColorE0OvgZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInline>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInline>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "get"
+              },
+              {
+                "kind": "Accessor",
+                "name": "Set",
+                "printedName": "Set()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Void",
+                    "printedName": "()"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInlineColorScheme",
+                    "printedName": "PushwooshBridge.PWInlineColorScheme",
+                    "usr": "c:@M@PushwooshBridge@E@PWInlineColorScheme"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(pl)PWInline(cm)setColorScheme:",
+                "mangledName": "$s15PushwooshBridge8PWInlineP11colorSchemeAA0c5ColorE0OvsZ",
+                "moduleName": "PushwooshBridge",
+                "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInline>",
+                "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInline>",
+                "static": true,
+                "protocolReq": true,
+                "declAttributes": [
+                  "ObjC"
+                ],
+                "reqNewWitnessTableEntry": true,
+                "accessorKind": "set"
+              }
+            ]
+          },
+          {
+            "kind": "Function",
+            "name": "requestSlots",
+            "printedName": "requestSlots(_:completion:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Array",
+                "printedName": "[Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sa"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "(((any Swift.Error)?) -> ())?",
+                "children": [
+                  {
+                    "kind": "TypeFunc",
+                    "name": "Function",
+                    "printedName": "((any Swift.Error)?) -> ()",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Void",
+                        "printedName": "()"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Optional",
+                        "printedName": "(any Swift.Error)?",
+                        "children": [
+                          {
+                            "kind": "TypeNominal",
+                            "name": "Error",
+                            "printedName": "any Swift.Error",
+                            "usr": "s:s5ErrorP"
+                          }
+                        ],
+                        "usr": "s:Sq"
+                      }
+                    ]
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInline(cm)requestSlots:completion:",
+            "mangledName": "$s15PushwooshBridge8PWInlineP12requestSlots_10completionySaySSG_ys5Error_pSgcSgtFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInline>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInline>",
+            "static": true,
+            "protocolReq": true,
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "banner",
+            "printedName": "banner(forSlot:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshBridge.PushwooshInlineBanner?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshInlineBanner",
+                    "printedName": "PushwooshBridge.PushwooshInlineBanner",
+                    "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInline(cm)bannerForSlot:",
+            "mangledName": "$s15PushwooshBridge8PWInlineP6banner7forSlotAA0A12InlineBannerCSgSS_tFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInline>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInline>",
+            "static": true,
+            "protocolReq": true,
+            "objc_name": "bannerForSlot:",
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "trackShown",
+            "printedName": "trackShown(slotId:bannerId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInline(cm)trackShownForSlot:bannerId:",
+            "mangledName": "$s15PushwooshBridge8PWInlineP10trackShown6slotId06bannerG0ySS_SStFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInline>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInline>",
+            "static": true,
+            "protocolReq": true,
+            "objc_name": "trackShownForSlot:bannerId:",
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "trackClick",
+            "printedName": "trackClick(slotId:bannerId:elementId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInline(cm)trackClickForSlot:bannerId:elementId:",
+            "mangledName": "$s15PushwooshBridge8PWInlineP10trackClick6slotId06bannerG007elementG0ySS_S2SSgtFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInline>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInline>",
+            "static": true,
+            "protocolReq": true,
+            "objc_name": "trackClickForSlot:bannerId:elementId:",
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "dismiss",
+            "printedName": "dismiss(slotId:bannerId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInline(cm)dismissSlot:bannerId:",
+            "mangledName": "$s15PushwooshBridge8PWInlineP7dismiss6slotId06bannerF0ySS_SStFZ",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInline>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInline>",
+            "static": true,
+            "protocolReq": true,
+            "objc_name": "dismissSlot:bannerId:",
+            "declAttributes": [
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@PushwooshBridge@objc(pl)PWInline",
+        "mangledName": "$s15PushwooshBridge8PWInlineP",
+        "moduleName": "PushwooshBridge",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PWInlineDelegate",
+        "printedName": "PWInlineDelegate",
+        "children": [
+          {
+            "kind": "Function",
+            "name": "inlineSlot",
+            "printedName": "inlineSlot(_:didUpdate:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "PushwooshBridge.PushwooshInlineBanner?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PushwooshInlineBanner",
+                    "printedName": "PushwooshBridge.PushwooshInlineBanner",
+                    "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInlineDelegate(im)inlineSlot:didUpdate:",
+            "mangledName": "$s15PushwooshBridge16PWInlineDelegateP10inlineSlot_9didUpdateySS_AA0A12InlineBannerCSgtF",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInlineDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInlineDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "inlineSlot",
+            "printedName": "inlineSlot(_:didShow:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInlineBanner",
+                "printedName": "PushwooshBridge.PushwooshInlineBanner",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInlineDelegate(im)inlineSlot:didShow:",
+            "mangledName": "$s15PushwooshBridge16PWInlineDelegateP10inlineSlot_7didShowySS_AA0A12InlineBannerCtF",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInlineDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInlineDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "inlineSlot",
+            "printedName": "inlineSlot(_:didClick:elementId:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInlineBanner",
+                "printedName": "PushwooshBridge.PushwooshInlineBanner",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInlineDelegate(im)inlineSlot:didClick:elementId:",
+            "mangledName": "$s15PushwooshBridge16PWInlineDelegateP10inlineSlot_8didClick9elementIdySS_AA0A12InlineBannerCSSSgtF",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInlineDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInlineDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          },
+          {
+            "kind": "Function",
+            "name": "inlineSlot",
+            "printedName": "inlineSlot(_:didDismiss:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Void",
+                "printedName": "()"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInlineBanner",
+                "printedName": "PushwooshBridge.PushwooshInlineBanner",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner"
+              }
+            ],
+            "declKind": "Func",
+            "usr": "c:@M@PushwooshBridge@objc(pl)PWInlineDelegate(im)inlineSlot:didDismiss:",
+            "mangledName": "$s15PushwooshBridge16PWInlineDelegateP10inlineSlot_10didDismissySS_AA0A12InlineBannerCtF",
+            "moduleName": "PushwooshBridge",
+            "genericSig": "<τ_0_0 where τ_0_0 : PushwooshBridge.PWInlineDelegate>",
+            "sugared_genericSig": "<Self where Self : PushwooshBridge.PWInlineDelegate>",
+            "protocolReq": true,
+            "declAttributes": [
+              "Optional",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "reqNewWitnessTableEntry": true,
+            "funcSelfKind": "NonMutating"
+          }
+        ],
+        "declKind": "Protocol",
+        "usr": "c:@M@PushwooshBridge@objc(pl)PWInlineDelegate",
+        "mangledName": "$s15PushwooshBridge16PWInlineDelegateP",
+        "moduleName": "PushwooshBridge",
+        "genericSig": "<τ_0_0 : AnyObject>",
+        "sugared_genericSig": "<Self : AnyObject>",
+        "objc_name": "PWInlineDelegate",
+        "declAttributes": [
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "Import",
+        "name": "Foundation",
+        "printedName": "Foundation",
+        "declKind": "Import",
+        "moduleName": "PushwooshBridge",
+        "declAttributes": [
+          "RawDocComment"
+        ]
+      },
+      {
+        "kind": "TypeDecl",
+        "name": "PushwooshInlineBanner",
+        "printedName": "PushwooshInlineBanner",
+        "children": [
+          {
+            "kind": "Var",
+            "name": "slotId",
+            "printedName": "slotId",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(py)slotId",
+            "mangledName": "$s15PushwooshBridge0A12InlineBannerC6slotIdSSvp",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(im)slotId",
+                "mangledName": "$s15PushwooshBridge0A12InlineBannerC6slotIdSSvg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "bannerId",
+            "printedName": "bannerId",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(py)bannerId",
+            "mangledName": "$s15PushwooshBridge0A12InlineBannerC8bannerIdSSvp",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(im)bannerId",
+                "mangledName": "$s15PushwooshBridge0A12InlineBannerC8bannerIdSSvg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "version",
+            "printedName": "version",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(py)version",
+            "mangledName": "$s15PushwooshBridge0A12InlineBannerC7versionSivp",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Int",
+                    "printedName": "Swift.Int",
+                    "usr": "s:Si"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(im)version",
+                "mangledName": "$s15PushwooshBridge0A12InlineBannerC7versionSivg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "format",
+            "printedName": "format",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(py)format",
+            "mangledName": "$s15PushwooshBridge0A12InlineBannerC6formatSSvp",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(im)format",
+                "mangledName": "$s15PushwooshBridge0A12InlineBannerC6formatSSvg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "html",
+            "printedName": "html",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(py)html",
+            "mangledName": "$s15PushwooshBridge0A12InlineBannerC4htmlSSSgvp",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Swift.String?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(im)html",
+                "mangledName": "$s15PushwooshBridge0A12InlineBannerC4htmlSSSgvg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "payload",
+            "printedName": "payload",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(py)payload",
+            "mangledName": "$s15PushwooshBridge0A12InlineBannerC7payloadSDyS2SGvp",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Swift.String]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(im)payload",
+                "mangledName": "$s15PushwooshBridge0A12InlineBannerC7payloadSDyS2SGvg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "expireDate",
+            "printedName": "expireDate",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.Date?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Date",
+                    "printedName": "Foundation.Date",
+                    "usr": "s:10Foundation4DateV"
+                  }
+                ],
+                "usr": "s:Sq"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(py)expireDate",
+            "mangledName": "$s15PushwooshBridge0A12InlineBannerC10expireDate10Foundation0F0VSgvp",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Optional",
+                    "printedName": "Foundation.Date?",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "Date",
+                        "printedName": "Foundation.Date",
+                        "usr": "s:10Foundation4DateV"
+                      }
+                    ],
+                    "usr": "s:Sq"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(im)expireDate",
+                "mangledName": "$s15PushwooshBridge0A12InlineBannerC10expireDate10Foundation0F0VSgvg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "isTest",
+            "printedName": "isTest",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(py)isTest",
+            "mangledName": "$s15PushwooshBridge0A12InlineBannerC6isTestSbvp",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Bool",
+                    "printedName": "Swift.Bool",
+                    "usr": "s:Sb"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(im)isTest",
+                "mangledName": "$s15PushwooshBridge0A12InlineBannerC6isTestSbvg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Var",
+            "name": "dictionary",
+            "printedName": "dictionary",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Var",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(py)dictionary",
+            "mangledName": "$s15PushwooshBridge0A12InlineBannerC10dictionarySDySSypGvp",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "Final",
+              "HasStorage",
+              "AccessControl",
+              "ObjC",
+              "RawDocComment"
+            ],
+            "isLet": true,
+            "hasStorage": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Dictionary",
+                    "printedName": "[Swift.String : Any]",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "String",
+                        "printedName": "Swift.String",
+                        "usr": "s:SS"
+                      },
+                      {
+                        "kind": "TypeNominal",
+                        "name": "ProtocolComposition",
+                        "printedName": "Any"
+                      }
+                    ],
+                    "usr": "s:SD"
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(im)dictionary",
+                "mangledName": "$s15PushwooshBridge0A12InlineBannerC10dictionarySDySSypGvg",
+                "moduleName": "PushwooshBridge",
+                "implicit": true,
+                "declAttributes": [
+                  "Final",
+                  "ObjC"
+                ],
+                "accessorKind": "get"
+              }
+            ]
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init(slotId:bannerId:version:format:html:payload:expireDate:isTest:dictionary:)",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInlineBanner",
+                "printedName": "PushwooshBridge.PushwooshInlineBanner",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Int",
+                "printedName": "Swift.Int",
+                "usr": "s:Si"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "String",
+                "printedName": "Swift.String",
+                "usr": "s:SS"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Swift.String?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Swift.String]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  }
+                ],
+                "usr": "s:SD"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Optional",
+                "printedName": "Foundation.Date?",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "Date",
+                    "printedName": "Foundation.Date",
+                    "usr": "s:10Foundation4DateV"
+                  }
+                ],
+                "usr": "s:Sq"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Bool",
+                "printedName": "Swift.Bool",
+                "usr": "s:Sb"
+              },
+              {
+                "kind": "TypeNominal",
+                "name": "Dictionary",
+                "printedName": "[Swift.String : Any]",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "String",
+                    "printedName": "Swift.String",
+                    "usr": "s:SS"
+                  },
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ProtocolComposition",
+                    "printedName": "Any"
+                  }
+                ],
+                "usr": "s:SD"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "s:15PushwooshBridge0A12InlineBannerC6slotId06bannerF07version6format4html7payload10expireDate6isTest10dictionaryACSS_SSSiS2SSgSDyS2SG10Foundation0M0VSgSbSDySSypGtcfc",
+            "mangledName": "$s15PushwooshBridge0A12InlineBannerC6slotId06bannerF07version6format4html7payload10expireDate6isTest10dictionaryACSS_SSSiS2SSgSDyS2SG10Foundation0M0VSgSbSDySSypGtcfc",
+            "moduleName": "PushwooshBridge",
+            "declAttributes": [
+              "AccessControl"
+            ],
+            "init_kind": "Designated"
+          },
+          {
+            "kind": "Constructor",
+            "name": "init",
+            "printedName": "init()",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "PushwooshInlineBanner",
+                "printedName": "PushwooshBridge.PushwooshInlineBanner",
+                "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner"
+              }
+            ],
+            "declKind": "Constructor",
+            "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner(im)init",
+            "mangledName": "$s15PushwooshBridge0A12InlineBannerCACycfc",
+            "moduleName": "PushwooshBridge",
+            "overriding": true,
+            "implicit": true,
+            "objc_name": "init",
+            "declAttributes": [
+              "Dynamic",
+              "ObjC",
+              "Override"
+            ],
+            "init_kind": "Designated"
+          }
+        ],
+        "declKind": "Class",
+        "usr": "c:@M@PushwooshBridge@objc(cs)PushwooshInlineBanner",
+        "mangledName": "$s15PushwooshBridge0A12InlineBannerC",
+        "moduleName": "PushwooshBridge",
+        "objc_name": "PushwooshInlineBanner",
+        "declAttributes": [
+          "Final",
+          "AccessControl",
+          "ObjC",
+          "RawDocComment"
+        ],
+        "superclassUsr": "c:objc(cs)NSObject",
+        "superclassNames": [
+          "ObjectiveC.NSObject"
+        ],
+        "conformances": [
+          {
+            "kind": "Conformance",
+            "name": "Equatable",
+            "printedName": "Equatable",
+            "usr": "s:SQ",
+            "mangledName": "$sSQ"
+          },
+          {
+            "kind": "Conformance",
+            "name": "Hashable",
+            "printedName": "Hashable",
+            "usr": "s:SH",
+            "mangledName": "$sSH"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CVarArg",
+            "printedName": "CVarArg",
+            "usr": "s:s7CVarArgP",
+            "mangledName": "$ss7CVarArgP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObservingPublishing",
+            "printedName": "_KeyValueCodingAndObservingPublishing",
+            "usr": "s:10Foundation37_KeyValueCodingAndObservingPublishingP",
+            "mangledName": "$s10Foundation37_KeyValueCodingAndObservingPublishingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "_KeyValueCodingAndObserving",
+            "printedName": "_KeyValueCodingAndObserving",
+            "usr": "s:10Foundation27_KeyValueCodingAndObservingP",
+            "mangledName": "$s10Foundation27_KeyValueCodingAndObservingP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomStringConvertible",
+            "printedName": "CustomStringConvertible",
+            "usr": "s:s23CustomStringConvertibleP",
+            "mangledName": "$ss23CustomStringConvertibleP"
+          },
+          {
+            "kind": "Conformance",
+            "name": "CustomDebugStringConvertible",
+            "printedName": "CustomDebugStringConvertible",
+            "usr": "s:s28CustomDebugStringConvertibleP",
+            "mangledName": "$ss28CustomDebugStringConvertibleP"
+          }
         ]
       }
     ],
@@ -7465,6 +9292,55 @@
       "offset": 503,
       "length": 1,
       "value": "3"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWInline.swift",
+      "kind": "IntegerLiteral",
+      "offset": 454,
+      "length": 6,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWInline.swift",
+      "kind": "IntegerLiteral",
+      "offset": 492,
+      "length": 5,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWInline.swift",
+      "kind": "IntegerLiteral",
+      "offset": 528,
+      "length": 4,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWInline.swift",
+      "kind": "IntegerLiteral",
+      "offset": 454,
+      "length": 6,
+      "value": "1"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWInline.swift",
+      "kind": "IntegerLiteral",
+      "offset": 492,
+      "length": 5,
+      "value": "2"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PWInline.swift",
+      "kind": "IntegerLiteral",
+      "offset": 528,
+      "length": 4,
+      "value": "3"
+    },
+    {
+      "filePath": "\/Users\/pushwoosh\/builds\/SYczzqzG\/0\/SDK\/iOS\/Pushwoosh\/PushwooshBridge\/PushwooshInlineBanner.swift",
+      "kind": "StringLiteral",
+      "offset": 262,
+      "length": 21,
+      "value": "\"PushwooshBridge.PushwooshInlineBanner\""
     }
   ]
 }

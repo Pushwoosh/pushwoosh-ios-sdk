@@ -13,6 +13,9 @@
 @property (nonatomic, strong) NSString *resultCode;
 @property (nonatomic, strong) NSDictionary *richMedia;
 @property (nonatomic, strong) NSString *messageHash;
+@property (nonatomic, strong) id inlineContent;
+@property (atomic, copy) NSString *sentUserId;
+@property (atomic, copy) NSString *sentAppCode;
 
 @end
 
@@ -24,6 +27,8 @@
 
 - (NSDictionary *)requestDictionary {
 	NSMutableDictionary *dictionary = self.baseDictionary;
+	self.sentUserId = dictionary[@"userId"];
+	self.sentAppCode = dictionary[@"application"];
 
 	dictionary[@"event"] = _event;
 
@@ -81,6 +86,7 @@
 - (void)parseResponse:(NSDictionary *)response {
 	_resultCode = [response pw_stringForKey:@"code"];
     _messageHash = [response pw_stringForKey:@"message_hash"];
+    _inlineContent = response[@"inline"];
 
     if ([_resultCode length] == 0) {
         if ([response objectForKey:@"richmedia"]){

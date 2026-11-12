@@ -435,6 +435,7 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isPresenting;)
 + (void)setFrequencyCapEnabled:(BOOL)enabled;
 @end
 
+@class NSString;
 
 /// Back-channel protocol that lets Core dispatch a native in-app config to the
 /// optional <code>PushwooshInApp</code> module without a <code>performSelector</code> chain.
@@ -460,6 +461,13 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge14PWInAppHandler_")
 /// by any path. Core maps them to the same <code>richMediaAction</code> requests as the
 /// HTML rich media JS bridge (action types 1 and 4).
 - (void)handleInAppConfig:(NSDictionary * _Nonnull)config onShown:(void (^ _Nullable)(void))onShown onClicked:(void (^ _Nullable)(void))onClicked onClosed:(void (^ _Nullable)(void))onClosed;
+/// The <code>inline</code> block of a postEvent answer (<code>{"slots": {...}}</code>) with the user and application the
+/// event was sent for; updates only the slots it lists while that user and application are current.
+- (void)handleInlineSlots:(NSDictionary * _Nonnull)content userId:(NSString * _Nonnull)userId appCode:(NSString * _Nonnull)appCode;
+/// The server confirmed a new user (setUserId or resetUserId); inline slots are requested for that user.
+- (void)handleInlineUserChanged;
+/// The server refused a new user and the SDK went back to the previous one; inline slots follow it back.
+- (void)handleInlineUserChangeFailed;
 @end
 
 
@@ -477,7 +485,80 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge10PWInboxKit_")
 + (Class _Nonnull)inboxKit SWIFT_WARN_UNUSED_RESULT;
 @end
 
-@class NSString;
+@protocol PWInlineDelegate;
+enum PWInlineColorScheme : NSInteger;
+@class PushwooshInlineBanner;
+
+/// Public surface of inline banners, reached as <code>Pushwoosh.inline</code>. Banners live in slots placed in
+/// the app layout (<code>PushwooshInlineView</code> in UIKit, <code>PushwooshInlineSlot</code> in SwiftUI, both in
+/// <code>PushwooshInApp</code>); resolves to a logged no-op when the <code>PushwooshInApp</code> module is not linked.
+/// \code
+/// Pushwoosh.inline.delegate = self
+/// Pushwoosh.inline.requestSlots(["home_top", "cart_bottom"]) { error in }
+///
+/// \endcodeCallable from any thread. Calls without a result are handed to the main thread and return at once.
+/// Reading <code>delegate</code> or <code>colorScheme</code> and calling <code>banner(forSlot:)</code> off the main thread waits until the
+/// main thread runs them: never do it from a thread the main thread is waiting for, that deadlocks.
+SWIFT_PROTOCOL("_TtP15PushwooshBridge8PWInline_")
+@protocol PWInline
+/// Receives slot updates, shows, clicks and dismissals. Callbacks arrive on the main thread.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id <PWInlineDelegate> _Nullable delegate;)
++ (id <PWInlineDelegate> _Nullable)delegate SWIFT_WARN_UNUSED_RESULT;
++ (void)setDelegate:(id <PWInlineDelegate> _Nullable)newValue;
+/// Theme banners are drawn in. Defaults to <code>.app</code>.
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) enum PWInlineColorScheme colorScheme;)
++ (enum PWInlineColorScheme)colorScheme SWIFT_WARN_UNUSED_RESULT;
++ (void)setColorScheme:(enum PWInlineColorScheme)newValue;
+/// Requests banners for up to 10 slots in one call. A slot the server leaves empty collapses.
+/// <code>completion</code> runs on the main thread; on error the slots keep what they showed.
+/// Slots on screen are requested without this call: when a slot first appears, at a session start
+/// and once the server confirms <code>setUserId</code> / <code>resetUserId</code>. Manual calls are limited to 5 per session
+/// start, then one per 3 minutes; a call over the limit, or made before the server confirms a user
+/// change, fails without network and the slots keep their banners.
++ (void)requestSlots:(NSArray<NSString *> * _Nonnull)slotIds completion:(void (^ _Nullable)(NSError * _Nullable))completion;
+/// The banner the slot holds now, for apps that draw banners themselves. <code>nil</code> = the slot is empty.
+/// A control-group slot reads as empty and reports its control show once. Off the main thread waits
+/// for the main thread.
++ (PushwooshInlineBanner * _Nullable)bannerForSlot:(NSString * _Nonnull)slotId SWIFT_WARN_UNUSED_RESULT;
+/// Reports that the app showed the slot’s banner itself; counted once per banner version and user.
++ (void)trackShownForSlot:(NSString * _Nonnull)slotId bannerId:(NSString * _Nonnull)bannerId;
+/// Reports a tap on the slot’s banner drawn by the app; <code>elementId</code> = the tapped element, <code>nil</code> = the banner itself.
+/// Events are kept and sent later when there is no network.
++ (void)trackClickForSlot:(NSString * _Nonnull)slotId bannerId:(NSString * _Nonnull)bannerId elementId:(NSString * _Nullable)elementId;
+/// Hides the banner in its slot; it is not shown to this user again before its <code>expireDate</code>. Once
+/// the server has the dismiss, the slot gets its next banner.
++ (void)dismissSlot:(NSString * _Nonnull)slotId bannerId:(NSString * _Nonnull)bannerId;
+@end
+
+/// Theme an inline banner is drawn in. Same values as <code>PWRichMediaColorScheme</code>.
+typedef SWIFT_ENUM(NSInteger, PWInlineColorScheme, open) {
+/// Follows the interface style of the slot’s view (its window and view controller). Default.
+  PWInlineColorSchemeApp = 0,
+/// Follows the device appearance setting.
+  PWInlineColorSchemeSystem = 1,
+/// Always light.
+  PWInlineColorSchemeLight = 2,
+/// Always dark.
+  PWInlineColorSchemeDark = 3,
+};
+
+
+/// Callbacks of inline banner slots, all optional, delivered on the main thread.
+SWIFT_PROTOCOL_NAMED("PWInlineDelegate")
+@protocol PWInlineDelegate
+@optional
+/// The slot got a new banner or became empty (<code>nil</code>).
+- (void)inlineSlot:(NSString * _Nonnull)slotId didUpdate:(PushwooshInlineBanner * _Nullable)banner;
+/// The banner was shown: at least half of its height stayed on screen for 0.3 s, or the app called
+/// <code>trackShown</code>. Once per banner version and user.
+- (void)inlineSlot:(NSString * _Nonnull)slotId didShow:(PushwooshInlineBanner * _Nonnull)banner;
+/// The user tapped the banner; <code>elementId</code> = the tapped native element or the HTML element’s
+/// <code>data-pw-id</code>, <code>nil</code> = the banner itself.
+- (void)inlineSlot:(NSString * _Nonnull)slotId didClick:(PushwooshInlineBanner * _Nonnull)banner elementId:(NSString * _Nullable)elementId;
+/// The banner was closed (close button, a close action or <code>dismiss</code>) and the slot collapsed.
+- (void)inlineSlot:(NSString * _Nonnull)slotId didDismiss:(PushwooshInlineBanner * _Nonnull)banner;
+@end
+
 
 /// Protocol for managing persistent HWID storage using Keychain.
 /// This module provides persistent device identification that survives app reinstallation.
@@ -1184,6 +1265,30 @@ SWIFT_PROTOCOL("_TtP15PushwooshBridge22PWVoIPConfigureHandler_")
 @protocol PWVoIPConfigureHandler
 /// Performs the VoIP module’s first-time configuration.
 - (void)configureVoIP;
+@end
+
+
+/// A banner of an inline slot as data.
+SWIFT_CLASS_NAMED("PushwooshInlineBanner")
+@interface PushwooshInlineBanner : NSObject
+@property (nonatomic, readonly, copy) NSString * _Nonnull slotId;
+@property (nonatomic, readonly, copy) NSString * _Nonnull bannerId;
+/// Grows when the banner content changes.
+@property (nonatomic, readonly) NSInteger version;
+/// <code>"html"</code> or <code>"native"</code>.
+@property (nonatomic, readonly, copy) NSString * _Nonnull format;
+/// The HTML document of an <code>"html"</code> banner.
+@property (nonatomic, readonly, copy) NSString * _Nullable html;
+/// Campaign data set in the Control Panel.
+@property (nonatomic, readonly, copy) NSDictionary<NSString *, NSString *> * _Nonnull payload;
+/// The banner is not shown from this moment on; <code>nil</code> = never expires.
+@property (nonatomic, readonly, copy) NSDate * _Nullable expireDate;
+/// A draft sent to a test device.
+@property (nonatomic, readonly) BOOL isTest;
+/// The banner exactly as the server sent it, for bridges that pass JSON.
+@property (nonatomic, readonly, copy) NSDictionary<NSString *, id> * _Nonnull dictionary;
+- (nonnull instancetype)init SWIFT_UNAVAILABLE;
++ (nonnull instancetype)new SWIFT_UNAVAILABLE_MSG("-init is unavailable");
 @end
 
 #endif

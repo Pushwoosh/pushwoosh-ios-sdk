@@ -16,6 +16,8 @@
 #if canImport(UIKit) && os(iOS)
 import UIKit
 import CryptoKit
+import ImageIO
+import UniformTypeIdentifiers
 
 final class PWInAppImageLoader {
 
@@ -36,6 +38,8 @@ final class PWInAppImageLoader {
     private var inFlight: [URL: [(UIImage?) -> Void]] = [:]
 
     private static let maxRetryAttempts = 2
+    private static let animationFrameLimit = 100
+    private static let animationByteBudget = 40 * 1024 * 1024
     private static let spinnerTag = 0x50575350
 
     private static var requestedURLKey: UInt8 = 0
@@ -51,6 +55,7 @@ final class PWInAppImageLoader {
 
     private init() {
         memoryCache.countLimit = 80
+        memoryCache.totalCostLimit = 100 * 1024 * 1024
         let caches = FileManager.default.urls(for: .cachesDirectory, in: .userDomainMask).first
         diskDirectory = (caches ?? URL(fileURLWithPath: NSTemporaryDirectory()))
             .appendingPathComponent("PushwooshInApp", isDirectory: true)
@@ -133,7 +138,7 @@ final class PWInAppImageLoader {
     /// Seeds the memory cache so view tests can lay out against a known image without a network
     /// round trip. Debug-only: never compiled into a shipped SDK.
     func seedMemoryCache(_ image: UIImage, for url: URL) {
-        memoryCache.setObject(image, forKey: url as NSURL)
+        cache(image, for: url)
     }
     #endif
 
@@ -148,7 +153,7 @@ final class PWInAppImageLoader {
             guard let self = self else { return }
 
             if let diskImage = self.diskImage(for: url) {
-                self.memoryCache.setObject(diskImage, forKey: url as NSURL)
+                self.cache(diskImage, for: url)
                 DispatchQueue.main.async { completion(diskImage) }
                 return
             }
@@ -173,8 +178,8 @@ final class PWInAppImageLoader {
     private func download(_ url: URL, attempt: Int) {
         session.dataTask(with: url) { [weak self] data, _, error in
             guard let self = self else { return }
-            if let data = data, let decoded = UIImage(data: data) {
-                self.memoryCache.setObject(decoded, forKey: url as NSURL)
+            if let data = data, let decoded = Self.decode(data) {
+                self.cache(decoded, for: url)
                 self.writeToDisk(data, for: url)
                 self.deliver(decoded, for: url)
                 return
@@ -188,6 +193,12 @@ final class PWInAppImageLoader {
             }
             self.deliver(nil, for: url)
         }.resume()
+    }
+
+    /// The cost is the decoded size of every frame.
+    private func cache(_ image: UIImage, for url: URL) {
+        let cost = (image.images ?? [image]).reduce(0) { $0 + ($1.cgImage.map { $0.bytesPerRow * $0.height } ?? 0) }
+        memoryCache.setObject(image, forKey: url as NSURL, cost: cost)
     }
 
     /// Resolves every waiter for `url` on the main thread and clears the in-flight entry.
@@ -209,7 +220,41 @@ final class PWInAppImageLoader {
 
     private func diskImage(for url: URL) -> UIImage? {
         guard let data = try? Data(contentsOf: diskURL(for: url)) else { return nil }
-        return UIImage(data: data)
+        return Self.decode(data)
+    }
+
+    /// Animated GIFs keep their timing within a memory budget: at most 100 frames (the rest are skipped),
+    /// scaled down so that all frames fit in 40 MB. Anything else, APNG and multi-page images included,
+    /// decodes as a still image.
+    static func decode(_ data: Data) -> UIImage? {
+        guard let source = CGImageSourceCreateWithData(data as CFData, nil),
+              CGImageSourceGetType(source) as String? == UTType.gif.identifier,
+              CGImageSourceGetCount(source) > 1 else {
+            return UIImage(data: data)
+        }
+        let count = CGImageSourceGetCount(source)
+        let step = (count + animationFrameLimit - 1) / animationFrameLimit
+        let kept = (count + step - 1) / step
+        let fitting = Int(Double(animationByteBudget / (kept * 4)).squareRoot())
+        let first = CGImageSourceCopyPropertiesAtIndex(source, 0, nil) as? [CFString: Any]
+        let side = max(first?[kCGImagePropertyPixelWidth] as? Int ?? 0, first?[kCGImagePropertyPixelHeight] as? Int ?? 0)
+        let options = [kCGImageSourceCreateThumbnailFromImageAlways: true,
+                       kCGImageSourceCreateThumbnailWithTransform: true,
+                       kCGImageSourceShouldCacheImmediately: true,
+                       kCGImageSourceThumbnailMaxPixelSize: side > 0 ? min(side, fitting) : fitting] as CFDictionary
+        var frames: [UIImage] = []
+        var duration: TimeInterval = 0
+        for index in 0..<count {
+            let properties = CGImageSourceCopyPropertiesAtIndex(source, index, nil) as? [CFString: Any]
+            let gif = properties?[kCGImagePropertyGIFDictionary] as? [CFString: Any]
+            let delay = (gif?[kCGImagePropertyGIFUnclampedDelayTime] as? Double)
+                ?? (gif?[kCGImagePropertyGIFDelayTime] as? Double) ?? 0.1
+            duration += delay < 0.02 ? 0.1 : delay
+            if index % step == 0, let frame = CGImageSourceCreateThumbnailAtIndex(source, index, options) {
+                frames.append(UIImage(cgImage: frame))
+            }
+        }
+        return frames.isEmpty ? UIImage(data: data) : UIImage.animatedImage(with: frames, duration: duration)
     }
 
     private func writeToDisk(_ data: Data, for url: URL) {

@@ -59,6 +59,7 @@ static dispatch_queue_t _loggedSelectorsQueue;
             @"PWTVoSInAppHandler",
             @"PWInApp",
             @"PWInAppHandler",
+            @"PWInline",
         ]];
     });
     if ([moduleProtocolNames containsObject:NSStringFromProtocol(aProtocol)]) {
@@ -244,7 +245,18 @@ static dispatch_queue_t _loggedSelectorsQueue;
             @"handleInAppConfig:":                              @"v@:@",
             @"handleInAppConfig:onShown:":                      @"v@:@@?",
             @"handleInAppConfig:onShown:onClicked:onClosed:":   @"v@:@@?@?@?",
+            @"handleInlineSlots:userId:appCode:":               @"v@:@@@",
+            @"handleInlineUserChanged":                         @"v@:",
+            @"handleInlineUserChangeFailed":                    @"v@:",
             @"setFrequencyCapEnabled:":                         @"v@:B",
+
+            @"colorScheme":                                     @"q@:",
+            @"setColorScheme:":                                 @"v@:q",
+            @"requestSlots:completion:":                        @"v@:@@?",
+            @"bannerForSlot:":                                  @"@@:@",
+            @"trackShownForSlot:bannerId:":                     @"v@:@@",
+            @"trackClickForSlot:bannerId:elementId:":           @"v@:@@@",
+            @"dismissSlot:bannerId:":                           @"v@:@@",
         };
     });
     return signatures;

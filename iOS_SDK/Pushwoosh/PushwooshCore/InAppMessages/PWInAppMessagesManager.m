@@ -267,6 +267,10 @@ static NSArray<NSString *> *confirmedRegisterUserApplication;
             return;
         }
 
+#if TARGET_OS_IOS
+        [PWInAppMessagesManager forwardInlineContentOfRequest:request];
+#endif
+
         if (completion)
             completion(nil);
 
@@ -469,6 +473,10 @@ static NSArray<NSString *> *confirmedRegisterUserApplication;
         [PushwooshLog pushwooshLog:PW_LL_INFO className:self message:[NSString stringWithFormat:@"User \"%@\" was successfully registered", userId]];
 #if TARGET_OS_IOS
         [[PWFeatureFlagsManager sharedManager] userIdUpdated];
+        id<PWInAppHandler> inAppHandler = [PushwooshModuleRegistry handlerForIdentifier:PWModuleIdentifierInApp];
+        if (nextRequest == nil && [inAppHandler respondsToSelector:@selector(handleInlineUserChanged)]) {
+            [inAppHandler handleInlineUserChanged];
+        }
 #endif
 
         [[PWManagerBridge shared].inboxBridge updateInboxForNewUserId:^(NSUInteger messagesCount) {
@@ -485,6 +493,10 @@ static NSArray<NSString *> *confirmedRegisterUserApplication;
         [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:[NSString stringWithFormat:@"Failed to update inbox for a new user. error: %@", error.localizedDescription]];
 #if TARGET_OS_IOS
         [[PWFeatureFlagsManager sharedManager] userIdUpdateFailed];
+        id<PWInAppHandler> inAppHandler = [PushwooshModuleRegistry handlerForIdentifier:PWModuleIdentifierInApp];
+        if (nextRequest == nil && [inAppHandler respondsToSelector:@selector(handleInlineUserChangeFailed)]) {
+            [inAppHandler handleInlineUserChangeFailed];
+        }
 #endif
     }
     if (completion)
@@ -492,6 +504,19 @@ static NSArray<NSString *> *confirmedRegisterUserApplication;
     if (nextRequest)
         nextRequest();
 }
+
+#if TARGET_OS_IOS
++ (void)forwardInlineContentOfRequest:(PWPostEventRequest *)request {
+    id content = request.inlineContent;
+    if (![content isKindOfClass:[NSDictionary class]]) {
+        return;
+    }
+    id<PWInAppHandler> handler = [PushwooshModuleRegistry handlerForIdentifier:PWModuleIdentifierInApp];
+    if ([handler respondsToSelector:@selector(handleInlineSlots:userId:appCode:)]) {
+        [handler handleInlineSlots:content userId:request.sentUserId ?: @"" appCode:request.sentAppCode ?: @""];
+    }
+}
+#endif
 
 + (dispatch_block_t)settleRegisterUserId:(NSString *)userId usesDefaultUserId:(BOOL)usesDefaultUserId confirmed:(BOOL)confirmed {
     @synchronized ([PWInAppMessagesManager class]) {

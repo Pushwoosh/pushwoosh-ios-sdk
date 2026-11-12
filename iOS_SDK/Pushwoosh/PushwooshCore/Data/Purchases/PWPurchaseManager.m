@@ -10,6 +10,7 @@
 #import "PWRequestManager.h"
 #import "PWNetworkModule.h"
 #import "PWPostEventRequest.h"
+#import "PWInAppMessagesManager.h"
 
 @interface PWPurchaseManager () <SKProductsRequestDelegate>
 
@@ -108,10 +109,18 @@
         return;
     }
 
-    [_requestManager sendRequest:postEventRequest completion:^(NSError *error) {
+    [self sendPurchaseEvent:postEventRequest];
+}
+
+- (void)sendPurchaseEvent:(PWPostEventRequest *)request {
+    [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error) {
             [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"sendPurchase failed"];
+            return;
         }
+#if TARGET_OS_IOS
+        [PWInAppMessagesManager forwardInlineContentOfRequest:request];
+#endif
     }];
 }
 
@@ -166,11 +175,7 @@
                                         @"status": status
         };
 
-        [_requestManager sendRequest:postEventRequest completion:^(NSError *error) {
-            if (error) {
-                [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:@"sendPurchase failed"];
-            }
-        }];
+        [self sendPurchaseEvent:postEventRequest];
 	}
 }
 

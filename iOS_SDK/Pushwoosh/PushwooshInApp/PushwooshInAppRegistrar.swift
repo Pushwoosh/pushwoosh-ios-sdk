@@ -48,5 +48,27 @@ final class PushwooshInAppBackchannel: NSObject, PWInAppHandler {
         message.onClosed = onClosed
         PushwooshInAppUI.shared.present(message)
     }
+
+    @objc
+    func handleInlineSlots(_ content: [AnyHashable: Any], userId: String, appCode: String) {
+        let owner = PWInlineStore.owner(userId: userId, appCode: appCode)
+        PWInlineManager.runOnMain {
+            PWInlineManager.shared.applyEventSlots(content, owner: owner)
+        }
+    }
+
+    @objc
+    func handleInlineUserChanged() {
+        PWInlineManager.runOnMain {
+            PWInlineManager.shared.userDidChange()
+        }
+    }
+
+    @objc
+    func handleInlineUserChangeFailed() {
+        PWInlineManager.runOnMain {
+            PWInlineManager.shared.userChangeDidFail()
+        }
+    }
 }
 #endif

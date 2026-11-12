@@ -19,5 +19,6 @@ FOUNDATION_EXPORT PushwooshModuleIdentifier const PWModuleIdentifierForegroundPu
 FOUNDATION_EXPORT PushwooshModuleIdentifier const PWModuleIdentifierTVoS NS_SWIFT_NAME(tvOS);
 FOUNDATION_EXPORT PushwooshModuleIdentifier const PWModuleIdentifierKeychain NS_SWIFT_NAME(keychain);
 FOUNDATION_EXPORT PushwooshModuleIdentifier const PWModuleIdentifierInApp NS_SWIFT_NAME(inApp);
+FOUNDATION_EXPORT PushwooshModuleIdentifier const PWModuleIdentifierInline NS_SWIFT_NAME(inline);
 
 NS_ASSUME_NONNULL_END

@@ -381,7 +381,7 @@ enum PWInAppConfigParser {
     /// (`NSNull`, how NSJSONSerialization decodes `null`). Optional fields must treat
     /// null as "no value" — the same as an omitted key — instead of fail-closing the
     /// whole config on it (parity with Android's `isNull` handling).
-    private static func presentValue(_ dict: [AnyHashable: Any], _ key: String) -> Any? {
+    static func presentValue<Key>(_ dict: [Key: Any], _ key: Key) -> Any? {
         guard let value = dict[key], !(value is NSNull) else {
             return nil
         }
@@ -535,7 +535,7 @@ enum PWInAppConfigParser {
 
     // MARK: - Strict primitives
 
-    private static func isBoolean(_ number: NSNumber) -> Bool {
+    static func isBoolean(_ number: NSNumber) -> Bool {
         CFGetTypeID(number) == CFBooleanGetTypeID()
     }
 
@@ -560,7 +560,7 @@ enum PWInAppConfigParser {
         return value
     }
 
-    private static func colorValue(_ raw: Any?) -> UIColor? {
+    static func colorValue(_ raw: Any?) -> UIColor? {
         guard let string = raw as? String, string.hasPrefix("#") else {
             return nil
         }
@@ -604,7 +604,7 @@ enum PWInAppConfigParser {
 
     /// Recovers a link the editor let through (a space, a custom scheme) instead of dropping the
     /// message. `%` stays allowed so an existing `%XX` escape is not encoded a second time.
-    private static func resolveURL(_ string: String) -> URL? {
+    static func resolveURL(_ string: String) -> URL? {
         if let url = URL(string: string) {
             return url
         }

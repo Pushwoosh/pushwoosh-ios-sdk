@@ -29,6 +29,7 @@
 #import <PushwooshCore/PWRichMediaStyle.h>
 #import <PushwooshCore/PWRichMediaTypes.h>
 #import <PushwooshCore/PWRichMediaColorSchemeResolver.h>
+#import <PushwooshCore/PWInlineHTMLView.h>
 #import <PushwooshCore/PWInboxTypes.h>
 #import <PushwooshCore/PWInboxTabs.h>
 #import <PushwooshCore/PWConfig.h>
@@ -42,13 +43,15 @@
 #import <PushwooshCore/PWNetworkModule.h>
 #import <PushwooshCore/PWMessageDeliveryRequest.h>
 #import <PushwooshCore/PWBasePushTrackingRequest.h>
+#import <PushwooshCore/PWGetInlineBannersRequest.h>
+#import <PushwooshCore/PWTrackInlineEventRequest.h>
 #import <PushwooshCore/PWMessage+Internal.h>
 #import <PushwooshCore/PWIntegrationValidator.h>
 #import <PushwooshCore/PWPushPrimerBuilder.h>
 #import <PushwooshCore/PWFeatureFlag.h>
 #import <PushwooshCore/PWFeatureFlags.h>
 
-#define PUSHWOOSH_VERSION @"7.3.0"
+#define PUSHWOOSH_VERSION @"7.3.1"
 
 @interface PushwooshCoreManager : NSObject
 

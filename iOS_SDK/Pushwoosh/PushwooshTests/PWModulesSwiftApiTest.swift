@@ -226,6 +226,22 @@ class PWModulesSwiftApiTest: XCTestCase {
         XCTAssertNil(Pushwoosh.InboxKit.makeViewController())
     }
 
+    /// Verifies that Pushwoosh.inline fails slot requests and holds no banners when PushwooshInApp is not linked.
+    func testInlineIsNoOpWithoutModule() throws {
+        let registry = try XCTUnwrap(NSClassFromString("PushwooshModuleRegistry") as? NSObject.Type)
+        let missingModule: AnyClass = try XCTUnwrap(NSClassFromString("PWMissingModule"))
+        let register = NSSelectorFromString("registerClass:forIdentifier:")
+        let linkedModule = registry.perform(NSSelectorFromString("classForIdentifier:"), with: "inline")?.takeUnretainedValue()
+        registry.perform(register, with: missingModule, with: "inline")
+        defer { registry.perform(register, with: linkedModule, with: "inline") }
+        var requestError: Error?
+
+        Pushwoosh.inline.requestSlots(["home_top"]) { requestError = $0 }
+
+        XCTAssertNotNil(requestError)
+        XCTAssertNil(Pushwoosh.inline.banner(forSlot: "home_top"))
+    }
+
     private func storeInboxMessage() throws -> String {
         PWInbox.resetApplication()
         addTeardownBlock { PWInbox.resetApplication() }

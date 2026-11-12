@@ -19,6 +19,10 @@
 @property (class, nonatomic, strong, readonly) id configureBackchannel;
 @end
 
+@interface PushwooshInlineImplementation : NSObject
++ (void)observeApplicationLifecycle;
+@end
+
 @interface PushwooshInAppLoader : NSObject
 @end
 
@@ -33,6 +37,9 @@
         [PushwooshModuleRegistry registerHandler:handler
                                    forIdentifier:PWModuleIdentifierInApp];
     }
+    [PushwooshModuleRegistry registerClass:[PushwooshInlineImplementation class]
+                             forIdentifier:PWModuleIdentifierInline];
+    [PushwooshInlineImplementation observeApplicationLifecycle];
 }
 
 @end

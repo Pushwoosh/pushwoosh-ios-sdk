@@ -104,8 +104,12 @@
     },\n\
         \n\
     inject: function (obj, methods){\n\
-        window[obj] = {};\n\
-        var jsObj = window[obj];\n\
+        var jsObj = {};\n\
+        try {\n\
+            Object.defineProperty(window, obj, {value: jsObj, writable: true, configurable: true, enumerable: true});\n\
+        } catch (e) {\n\
+            window[obj] = jsObj;\n\
+        }\n\
         \n\
         for (var i = 0, l = methods.length; i < l; i++){\n\
             (function (){\n\

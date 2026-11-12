@@ -65,6 +65,14 @@
     XCTAssertTrue([self.policy shouldRetryStatusCode:0 error:commDisabled]);
 }
 
+/// Verifies that only the no-network codes count as offline, a connection dropped mid-request does not.
+- (void)testIsOfflineError_onlyNoNetworkCodes {
+    for (NSNumber *code in @[@(NSURLErrorNotConnectedToInternet), @(NSURLErrorDataNotAllowed), @(NSURLErrorInternationalRoamingOff)]) {
+        XCTAssertTrue([self.policy isOfflineError:[NSError errorWithDomain:NSURLErrorDomain code:code.integerValue userInfo:nil]]);
+    }
+    XCTAssertFalse([self.policy isOfflineError:[NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorNetworkConnectionLost userInfo:nil]]);
+}
+
 #pragma mark - delay
 
 /// Verifies that backoff stays within [minDelay, maxDelay] and grows with attempts on average.

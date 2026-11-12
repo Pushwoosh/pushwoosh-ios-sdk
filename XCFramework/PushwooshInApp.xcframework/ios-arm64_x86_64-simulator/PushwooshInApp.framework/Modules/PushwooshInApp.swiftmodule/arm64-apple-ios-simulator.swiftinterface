@@ -4,11 +4,15 @@
 import AVFoundation
 import CryptoKit
 import Foundation
+import ImageIO
 import PushwooshBridge
 import PushwooshCore
 @_exported import PushwooshInApp
 import Swift
+import SwiftUI
 import UIKit
+import UniformTypeIdentifiers
+import WebKit
 import _Concurrency
 import _StringProcessing
 import _SwiftConcurrencyShims
@@ -37,6 +41,44 @@ import _SwiftConcurrencyShims
   @objc public static func dismiss()
   @objc public static func setFrequencyCapEnabled(_ enabled: Swift.Bool)
   @objc public static let configureBackchannel: any PushwooshBridge.PWInAppHandler
+  @objc override dynamic public init()
+  @objc deinit
+}
+@_inheritsConvenienceInitializers @_hasMissingDesignatedInitializers @objc(PushwooshInlineView) @_Concurrency.MainActor(unsafe) final public class PushwooshInlineView : UIKit.UIView {
+  @IBInspectable @objc @_Concurrency.MainActor(unsafe) final public var slotId: Swift.String {
+    @objc get
+    @objc set
+  }
+  @objc @_Concurrency.MainActor(unsafe) final public var onHeightChange: ((CoreFoundation.CGFloat) -> Swift.Void)?
+  @objc @_Concurrency.MainActor(unsafe) convenience public init(slotId: Swift.String)
+  @_Concurrency.MainActor(unsafe) @objc override dynamic public init(frame: CoreFoundation.CGRect)
+  @_Concurrency.MainActor(unsafe) @objc required dynamic public init?(coder: Foundation.NSCoder)
+  @objc deinit
+  @_Concurrency.MainActor(unsafe) @objc override final public func layoutSubviews()
+  @_Concurrency.MainActor(unsafe) @objc override final public func traitCollectionDidChange(_ previousTraitCollection: UIKit.UITraitCollection?)
+  @_Concurrency.MainActor(unsafe) @objc override final public func didMoveToWindow()
+}
+public struct PushwooshInlineSlot : SwiftUI.View {
+  public init(slotId: Swift.String)
+  @_Concurrency.MainActor(unsafe) public var body: some SwiftUI.View {
+    get
+  }
+  public typealias Body = @_opaqueReturnTypeOf("$s14PushwooshInApp0A10InlineSlotV4bodyQrvp", 0) __
+}
+@_inheritsConvenienceInitializers @objc(PushwooshInlineImplementation) final public class PushwooshInlineImplementation : ObjectiveC.NSObject, PushwooshBridge.PWInline {
+  @objc public static var delegate: (any PushwooshBridge.PWInlineDelegate)? {
+    @objc get
+    @objc set
+  }
+  @objc public static var colorScheme: PushwooshBridge.PWInlineColorScheme {
+    @objc get
+    @objc set
+  }
+  @objc public static func requestSlots(_ slotIds: [Swift.String], completion: (((any Swift.Error)?) -> Swift.Void)?)
+  @objc public static func banner(forSlot slotId: Swift.String) -> PushwooshBridge.PushwooshInlineBanner?
+  @objc(trackShownForSlot:bannerId:) public static func trackShown(slotId: Swift.String, bannerId: Swift.String)
+  @objc(trackClickForSlot:bannerId:elementId:) public static func trackClick(slotId: Swift.String, bannerId: Swift.String, elementId: Swift.String?)
+  @objc(dismissSlot:bannerId:) public static func dismiss(slotId: Swift.String, bannerId: Swift.String)
   @objc override dynamic public init()
   @objc deinit
 }

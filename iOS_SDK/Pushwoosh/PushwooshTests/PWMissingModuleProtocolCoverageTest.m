@@ -42,6 +42,7 @@
         @protocol(PWTVoSInAppHandler),
         @protocol(PWInApp),
         @protocol(PWInAppHandler),
+        @protocol(PWInline),
     ];
     return protocols;
 }

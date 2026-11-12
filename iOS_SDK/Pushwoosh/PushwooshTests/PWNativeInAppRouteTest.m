@@ -47,6 +47,15 @@
     }
 }
 
+- (void)handleInlineSlots:(NSDictionary *)content userId:(NSString *)userId appCode:(NSString *)appCode {
+}
+
+- (void)handleInlineUserChanged {
+}
+
+- (void)handleInlineUserChangeFailed {
+}
+
 @end
 
 @interface PWNativeInAppRouteTest : XCTestCase

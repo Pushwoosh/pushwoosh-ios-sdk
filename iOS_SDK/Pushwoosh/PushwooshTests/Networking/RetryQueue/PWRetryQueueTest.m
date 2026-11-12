@@ -1,4 +1,5 @@
 #import <XCTest/XCTest.h>
+#import <OCMock/OCMock.h>
 #import "PWRetryQueue.h"
 #import "PWRetryEntry.h"
 #import "PWRetryPolicy.h"
@@ -7,6 +8,9 @@
 #import "PWRequest.h"
 #import "PWRequest+Internal.h"
 #import "PWPreferences.h"
+#import "PWConfig.h"
+#import "PWTrackInlineEventRequest.h"
+#import "PWUtils.common.h"
 
 @interface PinnedPayloadRequest : PWRequest
 @end
@@ -21,6 +25,8 @@ typedef NS_ENUM(NSInteger, FakeMode) {
     FakeModeTransientFail,
     FakeModePermanentFail,
     FakeModeHang,
+    FakeModeOffline,
+    FakeModeConnectionLost,
 };
 
 @interface FakeRetryTransport : NSObject <PWRetryTransport>
@@ -28,6 +34,7 @@ typedef NS_ENUM(NSInteger, FakeMode) {
 @property (nonatomic) NSMutableArray<NSString *> *sentIdentifiers;
 @property (nonatomic) NSMutableArray<NSString *> *sentBaseUrls;
 @property (nonatomic, copy) NSString *currentUrl;
+@property (nonatomic) BOOL notReady;
 @end
 
 @implementation FakeRetryTransport
@@ -42,7 +49,14 @@ typedef NS_ENUM(NSInteger, FakeMode) {
 - (NSString *)currentBaseUrlForRetry {
     return self.currentUrl;
 }
+- (BOOL)isReadyForRetry {
+    return !self.notReady;
+}
 - (void)sendRetryEntry:(PWRetryEntry *)entry completion:(void (^)(NSInteger, NSError *))completion {
+    if (self.notReady) {
+        completion(0, [NSError errorWithDomain:PWErrorDomain code:PWErrorRequestNotReady userInfo:nil]);
+        return;
+    }
     [self.sentIdentifiers addObject:entry.requestIdentifier];
     [self.sentBaseUrls addObject:entry.baseUrl ?: @""];
     switch (self.mode) {
@@ -54,6 +68,10 @@ typedef NS_ENUM(NSInteger, FakeMode) {
             completion(400, [NSError errorWithDomain:@"t" code:400 userInfo:nil]); break;
         case FakeModeHang:
             break;
+        case FakeModeOffline:
+            completion(0, [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorNotConnectedToInternet userInfo:nil]); break;
+        case FakeModeConnectionLost:
+            completion(0, [NSError errorWithDomain:NSURLErrorDomain code:NSURLErrorNetworkConnectionLost userInfo:nil]); break;
     }
 }
 @end
@@ -69,6 +87,7 @@ typedef NS_ENUM(NSInteger, FakeMode) {
 @property (nonatomic) NSURL *fileURL;
 @property (nonatomic, copy) NSString *savedAppCode;
 @property (nonatomic, copy) NSDictionary *savedRecord;
+@property (nonatomic, strong) id configMock;
 @end
 
 @implementation PWRetryQueueTest
@@ -83,9 +102,12 @@ typedef NS_ENUM(NSInteger, FakeMode) {
 
     self.savedAppCode = [[PWPreferences preferences].appCode copy];
     self.savedRecord = [[[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_ACTIVE_APPLICATION"] copy];
+    self.configMock = OCMPartialMock([PWConfig config]);
+    OCMStub([self.configMock inlineUrl]).andReturn(@"https://inline.example.com/api/");
 }
 
 - (void)tearDown {
+    [self.configMock stopMocking];
     [[NSFileManager defaultManager] removeItemAtURL:self.fileURL error:nil];
 
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Pushwoosh_ACTIVE_APPLICATION"];
@@ -118,6 +140,24 @@ typedef NS_ENUM(NSInteger, FakeMode) {
     for (int i = 0; i < 6; i++) {
         dispatch_sync(self.queue.serialQueue, ^{});
     }
+}
+
+- (void)drainQueue:(PWRetryQueue *)queue {
+    for (int i = 0; i < 6; i++) {
+        dispatch_sync(queue.serialQueue, ^{});
+    }
+}
+
+- (PWRequest *)inlineEvent {
+    PWRequest *request = [[PWTrackInlineEventRequest alloc] initWithEvent:@{ @"eventId": [[NSUUID UUID] UUIDString], @"type": @"show" }];
+    request.pinnedAppCode = @"AAAAA-11111";
+    return request;
+}
+
+- (NSArray<PWRetryEntry *> *)queuedEntries {
+    __block NSArray *entries = nil;
+    dispatch_sync(self.queue.serialQueue, ^{ entries = [self.queue.entries copy]; });
+    return entries;
 }
 
 - (NSUInteger)entryCount {
@@ -290,6 +330,175 @@ typedef NS_ENUM(NSInteger, FakeMode) {
 
     XCTAssertEqual([self entryCount], 0u);
     XCTAssertEqual(self.transport.sentIdentifiers.count, 0u);
+}
+
+#pragma mark - Inline events
+
+/// Verifies an inline event sent without network keeps its attempts and leaves as soon as the network is back.
+- (void)testOfflineInlineEventWaitsForNetworkWithoutSpendingAttempts {
+    self.transport.mode = FakeModeOffline;
+    PWRequest *event = [self inlineEvent];
+    [self.queue enqueueRequest:event];
+    [self drain];
+    for (int i = 0; i < 4; i++) {
+        [self.queue onNetworkReachable];
+        [self drain];
+    }
+
+    XCTAssertEqual([self entryCount], 1u);
+    XCTAssertEqual([self queuedEntries].firstObject.attemptCount, 0u);
+
+    self.transport.mode = FakeModeSuccess;
+    [self.queue onNetworkReachable];
+    [self drain];
+
+    XCTAssertEqual([self entryCount], 0u);
+    XCTAssertEqualObjects(self.transport.sentIdentifiers.lastObject, event.requestIdentifier);
+}
+
+/// Verifies an inline event whose connection dropped mid-request is retried with a growing attempt count, not parked.
+- (void)testInlineEventWithLostConnectionSpendsAttempt {
+    self.transport.mode = FakeModeConnectionLost;
+    [self.queue enqueueRequest:[self inlineEvent]];
+    [self drain];
+
+    XCTAssertEqual([self entryCount], 1u);
+    XCTAssertEqual([self queuedEntries].firstObject.attemptCount, 1u);
+    XCTAssertFalse([self queuedEntries].firstObject.awaitingNetwork);
+}
+
+/// Verifies a request the queue delivers is announced with its method and body.
+- (void)testDeliveredEntryIsAnnounced {
+    self.transport.mode = FakeModeSuccess;
+    XCTestExpectation *announced = [self expectationForNotification:PWRetryQueueDidDeliverRequestNotification object:self.queue handler:^BOOL(NSNotification *note) {
+        return [note.userInfo[PWRetryQueueMethodNameKey] isEqualToString:@"trackInlineEvent"] && [note.userInfo[PWRetryQueueBodyKey][@"type"] isEqualToString:@"show"];
+    }];
+
+    [self.queue enqueueRequest:[self inlineEvent]];
+    [self drain];
+
+    [self waitForExpectations:@[announced] timeout:1.0];
+}
+
+/// Verifies a delivered request of a method that does not ask for it is not announced.
+- (void)testDeliveredEntryOfOtherMethodIsNotAnnounced {
+    self.transport.mode = FakeModeSuccess;
+    XCTestExpectation *announced = [self expectationForNotification:PWRetryQueueDidDeliverRequestNotification object:self.queue handler:nil];
+    announced.inverted = YES;
+
+    [self.queue enqueueRequest:[PinnedPayloadRequest new]];
+    [self drain];
+
+    [self waitForExpectations:@[announced] timeout:0.5];
+    XCTAssertEqual(self.transport.sentIdentifiers.count, 1u);
+}
+
+/// Verifies an inline event queued before a relaunch is still announced when the next launch delivers it.
+- (void)testInlineEventDeliveredAfterRelaunchIsAnnounced {
+    self.transport.mode = FakeModeOffline;
+    [self.queue enqueueRequest:[self inlineEvent]];
+    [self drain];
+
+    FakeRetryTransport *relaunched = [FakeRetryTransport new];
+    relaunched.mode = FakeModeSuccess;
+    PWRetryQueue *queue = [[PWRetryQueue alloc] initWithTransport:relaunched
+                                                           policy:[PWRetryPolicy new]
+                                                          storage:[[PWRetryQueueStorage alloc] initWithFileURL:self.fileURL]];
+    XCTestExpectation *announced = [self expectationForNotification:PWRetryQueueDidDeliverRequestNotification object:queue handler:^BOOL(NSNotification *note) {
+        return [note.userInfo[PWRetryQueueMethodNameKey] isEqualToString:@"trackInlineEvent"];
+    }];
+    [self drainQueue:queue];
+
+    [self waitForExpectations:@[announced] timeout:1.0];
+}
+
+/// Verifies an inline event left unsent without network goes out on the next launch.
+- (void)testOfflineInlineEventIsSentOnNextLaunch {
+    self.transport.mode = FakeModeOffline;
+    PWRequest *event = [self inlineEvent];
+    [self.queue enqueueRequest:event];
+    [self drain];
+
+    FakeRetryTransport *relaunched = [FakeRetryTransport new];
+    relaunched.mode = FakeModeSuccess;
+    PWRetryQueue *queue = [[PWRetryQueue alloc] initWithTransport:relaunched
+                                                           policy:[PWRetryPolicy new]
+                                                          storage:[[PWRetryQueueStorage alloc] initWithFileURL:self.fileURL]];
+    [self drainQueue:queue];
+
+    XCTAssertEqualObjects(relaunched.sentIdentifiers, @[event.requestIdentifier]);
+    XCTAssertEqualObjects(relaunched.sentBaseUrls, @[@"https://inline.example.com/api/"]);
+}
+
+/// Verifies an inline event woken on launch before the SDK is ready keeps its attempts and leaves on the flush after readiness.
+- (void)testInlineEventWokenBeforeReadinessLeavesOnTheReadyFlush {
+    self.transport.mode = FakeModeOffline;
+    PWRequest *event = [self inlineEvent];
+    [self.queue enqueueRequest:event];
+    [self drain];
+
+    FakeRetryTransport *relaunched = [FakeRetryTransport new];
+    relaunched.mode = FakeModeSuccess;
+    relaunched.notReady = YES;
+    PWRetryQueue *queue = [[PWRetryQueue alloc] initWithTransport:relaunched
+                                                           policy:[PWRetryPolicy new]
+                                                          storage:[[PWRetryQueueStorage alloc] initWithFileURL:self.fileURL]];
+    [self drainQueue:queue];
+
+    __block PWRetryEntry *held = nil;
+    dispatch_sync(queue.serialQueue, ^{ held = [queue.entries firstObject]; });
+    XCTAssertEqual(held.attemptCount, 0u);
+
+    relaunched.notReady = NO;
+    [queue flush];
+    [self drainQueue:queue];
+
+    XCTAssertEqualObjects(relaunched.sentIdentifiers, @[event.requestIdentifier]);
+}
+
+/// Verifies a regular request without network still spends an attempt and waits for its backoff.
+- (void)testOfflineRegularRequestSpendsAttemptAsBefore {
+    self.transport.mode = FakeModeOffline;
+    [self.queue enqueueRequest:[[PWRequest alloc] init]];
+    [self drain];
+    [self.queue onNetworkReachable];
+    [self drain];
+
+    XCTAssertEqual(self.transport.sentIdentifiers.count, 1u);
+    XCTAssertEqual([self queuedEntries].firstObject.attemptCount, 1u);
+}
+
+/// Verifies an inline event is replayed on its own host, not on the moved host of the application.
+- (void)testInlineEventKeepsItsHostWhenTheApplicationHostMoved {
+    [self seedActiveApplicationRecordWithAppCode:@"AAAAA-11111" baseUrl:@"https://region-a-moved.example.com/json/1.3/"];
+    self.transport.currentUrl = @"https://region-a-moved.example.com/json/1.3/";
+    self.transport.mode = FakeModeSuccess;
+
+    [self.queue enqueueRequest:[self inlineEvent] baseUrl:@"https://inline.example.com/api/"];
+    [self drain];
+
+    XCTAssertEqualObjects(self.transport.sentBaseUrls, @[@"https://inline.example.com/api/"]);
+    XCTAssertEqual([self entryCount], 0u);
+}
+
+/// Verifies that at most 100 inline events stay queued, the oldest are dropped and other requests are kept.
+- (void)testInlineEventsAreCappedAtHundredDroppingTheOldest {
+    self.transport.mode = FakeModeOffline;
+    PWRequest *regular = [[PWRequest alloc] init];
+    [self.queue enqueueRequest:regular];
+    NSMutableArray<NSString *> *events = [NSMutableArray array];
+    for (int i = 0; i < 101; i++) {
+        PWRequest *event = [self inlineEvent];
+        [events addObject:event.requestIdentifier];
+        [self.queue enqueueRequest:event];
+    }
+    [self drain];
+
+    NSArray *queued = [[self queuedEntries] valueForKey:@"requestIdentifier"];
+    XCTAssertEqual(queued.count, 101u);
+    XCTAssertTrue([queued containsObject:regular.requestIdentifier]);
+    XCTAssertFalse([queued containsObject:events.firstObject]);
+    XCTAssertTrue([queued containsObject:events.lastObject]);
 }
 
 @end

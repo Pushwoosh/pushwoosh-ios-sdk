@@ -714,6 +714,68 @@
                 "accessorKind": "get"
               }
             ]
+          },
+          {
+            "kind": "Var",
+            "name": "inline",
+            "printedName": "inline",
+            "children": [
+              {
+                "kind": "TypeNominal",
+                "name": "ExistentialMetatype",
+                "printedName": "any PushwooshBridge.PWInline.Type",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "PWInline",
+                    "printedName": "PushwooshBridge.PWInline",
+                    "usr": "c:@M@PushwooshBridge@objc(pl)PWInline"
+                  }
+                ]
+              }
+            ],
+            "declKind": "Var",
+            "usr": "s:So9PushwooshC0A9FrameworkE6inline0A6Bridge8PWInline_pXpvpZ",
+            "mangledName": "$sSo9PushwooshC0A9FrameworkE6inline0A6Bridge8PWInline_pXpvpZ",
+            "moduleName": "PushwooshFramework",
+            "static": true,
+            "declAttributes": [
+              "Final",
+              "RawDocComment"
+            ],
+            "isFromExtension": true,
+            "accessors": [
+              {
+                "kind": "Accessor",
+                "name": "Get",
+                "printedName": "Get()",
+                "children": [
+                  {
+                    "kind": "TypeNominal",
+                    "name": "ExistentialMetatype",
+                    "printedName": "any PushwooshBridge.PWInline.Type",
+                    "children": [
+                      {
+                        "kind": "TypeNominal",
+                        "name": "PWInline",
+                        "printedName": "PushwooshBridge.PWInline",
+                        "usr": "c:@M@PushwooshBridge@objc(pl)PWInline"
+                      }
+                    ]
+                  }
+                ],
+                "declKind": "Accessor",
+                "usr": "s:So9PushwooshC0A9FrameworkE6inline0A6Bridge8PWInline_pXpvgZ",
+                "mangledName": "$sSo9PushwooshC0A9FrameworkE6inline0A6Bridge8PWInline_pXpvgZ",
+                "moduleName": "PushwooshFramework",
+                "static": true,
+                "declAttributes": [
+                  "Final"
+                ],
+                "isFromExtension": true,
+                "accessorKind": "get"
+              }
+            ]
           }
         ],
         "declKind": "Class",

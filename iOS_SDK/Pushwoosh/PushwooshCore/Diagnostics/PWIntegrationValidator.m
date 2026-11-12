@@ -231,6 +231,7 @@ static NSString * const kGRPCImplementationClassName = @"PushwooshGRPC.Pushwoosh
         @"Pushwoosh_GRPC_HOST",
         @"Pushwoosh_GRPC_PORT",
         @"Pushwoosh_IDLE_TIMEOUT_SECONDS",
+        @"Pushwoosh_INLINE_URL",
         @"Pushwoosh_LAZY_INITIALIZATION",
         @"Pushwoosh_LOG_LEVEL",
         @"Pushwoosh_PLUGIN_NOTIFICATION_HANDLER",

@@ -88,18 +88,30 @@ enum PWInAppStyle {
         return container
     }
 
-    /// Material for SDK-owned chrome: Liquid Glass on iOS 26+, chrome blur
-    /// before. Gated on the compiler too — the pre-26 CI toolchain has no
+    /// Material for SDK-owned chrome: Liquid Glass on iOS 26+, the `fallback`
+    /// blur before. Gated on the compiler too — the pre-26 CI toolchain has no
     /// `UIGlassEffect` symbol.
-    static func glassEffect(interactive: Bool = false) -> UIVisualEffect {
+    static func glassEffect(interactive: Bool = false, tint: UIColor? = nil,
+                            fallback: UIBlurEffect.Style = .systemChromeMaterialDark) -> UIVisualEffect {
         #if compiler(>=6.2)
         if #available(iOS 26.0, *) {
             let glass = UIGlassEffect()
             glass.isInteractive = interactive
+            glass.tintColor = tint
             return glass
         }
         #endif
-        return UIBlurEffect(style: .systemChromeMaterialDark)
+        return UIBlurEffect(style: fallback)
+    }
+
+    /// `glassEffect` draws Liquid Glass, not the fallback blur.
+    static var hasLiquidGlass: Bool {
+        #if compiler(>=6.2)
+        if #available(iOS 26.0, *) {
+            return true
+        }
+        #endif
+        return false
     }
 
     /// Card surface: Liquid Glass tinted with the campaign color on iOS 26+, a

@@ -197,6 +197,16 @@ public extension Pushwoosh {
     static var inApp: PWInApp.Type {
         return __inApp() as! PWInApp.Type
     }
+
+    /// Inline banners module (slots in the app layout, `PushwooshInApp`). Resolves to the module's
+    /// implementation when linked; otherwise a logged no-op.
+    ///
+    /// ```swift
+    /// Pushwoosh.inline.requestSlots(["home_top"]) { error in }
+    /// ```
+    static var inline: PWInline.Type {
+        return __inline()
+    }
     #endif
 }
 

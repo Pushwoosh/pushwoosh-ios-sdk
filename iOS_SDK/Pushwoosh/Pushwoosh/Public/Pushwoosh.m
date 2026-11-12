@@ -111,6 +111,13 @@
 }
 #endif
 
+#if TARGET_OS_IOS
++ (Class<PWInline>)inline {
+    [self ensureInitialized];
+    return (Class<PWInline>)[PushwooshModuleRegistry classForIdentifier:PWModuleIdentifierInline];
+}
+#endif
+
 + (Class<PWConfiguration>)configure {
     [self ensureInitialized];
     [self pw_sharedInstance];

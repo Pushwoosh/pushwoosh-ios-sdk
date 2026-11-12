@@ -239,6 +239,13 @@ value: If YES, Deep Links received in silent pushes will be processed automatica
  */
 @property (nonatomic, copy, readonly, nullable) NSString *trackingUrl;
 
+/**
+ key: Pushwoosh_INLINE_URL
+ type: string
+ value: Base URL of the inline banner requests, ending with a slash. Default is the device API v2 next to the SDK base URL.
+ */
+@property (nonatomic, copy, readonly, nullable) NSString *inlineUrl;
+
 - (instancetype)initWithBundle:(NSBundle *)bundle;
 
 @end

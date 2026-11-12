@@ -81,6 +81,13 @@
  *		}));
  */
 - (void)postEvent:(NSString *)blob {
+	if (self.webClient && ![self.webClient allowsPostEvent]) {
+		[PushwooshLog pushwooshLog:PW_LL_WARN
+						 className:self
+						   message:@"postEvent is not sent: the content does not allow it now"];
+		return;
+	}
+
 	if (blob.length == 0) {
 		[PushwooshLog pushwooshLog:PW_LL_WARN
 						 className:self

@@ -13,6 +13,7 @@
 #import "PWReplayRequest.h"
 #import "PWServerCommunicationManager.h"
 #import "PWUtils.h"
+#import "PWTrackInlineEventRequest.h"
 
 #import <XCTest/XCTest.h>
 #import <OCMock/OCMock.h>
@@ -466,6 +467,27 @@ static id _mockNSBundle;
 
     OCMVerify([mockQueue enqueueRequest:request baseUrl:OCMOCK_ANY]);
     _requestManager.retryQueue = savedQueue;
+    [mockQueue stopMocking];
+}
+
+/// Verifies an inline banner event that failed on a transient (500) error is kept in the retry queue.
+- (void)testFailedInlineEvent_enqueuesToRetryQueue {
+    id savedQueue = _requestManager.retryQueue;
+    id mockQueue = OCMClassMock([PWRetryQueue class]);
+    _requestManager.retryQueue = mockQueue;
+    id configMock = OCMPartialMock([PWConfig config]);
+    OCMStub([configMock inlineUrl]).andReturn(@"https://inline.example.com/api/");
+    NSHTTPURLResponse *response = [[NSHTTPURLResponse alloc] initWithURL:[NSURL URLWithString:@"https://inline.example.com/api/trackInlineEvent"] statusCode:500 HTTPVersion:nil headerFields:nil];
+    [NSURLSession injectResponse:response data:[@"{}" dataUsingEncoding:NSUTF8StringEncoding] error:nil];
+
+    PWTrackInlineEventRequest *request = [[PWTrackInlineEventRequest alloc] initWithEvent:@{ @"eventId": @"E1", @"type": @"show" }];
+    XCTestExpectation *exp = [self expectationWithDescription:@"done"];
+    [_requestManager sendRequestInternal:request completion:^(NSError *error) { [exp fulfill]; }];
+    [self waitForExpectationsWithTimeout:5 handler:nil];
+
+    OCMVerify([mockQueue enqueueRequest:request baseUrl:OCMOCK_ANY]);
+    _requestManager.retryQueue = savedQueue;
+    [configMock stopMocking];
     [mockQueue stopMocking];
 }
 

@@ -49,6 +49,19 @@ typedef NS_ENUM(NSInteger, PWLinkAction) {
 @property (nonatomic) NSString *richMediaCode;
 @property (nonatomic) NSString *inAppCode;
 
+/// Links open without closing the content; local file links are consumed.
+@property (nonatomic) BOOL opensLinksWithoutClosing;
+
+/// Called when the page runs `pushwoosh.registerForPushNotifications()` or `pushwoosh.openAppSettings()`,
+/// which close the content right after.
+@property (nonatomic, copy) dispatch_block_t closingActionBlock;
+
+/// Asked before `pushwoosh.postEvent()` or `pushManager.postEvent()` of the page is sent; NO drops the event.
+@property (nonatomic, copy) BOOL (^shouldPostEventBlock)(void);
+
+/// NO while `shouldPostEventBlock` holds the page's events back.
+- (BOOL)allowsPostEvent;
+
 + (void)addJavascriptInterface:(NSObject *)interface withName:(NSString *)name;
 
 #if TARGET_OS_IOS

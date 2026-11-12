@@ -206,34 +206,81 @@ static NSTimeInterval const kPWAASATimeout = 5.0;
     return url.path.length > 0 ? url.path : @"/";
 }
 
+/// The first matching readable rule decides, but an exclude rule after an unreadable include rule does not exclude. With no match,
+/// an entry with include rules matches by domain if none is readable, one without them if no exclude rule is (06-notifications.md).
 + (BOOL)components:(NSArray *)components allowURL:(NSURL *)url {
-    NSMutableArray<NSDictionary *> *interpretableComponents = [NSMutableArray array];
+    BOOL hasUnreadableIncludeRule = NO;
+    BOOL hasReadableIncludeRule = NO;
+    BOOL hasReadableExcludeRule = NO;
     for (id componentObject in components) {
         NSDictionary *component = [self dictionaryValue:componentObject];
-        if (component && [self isInterpretableComponent:component]) {
-            [interpretableComponents addObject:component];
+        if (!component) {
+            continue;
         }
-    }
-    if (interpretableComponents.count == 0) {
-        return YES;
-    }
-    for (NSDictionary *component in interpretableComponents) {
+        BOOL excluding = [self isExcludingComponent:component];
+        if (![self isInterpretableComponent:component]) {
+            hasUnreadableIncludeRule = hasUnreadableIncludeRule || !excluding;
+            continue;
+        }
         if ([self component:component matchesURL:url]) {
-            id excludeValue = component[@"exclude"];
-            BOOL excluded = [excludeValue isKindOfClass:[NSNumber class]] && [excludeValue boolValue];
-            return !excluded;
+            return !excluding || hasUnreadableIncludeRule;
         }
+        hasReadableIncludeRule = hasReadableIncludeRule || !excluding;
+        hasReadableExcludeRule = hasReadableExcludeRule || excluding;
     }
-    return NO;
+    return !hasReadableIncludeRule && (hasUnreadableIncludeRule || !hasReadableExcludeRule);
 }
 
++ (BOOL)isExcludingComponent:(NSDictionary *)component {
+    id excludeValue = component[@"exclude"];
+    return [excludeValue isKindOfClass:[NSNumber class]] && [excludeValue boolValue];
+}
+
+/// An exclude rule applies only when every part it sets is readable: an unreadable condition must not exclude the whole domain.
+/// An include rule applies when it has a readable string part and no unreadable one; its non-string parts are ignored.
 + (BOOL)isInterpretableComponent:(NSDictionary *)component {
+    BOOL excluding = [self isExcludingComponent:component];
+    BOOL hasReadablePart = NO;
     for (NSString *key in @[@"/", @"?", @"#"]) {
-        if ([component[key] isKindOfClass:[NSString class]]) {
-            return YES;
+        id part = component[key];
+        if (!part) {
+            continue;
+        }
+        if ([self isReadablePattern:part] || ([key isEqualToString:@"?"] && [self queryItemPatternsOfComponent:component] != nil)) {
+            hasReadablePart = YES;
+        } else if (excluding || [part isKindOfClass:[NSString class]]) {
+            return NO;
         }
     }
-    return NO;
+    return hasReadablePart;
+}
+
+/// The dictionary `?` of an exclude rule when every name and value pattern in it is a readable string; include rules ignore it.
++ (NSDictionary<NSString *, NSString *> *)queryItemPatternsOfComponent:(NSDictionary *)component {
+    NSDictionary *patterns = [self isExcludingComponent:component] ? [self dictionaryValue:component[@"?"]] : nil;
+    for (id name in patterns) {
+        if (![name isKindOfClass:[NSString class]] || ![self isReadablePattern:patterns[name]]) {
+            return nil;
+        }
+    }
+    return patterns;
+}
+
+/// A pattern NSPredicate LIKE cannot evaluate is unreadable: one containing U+0000 (LIKE throws on it at the start or after `\`),
+/// and one ending with an odd run of backslashes, a dangling escape LIKE throws on (a single one) or reads in an undocumented way.
++ (BOOL)isReadablePattern:(id)pattern {
+    if (![pattern isKindOfClass:[NSString class]]) {
+        return NO;
+    }
+    NSString *string = pattern;
+    if ([string rangeOfCharacterFromSet:[NSCharacterSet characterSetWithRange:NSMakeRange(0, 1)]].location != NSNotFound) {
+        return NO;
+    }
+    NSUInteger trailingBackslashes = 0;
+    while (trailingBackslashes < string.length && [string characterAtIndex:string.length - 1 - trailingBackslashes] == '\\') {
+        trailingBackslashes++;
+    }
+    return trailingBackslashes % 2 == 0;
 }
 
 + (BOOL)component:(NSDictionary *)component matchesURL:(NSURL *)url {
@@ -249,30 +296,61 @@ static NSTimeInterval const kPWAASATimeout = 5.0;
             return NO;
         }
     }
+    NSDictionary<NSString *, NSString *> *queryItemPatterns = [self queryItemPatternsOfComponent:component];
+    return !queryItemPatterns || [self queryItemPatterns:queryItemPatterns matchURL:url];
+}
+
+/// Dictionary `?` as Apple matches it: every instance of each listed name matches its pattern, an absent name counts as an empty
+/// value; order and extra items do not matter. Compared percent-encoded, Apple's default.
++ (BOOL)queryItemPatterns:(NSDictionary<NSString *, NSString *> *)patterns matchURL:(NSURL *)url {
+    NSArray<NSURLQueryItem *> *queryItems = [NSURLComponents componentsWithURL:url resolvingAgainstBaseURL:NO].percentEncodedQueryItems;
+    for (NSString *name in patterns) {
+        BOOL present = NO;
+        for (NSURLQueryItem *item in queryItems) {
+            if (![item.name isEqualToString:name]) {
+                continue;
+            }
+            if (![self pattern:patterns[name] matchesQueryItemValue:item.value]) {
+                return NO;
+            }
+            present = YES;
+        }
+        if (!present && ![self pattern:patterns[name] matchesQueryItemValue:@""]) {
+            return NO;
+        }
+    }
     return YES;
 }
 
++ (BOOL)pattern:(NSString *)pattern matchesQueryItemValue:(NSString *)value {
+    return pattern.length == 0 ? value.length == 0 : [self pattern:pattern matchesPart:value];
+}
+
+/// Same rule as components, with NOT patterns as the exclude rules.
 + (BOOL)legacyPaths:(NSArray *)paths allowPath:(NSString *)path {
-    NSMutableArray<NSString *> *interpretablePatterns = [NSMutableArray array];
+    BOOL hasUnreadableIncludePattern = NO;
+    BOOL hasReadableIncludePattern = NO;
+    BOOL hasReadableExcludePattern = NO;
     for (id patternObject in paths) {
-        if ([patternObject isKindOfClass:[NSString class]]) {
-            [interpretablePatterns addObject:patternObject];
+        if (![patternObject isKindOfClass:[NSString class]]) {
+            continue;
         }
-    }
-    if (interpretablePatterns.count == 0) {
-        return YES;
-    }
-    for (NSString *patternEntry in interpretablePatterns) {
-        NSString *pattern = patternEntry;
+        NSString *pattern = patternObject;
         BOOL excluded = [pattern hasPrefix:@"NOT "];
+        if (![self isReadablePattern:pattern]) {
+            hasUnreadableIncludePattern = hasUnreadableIncludePattern || !excluded;
+            continue;
+        }
         if (excluded) {
             pattern = [pattern substringFromIndex:4];
         }
         if ([self pattern:pattern matchesPath:path]) {
-            return !excluded;
+            return !excluded || hasUnreadableIncludePattern;
         }
+        hasReadableIncludePattern = hasReadableIncludePattern || !excluded;
+        hasReadableExcludePattern = hasReadableExcludePattern || excluded;
     }
-    return NO;
+    return !hasReadableIncludePattern && (hasUnreadableIncludePattern || !hasReadableExcludePattern);
 }
 
 + (BOOL)pattern:(NSString *)pattern matchesPath:(NSString *)path {
@@ -286,8 +364,13 @@ static NSTimeInterval const kPWAASATimeout = 5.0;
     if (pattern.length == 0) {
         return NO;
     }
-    NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF LIKE %@", pattern];
-    return [predicate evaluateWithObject:part ?: @""];
+    @try {
+        NSPredicate *predicate = [NSPredicate predicateWithFormat:@"SELF LIKE %@", pattern];
+        return [predicate evaluateWithObject:part ?: @""];
+    } @catch (NSException *exception) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:[NSString stringWithFormat:@"AASA pattern skipped: NSPredicate LIKE threw %@", exception.name]];
+        return NO;
+    }
 }
 
 #pragma mark - AASA fetch

@@ -12,6 +12,7 @@
 + (void)storeAASA:(NSDictionary *)aasa noAASAPublished:(BOOL)noAASAPublished unparseableBody:(BOOL)unparseableBody forHost:(NSString *)host date:(NSDate *)date;
 + (BOOL)cachedResultForHost:(NSString *)host now:(NSDate *)now aasa:(NSDictionary **)outAASA noAASAPublished:(BOOL *)outNoAASAPublished unparseableBody:(BOOL *)outUnparseableBody;
 + (void)clearCache;
++ (BOOL)pattern:(NSString *)pattern matchesPart:(NSString *)part;
 @end
 
 static NSData *PWAASAData(NSString *json) {
@@ -30,6 +31,19 @@ static PWUniversalLinkVerdict PWVerdictForBody(NSData *body, NSURL *url, NSStrin
 
 static NSURL *PWLink(NSString *urlString) {
     return [NSURL URLWithString:urlString];
+}
+
+static NSString * const PWBranchHostedBundleIdentifier = @"com.example.app";
+
+/// AASA in the shape Branch publishes for app.link domains, components verbatim: its `$web_only` exclude rules use the dictionary form of `?`.
+static NSData *PWBranchHostedAASAData(void) {
+    return PWAASAData(@"{\"applinks\":{\"apps\":[],\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":["
+                      "{\"/\":\"*\",\"?\":{\"$web_only\":\"true\"},\"exclude\":true,\"comment\":\"Matches any URL whose path is * and which has a query item with name '$web_only' and value 'true' and instructs the system NOT to open it as a Universal link\"},"
+                      "{\"/\":\"*\",\"?\":{\"%24web_only\":\"true\"},\"exclude\":true,\"comment\":\"Matches any URL whose path is * and which has a query item with name '%24web_only' and value 'true' and instructs the system NOT to open it as a Universal link\"},"
+                      "{\"/\":\"/e/*\",\"exclude\":true,\"comment\":\"Matches any URL whose path is /e/* and instructs the system NOT to open it as a Universal link\"},"
+                      "{\"/\":\"*\",\"comment\":\"Matches any URL whose path is * and instructs the system to open it as a Universal link\"},"
+                      "{\"/\":\"/\",\"comment\":\"Matches any URL whose path is / and instructs the system to open it as a Universal link\"}"
+                      "]}]}}");
 }
 
 @interface PWUniversalLinkResolverTest : XCTestCase
@@ -683,6 +697,232 @@ static NSURL *PWLink(NSString *urlString) {
     }];
     [self waitForExpectationsWithTimeout:5 handler:nil];
     [resolverMock stopMocking];
+}
+
+#pragma mark - Dictionary query in exclude rules
+
+/// Verifies that ordinary links of a Branch-hosted domain resolve to Match despite its `$web_only` exclude rules.
+- (void)testBranchHostedAASADomainLinksMatch {
+    NSData *data = PWBranchHostedAASAData();
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.app.link/AbC123"), PWBranchHostedBundleIdentifier), PWUniversalLinkVerdictMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.app.link/"), PWBranchHostedBundleIdentifier), PWUniversalLinkVerdictMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.app.link/AbC123?utm_source=push"), PWBranchHostedBundleIdentifier), PWUniversalLinkVerdictMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.app.link/AbC123?$web_only=false"), PWBranchHostedBundleIdentifier), PWUniversalLinkVerdictMatch);
+}
+
+/// Verifies that `$web_only=true` links, with a plain or percent-encoded name, and the excluded `/e/*` path of a Branch-hosted domain resolve to NoMatch.
+- (void)testBranchHostedAASAWebOnlyAndExcludedPathsNoMatch {
+    NSData *data = PWBranchHostedAASAData();
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.app.link/AbC123?$web_only=true"), PWBranchHostedBundleIdentifier), PWUniversalLinkVerdictNoMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.app.link/AbC123?%24web_only=true"), PWBranchHostedBundleIdentifier), PWUniversalLinkVerdictNoMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.app.link/AbC123?utm_source=push&$web_only=true"), PWBranchHostedBundleIdentifier), PWUniversalLinkVerdictNoMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.app.link/e/AbC123"), PWBranchHostedBundleIdentifier), PWUniversalLinkVerdictNoMatch);
+}
+
+/// Verifies that a Branch-hosted AASA persisted by an earlier SDK version in the current cache format is re-evaluated and yields Match.
+- (void)testBranchHostedAASAPersistedByEarlierSDKYieldsMatch {
+    NSDictionary *persistedEntry = @{@"timestamp": @([NSDate date].timeIntervalSince1970 - 60.0 * 60.0),
+                                     @"shortLived": @NO,
+                                     @"noAASAPublished": @NO,
+                                     @"unparseableBody": @NO,
+                                     @"body": PWBranchHostedAASAData()};
+    [[NSUserDefaults standardUserDefaults] setObject:persistedEntry forKey:@"com.pushwoosh.universalLinkVerdict.example.app.link"];
+
+    NSDictionary *cached = nil;
+    BOOL noAASA = YES;
+    BOOL unparseable = YES;
+    XCTAssertTrue([PWUniversalLinkResolver cachedResultForHost:@"example.app.link" now:[NSDate date] aasa:&cached noAASAPublished:&noAASA unparseableBody:&unparseable]);
+    PWUniversalLinkVerdict verdict = [PWUniversalLinkResolver verdictForFetchedAASA:cached
+                                                                    noAASAPublished:noAASA
+                                                                    unparseableBody:unparseable
+                                                                                url:PWLink(@"https://example.app.link/AbC123")
+                                                                   bundleIdentifier:PWBranchHostedBundleIdentifier];
+    XCTAssertEqual(verdict, PWUniversalLinkVerdictMatch);
+}
+
+/// Verifies that a dictionary query in an exclude rule needs every listed query item, in any order and alongside extra items.
+- (void)testExcludeRuleDictQueryRequiresAllItemsInAnyOrder {
+    NSData *data = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":\"/promo/*\",\"?\":{\"a\":\"1\",\"b\":\"?*\"},\"exclude\":true},{\"/\":\"*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/promo/x?b=2&c=3&a=1"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/promo/x?a=1"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/promo/x?a=2&b=2"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/other?a=1&b=2"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+}
+
+/// Verifies that an exclude rule with only a dictionary query applies to every path.
+- (void)testExcludeRuleWithOnlyDictQueryAppliesToAnyPath {
+    NSData *data = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"?\":{\"skip\":\"1\"},\"exclude\":true},{\"/\":\"*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/any/path?skip=1"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/any/path"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+}
+
+/// Verifies that an exclude rule with a part the resolver cannot read is skipped as a whole and does not exclude the domain.
+- (void)testExcludeRuleWithUnreadablePartIsSkipped {
+    NSData *nonStringQueryValue = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":\"*\",\"?\":{\"skip\":1},\"exclude\":true},{\"/\":\"*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(nonStringQueryValue, PWLink(@"https://example.com/x?skip=1"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+
+    NSData *nonStringPath = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":[\"/private/*\"],\"?\":\"*\",\"exclude\":true},{\"/\":\"*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(nonStringPath, PWLink(@"https://example.com/private/x"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+
+    NSData *danglingEscapeInQueryValue = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":\"*\",\"?\":{\"skip\":\"1\\\\\"},\"exclude\":true},{\"/\":\"*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(danglingEscapeInQueryValue, PWLink(@"https://example.com/x?skip=1"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+
+    NSData *danglingEscapeInPath = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":\"/private\\\\\",\"exclude\":true},{\"/\":\"*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(danglingEscapeInPath, PWLink(@"https://example.com/private"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+}
+
+/// Verifies that a repeated query item excludes the link only when every instance matches the exclude rule's pattern.
+- (void)testBranchHostedAASARepeatedWebOnlyExcludesOnlyWhenEveryInstanceMatches {
+    NSData *data = PWBranchHostedAASAData();
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.app.link/AbC123?$web_only=false&$web_only=true"), PWBranchHostedBundleIdentifier), PWUniversalLinkVerdictMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.app.link/AbC123?$web_only=true&$web_only=true"), PWBranchHostedBundleIdentifier), PWUniversalLinkVerdictNoMatch);
+}
+
+/// Verifies that a query item absent from the link is matched as an empty string, as Apple does.
+- (void)testExcludeRuleDictQueryMatchesAbsentItemAsEmptyString {
+    NSData *anyValue = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"?\":{\"x\":\"*\"},\"exclude\":true},{\"/\":\"*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(anyValue, PWLink(@"https://example.com/page"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+
+    NSData *nonEmptyValue = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"?\":{\"x\":\"?*\"},\"exclude\":true},{\"/\":\"*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(nonEmptyValue, PWLink(@"https://example.com/page"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+}
+
+#pragma mark - Patterns NSPredicate cannot evaluate
+
+/// Verifies that an include rule ending with a dangling backslash is skipped instead of throwing, and the readable rules still decide.
+- (void)testIncludeRuleWithDanglingEscapeIsSkipped {
+    NSData *onlyRule = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":\"/foo\\\\\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(onlyRule, PWLink(@"https://example.com/foo"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+
+    NSData *withReadableRule = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":\"/foo\\\\\"},{\"/\":\"/buy/*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(withReadableRule, PWLink(@"https://example.com/buy/1"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+    XCTAssertEqual(PWVerdictForBody(withReadableRule, PWLink(@"https://example.com/foo"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+}
+
+/// Verifies that a legacy `paths` pattern ending with a dangling backslash is skipped instead of throwing, and the readable patterns still decide.
+- (void)testLegacyPathWithDanglingEscapeIsSkipped {
+    NSData *onlyPattern = PWAASAData(@"{\"applinks\":{\"details\":[{\"appID\":\"T.com.example.app\",\"paths\":[\"/promo\\\\\"]}]}}");
+    XCTAssertEqual(PWVerdictForBody(onlyPattern, PWLink(@"https://example.com/promo"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+
+    NSData *withReadablePattern = PWAASAData(@"{\"applinks\":{\"details\":[{\"appID\":\"T.com.example.app\",\"paths\":[\"/promo\\\\\",\"/products/*\"]}]}}");
+    XCTAssertEqual(PWVerdictForBody(withReadablePattern, PWLink(@"https://example.com/products/1"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+    XCTAssertEqual(PWVerdictForBody(withReadablePattern, PWLink(@"https://example.com/promo"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+}
+
+/// Verifies that an exclude rule whose dictionary query value starts with U+0000 is skipped instead of throwing.
+- (void)testExcludeRuleDictQueryValueWithNulIsSkipped {
+    NSData *data = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":\"*\",\"?\":{\"a\":\"\\u0000\"},\"exclude\":true}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/p?a=1"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/p"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+}
+
+/// Verifies that include and exclude rules whose `/` part starts with U+0000 are skipped instead of throwing.
+- (void)testComponentPathWithNulIsSkipped {
+    NSData *includeRule = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":\"\\u0000/p\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(includeRule, PWLink(@"https://example.com/p"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+
+    NSData *excludeRule = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":\"\\u0000/e\",\"exclude\":true},{\"/\":\"*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(excludeRule, PWLink(@"https://example.com/e"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+}
+
+/// Verifies that legacy `paths` patterns starting with U+0000 are skipped instead of throwing.
+- (void)testLegacyPathWithNulIsSkipped {
+    NSData *includePattern = PWAASAData(@"{\"applinks\":{\"details\":[{\"appID\":\"T.com.example.app\",\"paths\":[\"\\u0000/p\"]}]}}");
+    XCTAssertEqual(PWVerdictForBody(includePattern, PWLink(@"https://example.com/p"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+
+    NSData *notPattern = PWAASAData(@"{\"applinks\":{\"details\":[{\"appID\":\"T.com.example.app\",\"paths\":[\"NOT \\u0000/e\",\"*\"]}]}}");
+    XCTAssertEqual(PWVerdictForBody(notPattern, PWLink(@"https://example.com/e"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+}
+
+/// Verifies that the pattern matcher reports no match instead of throwing on a pattern NSPredicate LIKE cannot evaluate.
+- (void)testPatternMatcherDoesNotThrowOnUnevaluablePattern {
+    NSString *nulPattern = [NSString stringWithFormat:@"%C/p", (unichar)0];
+    XCTAssertFalse([PWUniversalLinkResolver pattern:nulPattern matchesPart:@"/p"]);
+    XCTAssertFalse([PWUniversalLinkResolver pattern:@"/p\\" matchesPart:@"/p"]);
+    XCTAssertTrue([PWUniversalLinkResolver pattern:@"/p*" matchesPart:@"/p/1"]);
+}
+
+#pragma mark - Entries without a readable include rule
+
+/// Verifies that a components entry whose include rules are all unreadable matches by domain unless one of its exclude rules matches.
+- (void)testComponentsWithoutReadableIncludeRuleMatchByDomainUnlessExcluded {
+    NSData *dictQueryExclude = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"?\":{\"$web_only\":\"true\"},\"exclude\":true},{\"?\":{\"promo\":\"1\"}}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(dictQueryExclude, PWLink(@"https://example.com/p?promo=1"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+    XCTAssertEqual(PWVerdictForBody(dictQueryExclude, PWLink(@"https://example.com/p?$web_only=true"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+
+    NSData *pathExclude = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":\"/e/*\",\"exclude\":true},{\"?\":{\"promo\":\"1\"}}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(pathExclude, PWLink(@"https://example.com/p?promo=1"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+    XCTAssertEqual(PWVerdictForBody(pathExclude, PWLink(@"https://example.com/e/1"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+}
+
+/// Verifies that a legacy `paths` entry whose include patterns are all unreadable matches by domain unless one of its NOT patterns matches.
+- (void)testLegacyPathsWithoutReadableIncludePatternMatchByDomainUnlessExcluded {
+    NSData *data = PWAASAData(@"{\"applinks\":{\"details\":[{\"appID\":\"T.com.example.app\",\"paths\":[\"NOT /e/*\",\"/promo\\\\\"]}]}}");
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/promo"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/e/1"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+}
+
+/// Verifies that an entry without include rules resolves to NoMatch outside its readable exclusions, as Apple does, in components and legacy `paths`.
+- (void)testEntryWithOnlyExcludeRulesNoMatchOutsideExclusions {
+    NSData *components = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":\"/e/*\",\"exclude\":true}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(components, PWLink(@"https://example.com/p"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+    XCTAssertEqual(PWVerdictForBody(components, PWLink(@"https://example.com/e/1"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+
+    NSData *paths = PWAASAData(@"{\"applinks\":{\"details\":[{\"appID\":\"T.com.example.app\",\"paths\":[\"NOT /e/*\"]}]}}");
+    XCTAssertEqual(PWVerdictForBody(paths, PWLink(@"https://example.com/p"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+    XCTAssertEqual(PWVerdictForBody(paths, PWLink(@"https://example.com/e/1"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+
+    NSData *unreadableExcludeOnly = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"/\":\"*\",\"?\":{\"a\":1},\"exclude\":true}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(unreadableExcludeOnly, PWLink(@"https://example.com/p?a=1"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+}
+
+/// Verifies that an empty value pattern in an exclude rule's dictionary query matches an empty or absent query item only.
+- (void)testExcludeRuleDictQueryEmptyPatternMatchesEmptyOrAbsentItem {
+    NSData *data = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"?\":{\"x\":\"\"},\"exclude\":true},{\"/\":\"*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/p?x="), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/p"), @"com.example.app"), PWUniversalLinkVerdictNoMatch);
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/p?x=1"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+}
+
+#pragma mark - Unreadable include rule before an exclude rule
+
+/// Verifies that a matching exclude rule placed after an unreadable include rule does not send the link to Safari, as that rule may have matched first.
+- (void)testExcludeRuleAfterUnreadableIncludeRuleDoesNotExclude {
+    NSData *promo = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"?\":{\"promo\":\"1\"}},{\"?\":{\"$web_only\":\"true\"},\"exclude\":true},{\"/\":\"*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(promo, PWLink(@"https://example.com/p?promo=1&$web_only=true"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+
+    NSData *anyCampaign = PWAASAData(@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[{\"?\":{\"utm_campaign\":\"*\"}},{\"?\":{\"$web_only\":\"true\"},\"exclude\":true},{\"/\":\"*\"}]}]}}");
+    XCTAssertEqual(PWVerdictForBody(anyCampaign, PWLink(@"https://example.com/p?$web_only=true"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+}
+
+/// Verifies that a matching NOT pattern placed after an unreadable legacy `paths` pattern does not send the link to Safari.
+- (void)testLegacyNotPatternAfterUnreadablePatternDoesNotExclude {
+    NSData *data = PWAASAData(@"{\"applinks\":{\"details\":[{\"appID\":\"T.com.example.app\",\"paths\":[\"/promo\\\\\",\"NOT /e/*\",\"*\"]}]}}");
+    XCTAssertEqual(PWVerdictForBody(data, PWLink(@"https://example.com/e/1"), @"com.example.app"), PWUniversalLinkVerdictMatch);
+}
+
+#pragma mark - Components and legacy paths parity
+
+/// Verifies that components and legacy `paths` give the same verdict for every order of up to three readable or unreadable include and exclude rules.
+- (void)testComponentsAndLegacyPathsAgreeOnRuleOrder {
+    NSArray<NSString *> *componentRules = @[@"{\"/\":\"/a*\"}", @"{\"/\":\"/u\\\\\"}", @"{\"/\":\"/a/e*\",\"exclude\":true}", @"{\"/\":\"/x\\\\\",\"exclude\":true}"];
+    NSArray<NSString *> *pathRules = @[@"\"/a*\"", @"\"/u\\\\\"", @"\"NOT /a/e*\"", @"\"NOT /x\\\\\""];
+    NSArray<NSURL *> *links = @[PWLink(@"https://example.com/a/e1"), PWLink(@"https://example.com/a/1"), PWLink(@"https://example.com/z")];
+    for (NSUInteger length = 0, orders = 1; length <= 3; length++, orders *= componentRules.count) {
+        for (NSUInteger order = 0; order < orders; order++) {
+            NSMutableArray<NSString *> *components = [NSMutableArray array];
+            NSMutableArray<NSString *> *paths = [NSMutableArray array];
+            for (NSUInteger position = 0, rest = order; position < length; position++, rest /= componentRules.count) {
+                [components addObject:componentRules[rest % componentRules.count]];
+                [paths addObject:pathRules[rest % componentRules.count]];
+            }
+            NSData *componentsData = PWAASAData([NSString stringWithFormat:@"{\"applinks\":{\"details\":[{\"appIDs\":[\"T.com.example.app\"],\"components\":[%@]}]}}", [components componentsJoinedByString:@","]]);
+            NSData *pathsData = PWAASAData([NSString stringWithFormat:@"{\"applinks\":{\"details\":[{\"appID\":\"T.com.example.app\",\"paths\":[%@]}]}}", [paths componentsJoinedByString:@","]]);
+            for (NSURL *link in links) {
+                XCTAssertEqual(PWVerdictForBody(componentsData, link, @"com.example.app"), PWVerdictForBody(pathsData, link, @"com.example.app"), @"paths %@, link %@", [paths componentsJoinedByString:@","], link.path);
+            }
+        }
+    }
 }
 
 @end

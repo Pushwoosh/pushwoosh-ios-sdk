@@ -277,9 +277,11 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #if __has_warning("-Watimport-in-framework-header")
 #pragma clang diagnostic ignored "-Watimport-in-framework-header"
 #endif
+@import CoreFoundation;
 @import Foundation;
 @import ObjectiveC;
 @import PushwooshBridge;
+@import UIKit;
 #endif
 
 #endif
@@ -300,6 +302,7 @@ typedef unsigned int swift_uint4  __attribute__((__ext_vector_type__(4)));
 #endif
 
 #if defined(__OBJC__)
+
 @class NSString;
 
 /// Lifecycle and click callbacks for native in-app messages. Assign an object
@@ -356,6 +359,61 @@ SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly) BOOL isPresenting;)
 SWIFT_CLASS_PROPERTY(@property (nonatomic, class, readonly, strong) id <PWInAppHandler> _Nonnull configureBackchannel;)
 + (id <PWInAppHandler> _Nonnull)configureBackchannel SWIFT_WARN_UNUSED_RESULT;
 - (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@protocol PWInlineDelegate;
+@class PushwooshInlineBanner;
+
+/// Implementation behind <code>Pushwoosh.inline</code>, registered into <code>PushwooshModuleRegistry</code> from
+/// <code>PushwooshInAppLoader.m</code> at module load. Conforms to the <code>PWInline</code> bridge protocol; forwards to
+/// <code>PWInlineManager</code> on the main thread, waiting for it only where a result is returned.
+SWIFT_CLASS_NAMED("PushwooshInlineImplementation")
+@interface PushwooshInlineImplementation : NSObject <PWInline>
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class, strong) id <PWInlineDelegate> _Nullable delegate;)
++ (id <PWInlineDelegate> _Nullable)delegate SWIFT_WARN_UNUSED_RESULT;
++ (void)setDelegate:(id <PWInlineDelegate> _Nullable)newValue;
+SWIFT_CLASS_PROPERTY(@property (nonatomic, class) enum PWInlineColorScheme colorScheme;)
++ (enum PWInlineColorScheme)colorScheme SWIFT_WARN_UNUSED_RESULT;
++ (void)setColorScheme:(enum PWInlineColorScheme)newValue;
++ (void)requestSlots:(NSArray<NSString *> * _Nonnull)slotIds completion:(void (^ _Nullable)(NSError * _Nullable))completion;
++ (PushwooshInlineBanner * _Nullable)bannerForSlot:(NSString * _Nonnull)slotId SWIFT_WARN_UNUSED_RESULT;
++ (void)trackShownForSlot:(NSString * _Nonnull)slotId bannerId:(NSString * _Nonnull)bannerId;
++ (void)trackClickForSlot:(NSString * _Nonnull)slotId bannerId:(NSString * _Nonnull)bannerId elementId:(NSString * _Nullable)elementId;
++ (void)dismissSlot:(NSString * _Nonnull)slotId bannerId:(NSString * _Nonnull)bannerId;
+- (nonnull instancetype)init OBJC_DESIGNATED_INITIALIZER;
+@end
+
+@class NSCoder;
+@class UITraitCollection;
+
+/// Inline banner slot. Place it anywhere in a UIKit layout and give it a slot id: it stays at zero
+/// height until the slot gets a banner (<code>Pushwoosh.inline.requestSlots(_:completion:)</code>), then expands to
+/// the banner’s height with a spring animation, so Auto Layout and stack-view neighbours move aside on
+/// their own. An empty answer for the slot collapses it back. Received banners are kept on disk and shown
+/// again after relaunch. A banner past its <code>expireDate</code> is not shown; the close button collapses the slot
+/// and the closed banner does not come back before its <code>expireDate</code>. A banner counts as shown once at
+/// least half of its height stays on screen for 0.3 s; a control-group slot stays empty and counts the
+/// same way by its position.
+/// \code
+/// let slot = PushwooshInlineView(slotId: "home_top")
+/// stackView.addArrangedSubview(slot)
+/// Pushwoosh.inline.requestSlots(["home_top"]) { error in }
+///
+/// \endcodeIn a storyboard set the custom class to <code>PushwooshInlineView</code> (module <code>PushwooshInApp</code>) and
+/// fill <em>Slot Id</em> in the Attributes inspector.
+SWIFT_CLASS_NAMED("PushwooshInlineView")
+@interface PushwooshInlineView : UIView
+/// The slot this view shows. Assigning another id rebinds the view.
+@property (nonatomic, copy) IBInspectable NSString * _Nonnull slotId;
+/// Height the banner needs at the current width (0 = empty); for hosts that size the slot by frame
+/// (SwiftUI, cross-platform views).
+@property (nonatomic, copy) void (^ _Nullable onHeightChange)(CGFloat);
+- (nonnull instancetype)initWithSlotId:(NSString * _Nonnull)slotId;
+- (nonnull instancetype)initWithFrame:(CGRect)frame OBJC_DESIGNATED_INITIALIZER;
+- (nullable instancetype)initWithCoder:(NSCoder * _Nonnull)coder OBJC_DESIGNATED_INITIALIZER;
+- (void)layoutSubviews;
+- (void)traitCollectionDidChange:(UITraitCollection * _Nullable)previousTraitCollection;
+- (void)didMoveToWindow;
 @end
 
 

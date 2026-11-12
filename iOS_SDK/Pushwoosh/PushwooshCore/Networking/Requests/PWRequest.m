@@ -43,6 +43,22 @@
     return YES;
 }
 
+- (BOOL)pinsRetryHost {
+    return NO;
+}
+
+- (BOOL)retryWaitsForNetwork {
+    return NO;
+}
+
+- (NSUInteger)retryQueueLimit {
+    return 0;
+}
+
+- (BOOL)announcesRetryDelivery {
+    return NO;
+}
+
 - (NSString *)requestIdentifier {
     @synchronized (self) {
         if (!_requestIdentifier) {

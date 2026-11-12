@@ -14,6 +14,12 @@
 
 NS_ASSUME_NONNULL_BEGIN
 
+/// Posted on the main queue when a queued request whose `announcesRetryDelivery` is YES is delivered;
+/// `userInfo`: its method under `PWRetryQueueMethodNameKey`, its body under `PWRetryQueueBodyKey`.
+FOUNDATION_EXPORT NSNotificationName const PWRetryQueueDidDeliverRequestNotification;
+FOUNDATION_EXPORT NSString *const PWRetryQueueMethodNameKey;
+FOUNDATION_EXPORT NSString *const PWRetryQueueBodyKey;
+
 /// Offline retry engine. Owns the in-memory queue of `PWRetryEntry`s, persists it
 /// through `PWRetryQueueStorage`, decides timing/eligibility through `PWRetryPolicy`,
 /// dedups in-flight sends by `requestIdentifier`, and replays due entries through a
@@ -29,7 +35,8 @@ NS_ASSUME_NONNULL_BEGIN
 - (instancetype)init NS_UNAVAILABLE;
 
 /// Snapshot `request` into the queue and persist. No-op if an entry with the same
-/// `requestIdentifier` is already queued. Triggers a flush.
+/// `requestIdentifier` is already queued. Over the request's `retryQueueLimit` the oldest entries
+/// of its method are dropped. Triggers a flush.
 - (void)enqueueRequest:(PWRequest *)request;
 
 /// Same as `-enqueueRequest:` but the caller decides which host a replay must target.
@@ -44,7 +51,7 @@ NS_ASSUME_NONNULL_BEGIN
 /// previous application must never be replayed into the new one.
 - (void)purgeAllEntriesWithReason:(NSString *)reason;
 
-/// Hook for the reachability observer — connectivity restored, so flush now.
+/// Hook for the reachability observer: connectivity restored, so entries waiting for the network are due and the queue flushes now.
 - (void)onNetworkReachable;
 
 @end

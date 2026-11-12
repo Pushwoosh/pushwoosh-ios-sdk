@@ -7,12 +7,26 @@
 #import "PushNotificationManager.h"
 #import "PushNotificationManager+Mock.h"
 #import "PWRequestManager.h"
+#import "PWRichMediaActionRequest.h"
+#import "PWInAppManager.h"
+#import "PWInlineHTMLView.h"
+#import "PWRichMediaView.h"
+#import "PWPushManagerJSBridge.h"
 #import "PWTestUtils.h"
 #import <PushwooshCore/PWManagerBridge.h>
 #import <PushwooshCore/PWDataManager.h>
 
 @interface PWPushwooshJSBridge (Test)
+@property (nonatomic, strong) PWRequestManager *requestManager;
 - (void)getTags:(PWEasyJSWKDataFunction *)successCallback :(PWEasyJSWKDataFunction *)errorCallback;
+@end
+
+@interface PWPushManagerJSBridge (Test)
+- (void)postEvent:(NSString *)blob;
+@end
+
+@interface PWInlineHTMLView (Test)
+@property (nonatomic, strong) PWRichMediaView *richMediaView;
 @end
 
 @interface PWJSInterfaceTestDataManagerMock : PWDataManager
@@ -126,12 +140,122 @@
 	[mockManagerBridge stopMocking];
 }
 
+/// Verifies that registerForPushNotifications runs the web client's closing action block before registering.
+- (void)testRegisterForPushNotificationsRunsClosingActionBlock {
+	id mockManagerBridge = OCMPartialMock([PWManagerBridge shared]);
+	OCMStub([mockManagerBridge registerForPushNotifications]);
+	__block BOOL closingActionRan = NO;
+	_webClient.closingActionBlock = ^{
+		closingActionRan = YES;
+	};
+
+	[_jsInterface performSelector:@selector(registerForPushNotifications)];
+
+	XCTAssertTrue(closingActionRan);
+	[mockManagerBridge stopMocking];
+}
+
 - (void)testCloseInApp {
 	_webClient.inAppCode = @"testInAppCode";
 	_webClient.richMediaCode = @"testRichMediaCode";
 
 	XCTAssertNoThrow([_jsInterface performSelector:@selector(closeInApp)]);
 	XCTAssertTrue(self.closed);
+}
+
+/// Verifies that closing content shown for an in-app reports the close action with its code.
+- (void)testCloseInAppReportsCloseActionWithCode {
+	id requestManager = OCMClassMock([PWRequestManager class]);
+	_jsInterface.requestManager = requestManager;
+	_webClient.inAppCode = @"testInAppCode";
+
+	[_jsInterface performSelector:@selector(closeInApp)];
+
+	OCMVerify([requestManager sendRequest:[OCMArg checkWithBlock:^BOOL(PWRichMediaActionRequest *request) {
+		return [request.inAppCode isEqualToString:@"testInAppCode"] && request.actionType.integerValue == 4;
+	}] completion:OCMOCK_ANY]);
+	[requestManager stopMocking];
+}
+
+/// Verifies that closing content with no in-app code, rich media code or message hash sends no close action.
+- (void)testCloseInAppWithoutCodesSendsNoCloseAction {
+	id requestManager = OCMClassMock([PWRequestManager class]);
+	OCMReject([requestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]);
+	_jsInterface.requestManager = requestManager;
+
+	[_jsInterface performSelector:@selector(closeInApp)];
+
+	XCTAssertTrue(self.closed);
+	[requestManager stopMocking];
+}
+
+/// Verifies that postEvent goes out when the content allows it and is dropped with an error when it does not.
+- (void)testPostEventFollowsTheContentPermission {
+	id inAppManager = OCMClassMock([PWInAppManager class]);
+	id managerBridge = OCMPartialMock([PWManagerBridge shared]);
+	OCMStub([managerBridge inAppManager]).andReturn(inAppManager);
+	id errorCallback = OCMClassMock([PWEasyJSWKDataFunction class]);
+	__block BOOL allowed = YES;
+	_webClient.shouldPostEventBlock = ^BOOL{
+		return allowed;
+	};
+	void (*postEvent)(id, SEL, id, id, id, id) = (void(*)(id, SEL, id, id, id, id))objc_msgSend;
+
+	postEvent(_jsInterface, @selector(postEvent::::), @"allowedEvent", @"{}", nil, errorCallback);
+	allowed = NO;
+	postEvent(_jsInterface, @selector(postEvent::::), @"droppedEvent", @"{}", nil, errorCallback);
+
+	OCMVerify([inAppManager postEvent:@"allowedEvent" withAttributes:OCMOCK_ANY completion:OCMOCK_ANY]);
+	OCMVerify(never(), [inAppManager postEvent:@"droppedEvent" withAttributes:OCMOCK_ANY completion:OCMOCK_ANY]);
+	OCMVerify([errorCallback executeWithParam:OCMOCK_ANY]);
+	[errorCallback stopMocking];
+	[managerBridge stopMocking];
+	[inAppManager stopMocking];
+}
+
+/// Verifies that postEvent of an inline HTML document is dropped while the view does not allow it.
+- (void)testPostEventOfInlineDocumentFollowsTheView {
+	id inAppManager = OCMClassMock([PWInAppManager class]);
+	id managerBridge = OCMPartialMock([PWManagerBridge shared]);
+	OCMStub([managerBridge inAppManager]).andReturn(inAppManager);
+	PWInlineHTMLView *view = [[PWInlineHTMLView alloc] initWithFrame:CGRectZero];
+	__block BOOL allowed = NO;
+	view.shouldPostEvent = ^BOOL{
+		return allowed;
+	};
+	PWPushwooshJSBridge *bridge = [[PWPushwooshJSBridge alloc] initWithClient:view.richMediaView.webClient];
+	void (*postEvent)(id, SEL, id, id, id, id) = (void(*)(id, SEL, id, id, id, id))objc_msgSend;
+
+	postEvent(bridge, @selector(postEvent::::), @"droppedEvent", @"{}", nil, nil);
+	allowed = YES;
+	postEvent(bridge, @selector(postEvent::::), @"allowedEvent", @"{}", nil, nil);
+
+	OCMVerify(never(), [inAppManager postEvent:@"droppedEvent" withAttributes:OCMOCK_ANY completion:OCMOCK_ANY]);
+	OCMVerify([inAppManager postEvent:@"allowedEvent" withAttributes:OCMOCK_ANY completion:OCMOCK_ANY]);
+	[managerBridge stopMocking];
+	[inAppManager stopMocking];
+}
+
+/// Verifies that the legacy pushManager.postEvent of an inline HTML document is dropped while the view does not allow it.
+- (void)testLegacyPostEventOfInlineDocumentFollowsTheView {
+	id inAppManager = OCMClassMock([PWInAppManager class]);
+	id managerBridge = OCMPartialMock([PWManagerBridge shared]);
+	OCMStub([managerBridge inAppManager]).andReturn(inAppManager);
+	PWInlineHTMLView *view = [[PWInlineHTMLView alloc] initWithFrame:CGRectZero];
+	__block BOOL allowed = NO;
+	view.shouldPostEvent = ^BOOL{
+		return allowed;
+	};
+	PWPushManagerJSBridge *bridge = [[PWPushManagerJSBridge alloc] initWithClient:view.richMediaView.webClient];
+
+	[bridge postEvent:@"{\"event\": \"droppedEvent\", \"attributes\": {}}"];
+	allowed = YES;
+	[bridge postEvent:@"{\"event\": \"allowedEvent\", \"attributes\": {}}"];
+
+	OCMVerify(never(), [inAppManager postEvent:@"droppedEvent" withAttributes:OCMOCK_ANY completion:OCMOCK_ANY]);
+	OCMVerify([inAppManager postEvent:@"allowedEvent" withAttributes:OCMOCK_ANY completion:OCMOCK_ANY]);
+	[managerBridge stopMocking];
+	[inAppManager stopMocking];
 }
 
 - (void)testMakePurchaseWithIdentifier {

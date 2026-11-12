@@ -10,6 +10,7 @@
 #import <PushwooshCore/PWPreferences.h>
 
 @class PWResource;
+@class PWPostEventRequest;
 
 FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 
@@ -48,6 +49,9 @@ FOUNDATION_EXPORT NSString * const PW_INAPP_ACTION_SHOW;
 
 #if TARGET_OS_IOS
 - (void)addJavascriptInterface:(NSObject*)interface withName:(NSString*)name;
+
+/// Hands the `inline` block of a postEvent answer to the in-app module with the user and app code the event was sent for.
++ (void)forwardInlineContentOfRequest:(PWPostEventRequest *)request;
 
 // Detected in the single rich-media funnel (PWRichMediaManager presentRichMedia:): reads
 // native-config.json from the resolved resource and routes it to the PushwooshInApp module.

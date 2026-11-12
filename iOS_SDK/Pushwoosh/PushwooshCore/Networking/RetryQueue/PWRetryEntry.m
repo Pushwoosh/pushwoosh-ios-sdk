@@ -18,6 +18,10 @@ static NSString *const kKeyAttemptCount = @"ac";
 static NSString *const kKeyNextAttemptDate = @"nad";
 static NSString *const kKeyFirstEnqueuedDate = @"fed";
 static NSString *const kKeySurvivesApplicationChange = @"sac";
+static NSString *const kKeyPinsHost = @"ph";
+static NSString *const kKeyWaitsForNetwork = @"wfn";
+static NSString *const kKeyAwaitingNetwork = @"awn";
+static NSString *const kKeyAnnouncesDelivery = @"ad";
 
 @implementation PWRetryEntry
 
@@ -36,6 +40,9 @@ static NSString *const kKeySurvivesApplicationChange = @"sac";
                         firstEnqueuedDate:now];
     if (self) {
         _survivesApplicationChange = request.survivesApplicationChange;
+        _pinsHost = [request pinsRetryHost];
+        _waitsForNetwork = [request retryWaitsForNetwork];
+        _announcesDelivery = [request announcesRetryDelivery];
     }
     return self;
 }
@@ -78,29 +85,39 @@ static NSString *const kKeySurvivesApplicationChange = @"sac";
 }
 
 - (PWRetryEntry *)entryByIncrementingAttemptWithNextDate:(NSDate *)nextDate {
-    PWRetryEntry *next = [[PWRetryEntry alloc] initWithRequestIdentifier:_requestIdentifier
-                                               methodName:_methodName
-                                        requestDictionary:_requestDictionary
-                                        shouldWrapRequest:_shouldWrapRequest
-                                                  baseUrl:_baseUrl
-                                             attemptCount:_attemptCount + 1
-                                          nextAttemptDate:nextDate
-                                        firstEnqueuedDate:_firstEnqueuedDate];
-    next->_survivesApplicationChange = _survivesApplicationChange;
-    return next;
+    return [self entryWithBaseUrl:_baseUrl attemptCount:_attemptCount + 1 nextAttemptDate:nextDate awaitingNetwork:NO];
 }
 
 - (PWRetryEntry *)entryByRetargetingToBaseUrl:(NSString *)baseUrl {
-    PWRetryEntry *retargeted = [[PWRetryEntry alloc] initWithRequestIdentifier:_requestIdentifier
+    return [self entryWithBaseUrl:baseUrl attemptCount:_attemptCount nextAttemptDate:_nextAttemptDate awaitingNetwork:_awaitingNetwork];
+}
+
+- (PWRetryEntry *)entryAwaitingNetworkUntil:(NSDate *)date {
+    return [self entryWithBaseUrl:_baseUrl attemptCount:_attemptCount nextAttemptDate:date awaitingNetwork:YES];
+}
+
+- (PWRetryEntry *)entryWokenAtDate:(NSDate *)date {
+    return [self entryWithBaseUrl:_baseUrl attemptCount:_attemptCount nextAttemptDate:date awaitingNetwork:NO];
+}
+
+- (PWRetryEntry *)entryWithBaseUrl:(NSString *)baseUrl
+                      attemptCount:(NSUInteger)attemptCount
+                   nextAttemptDate:(NSDate *)nextAttemptDate
+                   awaitingNetwork:(BOOL)awaitingNetwork {
+    PWRetryEntry *entry = [[PWRetryEntry alloc] initWithRequestIdentifier:_requestIdentifier
                                                methodName:_methodName
                                         requestDictionary:_requestDictionary
                                         shouldWrapRequest:_shouldWrapRequest
                                                   baseUrl:baseUrl
-                                             attemptCount:_attemptCount
-                                          nextAttemptDate:_nextAttemptDate
+                                             attemptCount:attemptCount
+                                          nextAttemptDate:nextAttemptDate
                                         firstEnqueuedDate:_firstEnqueuedDate];
-    retargeted->_survivesApplicationChange = _survivesApplicationChange;
-    return retargeted;
+    entry->_survivesApplicationChange = _survivesApplicationChange;
+    entry->_pinsHost = _pinsHost;
+    entry->_waitsForNetwork = _waitsForNetwork;
+    entry->_awaitingNetwork = awaitingNetwork;
+    entry->_announcesDelivery = _announcesDelivery;
+    return entry;
 }
 
 #pragma mark - NSCopying
@@ -145,6 +162,10 @@ static NSString *const kKeySurvivesApplicationChange = @"sac";
                         firstEnqueuedDate:firstEnqueuedDate];
     if (self) {
         _survivesApplicationChange = [coder decodeBoolForKey:kKeySurvivesApplicationChange];
+        _pinsHost = [coder decodeBoolForKey:kKeyPinsHost];
+        _waitsForNetwork = [coder decodeBoolForKey:kKeyWaitsForNetwork];
+        _awaitingNetwork = [coder decodeBoolForKey:kKeyAwaitingNetwork];
+        _announcesDelivery = [coder decodeBoolForKey:kKeyAnnouncesDelivery];
     }
     return self;
 }
@@ -159,6 +180,10 @@ static NSString *const kKeySurvivesApplicationChange = @"sac";
     [coder encodeObject:_nextAttemptDate forKey:kKeyNextAttemptDate];
     [coder encodeObject:_firstEnqueuedDate forKey:kKeyFirstEnqueuedDate];
     [coder encodeBool:_survivesApplicationChange forKey:kKeySurvivesApplicationChange];
+    [coder encodeBool:_pinsHost forKey:kKeyPinsHost];
+    [coder encodeBool:_waitsForNetwork forKey:kKeyWaitsForNetwork];
+    [coder encodeBool:_awaitingNetwork forKey:kKeyAwaitingNetwork];
+    [coder encodeBool:_announcesDelivery forKey:kKeyAnnouncesDelivery];
 }
 
 @end

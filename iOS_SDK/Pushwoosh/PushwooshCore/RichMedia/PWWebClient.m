@@ -475,13 +475,17 @@ static NSMutableDictionary *sJavaScriptInterfaces;
         }
 
         case PWLinkActionCloseOnly: {
-            [self.delegate webClientDidStartClose:self];
+            if (!_opensLinksWithoutClosing) {
+                [self.delegate webClientDidStartClose:self];
+            }
             decisionHandler(WKNavigationActionPolicyCancel);
             return;
         }
 
         case PWLinkActionCloseAndOpen: {
-            [self.delegate webClientDidStartClose:self];
+            if (!_opensLinksWithoutClosing) {
+                [self.delegate webClientDidStartClose:self];
+            }
 
             //If url has custom scheme like facebook:// or itms:// we need to open it directly:
             //small fix to prevent app freeezes on iOS7
@@ -511,6 +515,11 @@ static NSMutableDictionary *sJavaScriptInterfaces;
 
 - (void)onMessageClose {
 	[self close];
+}
+
+- (BOOL)allowsPostEvent {
+    BOOL (^shouldPostEvent)(void) = self.shouldPostEventBlock;
+    return shouldPostEvent == nil || shouldPostEvent();
 }
 
 - (void)close {

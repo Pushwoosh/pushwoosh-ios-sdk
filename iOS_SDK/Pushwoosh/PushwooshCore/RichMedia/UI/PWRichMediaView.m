@@ -20,6 +20,7 @@
 @interface PWRichMediaView ()
 
 @property (nonatomic) void (^completion)(NSError *error);
+@property (nonatomic) BOOL loadsHTMLString;
 
 @end
 
@@ -90,9 +91,20 @@
     }
 }
 
+- (void)loadHTMLString:(NSString *)html completion:(void (^)(NSError *))completion {
+    _completion = completion;
+    _loadsHTMLString = YES;
+    _webClient.opensLinksWithoutClosing = YES;
+    [_webClient.webView loadHTMLString:html baseURL:nil];
+}
+
+- (BOOL)hasContent {
+    return _richMedia || _loadsHTMLString;
+}
+
 - (void)refreshContentSize {
     #if TARGET_OS_IOS
-    _contentSize = _richMedia && !CGSizeEqualToSize(_webClient.webView.scrollView.contentSize, CGSizeZero) ? _webClient.webView.scrollView.contentSize : CGSizeMake(self.bounds.size.width, 1);
+    _contentSize = [self hasContent] && !CGSizeEqualToSize(_webClient.webView.scrollView.contentSize, CGSizeZero) ? _webClient.webView.scrollView.contentSize : CGSizeMake(self.bounds.size.width, 1);
     #endif
 }
 
@@ -105,7 +117,7 @@
     if (object == _webClient.webView.scrollView && [keyPath isEqual:@"contentSize"]) {
         [self refreshContentSize];
 
-        if (_contentSizeDidChangeBlock && _richMedia) {
+        if (_contentSizeDidChangeBlock && [self hasContent]) {
             _contentSizeDidChangeBlock();
         }
     }
@@ -117,7 +129,9 @@
 - (void)webClientDidFinishLoad:(PWWebClient *)webClient {
     [self refreshContentSize];
 
-    [[PWManagerBridge shared].inAppMessagesManager trackInAppWithCode:_richMedia.resource.code action:PW_INAPP_ACTION_SHOW messageHash:[webClient.richMedia.pushPayload objectForKey:@"p"]];
+    if (!_loadsHTMLString) {
+        [[PWManagerBridge shared].inAppMessagesManager trackInAppWithCode:_richMedia.resource.code action:PW_INAPP_ACTION_SHOW messageHash:[webClient.richMedia.pushPayload objectForKey:@"p"]];
+    }
 
     if (_completion) {
         _completion(nil);

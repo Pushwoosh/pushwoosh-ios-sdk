@@ -589,6 +589,10 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     return [self baseUrl];
 }
 
+- (BOOL)isReadyForRetry {
+    return [[PWSdkStateProvider sharedInstance] isReady];
+}
+
 - (void)sendRetryEntry:(PWRetryEntry *)entry completion:(void (^)(NSInteger statusCode, NSError *error))completion {
     if (![[PWSdkStateProvider sharedInstance] isReady]) {
         if (completion) {

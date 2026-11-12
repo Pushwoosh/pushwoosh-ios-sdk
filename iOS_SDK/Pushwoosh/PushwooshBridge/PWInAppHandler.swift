@@ -39,4 +39,14 @@ public protocol PWInAppHandler {
                                  onShown: (() -> Void)?,
                                  onClicked: (() -> Void)?,
                                  onClosed: (() -> Void)?)
+
+    /// The `inline` block of a postEvent answer (`{"slots": {...}}`) with the user and application the
+    /// event was sent for; updates only the slots it lists while that user and application are current.
+    @objc func handleInlineSlots(_ content: [AnyHashable: Any], userId: String, appCode: String)
+
+    /// The server confirmed a new user (setUserId or resetUserId); inline slots are requested for that user.
+    @objc func handleInlineUserChanged()
+
+    /// The server refused a new user and the SDK went back to the previous one; inline slots follow it back.
+    @objc func handleInlineUserChangeFailed()
 }

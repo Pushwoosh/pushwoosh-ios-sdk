@@ -61,6 +61,14 @@
  *		}));
  */
 - (void)postEvent:(NSString *)event :(NSString*)attributesStr :(PWEasyJSWKDataFunction*)successCallback :(PWEasyJSWKDataFunction*)errorCallback {
+	if (self.webClient && ![self.webClient allowsPostEvent]) {
+		[PushwooshLog pushwooshLog:PW_LL_WARN
+						 className:self
+						   message:[NSString stringWithFormat:@"postEvent '%@' is not sent: the content does not allow it now", event]];
+		[errorCallback executeWithParam:@"postEvent is not allowed now"];
+		return;
+	}
+
 	if (attributesStr.length == 0) {
 		[PushwooshLog pushwooshLog:PW_LL_WARN
 						 className:self
@@ -199,6 +207,9 @@
  *    pushwoosh.registerForPushNotifications();
  */
 - (void)registerForPushNotifications {
+    if (self.webClient.closingActionBlock) {
+        self.webClient.closingActionBlock();
+    }
     [[PWManagerBridge shared] registerForPushNotifications];
 }
 
@@ -207,6 +218,9 @@
  * example: pushwoosh.openAppSettings();
  */
 - (void)openAppSettings {
+    if (self.webClient.closingActionBlock) {
+        self.webClient.closingActionBlock();
+    }
 #if TARGET_OS_IOS
     [[UIApplication sharedApplication] openURL:[NSURL URLWithString:UIApplicationOpenSettingsURLString] options:@{} completionHandler:nil];
 #endif
@@ -261,6 +275,9 @@
     NSNumber *closeActionType = @4;
 
 	[self.webClient close];
+    if (self.webClient.inAppCode.length == 0 && self.webClient.richMediaCode.length == 0 && self.webClient.messageHash.length == 0) {
+        return;
+    }
     [self richMediaAction:self.webClient.inAppCode
                          :self.webClient.richMediaCode
                          :closeActionType

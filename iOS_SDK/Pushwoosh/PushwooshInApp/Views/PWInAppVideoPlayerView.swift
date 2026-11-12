@@ -38,18 +38,15 @@ final class PWInAppVideoPlayerView: UIView {
     private var fallbackImageURL: URL?
     private var wasPlayingBeforeBackground = false
 
-    /// Whether THIS instance has activated the shared audio session (so teardown
-    /// decrements the shared user count exactly once).
-    private var didActivateSession = false
+    private var managesAudioSession = true
+    private let audioSession: PWInAppAudioSession
 
-    /// Reference count + saved category across all live video players. The host's
-    /// category is captured on the first activation and restored only when the
-    /// last player tears down — so a coexisting PiP isn't silenced when a video
-    /// modal closes.
-    private static var sessionUsers = 0
-    private static var savedCategory: AVAudioSession.Category?
+    override convenience init(frame: CGRect) {
+        self.init(frame: frame, audioSession: .shared)
+    }
 
-    override init(frame: CGRect) {
+    init(frame: CGRect = .zero, audioSession: PWInAppAudioSession) {
+        self.audioSession = audioSession
         super.init(frame: frame)
         backgroundColor = .black
         setup()
@@ -96,9 +93,15 @@ final class PWInAppVideoPlayerView: UIView {
         playerLayer?.frame = bounds
     }
 
-    func configure(videoURL: URL, posterURL: URL?, fallbackImageURL: URL?, loop: Bool, muted: Bool) {
+    /// `managesAudioSession: false` is for a video that never plays sound: it keeps the app's audio session,
+    /// only moving an app on the default `.soloAmbient` to `.ambient` so other apps' audio keeps playing.
+    func configure(videoURL: URL, posterURL: URL?, fallbackImageURL: URL?, loop: Bool, muted: Bool, fill: Bool = false,
+                   managesAudioSession: Bool = true) {
         // Safe to call more than once: drop any prior observers first.
         removeObservers()
+
+        playerLayer?.videoGravity = fill ? .resizeAspectFill : .resizeAspect
+        posterImageView.contentMode = fill ? .scaleAspectFill : .scaleAspectFit
 
         loops = loop
         self.fallbackImageURL = fallbackImageURL
@@ -107,7 +110,12 @@ final class PWInAppVideoPlayerView: UIView {
             PWInAppImageLoader.shared.load(posterURL, into: posterImageView)
         }
 
-        configureAudioSession(muted: muted)
+        self.managesAudioSession = managesAudioSession
+        if managesAudioSession {
+            audioSession.take(muted ? .ambient : .playback, activate: true, for: self)
+        } else {
+            audioSession.mixWithOthers(for: self)
+        }
         player.isMuted = muted
 
         let item = AVPlayerItem(url: videoURL)
@@ -179,19 +187,6 @@ final class PWInAppVideoPlayerView: UIView {
         }
     }
 
-    private func configureAudioSession(muted: Bool) {
-        let session = AVAudioSession.sharedInstance()
-        if !didActivateSession {
-            if Self.sessionUsers == 0 {
-                Self.savedCategory = session.category
-            }
-            Self.sessionUsers += 1
-            didActivateSession = true
-        }
-        try? session.setCategory(muted ? .ambient : .playback)
-        try? session.setActive(true)
-    }
-
     // MARK: - Controls
 
     var isMuted: Bool {
@@ -200,10 +195,8 @@ final class PWInAppVideoPlayerView: UIView {
 
     func setMuted(_ muted: Bool) {
         player.isMuted = muted
-        if !muted {
-            let session = AVAudioSession.sharedInstance()
-            try? session.setCategory(.playback)
-            try? session.setActive(true)
+        if !muted, managesAudioSession {
+            audioSession.take(.playback, activate: true, for: self)
         }
     }
 
@@ -240,18 +233,89 @@ final class PWInAppVideoPlayerView: UIView {
         playerLayer?.removeFromSuperlayer()
         playerLayer = nil
 
-        if didActivateSession {
-            didActivateSession = false
-            Self.sessionUsers = max(0, Self.sessionUsers - 1)
-            if Self.sessionUsers == 0 {
-                let session = AVAudioSession.sharedInstance()
-                if let saved = Self.savedCategory {
-                    try? session.setCategory(saved)
-                    Self.savedCategory = nil
-                }
-                try? session.setActive(false, options: .notifyOthersOnDeactivation)
+        audioSession.leave(self)
+    }
+}
+
+protocol PWAudioSessionControl: AnyObject {
+    var category: AVAudioSession.Category { get }
+    var mode: AVAudioSession.Mode { get }
+    var categoryOptions: AVAudioSession.CategoryOptions { get }
+    func setCategory(_ category: AVAudioSession.Category, mode: AVAudioSession.Mode,
+                     options: AVAudioSession.CategoryOptions) throws
+    func setActive(_ active: Bool, options: AVAudioSession.SetActiveOptions) throws
+}
+
+extension AVAudioSession: PWAudioSessionControl {}
+
+/// The app's audio session shared by every live video player. A player takes the category it needs, sound
+/// winning over silence; the app's own category, mode and options come back once the last player that
+/// changed the category is gone, unless the app changed it meanwhile. The session is deactivated, letting
+/// other apps' audio resume, once the last player that activated it is gone, whatever players stay; a
+/// session no player activated is left to the app.
+final class PWInAppAudioSession {
+
+    static let shared = PWInAppAudioSession(session: AVAudioSession.sharedInstance())
+
+    private let session: PWAudioSessionControl
+    private var requests: [ObjectIdentifier: AVAudioSession.Category] = [:]
+    private var saved: (category: AVAudioSession.Category, mode: AVAudioSession.Mode,
+                        options: AVAudioSession.CategoryOptions)?
+    private var applied: AVAudioSession.Category?
+    private var activators = Set<ObjectIdentifier>()
+
+    init(session: PWAudioSessionControl) {
+        self.session = session
+    }
+
+    /// `.playback` for a video with sound, `.ambient` for a muted one; `activate` activates the session now.
+    func take(_ category: AVAudioSession.Category, activate: Bool, for player: AnyObject) {
+        let id = ObjectIdentifier(player)
+        if saved == nil {
+            saved = (session.category, session.mode, session.categoryOptions)
+        }
+        requests[id] = category
+        apply()
+        if activate {
+            try? session.setActive(true, options: [])
+            activators.insert(id)
+        }
+    }
+
+    /// A video that never plays sound: the default `.soloAmbient` would stop other apps' audio, so an app on it
+    /// moves to `.ambient` while the video lives; any other category of the app stays.
+    func mixWithOthers(for player: AnyObject) {
+        if (saved?.category ?? session.category) == .soloAmbient {
+            take(.ambient, activate: false, for: player)
+        }
+    }
+
+    func leave(_ player: AnyObject) {
+        let id = ObjectIdentifier(player)
+        let changedCategory = requests.removeValue(forKey: id) != nil
+        if activators.remove(id) != nil, activators.isEmpty {
+            try? session.setActive(false, options: .notifyOthersOnDeactivation)
+        }
+        if changedCategory, session.category == applied {
+            if requests.isEmpty, let saved = saved {
+                try? session.setCategory(saved.category, mode: saved.mode, options: saved.options)
+            } else {
+                apply()
             }
         }
+        if requests.isEmpty {
+            saved = nil
+            applied = nil
+        }
+    }
+
+    private func apply() {
+        let category: AVAudioSession.Category = requests.values.contains(.playback) ? .playback : .ambient
+        guard category != applied || session.category != category else {
+            return
+        }
+        try? session.setCategory(category, mode: .default, options: [])
+        applied = category
     }
 }
 #endif

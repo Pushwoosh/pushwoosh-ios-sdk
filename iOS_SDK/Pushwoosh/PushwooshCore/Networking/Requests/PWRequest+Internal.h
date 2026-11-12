@@ -36,6 +36,19 @@ NS_ASSUME_NONNULL_BEGIN
 /// legacy API must not steer the host of every other request.
 - (BOOL)followsServerBaseUrl;
 
+/// YES keeps a queued retry on the host it was sent to, even when the application's host moved.
+- (BOOL)pinsRetryHost;
+
+/// YES parks a queued retry that failed for lack of network without spending an attempt, until the
+/// network is back or the next launch.
+- (BOOL)retryWaitsForNetwork;
+
+/// Most retries of this method kept in the queue, the oldest dropped first; 0 = no limit.
+- (NSUInteger)retryQueueLimit;
+
+/// YES posts `PWRetryQueueDidDeliverRequestNotification` when a queued retry of this request is delivered.
+- (BOOL)announcesRetryDelivery;
+
 @end
 
 NS_ASSUME_NONNULL_END

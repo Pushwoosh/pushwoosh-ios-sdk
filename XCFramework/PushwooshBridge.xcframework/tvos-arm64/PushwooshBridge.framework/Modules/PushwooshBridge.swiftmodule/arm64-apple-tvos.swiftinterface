@@ -204,6 +204,48 @@ extension PushwooshBridge.PWLiveActivities {
   @objc func handleInAppConfig(_ config: [Swift.AnyHashable : Any])
   @objc func handleInAppConfig(_ config: [Swift.AnyHashable : Any], onShown: (() -> Swift.Void)?)
   @objc func handleInAppConfig(_ config: [Swift.AnyHashable : Any], onShown: (() -> Swift.Void)?, onClicked: (() -> Swift.Void)?, onClosed: (() -> Swift.Void)?)
+  @objc func handleInlineSlots(_ content: [Swift.AnyHashable : Any], userId: Swift.String, appCode: Swift.String)
+  @objc func handleInlineUserChanged()
+  @objc func handleInlineUserChangeFailed()
+}
+@objc public enum PWInlineColorScheme : Swift.Int {
+  case app
+  case system
+  case light
+  case dark
+  public init?(rawValue: Swift.Int)
+  public typealias RawValue = Swift.Int
+  public var rawValue: Swift.Int {
+    get
+  }
+}
+@objc public protocol PWInline {
+  @objc static var delegate: (any PushwooshBridge.PWInlineDelegate)? { get set }
+  @objc static var colorScheme: PushwooshBridge.PWInlineColorScheme { get set }
+  @objc static func requestSlots(_ slotIds: [Swift.String], completion: (((any Swift.Error)?) -> Swift.Void)?)
+  @objc static func banner(forSlot slotId: Swift.String) -> PushwooshBridge.PushwooshInlineBanner?
+  @objc(trackShownForSlot:bannerId:) static func trackShown(slotId: Swift.String, bannerId: Swift.String)
+  @objc(trackClickForSlot:bannerId:elementId:) static func trackClick(slotId: Swift.String, bannerId: Swift.String, elementId: Swift.String?)
+  @objc(dismissSlot:bannerId:) static func dismiss(slotId: Swift.String, bannerId: Swift.String)
+}
+@objc(PWInlineDelegate) public protocol PWInlineDelegate {
+  @objc optional func inlineSlot(_ slotId: Swift.String, didUpdate banner: PushwooshBridge.PushwooshInlineBanner?)
+  @objc optional func inlineSlot(_ slotId: Swift.String, didShow banner: PushwooshBridge.PushwooshInlineBanner)
+  @objc optional func inlineSlot(_ slotId: Swift.String, didClick banner: PushwooshBridge.PushwooshInlineBanner, elementId: Swift.String?)
+  @objc optional func inlineSlot(_ slotId: Swift.String, didDismiss banner: PushwooshBridge.PushwooshInlineBanner)
+}
+@objc(PushwooshInlineBanner) final public class PushwooshInlineBanner : ObjectiveC.NSObject {
+  @objc final public let slotId: Swift.String
+  @objc final public let bannerId: Swift.String
+  @objc final public let version: Swift.Int
+  @objc final public let format: Swift.String
+  @objc final public let html: Swift.String?
+  @objc final public let payload: [Swift.String : Swift.String]
+  @objc final public let expireDate: Foundation.Date?
+  @objc final public let isTest: Swift.Bool
+  @objc final public let dictionary: [Swift.String : Any]
+  public init(slotId: Swift.String, bannerId: Swift.String, version: Swift.Int, format: Swift.String, html: Swift.String?, payload: [Swift.String : Swift.String], expireDate: Foundation.Date?, isTest: Swift.Bool, dictionary: [Swift.String : Any])
+  @objc deinit
 }
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Equatable {}
 extension PushwooshBridge.PWTVOSRichMediaPresentAnimation : Swift.Hashable {}
@@ -226,3 +268,6 @@ extension PushwooshBridge.PWForegroundPushDisappearedAnimation : Swift.RawRepres
 extension PushwooshBridge.PWAppEnvironment : Swift.Equatable {}
 extension PushwooshBridge.PWAppEnvironment : Swift.Hashable {}
 extension PushwooshBridge.PWAppEnvironment : Swift.RawRepresentable {}
+extension PushwooshBridge.PWInlineColorScheme : Swift.Equatable {}
+extension PushwooshBridge.PWInlineColorScheme : Swift.Hashable {}
+extension PushwooshBridge.PWInlineColorScheme : Swift.RawRepresentable {}

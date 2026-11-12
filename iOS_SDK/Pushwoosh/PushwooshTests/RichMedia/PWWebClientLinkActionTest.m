@@ -1,10 +1,12 @@
 #import <XCTest/XCTest.h>
+#import <OCMock/OCMock.h>
 #import "PWWebClient.h"
 #import "PWUtils.h"
 
 @interface PWWebClient (Test)
 
 + (PWLinkAction)pw_linkActionForURL:(NSURL *)url;
+- (void)webView:(WKWebView *)webView decidePolicyForNavigationAction:(WKNavigationAction *)navigationAction decisionHandler:(void (^)(WKNavigationActionPolicy))decisionHandler;
 
 @end
 
@@ -68,6 +70,38 @@
     XCTAssertEqualObjects([PWUtils loggableURLDescription:[NSURL URLWithString:@"page2.html"]], @"(no scheme):");
     XCTAssertEqualObjects([PWUtils loggableURLDescription:[NSURL URLWithString:@"TEL:12345"]], @"tel:");
     XCTAssertEqualObjects([PWUtils loggableURLDescription:[NSURL URLWithString:@"HTTPS://Example.COM/p"]], @"https://example.com");
+}
+
+- (WKNavigationActionPolicy)policyForLinkTo:(NSString *)urlString inClient:(PWWebClient *)client {
+    id navigationAction = OCMClassMock([WKNavigationAction class]);
+    OCMStub([navigationAction navigationType]).andReturn(WKNavigationTypeLinkActivated);
+    OCMStub([navigationAction request]).andReturn([NSURLRequest requestWithURL:[NSURL URLWithString:urlString]]);
+    __block WKNavigationActionPolicy policy = WKNavigationActionPolicyAllow;
+    [client webView:client.webView decidePolicyForNavigationAction:navigationAction decisionHandler:^(WKNavigationActionPolicy decision) {
+        policy = decision;
+    }];
+    return policy;
+}
+
+/// Verifies that content opening links over itself opens an external link and consumes a local one without closing.
+- (void)testLinksOpenWithoutClosingTheContent {
+    PWWebClient *client = [[PWWebClient alloc] initWithParentView:nil payload:@{} code:@"" inAppCode:@""];
+    client.opensLinksWithoutClosing = YES;
+    id delegate = OCMProtocolMock(@protocol(PWWebClientDelegate));
+    OCMReject([delegate webClientDidStartClose:OCMOCK_ANY]);
+    client.delegate = delegate;
+    id utils = OCMClassMock([PWUtils class]);
+    XCTestExpectation *opened = [self expectationWithDescription:@"opened"];
+    OCMStub([utils openUrl:[NSURL URLWithString:@"https://example.com/sale"]]).andDo(^(NSInvocation *invocation) {
+        [opened fulfill];
+    });
+
+    XCTAssertEqual([self policyForLinkTo:@"https://example.com/sale" inClient:client], WKNavigationActionPolicyCancel);
+    XCTAssertEqual([self policyForLinkTo:@"file:///creative/page2.html" inClient:client], WKNavigationActionPolicyCancel);
+
+    [self waitForExpectations:@[opened] timeout:1.0];
+    OCMVerifyAll(delegate);
+    [utils stopMocking];
 }
 
 @end

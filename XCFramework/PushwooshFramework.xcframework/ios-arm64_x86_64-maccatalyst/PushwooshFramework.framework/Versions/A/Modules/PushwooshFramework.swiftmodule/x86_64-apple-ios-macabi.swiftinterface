@@ -43,6 +43,9 @@ extension PushwooshFramework.Pushwoosh {
   public static var inApp: any PushwooshBridge.PWInApp.Type {
     get
   }
+  public static var inline: any PushwooshBridge.PWInline.Type {
+    get
+  }
 }
 extension PushwooshCore.PushwooshConfig {
   public static var pushPrimer: PushwooshCore.PWPushPrimerBuilder {

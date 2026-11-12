@@ -8,6 +8,7 @@
 
 #if canImport(UIKit) && os(iOS)
 import XCTest
+import ImageIO
 @testable import PushwooshInApp
 
 class PWCardInAppViewsTest: XCTestCase {
@@ -181,6 +182,63 @@ class PWCardInAppViewsTest: XCTestCase {
         XCTAssertNil(iv.image, "load(nil) must clear a stale image on a reused view")
         XCTAssertFalse(iv.subviews.contains { $0 is UIActivityIndicatorView },
                        "load(nil) must leave no spinner on the view")
+    }
+
+    /// Verifies that a large animated GIF decodes into at most 50 MB of frames and keeps its full duration.
+    func testLargeGIFDecodesWithinMemoryBudget() throws {
+        let image = try XCTUnwrap(PWInAppImageLoader.decode(gif(side: 1000, frames: 60, delay: 0.05)))
+        let frames = try XCTUnwrap(image.images)
+        let bytes = frames.reduce(0) { $0 + ($1.cgImage.map { $0.bytesPerRow * $0.height } ?? 0) }
+
+        XCTAssertLessThanOrEqual(bytes, 50 * 1024 * 1024)
+        XCTAssertEqual(image.duration, 3.0, accuracy: 0.05)
+    }
+
+    /// Verifies that a small animated GIF keeps every frame at full size.
+    func testSmallGIFKeepsEveryFrame() throws {
+        let image = try XCTUnwrap(PWInAppImageLoader.decode(gif(side: 100, frames: 10, delay: 0.1)))
+
+        XCTAssertEqual(image.images?.count, 10)
+        XCTAssertEqual(image.images?.first?.cgImage?.width, 100)
+        XCTAssertEqual(image.duration, 1.0, accuracy: 0.05)
+    }
+
+    /// Verifies that a multi-frame image other than a GIF (animated PNG, multi-page TIFF) decodes as a still image.
+    func testMultiFrameImageOtherThanGIFIsStill() throws {
+        let apng = try image("public.png", side: 100, frames: 3,
+                             properties: [kCGImagePropertyPNGDictionary: [kCGImagePropertyAPNGDelayTime: 0.5]])
+        let tiff = try image("public.tiff", side: 100, frames: 3, properties: [:])
+
+        for (name, data) in [("APNG", apng), ("TIFF", tiff)] {
+            let source = try XCTUnwrap(CGImageSourceCreateWithData(data as CFData, nil))
+            XCTAssertEqual(CGImageSourceGetCount(source), 3, name)
+            let decoded = try XCTUnwrap(PWInAppImageLoader.decode(data), name)
+            XCTAssertNil(decoded.images, name)
+            XCTAssertEqual(decoded.size, CGSize(width: 100, height: 100), name)
+        }
+    }
+
+    private func gif(side: Int, frames: Int, delay: Double) throws -> Data {
+        try image("com.compuserve.gif", side: side, frames: frames,
+                  properties: [kCGImagePropertyGIFDictionary: [kCGImagePropertyGIFDelayTime: delay]])
+    }
+
+    private func image(_ type: String, side: Int, frames: Int, properties: [CFString: Any]) throws -> Data {
+        let data = NSMutableData()
+        let destination = try XCTUnwrap(CGImageDestinationCreateWithData(data, type as CFString, frames, nil))
+        let format = UIGraphicsImageRendererFormat()
+        format.scale = 1
+        let renderer = UIGraphicsImageRenderer(size: CGSize(width: side, height: side), format: format)
+        let properties = properties as CFDictionary
+        for index in 0..<frames {
+            let frame = renderer.image { context in
+                UIColor(hue: CGFloat(index) / CGFloat(frames), saturation: 1, brightness: 1, alpha: 1).setFill()
+                context.fill(CGRect(x: 0, y: 0, width: side, height: side))
+            }
+            CGImageDestinationAddImage(destination, try XCTUnwrap(frame.cgImage), properties)
+        }
+        XCTAssertTrue(CGImageDestinationFinalize(destination))
+        return data as Data
     }
 }
 #endif

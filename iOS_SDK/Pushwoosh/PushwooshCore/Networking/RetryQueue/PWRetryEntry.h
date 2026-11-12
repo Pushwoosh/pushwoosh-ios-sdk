@@ -56,6 +56,18 @@ NS_ASSUME_NONNULL_BEGIN
 /// change, never treated as stale, never re-addressed.
 @property (nonatomic, assign, readonly) BOOL survivesApplicationChange;
 
+/// Copied from `PWRequest.pinsRetryHost`: the entry is replayed on its own `baseUrl`, never re-addressed.
+@property (nonatomic, assign, readonly) BOOL pinsHost;
+
+/// Copied from `PWRequest.retryWaitsForNetwork`: a send that failed for lack of network does not spend an attempt.
+@property (nonatomic, assign, readonly) BOOL waitsForNetwork;
+
+/// The entry is parked until the network is back (or the next launch) and keeps its attempt count.
+@property (nonatomic, assign, readonly) BOOL awaitingNetwork;
+
+/// Copied from `PWRequest.announcesRetryDelivery`: its delivery is posted as `PWRetryQueueDidDeliverRequestNotification`.
+@property (nonatomic, assign, readonly) BOOL announcesDelivery;
+
 /// Snapshots `request` into a fresh entry: `attemptCount = 0`,
 /// `firstEnqueuedDate = nextAttemptDate = now`. Also freezes the request's
 /// `shouldWrapRequest` and `baseUrl` so the replay matches the original send.
@@ -96,6 +108,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// Returns a copy addressed to `baseUrl`, payload and retry bookkeeping unchanged — used when the
 /// host of the SAME application rotated.
 - (PWRetryEntry *)entryByRetargetingToBaseUrl:(nullable NSString *)baseUrl;
+
+/// Returns a copy parked until the network is back, next attempt at `date` at the latest, attempt count unchanged.
+- (PWRetryEntry *)entryAwaitingNetworkUntil:(NSDate *)date;
+
+/// Returns a copy taken out of the network wait, due at `date`.
+- (PWRetryEntry *)entryWokenAtDate:(NSDate *)date;
 
 @end
 

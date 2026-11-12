@@ -29,6 +29,12 @@ NS_ASSUME_NONNULL_BEGIN
 /// so a configured reverse proxy is never diagnosed as pointing at the wrong host.
 - (nullable NSString *)currentBaseUrlForRetry;
 
+@optional
+
+/// NO until the SDK may talk to the server. Entries that wait for the network are held, without spending an
+/// attempt, until the queue is flushed again. Treated as YES when not implemented.
+- (BOOL)isReadyForRetry;
+
 @end
 
 NS_ASSUME_NONNULL_END

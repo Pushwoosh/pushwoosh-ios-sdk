@@ -93,6 +93,20 @@
     return attemptCount >= _maxAttempts;
 }
 
+- (BOOL)isOfflineError:(NSError *)error {
+    if (![error.domain isEqualToString:NSURLErrorDomain]) {
+        return NO;
+    }
+    switch (error.code) {
+        case NSURLErrorNotConnectedToInternet:
+        case NSURLErrorDataNotAllowed:
+        case NSURLErrorInternationalRoamingOff:
+            return YES;
+        default:
+            return NO;
+    }
+}
+
 - (BOOL)isExpiredFirstEnqueuedDate:(NSDate *)firstEnqueuedDate now:(NSDate *)now {
     if (_timeToLive <= 0) {
         return NO;

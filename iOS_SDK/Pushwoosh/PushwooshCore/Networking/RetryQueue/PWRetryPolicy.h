@@ -71,6 +71,10 @@ NS_ASSUME_NONNULL_BEGIN
 /// YES when `attemptCount` has reached `maxAttempts`.
 - (BOOL)isExhaustedAttemptCount:(NSUInteger)attemptCount;
 
+/// YES when the send failed because the device has no usable network (offline, cellular data off,
+/// roaming off), not because the server did not answer. A dropped connection is an ordinary retry.
+- (BOOL)isOfflineError:(nullable NSError *)error;
+
 /// YES when `firstEnqueuedDate` is older than `timeToLive` relative to `now`.
 /// Always NO when `timeToLive == 0`.
 - (BOOL)isExpiredFirstEnqueuedDate:(NSDate *)firstEnqueuedDate now:(NSDate *)now;

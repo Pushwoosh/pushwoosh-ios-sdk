@@ -42,6 +42,7 @@ static BOOL _isInitializing = NO;
 
 @property (nonatomic, assign, readwrite) BOOL allowReverseProxy;
 @property (nonatomic, copy, readwrite) NSString *trackingUrl;
+@property (nonatomic, copy, readwrite) NSString *inlineUrl;
 
 // gRPC configuration
 @property (nonatomic, assign, readwrite) BOOL preferGRPC;
@@ -227,6 +228,8 @@ static BOOL _isInitializing = NO;
         self.allowReverseProxy = [self getBoolean:@"Pushwoosh_ALLOW_REVERSE_PROXY" default:NO];
 
         self.trackingUrl = [self trimmedStringForKey:@"Pushwoosh_TRACKING_URL"];
+
+        self.inlineUrl = [self trimmedStringForKey:@"Pushwoosh_INLINE_URL"];
 
         // gRPC configuration
         self.preferGRPC = [self getBoolean:@"Pushwoosh_PREFER_GRPC" default:NO];

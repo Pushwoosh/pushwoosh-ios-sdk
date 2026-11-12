@@ -24,6 +24,13 @@ NS_ASSUME_NONNULL_BEGIN
  click/close → richMediaAction with action types 1/4. When the `PushwooshInApp`
  module is not linked the handler is `nil` and the call is a no-op.
 
+ Inline slots: Core forwards the `inline` block of a postEvent answer with the
+ user and application the event was sent for through
+ `handleInlineSlots:userId:appCode:`, reports a user confirmed by registerUser
+ through `handleInlineUserChanged` and a refused one, after which the SDK goes back
+ to the previous user, through `handleInlineUserChangeFailed`; both only once no
+ other user waits to be registered.
+
  Visibility: project-only. Imported by Core consumers (`PWInAppMessagesManager`)
  and by unit tests.
  */
@@ -34,6 +41,9 @@ NS_ASSUME_NONNULL_BEGIN
                   onShown:(void (^ _Nullable)(void))onShown
                 onClicked:(void (^ _Nullable)(void))onClicked
                  onClosed:(void (^ _Nullable)(void))onClosed;
+- (void)handleInlineSlots:(NSDictionary *)content userId:(NSString *)userId appCode:(NSString *)appCode;
+- (void)handleInlineUserChanged;
+- (void)handleInlineUserChangeFailed;
 @end
 
 NS_ASSUME_NONNULL_END

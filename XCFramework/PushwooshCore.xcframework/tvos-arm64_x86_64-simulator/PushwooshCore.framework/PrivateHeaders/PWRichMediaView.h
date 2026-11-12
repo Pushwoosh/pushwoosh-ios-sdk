@@ -29,6 +29,10 @@
                     inAppCode:(NSString *)inAppCode;
 - (void)loadRichMedia:(PWRichMedia *)richMedia completion:(void (^)(NSError *error))completion;
 
+/// Loads a self-contained HTML document without a resource, for inline banners: links open over the
+/// content, `closeInApp` calls `closeActionBlock`, no in-app show is tracked.
+- (void)loadHTMLString:(NSString *)html completion:(void (^)(NSError *error))completion;
+
 @end
 
 #endif

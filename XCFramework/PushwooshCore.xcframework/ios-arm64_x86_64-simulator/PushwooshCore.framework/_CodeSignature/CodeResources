@@ -22,7 +22,7 @@
 		</data>
 		<key>Headers/PWConfig.h</key>
 		<data>
-		KolMIMs7HhpIFpZiRIgfRhz4BB8=
+		yOswQKLif3IGExbzVwp3XWhtwjs=
 		</data>
 		<key>Headers/PWCoreUtils.h</key>
 		<data>
@@ -35,6 +35,10 @@
 		<key>Headers/PWFeatureFlags.h</key>
 		<data>
 		POaPl9o/kXJM95lX3bjLB9pEdN8=
+		</data>
+		<key>Headers/PWGetInlineBannersRequest.h</key>
+		<data>
+		h/pGHXUrJS8zMFsrSqHbyhGdVBM=
 		</data>
 		<key>Headers/PWInAppManager.h</key>
 		<data>
@@ -75,6 +79,10 @@
 		<key>Headers/PWInboxUpdateStatusRequest.h</key>
 		<data>
 		GK9uUAabUuDjMcUdB52ojDYJpjQ=
+		</data>
+		<key>Headers/PWInlineHTMLView.h</key>
+		<data>
+		grkPIiaNkNf5+OILQ+scMiQPouE=
 		</data>
 		<key>Headers/PWIntegrationValidator.h</key>
 		<data>
@@ -152,6 +160,10 @@
 		<data>
 		sC5YozPeaZrnYUZmqR1s9dU0sUk=
 		</data>
+		<key>Headers/PWTrackInlineEventRequest.h</key>
+		<data>
+		R4JUK+wYyFEfF5cNUUSR8GnDSIs=
+		</data>
 		<key>Headers/PWTypes.h</key>
 		<data>
 		fapJ7Xb5vqtwuIXYbbIdirFbwWY=
@@ -162,7 +174,7 @@
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		KSgfzYWxBjxBxGHdXSj6dp17mQo=
+		fPf2IMK/O+y6JN3JdfY5lN0iPnA=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -170,7 +182,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		B4Jbzky6jtLqE/zzg5dZpaf3EMY=
+		Dsvm2xq9PPtKgzoE4WmyVes9m34=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -210,7 +222,7 @@
 		</data>
 		<key>PrivateHeaders/PWInAppMessagesManager.h</key>
 		<data>
-		p/elLhKXLgLv/GAw64IhukceqBk=
+		rMTsH12FFePvvNHFo/9HsEEX/68=
 		</data>
 		<key>PrivateHeaders/PWInAppStorage.h</key>
 		<data>
@@ -282,7 +294,7 @@
 		</data>
 		<key>PrivateHeaders/PWRichMediaView.h</key>
 		<data>
-		MvnK9/5oMu2CNFIuB5wIIeJ/RhI=
+		0wehqAzIaNDSQUDQzNxsBA5A8ic=
 		</data>
 		<key>PrivateHeaders/PWRichPushManager.h</key>
 		<data>
@@ -318,7 +330,7 @@
 		</data>
 		<key>PrivateHeaders/PWWebClient.h</key>
 		<data>
-		ml7s09V7VKYTAw8sjRu+7arfY44=
+		CTCwyHSm4pvgoRfjNoWwg7pxy94=
 		</data>
 	</dict>
 	<key>files2</key>
@@ -355,7 +367,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			2tgwTipcSKrJfIoaetDmQIlAMbO4BduiU95hjLd1kqg=
+			y5c6EFAeIf8ItLhArl5vtqfjRF4HdF6sL0GsbJvqPzg=
 			</data>
 		</dict>
 		<key>Headers/PWCoreUtils.h</key>
@@ -377,6 +389,13 @@
 			<key>hash2</key>
 			<data>
 			uVBvWTmCCWC6Wb5/rHnQx1DguUsCm1G6HXYdb0VLPao=
+			</data>
+		</dict>
+		<key>Headers/PWGetInlineBannersRequest.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			blKaUV3PL30oHQs6mC4t1y6LOxBJK0TVlYntKsAYAas=
 			</data>
 		</dict>
 		<key>Headers/PWInAppManager.h</key>
@@ -447,6 +466,13 @@
 			<key>hash2</key>
 			<data>
 			DbbrRQZ3GwpofQcWGdjo0iSJ4FGdTJIWuCnqXQgGUv8=
+			</data>
+		</dict>
+		<key>Headers/PWInlineHTMLView.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			4qCJzZM95rJWlzdVjo8ui16iQyGEIXf5YEWoCMbvcUg=
 			</data>
 		</dict>
 		<key>Headers/PWIntegrationValidator.h</key>
@@ -582,6 +608,13 @@
 			wYHrCiAHKmUKsidaEsEhvhWuvjPj3NkBCYVjjYH0Nag=
 			</data>
 		</dict>
+		<key>Headers/PWTrackInlineEventRequest.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			HcwFyrQjZcf0f5IRXyD0q18x/AJoR7tp8zDhabjk290=
+			</data>
+		</dict>
 		<key>Headers/PWTypes.h</key>
 		<dict>
 			<key>hash2</key>
@@ -600,7 +633,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			hXBstaCAgbdTPv/VuWR8VPkdEiidSncknlFML3+yI5A=
+			LuXRLU57tLlcwI5fVoxp+lsrNj4ZO+m4ODxZYAMykY0=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -677,7 +710,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			f6g5N9ahlh69A6DP7Mzu5jnM5n8WJjgldXENaO7xvkw=
+			tFKFSfHrcr2vyfIz0iOTrV9D7ta8l/1Z8hWQDSBz5jY=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWInAppStorage.h</key>
@@ -803,7 +836,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			I4mdAjBa7UcnaZXr2hLhzoCQPLKW/qZUvW9VIv/0JZk=
+			dBfUvEfqC0WB8+EoeeJORlVzevKrIe9a7zFjiOYhpnM=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWRichPushManager.h</key>
@@ -866,7 +899,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			SnFexv291HVq/HWQXH3jyPrTgzhRlWADldE4Nhs991c=
+			u/5Pp/Ykx1ur2jYl9+ZmvjXLKbczr39/vezJW1PA2cA=
 			</data>
 		</dict>
 	</dict>
