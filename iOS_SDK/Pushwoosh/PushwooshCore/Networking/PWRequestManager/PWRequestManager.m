@@ -5,6 +5,7 @@
 //
 
 #import "PWRequestManager.h"
+#import "PWRequestManager+Internal.h"
 #import "PWPushRuntime.h"
 #import "PWSetTagsRequest.h"
 #import "Constants.h"
@@ -693,47 +694,30 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     return YES;
 }
 
-- (void)sendRequestInternal:(PWRequest *)request completion:(void (^)(NSError *error))completion {
+- (NSURLRequest *)urlRequestForRequest:(PWRequest *)request error:(NSError **)outError {
     [self pinApplicationForRequest:request];
 
-    if ([self refuseWhileServerCommunicationIsDisabled:completion]) {
-        return;
-    }
-
-    __weak typeof (self) wSelf = self;
-#if TARGET_OS_IOS
-    __block NSInteger backgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
-        [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
-        backgroundTaskId = UIBackgroundTaskInvalid;
-    }];
-#endif
-
-    //request part
     NSString *base = [request baseUrl] ?: [self baseUrl];
     if (base.length == 0) {
         NSString *errorStr = [NSString stringWithFormat:@"Base URL is not configured yet. Request blocked: %@", request.methodName];
         [PushwooshLog pushwooshLog:PW_LL_WARN className:self message:errorStr];
-        PWDeliverCompletionOnMain(completion, [PWUtils pushwooshErrorWithCode:PWErrorRequestNotReady description:errorStr]);
-#if TARGET_OS_IOS
-        [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
-#endif
-        return;
+        if (outError) {
+            *outError = [PWUtils pushwooshErrorWithCode:PWErrorRequestNotReady description:errorStr];
+        }
+        return nil;
     }
     if (![base hasSuffix:@"/"]) {
         base = [base stringByAppendingString:@"/"];
     }
     NSString *requestUrl = [base stringByAppendingString:[request methodName]];
 
-    [request setStartTime:[[NSDate date] timeIntervalSince1970]];
-
     if (![NSJSONSerialization isValidJSONObject:request.requestDictionary]) {
         NSString *errorStr = [NSString stringWithFormat:@"Failed to serialize request %@: non-serializable data", request.methodName];
         [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorStr];
-        PWDeliverCompletionOnMain(completion, [PWUtils pushwooshError:errorStr]);
-#if TARGET_OS_IOS
-        [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
-#endif
-        return;
+        if (outError) {
+            *outError = [PWUtils pushwooshError:errorStr];
+        }
+        return nil;
     }
 
     NSError *jsonError = nil;
@@ -742,11 +726,10 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     if (!jsonData || jsonError) {
         NSString *errorStr = [NSString stringWithFormat:@"Failed to serialize request: %@", jsonError.localizedDescription ?: @"unknown error"];
         [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorStr];
-        PWDeliverCompletionOnMain(completion, [PWUtils pushwooshError:errorStr]);
-#if TARGET_OS_IOS
-        [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
-#endif
-        return;
+        if (outError) {
+            *outError = [PWUtils pushwooshError:errorStr];
+        }
+        return nil;
     }
 
     NSString *requestString = [[NSString alloc] initWithData:jsonData encoding:NSUTF8StringEncoding];
@@ -759,16 +742,47 @@ static NSString *const kPWSharedCustomHeadersKey = @"PWCustomHeaders";
     if (!urlRequest || !urlRequest.URL) {
         NSString *errorStr = [NSString stringWithFormat:@"Invalid request URL: %@", requestUrl];
         [PushwooshLog pushwooshLog:PW_LL_ERROR className:self message:errorStr];
-        PWDeliverCompletionOnMain(completion, [PWUtils pushwooshError:errorStr]);
+        if (outError) {
+            *outError = [PWUtils pushwooshError:errorStr];
+        }
+        return nil;
+    }
+
+    if (request.retryCount > 0) {
+        [urlRequest setValue:[NSString stringWithFormat:@"%ld", (long)request.retryCount] forHTTPHeaderField:@"X-Retry-Count"];
+    }
+
+    return urlRequest;
+}
+
+- (void)sendRequestInternal:(PWRequest *)request completion:(void (^)(NSError *error))completion {
+    if ([self refuseWhileServerCommunicationIsDisabled:completion]) {
+        return;
+    }
+
+    __weak typeof (self) wSelf = self;
+#if TARGET_OS_IOS
+    __block NSInteger backgroundTaskId = [[UIApplication sharedApplication] beginBackgroundTaskWithExpirationHandler:^{
+        [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
+        backgroundTaskId = UIBackgroundTaskInvalid;
+    }];
+#endif
+
+    [request setStartTime:[[NSDate date] timeIntervalSince1970]];
+
+    NSError *buildError = nil;
+    NSURLRequest *urlRequest = [self urlRequestForRequest:request error:&buildError];
+
+    if (!urlRequest) {
+        PWDeliverCompletionOnMain(completion, buildError);
 #if TARGET_OS_IOS
         [[UIApplication sharedApplication] endBackgroundTask:backgroundTaskId];
 #endif
         return;
     }
 
-    if (request.retryCount > 0) {
-        [urlRequest setValue:[NSString stringWithFormat:@"%ld", (long)request.retryCount] forHTTPHeaderField:@"X-Retry-Count"];
-    }
+    NSString *requestUrl = urlRequest.URL.absoluteString;
+    NSString *requestData = [[NSString alloc] initWithData:urlRequest.HTTPBody encoding:NSUTF8StringEncoding];
 
     NSURLSession *session = request.retryCount > 0 ? _retrySession : _session;
     NSURLSessionDataTask *postDataTask = [session dataTaskWithRequest:urlRequest completionHandler:^(NSData *data, NSURLResponse *response, NSError *error) {

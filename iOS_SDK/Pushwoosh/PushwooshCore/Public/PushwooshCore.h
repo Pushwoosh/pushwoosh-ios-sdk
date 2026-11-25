@@ -51,7 +51,7 @@
 #import <PushwooshCore/PWFeatureFlag.h>
 #import <PushwooshCore/PWFeatureFlags.h>
 
-#define PUSHWOOSH_VERSION @"7.3.1"
+#define PUSHWOOSH_VERSION @"7.3.2"
 
 @interface PushwooshCoreManager : NSObject
 

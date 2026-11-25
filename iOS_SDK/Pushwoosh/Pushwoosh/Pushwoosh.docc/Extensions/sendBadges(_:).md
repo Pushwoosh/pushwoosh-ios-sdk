@@ -55,4 +55,4 @@ func updateBadgeForUnreadMessages() {
 
 ## See Also
 
-- ``Pushwoosh/registerForPushNotifications()``
+- ``Pushwoosh/registerForPushNotifications()-9g5uw``

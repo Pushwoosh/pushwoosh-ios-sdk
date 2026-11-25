@@ -32,7 +32,7 @@ func setUserPreferences(_ preferences: [String: Any], retryCount: Int = 0) {
         }
     }
 
-    Pushwoosh.configure.setTags(preferences, onFailure: errorHandler)
+    Pushwoosh.configure.setTags(preferences, completion: errorHandler)
 }
 ```
 

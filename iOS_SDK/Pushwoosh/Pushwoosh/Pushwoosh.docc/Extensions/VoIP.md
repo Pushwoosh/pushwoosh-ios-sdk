@@ -1,4 +1,4 @@
-# ``Pushwoosh/VoIP``
+# ``Pushwoosh/VoIP-type.property``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -22,39 +22,37 @@ VoIP (Voice over IP) pushes are high-priority notifications for real-time commun
 
 ## Requirements
 
-- PushKit framework
-- VoIP entitlement
-- CallKit integration (recommended)
+- The PushwooshVoIP module
+- Push Notifications capability and the Voice over IP background mode
+- A VoIP Services certificate uploaded to the Pushwoosh Control Panel
+
+The SDK sets up PushKit and CallKit and registers the VoIP token itself at app launch. The app sets the delegate that receives call events.
 
 ## Example
 
-Register for VoIP pushes:
+Set the delegate and an optional ringtone:
 
 ```swift
-import PushKit
+import PushwooshFramework
+import PushwooshVoIP
+import CallKit
 
-class VoIPHandler: NSObject, PKPushRegistryDelegate {
+class AppDelegate: UIResponder, UIApplicationDelegate, PWVoIPCallDelegate {
 
-    let voipRegistry = PKPushRegistry(queue: .main)
-
-    func setupVoIP() {
-        voipRegistry.delegate = self
-        voipRegistry.desiredPushTypes = [.voIP]
+    func application(_ application: UIApplication,
+                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        Pushwoosh.VoIP.delegate = self
+        Pushwoosh.VoIP.setRingtone("ringtone.caf")
+        return true
     }
 
-    func pushRegistry(_ registry: PKPushRegistry,
-                     didUpdate pushCredentials: PKPushCredentials,
-                     for type: PKPushType) {
-        Pushwoosh.VoIP.handleVoIPPushRegistration(pushCredentials.token)
+    func voipDidReceiveIncomingCall(payload: PWVoIPMessage) {
+        print("Incoming call from \(payload.callerName)")
     }
 
-    func pushRegistry(_ registry: PKPushRegistry,
-                     didReceiveIncomingPushWith payload: PKPushPayload,
-                     for type: PKPushType,
-                     completion: @escaping () -> Void) {
-        handleIncomingCall(payload: payload.dictionaryPayload)
-        completion()
-    }
+    func pwProviderDidReset(_ provider: CXProvider) {}
+
+    func pwProviderDidBegin(_ provider: CXProvider) {}
 }
 ```
 

@@ -35,7 +35,7 @@ func registerForNotifications() {
         self.syncPushTokenWithBackend(token)
     }
 
-    Pushwoosh.configure.registerForPushNotifications(withCompletion: registrationHandler)
+    Pushwoosh.configure.registerForPushNotifications(completion: registrationHandler)
 }
 
 func syncPushTokenWithBackend(_ token: String) {
@@ -50,5 +50,5 @@ func syncPushTokenWithBackend(_ token: String) {
 
 ## See Also
 
-- ``Pushwoosh/registerForPushNotifications(withCompletion:)``
+- ``Pushwoosh/registerForPushNotifications()-6mniz``
 - ``PushwooshErrorHandler``

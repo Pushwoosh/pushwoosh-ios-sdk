@@ -24,6 +24,7 @@
 #import "PWKnockPatternDetector.h"
 #import "PWIdleDetector.h"
 #import "PWApplicationExitDetector.h"
+#import "PWDelayedDeliveryUploader.h"
 #endif
 
 static IMP pw_original_setApplicationIconBadgeNumber_Imp;
@@ -252,6 +253,9 @@ static BOOL openURLSwizzled = NO;
     /// Before the gate below: a device token has to reach the SDK in every integration,
     /// not only in plugins and in apps that opted into the rest of the runtime magic.
     [PWPushRuntime swizzleDeviceTokenHandlerForDelegateClass:[delegate class]];
+#if TARGET_OS_IOS
+    [PWPushRuntime swizzleBackgroundSessionEventsHandlerForDelegateClass:[delegate class]];
+#endif
 
     //override runtime functions only if requested (used in plugins or by user decision)
     if (![[UIApplication sharedApplication] respondsToSelector:@selector(pushwooshUseRuntimeMagic)] && !useRuntime) {
@@ -547,6 +551,67 @@ BOOL dynamicDidRegisterUserNotificationSettings(id self, SEL _cmd, id applicatio
           implementation:(IMP)dynamicDidRegisterUserNotificationSettings
             typeEncoding:"v@:::"];
     });
+}
+
+static const void *kPWBackgroundSessionEventsSwizzleMark = &kPWBackgroundSessionEventsSwizzleMark;
+
+typedef void (*PWBackgroundSessionEventsIMP)(id, SEL, UIApplication *, NSString *, void (^)(void));
+
+/// Same shape as the device token hook (see llm/docs/swizzling.md): the delivery sessions' events are taken
+/// by the SDK, any other session reaches the app's own handler, own, inherited or forwarded.
++ (void)swizzleBackgroundSessionEventsHandlerForDelegateClass:(Class)delegateClass {
+    if (delegateClass == nil) {
+        return;
+    }
+
+    @synchronized (self) {
+        if (objc_getAssociatedObject(delegateClass, kPWBackgroundSessionEventsSwizzleMark)) {
+            return;
+        }
+
+        SEL selector = @selector(application:handleEventsForBackgroundURLSession:completionHandler:);
+        Class owner = PWClassOwningInstanceMethod(delegateClass, selector);
+
+        if (owner != Nil && owner != delegateClass && objc_getAssociatedObject(owner, kPWBackgroundSessionEventsSwizzleMark)) {
+            return;
+        }
+
+        Method ownMethod = owner == delegateClass ? class_getInstanceMethod(delegateClass, selector) : NULL;
+        IMP ownImplementation = ownMethod ? method_getImplementation(ownMethod) : NULL;
+
+        IMP hook = imp_implementationWithBlock(^(id receiver, UIApplication *application, NSString *identifier, void (^completionHandler)(void)) {
+            if ([PWDelayedDeliveryUploader handleEventsForBackgroundURLSession:identifier
+                                                                 appGroupsName:[PWConfig config].appGroupsName
+                                                             completionHandler:completionHandler]) {
+                return;
+            }
+
+            IMP next = ownImplementation;
+            if (next == NULL) {
+                Method inherited = class_getInstanceMethod(class_getSuperclass(delegateClass), selector);
+                next = inherited ? method_getImplementation(inherited) : NULL;
+            }
+
+            if (next) {
+                ((PWBackgroundSessionEventsIMP)next)(receiver, selector, application, identifier, completionHandler);
+                return;
+            }
+
+            id target = [receiver forwardingTargetForSelector:selector];
+            if (target && target != receiver && [target respondsToSelector:selector]) {
+                ((PWBackgroundSessionEventsIMP)objc_msgSend)(target, selector, application, identifier, completionHandler);
+            }
+        });
+
+        if (ownMethod) {
+            method_setImplementation(ownMethod, hook);
+        } else if (!class_addMethod(delegateClass, selector, hook, "v@:@@@?")) {
+            imp_removeBlock(hook);
+            return;
+        }
+
+        objc_setAssociatedObject(delegateClass, kPWBackgroundSessionEventsSwizzleMark, @YES, OBJC_ASSOCIATION_RETAIN);
+    }
 }
 #endif
 

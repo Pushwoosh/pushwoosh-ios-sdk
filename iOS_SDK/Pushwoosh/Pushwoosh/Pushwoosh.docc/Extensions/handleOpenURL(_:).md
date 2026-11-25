@@ -1,4 +1,4 @@
-# ``Pushwoosh/handleOpenURL(_:)``
+# ``Pushwoosh/handleOpen(_:)``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -27,7 +27,7 @@ func application(_ app: UIApplication,
                 open url: URL,
                 options: [UIApplication.OpenURLOptionsKey: Any] = [:]) -> Bool {
 
-    if Pushwoosh.configure.handleOpenURL(url) {
+    if Pushwoosh.configure.handleOpen(url) {
         return true
     }
 
@@ -41,7 +41,7 @@ Handle URLs in SceneDelegate:
 func scene(_ scene: UIScene, openURLContexts URLContexts: Set<UIOpenURLContext>) {
     guard let url = URLContexts.first?.url else { return }
 
-    if Pushwoosh.configure.handleOpenURL(url) {
+    if Pushwoosh.configure.handleOpen(url) {
         return
     }
 

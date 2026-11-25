@@ -94,7 +94,7 @@
 		</data>
 		<key>Headers/PWManagerBridge.h</key>
 		<data>
-		hRZQpx08rbkBCe5ySDKgRTXyKTo=
+		PC0UUbjM/W8kyoVI/QY1SW/Y3Mo=
 		</data>
 		<key>Headers/PWMedia.h</key>
 		<data>
@@ -126,11 +126,11 @@
 		</data>
 		<key>Headers/PWPreferences.h</key>
 		<data>
-		VglqLX0zs3DpZZETtAWLs4XDYG4=
+		/eWx/qNKiez2VGNe78OqhAYgWHw=
 		</data>
 		<key>Headers/PWPushPrimerBuilder.h</key>
 		<data>
-		PidENxgw8WEBUbj09CMc68awvcg=
+		m3zXNe82Xv+r3+iWyJQ2Ebxctso=
 		</data>
 		<key>Headers/PWRequest.h</key>
 		<data>
@@ -170,11 +170,11 @@
 		</data>
 		<key>Headers/PushwooshConfig.h</key>
 		<data>
-		TI49maC141k96m9juo2TzZ+wjJI=
+		c7bVHt4eQihYFiMx+e3gppunwYk=
 		</data>
 		<key>Headers/PushwooshCore.h</key>
 		<data>
-		fPf2IMK/O+y6JN3JdfY5lN0iPnA=
+		rM1wL0UCHkjarFQ4tJg2SWZ2rzg=
 		</data>
 		<key>Headers/PushwooshLog.h</key>
 		<data>
@@ -182,7 +182,7 @@
 		</data>
 		<key>Info.plist</key>
 		<data>
-		Dsvm2xq9PPtKgzoE4WmyVes9m34=
+		6paTwLPH73HDoq+NvE+plZJdHT4=
 		</data>
 		<key>Modules/module.modulemap</key>
 		<data>
@@ -212,6 +212,14 @@
 		<data>
 		BW17Xs8hFWf99b7FLNKoHdxbY+8=
 		</data>
+		<key>PrivateHeaders/PWDelayedDeliveryUploader.h</key>
+		<data>
+		VqqbubBfJE4tvvi/WgAHjyrUKEk=
+		</data>
+		<key>PrivateHeaders/PWDeliveryDelayWindow.h</key>
+		<data>
+		5BdquZiAO+FxVn2iTu71VyTIj+s=
+		</data>
 		<key>PrivateHeaders/PWEasyJSWKWebView.h</key>
 		<data>
 		tgVra6Jg4d1LbU/4UycDLjKBibA=
@@ -227,6 +235,10 @@
 		<key>PrivateHeaders/PWInAppStorage.h</key>
 		<data>
 		dzr5bql55CTsds8MCv80sHI9Hhg=
+		</data>
+		<key>PrivateHeaders/PWMessageDeliveryRequest+Internal.h</key>
+		<data>
+		YHcDwqGqNhDxnoITvjQVos/yK6Y=
 		</data>
 		<key>PrivateHeaders/PWMessageViewController.h</key>
 		<data>
@@ -266,7 +278,7 @@
 		</data>
 		<key>PrivateHeaders/PWPushNotificationsManager.common.h</key>
 		<data>
-		Sd3bSoFWUS5aXSMFPqKJ9tRICoo=
+		WzhM7JgyK3mtP1FvKTDXXxqb+y8=
 		</data>
 		<key>PrivateHeaders/PWPushNotificationsManager.h</key>
 		<data>
@@ -274,11 +286,15 @@
 		</data>
 		<key>PrivateHeaders/PWPushPrimerPresenter.h</key>
 		<data>
-		kj+1e3E8VCfB9/y0FUV6XW/B7Vw=
+		eClzsHvM6Ge6HY+/NUKjHu0PL5k=
 		</data>
 		<key>PrivateHeaders/PWPushPrimerViewController.h</key>
 		<data>
 		M4w6sVrSMyOZMnNcrrEtJZptBA8=
+		</data>
+		<key>PrivateHeaders/PWRequestManager+Internal.h</key>
+		<data>
+		C65AlX7wEcNrk2PHV+PAlusrbTY=
 		</data>
 		<key>PrivateHeaders/PWResource.h</key>
 		<data>
@@ -314,7 +330,7 @@
 		</data>
 		<key>PrivateHeaders/PWUtils.common.h</key>
 		<data>
-		QTFbjV3nq7ZYsXAFxsPrI2pyEyc=
+		9zkw2NwxJZpNnU64Y5BPobeHgLk=
 		</data>
 		<key>PrivateHeaders/PWUtils.h</key>
 		<data>
@@ -493,7 +509,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			tFp9Nc/nQjZWk3XlRkufzd/RNmNv6FTOqrFn9GwDqP4=
+			q1e9ADu/HYrsR7IyrWlD9ClDywfqp46tgnRhz3BvOi8=
 			</data>
 		</dict>
 		<key>Headers/PWMedia.h</key>
@@ -549,14 +565,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			flHuxHu8/NuqQxzhbixmJdTDmVgY0q7XWnmYo0aCkM4=
+			iP4TLkdx4xVe+RZ2FRrGw3jRi6n6C/r1YPidnBuBPLA=
 			</data>
 		</dict>
 		<key>Headers/PWPushPrimerBuilder.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			l8Aq4vb9Oa9hF2HXAfjucJpXteQLZznmciaMaKklF3g=
+			zR9szweFT0bSc1PJ8Z3zca6hnsTxkO559sA+vZ8z5X8=
 			</data>
 		</dict>
 		<key>Headers/PWRequest.h</key>
@@ -626,14 +642,14 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			49CJdGk7rGsK763B8vfazwKLkCW2aeXZ4Jh7eHee1Po=
+			Fm8q7GrGtJ8cdqnj/VhJHGbLag5AuRuHwu9GrAUsrpo=
 			</data>
 		</dict>
 		<key>Headers/PushwooshCore.h</key>
 		<dict>
 			<key>hash2</key>
 			<data>
-			LuXRLU57tLlcwI5fVoxp+lsrNj4ZO+m4ODxZYAMykY0=
+			bUsEYel/vDfnrxwD8VLETKm4KMTSYj7E2zKqXgkIisg=
 			</data>
 		</dict>
 		<key>Headers/PushwooshLog.h</key>
@@ -692,6 +708,20 @@
 			WhyLCmL+dCqVq0GBzN7OfUe7BLK//V/Iyb04Kj0JTic=
 			</data>
 		</dict>
+		<key>PrivateHeaders/PWDelayedDeliveryUploader.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			H+5JL1swbM11My9O1IBrxeMVvUFP7elDK0Kj/IjTDi8=
+			</data>
+		</dict>
+		<key>PrivateHeaders/PWDeliveryDelayWindow.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			G3TecHX41Aott+t2MbqZ+iOFqO9IN5ZH9mXX/PTXXKo=
+			</data>
+		</dict>
 		<key>PrivateHeaders/PWEasyJSWKWebView.h</key>
 		<dict>
 			<key>hash2</key>
@@ -718,6 +748,13 @@
 			<key>hash2</key>
 			<data>
 			JBM519wc2Ae+sauQPrmaFnl0X5SiFM/oGFWa1ZmuBmo=
+			</data>
+		</dict>
+		<key>PrivateHeaders/PWMessageDeliveryRequest+Internal.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			07o0cYk3oqQJlMWke7KtrbObG/pf4CKZ7Lo1Mso/VVs=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWMessageViewController.h</key>
@@ -787,7 +824,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			zk3NwalayAQoL7cUKvdZpMsjWECIu8j2vI8SG0DO/Q0=
+			VltOPYaRmqKrzbtPJ9xujiQ58ZIxjACMQ0rlGRTCokc=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWPushNotificationsManager.h</key>
@@ -801,7 +838,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			+1YyTkpq2nzAXCUrW9VfOj6eoBKdYZ6K87eZbvEkSiA=
+			k1LxkotYhVmJ5PTZHuinGuZu2ovo2m0hQG4zSXBWopI=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWPushPrimerViewController.h</key>
@@ -809,6 +846,13 @@
 			<key>hash2</key>
 			<data>
 			z0d517MGZGPeq+UL9GfkT+WFmpGm+PpoCjY/W7RtcLU=
+			</data>
+		</dict>
+		<key>PrivateHeaders/PWRequestManager+Internal.h</key>
+		<dict>
+			<key>hash2</key>
+			<data>
+			+h9ARszDRI0TGnId2dTtvxOhSeT39WHlYPDvjrOoUtU=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWResource.h</key>
@@ -871,7 +915,7 @@
 		<dict>
 			<key>hash2</key>
 			<data>
-			iIZF/ziVk0OQVs65bBZvotCCPGVR3+iLboNBbBLurg0=
+			nM55+DfeALoB9kFsy4i9HJNFDLR10YvYkxerShZWgVk=
 			</data>
 		</dict>
 		<key>PrivateHeaders/PWUtils.h</key>

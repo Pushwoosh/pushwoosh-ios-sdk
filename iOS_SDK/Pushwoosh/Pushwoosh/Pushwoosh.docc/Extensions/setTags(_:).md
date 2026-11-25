@@ -1,4 +1,4 @@
-# ``Pushwoosh/setTags(_:)``
+# ``Pushwoosh/setTags(_:)-6njl3``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -55,8 +55,8 @@ func trackPurchase(order: Order) {
     let tags: [String: Any] = [
         "lastPurchaseDate": Date(),
         "lastPurchaseAmount": order.total,
-        "purchaseCount": PWTagsBuilder.incrementalTag(withInteger: 1),
-        "totalSpent": PWTagsBuilder.incrementalTag(withInteger: Int(order.total)),
+        "purchaseCount": PWTagsBuilder.incrementalTag(with: 1),
+        "totalSpent": PWTagsBuilder.incrementalTag(with: Int(order.total)),
         "purchasedCategories": PWTagsBuilder.appendValues(toListTag: order.categoryNames)
     ]
 
@@ -70,13 +70,12 @@ Track app engagement:
 func trackFeatureUsage(feature: String) {
     Pushwoosh.configure.setTags([
         "last_used_feature": feature,
-        "feature_\(feature)_count": PWTagsBuilder.incrementalTag(withInteger: 1)
+        "feature_\(feature)_count": PWTagsBuilder.incrementalTag(with: 1)
     ])
 }
 ```
 
 ## See Also
 
-- ``Pushwoosh/setTags(_:completion:)``
+- ``Pushwoosh/setTags(_:)-1q070``
 - ``Pushwoosh/getTags(_:onFailure:)``
-- ``PWTagsBuilder``

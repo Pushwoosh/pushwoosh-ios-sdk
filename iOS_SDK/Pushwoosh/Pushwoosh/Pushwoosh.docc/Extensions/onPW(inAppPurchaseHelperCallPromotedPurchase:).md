@@ -19,7 +19,9 @@ Handle promoted purchase from App Store:
 ```swift
 class PurchaseManager: NSObject, PWPurchaseDelegate {
 
-    func onPW(inAppPurchaseHelperCallPromotedPurchase identifier: String) {
+    func onPW(inAppPurchaseHelperCallPromotedPurchase identifier: String?) {
+        guard let identifier = identifier else { return }
+
         analytics.track("promoted_purchase_initiated", properties: [
             "product_id": identifier
         ])
@@ -40,5 +42,5 @@ class PurchaseManager: NSObject, PWPurchaseDelegate {
 
 ## See Also
 
-- ``PWPurchaseDelegate/onPWInAppPurchaseHelperPaymentComplete(_:)``
-- ``PWPurchaseDelegate/onPWInAppPurchaseHelperProducts(_:)``
+- ``PWPurchaseDelegate/onPW(inAppPurchaseHelperPaymentComplete:)``
+- ``PWPurchaseDelegate/onPW(inAppPurchaseHelperProducts:)``

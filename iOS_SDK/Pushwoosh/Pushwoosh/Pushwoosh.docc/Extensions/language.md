@@ -22,7 +22,7 @@ Use lowercase two-letter ISO-639-1 language codes:
 
 ## Default Behavior
 
-By default, Pushwoosh uses the device's system language. Set this property to override, or set to `nil` to revert to device language.
+By default, Pushwoosh uses the device's system language. Call `Pushwoosh.configure.setLanguage(_:)` to override it, or pass `nil` to revert to the device language.
 
 ## Example
 
@@ -30,7 +30,7 @@ Let user choose notification language:
 
 ```swift
 func updateNotificationLanguage(_ languageCode: String) {
-    Pushwoosh.configure.language = languageCode
+    Pushwoosh.configure.setLanguage(languageCode)
 
     userDefaults.set(languageCode, forKey: "notificationLanguage")
 }
@@ -43,7 +43,7 @@ func application(_ application: UIApplication,
                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
     if let appLanguage = Bundle.main.preferredLocalizations.first {
-        Pushwoosh.configure.language = appLanguage
+        Pushwoosh.configure.setLanguage(appLanguage)
     }
 
     Pushwoosh.configure.registerForPushNotifications()
@@ -67,7 +67,7 @@ class LanguageSettingsViewController: UIViewController {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let (code, _) = languages[indexPath.row]
 
-        Pushwoosh.configure.language = code
+        Pushwoosh.configure.setLanguage(code)
 
         Bundle.setLanguage(code)
 
@@ -78,4 +78,4 @@ class LanguageSettingsViewController: UIViewController {
 
 ## See Also
 
-- ``Pushwoosh/setTags(_:)``
+- ``Pushwoosh/setTags(_:)-6njl3``

@@ -42,7 +42,7 @@ func application(_ application: UIApplication,
                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
     Pushwoosh.configure.delegate = self
-    Pushwoosh.configure.showPushnotificationAlert = true
+    Pushwoosh.configure.setShowPushnotificationAlert(true)
 
     if userDefaults.bool(forKey: "onboardingComplete") {
         Pushwoosh.configure.registerForPushNotifications()

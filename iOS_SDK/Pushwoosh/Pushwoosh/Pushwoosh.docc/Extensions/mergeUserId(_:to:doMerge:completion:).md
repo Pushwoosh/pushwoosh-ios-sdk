@@ -1,4 +1,4 @@
-# ``Pushwoosh/mergeUserId(_:to:doMerge:completion:)``
+# ``Pushwoosh/mergeUserId(_:to:doMerge:)``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -75,6 +75,6 @@ func handleAccountDeletion(userId: String) {
 
 ## See Also
 
-- ``Pushwoosh/setUserId(_:)``
-- ``Pushwoosh/setUserId(_:completion:)``
+- ``Pushwoosh/setUserId(_:)-59ept``
+- ``Pushwoosh/setUserId(_:)-46ogx``
 - ``Pushwoosh/getUserId()``

@@ -1,4 +1,4 @@
-# ``Pushwoosh/sendPushToStartLiveActivity(token:completion:)``
+# ``Pushwoosh/sendPush(toStartLiveActivityToken:)-3qvmc``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Sends push-to-start live activity token to the server with a completion handler.
 
 ## Overview
 
-> Deprecated: Use ``Pushwoosh/LiveActivities`` API instead.
+> Deprecated: Use ``Pushwoosh/LiveActivities-type.property`` API instead.
 
 Similar to `sendPushToStartLiveActivityToken:` but provides a callback when the operation completes.
 
@@ -37,4 +37,4 @@ func setupPushToStartLiveActivity() {
 
 ## See Also
 
-- ``Pushwoosh/LiveActivities``
+- ``Pushwoosh/LiveActivities-type.property``

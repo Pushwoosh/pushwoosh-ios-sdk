@@ -1,4 +1,4 @@
-# ``PWPurchaseDelegate/onPWInAppPurchaseHelperRestoreCompletedTransactionsFailed(_:)``
+# ``PWPurchaseDelegate/onPW(inAppPurchaseHelperRestoreCompletedTransactionsFailed:)``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -17,9 +17,9 @@ Handle restore failure with user feedback:
 ```swift
 class PurchaseManager: NSObject, PWPurchaseDelegate {
 
-    func onPWInAppPurchaseHelperRestoreCompletedTransactionsFailed(_ error: Error) {
+    func onPW(inAppPurchaseHelperRestoreCompletedTransactionsFailed error: Error?) {
         analytics.track("restore_purchases_failed", properties: [
-            "error": error.localizedDescription
+            "error": error?.localizedDescription ?? ""
         ])
 
         DispatchQueue.main.async {
@@ -47,4 +47,4 @@ class PurchaseManager: NSObject, PWPurchaseDelegate {
 
 ## See Also
 
-- ``PWPurchaseDelegate/onPWInAppPurchaseHelperPaymentComplete(_:)``
+- ``PWPurchaseDelegate/onPW(inAppPurchaseHelperPaymentComplete:)``

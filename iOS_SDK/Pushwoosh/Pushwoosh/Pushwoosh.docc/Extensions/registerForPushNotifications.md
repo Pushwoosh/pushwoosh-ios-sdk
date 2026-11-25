@@ -1,4 +1,4 @@
-# ``Pushwoosh/registerForPushNotifications()``
+# ``Pushwoosh/registerForPushNotifications()-9g5uw``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -75,7 +75,7 @@ func showNotificationPrompt() {
 
 ## See Also
 
-- ``Pushwoosh/registerForPushNotifications(completion:)``
-- ``Pushwoosh/unregisterForPushNotifications()``
+- ``Pushwoosh/registerForPushNotifications()-6mniz``
+- ``Pushwoosh/unregisterForPushNotifications()-9o2u``
 - ``Pushwoosh/delegate``
 - ``PWMessagingDelegate``

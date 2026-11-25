@@ -55,5 +55,5 @@ func isPushRegistered() -> Bool {
 ## See Also
 
 - ``Pushwoosh/getHWID()``
-- ``Pushwoosh/registerForPushNotifications()``
-- ``Pushwoosh/registerForPushNotifications(completion:)``
+- ``Pushwoosh/registerForPushNotifications()-9g5uw``
+- ``Pushwoosh/registerForPushNotifications()-6mniz``

@@ -108,6 +108,11 @@ typedef void (^PWPushPrimerCompletion)(PWPushPrimerOutcome outcome);
 @property (nonatomic, copy, readonly) PWPushPrimerBuilder *(^buttonBorderColor)(UIColor *color);
 /// Sets the corner radius of both buttons (sheet style only).
 @property (nonatomic, copy, readonly) PWPushPrimerBuilder *(^buttonCornerRadius)(CGFloat radius);
+/// Renders the primer with Liquid Glass (sheet style only, iOS 26+): the sheet becomes a glass surface
+/// tinted with `backgroundColor` (`backgroundGradient` is not drawn), the accept button becomes prominent
+/// glass tinted with `acceptButtonColor`, the decline button becomes clear glass. Defaults to `NO`.
+/// Has no effect below iOS 26 and for `PWPushPrimerStyleAlert`.
+@property (nonatomic, copy, readonly) PWPushPrimerBuilder *(^glass)(BOOL enabled);
 /// Controls behavior when notifications are already denied at the OS level. Defaults to `YES`:
 /// the primer is shown and accept routes the user to the system Settings app. When `NO`, a denied
 /// status suppresses the primer entirely (the system will not re-prompt anyway).

@@ -64,6 +64,11 @@
 
     if ([PWConfig config].allowCollectingDeviceLocale == YES) {
         dict[@"language"] = [PWPreferences preferences].language;
+
+        NSString *locale = [PWPreferences preferences].locale;
+        if (locale) {
+            dict[@"locale"] = locale;
+        }
     }
 
     NSDictionary *permissionsStatusDict = self.notificationStatus ?: [PWManagerBridge getRemoteNotificationStatus];

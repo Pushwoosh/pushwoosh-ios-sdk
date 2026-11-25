@@ -1,4 +1,4 @@
-# ``Pushwoosh/setTags(_:completion:)``
+# ``Pushwoosh/setTags(_:)-1q070``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Sets user tags with a completion handler.
 
 ## Overview
 
-Same as ``setTags(_:)`` but provides a completion callback to confirm the tags were successfully synchronized with Pushwoosh servers.
+Same as ``Pushwoosh/setTags(_:)-6njl3`` but provides a completion callback to confirm the tags were successfully synchronized with Pushwoosh servers.
 
 Use this variant when you need to:
 - Confirm tags were set before proceeding
@@ -61,5 +61,5 @@ func handleSubscriptionUpgrade(to tier: SubscriptionTier) {
 
 ## See Also
 
-- ``Pushwoosh/setTags(_:)``
+- ``Pushwoosh/setTags(_:)-6njl3``
 - ``Pushwoosh/getTags(_:onFailure:)``

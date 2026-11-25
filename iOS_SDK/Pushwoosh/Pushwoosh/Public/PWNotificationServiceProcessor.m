@@ -14,6 +14,7 @@
 #import <errno.h>
 
 #import <PushwooshCore/PWMessageDeliveryRequest.h>
+#import <PushwooshCore/PWMessageDeliveryRequest+Internal.h>
 #import <PushwooshCore/PWMessage+Internal.h>
 #import <PushwooshCore/PWNetworkModule.h>
 #import <PushwooshCore/PWPreferences.h>
@@ -22,6 +23,10 @@
 #import <PushwooshCore/PWActionButton.h>
 #import <PushwooshCore/PWActionButtonsParser.h>
 #import <PushwooshCore/PWActionButtonsRegistrar.h>
+#import <PushwooshCore/PWRequestManager+Internal.h>
+#import <PushwooshCore/PWServerCommunicationManager.h>
+#import <PushwooshCore/PWDeliveryDelayWindow.h>
+#import <PushwooshCore/PWDelayedDeliveryUploader.h>
 
 /// How long the timeout fallback lets a category registration run before it delivers anyway.
 static const NSTimeInterval kPWFallbackRegistrationBudget = 0.1;
@@ -37,6 +42,8 @@ static const NSTimeInterval kPWFallbackRegistrationBudget = 0.1;
 @property (nonatomic, copy, nullable) void (^completion)(UNNotificationContent *);
 @property (nonatomic, assign) BOOL consumed;
 @property (nonatomic, assign) BOOL started;
+@property (nonatomic, copy, nullable) NSDate *receivedDate;
+@property (nonatomic, copy) NSDate *(^clock)(void);
 @property (nonatomic, strong) PWActionButtonsRegistrar *actionButtonsRegistrar;
 @property (nonatomic, copy) NSArray<PWActionButton *> *actionButtons;
 
@@ -49,6 +56,7 @@ static const NSTimeInterval kPWFallbackRegistrationBudget = 0.1;
     if (self) {
         _serialQueue = dispatch_queue_create("com.pushwoosh.nse.processor", DISPATCH_QUEUE_SERIAL);
         _actionButtonsRegistrar = [PWActionButtonsRegistrar new];
+        _clock = ^NSDate *{ return [NSDate date]; };
         [[PWNetworkModule module] inject:self];
     }
     return self;
@@ -59,6 +67,7 @@ static const NSTimeInterval kPWFallbackRegistrationBudget = 0.1;
             completion:(void (^)(UNNotificationContent *))completion {
     self.consumed = NO;
     self.started = NO;
+    self.receivedDate = self.clock();
     self.request = request;
     self.appGroupsName = appGroupsName;
     self.originalContent = request.content;
@@ -316,6 +325,14 @@ static const NSTimeInterval kPWFallbackRegistrationBudget = 0.1;
 
     PWMessageDeliveryRequest *request = [PWMessageDeliveryRequest new];
     request.pushDict = pushNotification;
+    request.receivedDate = self.receivedDate;
+
+    if ([self scheduleDelayedDeliveryEvent:request]) {
+        if (completion) {
+            completion();
+        }
+        return;
+    }
 
     [_requestManager sendRequest:request completion:^(NSError *error) {
         if (error) {
@@ -328,6 +345,30 @@ static const NSTimeInterval kPWFallbackRegistrationBudget = 0.1;
             completion();
         }
     }];
+}
+
+/// A `pw_delivery_delay` window with a usable App Group hands the event to the system to send at a random
+/// moment of the window, so the push does not wait for it. NO leaves it to be sent at once, as without the key.
+- (BOOL)scheduleDelayedDeliveryEvent:(PWMessageDeliveryRequest *)request {
+    NSTimeInterval window = [PWDeliveryDelayWindow windowFromUserInfo:request.pushDict];
+    if (window <= 0 || ![[PWServerCommunicationManager sharedInstance] isServerCommunicationAllowed]) {
+        return NO;
+    }
+
+    NSURLRequest *urlRequest = [_requestManager urlRequestForRequest:request error:nil];
+    if (urlRequest == nil) {
+        return NO;
+    }
+
+    NSTimeInterval delay = [PWDeliveryDelayWindow delayWithinWindow:window];
+    if (![PWDelayedDeliveryUploader scheduleRequest:urlRequest afterDelay:delay appGroupsName:self.appGroupsName]) {
+        return NO;
+    }
+
+    [PushwooshLog pushwooshLog:PW_LL_INFO
+                     className:self
+                       message:[NSString stringWithFormat:@"messageDeliveryEvent for push %@ handed to the system to send in %.0f s (window %.0f s)", [request.pushDict pw_stringForKey:@"p"] ?: @"(no hash)", delay, window]];
+    return YES;
 }
 
 /// The extension runs in its own process: a queued request would hold the notification until the system

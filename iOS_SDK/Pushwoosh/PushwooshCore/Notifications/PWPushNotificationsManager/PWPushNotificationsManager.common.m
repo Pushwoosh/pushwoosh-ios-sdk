@@ -248,6 +248,13 @@ typedef NS_ENUM(NSInteger, PWPlatform) {
     }
 }
 
+- (void)registerLanguageChange {
+    NSString *pushToken = [PWPreferences preferences].pushToken;
+    if (pushToken) {
+        [self sendDevTokenToServer:pushToken triggerCallbacks:NO];
+    }
+}
+
 // A changed status goes out with registerDevice: every applicationOpen counts as an app open on the server.
 - (void)notificationStatusSyncCompleted:(NSNotification *)notification {
     NSString *pushToken = [PWPreferences preferences].pushToken;

@@ -68,4 +68,4 @@ func sendPushFromServer(to userId: String, message: String) {
 
 - ``Pushwoosh/getPushToken()``
 - ``Pushwoosh/getUserId()``
-- ``Pushwoosh/setUserId(_:)``
+- ``Pushwoosh/setUserId(_:)-59ept``

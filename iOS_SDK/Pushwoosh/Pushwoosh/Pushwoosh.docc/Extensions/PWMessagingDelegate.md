@@ -12,7 +12,7 @@ Implement `PWMessagingDelegate` to respond to push notification lifecycle events
 - **Received**: Notification arrived (app may be in foreground or background)
 - **Opened**: User tapped on the notification
 
-Both methods provide a ``PWMessage`` object containing the notification payload, custom data, and metadata.
+Both methods provide a `PWMessage` object containing the notification payload, custom data, and metadata.
 
 ## Implementation
 

@@ -12,7 +12,7 @@ When the app is in foreground, iOS can either:
 - Show the notification as a banner (default behavior)
 - Deliver it silently to your app
 
-This property controls that behavior.
+`Pushwoosh.configure.setShowPushnotificationAlert(_:)` controls that behavior, and `getShowPushnotificationAlert()` returns the current value.
 
 ## Values
 
@@ -32,7 +32,7 @@ Disable system alerts and show custom UI:
 
 ```swift
 func setupPushwoosh() {
-    Pushwoosh.configure.showPushnotificationAlert = false
+    Pushwoosh.configure.setShowPushnotificationAlert(false)
     Pushwoosh.configure.delegate = self
     Pushwoosh.configure.registerForPushNotifications()
 }
@@ -52,7 +52,7 @@ Toggle based on user preference:
 
 ```swift
 func updateForegroundNotificationSetting(showBanner: Bool) {
-    Pushwoosh.configure.showPushnotificationAlert = showBanner
+    Pushwoosh.configure.setShowPushnotificationAlert(showBanner)
 
     userDefaults.set(showBanner, forKey: "showForegroundNotifications")
 }
@@ -65,12 +65,12 @@ class VideoPlayerViewController: UIViewController {
 
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        Pushwoosh.configure.showPushnotificationAlert = false
+        Pushwoosh.configure.setShowPushnotificationAlert(false)
     }
 
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        Pushwoosh.configure.showPushnotificationAlert = true
+        Pushwoosh.configure.setShowPushnotificationAlert(true)
     }
 }
 ```

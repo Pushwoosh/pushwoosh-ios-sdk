@@ -28,6 +28,10 @@ FOUNDATION_EXPORT NSString * const kPWReceivedPushHashesKey;
 
 - (void)updateRegistration;
 
+/// Sends registerDevice right away with the language or locale that just changed; without a push token the
+/// change waits for the first registration.
+- (void)registerLanguageChange;
+
 - (void)handlePushRegistrationFailure:(NSError *)error;
 - (void)handlePushRegistrationString:(NSString *)deviceID;
 /// YES for a Pushwoosh push; a repeat of the last push returns NO as before, while a visible content-available

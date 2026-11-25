@@ -31,7 +31,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWVoIPCallDelegate {
     }
 
     func voipDidReceiveIncomingCall(payload: PushwooshVoIP.PWVoIPMessage) {
-        print("Incoming call: \(payload.callerName ?? "Unknown")")
+        print("Incoming call: \(payload.callerName)")
     }
 
     func pwProviderDidReset(_ provider: CXProvider) {
@@ -62,14 +62,13 @@ class CallManager {
     }
 
     func storeCall(_ payload: PWVoIPMessage) {
-        guard let uuidString = payload.uuid,
-              let uuid = UUID(uuidString: uuidString) else {
+        guard let uuid = UUID(uuidString: payload.uuid) else {
             return
         }
 
         let callInfo = CallInfo(
             uuid: uuid,
-            callerName: payload.callerName ?? "Unknown",
+            callerName: payload.callerName,
             hasVideo: payload.hasVideo,
             timestamp: Date()
         )
@@ -84,6 +83,10 @@ class CallManager {
     func removeCall(uuid: UUID) {
         activeCalls.removeValue(forKey: uuid)
     }
+
+    func getAllCallUUIDs() -> [UUID] {
+        return Array(activeCalls.keys)
+    }
 }
 
 extension AppDelegate: PWVoIPCallDelegate {
@@ -96,32 +99,30 @@ extension AppDelegate: PWVoIPCallDelegate {
 
 ### Answer Call
 
+The SDK fulfills the CallKit action after the delegate returns, so the delegate only starts the call. Configure audio when CallKit activates the audio session:
+
 ```swift
 extension AppDelegate: PWVoIPCallDelegate {
 
-    func pwPerform(_ action: CXAnswerCallAction) {
-        let callUUID = action.callUUID
-
-        guard let callInfo = CallManager.shared.getCall(uuid: callUUID) else {
-            action.fail()
-            return
-        }
-
-        let audioSession = AVAudioSession.sharedInstance()
-        do {
-            try audioSession.setCategory(.playAndRecord, mode: .voiceChat)
-            try audioSession.setActive(true)
-        } catch {
-            action.fail()
+    func answerCall(_ provider: CXProvider, perform action: CXAnswerCallAction, voipMessage: PWVoIPMessage?) {
+        guard let callInfo = CallManager.shared.getCall(uuid: action.callUUID) else {
             return
         }
 
         startCallWithPeer(callInfo.callerName)
-        action.fulfill()
+    }
+
+    func activatedAudioSession(_ provider: CXProvider, didActivate audioSession: AVAudioSession) {
+        try? audioSession.setCategory(.playAndRecord, mode: .voiceChat)
+        startAudio()
     }
 
     private func startCallWithPeer(_ peerName: String) {
         print("Starting call with \(peerName)")
+    }
+
+    private func startAudio() {
+        print("Audio started")
     }
 }
 ```
@@ -131,20 +132,21 @@ extension AppDelegate: PWVoIPCallDelegate {
 ```swift
 extension AppDelegate: PWVoIPCallDelegate {
 
-    func pwPerform(_ action: CXEndCallAction) {
-        let callUUID = action.callUUID
+    func endCall(_ provider: CXProvider, perform action: CXEndCallAction, voipMessage: PWVoIPMessage?) {
+        endCallSession(action.callUUID)
+        CallManager.shared.removeCall(uuid: action.callUUID)
+    }
 
-        endCallSession(callUUID)
-        CallManager.shared.removeCall(uuid: callUUID)
-
-        let audioSession = AVAudioSession.sharedInstance()
-        try? audioSession.setActive(false, options: .notifyOthersOnDeactivation)
-
-        action.fulfill()
+    func deactivatedAudioSession(_ provider: CXProvider, didDeactivate audioSession: AVAudioSession) {
+        stopAudio()
     }
 
     private func endCallSession(_ uuid: UUID) {
         print("Ending call: \(uuid)")
+    }
+
+    private func stopAudio() {
+        print("Audio stopped")
     }
 }
 ```
@@ -156,16 +158,12 @@ extension AppDelegate: PWVoIPCallDelegate {
 ```swift
 extension AppDelegate: PWVoIPCallDelegate {
 
-    func pwPerform(_ action: CXSetMutedCallAction) {
-        let isMuted = action.isMuted
-
-        if isMuted {
+    func mutedCall(_ provider: CXProvider, perform action: CXSetMutedCallAction) {
+        if action.isMuted {
             disableMicrophone()
         } else {
             enableMicrophone()
         }
-
-        action.fulfill()
     }
 
     private func disableMicrophone() {
@@ -183,17 +181,12 @@ extension AppDelegate: PWVoIPCallDelegate {
 ```swift
 extension AppDelegate: PWVoIPCallDelegate {
 
-    func pwPerform(_ action: CXSetHeldCallAction) {
-        let callUUID = action.callUUID
-        let isOnHold = action.isOnHold
-
-        if isOnHold {
-            pauseCall(callUUID)
+    func heldCall(_ provider: CXProvider, perform action: CXSetHeldCallAction) {
+        if action.isOnHold {
+            pauseCall(action.callUUID)
         } else {
-            resumeCall(callUUID)
+            resumeCall(action.callUUID)
         }
-
-        action.fulfill()
     }
 
     private func pauseCall(_ uuid: UUID) {
@@ -270,20 +263,18 @@ The caller ID format comes from the `handleType` field of the push payload and i
 
 ### Handle Provider Reset
 
+CallKit ends every call and deactivates the audio session on reset; release your own call state:
+
 ```swift
 extension AppDelegate: PWVoIPCallDelegate {
 
     func pwProviderDidReset(_ provider: CXProvider) {
         print("CallKit provider reset")
 
-        let allCallUUIDs = CallManager.shared.getAllCallUUIDs()
-        for uuid in allCallUUIDs {
+        for uuid in CallManager.shared.getAllCallUUIDs() {
             endCallSession(uuid)
             CallManager.shared.removeCall(uuid: uuid)
         }
-
-        let audioSession = AVAudioSession.sharedInstance()
-        try? audioSession.setActive(false)
 
         print("All calls terminated")
     }

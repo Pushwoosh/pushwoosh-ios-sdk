@@ -85,6 +85,9 @@
 /// Keeps the local push token so the device can register into the new application.
 - (void)unregisterFromApplicationWithAppCode:(NSString * _Nonnull)appCode baseUrl:(NSString * _Nullable)baseUrl;
 
+/// Sends registerDevice right away with the language or locale that just changed, past the registration throttle.
+- (void)registerLanguageChange;
+
 - (BOOL)isServerCommunicationAllowed;
 - (void)startServerCommunication;
 - (void)stopServerCommunication;

@@ -79,5 +79,4 @@ func pushwoosh(_ pushwoosh: Pushwoosh, onMessageOpened message: PWMessage) {
 ## See Also
 
 - ``PWMessagingDelegate/pushwoosh(_:onMessageReceived:)``
-- ``PWMessage``
 - ``Pushwoosh/delegate``

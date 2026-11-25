@@ -1,4 +1,4 @@
-# ``Pushwoosh/setUserId(_:completion:)``
+# ``Pushwoosh/setUserId(_:)-46ogx``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Associates a unique identifier with the current device with a completion handler
 
 ## Overview
 
-Same as ``setUserId(_:)`` but provides a completion callback to confirm the user ID was successfully synchronized with Pushwoosh servers.
+Same as ``Pushwoosh/setUserId(_:)-59ept`` but provides a completion callback to confirm the user ID was successfully synchronized with Pushwoosh servers.
 
 Use this variant when you need to:
 - Confirm user ID was set before proceeding
@@ -58,6 +58,6 @@ func identifyUser(_ userId: String) {
 
 ## See Also
 
-- ``Pushwoosh/setUserId(_:)``
+- ``Pushwoosh/setUserId(_:)-59ept``
 - ``Pushwoosh/getUserId()``
-- ``Pushwoosh/setEmail(_:completion:)``
+- ``Pushwoosh/setEmail(_:)-2x3e8``

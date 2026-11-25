@@ -2447,6 +2447,10 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
 
  Must be a lowercase two-letter code according to ISO-639-1 standard.
 
+ A new value is sent to Pushwoosh right away with a registration request once the device has a push
+ token; before that it goes out with the first registration. Re-setting the language already in effect
+ sends nothing.
+
  @param language The language code (e.g., "en", "de", "fr", "es") or nil to reset to device language
 
  ## Example
@@ -2494,6 +2498,37 @@ typedef void (^PushwooshErrorHandler)(NSError * _Nullable error);
  @see getLanguage
  */
 + (void)setLanguage:(NSString *_Nullable)language;
+
+/**
+ Sets a full BCP 47 locale tag for localized notifications and segmentation.
+
+ @discussion
+ Unlike `setLanguage:`, which only carries a two-letter language code, this preserves the region
+ and script subtags (e.g. "pt-BR", "es-419", "zh-Hant-TW") so the backend can target and localize
+ by full locale rather than language alone. When nothing is set, the device's own locale is used.
+
+ `language` and `locale` are independent: the SDK does not derive either one from the other. An app
+ that sets its own language with `setLanguage:` should also call `setLocale:`, otherwise `locale`
+ keeps reporting the device's own locale regardless of the language the app chose.
+
+ A new value is sent to Pushwoosh right away with a registration request once the device has a push
+ token; before that it goes out with the first registration. Re-setting the same value already stored
+ is a full no-op. When `Pushwoosh_ALLOW_COLLECTING_DEVICE_LOCALE` or `Pushwoosh_ALLOW_COLLECTING_DEVICE_DATA`
+ is `NO`, the value is stored but not sent.
+
+ @param locale A BCP 47 locale tag, or nil/blank to restore the device locale
+
+ ## Example
+
+ ```swift
+ Pushwoosh.configure.setLocale("pt-BR")
+ ```
+
+ @note The value is sent as a BCP 47 tag and normalized server-side.
+
+ @see setLanguage:
+ */
++ (void)setLocale:(NSString *_Nullable)locale;
 
 /**
  Retrieves the current application language setting.

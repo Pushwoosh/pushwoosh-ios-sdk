@@ -62,4 +62,4 @@ func trackSubscriptionPurchase(subscription: Subscription) {
 ## See Also
 
 - ``Pushwoosh/sendSKPaymentTransactions(_:)``
-- ``Pushwoosh/setTags(_:)``
+- ``Pushwoosh/setTags(_:)-6njl3``

@@ -1,4 +1,4 @@
-# ``Pushwoosh/setUserId(_:)``
+# ``Pushwoosh/setUserId(_:)-59ept``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -53,7 +53,7 @@ func handleLogout() {
 
 ## See Also
 
-- ``Pushwoosh/setUserId(_:completion:)``
+- ``Pushwoosh/setUserId(_:)-46ogx``
 - ``Pushwoosh/getUserId()``
-- ``Pushwoosh/setEmail(_:)``
-- ``Pushwoosh/mergeUserId(_:to:doMerge:completion:)``
+- ``Pushwoosh/setEmail(_:)-7syp6``
+- ``Pushwoosh/mergeUserId(_:to:doMerge:)``

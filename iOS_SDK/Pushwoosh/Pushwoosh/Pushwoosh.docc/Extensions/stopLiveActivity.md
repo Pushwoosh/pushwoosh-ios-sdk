@@ -1,4 +1,4 @@
-# ``Pushwoosh/stopLiveActivity()``
+# ``Pushwoosh/stopLiveActivity()-7oz4w``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Stops the current live activity.
 
 ## Overview
 
-> Deprecated: Use ``Pushwoosh/LiveActivities`` API instead:
+> Deprecated: Use ``Pushwoosh/LiveActivities-type.property`` API instead:
 > ```swift
 > Pushwoosh.LiveActivities.stopLiveActivity()
 > ```
@@ -29,4 +29,4 @@ func completeDelivery() async {
 
 ## See Also
 
-- ``Pushwoosh/LiveActivities``
+- ``Pushwoosh/LiveActivities-type.property``

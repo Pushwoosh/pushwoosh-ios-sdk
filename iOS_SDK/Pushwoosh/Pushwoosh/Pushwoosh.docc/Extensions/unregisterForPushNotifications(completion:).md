@@ -1,4 +1,4 @@
-# ``Pushwoosh/unregisterForPushNotifications(completion:)``
+# ``Pushwoosh/unregisterForPushNotifications()-80mv5``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Unregisters the device from push notifications with a completion handler.
 
 ## Overview
 
-Same as ``unregisterForPushNotifications()`` but provides a completion callback to confirm the operation finished.
+Same as ``Pushwoosh/unregisterForPushNotifications()-9o2u`` but provides a completion callback to confirm the operation finished.
 
 Use this variant when you need to:
 - Confirm unregistration before proceeding
@@ -53,5 +53,5 @@ func togglePushNotifications(enabled: Bool, completion: @escaping (Bool) -> Void
 
 ## See Also
 
-- ``Pushwoosh/unregisterForPushNotifications()``
-- ``Pushwoosh/registerForPushNotifications(completion:)``
+- ``Pushwoosh/unregisterForPushNotifications()-9o2u``
+- ``Pushwoosh/registerForPushNotifications()-6mniz``

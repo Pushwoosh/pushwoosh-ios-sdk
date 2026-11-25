@@ -1,6 +1,8 @@
 #import <XCTest/XCTest.h>
 #import "PWRetryEntry.h"
 #import "PWRequest.h"
+#import "PWMessageDeliveryRequest.h"
+#import "PWMessageDeliveryRequest+Internal.h"
 
 @interface PWStubTransportRequest : PWRequest
 @end
@@ -121,6 +123,23 @@
 /// Verifies supportsSecureCoding is advertised.
 - (void)testSupportsSecureCoding {
     XCTAssertTrue([PWRetryEntry supportsSecureCoding]);
+}
+
+/// Verifies a delivery entry keeps the receive time frozen through secure coding.
+- (void)testDeliveryEntryFreezesReceivedAtThroughSecureCoding {
+    PWMessageDeliveryRequest *request = [PWMessageDeliveryRequest new];
+    request.pushDict = @{@"p": @"h"};
+    request.receivedDate = [NSDate dateWithTimeIntervalSince1970:1795000000];
+    PWRetryEntry *entry = [[PWRetryEntry alloc] initWithRequest:request now:[NSDate date]];
+    XCTAssertEqualObjects(entry.requestDictionary[@"receivedAt"], @"2026-11-18T11:06:40Z");
+
+    NSError *error = nil;
+    NSData *data = [NSKeyedArchiver archivedDataWithRootObject:entry requiringSecureCoding:YES error:&error];
+    XCTAssertNil(error);
+    PWRetryEntry *decoded = [NSKeyedUnarchiver unarchivedObjectOfClass:[PWRetryEntry class] fromData:data error:&error];
+    XCTAssertNil(error);
+
+    XCTAssertEqualObjects(decoded.requestDictionary[@"receivedAt"], @"2026-11-18T11:06:40Z");
 }
 
 @end

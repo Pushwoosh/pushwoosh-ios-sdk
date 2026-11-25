@@ -1,4 +1,4 @@
-# ``Pushwoosh/LiveActivities``
+# ``Pushwoosh/LiveActivities-type.property``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -73,6 +73,6 @@ func completeDelivery(orderId: String) async {
 
 ## See Also
 
-- ``Pushwoosh/sendPushToStartLiveActivity(token:)``
-- ``Pushwoosh/startLiveActivity(withToken:activityId:)``
-- ``Pushwoosh/stopLiveActivity()``
+- ``Pushwoosh/sendPush(toStartLiveActivityToken:)-9czo6``
+- ``Pushwoosh/startLiveActivity(withToken:activityId:)-1tgls``
+- ``Pushwoosh/stopLiveActivity()-7oz4w``

@@ -1,4 +1,4 @@
-# ``PWPurchaseDelegate/onPWInAppPurchaseHelperPaymentFailedProductIdentifier(_:error:)``
+# ``PWPurchaseDelegate/onPW(inAppPurchaseHelperPaymentFailedProductIdentifier:error:)``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -19,17 +19,18 @@ Handle purchase failure with appropriate user feedback:
 ```swift
 class PurchaseManager: NSObject, PWPurchaseDelegate {
 
-    func onPWInAppPurchaseHelperPaymentFailedProductIdentifier(_ identifier: String, error: Error) {
+    func onPW(inAppPurchaseHelperPaymentFailedProductIdentifier identifier: String?, error: Error?) {
         let skError = error as? SKError
+        let productId = identifier ?? ""
 
         analytics.track("purchase_failed", properties: [
-            "product_id": identifier,
+            "product_id": productId,
             "error_code": skError?.code.rawValue ?? -1,
-            "error_message": error.localizedDescription
+            "error_message": error?.localizedDescription ?? ""
         ])
 
         DispatchQueue.main.async {
-            self.handlePurchaseError(skError, productId: identifier)
+            self.handlePurchaseError(skError, productId: productId)
         }
     }
 
@@ -53,4 +54,4 @@ class PurchaseManager: NSObject, PWPurchaseDelegate {
 
 ## See Also
 
-- ``PWPurchaseDelegate/onPWInAppPurchaseHelperPaymentComplete(_:)``
+- ``PWPurchaseDelegate/onPW(inAppPurchaseHelperPaymentComplete:)``

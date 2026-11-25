@@ -37,11 +37,7 @@ This allows PushwooshForegroundPush to display custom foreground notifications i
         https://github.com/Pushwoosh/Pushwoosh-XCFramework
         ```
 
-        Select the required modules in your target:
-
-        ![Choose package products: PushwooshBridge, PushwooshCore, PushwooshFramework, PushwooshForegroundPush, and PushwooshLiveActivities](spm-foreground-push-selection.png)
-
-        > **Important**: The modules PushwooshFramework, PushwooshCore, PushwooshBridge, PushwooshForegroundPush, and PushwooshLiveActivities are required.
+        Select the required modules in your target: PushwooshFramework, PushwooshCore, PushwooshBridge and PushwooshForegroundPush.
     }
 
     @Tab("CocoaPods") {
@@ -49,7 +45,7 @@ This allows PushwooshForegroundPush to display custom foreground notifications i
 
         ```ruby
         pod 'PushwooshXCFramework'
-        pod 'PushwooshFramework/PushwooshForegroundPush'
+        pod 'PushwooshXCFramework/PushwooshForegroundPush'
         ```
 
         Then run:
@@ -70,7 +66,6 @@ In Xcode:
 4. Click **+ Capability** and add **Background Modes**
 5. In Background Modes, enable **Remote notifications** checkbox
 
-![Required capabilities screenshot](capabilities-foreground-push.png)
 
 ## Step 4: Configure Foreground Push
 
@@ -176,7 +171,7 @@ Pushwoosh.ForegroundPush.usePushAnimation = false
 To test your foreground push integration:
 
 1. Verify `Pushwoosh_SHOW_ALERT` is set to `false` in Info.plist
-2. Build and run your app on a physical device (push notifications don't work in Simulator)
+2. Build and run your app
 3. Ensure the app has registered for push notifications successfully
 4. Send a test push notification from Pushwoosh Control Panel
 5. Keep your app in the foreground when the notification arrives

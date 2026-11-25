@@ -15,7 +15,7 @@ The user ID is used to identify users across multiple devices and sessions. This
 
 ## Default Behavior
 
-If no custom user ID has been set via ``setUserId(_:)``, this method returns the Hardware ID (HWID) as the default identifier.
+If no custom user ID has been set via ``Pushwoosh/setUserId(_:)-59ept``, this method returns the Hardware ID (HWID) as the default identifier.
 
 ## Example
 
@@ -45,6 +45,6 @@ func createSupportTicket(issue: String) -> SupportTicket {
 
 ## See Also
 
-- ``Pushwoosh/setUserId(_:)``
-- ``Pushwoosh/setUserId(_:completion:)``
+- ``Pushwoosh/setUserId(_:)-59ept``
+- ``Pushwoosh/setUserId(_:)-46ogx``
 - ``Pushwoosh/getHWID()``

@@ -27,7 +27,7 @@ Use `setAdditionalAuthorizationOptions` to request extra capabilities on top of 
 
 ## Important
 
-Call `setAdditionalAuthorizationOptions` **before** ``registerForPushNotifications()``. Options set after registration have no effect until the next authorization request.
+Call `setAdditionalAuthorizationOptions` **before** ``Pushwoosh/registerForPushNotifications()-9g5uw``. Options set after registration have no effect until the next authorization request.
 
 ## Provisional (Soft Opt-In)
 
@@ -96,5 +96,4 @@ Objective-C:
 
 ## See Also
 
-- ``Pushwoosh/registerForPushNotifications()``
-- ``PWConfiguration/addNotificationCenterDelegate(_:)``
+- ``Pushwoosh/registerForPushNotifications()-9g5uw``

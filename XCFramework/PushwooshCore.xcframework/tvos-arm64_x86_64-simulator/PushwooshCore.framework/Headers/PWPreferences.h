@@ -85,6 +85,16 @@ FOUNDATION_EXPORT NSString * const kPWActiveApplicationBaseUrlKey;
 
 @property (copy) NSString *language;
 
+/// The locale to send: the manual override when one is stored, otherwise the device's own.
+- (nullable NSString *)locale;
+
+/// The stored manual locale override, or nil when none is set.
+- (nullable NSString *)manualLocale;
+
+/// Stores the manual locale override (nil removes it). A value that actually changes goes to the server
+/// with registerDevice right away, unless collecting the device locale is disabled.
+- (void)setLocale:(nullable NSString *)locale;
+
 @property (copy) NSDictionary *customTags;
 
 @property (copy, nullable) NSString *advertisingId;

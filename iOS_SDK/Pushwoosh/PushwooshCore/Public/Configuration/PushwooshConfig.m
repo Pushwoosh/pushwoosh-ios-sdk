@@ -230,6 +230,10 @@
     [[PWPreferences preferences] setLanguage:[self trim:language]];
 }
 
++ (void)setLocale:(NSString *)locale {
+    [[PWPreferences preferences] setLocale:[self trim:locale]];
+}
+
 + (NSString *)getLanguage {
     return [[PWPreferences preferences] language];
 }

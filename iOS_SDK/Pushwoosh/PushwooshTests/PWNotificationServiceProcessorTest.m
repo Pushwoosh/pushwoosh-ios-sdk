@@ -13,6 +13,9 @@
 #import "PWActionButton.h"
 #import "PWActionButtonsParser.h"
 #import "PWActionButtonsRegistrar.h"
+#import "PWServerCommunicationManager.h"
+#import "PWDeliveryDelayTestSeams.h"
+#import "PWDelayedUploadCapture.h"
 
 #if TARGET_OS_IOS
 
@@ -24,6 +27,7 @@
 @property (nonatomic, assign) BOOL consumed;
 @property (nonatomic, copy, nullable) void (^completion)(UNNotificationContent *);
 @property (nonatomic, strong) PWActionButtonsRegistrar *actionButtonsRegistrar;
+@property (nonatomic, copy) NSDate *(^clock)(void);
 
 - (NSString *)sanitizedFileNameComponent:(NSString *)name;
 
@@ -54,6 +58,8 @@ static NSString *const kGatedAppCode = @"GATED-10570";
 @property (nonatomic) id mockConfig;
 @property (nonatomic) id mockLog;
 @property (nonatomic, copy) NSString *savedAppCode;
+@property (nonatomic) PWDelayedUploadCapture *upload;
+@property (nonatomic) NSURL *uploadContainerURL;
 
 @end
 
@@ -65,6 +71,13 @@ static NSString *const kGatedAppCode = @"GATED-10570";
 }
 
 - (void)tearDown {
+    [_upload stopMocking];
+    _upload = nil;
+    if (_uploadContainerURL) {
+        [[NSFileManager defaultManager] removeItemAtURL:_uploadContainerURL error:nil];
+    }
+    [PWDeliveryDelayWindow setUnitRandomProvider:nil];
+
     // Dropped here rather than in the test body: an assertion failing before
     // stopMocking left NSUserDefaults swapped for the rest of the bundle.
     [_mockUserDefaults stopMocking];
@@ -82,6 +95,7 @@ static NSString *const kGatedAppCode = @"GATED-10570";
         NSUserDefaults *gatedGroup = [[NSUserDefaults alloc] initWithSuiteName:kGatedAppGroup];
         [gatedGroup removeObjectForKey:@"Pushwoosh_EFFECTIVE_APPLICATION"];
         [gatedGroup removeObjectForKey:@"Pushwoosh_APPID"];
+        [gatedGroup removeObjectForKey:@"PWReverseProxyURL"];
         [self switchAppCodeTo:_savedAppCode ?: @""];
         [[PWPreferences preferences] updateBaseUrl:[[PWPreferences preferences] defaultBaseUrl]];
     }
@@ -365,6 +379,102 @@ static NSString *const kGatedAppCode = @"GATED-10570";
     [mockRequestManager stopMocking];
     [mockContent stopMocking];
     [mockRequest stopMocking];
+}
+
+#pragma mark - Receive time
+
+- (PWNotificationServiceProcessor *)processorCapturingDeliveryRequests:(NSMutableArray<PWMessageDeliveryRequest *> *)captured {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id mockRequestManager = OCMClassMock([PWRequestManager class]);
+    OCMStub([mockRequestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        __unsafe_unretained PWMessageDeliveryRequest *sent = nil;
+        [invocation getArgument:&sent atIndex:2];
+        [captured addObject:sent];
+        void (^completion)(NSError *) = nil;
+        [invocation getArgument:&completion atIndex:3];
+        if (completion) {
+            completion(nil);
+        }
+    });
+    processor.requestManager = mockRequestManager;
+    return processor;
+}
+
+/// Verifies the delivery event sent at once carries the moment the push was received as receivedAt (RFC 3339 UTC, whole seconds).
+- (void)testImmediateDeliveryEventCarriesReceiveTime {
+    NSMutableArray *captured = [NSMutableArray new];
+    PWNotificationServiceProcessor *processor = [self processorCapturingDeliveryRequests:captured];
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash"} content:&mockContent request:&mockRequest];
+
+    NSInteger before = (NSInteger)[NSDate date].timeIntervalSince1970;
+    [processor processRequest:request appGroups:nil completion:^(UNNotificationContent *content) {}];
+    NSInteger after = (NSInteger)[NSDate date].timeIntervalSince1970;
+    dispatch_sync(processor.serialQueue, ^{});
+
+    XCTAssertEqual(captured.count, 1u);
+    NSDictionary *dict = [captured.firstObject requestDictionary];
+    NSDate *stamped = [[NSISO8601DateFormatter new] dateFromString:dict[@"receivedAt"]];
+    XCTAssertNotNil(stamped);
+    XCTAssertGreaterThanOrEqual(stamped.timeIntervalSince1970, before);
+    XCTAssertLessThanOrEqual(stamped.timeIntervalSince1970, after);
+    XCTAssertNil(dict[@"timestampUTC"]);
+
+    [(id)processor.requestManager stopMocking];
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// Verifies the stamp is taken when the processor is armed: a send that starts later does not move it.
+- (void)testReceiveTimeIsTakenWhenArmedNotWhenProcessed {
+    NSMutableArray *captured = [NSMutableArray new];
+    PWNotificationServiceProcessor *processor = [self processorCapturingDeliveryRequests:captured];
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash"} content:&mockContent request:&mockRequest];
+
+    __block NSTimeInterval now = 1795000000;
+    processor.clock = ^NSDate *{ return [NSDate dateWithTimeIntervalSince1970:now]; };
+    [processor armWithRequest:request appGroups:nil completion:^(UNNotificationContent *content) {}];
+    now += 180;
+    [processor process];
+    dispatch_sync(processor.serialQueue, ^{});
+
+    XCTAssertEqual(captured.count, 1u);
+    XCTAssertEqualObjects([captured.firstObject requestDictionary][@"receivedAt"], @"2026-11-18T11:06:40Z");
+    XCTAssertNil([captured.firstObject requestDictionary][@"timestampUTC"]);
+
+    [(id)processor.requestManager stopMocking];
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// Verifies a processor re-armed for a second push stamps that push's own receive time, not the first one's.
+- (void)testReArmedProcessorStampsTheNewPush {
+    NSMutableArray *captured = [NSMutableArray new];
+    PWNotificationServiceProcessor *processor = [self processorCapturingDeliveryRequests:captured];
+    id mockContentA; id mockRequestA; id mockContentB; id mockRequestB;
+    UNNotificationRequest *requestA = [self requestWithUserInfo:@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash-a"} content:&mockContentA request:&mockRequestA];
+    UNNotificationRequest *requestB = [self requestWithUserInfo:@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash-b"} content:&mockContentB request:&mockRequestB];
+
+    __block NSTimeInterval now = 1795000000;
+    processor.clock = ^NSDate *{ return [NSDate dateWithTimeIntervalSince1970:now]; };
+    [processor armWithRequest:requestA appGroups:nil completion:^(UNNotificationContent *content) {}];
+    now += 60;
+    [processor armWithRequest:requestB appGroups:nil completion:^(UNNotificationContent *content) {}];
+    [processor process];
+    dispatch_sync(processor.serialQueue, ^{});
+
+    XCTAssertEqual(captured.count, 1u);
+    NSDictionary *dict = [captured.firstObject requestDictionary];
+    XCTAssertEqualObjects(dict[@"hash"], @"hash-b");
+    XCTAssertEqualObjects(dict[@"receivedAt"], @"2026-11-18T11:07:40Z");
+    XCTAssertNil(dict[@"timestampUTC"]);
+
+    [(id)processor.requestManager stopMocking];
+    [mockContentA stopMocking];
+    [mockRequestA stopMocking];
+    [mockContentB stopMocking];
+    [mockRequestB stopMocking];
 }
 
 /// Verifies a numeric pw_badge (NSNumber, not a string) is coerced and applied: "10" over a saved count of 3 writes badge_count = 10.
@@ -789,6 +899,204 @@ static NSString *const kGatedAppCode = @"GATED-10570";
 
     [mockContent stopMocking];
     [mockRequest stopMocking];
+}
+
+#pragma mark - Delivery delay
+
+/// The background session is a mock: the test sees what the system would be handed and nothing is sent.
+- (void)captureDelayedUploadsWithContainer:(BOOL)hasContainer {
+    if (hasContainer) {
+        _uploadContainerURL = [[NSURL fileURLWithPath:NSTemporaryDirectory()] URLByAppendingPathComponent:[NSUUID UUID].UUIDString];
+        [[NSFileManager defaultManager] createDirectoryAtURL:_uploadContainerURL withIntermediateDirectories:YES attributes:nil error:nil];
+    }
+
+    _upload = [PWDelayedUploadCapture new];
+    OCMStub([_upload.uploaderMock containerURLForAppGroup:kGatedAppGroup]).andReturn(_uploadContainerURL);
+}
+
+- (UNNotificationContent *)processUserInfo:(NSDictionary *)userInfo
+                                 processor:(PWNotificationServiceProcessor *)processor
+                                 appGroups:(NSString *)appGroups {
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:userInfo content:&mockContent request:&mockRequest];
+
+    XCTestExpectation *exp = [self expectationWithDescription:@"delivered"];
+    __block UNNotificationContent *delivered = nil;
+    [processor processRequest:request appGroups:appGroups completion:^(UNNotificationContent *content) {
+        delivered = content;
+        [exp fulfill];
+    }];
+    [self waitForExpectationsWithTimeout:2 handler:nil];
+
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+    return delivered;
+}
+
+/// Verifies a push with a window and an App Group hands the delivery event to the system with the request the REST transport would send, starting within the window, and is shown without the event being sent.
+- (void)testDeliveryDelayWithAppGroupHandsEventToSystemAndDeliversAtOnce {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id requestManager = [self gatedRequestManagerWithAppCode:kGatedAppCode];
+    processor.requestManager = requestManager;
+    OCMReject([requestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]);
+    [self captureDelayedUploadsWithContainer:YES];
+    [PWDeliveryDelayWindow setUnitRandomProvider:^double { return 1.0; }];
+
+    NSDate *before = [NSDate date];
+    UNNotificationContent *delivered = [self processUserInfo:@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash-1", @"pw_delivery_delay": @"60"}
+                                                   processor:processor
+                                                   appGroups:kGatedAppGroup];
+    NSDate *after = [NSDate date];
+
+    XCTAssertNotNil(delivered);
+    XCTAssertTrue([_upload.request.URL.absoluteString hasSuffix:@"/messageDeliveryEvent"]);
+    XCTAssertEqualObjects(_upload.request.HTTPMethod, @"POST");
+    XCTAssertEqualObjects([_upload.request valueForHTTPHeaderField:@"Content-Type"], @"application/json; charset=utf-8");
+    XCTAssertTrue([[_upload.request valueForHTTPHeaderField:@"Authorization"] hasPrefix:@"Token "]);
+
+    NSDictionary *body = [NSJSONSerialization JSONObjectWithData:_upload.body options:0 error:nil][@"request"];
+    XCTAssertEqualObjects(body[@"hash"], @"hash-1");
+    XCTAssertEqualObjects(body[@"application"], kGatedAppCode);
+
+    XCTAssertGreaterThanOrEqual([_upload.earliestBeginDate timeIntervalSinceDate:before], 60);
+    XCTAssertLessThanOrEqual([_upload.earliestBeginDate timeIntervalSinceDate:after], 60);
+}
+
+/// Verifies a delayed delivery event carries the receive time in its body while the system is asked to send it a window later.
+- (void)testDelayedDeliveryBodyCarriesReceiveTime {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id requestManager = [self gatedRequestManagerWithAppCode:kGatedAppCode];
+    processor.requestManager = requestManager;
+    [self captureDelayedUploadsWithContainer:YES];
+    [PWDeliveryDelayWindow setUnitRandomProvider:^double { return 1.0; }];
+
+    NSInteger before = (NSInteger)[NSDate date].timeIntervalSince1970;
+    NSDate *beforeDate = [NSDate date];
+    [self processUserInfo:@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash-1", @"pw_delivery_delay": @"60"}
+                processor:processor
+                appGroups:kGatedAppGroup];
+    NSInteger after = (NSInteger)[NSDate date].timeIntervalSince1970;
+
+    NSDictionary *body = [NSJSONSerialization JSONObjectWithData:_upload.body options:0 error:nil][@"request"];
+    NSDate *stamped = [[NSISO8601DateFormatter new] dateFromString:body[@"receivedAt"]];
+    XCTAssertNotNil(stamped);
+    XCTAssertGreaterThanOrEqual(stamped.timeIntervalSince1970, before);
+    XCTAssertLessThanOrEqual(stamped.timeIntervalSince1970, after);
+    XCTAssertNil(body[@"timestampUTC"]);
+    XCTAssertGreaterThanOrEqual([_upload.earliestBeginDate timeIntervalSinceDate:beforeDate], 59);
+
+    [requestManager stopMocking];
+}
+
+/// Verifies a push with a window but no App Group container sends the delivery event at once, as without the key.
+- (void)testDeliveryDelayWithoutAppGroupSendsAtOnce {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id requestManager = [self gatedRequestManagerWithAppCode:kGatedAppCode];
+    processor.requestManager = requestManager;
+    [self captureDelayedUploadsWithContainer:NO];
+    OCMReject([_upload.sessionMock uploadTaskWithRequest:OCMOCK_ANY fromFile:OCMOCK_ANY]);
+
+    [self processUserInfo:@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash-1", @"pw_delivery_delay": @"60"}
+                processor:processor
+                appGroups:nil];
+
+    OCMVerify([requestManager sendRequestInternal:[OCMArg isKindOfClass:[PWMessageDeliveryRequest class]] completion:OCMOCK_ANY]);
+}
+
+/// Verifies an invalid window value sends the delivery event at once, as without the key.
+- (void)testInvalidDeliveryDelaySendsAtOnce {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id requestManager = [self gatedRequestManagerWithAppCode:kGatedAppCode];
+    processor.requestManager = requestManager;
+    [self captureDelayedUploadsWithContainer:YES];
+    OCMReject([_upload.sessionMock uploadTaskWithRequest:OCMOCK_ANY fromFile:OCMOCK_ANY]);
+
+    [self processUserInfo:@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash-1", @"pw_delivery_delay": @"abc"}
+                processor:processor
+                appGroups:kGatedAppGroup];
+
+    OCMVerify([requestManager sendRequestInternal:[OCMArg isKindOfClass:[PWMessageDeliveryRequest class]] completion:OCMOCK_ANY]);
+}
+
+/// Verifies a push without the key is shown only after the delivery event is answered, as before the window existed.
+- (void)testWithoutDeliveryDelayShowingWaitsForDeliveryEvent {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id requestManager = OCMClassMock([PWRequestManager class]);
+    __block void (^heldCompletion)(NSError *) = nil;
+    OCMStub([requestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]).andDo(^(NSInvocation *invocation) {
+        __unsafe_unretained void (^completion)(NSError *) = nil;
+        [invocation getArgument:&completion atIndex:3];
+        heldCompletion = [completion copy];
+    });
+    processor.requestManager = requestManager;
+    [self captureDelayedUploadsWithContainer:YES];
+    OCMReject([_upload.sessionMock uploadTaskWithRequest:OCMOCK_ANY fromFile:OCMOCK_ANY]);
+
+    id mockContent; id mockRequest;
+    UNNotificationRequest *request = [self requestWithUserInfo:(@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash-1"}) content:&mockContent request:&mockRequest];
+    __block BOOL delivered = NO;
+    [processor processRequest:request appGroups:kGatedAppGroup completion:^(UNNotificationContent *content) {
+        delivered = YES;
+    }];
+
+    XCTAssertTrue([self spinUntil:^BOOL { return heldCompletion != nil; } timeout:2]);
+    XCTAssertFalse([self spinUntil:^BOOL { return delivered; } timeout:0.3]);
+    heldCompletion(nil);
+    XCTAssertTrue([self spinUntil:^BOOL { return delivered; } timeout:2]);
+
+    [requestManager stopMocking];
+    [mockContent stopMocking];
+    [mockRequest stopMocking];
+}
+
+/// Verifies a window does not schedule the delivery event while server communication is disabled, and the event is refused as before.
+- (void)testDeliveryDelayWithServerCommunicationDisabledSchedulesNothing {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id requestManager = [self gatedRequestManagerWithAppCode:kGatedAppCode];
+    processor.requestManager = requestManager;
+    [self captureDelayedUploadsWithContainer:YES];
+    OCMReject([_upload.sessionMock uploadTaskWithRequest:OCMOCK_ANY fromFile:OCMOCK_ANY]);
+    id communication = OCMPartialMock([PWServerCommunicationManager sharedInstance]);
+    OCMStub([communication isServerCommunicationAllowed]).andReturn(NO);
+
+    _mockLog = OCMClassMock([PushwooshLog class]);
+    OCMExpect([_mockLog pushwooshLog:PW_LL_WARN className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *message) {
+        return [message hasPrefix:@"messageDeliveryEvent not delivered"] && [message containsString:@"Communication with Pushwoosh is disabled"];
+    }]]);
+
+    UNNotificationContent *delivered = [self processUserInfo:@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash-1", @"pw_delivery_delay": @"60"}
+                                                   processor:processor
+                                                   appGroups:kGatedAppGroup];
+
+    XCTAssertNotNil(delivered);
+    OCMVerifyAll(_mockLog);
+    [communication stopMocking];
+}
+
+/// Verifies a window does not schedule the delivery event when the extension has no app code, and the missing configuration is named as before.
+/// The App Group shares a reverse proxy, so a request could be built and only the app code check keeps it from the system.
+- (void)testDeliveryDelayWithoutAppCodeSchedulesNothing {
+    PWNotificationServiceProcessor *processor = [PWNotificationServiceProcessor new];
+    id requestManager = [self gatedRequestManagerWithAppCode:@""];
+    processor.requestManager = requestManager;
+    NSUserDefaults *shared = [[NSUserDefaults alloc] initWithSuiteName:kGatedAppGroup];
+    [shared setObject:@"https://proxy.example.com/" forKey:@"PWReverseProxyURL"];
+    [shared synchronize];
+    OCMReject([requestManager sendRequest:OCMOCK_ANY completion:OCMOCK_ANY]);
+    [self captureDelayedUploadsWithContainer:YES];
+    OCMReject([_upload.sessionMock uploadTaskWithRequest:OCMOCK_ANY fromFile:OCMOCK_ANY]);
+
+    _mockLog = OCMClassMock([PushwooshLog class]);
+    OCMExpect([_mockLog pushwooshLog:PW_LL_WARN className:OCMOCK_ANY message:[OCMArg checkWithBlock:^BOOL(NSString *message) {
+        return [message hasPrefix:@"messageDeliveryEvent skipped"] && [message containsString:@"no Pushwoosh app code"];
+    }]]);
+
+    UNNotificationContent *delivered = [self processUserInfo:@{@"aps": @{}, @"pw_msg": @"1", @"p": @"hash-1", @"pw_delivery_delay": @"60"}
+                                                   processor:processor
+                                                   appGroups:kGatedAppGroup];
+
+    XCTAssertNotNil(delivered);
+    OCMVerifyAll(_mockLog);
 }
 
 #pragma mark - Action buttons

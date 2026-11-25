@@ -1,4 +1,4 @@
-# ``Pushwoosh/unregisterForPushNotifications()``
+# ``Pushwoosh/unregisterForPushNotifications()-9o2u``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -12,7 +12,7 @@ This method:
 1. Notifies Pushwoosh servers to stop sending push notifications to this device
 2. Removes the device token from Pushwoosh
 
-The device will no longer receive push notifications through Pushwoosh until ``registerForPushNotifications()`` is called again.
+The device will no longer receive push notifications through Pushwoosh until ``Pushwoosh/registerForPushNotifications()-9g5uw`` is called again.
 
 ## Use Cases
 
@@ -31,7 +31,7 @@ Unregister when user logs out:
 ```swift
 func handleLogout() {
     Pushwoosh.configure.resetUserId()
-    Pushwoosh.configure.unregisterForPushNotifications()
+    Pushwoosh.configure.unregisterForPushNotifications(completion: nil)
 
     clearLocalUserData()
     navigateToLogin()
@@ -40,5 +40,5 @@ func handleLogout() {
 
 ## See Also
 
-- ``Pushwoosh/unregisterForPushNotifications(completion:)``
-- ``Pushwoosh/registerForPushNotifications()``
+- ``Pushwoosh/unregisterForPushNotifications()-80mv5``
+- ``Pushwoosh/registerForPushNotifications()-9g5uw``

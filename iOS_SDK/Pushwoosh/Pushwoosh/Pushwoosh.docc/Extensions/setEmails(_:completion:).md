@@ -1,4 +1,4 @@
-# ``Pushwoosh/setEmails(_:completion:)``
+# ``Pushwoosh/setEmails(_:)-32h1u``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Registers a list of email addresses with a completion handler.
 
 ## Overview
 
-Same as ``setEmails(_:)`` but provides a completion callback to confirm the emails were successfully synchronized.
+Same as ``Pushwoosh/setEmails(_:)-8qzt8`` but provides a completion callback to confirm the emails were successfully synchronized.
 
 Use this variant when you need to:
 - Confirm emails were registered before proceeding
@@ -53,5 +53,5 @@ func importAccountEmails() {
 
 ## See Also
 
-- ``Pushwoosh/setEmails(_:)``
-- ``Pushwoosh/setEmail(_:completion:)``
+- ``Pushwoosh/setEmails(_:)-8qzt8``
+- ``Pushwoosh/setEmail(_:)-2x3e8``

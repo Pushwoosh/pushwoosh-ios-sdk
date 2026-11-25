@@ -1,4 +1,4 @@
-# ``Pushwoosh/media``
+# ``Pushwoosh/media-type.property``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -43,14 +43,13 @@ func application(_ application: UIApplication,
 
     // Configure modal-specific settings
     Pushwoosh.media.modalRichMedia.configure(
-        position: .PWModalWindowPositionBottom,
-        presentAnimation: .PWAnimationPresentFromBottom,
-        dismissAnimation: .PWAnimationDismissDown
+        with: .PWModalWindowPositionBottom,
+        present: .PWAnimationPresentSlideUp,
+        dismiss: .PWAnimationDismissSlideDown
     )
-    Pushwoosh.media.modalRichMedia.setDismissSwipeDirections([NSNumber(value: PWSwipeDismissDown.rawValue)])
+    Pushwoosh.media.modalRichMedia.setDismissSwipeDirections([NSNumber(value: DismissSwipeDirection.PWSwipeDismissDown.rawValue)])
 
-    let topCorners = PWCornerTypeTopLeft.rawValue | PWCornerTypeTopRight.rawValue
-    Pushwoosh.media.modalRichMedia.setCornerType(CornerType(rawValue: topCorners), radius: 16)
+    Pushwoosh.media.modalRichMedia.setCornerType([.PWCornerTypeTopLeft, .PWCornerTypeTopRight], withRadius: 16)
 
     // Set delegate for Rich Media lifecycle events
     Pushwoosh.media.modalRichMedia.delegate = self
@@ -89,25 +88,15 @@ Add `Pushwoosh_RICH_MEDIA_STYLE` key with value `MODAL_RICH_MEDIA` or `LEGACY_RI
 
 Add `Pushwoosh_RICH_MEDIA_COLOR_SCHEME` key with value `APP`, `SYSTEM`, `LIGHT` or `DARK`.
 
-## Topics
+## Related API
 
-### Style Configuration
+`PWMedia` and its sub-interfaces are documented in the PushwooshCore module:
 
-- ``PWMedia/setRichMediaPresentationStyle(_:)``
-- ``PWMedia/richMediaPresentationStyle()``
-
-### Color Scheme
-
-- ``PWMedia/setRichMediaColorScheme(_:)``
-- ``PWMedia/richMediaColorScheme()``
-- ``PWRichMediaColorScheme``
-
-### Sub-interfaces
-
-- ``PWMedia/modalRichMedia``
-- ``PWMedia/legacyRichMedia``
+- Style: `setRichMediaPresentationStyle(_:)`, `richMediaPresentationStyle()`
+- Color scheme: `setRichMediaColorScheme(_:)`, `richMediaColorScheme()`, `PWRichMediaColorScheme`
+- Sub-interfaces: `modalRichMedia`, `legacyRichMedia`
 
 ## See Also
 
-- ``Pushwoosh/debug``
-- ``Pushwoosh/configure``
+- ``Pushwoosh/debug-type.property``
+- ``Pushwoosh/configure-type.property``

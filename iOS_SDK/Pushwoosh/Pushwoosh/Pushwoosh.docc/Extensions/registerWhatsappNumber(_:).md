@@ -60,4 +60,4 @@ func showWhatsAppOptIn() {
 ## See Also
 
 - ``Pushwoosh/registerSmsNumber(_:)``
-- ``Pushwoosh/setEmail(_:)``
+- ``Pushwoosh/setEmail(_:)-7syp6``

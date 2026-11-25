@@ -35,6 +35,7 @@
 @property (nonatomic, copy) NSString *originalAppCode;
 @property (nonatomic, copy) NSString *originalApiToken;
 @property (nonatomic, copy) NSString *originalLanguage;
+@property (nonatomic, copy) NSString *originalLocale;
 @property (nonatomic, copy) NSString *originalAdvertisingId;
 @property (nonatomic, strong) PWDataManager *originalDataManager;
 @property (nonatomic, strong) PWPushNotificationsManager *originalPushNotificationManager;
@@ -56,6 +57,7 @@
     _originalAppCode = [[PWPreferences preferences].appCode copy];
     _originalApiToken = [[PWPreferences preferences].apiToken copy];
     _originalLanguage = [[PWPreferences preferences].language copy];
+    _originalLocale = [[PWPreferences preferences].manualLocale copy];
     _originalAdvertisingId = [[PWPreferences preferences].advertisingId copy];
     _originalDataManager = [PWManagerBridge shared].dataManager;
     _originalPushNotificationManager = [PWManagerBridge shared].pushNotificationManager;
@@ -90,6 +92,7 @@
     [PWPreferences preferences].appCode = _originalAppCode;
     [PWPreferences preferences].apiToken = _originalApiToken;
     [PWPreferences preferences].language = _originalLanguage;
+    [[PWPreferences preferences] setLocale:_originalLocale];
     [PWPreferences preferences].advertisingId = _originalAdvertisingId;
     [PWManagerBridge shared].dataManager = _originalDataManager;
     [PWManagerBridge shared].pushNotificationManager = _originalPushNotificationManager;
@@ -305,6 +308,59 @@
 
     XCTAssertEqualObjects([PushwooshConfig getLanguage], @"fr");
     XCTAssertEqualObjects([PWPreferences preferences].language, @"fr");
+}
+
+#pragma mark - setLocale
+
+/// Verifies that setLocale trims whitespace and persists the manual locale in PWPreferences.
+- (void)testSetLocale_persistsTrimmedValue {
+    [PushwooshConfig setLocale:@"  es-419  "];
+
+    XCTAssertEqualObjects([PWPreferences preferences].manualLocale, @"es-419");
+    XCTAssertEqualObjects([PWPreferences preferences].locale, @"es-419");
+}
+
+/// Verifies that a whitespace-only locale clears the manual locale instead of being stored or ignored.
+- (void)testSetLocale_whitespaceOnlyClearsManualLocale {
+    [PushwooshConfig setLocale:@"es-419"];
+
+    [PushwooshConfig setLocale:@"   "];
+
+    XCTAssertNil([PWPreferences preferences].manualLocale);
+}
+
+/// Verifies that nil clears the manual locale.
+- (void)testSetLocale_nilClearsManualLocale {
+    [PushwooshConfig setLocale:@"es-419"];
+
+    [PushwooshConfig setLocale:nil];
+
+    XCTAssertNil([PWPreferences preferences].manualLocale);
+}
+
+/// Verifies that a non-NSString argument clears the manual locale instead of crashing when trimmed.
+- (void)testSetLocale_nonStringArgumentClearsManualLocaleWithoutCrashing {
+    [PushwooshConfig setLocale:@"es-419"];
+
+    [PushwooshConfig setLocale:(NSString *)@42];
+
+    XCTAssertNil([PWPreferences preferences].manualLocale);
+}
+
+/// Verifies that a malformed, non-BCP-47 tag is stored verbatim since the SDK does not validate it.
+- (void)testSetLocale_storesNonBCP47ValueVerbatim {
+    [PushwooshConfig setLocale:@"not a locale"];
+
+    XCTAssertEqualObjects([PWPreferences preferences].manualLocale, @"not a locale");
+}
+
+/// Verifies that an overlong locale value is stored verbatim and never truncated.
+- (void)testSetLocale_storesOverlongValueVerbatim {
+    NSString *overlong = [@"" stringByPaddingToLength:500 withString:@"a" startingAtIndex:0];
+
+    [PushwooshConfig setLocale:overlong];
+
+    XCTAssertEqualObjects([PWPreferences preferences].manualLocale, overlong);
 }
 
 #pragma mark - showPushnotificationAlert round trip

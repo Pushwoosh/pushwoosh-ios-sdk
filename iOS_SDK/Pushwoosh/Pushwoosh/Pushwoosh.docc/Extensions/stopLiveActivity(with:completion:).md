@@ -1,4 +1,4 @@
-# ``Pushwoosh/stopLiveActivity(with:completion:)``
+# ``Pushwoosh/stopLiveActivity(with:)-5cwgz``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Stops a specific live activity by ID with a completion handler.
 
 ## Overview
 
-> Deprecated: Use ``Pushwoosh/LiveActivities`` API instead.
+> Deprecated: Use ``Pushwoosh/LiveActivities-type.property`` API instead.
 
 Similar to `stopLiveActivityWith:` but provides a callback when the operation completes.
 
@@ -44,5 +44,5 @@ func cancelDelivery(orderId: String) {
 
 ## See Also
 
-- ``Pushwoosh/LiveActivities``
-- ``Pushwoosh/stopLiveActivity(with:)``
+- ``Pushwoosh/LiveActivities-type.property``
+- ``Pushwoosh/stopLiveActivity(with:)-6645z``

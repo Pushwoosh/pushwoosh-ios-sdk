@@ -23,13 +23,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWPurchaseDelegate {
                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         Pushwoosh.configure.purchaseDelegate = self
-        Pushwoosh.configure.delegate = self
         Pushwoosh.configure.registerForPushNotifications()
 
         return true
     }
 
-    func onPWInAppPurchaseHelperProducts(_ products: [SKProduct]?) {
+    func onPW(inAppPurchaseHelperProducts products: [SKProduct]?) {
         guard let products = products else { return }
 
         for product in products {
@@ -37,27 +36,27 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWPurchaseDelegate {
         }
     }
 
-    func onPWInAppPurchaseHelperPaymentComplete(_ identifier: String?) {
+    func onPW(inAppPurchaseHelperPaymentComplete identifier: String?) {
         guard let identifier = identifier else { return }
 
         Analytics.log("purchase_complete", ["product": identifier])
         PremiumManager.shared.unlock(productId: identifier)
     }
 
-    func onPWInAppPurchaseHelperPaymentFailed(productIdentifier identifier: String?, error: Error?) {
+    func onPW(inAppPurchaseHelperPaymentFailedProductIdentifier identifier: String?, error: Error?) {
         Analytics.log("purchase_failed", [
             "product": identifier ?? "",
             "error": error?.localizedDescription ?? ""
         ])
     }
 
-    func onPWInAppPurchaseHelperCallPromotedPurchase(_ identifier: String?) {
+    func onPW(inAppPurchaseHelperCallPromotedPurchase identifier: String?) {
         guard let identifier = identifier else { return }
 
         showPurchaseConfirmation(for: identifier)
     }
 
-    func onPWInAppPurchaseHelperRestoreCompletedTransactionsFailed(_ error: Error?) {
+    func onPW(inAppPurchaseHelperRestoreCompletedTransactionsFailed error: Error?) {
         showError("Failed to restore purchases: \(error?.localizedDescription ?? "Unknown error")")
     }
 }
@@ -67,14 +66,14 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWPurchaseDelegate {
 
 ### Product Information
 
-- ``onPWInAppPurchaseHelperProducts(_:)``
+- ``PWPurchaseDelegate/onPW(inAppPurchaseHelperProducts:)``
 
 ### Purchase Events
 
-- ``onPWInAppPurchaseHelperPaymentComplete(_:)``
-- ``onPWInAppPurchaseHelperPaymentFailedProductIdentifier(_:error:)``
-- ``onPW(inAppPurchaseHelperCallPromotedPurchase:)``
+- ``PWPurchaseDelegate/onPW(inAppPurchaseHelperPaymentComplete:)``
+- ``PWPurchaseDelegate/onPW(inAppPurchaseHelperPaymentFailedProductIdentifier:error:)``
+- ``PWPurchaseDelegate/onPW(inAppPurchaseHelperCallPromotedPurchase:)``
 
 ### Restore Transactions
 
-- ``onPWInAppPurchaseHelperRestoreCompletedTransactionsFailed(_:)``
+- ``PWPurchaseDelegate/onPW(inAppPurchaseHelperRestoreCompletedTransactionsFailed:)``

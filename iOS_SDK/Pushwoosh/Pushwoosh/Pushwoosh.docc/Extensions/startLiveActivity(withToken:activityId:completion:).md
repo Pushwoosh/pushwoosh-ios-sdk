@@ -1,4 +1,4 @@
-# ``Pushwoosh/startLiveActivity(withToken:activityId:completion:)``
+# ``Pushwoosh/startLiveActivity(withToken:activityId:)-4m0om``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Sends live activity token to the server with a completion handler.
 
 ## Overview
 
-> Deprecated: Use ``Pushwoosh/LiveActivities`` API instead.
+> Deprecated: Use ``Pushwoosh/LiveActivities-type.property`` API instead.
 
 Similar to `startLiveActivityWithToken:activityId:` but provides a callback when the operation completes.
 
@@ -39,4 +39,4 @@ func startDeliveryTracking(orderId: String) async throws {
 
 ## See Also
 
-- ``Pushwoosh/LiveActivities``
+- ``Pushwoosh/LiveActivities-type.property``

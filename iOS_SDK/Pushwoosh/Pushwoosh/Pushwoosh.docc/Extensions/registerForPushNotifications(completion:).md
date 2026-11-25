@@ -1,4 +1,4 @@
-# ``Pushwoosh/registerForPushNotifications(completion:)``
+# ``Pushwoosh/registerForPushNotifications()-6mniz``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Registers the device for push notifications with a completion handler.
 
 ## Overview
 
-Same as ``registerForPushNotifications()`` but provides a completion callback with the registration result.
+Same as ``Pushwoosh/registerForPushNotifications()-9g5uw`` but provides a completion callback with the registration result.
 
 Use this variant when you need to:
 - Confirm registration succeeded
@@ -74,6 +74,6 @@ func requestPushPermission() {
 
 ## See Also
 
-- ``Pushwoosh/registerForPushNotifications()``
-- ``Pushwoosh/unregisterForPushNotifications(completion:)``
+- ``Pushwoosh/registerForPushNotifications()-9g5uw``
+- ``Pushwoosh/unregisterForPushNotifications()-80mv5``
 - ``Pushwoosh/getPushToken()``

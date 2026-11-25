@@ -8,14 +8,14 @@ Initializes the Pushwoosh SDK with your application code.
 
 ## Overview
 
-Manually initializes the SDK with your Pushwoosh Application Code. Use this when you need to:
+Deprecated since 7.3.0. Set the Application Code in `Info.plist` or call `Pushwoosh.configure.setAppCode(_:)` instead. Use the runtime setter when you need to:
 - Set the app code dynamically at runtime
 - Support multiple Pushwoosh applications
-- Initialize SDK after user consent
+- Start the SDK after user consent
 
-## Alternative: Info.plist Configuration
+## Info.plist Configuration
 
-For most apps, configure in Info.plist instead:
+For most apps, configure in Info.plist:
 
 ```xml
 <key>Pushwoosh_APPID</key>
@@ -24,14 +24,14 @@ For most apps, configure in Info.plist instead:
 
 ## Example
 
-Initialize with dynamic app code:
+Set the app code at runtime:
 
 ```swift
 func application(_ application: UIApplication,
                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
     let appCode = Configuration.pushwooshAppCode
-    Pushwoosh.initialize(withAppCode: appCode)
+    Pushwoosh.configure.setAppCode(appCode)
 
     Pushwoosh.configure.delegate = self
     Pushwoosh.configure.registerForPushNotifications()
@@ -40,23 +40,23 @@ func application(_ application: UIApplication,
 }
 ```
 
-Initialize after user consent:
+Set the app code after user consent:
 
 ```swift
 func handlePrivacyConsentAccepted() {
-    Pushwoosh.initialize(withAppCode: "XXXXX-XXXXX")
+    Pushwoosh.configure.setAppCode("XXXXX-XXXXX")
     Pushwoosh.configure.registerForPushNotifications()
 }
 ```
 
-Support multiple environments:
+Use one app code per build configuration:
 
 ```swift
 func setupPushwoosh() {
     #if DEBUG
-    Pushwoosh.initialize(withAppCode: "DEV-APPCODE")
+    Pushwoosh.configure.setAppCode("DEV-APPCODE")
     #else
-    Pushwoosh.initialize(withAppCode: "PROD-APPCODE")
+    Pushwoosh.configure.setAppCode("PROD-APPCODE")
     #endif
 
     Pushwoosh.configure.registerForPushNotifications()
@@ -66,4 +66,4 @@ func setupPushwoosh() {
 ## See Also
 
 - ``Pushwoosh/applicationCode``
-- ``Pushwoosh/configure``
+- ``Pushwoosh/configure-type.property``

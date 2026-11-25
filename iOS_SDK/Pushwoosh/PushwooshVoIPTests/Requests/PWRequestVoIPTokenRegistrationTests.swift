@@ -90,14 +90,25 @@ final class PWRequestVoIPTokenRegistrationTests: XCTestCase {
         XCTAssertEqual(dictionary["device_type"] as? Int, 1)
     }
 
+    /// Verifies that VoIP registration sends the IANA name of the device time zone.
     func testRequestDictionaryTimezone() throws {
         let parameters = VoIPRequestParameters(token: "test_token")
         let request = PWSetVoIPTokenRequest(parameters: parameters)
 
-        let dictionary = request.requestDictionary()
-        let timezone = dictionary["timezone"]
+        let timezone = withLocalTimeZone(TimeZone(identifier: "Europe/Paris")!) {
+            request.requestDictionary()["timezone"] as? String
+        }
 
-        XCTAssertNotNil(timezone)
+        XCTAssertEqual(timezone, "Europe/Paris")
+    }
+
+    private func withLocalTimeZone<T>(_ timeZone: TimeZone, _ body: () -> T) -> T {
+        let method = class_getClassMethod(NSTimeZone.self, #selector(getter: NSTimeZone.local))!
+        let original = method_getImplementation(method)
+        let stub: @convention(block) (AnyObject) -> NSTimeZone = { _ in timeZone as NSTimeZone }
+        method_setImplementation(method, imp_implementationWithBlock(stub))
+        defer { method_setImplementation(method, original) }
+        return body()
     }
 
     func testRequestDictionaryApplication() throws {

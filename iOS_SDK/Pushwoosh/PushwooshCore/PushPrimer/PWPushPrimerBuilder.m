@@ -38,6 +38,7 @@
 @synthesize cornerRadius = _cornerRadius;
 @synthesize buttonBorderColor = _buttonBorderColor;
 @synthesize buttonCornerRadius = _buttonCornerRadius;
+@synthesize glass = _glass;
 @synthesize fallbackToSettings = _fallbackToSettings;
 @synthesize minInterval = _minInterval;
 
@@ -182,6 +183,13 @@
     return ^PWPushPrimerBuilder *(CGFloat radius) {
         self.config.buttonCornerRadius = radius;
         self.config.buttonCornerRadiusSet = YES;
+        return self;
+    };
+}
+
+- (PWPushPrimerBuilder *(^)(BOOL))glass {
+    return ^PWPushPrimerBuilder *(BOOL enabled) {
+        self.config.glass = enabled;
         return self;
     };
 }

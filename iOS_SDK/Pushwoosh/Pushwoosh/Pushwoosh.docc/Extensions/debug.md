@@ -1,4 +1,4 @@
-# ``Pushwoosh/debug``
+# ``Pushwoosh/debug-type.property``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -10,12 +10,12 @@ Provides access to debugging and logging functionality.
 
 Use this property to control SDK logging for development and troubleshooting. Available log levels:
 
-- `.none` - No logging
-- `.error` - Errors only
-- `.warning` - Warnings and errors
-- `.info` - Info, warnings, and errors
-- `.debug` - Debug messages and above
-- `.verbose` - All messages
+- `.PW_LL_NONE` - No logging
+- `.PW_LL_ERROR` - Errors only
+- `.PW_LL_WARN` - Warnings and errors
+- `.PW_LL_INFO` - Info, warnings, and errors
+- `.PW_LL_DEBUG` - Debug messages and above
+- `.PW_LL_VERBOSE` - All messages
 
 ## Example
 
@@ -26,9 +26,9 @@ func application(_ application: UIApplication,
                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
     #if DEBUG
-    Pushwoosh.debug.setLogLevel(.verbose)
+    Pushwoosh.debug.setLogLevel(.PW_LL_VERBOSE)
     #else
-    Pushwoosh.debug.setLogLevel(.error)
+    Pushwoosh.debug.setLogLevel(.PW_LL_ERROR)
     #endif
 
     Pushwoosh.configure.registerForPushNotifications()
@@ -41,10 +41,10 @@ Enable logging for troubleshooting:
 
 ```swift
 func enableDiagnosticMode() {
-    Pushwoosh.debug.setLogLevel(.verbose)
+    Pushwoosh.debug.setLogLevel(.PW_LL_VERBOSE)
 
     DispatchQueue.main.asyncAfter(deadline: .now() + 60) {
-        Pushwoosh.debug.setLogLevel(.error)
+        Pushwoosh.debug.setLogLevel(.PW_LL_ERROR)
     }
 }
 ```

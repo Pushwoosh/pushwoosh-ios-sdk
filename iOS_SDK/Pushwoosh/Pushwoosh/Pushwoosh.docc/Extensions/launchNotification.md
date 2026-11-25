@@ -30,7 +30,7 @@ func application(_ application: UIApplication,
     Pushwoosh.configure.delegate = self
     Pushwoosh.configure.registerForPushNotifications()
 
-    if let launchNotification = Pushwoosh.configure.launchNotification {
+    if let launchNotification = Pushwoosh.configure.launchNotification() {
         handleLaunchNotification(launchNotification)
     }
 
@@ -54,7 +54,7 @@ Check for launch notification in SceneDelegate:
 ```swift
 func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options: UIScene.ConnectionOptions) {
 
-    if let launchNotification = Pushwoosh.configure.launchNotification {
+    if let launchNotification = Pushwoosh.configure.launchNotification() {
         pendingDeepLink = extractDeepLink(from: launchNotification)
     }
 }

@@ -1,4 +1,4 @@
-# ``PWPurchaseDelegate/onPWInAppPurchaseHelperProducts(_:)``
+# ``PWPurchaseDelegate/onPW(inAppPurchaseHelperProducts:)``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -17,7 +17,9 @@ Display available products in purchase UI:
 ```swift
 class PurchaseManager: NSObject, PWPurchaseDelegate {
 
-    func onPWInAppPurchaseHelperProducts(_ products: [SKProduct]) {
+    func onPW(inAppPurchaseHelperProducts products: [SKProduct]?) {
+        guard let products = products else { return }
+
         let availableProducts = products.map { product in
             ProductViewModel(
                 identifier: product.productIdentifier,
@@ -48,5 +50,5 @@ class PurchaseManager: NSObject, PWPurchaseDelegate {
 
 ## See Also
 
-- ``PWPurchaseDelegate/onPWInAppPurchaseHelperPaymentComplete(_:)``
+- ``PWPurchaseDelegate/onPW(inAppPurchaseHelperPaymentComplete:)``
 - ``PWPurchaseDelegate/onPW(inAppPurchaseHelperCallPromotedPurchase:)``

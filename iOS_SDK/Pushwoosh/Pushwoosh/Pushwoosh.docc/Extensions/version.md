@@ -22,7 +22,7 @@ Include SDK version in support tickets:
 func createSupportTicket(issue: String) -> SupportTicket {
     return SupportTicket(
         issue: issue,
-        sdkVersion: Pushwoosh.version(),
+        sdkVersion: Pushwoosh.configure.version(),
         appVersion: Bundle.main.appVersion,
         hwid: Pushwoosh.configure.getHWID(),
         osVersion: UIDevice.current.systemVersion
@@ -37,7 +37,7 @@ func application(_ application: UIApplication,
                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
     Analytics.log("app_launched", [
-        "pushwoosh_version": Pushwoosh.version(),
+        "pushwoosh_version": Pushwoosh.configure.version(),
         "app_version": Bundle.main.appVersion
     ])
 

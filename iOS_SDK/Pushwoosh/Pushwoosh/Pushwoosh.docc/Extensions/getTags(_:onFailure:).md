@@ -71,5 +71,5 @@ func debugPrintTags() {
 
 ## See Also
 
-- ``Pushwoosh/setTags(_:)``
-- ``Pushwoosh/setTags(_:completion:)``
+- ``Pushwoosh/setTags(_:)-6njl3``
+- ``Pushwoosh/setTags(_:)-1q070``

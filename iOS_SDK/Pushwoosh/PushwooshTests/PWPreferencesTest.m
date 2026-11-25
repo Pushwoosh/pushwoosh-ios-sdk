@@ -11,6 +11,7 @@
 
 #import "PWPreferences.h"
 #import "PWConfig.h"
+#import "PWUtils.h"
 
 @interface PWPreferences (Test)
 
@@ -20,6 +21,8 @@
 + (NSString *)readAppId;
 + (void)resetCache;
 + (NSString *)readProductionAppCodeAndUpdateIfNeeded;
+
+- (instancetype)initObservingKeychainProvider:(BOOL)observesKeychainProvider;
 
 @end
 
@@ -37,6 +40,9 @@
 @property (nonatomic, copy) NSString *savedBaseUrl;
 @property (nonatomic, copy) NSString *savedInfoPlistAppId;
 @property (nonatomic, copy) NSString *savedInMemoryAppCode;
+@property (nonatomic, copy) NSString *savedLocale;
+@property (nonatomic, copy) NSDate *savedLastRegTime;
+@property (nonatomic, copy) NSDictionary *savedActiveApplicationRecord;
 
 @end
 
@@ -50,6 +56,9 @@
     _savedBaseUrl = [[defaults objectForKey:@"Pushwoosh_BASEURL"] copy];
     _savedInfoPlistAppId = [[defaults objectForKey:@"Pushwoosh_INFO_PLIST_APPID"] copy];
     _savedInMemoryAppCode = [_settings.appCode copy];
+    _savedLocale = [[defaults objectForKey:@"Pushwoosh_Locale"] copy];
+    _savedLastRegTime = [_settings.lastRegTime copy];
+    _savedActiveApplicationRecord = [[defaults objectForKey:@"Pushwoosh_ACTIVE_APPLICATION"] copy];
 }
 
 - (void)tearDown {
@@ -58,6 +67,16 @@
     [self restoreDefaultsKey:@"Pushwoosh_INFO_PLIST_APPID" value:_savedInfoPlistAppId];
     [[NSUserDefaults standardUserDefaults] synchronize];
     _settings.appCode = _savedInMemoryAppCode;
+    /// Goes through the setter so the singleton's in-memory manualLocale ivar is restored too.
+    [_settings setLocale:_savedLocale];
+    /// Must run after setLocale: restores the locale, since setLocale: clobbers lastRegTime.
+    _settings.lastRegTime = _savedLastRegTime;
+    if (_savedActiveApplicationRecord) {
+        [[NSUserDefaults standardUserDefaults] setObject:_savedActiveApplicationRecord forKey:@"Pushwoosh_ACTIVE_APPLICATION"];
+    } else {
+        [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Pushwoosh_ACTIVE_APPLICATION"];
+    }
+    [[NSUserDefaults standardUserDefaults] synchronize];
 }
 
 - (void)restoreDefaultsKey:(NSString *)key value:(NSString *)value {
@@ -592,6 +611,110 @@
     [[NSUserDefaults standardUserDefaults] removePersistentDomainForName:appGroupName];
     [self restoreDefaultsKey:@"PWInAppUserId" value:savedUserId];
     [mockConfig stopMocking];
+}
+
+/// Verifies that with no manual locale stored the sent locale comes from the device each time.
+- (void)testLocaleFallsBackToDeviceLocaleWhenNoManualLocaleIsStored {
+    [_settings setLocale:nil];
+    id utilsMock = OCMClassMock([PWUtils class]);
+    OCMStub([utilsMock preferredLocale]).andReturn(@"pt-BR");
+
+    XCTAssertEqualObjects(_settings.locale, @"pt-BR");
+    XCTAssertNil(_settings.manualLocale);
+    XCTAssertNil([[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_Locale"]);
+
+    [utilsMock stopMocking];
+}
+
+/// Verifies that a manual locale outranks the device locale and is persisted.
+- (void)testSetLocaleStoresManualValueAndOutranksDeviceLocale {
+    id utilsMock = OCMClassMock([PWUtils class]);
+    OCMStub([utilsMock preferredLocale]).andReturn(@"pt-BR");
+
+    [_settings setLocale:@"es-419"];
+
+    XCTAssertEqualObjects(_settings.locale, @"es-419");
+    XCTAssertEqualObjects(_settings.manualLocale, @"es-419");
+    XCTAssertEqualObjects([[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_Locale"], @"es-419");
+
+    [utilsMock stopMocking];
+}
+
+/// Verifies that a manual locale survives the object being rebuilt, i.e. an app restart.
+- (void)testManualLocaleSurvivesPreferencesRecreation {
+    [_settings setLocale:@"es-419"];
+
+    PWPreferences *rebuilt = [[PWPreferences alloc] initObservingKeychainProvider:NO];
+
+    XCTAssertEqualObjects(rebuilt.manualLocale, @"es-419");
+    XCTAssertEqualObjects(rebuilt.locale, @"es-419");
+}
+
+/// Verifies that clearing the manual locale returns the device locale.
+- (void)testSetLocaleNilClearsManualValue {
+    id utilsMock = OCMClassMock([PWUtils class]);
+    OCMStub([utilsMock preferredLocale]).andReturn(@"pt-BR");
+    [_settings setLocale:@"es-419"];
+
+    [_settings setLocale:nil];
+
+    XCTAssertNil(_settings.manualLocale);
+    XCTAssertEqualObjects(_settings.locale, @"pt-BR");
+    XCTAssertNil([[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_Locale"]);
+
+    [utilsMock stopMocking];
+}
+
+/// Verifies that a changed manual locale lifts the registerDevice throttle.
+- (void)testSetLocaleWithNewValueLiftsRegistrationThrottle {
+    [_settings setLocale:nil];
+    _settings.lastRegTime = [NSDate date];
+
+    [_settings setLocale:@"es-419"];
+
+    XCTAssertEqualObjects(_settings.lastRegTime, NSDate.distantPast);
+}
+
+/// Verifies that clearing a stored manual locale also lifts the throttle, since the sent value changes.
+- (void)testSetLocaleNilOverStoredValueLiftsRegistrationThrottle {
+    [_settings setLocale:@"es-419"];
+    _settings.lastRegTime = [NSDate date];
+
+    [_settings setLocale:nil];
+
+    XCTAssertEqualObjects(_settings.lastRegTime, NSDate.distantPast);
+}
+
+/// Verifies that re-setting the value already in effect is a no-op, so an app calling setLocale on
+/// every launch does not force a registerDevice on every launch.
+- (void)testSetLocaleWithUnchangedValueLeavesRegistrationThrottleAlone {
+    [_settings setLocale:@"es-419"];
+    NSDate *registered = [NSDate date];
+    _settings.lastRegTime = registered;
+
+    [_settings setLocale:@"es-419"];
+
+    XCTAssertEqualObjects(_settings.lastRegTime, registered);
+}
+
+/// Verifies that clearing an already-absent manual locale is a no-op.
+- (void)testSetLocaleNilWithNothingStoredLeavesRegistrationThrottleAlone {
+    [_settings setLocale:nil];
+    NSDate *registered = [NSDate date];
+    _settings.lastRegTime = registered;
+
+    [_settings setLocale:nil];
+
+    XCTAssertEqualObjects(_settings.lastRegTime, registered);
+}
+
+/// Verifies that switching the application code leaves the manual locale in place, same as `language`.
+- (void)testManualLocaleSurvivesApplicationCodeSwitch {
+    [_settings setLocale:@"es-419"];
+
+    [_settings switchToApplicationWithAppCode:@"T1132-00002" baseUrl:nil];
+
+    XCTAssertEqualObjects(_settings.manualLocale, @"es-419");
 }
 
 @end

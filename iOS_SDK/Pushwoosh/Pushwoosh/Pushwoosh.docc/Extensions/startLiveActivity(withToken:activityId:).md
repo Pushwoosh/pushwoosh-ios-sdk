@@ -1,4 +1,4 @@
-# ``Pushwoosh/startLiveActivity(withToken:activityId:)``
+# ``Pushwoosh/startLiveActivity(withToken:activityId:)-1tgls``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Sends live activity token to the server.
 
 ## Overview
 
-> Deprecated: Use ``Pushwoosh/LiveActivities`` API instead:
+> Deprecated: Use ``Pushwoosh/LiveActivities-type.property`` API instead:
 > ```swift
 > Pushwoosh.LiveActivities.startLiveActivity(token: token, activityId: activityId)
 > ```
@@ -40,5 +40,5 @@ func startOrderTracking(orderId: String) async throws {
 
 ## See Also
 
-- ``Pushwoosh/LiveActivities``
-- ``Pushwoosh/stopLiveActivity()``
+- ``Pushwoosh/LiveActivities-type.property``
+- ``Pushwoosh/stopLiveActivity()-7oz4w``

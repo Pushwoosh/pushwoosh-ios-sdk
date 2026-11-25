@@ -50,4 +50,4 @@ func updatePhoneNumber(_ phoneNumber: String) {
 ## See Also
 
 - ``Pushwoosh/registerWhatsappNumber(_:)``
-- ``Pushwoosh/setEmail(_:)``
+- ``Pushwoosh/setEmail(_:)-7syp6``

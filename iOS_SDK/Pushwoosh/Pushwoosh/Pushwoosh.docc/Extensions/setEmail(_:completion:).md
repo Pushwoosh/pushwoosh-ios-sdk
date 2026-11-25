@@ -1,4 +1,4 @@
-# ``Pushwoosh/setEmail(_:completion:)``
+# ``Pushwoosh/setEmail(_:)-2x3e8``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Associates an email address with the current device with a completion handler.
 
 ## Overview
 
-Same as ``setEmail(_:)`` but provides a completion callback to confirm the email was successfully synchronized with Pushwoosh servers.
+Same as ``Pushwoosh/setEmail(_:)-7syp6`` but provides a completion callback to confirm the email was successfully synchronized with Pushwoosh servers.
 
 Use this variant when you need to:
 - Confirm email was registered before proceeding
@@ -53,6 +53,6 @@ func enableEmailNotifications(email: String, completion: @escaping (Bool) -> Voi
 
 ## See Also
 
-- ``Pushwoosh/setEmail(_:)``
-- ``Pushwoosh/setEmails(_:)``
-- ``Pushwoosh/setUserId(_:completion:)``
+- ``Pushwoosh/setEmail(_:)-7syp6``
+- ``Pushwoosh/setEmails(_:)-8qzt8``
+- ``Pushwoosh/setUserId(_:)-46ogx``

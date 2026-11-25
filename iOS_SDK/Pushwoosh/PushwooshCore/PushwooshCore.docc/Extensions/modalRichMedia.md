@@ -1,4 +1,4 @@
-# ``PWMedia/modalRichMedia``
+# ``PWMedia-c.protocol/modalRichMedia``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -32,17 +32,16 @@ func application(_ application: UIApplication,
     Pushwoosh.media.setRichMediaPresentationStyle(.modal)
 
     Pushwoosh.media.modalRichMedia.configure(
-        position: .PWModalWindowPositionBottom,
-        presentAnimation: .PWAnimationPresentFromBottom,
-        dismissAnimation: .PWAnimationDismissDown
+        with: .PWModalWindowPositionBottom,
+        present: .PWAnimationPresentSlideUp,
+        dismiss: .PWAnimationDismissSlideDown
     )
 
     Pushwoosh.media.modalRichMedia.setDismissSwipeDirections([
-        NSNumber(value: PWSwipeDismissDown.rawValue)
+        NSNumber(value: DismissSwipeDirection.PWSwipeDismissDown.rawValue)
     ])
 
-    let topCorners = PWCornerTypeTopLeft.rawValue | PWCornerTypeTopRight.rawValue
-    Pushwoosh.media.modalRichMedia.setCornerType(CornerType(rawValue: topCorners), radius: 16)
+    Pushwoosh.media.modalRichMedia.setCornerType([.PWCornerTypeTopLeft, .PWCornerTypeTopRight], withRadius: 16)
 
     Pushwoosh.media.modalRichMedia.setHapticFeedbackType(.PWHapticFeedbackMedium)
     Pushwoosh.media.modalRichMedia.delegate = self
@@ -59,16 +58,17 @@ func setupCenteredRichMedia() {
     Pushwoosh.media.setRichMediaPresentationStyle(.modal)
 
     Pushwoosh.media.modalRichMedia.configure(
-        position: .PWModalWindowPositionCenter,
-        presentAnimation: .PWAnimationPresentFromBottom,
-        dismissAnimation: .PWAnimationDismissDown
+        with: .PWModalWindowPositionCenter,
+        present: .PWAnimationPresentFadeIn,
+        dismiss: .PWAnimationDismissFadeOut
     )
 
-    let allCorners = PWCornerTypeTopLeft.rawValue | PWCornerTypeTopRight.rawValue |
-                     PWCornerTypeBottomLeft.rawValue | PWCornerTypeBottomRight.rawValue
-    Pushwoosh.media.modalRichMedia.setCornerType(CornerType(rawValue: allCorners), radius: 12)
+    Pushwoosh.media.modalRichMedia.setCornerType(
+        [.PWCornerTypeTopLeft, .PWCornerTypeTopRight, .PWCornerTypeBottomLeft, .PWCornerTypeBottomRight],
+        withRadius: 12
+    )
 
-    Pushwoosh.media.modalRichMedia.closeAfter(10)
+    Pushwoosh.media.modalRichMedia.close(after: 10)
 }
 ```
 
@@ -90,12 +90,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWRichMediaPresentingDele
 
     func richMediaManager(_ richMediaManager: PWRichMediaManager,
                           didPresent richMedia: PWRichMedia) {
-        Analytics.log("rich_media_shown", code: richMedia.code)
+        Analytics.log("rich_media_shown", payload: richMedia.pushPayload)
     }
 
     func richMediaManager(_ richMediaManager: PWRichMediaManager,
                           didClose richMedia: PWRichMedia) {
-        Analytics.log("rich_media_closed", code: richMedia.code)
+        Analytics.log("rich_media_closed", payload: richMedia.pushPayload)
     }
 
     func richMediaManager(_ richMediaManager: PWRichMediaManager,
@@ -110,18 +110,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWRichMediaPresentingDele
 
 ### Window Configuration
 
-- ``PWModalRichMedia/configure(position:presentAnimation:dismissAnimation:)``
-- ``PWModalRichMedia/setDismissSwipeDirections(_:)``
-- ``PWModalRichMedia/setCornerType(_:withRadius:)``
-- ``PWModalRichMedia/setHapticFeedbackType(_:)``
-- ``PWModalRichMedia/closeAfter(_:)``
+- ``PWModalRichMedia-c.protocol/configureWithPosition:presentAnimation:dismissAnimation:``
+- ``PWModalRichMedia-c.protocol/setDismissSwipeDirections:``
+- ``PWModalRichMedia-c.protocol/setCornerType:withRadius:``
+- ``PWModalRichMedia-c.protocol/setHapticFeedbackType:``
+- ``PWModalRichMedia-c.protocol/closeAfter:``
 
 ### Delegate
 
-- ``PWModalRichMedia/delegate``
-- ``PWModalRichMedia/setDelegate(_:)``
+- ``PWModalRichMedia-c.protocol/getDelegate``
+- ``PWModalRichMedia-c.protocol/setDelegate:``
 
 ## See Also
 
-- ``Pushwoosh/media``
-- ``PWMedia/legacyRichMedia``
+- ``PWMedia-c.protocol/legacyRichMedia``

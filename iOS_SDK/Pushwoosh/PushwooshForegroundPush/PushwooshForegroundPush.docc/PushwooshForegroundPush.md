@@ -8,6 +8,20 @@ Starting from version 6.10.0, PushwooshForegroundPush enables customization of f
 
 The module offers extensive customization options including gradient backgrounds, custom colors and fonts, multiple animation styles, and modern iOS 26+ Liquid Glass effects.
 
+## Configuration
+
+The module is reached through `Pushwoosh.ForegroundPush`:
+
+- `foregroundNotificationWith(style:duration:vibration:disappearedPushAnimation:)` configures the banner: the visual style, the display time in seconds, the haptic feedback and the exit animation.
+- `showForegroundPush(userInfo:)` shows a banner for a push payload.
+- `didTapForegroundPush` is a closure called when the user taps the banner; `delegate` takes a ``PWForegroundPushDelegate`` instead.
+
+The option types are declared in PushwooshBridge:
+
+- `PWForegroundPushStyle`: `.style1`, the standard banner with icon, title and message.
+- `PWForegroundPushHapticFeedback`: `.none`, `.light`, `.medium`, `.heavy`, `.soft`, `.rigid`, `.notification`.
+- `PWForegroundPushDisappearedAnimation`: `.balls` (the banner explodes into particles) or `.regularPush` (it slides up and fades out).
+
 ## Topics
 
 ### Getting Started
@@ -25,15 +39,9 @@ The module offers extensive customization options including gradient backgrounds
 
   Configuration object containing all visual and behavioral settings for foreground pushes.
 
-### Configuration Methods
+- ``PWForegroundPushDelegate``
 
-- ``PushwooshForegroundPushImplementation/foregroundNotificationWith(style:duration:vibration:disappearedPushAnimation:)``
-
-  Configure the foreground push notification display settings.
-
-- ``PushwooshForegroundPushImplementation/showForegroundPush(userInfo:)``
-
-  Display a foreground push notification with the specified payload.
+  Delegate that receives taps on the foreground push banner.
 
 ### Appearance Customization
 
@@ -71,64 +79,8 @@ The module offers extensive customization options including gradient backgrounds
 
   Enable modern Liquid Glass effect on iOS 26+ devices.
 
-- ``PWForegroundPushDisappearedAnimation``
-
-  Animation style when push notification disappears.
-
-- ``PWForegroundPushDisappearedAnimation/balls``
-
-  Push explodes into small particles when disappearing.
-
-- ``PWForegroundPushDisappearedAnimation/regularPush``
-
-  Push slides upward and fades out like standard notifications.
-
 ### Interaction
 
-- ``PushwooshForegroundPushImplementation/didTapForegroundPush``
+- ``PushwooshForegroundPushImplementation/delegate``
 
-  Callback triggered when user taps on the foreground push notification.
-
-### Display Styles
-
-- ``PWForegroundPushStyle``
-
-  Visual style template for the foreground push notification.
-
-- ``PWForegroundPushStyle/style1``
-
-  Standard push notification style with icon, title, and message.
-
-### Haptic Feedback
-
-- ``PWForegroundPushHapticFeedback``
-
-  Haptic feedback type to play when notification appears.
-
-- ``PWForegroundPushHapticFeedback/none``
-
-  No haptic feedback.
-
-- ``PWForegroundPushHapticFeedback/light``
-
-  Light impact haptic feedback.
-
-- ``PWForegroundPushHapticFeedback/medium``
-
-  Medium impact haptic feedback.
-
-- ``PWForegroundPushHapticFeedback/heavy``
-
-  Heavy impact haptic feedback.
-
-- ``PWForegroundPushHapticFeedback/soft``
-
-  Soft impact haptic feedback.
-
-- ``PWForegroundPushHapticFeedback/rigid``
-
-  Rigid impact haptic feedback.
-
-- ``PWForegroundPushHapticFeedback/notification``
-
-  System notification haptic feedback.
+  Delegate that receives taps on the foreground push banner.

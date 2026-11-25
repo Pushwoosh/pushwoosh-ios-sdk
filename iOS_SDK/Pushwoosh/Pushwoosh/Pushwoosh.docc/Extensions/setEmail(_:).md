@@ -1,4 +1,4 @@
-# ``Pushwoosh/setEmail(_:)``
+# ``Pushwoosh/setEmail(_:)-7syp6``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -30,10 +30,10 @@ Set email during user registration:
 func completeRegistration(email: String, password: String) async throws {
     let user = try await authService.register(email: email, password: password)
 
-    Pushwoosh.configure.setUserId(user.id)
-    Pushwoosh.configure.setEmail(email)
+    try await Pushwoosh.configure.setUserId(user.id)
+    try await Pushwoosh.configure.setEmail(email)
 
-    Pushwoosh.configure.setTags([
+    try await Pushwoosh.configure.setTags([
         "registration_date": Date(),
         "registration_source": "ios_app"
     ])
@@ -54,7 +54,7 @@ func updateEmail(newEmail: String) {
 
 ## See Also
 
-- ``Pushwoosh/setEmail(_:completion:)``
-- ``Pushwoosh/setEmails(_:)``
-- ``Pushwoosh/setUserId(_:)``
-- ``Pushwoosh/setTags(_:)``
+- ``Pushwoosh/setEmail(_:)-2x3e8``
+- ``Pushwoosh/setEmails(_:)-8qzt8``
+- ``Pushwoosh/setUserId(_:)-59ept``
+- ``Pushwoosh/setTags(_:)-6njl3``

@@ -1,4 +1,4 @@
-# ``Pushwoosh/stopLiveActivity(completion:)``
+# ``Pushwoosh/stopLiveActivity()-57oax``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Stops the current live activity with a completion handler.
 
 ## Overview
 
-> Deprecated: Use ``Pushwoosh/LiveActivities`` API instead.
+> Deprecated: Use ``Pushwoosh/LiveActivities-type.property`` API instead.
 
 Similar to `stopLiveActivity()` but provides a callback when the operation completes.
 
@@ -37,4 +37,4 @@ func completeDelivery(orderId: String) {
 
 ## See Also
 
-- ``Pushwoosh/LiveActivities``
+- ``Pushwoosh/LiveActivities-type.property``

@@ -7,10 +7,7 @@
 //
 
 #import "PWMessageDeliveryRequest.h"
-
-@interface PWMessageDeliveryRequest ()
-
-@end
+#import "PWMessageDeliveryRequest+Internal.h"
 
 @implementation PWMessageDeliveryRequest
 
@@ -33,7 +30,19 @@
         dict[@"metaData"] = metadata;
     }
 
+    if (self.receivedDate != nil) {
+        dict[@"receivedAt"] = [self receivedAtString];
+    }
+
     return dict;
+}
+
+- (NSString *)receivedAtString {
+    NSISO8601DateFormatter *formatter = [NSISO8601DateFormatter new];
+    formatter.formatOptions = NSISO8601DateFormatWithInternetDateTime;
+    formatter.timeZone = [NSTimeZone timeZoneForSecondsFromGMT:0];
+    NSDate *wholeSeconds = [NSDate dateWithTimeIntervalSince1970:floor(self.receivedDate.timeIntervalSince1970)];
+    return [formatter stringFromDate:wholeSeconds];
 }
 
 @end

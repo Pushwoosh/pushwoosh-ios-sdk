@@ -156,8 +156,10 @@ typedef void (^PWSessionReply)(NSData *data, NSURLResponse *response, NSError *e
 @property (nonatomic, copy) NSDate *savedLastRegTime;
 @property (nonatomic) NSInteger savedLastStatusMask;
 @property (nonatomic, copy) NSString *savedLanguage;
+@property (nonatomic, copy) NSString *savedManualLocale;
 @property (nonatomic, copy) NSDictionary *savedActiveApplicationRecord;
 @property (nonatomic, weak) id savedDelegate;
+@property (nonatomic, strong) PWPushNotificationsManager *savedBridgeManager;
 @property (nonatomic, strong) PWRegistrationDelegateRecorder *delegateRecorder;
 @property (nonatomic, strong) NSSet<NSString *> *serverTokens;
 @property (nonatomic) NSInteger serverStatusCode;
@@ -166,6 +168,7 @@ typedef void (^PWSessionReply)(NSData *data, NSURLResponse *response, NSError *e
 @property (nonatomic, strong) NSMapTable<PWRequest *, NSNumber *> *answerCodes;
 @property (nonatomic, strong) NSMutableArray<PWRequest *> *registerAttempts;
 @property (nonatomic, strong) NSMutableArray<NSDictionary *> *registerBodies;
+@property (nonatomic) NSUInteger registerDeviceRequestsSeen;
 @property (nonatomic, strong) NSURLSession *savedSession;
 @property (nonatomic, strong) NSURLSession *savedRetrySession;
 @property (nonatomic, strong) id sessionMock;
@@ -548,6 +551,126 @@ typedef void (^PWSessionReply)(NSData *data, NSURLResponse *response, NSError *e
 
     XCTAssertEqual([self registrationsSent], 2);
     XCTAssertEqualObjects(self.registerBodies.lastObject[@"language"], language);
+}
+
+/// Verifies that the real registerDevice body carries the locale, so the field reaches registration
+/// through PWAppOpenRequest inheritance and not only applicationOpen.
+- (void)testRegisterDeviceCarriesLocale {
+    NSData *tokenData = [self tokenDataWithSeed:@"T1108-locale"];
+    NSString *token = [self tokenForData:tokenData];
+    [self prepareRegistrationServerWithStatusCode:200 tokens:@[ tokenData ]];
+    PWPushNotificationsManagerCommon *manager = [self newRegistrationManager];
+    NSString *language = [[PWPreferences preferences].language isEqualToString:@"fi"] ? @"sv" : @"fi";
+    [[PWPreferences preferences] setLanguage:language];
+
+    [manager sendDevTokenToServer:token triggerCallbacks:NO];
+    [self drainMainQueue];
+    [[PWPreferences preferences] setLocale:@"es-419"];
+    [manager sendDevTokenToServer:token triggerCallbacks:NO];
+    [self drainMainQueue];
+
+    XCTAssertEqual([self registrationsSent], 2);
+    XCTAssertEqualObjects(self.registerBodies.lastObject[@"locale"], @"es-419");
+    XCTAssertEqualObjects(self.registerBodies.lastObject[@"language"], language);
+}
+
+/// Verifies that setLocale: with a new value sends registerDevice with it right away, inside the throttle.
+- (void)testSetLocaleWithNewValueSendsRegisterDeviceWithinThrottle {
+    NSData *tokenData = [self tokenDataWithSeed:@"T173-locale-now"];
+    NSString *token = [self tokenForData:tokenData];
+    [self prepareRegistrationServerWithStatusCode:200 tokens:@[ tokenData ]];
+    PWPushNotificationsManagerCommon *manager = [self newRegistrationManager];
+    NSString *locale = [[PWPreferences preferences].manualLocale isEqualToString:@"es-419"] ? @"pt-BR" : @"es-419";
+    [self registerWithinThrottle:manager token:token];
+
+    [[PWPreferences preferences] setLocale:locale];
+    [self drainMainQueue];
+
+    XCTAssertEqual([self registrationsSent], 2);
+    XCTAssertEqualObjects(self.registerBodies.lastObject[@"locale"], locale);
+}
+
+/// Verifies that setLanguage: with a new value sends registerDevice with it right away, inside the throttle.
+- (void)testSetLanguageWithNewValueSendsRegisterDeviceWithinThrottle {
+    NSData *tokenData = [self tokenDataWithSeed:@"T173-language-now"];
+    NSString *token = [self tokenForData:tokenData];
+    [self prepareRegistrationServerWithStatusCode:200 tokens:@[ tokenData ]];
+    PWPushNotificationsManagerCommon *manager = [self newRegistrationManager];
+    NSString *language = [[PWPreferences preferences].language isEqualToString:@"de"] ? @"fr" : @"de";
+    [self registerWithinThrottle:manager token:token];
+
+    [[PWPreferences preferences] setLanguage:language];
+    [self drainMainQueue];
+
+    XCTAssertEqual([self registrationsSent], 2);
+    XCTAssertEqualObjects(self.registerBodies.lastObject[@"language"], language);
+}
+
+/// Verifies that re-setting the locale and language already in effect sends nothing and keeps the throttle.
+- (void)testSetLocaleAndLanguageWithSameValueSendNothing {
+    NSData *tokenData = [self tokenDataWithSeed:@"T173-same-value"];
+    NSString *token = [self tokenForData:tokenData];
+    [self prepareRegistrationServerWithStatusCode:200 tokens:@[ tokenData ]];
+    PWPushNotificationsManagerCommon *manager = [self newRegistrationManager];
+    [self registerWithinThrottle:manager token:token];
+    NSDate *registered = [PWPreferences preferences].lastRegTime;
+
+    [[PWPreferences preferences] setLocale:[PWPreferences preferences].manualLocale];
+    [[PWPreferences preferences] setLanguage:[PWPreferences preferences].language];
+    [self drainMainQueue];
+
+    XCTAssertEqual([self registrationsSent], 1);
+    XCTAssertEqualObjects([PWPreferences preferences].lastRegTime, registered);
+}
+
+/// Verifies that without a push token a new locale or language is only stored and waits for the first registration.
+- (void)testSetLocaleAndLanguageWithoutPushTokenSendNothing {
+    NSData *tokenData = [self tokenDataWithSeed:@"T173-no-token"];
+    [self prepareRegistrationServerWithStatusCode:200 tokens:@[ tokenData ]];
+    [self newRegistrationManager];
+    [PWPreferences preferences].pushToken = nil;
+    NSString *locale = [[PWPreferences preferences].manualLocale isEqualToString:@"es-419"] ? @"pt-BR" : @"es-419";
+    NSString *language = [[PWPreferences preferences].language isEqualToString:@"de"] ? @"fr" : @"de";
+
+    [[PWPreferences preferences] setLocale:locale];
+    [[PWPreferences preferences] setLanguage:language];
+    [self drainMainQueue];
+
+    XCTAssertEqual(self.registerDeviceRequestsSeen, 0);
+    XCTAssertEqualObjects([PWPreferences preferences].manualLocale, locale);
+    XCTAssertEqualObjects([PWPreferences preferences].language, language);
+    XCTAssertEqualObjects([PWPreferences preferences].lastRegTime, NSDate.distantPast);
+}
+
+/// Verifies that with Pushwoosh_ALLOW_COLLECTING_DEVICE_LOCALE = NO setLocale: stores the value but neither
+/// registers nor lifts the throttle.
+- (void)testSetLocaleWithLocaleCollectionDisabledOnlyStoresValue {
+    [self assertSetLocaleOnlyStoresValueWithInfoPlistFlagOff:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_LOCALE" seed:@"T173-locale-flag"];
+}
+
+/// Verifies that Pushwoosh_ALLOW_COLLECTING_DEVICE_DATA = NO keeps setLocale: from registering through the cascade.
+- (void)testSetLocaleWithDeviceDataCollectionDisabledOnlyStoresValue {
+    [self assertSetLocaleOnlyStoresValueWithInfoPlistFlagOff:@"Pushwoosh_ALLOW_COLLECTING_DEVICE_DATA" seed:@"T173-data-flag"];
+}
+
+- (void)assertSetLocaleOnlyStoresValueWithInfoPlistFlagOff:(NSString *)key seed:(NSString *)seed {
+    NSData *tokenData = [self tokenDataWithSeed:seed];
+    NSString *token = [self tokenForData:tokenData];
+    [self prepareRegistrationServerWithStatusCode:200 tokens:@[ tokenData ]];
+    PWPushNotificationsManagerCommon *manager = [self newRegistrationManager];
+    NSString *locale = [[PWPreferences preferences].manualLocale isEqualToString:@"es-419"] ? @"pt-BR" : @"es-419";
+    [self registerWithinThrottle:manager token:token];
+    NSDate *registered = [PWPreferences preferences].lastRegTime;
+    id configClassMock = OCMClassMock([PWConfig class]);
+    OCMStub([configClassMock config]).andReturn([self configWithInfoPlistFlagOff:key]);
+
+    [[PWPreferences preferences] setLocale:locale];
+    [self drainMainQueue];
+    [configClassMock stopMocking];
+
+    XCTAssertEqual([self registrationsSent], 1);
+    XCTAssertEqualObjects([PWPreferences preferences].manualLocale, locale);
+    XCTAssertEqualObjects([PWPreferences preferences].lastRegTime, registered);
 }
 
 /// Verifies that a superseded registration succeeding does not report the newer registration in flight as done.
@@ -1680,8 +1803,10 @@ typedef void (^PWSessionReply)(NSData *data, NSURLResponse *response, NSError *e
     _savedLastRegTime = [PWPreferences preferences].lastRegTime;
     _savedLastStatusMask = [PWPreferences preferences].lastStatusMask;
     _savedLanguage = [PWPreferences preferences].language;
+    _savedManualLocale = [PWPreferences preferences].manualLocale;
     _savedActiveApplicationRecord = [[[NSUserDefaults standardUserDefaults] objectForKey:@"Pushwoosh_ACTIVE_APPLICATION"] copy];
     _savedDelegate = [PWManagerBridge shared].delegate;
+    _savedBridgeManager = [PWManagerBridge shared].pushNotificationManager;
     _savedCompat = [PWPlatformModule module].notificationManagerCompat;
 
     _compatMock = OCMClassMock([PWNotificationManagerCompat class]);
@@ -1694,6 +1819,7 @@ typedef void (^PWSessionReply)(NSData *data, NSURLResponse *response, NSError *e
     }
     _serverTokens = serverTokens;
     _registerBodies = [NSMutableArray array];
+    _registerDeviceRequestsSeen = 0;
     installTransport();
 
     [PWPreferences preferences].appCode = @"T1108-00001";
@@ -1709,7 +1835,11 @@ typedef void (^PWSessionReply)(NSData *data, NSURLResponse *response, NSError *e
     [_heldReplies removeAllObjects];
     [_answerCodes removeAllObjects];
     [PWManagerBridge shared].delegate = _savedDelegate;
+    /// Restoring the language and locale must not register the test token with any manager.
+    [PWManagerBridge shared].pushNotificationManager = nil;
     [[PWPreferences preferences] setLanguage:_savedLanguage];
+    [[PWPreferences preferences] setLocale:_savedManualLocale];
+    [PWManagerBridge shared].pushNotificationManager = _savedBridgeManager;
     [[NSUserDefaults standardUserDefaults] removeObjectForKey:@"Pushwoosh_ACTIVE_APPLICATION"];
     [PWPreferences preferences].appCode = _savedAppCode;
     if (_savedActiveApplicationRecord) {
@@ -1733,6 +1863,10 @@ typedef void (^PWSessionReply)(NSData *data, NSURLResponse *response, NSError *e
 }
 
 - (void)serverReceivedRequest:(PWRequest *)request completion:(void (^)(NSError *))completion {
+    if ([request isKindOfClass:[PWRegisterDeviceRequest class]]) {
+        _registerDeviceRequestsSeen += 1;
+    }
+
     if (![request isKindOfClass:[PWRegisterDeviceRequest class]] ||
         ![_serverTokens containsObject:((PWRegisterDeviceRequest *)request).token]) {
         return;
@@ -1898,9 +2032,33 @@ typedef void (^PWSessionReply)(NSData *data, NSURLResponse *response, NSError *e
 }
 
 - (PWPushNotificationsManagerCommon *)newRegistrationManager {
-    PWPushNotificationsManagerCommon *manager = [[PWPushNotificationsManager alloc] init];
+    PWPushNotificationsManager *manager = [[PWPushNotificationsManager alloc] init];
     manager.sessionRetry.retryDelaysSeconds = @[ @0, @0, @0 ];
+    [PWManagerBridge shared].pushNotificationManager = manager;
     return manager;
+}
+
+/// Registers the token and waits for the answer, leaving the 24-hour registration throttle in effect.
+- (void)registerWithinThrottle:(PWPushNotificationsManagerCommon *)manager token:(NSString *)token {
+    [manager sendDevTokenToServer:token triggerCallbacks:NO];
+    [self drainMainQueue];
+    [self releaseHeldReplies];
+    [self waitUntil:^BOOL{
+        NSDate *lastRegTime = [PWPreferences preferences].lastRegTime;
+        return lastRegTime != nil && lastRegTime.timeIntervalSinceNow > -60;
+    }];
+
+    [manager sendDevTokenToServer:token triggerCallbacks:NO];
+    [self drainMainQueue];
+    XCTAssertEqual([self registrationsSent], 1, @"the throttle must hold back a plain re-registration");
+}
+
+- (PWConfig *)configWithInfoPlistFlagOff:(NSString *)key {
+    id bundleMock = OCMPartialMock([NSBundle mainBundle]);
+    OCMStub([bundleMock objectForInfoDictionaryKey:key]).andReturn(@NO);
+    PWConfig *config = [[PWConfig alloc] initWithBundle:[NSBundle mainBundle]];
+    [bundleMock stopMocking];
+    return config;
 }
 
 - (void)drainMainQueue {

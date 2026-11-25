@@ -1,4 +1,4 @@
-# ``PWPurchaseDelegate/onPWInAppPurchaseHelperPaymentComplete(_:)``
+# ``PWPurchaseDelegate/onPW(inAppPurchaseHelperPaymentComplete:)``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -19,7 +19,9 @@ Handle successful purchase:
 ```swift
 class PurchaseManager: NSObject, PWPurchaseDelegate {
 
-    func onPWInAppPurchaseHelperPaymentComplete(_ identifier: String) {
+    func onPW(inAppPurchaseHelperPaymentComplete identifier: String?) {
+        guard let identifier = identifier else { return }
+
         unlockPurchasedContent(identifier)
 
         Pushwoosh.configure.setTags([
@@ -51,5 +53,5 @@ class PurchaseManager: NSObject, PWPurchaseDelegate {
 
 ## See Also
 
-- ``PWPurchaseDelegate/onPWInAppPurchaseHelperPaymentFailedProductIdentifier(_:error:)``
+- ``PWPurchaseDelegate/onPW(inAppPurchaseHelperPaymentFailedProductIdentifier:error:)``
 - ``PWPurchaseDelegate/onPW(inAppPurchaseHelperCallPromotedPurchase:)``

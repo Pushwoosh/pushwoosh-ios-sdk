@@ -40,6 +40,9 @@ void heavy_operation_impl(const char *function);
 
 + (NSString *)preferredLanguage;
 
+/// Unlike preferredLanguage, does not gate on the privacy flag itself — the caller is responsible for that.
++ (nullable NSString *)preferredLocale;
+
 + (NSString *)timezone;
 
 + (NSString *)uniqueGlobalDeviceIdentifier;
@@ -64,6 +67,6 @@ void heavy_operation_impl(const char *function);
 
 + (NSInteger)getStatusesMask;
 
-+ (NSInteger)statusesMaskFromNotificationStatus:(NSDictionary *)notificationStatus;
++ (NSInteger)statusesMaskFromNotificationStatus:(nullable NSDictionary *)notificationStatus;
 
 @end

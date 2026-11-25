@@ -63,5 +63,4 @@ func pushwoosh(_ pushwoosh: Pushwoosh, onMessageReceived message: PWMessage) {
 ## See Also
 
 - ``PWMessagingDelegate/pushwoosh(_:onMessageOpened:)``
-- ``PWMessage``
 - ``Pushwoosh/showPushnotificationAlert``

@@ -272,4 +272,27 @@
     [bridgeMock stopMocking];
 }
 
+- (NSString *)registerDeviceTimezoneWithLocalTimeZone:(NSTimeZone *)timeZone {
+    id timeZoneMock = OCMClassMock([NSTimeZone class]);
+    OCMStub(ClassMethod([timeZoneMock localTimeZone])).andReturn(timeZone);
+    _requestDevice = [PWRegisterDeviceRequest new];
+    _requestDevice.token = @"apns_token";
+    _requestDevice.platform = 1;
+    _requestDevice.notificationStatus = @{};
+    NSString *value = _requestDevice.requestDictionary[@"timezone"];
+    [timeZoneMock stopMocking];
+    return value;
+}
+
+/// Verifies that registerDevice sends the IANA name of the device time zone.
+- (void)testRequestDictionarySendsTimeZoneName {
+    XCTAssertEqualObjects([self registerDeviceTimezoneWithLocalTimeZone:[NSTimeZone timeZoneWithName:@"Europe/Paris"]], @"Europe/Paris");
+}
+
+/// Verifies that registerDevice sends a device zone defined only by a GMT offset as seconds from GMT.
+- (void)testRequestDictionarySendsSecondsForOffsetTimeZone {
+    XCTAssertEqualObjects([self registerDeviceTimezoneWithLocalTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:10800]], @"10800");
+    XCTAssertEqualObjects([self registerDeviceTimezoneWithLocalTimeZone:[NSTimeZone timeZoneForSecondsFromGMT:-18000]], @"-18000");
+}
+
 @end

@@ -71,22 +71,23 @@
 
     self.sheet = [UIView new];
     self.sheet.translatesAutoresizingMaskIntoConstraints = NO;
-    self.sheet.backgroundColor = self.config.backgroundColor ?: [UIColor systemBackgroundColor];
     self.sheet.layer.cornerRadius = radius;
     self.sheet.layer.cornerCurve = kCACornerCurveContinuous;
     self.sheet.layer.maskedCorners = corners;
-    self.sheet.layer.shadowColor = [UIColor blackColor].CGColor;
-    self.sheet.layer.shadowOpacity = 0.18;
-    self.sheet.layer.shadowRadius = 22;
-    self.sheet.layer.shadowOffset = shadowOffset;
+    if (![self applyGlassBackgroundWithRadius:radius corners:corners]) {
+        self.sheet.backgroundColor = self.config.backgroundColor ?: [UIColor systemBackgroundColor];
+        self.sheet.layer.shadowColor = [UIColor blackColor].CGColor;
+        self.sheet.layer.shadowOpacity = 0.18;
+        self.sheet.layer.shadowRadius = 22;
+        self.sheet.layer.shadowOffset = shadowOffset;
+        [self applyGradientBackgroundIfNeededWithRadius:radius corners:corners];
+    }
     [self.view addSubview:self.sheet];
 
     UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(backgroundTapped:)];
     [self.view addGestureRecognizer:tap];
 
     NSMutableArray<NSLayoutConstraint *> *constraints = [NSMutableArray array];
-
-    [self applyGradientBackgroundIfNeededWithRadius:radius corners:corners];
 
     switch (self.position) {
         case PWPushPrimerPositionTop:
@@ -121,6 +122,86 @@
 
     [NSLayoutConstraint activateConstraints:constraints];
     [self loadImageIfNeeded];
+}
+
++ (BOOL)isGlassSupported {
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 260000
+    if (@available(iOS 26.0, *)) {
+        return YES;
+    }
+#endif
+    return NO;
+}
+
+- (BOOL)isGlassEnabled {
+    return self.config.glass && [[self class] isGlassSupported];
+}
+
+- (BOOL)applyGlassBackgroundWithRadius:(CGFloat)radius corners:(CACornerMask)corners {
+    if (![self isGlassEnabled]) {
+        return NO;
+    }
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 260000
+    if (@available(iOS 26.0, *)) {
+        UIGlassEffect *effect = [UIGlassEffect effectWithStyle:UIGlassEffectStyleRegular];
+        effect.tintColor = self.config.backgroundColor;
+
+        UICornerRadius *rounded = [UICornerRadius fixedRadius:radius];
+        UICornerRadius *square = [UICornerRadius fixedRadius:0];
+        UIVisualEffectView *glassView = [[UIVisualEffectView alloc] initWithEffect:effect];
+        glassView.translatesAutoresizingMaskIntoConstraints = NO;
+        glassView.cornerConfiguration = [UICornerConfiguration
+            configurationWithTopLeftRadius:((corners & kCALayerMinXMinYCorner) ? rounded : square)
+                            topRightRadius:((corners & kCALayerMaxXMinYCorner) ? rounded : square)
+                          bottomLeftRadius:((corners & kCALayerMinXMaxYCorner) ? rounded : square)
+                         bottomRightRadius:((corners & kCALayerMaxXMaxYCorner) ? rounded : square)];
+        [self.sheet addSubview:glassView];
+        [NSLayoutConstraint activateConstraints:@[
+            [glassView.topAnchor constraintEqualToAnchor:self.sheet.topAnchor],
+            [glassView.bottomAnchor constraintEqualToAnchor:self.sheet.bottomAnchor],
+            [glassView.leadingAnchor constraintEqualToAnchor:self.sheet.leadingAnchor],
+            [glassView.trailingAnchor constraintEqualToAnchor:self.sheet.trailingAnchor],
+        ]];
+        return YES;
+    }
+#endif
+    return NO;
+}
+
+- (UIButton *)glassButtonWithTitle:(NSString *)title
+                     prominentTint:(UIColor *)prominentTint
+                         textColor:(UIColor *)textColor
+                              font:(UIFont *)font
+                      cornerRadius:(CGFloat)cornerRadius
+                            action:(SEL)action {
+    if (![self isGlassEnabled]) {
+        return nil;
+    }
+#if __IPHONE_OS_VERSION_MAX_ALLOWED >= 260000
+    if (@available(iOS 26.0, *)) {
+        UIButtonConfiguration *configuration = prominentTint != nil
+            ? [UIButtonConfiguration prominentGlassButtonConfiguration]
+            : [UIButtonConfiguration clearGlassButtonConfiguration];
+        configuration.baseBackgroundColor = prominentTint;
+        configuration.baseForegroundColor = textColor;
+        configuration.attributedTitle = [[NSAttributedString alloc] initWithString:title attributes:@{NSFontAttributeName: font}];
+        configuration.cornerStyle = UIButtonConfigurationCornerStyleFixed;
+        configuration.background.cornerRadius = self.config.buttonCornerRadiusSet ? self.config.buttonCornerRadius : cornerRadius;
+        if (self.config.buttonBorderColor != nil) {
+            configuration.background.strokeColor = self.config.buttonBorderColor;
+            configuration.background.strokeWidth = 1.0;
+        }
+
+        UIButton *button = [UIButton buttonWithConfiguration:configuration primaryAction:nil];
+        button.translatesAutoresizingMaskIntoConstraints = NO;
+        if (prominentTint != nil) {
+            button.tintColor = prominentTint;
+        }
+        [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
+        return button;
+    }
+#endif
+    return nil;
 }
 
 - (void)applyGradientBackgroundIfNeededWithRadius:(CGFloat)radius corners:(CACornerMask)corners {
@@ -180,11 +261,13 @@
                                               background:accent
                                                textColor:(self.config.acceptButtonTextColor ?: [UIColor whiteColor])
                                                   weight:UIFontWeightSemibold
+                                               prominent:YES
                                                   action:@selector(acceptTapped)];
     UIButton *declineButton = [self bannerButtonWithTitle:(self.config.declineButtonTitle ?: @"Not now")
                                                background:(self.config.declineButtonColor ?: [UIColor tertiarySystemFillColor])
                                                 textColor:(self.config.declineButtonTextColor ?: [UIColor labelColor])
                                                    weight:UIFontWeightMedium
+                                                prominent:NO
                                                    action:@selector(declineTapped)];
 
     UIStackView *buttonsRow = [[UIStackView alloc] initWithArrangedSubviews:@[declineButton, acceptButton]];
@@ -280,14 +363,26 @@
                          background:(UIColor *)background
                           textColor:(UIColor *)textColor
                              weight:(UIFontWeight)weight
+                          prominent:(BOOL)prominent
                              action:(SEL)action {
+    UIFont *font = [self roundedFontOfSize:15 weight:weight];
+    UIButton *glassButton = [self glassButtonWithTitle:title
+                                         prominentTint:(prominent ? background : nil)
+                                             textColor:textColor
+                                                  font:font
+                                          cornerRadius:12
+                                                action:action];
+    if (glassButton != nil) {
+        return glassButton;
+    }
+
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.backgroundColor = background;
     button.layer.cornerRadius = 12;
     button.layer.cornerCurve = kCACornerCurveContinuous;
     [button setTitle:title forState:UIControlStateNormal];
     [button setTitleColor:textColor forState:UIControlStateNormal];
-    button.titleLabel.font = [self roundedFontOfSize:15 weight:weight];
+    button.titleLabel.font = font;
     [button addTarget:self action:action forControlEvents:UIControlEventTouchUpInside];
     [self applyCustomButtonStyleTo:button];
     return button;
@@ -416,28 +511,54 @@
 }
 
 - (UIButton *)centeredPrimaryButtonWithAccent:(UIColor *)accent {
+    NSString *title = self.config.acceptButtonTitle ?: @"Allow";
+    UIColor *textColor = self.config.acceptButtonTextColor ?: [UIColor whiteColor];
+    UIFont *font = [self roundedFontOfSize:17 weight:UIFontWeightSemibold];
+    UIButton *glassButton = [self glassButtonWithTitle:title
+                                         prominentTint:accent
+                                             textColor:textColor
+                                                  font:font
+                                          cornerRadius:16
+                                                action:@selector(acceptTapped)];
+    if (glassButton != nil) {
+        return glassButton;
+    }
+
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.translatesAutoresizingMaskIntoConstraints = NO;
     button.backgroundColor = accent;
     button.layer.cornerRadius = 16;
     button.layer.cornerCurve = kCACornerCurveContinuous;
-    [button setTitle:(self.config.acceptButtonTitle ?: @"Allow") forState:UIControlStateNormal];
-    [button setTitleColor:(self.config.acceptButtonTextColor ?: [UIColor whiteColor]) forState:UIControlStateNormal];
-    button.titleLabel.font = [self roundedFontOfSize:17 weight:UIFontWeightSemibold];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:textColor forState:UIControlStateNormal];
+    button.titleLabel.font = font;
     [button addTarget:self action:@selector(acceptTapped) forControlEvents:UIControlEventTouchUpInside];
     [self applyCustomButtonStyleTo:button];
     return button;
 }
 
 - (UIButton *)centeredSecondaryButton {
+    NSString *title = self.config.declineButtonTitle ?: @"Not now";
+    UIColor *textColor = self.config.declineButtonTextColor ?: [UIColor secondaryLabelColor];
+    UIFont *font = [self roundedFontOfSize:16 weight:UIFontWeightMedium];
+    UIButton *glassButton = [self glassButtonWithTitle:title
+                                         prominentTint:nil
+                                             textColor:textColor
+                                                  font:font
+                                          cornerRadius:16
+                                                action:@selector(declineTapped)];
+    if (glassButton != nil) {
+        return glassButton;
+    }
+
     UIButton *button = [UIButton buttonWithType:UIButtonTypeCustom];
     button.translatesAutoresizingMaskIntoConstraints = NO;
     button.backgroundColor = self.config.declineButtonColor ?: [UIColor clearColor];
     button.layer.cornerRadius = 16;
     button.layer.cornerCurve = kCACornerCurveContinuous;
-    [button setTitle:(self.config.declineButtonTitle ?: @"Not now") forState:UIControlStateNormal];
-    [button setTitleColor:(self.config.declineButtonTextColor ?: [UIColor secondaryLabelColor]) forState:UIControlStateNormal];
-    button.titleLabel.font = [self roundedFontOfSize:16 weight:UIFontWeightMedium];
+    [button setTitle:title forState:UIControlStateNormal];
+    [button setTitleColor:textColor forState:UIControlStateNormal];
+    button.titleLabel.font = font;
     [button addTarget:self action:@selector(declineTapped) forControlEvents:UIControlEventTouchUpInside];
     [self applyCustomButtonStyleTo:button];
     return button;

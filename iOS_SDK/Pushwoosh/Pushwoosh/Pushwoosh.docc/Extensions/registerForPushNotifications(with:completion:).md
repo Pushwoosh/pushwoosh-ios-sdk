@@ -1,4 +1,4 @@
-# ``Pushwoosh/registerForPushNotifications(with:completion:)``
+# ``Pushwoosh/registerForPushNotifications(with:)-9s4ra``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -44,5 +44,5 @@ func completeUserSignup(user: User) {
 
 ## See Also
 
-- ``Pushwoosh/registerForPushNotifications(with:)``
-- ``Pushwoosh/registerForPushNotifications(withCompletion:)``
+- ``Pushwoosh/registerForPushNotifications(with:)-5lao0``
+- ``Pushwoosh/registerForPushNotifications()-6mniz``

@@ -29,6 +29,7 @@
 #if TARGET_OS_IOS
 #import <PushwooshCore/PWMedia.h>
 #import "PWFeatureFlagsManager.h"
+#import "PWPushRuntime.ios.h"
 #endif
 
 #if defined(__cplusplus)
@@ -269,6 +270,7 @@ static dispatch_once_t ensureInitializedOncePredicate;
 
         if ([PWConfig config].lazyInitialization) {
             [[PWFeatureFlagsManager sharedManager] startAfterLaunch];
+            [PWPushRuntime swizzleBackgroundSessionEventsHandlerForDelegateClass:[[UIApplication sharedApplication].delegate class]];
         }
 #endif
 

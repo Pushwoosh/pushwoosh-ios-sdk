@@ -139,6 +139,12 @@ NSString * const PWInboxMessagesDidUpdateNotification = @"PWInboxMessagesDidUpda
     }
 }
 
+- (void)registerLanguageChange {
+    if (self.pushNotificationManager) {
+        [self.pushNotificationManager registerLanguageChange];
+    }
+}
+
 - (void)unregisterFromApplicationWithAppCode:(NSString *)appCode baseUrl:(NSString *)baseUrl {
     if (self.pushNotificationManager) {
         [self.pushNotificationManager unregisterFromApplicationWithAppCode:appCode baseUrl:baseUrl];

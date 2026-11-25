@@ -1,29 +1,37 @@
-# ``Pushwoosh/ForegroundPush``
+# ``Pushwoosh/ForegroundPush-type.property``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
 }
 
-Provides access to custom foreground push notification handling.
+Provides access to custom foreground push notifications (the PushwooshForegroundPush module).
 
 ## Overview
 
-Controls how push notifications are displayed when your app is in the foreground. By default, iOS may not display notifications while the app is active.
+With the PushwooshForegroundPush module linked and `Pushwoosh_SHOW_ALERT` set to `NO` in `Info.plist`, pushes that arrive while the app is in the foreground are shown as a custom in-app banner instead of the system alert.
 
 Use this API to:
-- Show notification banners while app is active
-- Customize presentation options (banner, sound, badge)
-- Implement custom foreground notification UI
+- Choose the banner style, display time, haptic feedback and exit animation
+- Customize colors, fonts and the Liquid Glass effect (iOS 26+)
+- Handle taps on the banner
 
 ## Example
 
-Show all notifications in foreground:
+Configure the banner at launch:
 
 ```swift
+import PushwooshFramework
+import PushwooshForegroundPush
+
 func application(_ application: UIApplication,
                 didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
-    Pushwoosh.ForegroundPush.setCustomForegroundPresentationOptions([.banner, .sound, .badge])
+    Pushwoosh.ForegroundPush.foregroundNotificationWith(
+        style: .style1,
+        duration: 5,
+        vibration: .notification,
+        disappearedPushAnimation: .balls
+    )
 
     Pushwoosh.configure.registerForPushNotifications()
 
@@ -31,11 +39,17 @@ func application(_ application: UIApplication,
 }
 ```
 
-Show only banner and sound:
+Customize the appearance and handle taps:
 
 ```swift
 func setupForegroundNotifications() {
-    Pushwoosh.ForegroundPush.setCustomForegroundPresentationOptions([.banner, .sound])
+    Pushwoosh.ForegroundPush.gradientColors = [.systemIndigo, .systemPurple]
+    Pushwoosh.ForegroundPush.titlePushColor = .white
+    Pushwoosh.ForegroundPush.messagePushColor = .white
+
+    Pushwoosh.ForegroundPush.didTapForegroundPush = { userInfo in
+        print("Foreground push tapped: \(userInfo)")
+    }
 }
 ```
 

@@ -94,4 +94,11 @@
     XCTAssertNil([self.request requestDictionary][@"button_id"]);
 }
 
+/// Verifies a push stat request carries neither receivedAt nor timestampUTC.
+- (void)testPushStatHasNoReceiveTime {
+    [self.request setPushDict:@{@"p": @"h", @"md": @"m"}];
+    XCTAssertNil(self.request.requestDictionary[@"receivedAt"]);
+    XCTAssertNil(self.request.requestDictionary[@"timestampUTC"]);
+}
+
 @end

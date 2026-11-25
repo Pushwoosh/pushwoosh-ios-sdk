@@ -93,8 +93,24 @@ void heavy_operation_impl(const char *function) {
 	return appLocale;
 }
 
++ (nullable NSString *)preferredLocale {
+	NSArray<NSString *> *preferredLanguages = [NSLocale preferredLanguages];
+	NSString *firstPreferred = preferredLanguages.firstObject;
+
+	if ([firstPreferred isKindOfClass:[NSString class]] && firstPreferred.length > 0) {
+		return firstPreferred;
+	}
+
+	return nil;
+}
+
 + (NSString *)timezone {
-	return [NSString stringWithFormat:@"%ld", (long)[[NSTimeZone localTimeZone] secondsFromGMT]];
+	NSTimeZone *timeZone = [NSTimeZone localTimeZone];
+	// The server rejects GMT+hhmm names, so offset-only zones keep sending seconds as before.
+	if ([timeZone.name rangeOfString:@"^GMT[+-]\\d{4}" options:NSRegularExpressionSearch].location != NSNotFound) {
+		return [NSString stringWithFormat:@"%ld", (long)timeZone.secondsFromGMT];
+	}
+	return timeZone.name;
 }
 
 + (NSString *)generateIdentifier {

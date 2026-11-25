@@ -10,7 +10,7 @@
 </p>
 
 <p align="center">
-  Push notifications, In-App Messaging, and more for iOS, tvOS, and watchOS applications.
+  Push notifications, In-App Messaging, and more for iOS and tvOS applications.
 </p>
 
 ## Table of Contents
@@ -22,6 +22,7 @@
   - [CocoaPods](#cocoapods)
 - [AI-Assisted Integration](#ai-assisted-integration)
 - [Quick Start](#quick-start)
+- [How the delivery event is sent](#how-the-delivery-event-is-sent)
 - [Multiple Pushwoosh applications (multi-region)](#multiple-pushwoosh-applications-multi-region)
 - [Modules](#modules)
 - [Support](#support)
@@ -48,7 +49,7 @@
 - **In-App Messages** - Customizable in-app messaging
 - **Tags & Segmentation** - User targeting and segmentation
 - **Inbox** - Built-in message inbox functionality
-- **Analytics** - Delivery and conversion tracking
+- **Analytics** - Delivery and conversion tracking (delivery events come from the Notification Service Extension)
 
 ### Advanced Modules
 - **VoIP Push Notifications** - CallKit integration for VoIP apps
@@ -58,6 +59,8 @@
 - **tvOS Support** - Push notifications and Rich Media for Apple TV
 - **Foreground Push** - Custom foreground notifications with animations and effects
 - **Push Stories** - Full-screen, Instagram-style stories in an expanded notification
+- **Keychain** - Device ID (HWID) that survives app reinstallation
+- **gRPC** - Optional gRPC transport with automatic fallback to REST
 
 ## Installation
 
@@ -133,6 +136,9 @@ Requirements:
 - Add SPM dependency from https://github.com/Pushwoosh/Pushwoosh-XCFramework
 - Configure Info.plist with Pushwoosh App ID: YOUR_APP_ID
 - Register for push notifications in AppDelegate
+- Call the SDK only through Pushwoosh.configure and the module accessors (Pushwoosh.<Module>), never through the deprecated singleton
+- Add a Notification Service Extension target whose class subclasses PushwooshNotificationServiceExtension
+- Add the same App Group to the app and the extension, and set it as PW_APP_GROUPS_NAME in both Info.plist files
 
 Use Context7 MCP to fetch Pushwoosh iOS SDK documentation.
 ```
@@ -174,7 +180,27 @@ Use Context7 MCP to fetch PushwooshLiveActivities documentation.
 
 ## Quick Start
 
+> **Integrate through `Pushwoosh.configure` and the module accessors, not through
+> `Pushwoosh.sharedInstance()`.** The singleton is deprecated since 7.3.0. Registration, user data,
+> tags and settings go through `Pushwoosh.configure` (Objective-C: `[Pushwoosh configure]`), and each
+> feature has its own accessor: `Pushwoosh.media`, `Pushwoosh.inbox`, `Pushwoosh.inApp`,
+> `Pushwoosh.inline`, `Pushwoosh.debug`, `Pushwoosh.LiveActivities`, `Pushwoosh.VoIP`,
+> `Pushwoosh.ForegroundPush`, `Pushwoosh.Keychain` and `Pushwoosh.InboxKit`. All examples in this
+> README and in the module documentation use this API.
+
 ### 1. Initialize SDK
+
+Add your Application Code and Device API Token (Pushwoosh Control Panel → API Access) to the app's
+`Info.plist`:
+
+```xml
+<key>Pushwoosh_APPID</key>
+<string>XXXXX-XXXXX</string>
+<key>Pushwoosh_API_TOKEN</key>
+<string>YOUR-DEVICE-API-TOKEN</string>
+```
+
+Register for pushes at launch:
 
 ```swift
 import PushwooshFramework
@@ -226,6 +252,98 @@ func application(_ application: UIApplication,
     completionHandler(.newData)
 }
 ```
+
+### 4. Add a Notification Service Extension and an App Group (required)
+
+The message delivery event, badge increments and media attachments are handled by a Notification
+Service Extension. The app itself never sends the delivery event: without the extension pushes are
+shown, but they are not counted as delivered. The extension and the app share data through an App
+Group, so both are part of every integration.
+
+1. In Xcode, choose **File → New → Target → Notification Service Extension**.
+2. Link `PushwooshFramework`, `PushwooshCore` and `PushwooshBridge` to the extension target. With
+   CocoaPods, add a target block for it:
+
+   ```ruby
+   target 'NotificationService' do
+     pod 'PushwooshXCFramework'
+   end
+   ```
+
+3. Replace the generated class with a subclass of `PushwooshNotificationServiceExtension`. It sends
+   the delivery event, applies the badge, downloads the attachment and handles the
+   `serviceExtensionTimeWillExpire` fallback:
+
+   ```swift
+   import PushwooshFramework
+
+   class NotificationService: PushwooshNotificationServiceExtension {}
+   ```
+
+   ```objc
+   #import <PushwooshFramework/PushwooshFramework.h>
+
+   @interface NotificationService : PushwooshNotificationServiceExtension
+   @end
+
+   @implementation NotificationService
+   @end
+   ```
+
+   Without a class of your own, set the extension's `NSExtensionPrincipalClass` to
+   `PushwooshNotificationServiceExtension`.
+
+4. In **Signing & Capabilities**, add the **App Groups** capability to the app target **and** the
+   extension target, and select the same group in both.
+5. Set that group as `PW_APP_GROUPS_NAME` in the `Info.plist` of the app **and** of the extension:
+
+   ```xml
+   <key>PW_APP_GROUPS_NAME</key>
+   <string>group.com.example.app</string>
+   ```
+
+6. Keep `Pushwoosh_APPID` in the app's `Info.plist` only. The extension inherits it, like the other
+   `Pushwoosh_*` keys, from the app; set it in the extension only to override the app's value.
+7. iOS starts the extension only for pushes whose `aps` dictionary carries `mutable-content: 1`.
+
+What the App Group carries between the app and the extension:
+
+- the delivery event scheduled by the extension for a `pw_delivery_delay` window, and its retries
+  (see [How the delivery event is sent](#how-the-delivery-event-is-sent));
+- the reverse proxy URL passed to `Pushwoosh.configure.setReverseProxy(_:headers:)`. With
+  `Pushwoosh_ALLOW_REVERSE_PROXY` enabled and no App Group, the extension has no proxy URL and skips
+  the delivery event rather than bypass the proxy;
+- the application selected at runtime with `setAppCode(_:baseUrl:)`. Without the App Group the
+  extension reports deliveries to the `Info.plist` application;
+- the badge count. The extension applies `pw_badge` (`5`, `+1`, `-1`) only when the App Group is
+  set, so increments add up across pushes.
+
+At every launch the SDK runs an integration check and prints the report to the console. It flags a
+missing Notification Service Extension, a `PW_APP_GROUPS_NAME` group the app has no App Groups
+capability for (checked on a device, not in the simulator), and different `PW_APP_GROUPS_NAME` or
+`Pushwoosh_APPID` values in the app and the extension. `Pushwoosh_DISABLE_INTEGRATION_CHECK = YES`
+turns the check off.
+
+## How the delivery event is sent
+
+The delivery event (`messageDeliveryEvent`) is sent by the Notification Service Extension when iOS
+hands it the push, whether the app is running or not.
+
+- **Push with a `pw_delivery_delay` window and an App Group.** The extension hands the event to iOS,
+  which sends it at a random moment within the window (up to 300 seconds), so the notification is
+  shown without waiting for the request. A failed attempt (no response, HTTP 408, 429, 500, 502,
+  503 or 504) is sent again 10 seconds × attempt number later, five attempts in all: by the
+  extension while it runs, otherwise by the app, which iOS wakes in the background for it. The SDK
+  takes these background session events in
+  `application(_:handleEventsForBackgroundURLSession:completionHandler:)` itself; events of your own
+  background sessions still reach your app delegate.
+- **No window, or no usable App Group.** The extension sends the event at once, while it runs.
+- **Incomplete configuration.** The event is skipped, and the extension logs what to configure:
+
+  ```
+  messageDeliveryEvent skipped: the Notification Service Extension has no Pushwoosh app code. Set Pushwoosh_APPID in the Info.plist of the app or the extension, or add the same App Group to both targets and set it as PW_APP_GROUPS_NAME in both Info.plist files.
+  messageDeliveryEvent skipped: the Notification Service Extension has no reverse proxy URL. Add the same App Group to the app and the extension targets and set it as PW_APP_GROUPS_NAME in both Info.plist files, so the extension reads the URL the app passes to setReverseProxy().
+  ```
 
 ## Multiple Pushwoosh applications (multi-region)
 

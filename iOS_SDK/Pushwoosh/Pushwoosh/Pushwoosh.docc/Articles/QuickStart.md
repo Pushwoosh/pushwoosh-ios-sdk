@@ -6,6 +6,8 @@ Get your first push notification running in minutes.
 
 This quick start guide helps you set up Pushwoosh SDK and send your first push notification as quickly as possible. For comprehensive integration steps, see <doc:GettingStarted>.
 
+> Important: Integrate through ``Pushwoosh/configure-type.property`` and the module accessors, not through `Pushwoosh.sharedInstance()`, which is deprecated since 7.3.0. Registration, user data, tags and settings go through `Pushwoosh.configure` (Objective-C: `[Pushwoosh configure]`); each feature has its own accessor: `Pushwoosh.media`, `Pushwoosh.inbox`, `Pushwoosh.inApp`, `Pushwoosh.inline`, `Pushwoosh.debug`, `Pushwoosh.LiveActivities`, `Pushwoosh.VoIP`, `Pushwoosh.ForegroundPush`, `Pushwoosh.Keychain` and `Pushwoosh.InboxKit`.
+
 ## Prerequisites
 
 - Active Pushwoosh account with a configured project
@@ -24,18 +26,25 @@ This quick start guide helps you set up Pushwoosh SDK and send your first push n
         https://github.com/Pushwoosh/Pushwoosh-XCFramework
         ```
 
-        3. Select the following frameworks:
+        3. Add the following frameworks to the app target:
            - PushwooshFramework
            - PushwooshCore
            - PushwooshBridge
-           - PushwooshLiveActivities
+
+        The Notification Service Extension target gets the same three frameworks (see step 4).
     }
 
     @Tab("CocoaPods") {
-        Add to your `Podfile`:
+        Add to your `Podfile`, with a block for the Notification Service Extension target (see step 4):
 
         ```ruby
-        pod 'PushwooshXCFramework'
+        target 'YourApp' do
+          pod 'PushwooshXCFramework'
+        end
+
+        target 'NotificationService' do
+          pod 'PushwooshXCFramework'
+        end
         ```
 
         Then run:
@@ -123,7 +132,52 @@ In your AppDelegate or App struct:
     }
 }
 
-### 4. Register for Push Notifications
+### 4. Add a Notification Service Extension and an App Group
+
+This step is required. The message delivery event is sent only by the Notification Service Extension: without it pushes are shown, but they are never counted as delivered. The extension also applies the badge and downloads media attachments. The app and the extension share data through an App Group.
+
+1. In Xcode, choose File → New → Target → Notification Service Extension.
+2. Link PushwooshFramework, PushwooshCore and PushwooshBridge to the extension target.
+3. Replace the generated class with a subclass of ``PushwooshNotificationServiceExtension``:
+
+@TabNavigator {
+    @Tab("Swift") {
+        ```swift
+        import PushwooshFramework
+
+        class NotificationService: PushwooshNotificationServiceExtension {}
+        ```
+    }
+
+    @Tab("Objective-C") {
+        ```objc
+        #import <PushwooshFramework/PushwooshFramework.h>
+
+        @interface NotificationService : PushwooshNotificationServiceExtension
+        @end
+
+        @implementation NotificationService
+        @end
+        ```
+    }
+}
+
+   Without a class of your own, set the extension's `NSExtensionPrincipalClass` to `PushwooshNotificationServiceExtension`.
+
+4. In Signing & Capabilities, add the App Groups capability to the app target and to the extension target, with the same group selected in both.
+5. Set that group as `PW_APP_GROUPS_NAME` in the `Info.plist` of the app and of the extension:
+
+```xml
+<key>PW_APP_GROUPS_NAME</key>
+<string>group.com.example.app</string>
+```
+
+6. Keep `Pushwoosh_APPID` in the app's `Info.plist` only: the extension inherits it, like the other `Pushwoosh_*` keys, from the app.
+7. iOS starts the extension only for pushes whose `aps` dictionary carries `mutable-content: 1`.
+
+For how the delivery event is sent and what the App Group is used for, see <doc:AdvancedIntegration#Delivery-Event>.
+
+### 5. Register for Push Notifications
 
 Run your app and grant push notification permissions when prompted. Check the console for a successful registration log containing your HWID and push token.
 
@@ -145,6 +199,13 @@ Your device should receive the push notification!
 - Check APNs certificate configuration in Pushwoosh
 - Confirm app has notification permissions
 - Look for registration logs in Xcode console
+
+### Delivery Not Counted
+
+- Confirm the Notification Service Extension target is embedded in the app and its class subclasses ``PushwooshNotificationServiceExtension``
+- Confirm the push carries `mutable-content: 1`
+- Confirm both targets have the same App Group and the same `PW_APP_GROUPS_NAME`
+- Look for a `messageDeliveryEvent skipped:` line in the extension's console log: it names the missing setting
 
 ### Notifications Not Received
 
@@ -171,6 +232,6 @@ Your device should receive the push notification!
 
 - <doc:GettingStarted> - Complete integration guide
 - <doc:AdvancedIntegration> - Advanced features and configuration
-- Add Notification Service Extension for rich media
+- <doc:AdvancedIntegration#Delivery-Event> - How the delivery event is sent
 - Implement PWMessagingDelegate for custom handling
 - Configure user tags for segmentation

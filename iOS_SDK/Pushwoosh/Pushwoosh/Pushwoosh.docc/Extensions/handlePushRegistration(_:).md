@@ -44,5 +44,5 @@ func application(_ application: UIApplication,
 ## See Also
 
 - ``Pushwoosh/handlePushRegistrationFailure(_:)``
-- ``Pushwoosh/registerForPushNotifications()``
+- ``Pushwoosh/registerForPushNotifications()-9g5uw``
 - ``Pushwoosh/getPushToken()``

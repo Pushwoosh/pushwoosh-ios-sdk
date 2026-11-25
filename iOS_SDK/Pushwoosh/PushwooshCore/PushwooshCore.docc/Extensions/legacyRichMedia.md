@@ -1,4 +1,4 @@
-# ``PWMedia/legacyRichMedia``
+# ``PWMedia-c.protocol/legacyRichMedia``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -48,12 +48,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWRichMediaPresentingDele
 
     func richMediaManager(_ richMediaManager: PWRichMediaManager,
                           didPresent richMedia: PWRichMedia) {
-        Analytics.log("rich_media_shown", code: richMedia.code)
+        Analytics.log("rich_media_shown", payload: richMedia.pushPayload)
     }
 
     func richMediaManager(_ richMediaManager: PWRichMediaManager,
                           didClose richMedia: PWRichMedia) {
-        Analytics.log("rich_media_closed", code: richMedia.code)
+        Analytics.log("rich_media_closed", payload: richMedia.pushPayload)
     }
 
     func richMediaManager(_ richMediaManager: PWRichMediaManager,
@@ -68,10 +68,9 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWRichMediaPresentingDele
 
 ### Delegate
 
-- ``PWLegacyRichMedia/delegate``
-- ``PWLegacyRichMedia/setDelegate(_:)``
+- ``PWLegacyRichMedia-c.protocol/getDelegate``
+- ``PWLegacyRichMedia-c.protocol/setDelegate:``
 
 ## See Also
 
-- ``Pushwoosh/media``
-- ``PWMedia/modalRichMedia``
+- ``PWMedia-c.protocol/modalRichMedia``

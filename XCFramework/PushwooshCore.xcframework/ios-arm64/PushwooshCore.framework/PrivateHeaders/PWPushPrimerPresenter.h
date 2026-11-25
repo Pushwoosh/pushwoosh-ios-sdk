@@ -39,6 +39,7 @@ NS_ASSUME_NONNULL_BEGIN
 @property (nonatomic, nullable) UIColor *buttonBorderColor;
 @property (nonatomic) CGFloat buttonCornerRadius;
 @property (nonatomic) BOOL buttonCornerRadiusSet;
+@property (nonatomic) BOOL glass;
 @property (nonatomic) BOOL fallbackToSettings;
 @property (nonatomic) NSTimeInterval minInterval;
 

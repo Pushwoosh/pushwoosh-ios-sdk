@@ -16,4 +16,10 @@
 /// Installs the device token hook on `delegateClass` once; a repeated call for the same class is a no-op.
 + (void)swizzleDeviceTokenHandlerForDelegateClass:(Class)delegateClass;
 
+#if TARGET_OS_IOS
+/// Installs the hook taking the delayed delivery sessions' background events on `delegateClass` once;
+/// events of other sessions go to the app's own handler as before.
++ (void)swizzleBackgroundSessionEventsHandlerForDelegateClass:(Class)delegateClass;
+#endif
+
 @end

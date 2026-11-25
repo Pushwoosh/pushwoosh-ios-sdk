@@ -45,4 +45,3 @@ func handleLogin(user: User) {
 ## See Also
 
 - ``PushwooshConfig``
-- ``Pushwoosh/configure``

@@ -4,7 +4,122 @@ Advanced configuration options for Pushwoosh iOS SDK integration.
 
 ## Overview
 
-This guide covers advanced configuration options including background modes, foreground notifications, logging, custom delegates, lazy initialization, and Info.plist properties.
+This guide covers advanced configuration options including the delivery event, user identity, language and locale, In-App events, the push primer, feature flags, background modes, foreground notifications, logging, custom delegates, lazy initialization, and Info.plist properties.
+
+## Delivery Event
+
+The message delivery event (`messageDeliveryEvent`) is sent by the Notification Service Extension, a subclass of ``PushwooshNotificationServiceExtension``, when iOS hands it the push, whether the app is running or not. The app never sends this event: an integration without the extension has no delivery statistics. The extension and an App Group shared with the app are required; see step 4 of <doc:QuickStart>.
+
+### How the Event Is Sent
+
+- **Push with a `pw_delivery_delay` window, App Group set.** The extension hands the event to iOS, which sends it at a random moment within the window (up to 300 seconds), so the notification is shown without waiting for the request. A failed attempt (no response, HTTP 408, 429, 500, 502, 503 or 504) is sent again 10 seconds × attempt number later, five attempts in all: by the extension while it runs, otherwise by the app, which iOS wakes in the background for it. The SDK takes these background session events in `application(_:handleEventsForBackgroundURLSession:completionHandler:)` itself; events of your own background sessions still reach your app delegate.
+- **No window, or no usable App Group.** The extension sends the event at once, while it runs.
+- **Incomplete configuration.** The event is skipped, and the extension logs what to configure:
+
+```
+messageDeliveryEvent skipped: the Notification Service Extension has no Pushwoosh app code. Set Pushwoosh_APPID in the Info.plist of the app or the extension, or add the same App Group to both targets and set it as PW_APP_GROUPS_NAME in both Info.plist files.
+messageDeliveryEvent skipped: the Notification Service Extension has no reverse proxy URL. Add the same App Group to the app and the extension targets and set it as PW_APP_GROUPS_NAME in both Info.plist files, so the extension reads the URL the app passes to setReverseProxy().
+```
+
+### What the App Group Carries
+
+Add the App Groups capability with the same group to the app and the extension targets, and set the group as `PW_APP_GROUPS_NAME` in both `Info.plist` files. Through it the extension gets:
+
+- the delivery event scheduled for a `pw_delivery_delay` window, and its retries;
+- the reverse proxy URL passed to `Pushwoosh.configure.setReverseProxy(_:headers:)`. With `Pushwoosh_ALLOW_REVERSE_PROXY` enabled and no App Group, the extension has no proxy URL and skips the delivery event rather than bypass the proxy;
+- the application selected at runtime with `Pushwoosh.configure.setAppCode(_:baseUrl:)`. Without the App Group the extension reports deliveries to the `Info.plist` application;
+- the badge count. The extension applies `pw_badge` (`5`, `+1`, `-1`) only when the App Group is set, so increments add up across pushes.
+
+`Pushwoosh_APPID` and the other `Pushwoosh_*` keys do not need to be repeated in the extension's `Info.plist`: the extension inherits them from the app. A value set in the extension overrides the app's.
+
+To set the App Group in code instead of `Info.plist`, override ``PushwooshNotificationServiceExtension/pushwooshAppGroupsName()`` in the extension.
+
+### Integration Check
+
+At every launch the SDK runs an integration check and prints the report to the console. It flags a missing Notification Service Extension, a `PW_APP_GROUPS_NAME` group the app has no App Groups capability for (checked on a device, not in the simulator), and different `PW_APP_GROUPS_NAME` or `Pushwoosh_APPID` values in the app and the extension. Set `Pushwoosh_DISABLE_INTEGRATION_CHECK` to `YES` to turn the check off.
+
+## User Identity
+
+`Pushwoosh.configure.setUserId(_:)` attributes the device to your user, and `resetUserId()` returns it to the HWID on logout or account deletion. `setUserId("")` does not reset the user: an empty value is ignored.
+
+@TabNavigator {
+    @Tab("Swift") {
+        ```swift
+        func handleLogin(userId: String, email: String) {
+            Pushwoosh.configure.setUserId(userId)
+            Pushwoosh.configure.setEmail(email)
+        }
+
+        func handleLogout() {
+            Pushwoosh.configure.resetUserId()
+            Pushwoosh.configure.setTags(["logged_in": false])
+        }
+        ```
+    }
+
+    @Tab("Objective-C") {
+        ```objc
+        [[Pushwoosh configure] setUserId:@"user_123"];
+        [[Pushwoosh configure] resetUserId];
+        ```
+    }
+}
+
+## Language and Locale
+
+`setLanguage(_:)` takes a two-letter ISO-639-1 code; `setLocale(_:)` takes a full BCP 47 tag such as `pt-BR` or `zh-Hant-TW`. The two are independent: an app that sets its own language should set the locale too, otherwise the device locale is reported. A new value is sent right away once the device has a push token; pass `nil` to return to the device value.
+
+```swift
+Pushwoosh.configure.setLanguage("pt")
+Pushwoosh.configure.setLocale("pt-BR")
+```
+
+## Events and In-App Messages
+
+Post events that trigger In-App Messages, reload In-App resources, and expose native methods to In-App HTML:
+
+```swift
+Pushwoosh.configure.postEvent("productOpened", withAttributes: ["productId": "42"])
+
+Pushwoosh.configure.reloadInApps { error in
+    print(error == nil ? "In-Apps reloaded" : "Reload failed")
+}
+
+final class JavaScriptInterface: NSObject, PWJavaScriptInterface {
+    @objc func nativeCall(_ str: String, _ callback: PWJavaScriptCallback) {
+        callback.execute(withParam: str)
+    }
+}
+
+Pushwoosh.configure.addJavascriptInterface(JavaScriptInterface(), withName: "native")
+```
+
+## Push Primer
+
+A soft in-app dialog shown before the system permission prompt. The SDK checks the current authorization status, shows or skips the dialog, and registers for pushes when the user accepts:
+
+```swift
+Pushwoosh.configure.pushPrimer
+    .title("Stay in the loop")
+    .message("Get notified about deals first")
+    .acceptButton("Enable")
+    .declineButton("Later")
+    .present { outcome in }
+```
+
+## Feature Flags
+
+Pushwoosh evaluates feature flags on the server; the SDK caches the last response and refreshes it by itself. `get` returns `nil` until the first response arrives. Call `logImpression` when the user sees a branch of the feature, including the disabled one:
+
+```swift
+let flags = Pushwoosh.configure.featureFlags
+if flags.isEnabled("new_checkout", default: false) {
+    showNewCheckout()
+} else {
+    showOldCheckout()
+}
+flags.logImpression("new_checkout")
+```
 
 ## Background Modes
 
@@ -85,7 +200,7 @@ Add the following key to your `Info.plist`:
         Available log levels:
         - `.PW_LL_NONE`
         - `.PW_LL_ERROR`
-        - `.PW_LL_WARNING`
+        - `.PW_LL_WARN`
         - `.PW_LL_INFO`
         - `.PW_LL_DEBUG`
         - `.PW_LL_VERBOSE`
@@ -99,7 +214,7 @@ Add the following key to your `Info.plist`:
         Available log levels:
         - `PW_LL_NONE`
         - `PW_LL_ERROR`
-        - `PW_LL_WARNING`
+        - `PW_LL_WARN`
         - `PW_LL_INFO`
         - `PW_LL_DEBUG`
         - `PW_LL_VERBOSE`
@@ -140,7 +255,7 @@ Use `PWMessage.isPushwooshMessage()` to check if the notification is from Pushwo
         ) {
             // Only handle non-Pushwoosh notifications
             if !PWMessage.isPushwooshMessage(notification.request.content.userInfo) {
-                completionHandler([.alert, .sound])
+                completionHandler([.banner, .list, .sound])
             }
         }
 
@@ -165,7 +280,7 @@ Use `PWMessage.isPushwooshMessage()` to check if the notification is from Pushwo
                 withCompletionHandler:(void (^)(UNNotificationPresentationOptions))completionHandler {
             // Only handle non-Pushwoosh notifications
             if (![PWMessage isPushwooshMessage:notification.request.content.userInfo]) {
-                completionHandler(UNNotificationPresentationOptionAlert | UNNotificationPresentationOptionSound);
+                completionHandler(UNNotificationPresentationOptionBanner | UNNotificationPresentationOptionList | UNNotificationPresentationOptionSound);
             }
         }
 
@@ -226,6 +341,8 @@ The SDK supports multiple configuration options through `Info.plist` keys.
 |-----|------|-------------|---------|
 | `Pushwoosh_APPID` | String | Production app ID from Pushwoosh Control Panel | Required |
 | `Pushwoosh_APPID_Dev` | String | Development app ID for testing | Optional |
+| `Pushwoosh_API_TOKEN` | String | Device API Token from Pushwoosh Control Panel → API Access | Required |
+| `PW_APP_GROUPS_NAME` | String | App Group shared by the app and the Notification Service Extension; set the same value in both `Info.plist` files | Required |
 
 ### Notification Settings
 
@@ -270,6 +387,14 @@ The SDK supports multiple configuration options through `Info.plist` keys.
     <key>Pushwoosh_APPID</key>
     <string>XXXXX-XXXXX</string>
 
+    <!-- Required: Device API Token -->
+    <key>Pushwoosh_API_TOKEN</key>
+    <string>YOUR-DEVICE-API-TOKEN</string>
+
+    <!-- Required: App Group shared with the Notification Service Extension -->
+    <key>PW_APP_GROUPS_NAME</key>
+    <string>group.com.example.app</string>
+
     <!-- Optional: Development Application ID -->
     <key>Pushwoosh_APPID_Dev</key>
     <string>YYYYY-YYYYY</string>
@@ -306,7 +431,8 @@ The SDK supports multiple configuration options through `Info.plist` keys.
 Always enable Background Modes if you plan to:
 - Send silent push notifications
 - Update app content in the background
-- Track notification delivery rates accurately
+
+Delivery statistics do not depend on Background Modes: they come from the Notification Service Extension (see <doc:AdvancedIntegration#Delivery-Event>).
 
 ### 3. Custom Delegates
 
@@ -342,14 +468,14 @@ Check:
 ### Foreground Notifications Not Appearing
 
 Verify:
-1. `showPushnotificationAlert` is set to `true`
+1. `Pushwoosh.configure.setShowPushnotificationAlert(true)` is in effect (`getShowPushnotificationAlert()` returns `true`)
 2. `Pushwoosh_SHOW_ALERT` is `YES` in Info.plist
 3. Notification permissions are granted
 
 ### Custom Delegate Not Called
 
 Ensure:
-1. Delegate is registered via `notificationCenterDelegateProxy`
+1. Delegate is registered via `Pushwoosh.configure.addNotificationCenterDelegate(_:)`
 2. You're checking `isPushwooshMessage()` correctly
 3. Delegate is not deallocated (use strong reference)
 

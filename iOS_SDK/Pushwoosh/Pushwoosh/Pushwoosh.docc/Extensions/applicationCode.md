@@ -32,10 +32,10 @@ Include app code in diagnostics:
 ```swift
 func createDiagnosticReport() -> DiagnosticReport {
     return DiagnosticReport(
-        appCode: Pushwoosh.configure.applicationCode ?? "Not configured",
+        appCode: Pushwoosh.configure.getAppCode() ?? "Not configured",
         hwid: Pushwoosh.configure.getHWID(),
         pushToken: Pushwoosh.configure.getPushToken(),
-        sdkVersion: Pushwoosh.version()
+        sdkVersion: Pushwoosh.configure.version()
     )
 }
 ```
@@ -44,7 +44,7 @@ Verify configuration:
 
 ```swift
 func verifyPushwooshSetup() -> Bool {
-    guard let appCode = Pushwoosh.configure.applicationCode,
+    guard let appCode = Pushwoosh.configure.getAppCode(),
           !appCode.isEmpty else {
         print("Pushwoosh App Code not configured")
         return false

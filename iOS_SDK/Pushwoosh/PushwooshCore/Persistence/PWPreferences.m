@@ -39,6 +39,7 @@ static NSString *const KeyDeviceId = @"PWDeviceHwid";
 static NSString *const KeyLogLevel = @"PWLogLevel";
 static NSString *const KeyRegistrationEverOccured = @"PWRegistrationEverOccured";
 static NSString *const KeyLanguage = @"Pushwoosh_Language";
+static NSString *const KeyLocale = @"Pushwoosh_Locale";
 static NSString *const KeyIsLoggerAvailable = @"Logger_available";
 static NSString *const KeyIsServerCommunicationEnabled = @"Server_communication_enabled";
 static NSString *const KeyIsAutoDeviceTokenRegistrationEnabled = @"Auto_device_token_registration_enabled";
@@ -75,7 +76,9 @@ static BOOL _isInitializing = NO;
 
 @end
 
-@implementation PWPreferences
+@implementation PWPreferences {
+    NSString *_manualLocale;
+}
 
 @synthesize appCode = _appCode;
 @synthesize appName = _appName;
@@ -182,6 +185,8 @@ static BOOL _isInitializing = NO;
             _language = [PWUtils preferredLanguage];
         }
 
+        _manualLocale = [[NSUserDefaults standardUserDefaults] objectForKey:KeyLocale];
+
         if ([[NSUserDefaults standardUserDefaults] objectForKey:KeyIsServerCommunicationEnabled]) {
             _isServerCommunicationEnabled = [[NSUserDefaults standardUserDefaults] boolForKey:KeyIsServerCommunicationEnabled];
         } else {
@@ -272,14 +277,62 @@ static BOOL _isInitializing = NO;
         language = [PWUtils preferredLanguage];
     }
 
+    BOOL changed;
     @synchronized(_lock) {
+        changed = !(_language == language || [_language isEqualToString:language]);
         _language = [language copy];
     }
 
     [[NSUserDefaults standardUserDefaults] setObject:language forKey:KeyLanguage];
     [[NSUserDefaults standardUserDefaults] synchronize];
 
+    if (changed) {
+        [self languageDidChange];
+    }
+}
+
+- (void)languageDidChange {
     self.lastRegTime = NSDate.distantPast;
+    [[PWManagerBridge shared] registerLanguageChange];
+}
+
+- (nullable NSString *)manualLocale {
+    @synchronized(_lock) {
+        return _manualLocale;
+    }
+}
+
+- (nullable NSString *)locale {
+    NSString *manual = self.manualLocale;
+    return manual ?: [PWUtils preferredLocale];
+}
+
+- (void)setLocale:(nullable NSString *)locale {
+    @synchronized(_lock) {
+        NSString *current = _manualLocale;
+        BOOL unchanged = (current == nil && locale == nil) || [current isEqualToString:locale];
+        if (unchanged) {
+            return;
+        }
+
+        _manualLocale = [locale copy];
+
+        if (locale) {
+            [[NSUserDefaults standardUserDefaults] setObject:locale forKey:KeyLocale];
+        } else {
+            [[NSUserDefaults standardUserDefaults] removeObjectForKey:KeyLocale];
+        }
+        [[NSUserDefaults standardUserDefaults] synchronize];
+    }
+
+    if (![PWConfig config].allowCollectingDeviceLocale) {
+        [PushwooshLog pushwooshLog:PW_LL_WARN
+                         className:self
+                           message:@"setLocale: the locale is stored but not sent, collecting the device locale is disabled in Info.plist"];
+        return;
+    }
+
+    [self languageDidChange];
 }
 
 - (void)setAppName:(NSString *)appName {

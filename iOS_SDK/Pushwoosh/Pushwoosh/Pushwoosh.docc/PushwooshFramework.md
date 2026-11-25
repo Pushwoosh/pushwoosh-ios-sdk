@@ -1,9 +1,5 @@
 # ``PushwooshFramework``
 
-@Metadata {
-    @TechnologyRoot
-}
-
 Push notification SDK for iOS applications.
 
 ## Overview
@@ -18,7 +14,7 @@ Key features include:
 - Geolocation tracking
 - Inbox functionality
 
-The SDK API is reached through `Pushwoosh.configure`: registration (`registerForPushNotifications()`), user data (`setUserId(_:)`, `setEmail(_:)`), tags (`setTags(_:)`) and the rest of the settings. Feature modules have their own accessors, such as `Pushwoosh.media` and `Pushwoosh.inbox`.
+The SDK API is reached through `Pushwoosh.configure`: registration (`registerForPushNotifications()`), user data (`setUserId(_:)`, `setEmail(_:)`), tags (`setTags(_:)`) and the rest of the settings. Feature modules have their own accessors, such as `Pushwoosh.media`, `Pushwoosh.inbox` and `Pushwoosh.LiveActivities`. `Pushwoosh.configure` returns `PushwooshConfig`, and `PWMessage`, `PushwooshConfig` and `PWPreferences` are documented in the PushwooshCore module. The instance methods of ``Pushwoosh`` are deprecated since 7.3.0.
 
 ## Topics
 
@@ -34,10 +30,6 @@ The SDK API is reached through `Pushwoosh.configure`: registration (`registerFor
 
   Main SDK interface for push notification management.
 
-- ``PWMessage``
-
-  Encapsulates push notification payload data.
-
 - ``PWInboxCenter``
 
   Inbox messages and notifications, reached through `Pushwoosh.inbox`.
@@ -51,16 +43,6 @@ The SDK API is reached through `Pushwoosh.configure`: registration (`registerFor
 - ``PWPurchaseDelegate``
 
   Delegate protocol for in-app purchase events from rich media.
-
-### Configuration
-
-- ``PushwooshConfig``
-
-  Configuration object for SDK initialization.
-
-- ``PWPreferences``
-
-  User preferences and settings storage.
 
 ### Initialization
 
@@ -78,8 +60,8 @@ The SDK API is reached through `Pushwoosh.configure`: registration (`registerFor
 
   Called when user taps on a push notification.
 
-### Rich Media
+### Notification Service Extension
 
-- ``PWNotificationExtensionManager``
+- ``PushwooshNotificationServiceExtension``
 
-  Manages rich media notification content.
+  Base class for the required Notification Service Extension: sends the delivery event, applies the badge and downloads media attachments.

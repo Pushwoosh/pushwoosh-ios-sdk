@@ -41,7 +41,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWMessagingDelegate {
                     didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 
         Pushwoosh.configure.delegate = self
-        Pushwoosh.configure.showPushnotificationAlert = true
+        Pushwoosh.configure.setShowPushnotificationAlert(true)
         Pushwoosh.configure.registerForPushNotifications()
 
         return true
@@ -56,4 +56,3 @@ class AppDelegate: UIResponder, UIApplicationDelegate, PWMessagingDelegate {
 ## See Also
 
 - ``PWConfiguration``
-- ``Pushwoosh/configure``

@@ -1,4 +1,4 @@
-# ``Pushwoosh/sendPushToStartLiveActivity(token:)``
+# ``Pushwoosh/sendPush(toStartLiveActivityToken:)-9czo6``
 
 @Metadata {
     @DocumentationExtension(mergeBehavior: override)
@@ -8,7 +8,7 @@ Sends push-to-start live activity token to the server.
 
 ## Overview
 
-> Deprecated: Use ``Pushwoosh/LiveActivities`` API instead:
+> Deprecated: Use ``Pushwoosh/LiveActivities-type.property`` API instead:
 > ```swift
 > Pushwoosh.LiveActivities.sendPushToStartLiveActivity(token: token)
 > ```
@@ -33,5 +33,5 @@ func setupPushToStart() {
 
 ## See Also
 
-- ``Pushwoosh/LiveActivities``
-- ``Pushwoosh/startLiveActivity(withToken:activityId:)``
+- ``Pushwoosh/LiveActivities-type.property``
+- ``Pushwoosh/startLiveActivity(withToken:activityId:)-1tgls``
